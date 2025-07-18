@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhanelConcept - Plateforme Connectée</title>
+    <title>KhanelConcept - Villas de Luxe Martinique</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
@@ -18,6 +18,7 @@
             background: transparent;
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
         
         /* Video Background */
@@ -53,7 +54,24 @@
             z-index: -1;
         }
         
-        /* Header amélioré */
+        /* Glassmorphism Effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Header */
         .header {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
@@ -61,195 +79,164 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            transition: all 0.3s ease;
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .logo i {
-            color: #FFA500;
+            padding: 1rem 0;
         }
         
         .nav-links {
             display: flex;
             gap: 2rem;
-            list-style: none;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
             padding: 0.5rem 1rem;
             border-radius: 25px;
+            transition: all 0.3s ease;
         }
         
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        .nav-links a.active {
+        .nav-links a:hover, .nav-links a.active {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
         }
         
-        /* Boutons d'authentification */
-        .auth-buttons {
+        /* Search Section */
+        .search-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .search-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 8px;
             display: flex;
-            gap: 12px;
             align-items: center;
+            gap: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
         }
         
-        .btn-login {
+        .search-field {
+            padding: 16px 20px;
+            border: none;
             background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .search-field:last-of-type {
+            border-right: none;
+        }
+        
+        .search-button {
+            background: linear-gradient(135deg, #0071c2 0%, #004d8b 100%);
             color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .btn-login:hover {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-        }
-        
-        .btn-register {
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
-            padding: 8px 20px;
-            border-radius: 25px;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.9);
+            margin-left: 8px;
         }
         
-        .btn-register:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        .search-button:hover {
+            background: linear-gradient(135deg, #005999 0%, #003d6b 100%);
+            transform: translateY(-1px);
         }
         
-        .user-profile {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            cursor: pointer;
-            padding: 5px 15px;
-            border-radius: 25px;
+        /* Villa Cards */
+        .villa-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-        }
-        
-        .user-profile img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        /* Mobile menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
         
-        .mobile-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 1rem;
+        .villa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
         }
         
-        .mobile-menu.active {
-            display: block;
+        .villa-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
         }
         
-        .mobile-menu a {
-            display: block;
-            color: #333;
-            text-decoration: none;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        .villa-info {
+            padding: 1.5rem;
+        }
+        
+        .villa-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .villa-location {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .villa-price {
+            color: #FFA500;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .villa-capacity {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-primary {
+            background: #FFA500;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s ease;
-        }
-        
-        .mobile-menu a:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-        
-        .mobile-auth-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-        
-        .mobile-auth-buttons .btn-login,
-        .mobile-auth-buttons .btn-register {
-            flex: 1;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
             text-align: center;
         }
         
-        .mobile-auth-buttons .btn-login {
-            color: #333;
-            border-color: #333;
+        .btn-primary:hover {
+            background: #FF8C00;
+            transform: translateY(-2px);
         }
         
-        .mobile-auth-buttons .btn-register {
-            background: #333;
-            color: white;
-        }
-        
-        /* Contenu principal */
-        .main-content {
-            position: relative;
-            z-index: 1;
-        }
-        
+        /* Sections */
         .section {
             min-height: 100vh;
             padding: 2rem;
-            display: none;
-        }
-        
-        .section.active {
-            display: block;
+            position: relative;
+            z-index: 1;
         }
         
         .section h1 {
@@ -277,620 +264,12 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .glass-card h3 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .glass-card h4 {
-            color: white;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .glass-card p {
-            color: rgba(255, 255, 255, 0.9);
-            text-align: left;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #FFA500;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .location {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .btn-primary {
-            background: #FFA500;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .btn-primary:hover {
-            background: #FF8C00;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
-        }
-        
-        /* Indicateurs de synchronisation */
-        .sync-indicator {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 15px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            color: #333;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            display: none;
-        }
-        
-        .sync-indicator.syncing {
-            display: block;
-            background: rgba(255, 165, 0, 0.9);
-            color: white;
-        }
-        
-        .sync-indicator.success {
-            display: block;
-            background: rgba(34, 197, 94, 0.9);
-            color: white;
-        }
-        
-        .sync-indicator.error {
-            display: block;
-            background: rgba(239, 68, 68, 0.9);
-            color: white;
-        }
-        
-        /* Loading states */
-        .loading-skeleton {
-            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 15px;
-            height: 200px;
-            margin: 1rem 0;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        
-        .data-source {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-        
-        .data-source.admin {
-            background: rgba(34, 197, 94, 0.7);
-        }
-        
-        .data-source.local {
-            background: rgba(59, 130, 246, 0.7);
-        }
-        
-        /* Barre de recherche style Booking.com */
-        .search-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            overflow: visible;
-        }
-        
-        .booking-search-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 8px;
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            width: 100%;
-            min-height: 70px;
-            position: relative;
-            overflow: visible;
-        }
-        
-        .search-field {
-            padding: 16px 20px;
-            border: none;
-            background: transparent;
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-width: 0;
-            flex: 1;
-        }
-        
-        .search-field:last-of-type {
-            border-right: none;
-        }
-        
-        .search-field:hover {
-            background: rgba(0, 0, 0, 0.02);
-        }
-        
-        .search-field:focus-within {
-            outline: none;
-            background: rgba(0, 0, 0, 0.05);
-        }
-        
-        .search-field-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .search-field-value {
-            font-size: 14px;
-            color: #666;
-            font-weight: 500;
-            line-height: 1.2;
-            word-break: break-word;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        .search-field-value.placeholder {
-            color: #999;
-        }
-        
-        .search-button {
-            background: linear-gradient(135deg, #0071c2 0%, #004d8b 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 16px 24px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-left: 8px;
-            flex-shrink: 0;
-            min-width: 120px;
-        }
-        
-        .search-button:hover {
-            background: linear-gradient(135deg, #005999 0%, #003d6b 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 113, 194, 0.3);
-        }
-        
-        .search-button i {
-            font-size: 18px;
-        }
-        
-        /* Autocomplétion */
-        .destination-autocomplete {
-            position: relative;
-            flex: 2;
-        }
-        
-        .destination-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            outline: none;
-            font-size: 14px;
-            color: #666;
-            font-weight: 500;
-            padding: 0;
-            line-height: 1.2;
-        }
-        
-        .destination-input::placeholder {
-            color: #999;
-        }
-        
-        .autocomplete-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            max-height: 250px;
-            overflow-y: auto;
-            z-index: 3000;
-            display: none;
-            margin-top: 8px;
-        }
-        
-        .autocomplete-dropdown.active {
-            display: block;
-        }
-        
-        .autocomplete-item {
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .autocomplete-item:hover,
-        .autocomplete-item.selected {
-            background: rgba(0, 113, 194, 0.08);
-            color: #0071c2;
-        }
-        
-        .autocomplete-item:last-child {
-            border-bottom: none;
-        }
-        
-        .autocomplete-item .location-icon {
-            color: #0071c2;
-            font-size: 12px;
-        }
-        
-        .autocomplete-item .destination-name {
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .autocomplete-item.selected .destination-name {
-            color: #0071c2;
-        }
-        
-        .autocomplete-item .destination-detail {
-            font-size: 11px;
-            color: #666;
-            margin-left: auto;
-        }
-        
-        .highlight {
-            background: rgba(0, 113, 194, 0.2);
-            font-weight: 600;
-            padding: 1px 2px;
-            border-radius: 2px;
-        }
-        
-        .no-results {
-            padding: 12px 16px;
-            text-align: center;
-            color: #666;
-            font-style: italic;
-            font-size: 13px;
-        }
-        
-        /* Date picker */
-        .date-picker {
-            position: relative;
-            flex: 1;
-        }
-        
-        .date-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-            font-size: 14px;
-            z-index: 1500;
-        }
-        
-        .date-input:focus {
-            outline: none;
-        }
-        
-        .date-input::-webkit-calendar-picker-indicator {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-        
-        /* Dropdown voyageurs */
-        .guests-field {
-            position: relative;
-            flex: 1.5;
-            flex-shrink: 0;
-            min-width: 200px;
-            overflow: visible;
-        }
-        
-        .guests-dropdown {
-            position: fixed;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            z-index: 999999;
-            display: none;
-            width: 320px;
-            min-width: 320px;
-        }
-        
-        .guests-dropdown.active {
-            display: block;
-        }
-        
-        .guest-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .guest-row:last-child {
-            border-bottom: none;
-        }
-        
-        .guest-info {
-            flex: 1;
-        }
-        
-        .guest-type {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 2px;
-            font-size: 14px;
-        }
-        
-        .guest-description {
-            font-size: 12px;
-            color: #666;
-        }
-        
-        .guest-counter {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-shrink: 0;
-        }
-        
-        .counter-btn {
-            width: 36px;
-            height: 36px;
-            border: 2px solid #0071c2;
-            background: white;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #0071c2;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        
-        .counter-btn:hover {
-            background: #0071c2;
-            color: white;
-        }
-        
-        .counter-btn:disabled {
-            border-color: #ccc;
-            color: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .counter-btn:disabled:hover {
-            background: white;
-            color: #ccc;
-        }
-        
-        .counter-value {
-            font-weight: 600;
-            color: #333;
-            min-width: 24px;
-            text-align: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        
+        /* Grid Layout */
         .villas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
-        }
-        
-        .villa-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .villa-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .villa-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px 15px 0 0;
-        }
-        
-        .villa-content {
-            padding: 1.5rem;
-        }
-        
-        .villa-title {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .villa-location {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .villa-price {
-            color: #FFA500;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .villa-features {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .villa-category {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(255, 165, 0, 0.9);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-        
-        .filters-container {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .filter-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: rgba(255, 165, 0, 0.8);
-            border-color: #FFA500;
-        }
-        
-        .search-filters {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .search-input {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 25px;
-            outline: none;
-            transition: all 0.3s ease;
-            min-width: 200px;
-        }
-        
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .search-input:focus {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #FFA500;
         }
         
         .prestataires-grid {
@@ -900,1505 +279,611 @@
             margin-top: 2rem;
         }
         
-        /* Modales */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #666;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            color: #333;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #FFA500;
-            box-shadow: 0 0 0 2px rgba(255, 165, 0, 0.2);
-        }
-        
-        .form-actions {
+        /* Filters */
+        .filters {
             display: flex;
             gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1.5rem;
-        }
-        
-        .btn-secondary {
-            background: #f5f5f5;
-            color: #333;
-            padding: 10px 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-        
-        .auth-toggle {
-            text-align: center;
-            margin-top: 1rem;
-            color: #666;
-        }
-        
-        .auth-toggle a {
-            color: #FFA500;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .auth-toggle a:hover {
-            text-decoration: underline;
-        }
-        
-        /* Villa Modal */
-        .villa-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            backdrop-filter: blur(5px);
-        }
-        
-        .villa-modal.active {
-            display: flex;
-            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
             justify-content: center;
         }
         
-        .villa-modal-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 0;
-            max-width: 900px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        .villa-gallery {
-            position: relative;
-            height: 400px;
-            overflow: hidden;
-            border-radius: 15px 15px 0 0;
-        }
-        
-        .villa-gallery img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .gallery-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
-            font-size: 1.2rem;
             transition: all 0.3s ease;
         }
         
-        .gallery-nav:hover {
-            background: rgba(0, 0, 0, 0.7);
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
         
-        .gallery-nav.prev {
-            left: 10px;
-        }
-        
-        .gallery-nav.next {
-            right: 10px;
-        }
-        
-        .villa-details {
-            padding: 2rem;
-        }
-        
-        .villa-details h2 {
-            color: #333;
-            margin-bottom: 1rem;
-            text-shadow: none;
-        }
-        
-        .villa-details p {
-            color: #666;
-            text-align: left;
-            text-shadow: none;
-        }
-        
-        .villa-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .villa-info-item {
-            background: rgba(255, 165, 0, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid #FFA500;
-        }
-        
-        .villa-info-label {
+        /* Logo */
+        .logo {
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #FFA500;
-            margin-bottom: 0.5rem;
-        }
-        
-        .villa-info-value {
-            color: #333;
-        }
-        
-        .booking-form {
-            background: rgba(255, 165, 0, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-        }
-        
-        .booking-form h3 {
-            color: #FFA500;
-            margin-bottom: 1rem;
-            text-shadow: none;
-        }
-        
-        .booking-row {
+            color: white;
+            text-decoration: none;
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .booking-field {
-            flex: 1;
-        }
-        
-        .booking-field label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .booking-field input,
-        .booking-field select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        .booking-summary {
-            background: white;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-top: 1rem;
-        }
-        
-        .booking-summary h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            text-shadow: none;
-        }
-        
-        .booking-total {
-            font-size: 1.2rem;
-            font-weight: bold;
+        .logo i {
             color: #FFA500;
-            margin-top: 0.5rem;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .booking-search-container {
+            .search-container {
                 flex-direction: column;
-                gap: 0;
-                align-items: stretch;
+                gap: 8px;
             }
             
             .search-field {
                 border-right: none;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-                min-height: 60px;
-            }
-            
-            .search-field:last-of-type {
-                border-bottom: none;
+                width: 100%;
             }
             
             .search-button {
                 width: 100%;
-                justify-content: center;
                 margin-left: 0;
-                margin-top: 12px;
             }
             
-            .guests-dropdown {
-                width: 100%;
-                min-width: 100%;
-                left: 0;
-                right: 0;
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .villas-grid,
-            .prestataires-grid {
-                grid-template-columns: 1fr;
+            .section h1 {
+                font-size: 2rem;
             }
             
-            .filters-container,
-            .search-filters {
+            .filters {
                 flex-direction: column;
                 align-items: center;
             }
-            
-            .villa-modal-content {
-                width: 95%;
-                max-height: 95vh;
-            }
-            
-            .villa-gallery {
-                height: 250px;
-            }
-            
-            .villa-info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .booking-row {
-                flex-direction: column;
-            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #FFA500;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <!-- Video Background -->
     <div class="video-background">
-        <video autoplay muted loop playsinline>
-            <source src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/eec103a6-13ba-46b0-89f4-ad38171d7b73?se=2025-07-18T02%3A19%3A56Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22temp_video_1752611476.0922918.mov%22&sig=TCvSZuahYvxOB0zJ8PGyCQxz16/6ksfvxH67WbE8EMI%3D" type="video/mp4">
+        <video autoplay muted loop playsinline webkit-playsinline>
+            <source src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/eec103a6-13ba-46b0-89f4-ad38171d7b73?se=2025-07-18T15%3A15%3A39Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22temp_video_1752611476.0922918.mov%22&sig=0EU%2BXrTFddBhII4fElDbO3Ak7EjVWlkcA84aHMzt%2BQY%3D" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Indicateur de synchronisation -->
-    <div class="sync-indicator" id="syncIndicator">
-        <i class="fas fa-sync-alt"></i>
-        <span id="syncText">Synchronisation...</span>
-    </div>
-
     <!-- Header -->
     <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo" onclick="showSection('home')">
-                <i class="fas fa-palm-tree"></i>
-                KhanelConcept
-            </a>
-            
-            <nav class="nav-links">
-                <a href="#" onclick="showSection('home')" class="active">Accueil</a>
-                <a href="#" onclick="showSection('prestataires')">Prestataires</a>
-                <a href="#" onclick="showSection('billetterie')">Billetterie</a>
-                <a href="#" onclick="showSection('mobilier')">Mobilier</a>
-                <a href="#" onclick="showSection('excursions')">Excursions</a>
-                <a href="#" onclick="showSection('comptes')">Comptes Vacances</a>
-                <a href="#" onclick="showSection('fidelite')">Fidélité</a>
-                <a href="#" onclick="showSection('pmr')">Accessibilité</a>
-            </nav>
-            
-            <div class="auth-section">
-                <div class="auth-buttons">
-                    <a href="#" class="btn-login" onclick="showModal('loginModal')">Connexion</a>
-                    <a href="#" class="btn-register" onclick="showModal('registerModal')">Inscription</a>
-                </div>
+        <div class="container mx-auto max-w-6xl px-4">
+            <div class="flex items-center justify-between flex-wrap">
+                <a href="#" class="logo">
+                    <i class="fas fa-palm-tree"></i>
+                    KhanelConcept
+                </a>
                 
-                <div class="user-profile" id="userProfile">
-                    <img src="https://via.placeholder.com/32x32/FFA500/FFFFFF?text=U" alt="Profile">
-                    <span id="userName">Utilisateur</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </div>
-            
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#" onclick="showSection('home'); toggleMobileMenu()">Accueil</a>
-            <a href="#" onclick="showSection('prestataires'); toggleMobileMenu()">Prestataires</a>
-            <a href="#" onclick="showSection('billetterie'); toggleMobileMenu()">Billetterie</a>
-            <a href="#" onclick="showSection('mobilier'); toggleMobileMenu()">Mobilier</a>
-            <a href="#" onclick="showSection('excursions'); toggleMobileMenu()">Excursions</a>
-            <a href="#" onclick="showSection('comptes'); toggleMobileMenu()">Comptes Vacances</a>
-            <a href="#" onclick="showSection('fidelite'); toggleMobileMenu()">Fidélité</a>
-            <a href="#" onclick="showSection('pmr'); toggleMobileMenu()">Accessibilité</a>
-            
-            <div class="mobile-auth-buttons">
-                <a href="#" class="btn-login" onclick="showModal('loginModal'); toggleMobileMenu()">Connexion</a>
-                <a href="#" class="btn-register" onclick="showModal('registerModal'); toggleMobileMenu()">Inscription</a>
+                <nav class="nav-links">
+                    <a href="#" onclick="showSection('home')" class="active">Accueil</a>
+                    <a href="#" onclick="showSection('prestataires')">Prestataires</a>
+                    <a href="#" onclick="showSection('billetterie')">Billetterie</a>
+                    <a href="#" onclick="showSection('mobilier')">Mobilier</a>
+                    <a href="#" onclick="showSection('excursions')">Excursions</a>
+                    <a href="#" onclick="showSection('comptes')">Comptes</a>
+                    <a href="#" onclick="showSection('fidelite')">Fidélité</a>
+                    <a href="#" onclick="showSection('pmr')">PMR</a>
+                </nav>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main>
         <!-- Section Accueil -->
-        <section id="home" class="section active">
+        <section id="home" class="section">
             <div class="container mx-auto max-w-6xl">
                 <h1>🏝️ Découvrez la Martinique</h1>
                 <p>Villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
                 
-                <!-- Recherche Style Booking.com -->
+                <!-- Barre de Recherche -->
                 <div class="search-section">
                     <h2>🔍 Rechercher une Villa</h2>
-                    <div class="booking-search-container">
-                        <!-- Destination avec Autocomplétion -->
-                        <div class="search-field destination-autocomplete">
-                            <span class="search-field-label">Destination</span>
-                            <input 
-                                type="text" 
-                                class="destination-input" 
-                                id="destinationInput"
-                                placeholder="Où souhaitez-vous aller ?"
-                                autocomplete="off"
-                                spellcheck="false"
-                            >
-                            <div class="autocomplete-dropdown" id="autocompleteDropdown"></div>
-                        </div>
-                        
-                        <!-- Date d'arrivée -->
-                        <div class="search-field date-picker">
-                            <span class="search-field-label">Arrivée</span>
-                            <input type="date" class="date-input" id="checkinDate" onchange="updateDateDisplay('checkin')">
-                            <div class="search-field-value placeholder" id="checkinValue">Ajouter des dates</div>
-                        </div>
-                        
-                        <!-- Date de départ -->
-                        <div class="search-field date-picker">
-                            <span class="search-field-label">Départ</span>
-                            <input type="date" class="date-input" id="checkoutDate" onchange="updateDateDisplay('checkout')">
-                            <div class="search-field-value placeholder" id="checkoutValue">Ajouter des dates</div>
-                        </div>
-                        
-                        <!-- Voyageurs -->
-                        <div class="search-field guests-field" onclick="toggleGuestsDropdown()">
-                            <span class="search-field-label">Voyageurs</span>
-                            <div class="search-field-value placeholder" id="guestsValue">Ajouter des voyageurs</div>
-                            <div class="guests-dropdown" id="guestsDropdown">
-                                <div class="guest-row">
-                                    <div class="guest-info">
-                                        <div class="guest-type">Adultes</div>
-                                        <div class="guest-description">13 ans et plus</div>
-                                    </div>
-                                    <div class="guest-counter">
-                                        <button class="counter-btn" onclick="decrementGuests('adults'); event.stopPropagation();" id="adultsDecrement">-</button>
-                                        <span class="counter-value" id="adultsCount">2</span>
-                                        <button class="counter-btn" onclick="incrementGuests('adults'); event.stopPropagation();" id="adultsIncrement">+</button>
-                                    </div>
-                                </div>
-                                <div class="guest-row">
-                                    <div class="guest-info">
-                                        <div class="guest-type">Enfants</div>
-                                        <div class="guest-description">De 2 à 12 ans</div>
-                                    </div>
-                                    <div class="guest-counter">
-                                        <button class="counter-btn" onclick="decrementGuests('children'); event.stopPropagation();" id="childrenDecrement">-</button>
-                                        <span class="counter-value" id="childrenCount">0</span>
-                                        <button class="counter-btn" onclick="incrementGuests('children'); event.stopPropagation();" id="childrenIncrement">+</button>
-                                    </div>
-                                </div>
-                                <div class="guest-row">
-                                    <div class="guest-info">
-                                        <div class="guest-type">Bébés</div>
-                                        <div class="guest-description">Moins de 2 ans</div>
-                                    </div>
-                                    <div class="guest-counter">
-                                        <button class="counter-btn" onclick="decrementGuests('babies'); event.stopPropagation();" id="babiesDecrement">-</button>
-                                        <span class="counter-value" id="babiesCount">0</span>
-                                        <button class="counter-btn" onclick="incrementGuests('babies'); event.stopPropagation();" id="babiesIncrement">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Bouton de recherche -->
-                        <button class="search-button" onclick="performBookingSearch()">
+                    <div class="search-container">
+                        <input type="text" class="search-field" placeholder="Destination" id="destinationInput">
+                        <input type="date" class="search-field" id="checkinDate">
+                        <input type="date" class="search-field" id="checkoutDate">
+                        <input type="number" class="search-field" placeholder="Voyageurs" min="1" max="20" id="guestsInput">
+                        <button class="search-button" onclick="searchVillas()">
                             <i class="fas fa-search"></i>
                             Rechercher
                         </button>
                     </div>
                 </div>
                 
-                <!-- Filtres et Recherche -->
-                <div class="search-filters">
-                    <input type="text" class="search-input" id="searchInput" placeholder="Rechercher une villa..." onkeyup="searchVillas()">
-                </div>
-                
-                <div class="filters-container">
-                    <button class="filter-btn active" onclick="filterVillas('all')">Toutes</button>
-                    <button class="filter-btn" onclick="filterVillas('sejour')">🏖️ Séjour</button>
-                    <button class="filter-btn" onclick="filterVillas('fete')">🎉 Fête</button>
-                    <button class="filter-btn" onclick="filterVillas('special')">🏠 Spécial</button>
+                <!-- Filtres -->
+                <div class="filters">
+                    <button class="filter-btn active" onclick="filterVillas('all')">Toutes les Villas</button>
+                    <button class="filter-btn" onclick="filterVillas('sejour')">Séjour</button>
+                    <button class="filter-btn" onclick="filterVillas('fete')">Fête/Journée</button>
+                    <button class="filter-btn" onclick="filterVillas('special')">Spécial</button>
                 </div>
                 
                 <!-- Villas -->
                 <h2>🏖️ Nos Villas de Luxe</h2>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p style="color: white;">Chargement des villas...</p>
+                </div>
                 <div class="villas-grid" id="villasGrid">
-                    <!-- Les villas seront chargées dynamiquement -->
+                    <!-- Villas will be loaded here -->
                 </div>
             </div>
         </section>
 
         <!-- Section Prestataires -->
-        <section id="prestataires" class="section">
+        <section id="prestataires" class="section" style="display: none;">
             <div class="container mx-auto max-w-6xl">
                 <h1>🌊 Nos Prestataires de Services</h1>
                 <p>Explorez nos services nautiques, culinaires et événementiels</p>
                 
-                <div class="prestataires-grid" id="prestatairesGrid">
+                <div class="prestataires-grid">
                     <div class="glass-card">
-                        <h3>🚤 Excursions Nautiques</h3>
-                        <p>Découvrez la beauté de la Martinique depuis la mer avec nos excursions en catamaran.</p>
-                        <div class="price">À partir de 120€/personne</div>
-                        <button class="btn-primary" onclick="showModal('contactModal')">Réserver</button>
+                        <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1rem;">🚤 Excursions Nautiques</h3>
+                        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 1rem;">Découvrez la beauté de la Martinique depuis la mer avec nos excursions en catamaran.</p>
+                        <p style="color: #FFA500; font-weight: bold;">À partir de 120€/personne</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">Réserver</button>
                     </div>
                     
                     <div class="glass-card">
-                        <h3>🍽️ Services Culinaires</h3>
-                        <p>Savourez la cuisine créole authentique avec nos chefs professionnels.</p>
-                        <div class="price">À partir de 80€/personne</div>
-                        <button class="btn-primary" onclick="showModal('contactModal')">Réserver</button>
+                        <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1rem;">🍽️ Services Culinaires</h3>
+                        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 1rem;">Savourez la cuisine créole authentique avec nos chefs professionnels.</p>
+                        <p style="color: #FFA500; font-weight: bold;">À partir de 80€/personne</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">Réserver</button>
                     </div>
                     
                     <div class="glass-card">
-                        <h3>🎉 Organisation d'Événements</h3>
-                        <p>Confiez-nous l'organisation de vos événements mémorables.</p>
-                        <div class="price">Devis personnalisé</div>
-                        <button class="btn-primary" onclick="showModal('contactModal')">Demander un devis</button>
+                        <h3 style="color: white; font-size: 1.5rem; margin-bottom: 1rem;">🎉 Organisation d'Événements</h3>
+                        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 1rem;">Confiez-nous l'organisation de vos événements mémorables.</p>
+                        <p style="color: #FFA500; font-weight: bold;">Devis personnalisé</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">Demander un devis</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Autres sections -->
-        <section id="billetterie" class="section">
+        <section id="billetterie" class="section" style="display: none;">
             <div class="container mx-auto max-w-6xl">
                 <h1>🎫 Billetterie Événementielle</h1>
                 <p>Organisez et participez aux meilleurs événements de Martinique</p>
                 <div class="glass-card">
-                    <h3>🎭 Événements à Venir</h3>
-                    <p>Découvrez notre programmation d'événements culturels et festifs.</p>
-                    <button class="btn-primary" onclick="showModal('contactModal')">En savoir plus</button>
+                    <h3 style="color: white;">🎭 Événements à Venir</h3>
+                    <p style="color: rgba(255, 255, 255, 0.9);">Découvrez notre programmation d'événements culturels et festifs.</p>
                 </div>
             </div>
         </section>
 
-        <section id="mobilier" class="section">
+        <section id="mobilier" class="section" style="display: none;">
             <div class="container mx-auto max-w-6xl">
                 <h1>🛋️ Location de Mobilier</h1>
                 <p>Tables, chaises, décoration pour vos événements</p>
                 <div class="glass-card">
-                    <h3>🪑 Mobilier d'Événement</h3>
-                    <p>Location de mobilier haut de gamme pour tous vos événements.</p>
-                    <button class="btn-primary" onclick="showModal('contactModal')">Catalogue</button>
+                    <h3 style="color: white;">🪑 Mobilier d'Événement</h3>
+                    <p style="color: rgba(255, 255, 255, 0.9);">Location de mobilier haut de gamme pour tous vos événements.</p>
                 </div>
             </div>
         </section>
 
-        <section id="excursions" class="section">
+        <section id="excursions" class="section" style="display: none;">
             <div class="container mx-auto max-w-6xl">
                 <h1>⛵ Excursions Inoubliables</h1>
                 <p>Découvrez la Martinique par terre, mer et air</p>
                 <div class="glass-card">
-                    <h3>🏝️ Tours de l'Île</h3>
-                    <p>Explorez les merveilles cachées de la Martinique avec nos guides experts.</p>
-                    <button class="btn-primary" onclick="showModal('contactModal')">Réserver</button>
+                    <h3 style="color: white;">🏝️ Tours de l'Île</h3>
+                    <p style="color: rgba(255, 255, 255, 0.9);">Explorez les merveilles cachées de la Martinique avec nos guides experts.</p>
                 </div>
             </div>
         </section>
 
-        <section id="comptes" class="section">
+        <section id="comptes" class="section" style="display: none;">
             <div class="container mx-auto max-w-6xl">
                 <h1>🐷 Comptes Vacances & Abonnements</h1>
                 <p>Épargnez pour vos futures vacances avec nos comptes dédiés</p>
                 <div class="glass-card">
-                    <h3>💰 Épargne Vacances</h3>
-                    <p>Constituez votre épargne pour des vacances de rêve en Martinique.</p>
-                    <button class="btn-primary" onclick="showModal('contactModal')">En savoir plus</button>
+                    <h3 style="color: white;">💰 Épargne Vacances</h3>
+                    <p style="color: rgba(255, 255, 255, 0.9);">Constituez votre épargne pour des vacances de rêve en Martinique.</p>
                 </div>
             </div>
         </section>
 
-        <section id="fidelite" class="section">
+        <section id="fidelite" class="section" style="display: none;">
             <div class="container mx-auto max-w-6xl">
                 <h1>🎁 Programme de Fidélité</h1>
                 <p>Gagnez des points et des récompenses à chaque réservation</p>
                 <div class="glass-card">
-                    <h3>⭐ Rewards Club</h3>
-                    <p>Rejoignez notre programme de fidélité et bénéficiez d'avantages exclusifs.</p>
-                    <button class="btn-primary" onclick="showModal('contactModal')">Rejoindre</button>
+                    <h3 style="color: white;">⭐ Rewards Club</h3>
+                    <p style="color: rgba(255, 255, 255, 0.9);">Rejoignez notre programme de fidélité et bénéficiez d'avantages exclusifs.</p>
                 </div>
             </div>
         </section>
 
-        <section id="pmr" class="section">
+        <section id="pmr" class="section" style="display: none;">
             <div class="container mx-auto max-w-6xl">
                 <h1>👑 Accessibilité PMR</h1>
                 <p>Des séjours adaptés pour tous</p>
                 <div class="glass-card">
-                    <h3>♿ Villas Accessibles</h3>
-                    <p>Découvrez nos villas spécialement aménagées pour les personnes à mobilité réduite.</p>
-                    <button class="btn-primary" onclick="showModal('contactModal')">Voir les villas</button>
+                    <h3 style="color: white;">♿ Villas Accessibles</h3>
+                    <p style="color: rgba(255, 255, 255, 0.9);">Découvrez nos villas spécialement aménagées pour les personnes à mobilité réduite.</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Modales -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Connexion</h2>
-                <button class="close-btn" onclick="closeModal('loginModal')">&times;</button>
-            </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email</label>
-                    <input type="email" id="loginEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Mot de passe</label>
-                    <input type="password" id="loginPassword" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal('loginModal')">Annuler</button>
-                    <button type="submit" class="btn-primary">Se connecter</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Inscription</h2>
-                <button class="close-btn" onclick="closeModal('registerModal')">&times;</button>
-            </div>
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="registerEmail">Email</label>
-                    <input type="email" id="registerEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="registerPassword">Mot de passe</label>
-                    <input type="password" id="registerPassword" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal('registerModal')">Annuler</button>
-                    <button type="submit" class="btn-primary">S'inscrire</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Contactez-nous</h2>
-                <button class="close-btn" onclick="closeModal('contactModal')">&times;</button>
-            </div>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="contactName">Nom</label>
-                    <input type="text" id="contactName" required>
-                </div>
-                <div class="form-group">
-                    <label for="contactEmail">Email</label>
-                    <input type="email" id="contactEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="contactPhone">Téléphone</label>
-                    <input type="tel" id="contactPhone">
-                </div>
-                <div class="form-group">
-                    <label for="contactMessage">Message</label>
-                    <textarea id="contactMessage" rows="5" required></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal('contactModal')">Annuler</button>
-                    <button type="submit" class="btn-primary">Envoyer</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Villa Modal -->
-    <div id="villaModal" class="villa-modal">
-        <div class="villa-modal-content">
-            <div class="villa-gallery">
-                <img id="villaGalleryImage" src="" alt="Villa">
-                <button class="gallery-nav prev" onclick="prevImage()">❮</button>
-                <button class="gallery-nav next" onclick="nextImage()">❯</button>
-                <button class="close-btn" onclick="closeVillaModal()" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer;">&times;</button>
-            </div>
-            <div class="villa-details">
-                <h2 id="villaModalTitle"></h2>
-                <p id="villaModalLocation" class="location"></p>
-                <p id="villaModalPrice" class="price"></p>
-                <p id="villaModalDescription"></p>
-                
-                <div class="villa-info-grid">
-                    <div class="villa-info-item">
-                        <div class="villa-info-label">Capacité</div>
-                        <div class="villa-info-value" id="villaModalCapacity"></div>
-                    </div>
-                    <div class="villa-info-item">
-                        <div class="villa-info-label">Équipements</div>
-                        <div class="villa-info-value" id="villaModalEquipments"></div>
-                    </div>
-                    <div class="villa-info-item">
-                        <div class="villa-info-label">Horaires</div>
-                        <div class="villa-info-value" id="villaModalHoraires"></div>
-                    </div>
-                    <div class="villa-info-item">
-                        <div class="villa-info-label">Caution</div>
-                        <div class="villa-info-value" id="villaModalCaution"></div>
-                    </div>
-                </div>
-                
-                <div class="booking-form">
-                    <h3>Réserver cette villa</h3>
-                    <div class="booking-row">
-                        <div class="booking-field">
-                            <label for="bookingCheckin">Date d'arrivée</label>
-                            <input type="date" id="bookingCheckin" onchange="calculateTotal()">
-                        </div>
-                        <div class="booking-field">
-                            <label for="bookingCheckout">Date de départ</label>
-                            <input type="date" id="bookingCheckout" onchange="calculateTotal()">
-                        </div>
-                    </div>
-                    <div class="booking-row">
-                        <div class="booking-field">
-                            <label for="bookingGuests">Nombre d'invités</label>
-                            <select id="bookingGuests" onchange="calculateTotal()">
-                                <option value="1">1 personne</option>
-                                <option value="2">2 personnes</option>
-                                <option value="4">4 personnes</option>
-                                <option value="6">6 personnes</option>
-                                <option value="8">8 personnes</option>
-                                <option value="10">10 personnes</option>
-                            </select>
-                        </div>
-                        <div class="booking-field">
-                            <label for="bookingType">Type de séjour</label>
-                            <select id="bookingType" onchange="calculateTotal()">
-                                <option value="weekend">Weekend</option>
-                                <option value="semaine">Semaine</option>
-                                <option value="personnalise">Personnalisé</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="booking-summary">
-                        <h4>Récapitulatif de la réservation</h4>
-                        <div id="bookingSummary">Sélectionnez vos dates pour voir le prix</div>
-                        <div class="booking-total" id="bookingTotal">Total: 0€</div>
-                    </div>
-                    <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="submitBooking()">Réserver maintenant</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Base de données complète des villas
-        const VILLAS_DATABASE = {
-            villas: [
-                {
-                    id: 1,
-                    nom: "Villa F3 Petit Macabou",
-                    prix_base: 850,
-                    prix_affiche: "850€",
-                    localisation: "Petit Macabou au Vauclin",
-                    capacite: 6,
-                    capacite_detail: "6 personnes + 9 invités",
-                    type_logement: "2 chambres climatisées, salon avec canapé-lit",
-                    equipements: "Sauna, Jacuzzi, 2 douches extérieures",
-                    proximite_plage: "Non spécifié",
-                    horaires: "09h-20h",
-                    prix_periode: "Weekend: 850€ + 100€/nuit suppl. | Semaine: 1550€",
-                    disponibilites: "28/07-03/08, 11/08-14/08, 29/08-31/08",
-                    caution: "1500€ par chèque",
-                    conditions: "Pas de nuisance sonore, respect voisinage",
-                    categorie: "sejour",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D",
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/429782c3-5af1-432e-ac2d-6ad5823a5303?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2202_piscine_vue_aerienne.jpg%22&sig=3vee%2B9kPdE4AEr349KTZcbC0xlijUhtk7So5jpUKQog%3D"
-                    ]
-                },
-                {
-                    id: 2,
-                    nom: "Villa F5 Ste Anne",
-                    prix_base: 1300,
-                    prix_affiche: "1300€",
-                    localisation: "Quartier Les Anglais, Ste Anne",
-                    capacite: 10,
-                    capacite_detail: "10 personnes + 15 invités",
-                    type_logement: "4 chambres, 4 salles d'eau",
-                    equipements: "Piscine, décoration rose distinctive, terrasses couvertes",
-                    proximite_plage: "Non spécifié",
-                    horaires: "09h-19h",
-                    prix_periode: "Weekend: 1350€ (hors vacances) | Semaine: 2251€",
-                    disponibilites: "02/07-20/07, puis à partir du 21/08",
-                    caution: "500€ espèces + 1500€ empreinte",
-                    conditions: "Paiement plusieurs fois, cautions rendues si OK",
-                    categorie: "sejour",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/61368ce1-9520-4401-bc02-9340988a6a26?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2203_facade_villa_rose.jpg%22&sig=PZPI/iIKzzRQnJhXHk1Fa4LSLZoRJIAHPOI88dRyGQU%3D"
-                    ]
-                },
-                {
-                    id: 3,
-                    nom: "Villa F3 POUR LA BACCHA",
-                    prix_base: 1350,
-                    prix_affiche: "1350€",
-                    localisation: "Petit Macabou",
-                    capacite: 6,
-                    capacite_detail: "6 personnes + 9 convives",
-                    type_logement: "2 chambres climatisées, canapé-lit salon climatisé",
-                    equipements: "Piscine, terrasses modernes, finitions contemporaines",
-                    proximite_plage: "Non spécifié",
-                    horaires: "09h-18h",
-                    prix_periode: "Juillet complet: 1350€ | Périodes août disponibles: 1350€",
-                    disponibilites: "Juillet complet, périodes août disponibles",
-                    caution: "1500€ par chèque",
-                    conditions: "Consignes à respecter, PAS DE NUISANCE SONORE",
-                    categorie: "sejour",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                },
-                {
-                    id: 4,
-                    nom: "Villa F6 Lamentin",
-                    prix_base: 1500,
-                    prix_affiche: "1500€",
-                    localisation: "Quartier Bélème au Lamentin",
-                    capacite: 10,
-                    capacite_detail: "10 personnes + 20 invités max",
-                    type_logement: "Villa F6 somptueuse",
-                    equipements: "Piscine, Jacuzzi, douche extérieure",
-                    proximite_plage: "Non spécifié",
-                    horaires: "10h-19h MAX",
-                    prix_periode: "Weekend: 1500€ / 1200€ (sans invités) | Semaine: 2800€",
-                    disponibilites: "1er-10 juillet et 25-31 août",
-                    caution: "1000€ par empreinte bancaire",
-                    conditions: "Pénalité 150€/30mn retard, co-voiturage obligatoire",
-                    categorie: "sejour",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                },
-                {
-                    id: 5,
-                    nom: "Villa F6 Ste Luce Plage",
-                    prix_base: 1700,
-                    prix_affiche: "1700€",
-                    localisation: "Zac de Pont Café, Ste Luce",
-                    capacite: 14,
-                    capacite_detail: "10 à 14 personnes",
-                    type_logement: "5 appartements (2 F2 duplex et 3 F2)",
-                    equipements: "Piscine, 5ème appartement au sous-sol",
-                    proximite_plage: "1 minute de la plage de Corps de garde",
-                    horaires: "Arrivée 17h, Départ 11h",
-                    prix_periode: "Weekend: 1700€ | Semaine: 2200€-2850€",
-                    disponibilites: "14-21/07 et 24-31/08",
-                    caution: "1500€ chèque + 500€ espèces",
-                    conditions: "Locations semaine en période scolaire, lieux soldés",
-                    categorie: "sejour",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                },
-                {
-                    id: 6,
-                    nom: "Villa F6 Petit Macabou",
-                    prix_base: 2000,
-                    prix_affiche: "2000€",
-                    localisation: "Petit Macabou au Vauclin",
-                    capacite: 13,
-                    capacite_detail: "10 à 13 personnes (14 max)",
-                    type_logement: "3 chambres + 1 mezzanine + 2 studios",
-                    equipements: "Piscine, climatisation, 3 bungalows supplémentaires",
-                    proximite_plage: "Non spécifié",
-                    horaires: "09h-19h",
-                    prix_periode: "Weekend: 2000€ | Semaine: 3220€",
-                    disponibilites: "21/07-27/06 et 29/08-04/09",
-                    caution: "2500€ par chèque",
-                    conditions: "Mariage/Baptême jusqu'150 convives, covoiturage",
-                    categorie: "sejour",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                },
-                {
-                    id: 7,
-                    nom: "Villa F7 Baie des Mulets",
-                    prix_base: 2200,
-                    prix_affiche: "2200€",
-                    localisation: "Baie des Mulets, Vauclin",
-                    capacite: 16,
-                    capacite_detail: "16 personnes (F5 10 pers + F3 6 pers)",
-                    type_logement: "Villa F7 avec F5 (4 chambres climatisées) + F3 (canapé-lit dans le salon)",
-                    equipements: "Véranda salle à manger bambou, coin détente fauteuils suspendus, cuisine moderne équipée, 30 places parking, fête autorisée 09h-00h",
-                    proximite_plage: "Baie des Mulets",
-                    horaires: "Arrivée 11h, Départ 13h, Départ tardif 17h30 (+150€)",
-                    prix_periode: "Weekend sans invités: 2200€ | Semaine 7j sans invités: 4200€ | +330€ jusqu'à 30 convives | +550€ jusqu'à 50 convives | +770€ jusqu'à 80 convives | +1375€ jusqu'à 160 convives",
-                    disponibilites: "Location à la journée possible du lundi au jeudi selon disponibilité",
-                    caution: "1500€ par chèque ou empreinte bancaire",
-                    conditions: "Covoiturage recommandé, paiement en plusieurs fois possible, lieux doivent être soldés 72h avant l'entrée, événements (EDV, journée bien-être avec massage, etc.) sur demande",
-                    categorie: "sejour",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                },
-                {
-                    id: 8,
-                    nom: "Villa Fête Ducos",
-                    prix_base: 375,
-                    prix_affiche: "375€",
-                    localisation: "Ducos",
-                    capacite: 30,
-                    capacite_detail: "5 à 30 personnes selon formule",
-                    type_logement: "Villa avec espaces de réception extérieurs",
-                    equipements: "Piscine, bar extérieur, terrasse couverte, salon rotin, gazebo",
-                    proximite_plage: "Non spécifié",
-                    horaires: "Formule 1: 10h-20h | Formule 2: 13h-18h",
-                    prix_periode: "Formule 1: 375€-510€ | Formule 2: 260€-375€",
-                    disponibilites: "Sur demande",
-                    caution: "Non spécifié",
-                    conditions: "Enfants comptés à partir de 6 ans, 12 places parking",
-                    categorie: "fete",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                },
-                {
-                    id: 9,
-                    nom: "Villa Fête Fort-de-France",
-                    prix_base: 100,
-                    prix_affiche: "100€/h",
-                    localisation: "Fort-de-France",
-                    capacite: 80,
-                    capacite_detail: "De 20 à 80 personnes",
-                    type_logement: "Villa coloniale de prestige avec vue panoramique",
-                    equipements: "Piscine avec vue panoramique, statues Buddha décoratives, cuisine aménagée (four, micro-ondes, four semi-gastro, plaque de cuisson, îlot central, réfrigérateur, évier), terrasse demi-couverte (250m²), 2 suites équipées (douche à jet, dressing), salle intérieure (80m²)",
-                    proximite_plage: "Non spécifié",
-                    horaires: "06h <> minuit",
-                    prix_periode: "1-20 personnes: 100€/heure | 20-50 personnes: 125€/heure | 50-80 personnes: 150€/heure",
-                    disponibilites: "À partir de 100€/h",
-                    caution: "Non spécifié",
-                    conditions: "Parking privatisé pour 20 voitures, location de chaises 2€ et tables (180x80) 8€, prestation à la carte, paiement en plusieurs fois sans frais possible, lieux doivent être soldés avant l'entrée",
-                    categorie: "fete",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                },
-                {
-                    id: 10,
-                    nom: "Studio Cocooning Lamentin",
-                    prix_base: 290,
-                    prix_affiche: "290€",
-                    localisation: "Morne Pitault, Lamentin",
-                    capacite: 2,
-                    capacite_detail: "2 personnes (couple)",
-                    type_logement: "Studio avec bac à punch privé (petite piscine)",
-                    equipements: "Cuisine moderne équipée, jacuzzi/bac à punch, vue panoramique, climatisation, mobilier design",
-                    proximite_plage: "Hauteurs de Morne Pitault",
-                    horaires: "Arrivée 16h, Départ 11h (possibilité départ tardif selon disponibilité)",
-                    prix_periode: "À partir de 290€, tarif variable selon date, location minimum 2 nuits puis 3,4,5 nuits",
-                    disponibilites: "Location UNIQUEMENT à la SEMAINE en période vacances scolaires et haute saison",
-                    caution: "Non spécifiée",
-                    conditions: "Pas d'invités, paiement en plusieurs fois possible, lieux doivent être soldés avant entrée",
-                    categorie: "special",
-                    photos: [
-                        "https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/52e620a8-f6fa-451a-a4cc-4b817f44738e?se=2025-07-18T14%3A38%3A42Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%2201_piscine_principale.jpg%22&sig=vOYbQ64RZ/sgJUlHqcg18zYUixeVrjxNlkdf%2BJd4AVM%3D"
-                    ]
-                }
-            ]
-        };
-
-        // Variables globales
-        let currentVillaModal = null;
-        let currentImageIndex = 0;
-        let currentFilter = 'all';
-        let guestCounts = { adults: 2, children: 0, babies: 0 };
-        let autocompleteIndex = -1;
-        
-        // Destinations pour l'autocomplétion
-        const destinations = [
-            "Fort-de-France", "Sainte-Anne", "Le François", "Ducos", "Rivière-Pilote",
-            "Sainte-Luce", "Lamentin", "Vauclin", "Trinité", "Le Robert",
-            "Petit Macabou", "Baie des Mulets", "Morne Pitault", "Quartier Bélème",
-            "Zac de Pont Café", "Quartier Les Anglais", "Pointe Hyacinthe", "Cosmy",
-            "Quartier La Renée", "Quartier La Laugier", "Trenelle", "Ravine Plate"
+        // Base de données des villas
+        const villas = [
+            {
+                id: 1,
+                nom: "Villa F3 Petit Macabou",
+                localisation: "Petit Macabou au Vauclin",
+                prix: "850€",
+                capacite: "6 personnes + 9 invités",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1520637836862-4d197d17c0a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Sauna, Jacuzzi, 2 douches extérieures"
+            },
+            {
+                id: 2,
+                nom: "Villa F5 Ste Anne",
+                localisation: "Quartier Les Anglais, Ste Anne",
+                prix: "1300€",
+                capacite: "10 personnes + 15 invités",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, décoration rose distinctive"
+            },
+            {
+                id: 3,
+                nom: "Villa F3 POUR LA BACCHA",
+                localisation: "Petit Macabou",
+                prix: "1350€",
+                capacite: "6 personnes + 9 convives",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, terrasses modernes"
+            },
+            {
+                id: 4,
+                nom: "Villa F6 Lamentin",
+                localisation: "Quartier Bélème au Lamentin",
+                prix: "1500€",
+                capacite: "10 personnes + 20 invités max",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, Jacuzzi, douche extérieure"
+            },
+            {
+                id: 5,
+                nom: "Villa F6 Ste Luce Plage",
+                localisation: "Zac de Pont Café, Ste Luce",
+                prix: "1700€",
+                capacite: "10 à 14 personnes",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, 1 minute de la plage"
+            },
+            {
+                id: 6,
+                nom: "Villa F6 Petit Macabou",
+                localisation: "Petit Macabou au Vauclin",
+                prix: "2000€",
+                capacite: "10 à 13 personnes",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, 3 bungalows supplémentaires"
+            },
+            {
+                id: 7,
+                nom: "Villa F7 Baie des Mulets",
+                localisation: "Baie des Mulets, Vauclin",
+                prix: "2200€",
+                capacite: "16 personnes",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Véranda bambou, 30 places parking"
+            },
+            {
+                id: 8,
+                nom: "Villa Fête Ducos",
+                localisation: "Ducos",
+                prix: "375€",
+                capacite: "5 à 30 personnes",
+                categorie: "fete",
+                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, bar extérieur, gazebo"
+            },
+            {
+                id: 9,
+                nom: "Villa Fête R.Pilote",
+                localisation: "Rivière-Pilote",
+                prix: "660€",
+                capacite: "Jusqu'à 100 personnes",
+                categorie: "fete",
+                image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine chauffée, cuisine extérieure"
+            },
+            {
+                id: 10,
+                nom: "Villa Fête Sainte-Luce",
+                localisation: "Sainte-Luce",
+                prix: "390€",
+                capacite: "Jusqu'à 40 personnes",
+                categorie: "fete",
+                image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, 3 chapiteaux, système JBL"
+            },
+            {
+                id: 11,
+                nom: "Villa Fête Fort-de-France",
+                localisation: "Fort-de-France",
+                prix: "100€/h",
+                capacite: "20 à 80 personnes",
+                categorie: "fete",
+                image: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine panoramique, statues Buddha"
+            },
+            {
+                id: 12,
+                nom: "Villa Fête Rivière-Salée",
+                localisation: "Rivière-Salée",
+                prix: "400€",
+                capacite: "25 à 100 personnes",
+                categorie: "fete",
+                image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine sécurisée, tente couverte"
+            },
+            {
+                id: 13,
+                nom: "Studio Cocooning Lamentin",
+                localisation: "Morne Pitault, Lamentin",
+                prix: "290€",
+                capacite: "2 personnes",
+                categorie: "special",
+                image: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Jacuzzi privé, vue panoramique"
+            },
+            {
+                id: 14,
+                nom: "Villa F3 Trenelle",
+                localisation: "Trenelle",
+                prix: "700€/mois",
+                capacite: "2 personnes",
+                categorie: "special",
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Cuisine équipée, EAU + EDF inclus"
+            },
+            {
+                id: 15,
+                nom: "Bas Villa F3 Ste Luce",
+                localisation: "Sainte-Luce",
+                prix: "470€",
+                capacite: "4 personnes",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Terrasse couverte, salon extérieur"
+            },
+            {
+                id: 16,
+                nom: "Villa F3 Trinité Cosmy",
+                localisation: "Cosmy, Trinité",
+                prix: "670€",
+                capacite: "5 adultes",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine chauffée privée, double terrasse"
+            },
+            {
+                id: 17,
+                nom: "Villa F3 Robert",
+                localisation: "Pointe Hyacinthe, Robert",
+                prix: "750€",
+                capacite: "10 personnes",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine rectangulaire, kitchenette extérieure"
+            },
+            {
+                id: 18,
+                nom: "Villa F5 R.Pilote",
+                localisation: "Quartier La Renée, Rivière-Pilote",
+                prix: "900€",
+                capacite: "10 personnes + 60 invités",
+                categorie: "sejour",
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine, Jacuzzi, terrasse avec hamacs"
+            },
+            {
+                id: 19,
+                nom: "Espace Piscine Journée",
+                localisation: "Environnement rural",
+                prix: "350€",
+                capacite: "10 à 150 personnes",
+                categorie: "special",
+                image: "https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+                equipements: "Piscine rectangulaire, 2 gazebos, barbecue"
+            }
         ];
 
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            loadVillas();
-            setupEventListeners();
-            setupAutocomplete();
-            updateGuestsDisplay();
-        });
+        // Variables globales
+        let currentFilter = 'all';
+        let currentVillas = villas;
 
-        // Chargement des villas
-        function loadVillas() {
+        // Fonction pour afficher les villas
+        function displayVillas(villasToShow) {
             const villasGrid = document.getElementById('villasGrid');
+            const loading = document.getElementById('loading');
+            
+            // Afficher le loading
+            loading.classList.add('show');
             villasGrid.innerHTML = '';
             
-            const villas = currentFilter === 'all' ? VILLAS_DATABASE.villas : VILLAS_DATABASE.villas.filter(villa => villa.categorie === currentFilter);
-            
-            villas.forEach(villa => {
-                const villaCard = createVillaCard(villa);
-                villasGrid.appendChild(villaCard);
-            });
+            // Simuler un délai de chargement
+            setTimeout(() => {
+                loading.classList.remove('show');
+                
+                if (villasToShow.length === 0) {
+                    villasGrid.innerHTML = '<div style="grid-column: 1 / -1; text-align: center; color: white; font-size: 1.2rem; padding: 2rem;">Aucune villa trouvée pour ces critères.</div>';
+                    return;
+                }
+                
+                villasGrid.innerHTML = villasToShow.map(villa => `
+                    <div class="villa-card">
+                        <img src="${villa.image}" alt="${villa.nom}" class="villa-image" loading="lazy">
+                        <div class="villa-info">
+                            <h3 class="villa-title">${villa.nom}</h3>
+                            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> ${villa.localisation}</p>
+                            <p class="villa-price">${villa.prix}</p>
+                            <p class="villa-capacity"><i class="fas fa-users"></i> ${villa.capacite}</p>
+                            <p style="color: rgba(255, 255, 255, 0.8); font-size: 0.8rem; margin-bottom: 1rem;">${villa.equipements}</p>
+                            <button class="btn-primary" onclick="reserveVilla(${villa.id})">Réserver maintenant</button>
+                        </div>
+                    </div>
+                `).join('');
+            }, 500);
         }
 
-        // Création d'une carte villa
-        function createVillaCard(villa) {
-            const card = document.createElement('div');
-            card.className = 'villa-card';
-            card.onclick = () => openVillaModal(villa);
-            
-            const categoryIcon = villa.categorie === 'sejour' ? '🏖️' : villa.categorie === 'fete' ? '🎉' : '🏠';
-            
-            card.innerHTML = `
-                <div class="villa-category">${categoryIcon}</div>
-                <img src="${villa.photos[0] || 'https://via.placeholder.com/300x200?text=Villa'}" alt="${villa.nom}" class="villa-image" onerror="this.src='https://via.placeholder.com/300x200?text=Villa'">
-                <div class="villa-content">
-                    <h3 class="villa-title">${villa.nom}</h3>
-                    <p class="villa-location">${villa.localisation}</p>
-                    <p class="villa-price">${villa.prix_affiche}${villa.categorie === 'fete' && villa.prix_affiche.includes('/h') ? '' : '/nuit'}</p>
-                    <p class="villa-features">${villa.capacite_detail}</p>
-                    <p class="villa-features">${villa.equipements}</p>
-                    <button class="btn-primary" onclick="event.stopPropagation(); openVillaModal(${JSON.stringify(villa).replace(/"/g, '&quot;')})">Voir détails</button>
-                </div>
-            `;
-            
-            return card;
-        }
-
-        // Filtrage des villas
+        // Fonction pour filtrer les villas
         function filterVillas(category) {
             currentFilter = category;
-            loadVillas();
             
-            // Mise à jour des boutons de filtre
+            // Mettre à jour les boutons de filtre
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
-        }
-
-        // Recherche de villas
-        function searchVillas() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const villasGrid = document.getElementById('villasGrid');
-            villasGrid.innerHTML = '';
             
-            let villas = currentFilter === 'all' ? VILLAS_DATABASE.villas : VILLAS_DATABASE.villas.filter(villa => villa.categorie === currentFilter);
-            
-            if (searchTerm) {
-                villas = villas.filter(villa => 
-                    villa.nom.toLowerCase().includes(searchTerm) ||
-                    villa.localisation.toLowerCase().includes(searchTerm) ||
-                    villa.equipements.toLowerCase().includes(searchTerm)
-                );
-            }
-            
-            villas.forEach(villa => {
-                const villaCard = createVillaCard(villa);
-                villasGrid.appendChild(villaCard);
-            });
-        }
-
-        // Gestion des modales
-        function showModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        // Modal villa
-        function openVillaModal(villa) {
-            currentVillaModal = villa;
-            currentImageIndex = 0;
-            
-            document.getElementById('villaModalTitle').textContent = villa.nom;
-            document.getElementById('villaModalLocation').textContent = villa.localisation;
-            document.getElementById('villaModalPrice').textContent = villa.prix_affiche + (villa.categorie === 'fete' && villa.prix_affiche.includes('/h') ? '' : '/nuit');
-            document.getElementById('villaModalDescription').textContent = villa.type_logement;
-            document.getElementById('villaModalCapacity').textContent = villa.capacite_detail;
-            document.getElementById('villaModalEquipments').textContent = villa.equipements;
-            document.getElementById('villaModalHoraires').textContent = villa.horaires;
-            document.getElementById('villaModalCaution').textContent = villa.caution;
-            
-            updateGalleryImage();
-            document.getElementById('villaModal').classList.add('active');
-        }
-
-        function closeVillaModal() {
-            document.getElementById('villaModal').classList.remove('active');
-        }
-
-        function updateGalleryImage() {
-            if (currentVillaModal && currentVillaModal.photos.length > 0) {
-                const img = document.getElementById('villaGalleryImage');
-                img.src = currentVillaModal.photos[currentImageIndex] || 'https://via.placeholder.com/800x400?text=Villa';
-                img.onerror = function() {
-                    this.src = 'https://via.placeholder.com/800x400?text=Villa';
-                };
-            }
-        }
-
-        function nextImage() {
-            if (currentVillaModal && currentVillaModal.photos.length > 0) {
-                currentImageIndex = (currentImageIndex + 1) % currentVillaModal.photos.length;
-                updateGalleryImage();
-            }
-        }
-
-        function prevImage() {
-            if (currentVillaModal && currentVillaModal.photos.length > 0) {
-                currentImageIndex = currentImageIndex === 0 ? currentVillaModal.photos.length - 1 : currentImageIndex - 1;
-                updateGalleryImage();
-            }
-        }
-
-        // Gestion des invités
-        function updateGuestsDisplay() {
-            const { adults, children, babies } = guestCounts;
-            let text = '';
-            
-            if (adults > 0) text += `${adults} adulte${adults > 1 ? 's' : ''}`;
-            if (children > 0) text += `${text ? ' · ' : ''}${children} enfant${children > 1 ? 's' : ''}`;
-            if (babies > 0) text += `${text ? ' · ' : ''}${babies} bébé${babies > 1 ? 's' : ''}`;
-            
-            document.getElementById('guestsValue').textContent = text || 'Ajouter des voyageurs';
-            document.getElementById('guestsValue').className = text ? 'search-field-value' : 'search-field-value placeholder';
-            
-            // Mise à jour des compteurs
-            document.getElementById('adultsCount').textContent = adults;
-            document.getElementById('childrenCount').textContent = children;
-            document.getElementById('babiesCount').textContent = babies;
-            
-            // Mise à jour des boutons
-            document.getElementById('adultsDecrement').disabled = adults <= 1;
-            document.getElementById('childrenDecrement').disabled = children <= 0;
-            document.getElementById('babiesDecrement').disabled = babies <= 0;
-            document.getElementById('adultsIncrement').disabled = adults >= 10;
-            document.getElementById('childrenIncrement').disabled = children >= 6;
-            document.getElementById('babiesIncrement').disabled = babies >= 4;
-        }
-
-        function incrementGuests(type) {
-            const maxValues = { adults: 10, children: 6, babies: 4 };
-            if (guestCounts[type] < maxValues[type]) {
-                guestCounts[type]++;
-                updateGuestsDisplay();
-            }
-        }
-
-        function decrementGuests(type) {
-            const minValues = { adults: 1, children: 0, babies: 0 };
-            if (guestCounts[type] > minValues[type]) {
-                guestCounts[type]--;
-                updateGuestsDisplay();
-            }
-        }
-
-        function toggleGuestsDropdown() {
-            const dropdown = document.getElementById('guestsDropdown');
-            const isActive = dropdown.classList.contains('active');
-            
-            // Fermer tous les dropdowns
-            document.querySelectorAll('.autocomplete-dropdown, .guests-dropdown').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            if (!isActive) {
-                dropdown.classList.add('active');
-                
-                // Positionner le dropdown
-                const field = document.querySelector('.guests-field');
-                const rect = field.getBoundingClientRect();
-                dropdown.style.top = (rect.bottom + 8) + 'px';
-                dropdown.style.left = rect.left + 'px';
-            }
-        }
-
-        // Gestion des dates
-        function updateDateDisplay(type) {
-            const input = document.getElementById(`${type}Date`);
-            const display = document.getElementById(`${type}Value`);
-            
-            if (input.value) {
-                const date = new Date(input.value);
-                const options = { weekday: 'short', day: 'numeric', month: 'short' };
-                display.textContent = date.toLocaleDateString('fr-FR', options);
-                display.className = 'search-field-value';
+            // Filtrer les villas
+            if (category === 'all') {
+                currentVillas = villas;
             } else {
-                display.textContent = 'Ajouter des dates';
-                display.className = 'search-field-value placeholder';
+                currentVillas = villas.filter(villa => villa.categorie === category);
             }
-        }
-
-        // Autocomplétion
-        function setupAutocomplete() {
-            const input = document.getElementById('destinationInput');
-            const dropdown = document.getElementById('autocompleteDropdown');
             
-            input.addEventListener('input', function() {
-                const value = this.value.toLowerCase();
-                dropdown.innerHTML = '';
-                autocompleteIndex = -1;
-                
-                if (value.length > 0) {
-                    const matches = destinations.filter(dest => 
-                        dest.toLowerCase().includes(value)
-                    );
-                    
-                    if (matches.length > 0) {
-                        matches.forEach((dest, index) => {
-                            const item = document.createElement('div');
-                            item.className = 'autocomplete-item';
-                            item.innerHTML = `
-                                <i class="fas fa-map-marker-alt location-icon"></i>
-                                <span class="destination-name">${dest}</span>
-                                <span class="destination-detail">Martinique</span>
-                            `;
-                            item.onclick = () => selectDestination(dest);
-                            dropdown.appendChild(item);
-                        });
-                        dropdown.classList.add('active');
-                    } else {
-                        dropdown.classList.remove('active');
-                    }
-                } else {
-                    dropdown.classList.remove('active');
-                }
-            });
-            
-            input.addEventListener('keydown', function(e) {
-                const items = dropdown.querySelectorAll('.autocomplete-item');
-                
-                if (e.key === 'ArrowDown') {
-                    e.preventDefault();
-                    autocompleteIndex = Math.min(autocompleteIndex + 1, items.length - 1);
-                    updateAutocompleteSelection(items);
-                } else if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    autocompleteIndex = Math.max(autocompleteIndex - 1, -1);
-                    updateAutocompleteSelection(items);
-                } else if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (autocompleteIndex >= 0 && items[autocompleteIndex]) {
-                        const dest = items[autocompleteIndex].querySelector('.destination-name').textContent;
-                        selectDestination(dest);
-                    }
-                } else if (e.key === 'Escape') {
-                    dropdown.classList.remove('active');
-                    autocompleteIndex = -1;
-                }
-            });
+            displayVillas(currentVillas);
         }
 
-        function updateAutocompleteSelection(items) {
-            items.forEach((item, index) => {
-                item.classList.toggle('selected', index === autocompleteIndex);
-            });
-        }
-
-        function selectDestination(destination) {
-            document.getElementById('destinationInput').value = destination;
-            document.getElementById('autocompleteDropdown').classList.remove('active');
-            autocompleteIndex = -1;
-        }
-
-        // Recherche booking
-        function performBookingSearch() {
-            const destination = document.getElementById('destinationInput').value;
+        // Fonction de recherche
+        function searchVillas() {
+            const destination = document.getElementById('destinationInput').value.toLowerCase();
             const checkin = document.getElementById('checkinDate').value;
             const checkout = document.getElementById('checkoutDate').value;
+            const guests = document.getElementById('guestsInput').value;
             
-            // Filtrer les villas par destination si spécifiée
+            let filteredVillas = currentVillas;
+            
             if (destination) {
-                const filtered = VILLAS_DATABASE.villas.filter(villa => 
-                    villa.localisation.toLowerCase().includes(destination.toLowerCase())
+                filteredVillas = filteredVillas.filter(villa => 
+                    villa.nom.toLowerCase().includes(destination) || 
+                    villa.localisation.toLowerCase().includes(destination)
                 );
-                
-                const villasGrid = document.getElementById('villasGrid');
-                villasGrid.innerHTML = '';
-                
-                filtered.forEach(villa => {
-                    const villaCard = createVillaCard(villa);
-                    villasGrid.appendChild(villaCard);
+            }
+            
+            if (guests) {
+                filteredVillas = filteredVillas.filter(villa => {
+                    const capacityMatch = villa.capacite.match(/(\d+)/);
+                    const maxCapacity = capacityMatch ? parseInt(capacityMatch[1]) : 0;
+                    return maxCapacity >= parseInt(guests);
                 });
-                
-                // Afficher message si aucun résultat
-                if (filtered.length === 0) {
-                    villasGrid.innerHTML = '<p style="color: white; text-align: center; grid-column: 1 / -1;">Aucune villa trouvée pour cette destination.</p>';
-                }
             }
             
-            // Afficher notification
-            showNotification('Recherche effectuée !', 'success');
+            displayVillas(filteredVillas);
         }
 
-        // Calcul du prix total
-        function calculateTotal() {
-            const checkin = document.getElementById('bookingCheckin').value;
-            const checkout = document.getElementById('bookingCheckout').value;
-            const guests = parseInt(document.getElementById('bookingGuests').value);
-            const type = document.getElementById('bookingType').value;
-            
-            if (!checkin || !checkout || !currentVillaModal) return;
-            
-            const checkinDate = new Date(checkin);
-            const checkoutDate = new Date(checkout);
-            const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
-            
-            if (nights <= 0) return;
-            
-            let pricePerNight = currentVillaModal.prix_base;
-            let total = 0;
-            
-            if (type === 'weekend') {
-                total = pricePerNight * nights;
-            } else if (type === 'semaine') {
-                total = pricePerNight * nights * 0.9; // 10% de réduction
-            } else {
-                total = pricePerNight * nights;
-            }
-            
-            // Supplément pour invités supplémentaires
-            if (guests > currentVillaModal.capacite) {
-                total += (guests - currentVillaModal.capacite) * 50 * nights;
-            }
-            
-            document.getElementById('bookingSummary').innerHTML = `
-                <strong>${nights} nuit${nights > 1 ? 's' : ''}</strong><br>
-                ${guests} personne${guests > 1 ? 's' : ''}<br>
-                ${type.charAt(0).toUpperCase() + type.slice(1)}
-            `;
-            
-            document.getElementById('bookingTotal').textContent = `Total: ${total.toFixed(0)}€`;
+        // Fonction pour réserver une villa
+        function reserveVilla(villaId) {
+            const villa = villas.find(v => v.id === villaId);
+            alert(`Réservation pour ${villa.nom}\n\nNous vous contacterons dans les plus brefs délais pour finaliser votre réservation.\n\nTarif: ${villa.prix}\nCapacité: ${villa.capacite}`);
         }
 
-        // Soumission de réservation
-        function submitBooking() {
-            const checkin = document.getElementById('bookingCheckin').value;
-            const checkout = document.getElementById('bookingCheckout').value;
-            const guests = document.getElementById('bookingGuests').value;
-            
-            if (!checkin || !checkout) {
-                showNotification('Veuillez sélectionner vos dates', 'error');
-                return;
-            }
-            
-            // Simuler l'envoi de réservation
-            showNotification('Demande de réservation envoyée !', 'success');
-            closeVillaModal();
-            
-            // Ici vous pourriez ajouter l'envoi vers votre backend
-            console.log('Réservation:', {
-                villa: currentVillaModal.nom,
-                checkin,
-                checkout,
-                guests
-            });
-        }
-
-        // Navigation entre sections
+        // Fonction pour naviguer entre les sections
         function showSection(sectionId) {
+            // Cacher toutes les sections
             document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
+                section.style.display = 'none';
             });
-            document.getElementById(sectionId).classList.add('active');
             
-            // Mise à jour du menu
+            // Afficher la section demandée
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Mettre à jour la navigation
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
             });
-            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
-        }
-
-        // Menu mobile
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
-
-        // Notifications
-        function showNotification(message, type = 'info') {
-            const indicator = document.getElementById('syncIndicator');
-            const text = document.getElementById('syncText');
+            event.target.classList.add('active');
             
-            indicator.className = `sync-indicator ${type}`;
-            text.textContent = message;
-            
-            setTimeout(() => {
-                indicator.classList.remove(type);
-            }, 3000);
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
-        // Event listeners
-        function setupEventListeners() {
-            // Fermer les dropdowns en cliquant ailleurs
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.guests-field') && !e.target.closest('.destination-autocomplete')) {
-                    document.querySelectorAll('.autocomplete-dropdown, .guests-dropdown').forEach(el => {
-                        el.classList.remove('active');
-                    });
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher toutes les villas au chargement
+            displayVillas(villas);
+            
+            // Ajouter des écouteurs d'événements
+            document.getElementById('destinationInput').addEventListener('input', searchVillas);
+            document.getElementById('guestsInput').addEventListener('input', searchVillas);
+            
+            // Détecter les erreurs de chargement d'images
+            document.addEventListener('error', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.target.src = 'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80';
                 }
-            });
+            }, true);
             
-            // Formulaires
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showNotification('Connexion réussie !', 'success');
-                closeModal('loginModal');
-            });
-            
-            document.getElementById('registerForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showNotification('Inscription réussie !', 'success');
-                closeModal('registerModal');
-            });
-            
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showNotification('Message envoyé !', 'success');
-                closeModal('contactModal');
-            });
-            
-            // Navigation clavier pour la galerie
-            document.addEventListener('keydown', function(e) {
-                if (document.getElementById('villaModal').classList.contains('active')) {
-                    if (e.key === 'ArrowLeft') {
-                        prevImage();
-                    } else if (e.key === 'ArrowRight') {
-                        nextImage();
-                    } else if (e.key === 'Escape') {
-                        closeVillaModal();
-                    }
-                }
-            });
-        }
-
-        // Initialisation finale
-        window.addEventListener('load', function() {
-            showNotification('Interface synchronisée !', 'success');
+            console.log('KhanelConcept chargé avec succès!');
         });
     </script>
 </body>
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo%2FdS02okHwC0iF3YPhhrWumD%2BGmbQqUaViv47d3Y%2BfhJmRAea%2BWRpExaJryV7P0LaFwrUVVIxZXpo7u7PqOz3EunfAzh5HIkx%2BlL0Yn9iTXY002d9V959L9%2FXOKSo%2FyX5lYHAYcGenVMgKcNodlnjdYPuBLB7GOcBrUyzp4hnZQrBRKInm90tKJvDXfT3ouUP6QoytJa9Aqb3lfsTfogtMIZwrh8wK92Hj2RYhx0TIzVGFfrVwSKrxv91%2B7rpxhpUwbD0NGfuz0n2CE58x3VRGxBn03LkjmxYqYX2ORkZ%2BbjJ766ydvqZC1D2rcQzxsM5f%2F4mkSf7ylLMH%2FxthQgAw0WqJA0A2qTNMBMWIDZlRp9sZypnpYkmS30DNl79oTT8ZjnojSOs2K7egFiNJJ0cpwe1zNzLCpd%2B%2BbctI6oGI7b181zvh2WxPGXmcrKtrr1G1VmLb0QYBdQc0fsNIdClC8wWVI8e9Y5EmQ2Jar45%2FZLa6oODhpLRP2Yq%2FXxH6zoQ0RH40gcTHyMsc0nM0VBaU%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvl2s5WmL%2FJVspF%2FQXG21WufgnDApEDsNabymf07v8rf1eQYkftvJ3sbNaIZIWS28jsC%2Bbq9IjwYS1y1AhjFfVcdbzpCJvCEo0SusM4Cw3%2Fj%2Bs1pScEkC%2BYOuR1j%2Fhyj1oSV15IDbYkDltyKrP4RoV3SmJhkZz8vCCZBVltaO%2F6cq92qiqRo1ixt%2FNzFWI%2FMuMId%2B9e6qlzPJBIKWFczyhopQ5lY4%2BXWtfceVGWanA90u7rbvchDCrujwOql0bbVurc%2BuSLlPJnRli%2F1ADxyu8DqpKCOjRAY%2Bc8utbfStnYdNWV9wZMKVgU%2BKabrVJPNvu2HnP9GDma2bAQeE4rNcsT9mNOqR%2Fb2yVN3ysvtrkono0qsRnaoVLKfC48kLGd5CVE%2BbzEOC8M2A4xV8HkzwK1Y0QRPIR1wKEnzTw8fenL%2FCZt5VNN%2Bu06IAkTWMt9UiQs2Y4Xxul6aJAsBji03HaO7zkKzFkHCs9fceaTPVaQLf2G4xOISals%2FbnpAp1cl2g%3D%3D";
         window.__genspark_locale = "fr-FR";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo/dS02okHwC0iF3YPhhrWumD+GmbQqUaViv47d3Y+fhJmRAea+WRpExaJryV7P0LaFwrUVVIxZXpo7u7PqOz3EunfAzh5HIkx+lL0Yn9iTXY002d9V959L9/XOKSo/yX5lYHAYcGenVMgKcNodlnjdYPuBLB7GOcBrUyzp4hnZQrBRKInm90tKJvDXfT3ouUP6QoytJa9Aqb3lfsTfogtMIZwrh8wK92Hj2RYhx0TIzVGFfrVwSKrxv91+7rpxhpUwbD0NGfuz0n2CE58x3VRGxBn03LkjmxYqYX2ORkZ+bjJ766ydvqZC1D2rcQzxsM5f/4mkSf7ylLMH/xthQgAw0WqJA0A2qTNMBMWIDZlRp9sZypnpYkmS30DNl79oTT8ZjnojSOs2K7egFiNJJ0cpwe1zNzLCpd++bctI6oGI7b181zvh2WxPGXmcrKtrr1G1VmLb0QYBdQc0fsNIdClC8wWVI8e9Y5EmQ2Jar45/ZLa6oODhpLRP2Yq/XxH6zoQ0RH40gcTHyMsc0nM0VBaU=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvl2s5WmL/JVspF/QXG21WufgnDApEDsNabymf07v8rf1eQYkftvJ3sbNaIZIWS28jsC+bq9IjwYS1y1AhjFfVcdbzpCJvCEo0SusM4Cw3/j+s1pScEkC+YOuR1j/hyj1oSV15IDbYkDltyKrP4RoV3SmJhkZz8vCCZBVltaO/6cq92qiqRo1ixt/NzFWI/MuMId+9e6qlzPJBIKWFczyhopQ5lY4+XWtfceVGWanA90u7rbvchDCrujwOql0bbVurc+uSLlPJnRli/1ADxyu8DqpKCOjRAY+c8utbfStnYdNWV9wZMKVgU+KabrVJPNvu2HnP9GDma2bAQeE4rNcsT9mNOqR/b2yVN3ysvtrkono0qsRnaoVLKfC48kLGd5CVE+bzEOC8M2A4xV8HkzwK1Y0QRPIR1wKEnzTw8fenL/CZt5VNN+u06IAkTWMt9UiQs2Y4Xxul6aJAsBji03HaO7zkKzFkHCs9fceaTPVaQLf2G4xOISals/bnpAp1cl2g==";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
