@@ -707,189 +707,185 @@ Contactez-nous pour plus d'informations :
         )}
       </main>
 
-      {/* Page de détail d'une villa */}
+      {/* Nouveau Modal Glassmorphism Tropical */}
       {showVillaDetail && selectedVilla && (
-        <div className="villa-detail-page">
-          <div className="villa-detail-container">
-            {/* Header de la fiche villa */}
-            <div className="villa-detail-header">
-              <button className="back-button" onClick={closeVillaDetail}>
+        <div className="villa-glassmorphism-modal" onClick={closeVillaDetail}>
+          <div className="villa-glassmorphism-container" onClick={(e) => e.stopPropagation()}>
+            {/* Header Glassmorphism */}
+            <div className="villa-glassmorphism-header">
+              <button className="villa-back-button" onClick={closeVillaDetail}>
                 <i className="fas fa-arrow-left"></i>
-                <span>Retour aux villas</span>
+                Retour aux villas
               </button>
+              <button className="villa-close-button" onClick={closeVillaDetail}>
+                ×
+              </button>
+            </div>
+
+            {/* Hero Section */}
+            <div className="villa-glassmorphism-hero">
+              <h1 className="villa-hero-title">
+                🏖️ {selectedVilla.name}
+              </h1>
+              <p className="villa-hero-location">
+                <i className="fas fa-map-marker-alt"></i> {selectedVilla.location}
+              </p>
+              <button 
+                className="villa-hero-cta"
+                onClick={() => openReservationFromDetail(selectedVilla)}
+              >
+                <i className="fas fa-calendar-check"></i> Réserver maintenant
+              </button>
+            </div>
+
+            {/* Grid Caractéristiques Tropicales */}
+            <div className="villa-characteristics-grid">
+              <div className="villa-characteristic-card">
+                <span className="villa-card-icon">🏊‍♀️</span>
+                <h3 className="villa-card-title">Piscine</h3>
+                <p className="villa-card-value">
+                  {selectedVilla.features.includes('Piscine') || selectedVilla.amenities.includes('Piscine') ? '8x4m privée' : 'Non disponible'}
+                </p>
+              </div>
               
-              <div className="villa-title-section">
-                <h1 className="villa-detail-title">
-                  🏖️ {selectedVilla.name}
-                </h1>
-                
-                {/* Badges informatifs */}
-                <div className="villa-badges">
-                  <span className="villa-badge primary">
-                    <i className="fas fa-map-marker-alt"></i>
-                    {selectedVilla.location.includes('mer') || selectedVilla.location.includes('Anne') || 
-                     selectedVilla.location.includes('Macabou') ? 'Villa Mer' : 'Villa Terre'}
-                  </span>
-                  <span className="villa-badge">
-                    <i className="fas fa-users"></i>
-                    {selectedVilla.guests} personnes
-                  </span>
-                  <span className="villa-badge">
-                    <i className="fas fa-bed"></i>
-                    {selectedVilla.name.includes('F5') ? '5' : 
-                     selectedVilla.name.includes('F3') ? '3' : 
-                     selectedVilla.name.includes('Studio') ? '1' : '3'} chambres
-                  </span>
-                  {selectedVilla.features.includes('Piscine') && (
-                    <span className="villa-badge">
-                      <i className="fas fa-swimming-pool"></i>
-                      Piscine privée
-                    </span>
-                  )}
-                  <span className="villa-badge location">
-                    <i className="fas fa-map-pin"></i>
-                    {selectedVilla.location.split(',')[0] || selectedVilla.location}
-                  </span>
-                </div>
+              <div className="villa-characteristic-card">
+                <span className="villa-card-icon">🛏️</span>
+                <h3 className="villa-card-title">Chambres</h3>
+                <p className="villa-card-value">
+                  {selectedVilla.name.includes('F5') ? '5 chambres' : 
+                   selectedVilla.name.includes('F3') ? '3 chambres' : 
+                   selectedVilla.name.includes('Studio') ? '1 chambre' : '3 chambres'}
+                </p>
+              </div>
+              
+              <div className="villa-characteristic-card">
+                <span className="villa-card-icon">🚿</span>
+                <h3 className="villa-card-title">Salles de bain</h3>
+                <p className="villa-card-value">
+                  {selectedVilla.name.includes('F5') ? '3 SDB' : 
+                   selectedVilla.name.includes('F3') ? '2 SDB' : 
+                   selectedVilla.name.includes('Studio') ? '1 SDB' : '2 SDB'}
+                </p>
+              </div>
+              
+              <div className="villa-characteristic-card">
+                <span className="villa-card-icon">🌊</span>
+                <h3 className="villa-card-title">Terrasse</h3>
+                <p className="villa-card-value">
+                  {selectedVilla.name.includes('F5') ? '120m²' : 
+                   selectedVilla.name.includes('F3') ? '80m²' : 
+                   selectedVilla.name.includes('Studio') ? '25m²' : '80m²'} vue mer
+                </p>
               </div>
             </div>
 
-            <div className="villa-detail-content">
-              {/* Image principale et galerie */}
-              <div className="villa-detail-media">
-                <div className="main-image-container">
-                  <img 
-                    src={`${process.env.REACT_APP_BACKEND_URL}${selectedVilla.image}`}
-                    alt={selectedVilla.name}
-                    className="villa-main-image"
-                    onClick={() => openImageGallery(selectedVilla, 0)}
-                  />
-                </div>
-                
-                {/* Galerie miniatures */}
-                <div className="villa-thumbnails">
-                  {selectedVilla.gallery && selectedVilla.gallery.slice(0, 6).map((image, index) => (
-                    <img 
-                      key={index}
-                      src={`${process.env.REACT_APP_BACKEND_URL}${image}`}
-                      alt={`${selectedVilla.name} - Image ${index + 1}`}
-                      className="villa-thumbnail"
-                      onClick={() => openImageGallery(selectedVilla, index)}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Informations et tarifs */}
-              <div className="villa-detail-info">
-                {/* Section Caractéristiques */}
-                <div className="villa-characteristics">
-                  <h3>
-                    <i className="fas fa-home"></i>
-                    Caractéristiques
-                  </h3>
-                  
-                  <div className="characteristic-item">
-                    <i className="fas fa-expand-arrows-alt"></i>
-                    <span>Surface :</span>
-                    <span>
-                      {selectedVilla.name.includes('F5') ? '250m²' : 
-                       selectedVilla.name.includes('F3') ? '150m²' : 
-                       selectedVilla.name.includes('Studio') ? '45m²' : '180m²'}
-                    </span>
-                  </div>
-                  
-                  <div className="characteristic-item">
-                    <i className="fas fa-bed"></i>
-                    <span>Chambres :</span>
-                    <span>
-                      {selectedVilla.name.includes('F5') ? '5 (avec clim)' : 
-                       selectedVilla.name.includes('F3') ? '3 (avec clim)' : 
-                       selectedVilla.name.includes('Studio') ? '1 (avec clim)' : '3 (avec clim)'}
-                    </span>
-                  </div>
-                  
-                  <div className="characteristic-item">
-                    <i className="fas fa-bath"></i>
-                    <span>Salles de bain :</span>
-                    <span>
-                      {selectedVilla.name.includes('F5') ? '3' : 
-                       selectedVilla.name.includes('F3') ? '2' : 
-                       selectedVilla.name.includes('Studio') ? '1' : '2'}
-                    </span>
-                  </div>
-                  
-                  {selectedVilla.features.includes('Piscine') && (
-                    <div className="characteristic-item">
-                      <i className="fas fa-swimming-pool"></i>
-                      <span>Piscine privée :</span>
-                      <span>8x4m</span>
-                    </div>
-                  )}
-                  
-                  <div className="characteristic-item">
-                    <i className="fas fa-users"></i>
-                    <span>Capacité :</span>
-                    <span>{selectedVilla.guests_detail}</span>
-                  </div>
-                </div>
-
-                {/* Section Tarifs */}
-                <div className="villa-pricing">
-                  <h3>
-                    <i className="fas fa-euro-sign"></i>
-                    Tarifs
-                  </h3>
-                  
-                  <div className="price-main">
-                    <span className="price-amount">{selectedVilla.price}€</span>
-                    <span className="price-unit">/ nuit</span>
-                  </div>
-                  
-                  <div className="price-info">
-                    <small>Tarif basse saison</small>
-                  </div>
-                  
+            {/* Section Tarifs avec Toggle */}
+            <div className="villa-pricing-section">
+              <div className="villa-pricing-header">
+                <h3 className="villa-pricing-title">
+                  <i className="fas fa-euro-sign"></i> Tarifs
+                </h3>
+                <div className="villa-season-toggle">
                   <button 
-                    className="btn-reserve-detail"
-                    onClick={() => openReservationFromDetail(selectedVilla)}
+                    className={`villa-season-button ${selectedSeason === 'basse' ? 'active' : ''}`}
+                    onClick={() => toggleSeason('basse')}
                   >
-                    <i className="fas fa-calendar-check"></i>
-                    Réserver maintenant
+                    Basse saison
+                  </button>
+                  <button 
+                    className={`villa-season-button ${selectedSeason === 'haute' ? 'active' : ''}`}
+                    onClick={() => toggleSeason('haute')}
+                  >
+                    Haute saison
                   </button>
                 </div>
-
-                {/* Section Description */}
-                <div className="villa-description">
-                  <h3>
-                    <i className="fas fa-info-circle"></i>
-                    À propos de cette villa
-                  </h3>
-                  <p>{selectedVilla.description}</p>
-                  
-                  <h4>Équipements inclus :</h4>
-                  <div className="amenities-list">
-                    {selectedVilla.amenities && selectedVilla.amenities.map((amenity, index) => (
-                      <span key={index} className="amenity-tag">
-                        <i className={
-                          amenity.includes('Piscine') ? 'fas fa-swimming-pool' :
-                          amenity.includes('WiFi') ? 'fas fa-wifi' :
-                          amenity.includes('Cuisine') ? 'fas fa-utensils' :
-                          amenity.includes('Climatisation') ? 'fas fa-snowflake' :
-                          amenity.includes('Sauna') ? 'fas fa-hot-tub' :
-                          amenity.includes('Jacuzzi') ? 'fas fa-spa' :
-                          amenity.includes('Vue') ? 'fas fa-eye' :
-                          amenity.includes('Terrasse') ? 'fas fa-building' :
-                          amenity.includes('Jardin') ? 'fas fa-seedling' :
-                          amenity.includes('Parking') ? 'fas fa-parking' :
-                          'fas fa-check'
-                        }></i>
-                        {amenity}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </div>
+              
+              <div className="villa-price-display">
+                <span className="villa-price-amount">{getCurrentPrice()}€</span>
+                <span className="villa-price-unit">/ nuit</span>
+              </div>
+              
+              <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '14px', fontFamily: 'Inter' }}>
+                {selectedSeason === 'basse' 
+                  ? 'Septembre - Novembre & Janvier - Mars' 
+                  : 'Décembre & Avril - Août (+30%)'}
+              </p>
+            </div>
+
+            {/* Description Immersive */}
+            <div className="villa-description-section">
+              <h3 className="villa-description-title">
+                <i className="fas fa-info-circle"></i> Description luxe tropical
+              </h3>
+              <p className="villa-description-text">
+                {selectedVilla.description || `Découvrez cette magnifique villa ${selectedVilla.name} située à ${selectedVilla.location}. 
+                Un véritable havre de paix tropical où le luxe rencontre l'authenticité caribéenne. 
+                Profitez d'un cadre exceptionnel avec toutes les commodités modernes pour des vacances inoubliables en Martinique.`}
+              </p>
+              
+              <h4 className="villa-description-title" style={{ fontSize: '20px', marginBottom: '16px' }}>
+                🏝️ Équipements tropicaux
+              </h4>
+              
+              <div className="villa-amenities-grid">
+                {selectedVilla.amenities && selectedVilla.amenities.map((amenity, index) => (
+                  <div key={index} className="villa-amenity-item">
+                    <i className={`villa-amenity-icon ${
+                      amenity.includes('Piscine') ? 'fas fa-swimming-pool' :
+                      amenity.includes('WiFi') ? 'fas fa-wifi' :
+                      amenity.includes('Cuisine') ? 'fas fa-utensils' :
+                      amenity.includes('Climatisation') ? 'fas fa-snowflake' :
+                      amenity.includes('Sauna') ? 'fas fa-hot-tub' :
+                      amenity.includes('Jacuzzi') ? 'fas fa-spa' :
+                      amenity.includes('Vue') ? 'fas fa-eye' :
+                      amenity.includes('Terrasse') ? 'fas fa-building' :
+                      amenity.includes('Jardin') ? 'fas fa-seedling' :
+                      amenity.includes('Parking') ? 'fas fa-parking' :
+                      'fas fa-check'
+                    }`}></i>
+                    <span className="villa-amenity-text">{amenity}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Section Localisation */}
+            <div className="villa-location-section">
+              <h3 className="villa-location-title">
+                <i className="fas fa-map-marker-alt"></i> Localisation & Distances
+              </h3>
+              
+              <ul className="villa-location-list">
+                <li className="villa-location-item">
+                  <i className="villa-location-icon fas fa-umbrella-beach"></i>
+                  <span className="villa-location-text">
+                    {selectedVilla.location.includes('Sainte-Anne') || selectedVilla.location.includes('Ste Anne') 
+                      ? 'Plage des Salines - 2km' 
+                      : selectedVilla.location.includes('Macabou') 
+                      ? 'Plage de Macabou - 1km'
+                      : selectedVilla.location.includes('Lamentin')
+                      ? 'Centre commercial - 5km'
+                      : 'Plages paradisiaques - 3km'}
+                  </span>
+                </li>
+                <li className="villa-location-item">
+                  <i className="villa-location-icon fas fa-plane"></i>
+                  <span className="villa-location-text">Aéroport Martinique - 45min</span>
+                </li>
+                <li className="villa-location-item">
+                  <i className="villa-location-icon fas fa-shopping-cart"></i>
+                  <span className="villa-location-text">Supermarché le plus proche - 10min</span>
+                </li>
+                <li className="villa-location-item">
+                  <i className="villa-location-icon fas fa-utensils"></i>
+                  <span className="villa-location-text">Restaurants créoles - 15min</span>
+                </li>
+                <li className="villa-location-item">
+                  <i className="villa-location-icon fas fa-sailboat"></i>
+                  <span className="villa-location-text">Marina & excursions - 20min</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
