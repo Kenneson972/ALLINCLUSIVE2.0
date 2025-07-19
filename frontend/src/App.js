@@ -416,14 +416,14 @@ Contactez-nous pour plus d'informations :
         if (e.key === 'Escape') closeReservationModal();
       }
       
-      if (showVillaDetail) {
+      if (currentView === 'villa') {
         if (e.key === 'Escape') closeVillaDetail();
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [showGalleryModal, showReservationModal, showVillaDetail, currentGallery.length]);
+  }, [showGalleryModal, showReservationModal, currentView, currentGallery.length]);
 
   return (
     <div className="App">
