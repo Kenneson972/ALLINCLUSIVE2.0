@@ -319,102 +319,143 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
-        /* ===== BARRE DE RECHERCHE INTELLIGENTE ===== */
+        /* ===== BARRE DE RECHERCHE STYLE BOOKING.COM ===== */
         
         .villa-search-form {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto;
-            gap: 20px;
-            position: relative;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            display: flex;
+            align-items: stretch;
+            gap: 0;
             box-shadow: 0 8px 32px rgba(30, 64, 175, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* CHAMP DE RECHERCHE DE LOCALISATION AVEC AUTOCOMPLETE */
+        /* CHAMPS DE RECHERCHE HORIZONTAUX */
+        .search-field {
+            padding: 16px 20px;
+            border: none;
+            background: transparent;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 200px;
+            flex: 1;
+        }
+
+        .search-field:last-child {
+            border-right: none;
+            flex: 0 0 auto;
+            min-width: auto;
+        }
+
+        .search-field:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-field label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* CHAMP LOCALISATION AVEC AUTOCOMPLETE */
         .location-field {
             position: relative;
         }
 
         .location-input {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            font-family: 'Inter', sans-serif;
+            border: none;
+            background: transparent;
+            color: #1f2937;
             font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .location-input:focus {
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
             outline: none;
-            border-color: #06b6d4;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+            width: 100%;
+            padding: 0;
         }
 
         .location-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: #9ca3af;
+            font-weight: 400;
         }
 
         /* DROPDOWN SUGGESTIONS LOCALISATION */
         .location-suggestions {
             position: absolute;
             top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
+            left: -20px;
+            right: -20px;
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             z-index: 1000;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
-            margin-top: 8px;
+            margin-top: 12px;
             border: 1px solid rgba(6, 182, 212, 0.2);
             display: none;
         }
 
         .suggestion-item {
-            padding: 15px 20px;
+            padding: 16px 24px;
             cursor: pointer;
             transition: all 0.2s ease;
-            color: #1e40af;
+            color: #374151;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .suggestion-item:hover {
-            background: rgba(6, 182, 212, 0.1);
-            color: #0891b2;
-            transform: translateX(5px);
+            background: rgba(59, 130, 246, 0.08);
+            color: #1d4ed8;
         }
 
         .suggestion-item:last-child {
             border-bottom: none;
         }
 
-        /* SÉLECTEUR VOYAGEURS - POSITION BAS DROITE */
-        .voyageurs-field.bottom-right-position {
-            grid-column: 4 / 5;  /* Dernière colonne */
-            grid-row: 2 / 3;     /* Deuxième ligne */
-            justify-self: end;   /* Alignement à droite */
-            align-self: end;     /* Alignement en bas */
-            min-width: 250px;
+        /* CHAMPS DATES */
+        .search-field input:not(.location-input):not(.voyageurs-display) {
+            border: none;
+            background: transparent;
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            width: 100%;
+            padding: 0;
+        }
+
+        .search-field input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        /* SÉLECTEUR VOYAGEURS */
+        .voyageurs-field {
+            position: relative;
         }
 
         .voyageurs-dropdown {
@@ -422,42 +463,34 @@
         }
 
         .voyageurs-display {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
+            border: none !important;
+            background: transparent !important;
+            color: #1f2937 !important;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            font-family: 'Inter', sans-serif !important;
+            outline: none !important;
+            width: 100% !important;
+            padding: 0 !important;
+            cursor: pointer !important;
         }
 
-        .voyageurs-display:hover {
-            border-color: #06b6d4;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-        }
-
-        /* DROPDOWN MENU VOYAGEURS */
+        /* DROPDOWN MENU VOYAGEURS - POSITION SOUS LE CHAMP */
         .voyageurs-menu {
             position: absolute;
             top: 100%;
-            right: 0;
-            min-width: 320px;
-            background: rgba(255, 255, 255, 0.95);
+            left: -20px;
+            right: -20px;
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             z-index: 1000;
-            margin-top: 8px;
-            border: 1px solid rgba(6, 182, 212, 0.2);
+            margin-top: 12px;
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            min-width: 320px;
         }
 
         .voyageur-row {
@@ -465,7 +498,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 16px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
         .voyageur-row:last-child {
@@ -479,17 +512,18 @@
 
         .voyageur-label {
             display: block;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
             font-size: 16px;
-            color: #1e40af;
-            margin-bottom: 4px;
+            color: #1f2937;
+            margin-bottom: 2px;
         }
 
         .voyageur-info small {
-            color: #64748b;
+            color: #6b7280;
             font-family: 'Inter', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 400;
         }
 
         /* COMPTEURS VOYAGEURS */
@@ -500,12 +534,12 @@
         }
 
         .counter-btn {
-            background: #06b6d4;
-            border: none;
-            width: 36px;
-            height: 36px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            color: white;
+            color: #6b7280;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -516,13 +550,14 @@
         }
 
         .counter-btn:hover:not(:disabled) {
-            background: #0891b2;
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: scale(1.05);
         }
 
         .counter-btn:disabled {
-            background: #cbd5e1;
+            background: #f9fafb;
+            color: #d1d5db;
             cursor: not-allowed;
             transform: none;
         }
@@ -530,55 +565,20 @@
         .counter-value {
             min-width: 40px;
             text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            color: #1e40af;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* STYLES GÉNÉRAUX DES CHAMPS DE RECHERCHE */
-        .search-field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .search-field label {
-            font-family: 'Poppins', sans-serif;
             font-weight: 600;
-            font-size: 14px;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .search-field input:not(.location-input):not(.voyageurs-display) {
-            padding: 15px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            font-family: 'Inter', sans-serif;
             font-size: 16px;
-            transition: all 0.3s ease;
+            color: #1f2937;
+            font-family: 'Inter', sans-serif;
         }
 
-        .search-field input:focus {
-            outline: none;
-            border-color: #06b6d4;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-        }
-
+        /* BOUTON RECHERCHER */
         .search-btn {
-            background: linear-gradient(135deg, #1e40af 0%, #06b6d4 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
             border: none;
             color: white;
-            padding: 15px 25px;
+            padding: 16px 32px;
             border-radius: 12px;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
             font-size: 16px;
             cursor: pointer;
@@ -586,42 +586,65 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-top: 28px;
+            gap: 8px;
+            white-space: nowrap;
         }
 
         .search-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.3);
         }
 
         /* RESPONSIVE */
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
             .villa-search-form {
-                grid-template-columns: repeat(3, 1fr);
+                flex-wrap: wrap;
+                gap: 8px;
             }
             
-            .voyageurs-field.bottom-right-position {
-                grid-column: 3 / 4;
-                grid-row: 2 / 3;
+            .search-field {
+                min-width: 180px;
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+            
+            .search-field:last-child {
+                border-bottom: none;
+                width: 100%;
+                justify-content: center;
             }
         }
 
         @media (max-width: 768px) {
             .villa-search-form {
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-                padding: 20px;
+                flex-direction: column;
+                padding: 16px;
             }
             
-            .voyageurs-field.bottom-right-position {
-                grid-column: 2 / 3;
-                grid-row: 3 / 4;
+            .search-field {
+                border: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 min-width: auto;
+                padding: 16px 0;
+            }
+            
+            .search-field:last-child {
+                border-bottom: none;
+                padding-top: 20px;
+            }
+            
+            .voyageurs-menu {
+                left: -16px;
+                right: -16px;
+            }
+            
+            .location-suggestions {
+                left: -16px;
+                right: -16px;
             }
         }
         
-        /* ===== FIN BARRE DE RECHERCHE INTELLIGENTE ===== */
+        /* ===== FIN BARRE DE RECHERCHE STYLE BOOKING.COM ===== */
         
         .search-field {
             padding: 16px 20px;
