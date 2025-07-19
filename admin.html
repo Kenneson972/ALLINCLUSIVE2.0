@@ -422,25 +422,9 @@
     </style>
 </head>
 <body>
-    <!-- Container pour la vidéo background -->
+    <!-- Container pour la vidéo background YouTube -->
     <div class="video-background">
-        <!-- Vidéo en fond d'écran avec Google Drive -->
-        <video 
-            autoplay 
-            muted 
-            loop 
-            playsinline 
-            preload="auto"
-        >
-            <!-- Source principale - Google Drive -->
-            <source src="https://drive.google.com/uc?export=view&id=1itDRVOJqNI3fPmJMnJJ2JgDj-Pb7LsLc" type="video/mp4">
-            
-            <!-- Sources de fallback -->
-            <source src="background-video.mp4.mp4" type="video/mp4">
-            
-            <!-- Message de fallback pour les navigateurs qui ne supportent pas la vidéo -->
-            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
-        </video>
+        <div id="youtube-background-admin" class="youtube-background-container"></div>
         <div class="video-overlay"></div>
     </div>
 
