@@ -23,7 +23,7 @@
             position: relative;
         }
 
-        /* Container principal pour la vidéo background */
+        /* Container principal pour la vidéo background YouTube */
         .video-background {
             position: fixed;
             top: 0;
@@ -32,7 +32,7 @@
             height: 100%;
             z-index: -2;
             overflow: hidden;
-            /* Magnifique fallback animé si pas de vidéo */
+            /* Magnifique fallback animé si YouTube ne charge pas */
             background: linear-gradient(
                 45deg,
                 #667eea 0%,
@@ -45,6 +45,27 @@
             animation: tropical-gradient 15s ease infinite;
         }
 
+        .youtube-background-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .youtube-background-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
         /* Animation du gradient tropical */
         @keyframes tropical-gradient {
             0% { background-position: 0% 50%; }
@@ -52,31 +73,6 @@
             50% { background-position: 100% 100%; }
             75% { background-position: 0% 100%; }
             100% { background-position: 0% 50%; }
-        }
-
-        /* Vidéo en fond d'écran */
-        .video-background video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            /* Assure que la vidéo couvre tout l'écran sans déformation */
-            z-index: 1;
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 2;
         }
 
         /* Login Container */
