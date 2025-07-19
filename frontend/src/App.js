@@ -352,8 +352,16 @@ Contactez-nous pour plus d'informations :
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (showGalleryModal) {
-        if (e.key === 'ArrowLeft') previousImage();
-        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') {
+          setCurrentGalleryIndex((prevIndex) => 
+            (prevIndex - 1 + currentGallery.length) % currentGallery.length
+          );
+        }
+        if (e.key === 'ArrowRight') {
+          setCurrentGalleryIndex((prevIndex) => 
+            (prevIndex + 1) % currentGallery.length
+          );
+        }
         if (e.key === 'Escape') closeImageGallery();
       }
       
@@ -364,7 +372,7 @@ Contactez-nous pour plus d'informations :
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [showGalleryModal, showReservationModal, currentGalleryIndex, currentGallery.length]);
+  }, [showGalleryModal, showReservationModal, currentGallery.length]);
 
   return (
     <div className="App">
