@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="villa-title">Villa Details - KhanelConcept</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Découvrez tous les détails de votre villa de luxe en Martinique - KhanelConcept">
+    <meta name="keywords" content="villa, martinique, location, luxe, détails, réservation">
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <style>
+        /* Variables CSS héritées de l'index */
+        :root {
+            --primary-color: #0080ff;
+            --secondary-color: #00bcd4;
+            --accent-color: #ff6b35;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --glass-background: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, rgba(0, 128, 255, 0.3), rgba(0, 188, 212, 0.2));
+            min-height: 100vh;
+        }
+
+        /* Background Video */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 128, 255, 0.4) 0%, rgba(0, 188, 212, 0.3) 50%, rgba(255, 107, 53, 0.2) 100%);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 1000;
+            padding: 0 1rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 90px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Villa Details Layout */
+        .villa-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        /* Villa Header */
+        .villa-header {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .villa-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .villa-location {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .villa-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .villa-price small {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: normal;
+        }
+
+        .villa-guests-detail {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        /* Gallery Section */
+        .villa-gallery {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 3rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Info Section */
+        .villa-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card p, .info-card ul {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: var(--accent-color);
+            width: 20px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Catalogue Images */
+        .catalogue-images {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .catalogue-images h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .catalogue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .catalogue-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .catalogue-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .catalogue-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Reservation Section */
+        .reservation-section {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .reservation-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .reservation-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .btn-reserve {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #e55a2b 100%);
+            color: white;
+            padding: 1.25rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-reserve:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-reserve i {
+            font-size: 1.3rem;
+        }
+
+        /* Modal Gallery */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .modal-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-prev {
+            left: -60px;
+        }
+
+        .modal-next {
+            right: -60px;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .villa-name {
+                font-size: 2rem;
+            }
+
+            .villa-price {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .info-card {
+                padding: 1.5rem;
+            }
+
+            .modal-nav {
+                display: none;
+            }
+
+            .modal-content {
+                max-width: 95vw;
+            }
+
+            .btn-reserve {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="window.location.href='index.html'">
+                <i class="fas fa-palm-tree"></i>
+                KhanelConcept
+            </div>
+            
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Chargement des détails de la villa...</p>
+            </div>
+
+            <!-- Villa Details -->
+            <div id="villa-details" class="villa-details" style="display: none;">
+                <!-- Villa Header -->
+                <section class="villa-header">
+                    <h1 class="villa-name" id="villa-name">Villa Name</h1>
+                    <div class="villa-location" id="villa-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Location</span>
+                    </div>
+                    <div class="villa-price" id="villa-price">
+                        0€ <small>/nuit</small>
+                    </div>
+                    <div class="villa-guests-detail" id="villa-guests-detail">
+                        Capacité d'accueil
+                    </div>
+                </section>
+
+                <!-- Gallery Section -->
+                <section class="villa-gallery">
+                    <h2 class="gallery-title">
+                        <i class="fas fa-images"></i>
+                        Galerie Photos
+                    </h2>
+                    <div class="gallery-grid" id="gallery-grid">
+                        <!-- Images will be loaded dynamically -->
+                    </div>
+                </section>
+
+                <!-- Villa Information -->
+                <section class="villa-info">
+                    <!-- Description -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> Description</h3>
+                        <p id="villa-description">Description de la villa...</p>
+                        <div id="villa-features">Features will be loaded here</div>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-star"></i> Équipements</h3>
+                        <ul id="villa-amenities">
+                            <!-- Amenities will be loaded dynamically -->
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Catalogue Images Section -->
+                <section class="catalogue-images" id="catalogue-section">
+                    <h3>
+                        <i class="fas fa-file-image"></i>
+                        Informations & Tarifs Détaillés
+                    </h3>
+                    <div class="catalogue-grid" id="catalogue-grid">
+                        <!-- Catalogue images will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Reservation Section -->
+                <section class="reservation-section">
+                    <h2 class="reservation-title">
+                        <i class="fas fa-calendar-check"></i>
+                        Prêt à réserver ?
+                    </h2>
+                    <p class="reservation-subtitle">
+                        Contactez-nous pour vérifier les disponibilités et finaliser votre réservation
+                    </p>
+                    <a href="#" class="btn-reserve" id="btn-reserve">
+                        <i class="fas fa-phone"></i>
+                        Réserver Maintenant
+                    </a>
+                </section>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-state" class="loading" style="display: none;">
+                <p><i class="fas fa-exclamation-triangle"></i> Villa non trouvée</p>
+                <a href="index.html" class="back-btn">Retour à l'accueil</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Gallery Modal -->
+    <div id="gallery-modal" class="gallery-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeGalleryModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="modal-nav modal-prev" onclick="previousModalImage()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <img id="modal-image" class="modal-image" src="" alt="">
+            <button class="modal-nav modal-next" onclick="nextModalImage()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Villa Data from backend structure
+        const villasData = [
+            {
+                id: 1,
+                name: "Villa F3 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 850.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 invités",
+                features: "Sauna, Jacuzzi, 2 douches extérieures",
+                category: "sejour",
+                image: "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                gallery: [
+                    "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+                    "./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+                    "./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+                    "./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
+                ],
+                fallbackIcon: "🏊",
+                amenities: ["Piscine", "Sauna", "Jacuzzi", "Cuisine équipée", "WiFi", "Climatisation"],
+                description: "Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un séjour de détente en famille.",
+                catalogueImages: ["./images/Villa_F3_Petit_Macabou/09_informations_catalogue.jpg"]
+            },
+            {
+                id: 2,
+                name: "Villa F5 Ste Anne",
+                location: "Quartier Les Anglais, Ste Anne",
+                price: 1300.0,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 invités",
+                features: "Piscine, décoration rose distinctive",
+                category: "sejour",
+                image: "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                gallery: [
+                    "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+                    "./images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+                    "./images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+                    "./images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+                    "./images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
+                ],
+                fallbackIcon: "🌸",
+                amenities: ["Piscine", "Cuisine moderne", "Grande terrasse", "WiFi", "Climatisation", "Parking"],
+                description: "Villa F5 distinctive avec sa décoration rose, idéale pour grands groupes et fêtes.",
+                catalogueImages: ["./images/Villa_F5_Ste_Anne/10_informations_catalogue.jpg"]
+            },
+            {
+                id: 22,
+                name: "Villa F6 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 2000.0,
+                guests: 13,
+                guestsDetail: "10 à 13 personnes (14 max)",
+                features: "3 chambres climatisées, 1 mezzanine, 2 studios aux extrémités",
+                category: "fete",
+                image: "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                gallery: [
+                    "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+                    "./images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+                    "./images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+                ],
+                fallbackIcon: "🎊",
+                amenities: ["3 chambres climatisées", "1 mezzanine", "2 studios aux extrémités", "Piscine", "Terrasse couverte", "WiFi", "Climatisation", "Cuisine moderne"],
+                description: "Villa F6 exceptionnelle à Petit Macabou avec 3 chambres climatisées avec salle d'eau attenante, 1 mezzanine et 2 studios aux extrémités. Fête autorisée de 09h à 19h, 30 convives max. Possibilité de louer en supplément les 3 bungalows avec SDB à 5 punch chacun situés sur le même terrain. Piscine et fêtes jusqu'à 150 convives.",
+                catalogueImages: ["./images/Villa_F6_Petit_Macabou/11_informations_catalogue.jpg"]
+            }
+            // Add more villas as needed
+        ];
+
+        // Global variables
+        let currentVilla = null;
+        let currentModalImageIndex = 0;
+        let modalImages = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVillaDetails();
+        });
+
+        function loadVillaDetails() {
+            // Get villa ID from URL parameters or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const villaId = urlParams.get('id') || localStorage.getItem('selectedVillaId');
+            
+            if (!villaId) {
+                showErrorState();
+                return;
+            }
+
+            // Find villa in data
+            currentVilla = villasData.find(villa => villa.id == villaId);
+            
+            if (!currentVilla) {
+                showErrorState();
+                return;
+            }
+
+            // Display villa details
+            setTimeout(() => {
+                displayVillaDetails(currentVilla);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('villa-details').style.display = 'block';
+            }, 800);
+        }
+
+        function displayVillaDetails(villa) {
+            // Update page title
+            document.title = `${villa.name} - KhanelConcept`;
+            document.getElementById('villa-title').textContent = `${villa.name} - KhanelConcept`;
+
+            // Update villa header
+            document.getElementById('villa-name').textContent = villa.name;
+            document.getElementById('villa-location').querySelector('span').textContent = villa.location;
+            document.getElementById('villa-price').innerHTML = `${villa.price}€ <small>/nuit</small>`;
+            document.getElementById('villa-guests-detail').textContent = villa.guestsDetail;
+
+            // Update description
+            document.getElementById('villa-description').textContent = villa.description;
+            document.getElementById('villa-features').innerHTML = `<p><strong>Caractéristiques:</strong> ${villa.features}</p>`;
+
+            // Update amenities
+            const amenitiesList = document.getElementById('villa-amenities');
+            amenitiesList.innerHTML = villa.amenities.map(amenity => 
+                `<li><i class="fas fa-check"></i> ${amenity}</li>`
+            ).join('');
+
+            // Load gallery
+            loadGallery(villa.gallery, villa.fallbackIcon);
+
+            // Load catalogue images
+            loadCatalogueImages(villa);
+
+            // Update reservation button
+            document.getElementById('btn-reserve').onclick = function() {
+                // For now, we'll create a simple alert
+                // Later this will navigate to reservation.html
+                alert(`Réservation pour ${villa.name}\nPrix: ${villa.price}€/nuit\nCapacité: ${villa.guestsDetail}\n\nContactez-nous pour finaliser votre réservation!`);
+            };
+        }
+
+        function loadGallery(gallery, fallbackIcon) {
+            const galleryGrid = document.getElementById('gallery-grid');
+            modalImages = [...gallery];
+            
+            galleryGrid.innerHTML = gallery.map((image, index) => `
+                <div class="gallery-item" onclick="openGalleryModal(${index})">
+                    <img src="${image}" 
+                         alt="Photo ${index + 1}" 
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="gallery-fallback" style="display: none;">
+                        ${fallbackIcon}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadCatalogueImages(villa) {
+            // List of possible catalogue image patterns
+            const possibleCatalogueImages = [
+                `./images/${villa.name.replace(/\s+/g, '_')}/informations_catalogue.jpg`,
+                `./images/${villa.name.replace(/\s+/g, '_')}/tarifs_conditions.jpg`,
+                `./images/${villa.name.replace(/\s+/g, '_')}/description_${villa.name.toLowerCase().replace(/\s+/g, '_')}.jpg`,
+                `./images/${villa.name.replace(/\s+/g, '_')}/09_informations_catalogue.jpg`,
+                `./images/${villa.name.replace(/\s+/g, '_')}/10_informations_catalogue.jpg`,
+                `./images/${villa.name.replace(/\s+/g, '_')}/11_informations_catalogue.jpg`,
+                `./images/${villa.name.replace(/\s+/g, '_')}/08_informations_tarifs.jpg`
+            ];
+
+            const catalogueGrid = document.getElementById('catalogue-grid');
+            let catalogueHTML = '';
+            let hasValidImages = false;
+
+            // Test each possible image
+            possibleCatalogueImages.forEach((imagePath, index) => {
+                catalogueHTML += `
+                    <div class="catalogue-item" onclick="openCatalogueImage('${imagePath}')">
+                        <img src="${imagePath}" 
+                             alt="Informations ${index + 1}" 
+                             onload="this.parentElement.style.display='block'; catalogueImageLoaded();"
+                             onerror="this.parentElement.style.display='none';"
+                             style="width: 100%; height: auto;">
+                    </div>
+                `;
+            });
+
+            catalogueGrid.innerHTML = catalogueHTML;
+
+            // Hide section if no images load
+            setTimeout(() => {
+                const visibleCatalogueItems = catalogueGrid.querySelectorAll('.catalogue-item[style*="display: block"], .catalogue-item:not([style*="display: none"])');
+                if (visibleCatalogueItems.length === 0) {
+                    document.getElementById('catalogue-section').style.display = 'none';
+                }
+            }, 2000);
+        }
+
+        function catalogueImageLoaded() {
+            // This function is called when a catalogue image loads successfully
+            // We can use it to show the catalogue section
+            document.getElementById('catalogue-section').style.display = 'block';
+        }
+
+        function openCatalogueImage(imagePath) {
+            // Open catalogue image in modal
+            modalImages = [imagePath];
+            currentModalImageIndex = 0;
+            openGalleryModal(0);
+        }
+
+        function showErrorState() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-state').style.display = 'block';
+        }
+
+        // Gallery Modal Functions
+        function openGalleryModal(imageIndex) {
+            currentModalImageIndex = imageIndex;
+            document.getElementById('modal-image').src = modalImages[imageIndex];
+            document.getElementById('gallery-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('gallery-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextModalImage() {
+            currentModalImageIndex = (currentModalImageIndex + 1) % modalImages.length;
+            document.getElementById('modal-image').src = modalImages[currentModalImageIndex];
+        }
+
+        function previousModalImage() {
+            currentModalImageIndex = (currentModalImageIndex - 1 + modalImages.length) % modalImages.length;
+            document.getElementById('modal-image').src = modalImages[currentModalImageIndex];
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeGalleryModal();
+            }
+            if (event.key === 'ArrowLeft') {
+                previousModalImage();
+            }
+            if (event.key === 'ArrowRight') {
+                nextModalImage();
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('gallery-modal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeGalleryModal();
+            }
+        });
+    </script>
+</body>
+</html>
