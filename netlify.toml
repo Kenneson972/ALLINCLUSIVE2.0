@@ -1,20 +1,37 @@
 [build]
-  publish = "."
-  command = "echo 'Build complete'"
+  command = "cd frontend && yarn build"
+  publish = "frontend/build"
+
+[[plugins]]
+  package = "netlify-plugin-cloudinary"
+
+  [plugins.inputs]
+    cloudName = "ddulasmtz"
+    imagesPath = ["/images", "/videos", "/static"]
+    deliveryType = "fetch"
+
+[build.environment]
+  CLOUDINARY_CLOUD_NAME = "ddulasmtz"
 
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
+    X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "same-origin"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net;"
+    Referrer-Policy = "strict-origin-when-cross-origin"
 
-[build.environment]
-  NODE_VERSION = "18"
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.mp4"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "video/mp4"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/admin"
+  to = "/admin.html"
   status = 200
