@@ -334,13 +334,17 @@ function App() {
 
   const viewDetails = (villa) => {
     setSelectedVilla(villa);
-    setShowVillaDetail(true);
+    setCurrentView('villa');
+    // Mettre à jour l'URL du navigateur
+    window.history.pushState({}, '', `/villa/${villa.id}`);
   };
 
   const closeVillaDetail = () => {
-    setShowVillaDetail(false);
+    setCurrentView('home');
     setSelectedVilla(null);
     setSelectedSeason('basse');
+    // Retourner à l'URL principale
+    window.history.pushState({}, '', '/');
   };
 
   const toggleSeason = (season) => {
