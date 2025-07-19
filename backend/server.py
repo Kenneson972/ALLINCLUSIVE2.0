@@ -435,14 +435,12 @@ villas_data = [
 async def startup_db_client():
     """Initialiser la base de données avec les données des villas"""
     try:
-        # Vérifier si les villas existent déjà
-        existing_villas = await db.villas.count_documents({})
-        if existing_villas == 0:
-            # Insérer les données initiales des villas
-            await db.villas.insert_many(villas_data)
-            print(f"✅ {len(villas_data)} villas ajoutées à la base de données")
-        else:
-            print(f"✅ {existing_villas} villas déjà présentes dans la base de données")
+        # Supprimer toutes les villas existantes et recharger les nouvelles données
+        await db.villas.delete_many({})
+        
+        # Insérer les nouvelles données des villas (21 villas)
+        await db.villas.insert_many(villas_data)
+        print(f"✅ {len(villas_data)} villas ajoutées à la base de données")
             
         # Créer les index
         await db.villas.create_index("id", unique=True)
