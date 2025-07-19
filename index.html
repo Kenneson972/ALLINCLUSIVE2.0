@@ -1921,40 +1921,50 @@
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
 
-            // Calendriers de la barre de recherche
-            checkinCalendar = flatpickr("#checkin", {
-                locale: "fr",
-                minDate: today,
-                dateFormat: "d/m/Y",
-                placeholder: "Date d'arrivée",
-                allowInput: true,
-                clickOpens: true,
-                disableMobile: false,
-                onChange: function(selectedDates) {
-                    if (selectedDates[0]) {
-                        const nextDay = new Date(selectedDates[0]);
-                        nextDay.setDate(nextDay.getDate() + 1);
-                        checkoutCalendar.set('minDate', nextDay);
-                        // Mettre à jour placeholder
-                        document.getElementById('checkin').placeholder = 'Date d\'arrivée sélectionnée';
-                    }
-                }
-            });
+            // Initialiser les calendriers avec un délai pour être sûr que Flatpickr est bien chargé
+            setTimeout(() => {
+                if (typeof flatpickr !== 'undefined') {
+                    console.log("✅ Flatpickr est disponible, initialisation des calendriers...");
+                    
+                    // Calendriers de la barre de recherche
+                    checkinCalendar = flatpickr("#checkin", {
+                        locale: "fr",
+                        minDate: today,
+                        dateFormat: "d/m/Y",
+                        placeholder: "Date d'arrivée",
+                        allowInput: true,
+                        clickOpens: true,
+                        disableMobile: false,
+                        onChange: function(selectedDates) {
+                            if (selectedDates[0]) {
+                                const nextDay = new Date(selectedDates[0]);
+                                nextDay.setDate(nextDay.getDate() + 1);
+                                checkoutCalendar.set('minDate', nextDay);
+                                console.log("📅 Date d'arrivée sélectionnée:", selectedDates[0]);
+                            }
+                        }
+                    });
 
-            checkoutCalendar = flatpickr("#checkout", {
-                locale: "fr",
-                minDate: tomorrow,
-                dateFormat: "d/m/Y",
-                placeholder: "Date de départ",
-                allowInput: true,
-                clickOpens: true,
-                disableMobile: false,
-                onChange: function(selectedDates) {
-                    if (selectedDates[0]) {
-                        document.getElementById('checkout').placeholder = 'Date de départ sélectionnée';
-                    }
+                    checkoutCalendar = flatpickr("#checkout", {
+                        locale: "fr",
+                        minDate: tomorrow,
+                        dateFormat: "d/m/Y",
+                        placeholder: "Date de départ",
+                        allowInput: true,
+                        clickOpens: true,
+                        disableMobile: false,
+                        onChange: function(selectedDates) {
+                            if (selectedDates[0]) {
+                                console.log("📅 Date de départ sélectionnée:", selectedDates[0]);
+                            }
+                        }
+                    });
+                    
+                    console.log("✅ Calendriers initialisés avec succès");
+                } else {
+                    console.error("❌ Flatpickr n'est pas disponible");
                 }
-            });
+            }, 100);
 
             // Forcer l'ouverture des calendriers au clic
             document.getElementById('checkin').addEventListener('click', function() {
