@@ -667,6 +667,223 @@ async def get_dashboard_stats():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur statistiques: {e}")
 
+# ========== FONCTIONS D'AUTHENTIFICATION ==========
+
+def verify_password(plain_password, hashed_password):
+    """Vérifier le mot de passe"""
+    return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
+
+def authenticate_user(username: str, password: str):
+    """Authentifier un utilisateur"""
+    user = ADMIN_USERS.get(username)
+    if not user:
+        return False
+    if not verify_password(password, user["hashed_password"]):
+        return False
+    return user
+
+def create_access_token(data: dict):
+    """Créer un token JWT"""
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+def verify_token(token: str):
+    """Vérifier un token JWT"""
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            return None
+        return username
+    except JWTError:
+        return None
+
+# ========== ROUTES D'AUTHENTIFICATION ==========
+
+@app.post("/api/admin/login", response_model=Token)
+async def admin_login(login_data: AdminLogin):
+    """Connexion administrateur"""
+    user = authenticate_user(login_data.username, login_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Identifiants incorrects",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token = create_access_token(data={"sub": user["username"], "role": user["role"]})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@app.post("/api/admin/verify-token")
+async def verify_admin_token(token: str):
+    """Vérifier un token admin"""
+    username = verify_token(token)
+    if username is None:
+        raise HTTPException(status_code=401, detail="Token invalide")
+    return {"valid": True, "username": username}
+
+# ========== ROUTES ADMIN SÉCURISÉES ==========
+
+@app.get("/api/admin/villas", response_model=List[Villa])
+async def get_admin_villas():
+    """Récupérer toutes les villas (admin)"""
+    try:
+        villas = await db.villas.find({}).to_list(1000)
+        return villas
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.post("/api/admin/villas", response_model=dict)
+async def create_villa(villa_data: VillaCreate):
+    """Créer une nouvelle villa (admin)"""
+    try:
+        # Générer un nouvel ID
+        villa_count = await db.villas.count_documents({})
+        new_id = str(villa_count + 1)
+        
+        villa_dict = villa_data.dict()
+        villa_dict["id"] = new_id
+        villa_dict["image"] = f"./images/villa_{new_id}.jpg"
+        villa_dict["gallery"] = [f"./images/villa_{new_id}.jpg"]
+        villa_dict["fallback_icon"] = "🏖️"
+        
+        result = await db.villas.insert_one(villa_dict)
+        
+        if result.inserted_id:
+            return {"success": True, "villa_id": new_id, "message": "Villa créée avec succès"}
+        else:
+            raise HTTPException(status_code=500, detail="Erreur lors de la création")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.put("/api/admin/villas/{villa_id}")
+async def update_villa(villa_id: str, villa_data: VillaUpdate):
+    """Mettre à jour une villa (admin)"""
+    try:
+        update_data = {k: v for k, v in villa_data.dict().items() if v is not None}
+        
+        result = await db.villas.update_one(
+            {"id": villa_id},
+            {"$set": update_data}
+        )
+        
+        if result.modified_count:
+            return {"success": True, "message": "Villa mise à jour"}
+        else:
+            raise HTTPException(status_code=404, detail="Villa non trouvée")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.delete("/api/admin/villas/{villa_id}")
+async def delete_villa(villa_id: str):
+    """Supprimer une villa (admin)"""
+    try:
+        # Vérifier s'il y a des réservations actives
+        active_reservations = await db.reservations.count_documents({
+            "villa_id": villa_id,
+            "status": {"$in": ["pending", "confirmed"]}
+        })
+        
+        if active_reservations > 0:
+            raise HTTPException(
+                status_code=400, 
+                detail="Impossible de supprimer une villa avec des réservations actives"
+            )
+        
+        result = await db.villas.delete_one({"id": villa_id})
+        
+        if result.deleted_count:
+            return {"success": True, "message": "Villa supprimée"}
+        else:
+            raise HTTPException(status_code=404, detail="Villa non trouvée")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.get("/api/admin/reservations")
+async def get_all_reservations():
+    """Récupérer toutes les réservations (admin)"""
+    try:
+        reservations = await db.reservations.find({}).sort("created_at", -1).to_list(1000)
+        return reservations
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.put("/api/admin/reservations/{reservation_id}/status")
+async def update_reservation_status_admin(reservation_id: str, status_update: ReservationStatusUpdate):
+    """Mettre à jour le statut d'une réservation (admin)"""
+    valid_statuses = ["pending", "confirmed", "cancelled"]
+    if status_update.status not in valid_statuses:
+        raise HTTPException(status_code=400, detail="Statut invalide")
+    
+    try:
+        result = await db.reservations.update_one(
+            {"id": reservation_id},
+            {
+                "$set": {
+                    "status": status_update.status,
+                    "updated_at": datetime.utcnow()
+                }
+            }
+        )
+        
+        if result.modified_count:
+            return {"success": True, "message": "Statut mis à jour"}
+        else:
+            raise HTTPException(status_code=404, detail="Réservation non trouvée")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.get("/api/admin/stats/detailed")
+async def get_detailed_stats():
+    """Statistiques détaillées pour l'admin"""
+    try:
+        # Compter les villas par catégorie
+        villa_stats = await db.villas.aggregate([
+            {"$group": {"_id": "$category", "count": {"$sum": 1}}}
+        ]).to_list(None)
+        
+        # Compter les réservations par statut
+        reservation_stats = await db.reservations.aggregate([
+            {"$group": {"_id": "$status", "count": {"$sum": 1}, "total_revenue": {"$sum": "$total_price"}}}
+        ]).to_list(None)
+        
+        # Revenus par mois
+        start_of_year = datetime.utcnow().replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
+        monthly_stats = await db.reservations.aggregate([
+            {
+                "$match": {
+                    "created_at": {"$gte": start_of_year},
+                    "status": {"$in": ["confirmed", "pending"]}
+                }
+            },
+            {
+                "$group": {
+                    "_id": {
+                        "year": {"$year": "$created_at"},
+                        "month": {"$month": "$created_at"}
+                    },
+                    "reservations": {"$sum": 1},
+                    "revenue": {"$sum": "$total_price"}
+                }
+            },
+            {"$sort": {"_id.year": 1, "_id.month": 1}}
+        ]).to_list(None)
+        
+        return {
+            "villa_stats": villa_stats,
+            "reservation_stats": reservation_stats,
+            "monthly_stats": monthly_stats
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur statistiques détaillées: {e}")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
