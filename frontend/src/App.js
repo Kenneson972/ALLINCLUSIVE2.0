@@ -484,7 +484,7 @@ Contactez-nous pour plus d'informations :
                 <button className={`filter-btn ${searchFilters.category === 'special' ? 'active' : ''}`} onClick={() => filterVillas('special')}>Spéciales</button>
               </div>
               
-              <h2>🏖️ Nos Villas de Luxe</h2>
+              <h2>🏖️ Nos 21 Villas de Luxe</h2>
               
               {/* Message de statut */}
               {statusMessage.text && (
