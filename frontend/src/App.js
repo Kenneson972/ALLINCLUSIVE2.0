@@ -13,6 +13,10 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [currentSection, setCurrentSection] = useState('home');
   
+  // États pour la vue détaillée des villas
+  const [showVillaDetail, setShowVillaDetail] = useState(false);
+  const [selectedVilla, setSelectedVilla] = useState(null);
+  
   // États pour la réservation
   const [showReservationModal, setShowReservationModal] = useState(false);
   const [currentVilla, setCurrentVilla] = useState(null);
