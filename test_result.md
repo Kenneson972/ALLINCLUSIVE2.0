@@ -44,9 +44,12 @@ backend:
     priority: "high"
     needs_retesting: false
     status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ FAILED - Admin reservation management endpoint had MongoDB ObjectId serialization error causing 500 internal server error."
       - working: true
         agent: "testing"
-        comment: "✅ PASSED - Admin reservation management endpoint GET /api/admin/reservations working correctly. Returns reservation list with proper structure. Currently 0 reservations but endpoint is functional and ready for data."
+        comment: "✅ PASSED - Fixed MongoDB ObjectId serialization issue by excluding _id field from query projection. Admin reservation management endpoint GET /api/admin/reservations now working correctly. Returns reservation list with proper structure and can handle multiple reservations. Tested with 2 sample reservations successfully."
 
   - task: "Public Villa API Endpoints"
     implemented: true
