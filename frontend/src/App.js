@@ -344,16 +344,18 @@ function App() {
     setSelectedVilla(null);
   };
 
-  const activateVideo = () => {
-    const video = document.querySelector('.background-video');
-    if (video) {
-      video.play()
-        .then(() => {
-          console.log('✅ Vidéo activée avec succès !');
-          setVideoPlaying(true);
-        })
-        .catch(err => console.error('❌ Erreur activation vidéo:', err));
-    }
+  const openReservationFromDetail = (villa) => {
+    setCurrentVilla(villa);
+    setReservationData({
+      customerName: '',
+      customerEmail: '',
+      customerPhone: '',
+      checkinDate: searchFilters.checkin || '',
+      checkoutDate: searchFilters.checkout || '',
+      guestsCount: searchFilters.guests || '',
+      message: ''
+    });
+    setShowReservationModal(true);
   };
     setCurrentVilla(villa);
     setReservationData({
