@@ -1862,57 +1862,44 @@
         }
     </script>
     
-    <!-- Script YouTube Background pour HTML Statique -->
+    <!-- Script Cloudinary Background pour HTML Statique -->
     <script>
-        // YouTube Background Video
-        function loadYouTubeAPI() {
-            const tag = document.createElement('script');
-            tag.src = 'https://www.youtube.com/iframe_api';
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-
-        // Fonction globale requise par l'API YouTube
-        window.onYouTubeIframeAPIReady = function() {
-            new YT.Player('youtube-background-static', {
-                height: '100%',
-                width: '100%',
-                videoId: 'STVVF6IiGIc',
-                playerVars: {
-                    autoplay: 1,
-                    mute: 1,
-                    loop: 1,
-                    controls: 0,
-                    showinfo: 0,
-                    rel: 0,
-                    iv_load_policy: 3,
-                    modestbranding: 1,
-                    playsinline: 1,
-                    enablejsapi: 1,
-                    origin: window.location.origin,
-                    playlist: 'STVVF6IiGIc'
-                },
-                events: {
-                    onReady: function(event) {
-                        console.log('🎬 YouTube Static Background prêt !');
-                        event.target.playVideo();
-                    },
-                    onStateChange: function(event) {
-                        if (event.data === YT.PlayerState.ENDED) {
-                            event.target.playVideo();
-                        }
-                    },
-                    onError: function(event) {
-                        console.error('❌ Erreur YouTube Static:', event.data);
-                        console.log('🎨 Utilisation du fond animé CSS');
-                    }
-                }
-            });
-        };
-
-        // Charger l'API au chargement de la page
         document.addEventListener('DOMContentLoaded', function() {
-            loadYouTubeAPI();
+            const video = document.querySelector('.cloudinary-background-video');
+            
+            if (video) {
+                // Gestion du chargement de la vidéo Cloudinary
+                video.addEventListener('loadstart', function() {
+                    console.log('🎬 Chargement vidéo Cloudinary commencé');
+                });
+                
+                video.addEventListener('canplay', function() {
+                    console.log('✅ Vidéo Cloudinary prête à lire');
+                });
+                
+                video.addEventListener('loadeddata', function() {
+                    console.log('📹 Vidéo Cloudinary chargée avec succès !');
+                });
+                
+                video.addEventListener('error', function(e) {
+                    console.error('❌ Erreur vidéo Cloudinary:', e);
+                    console.log('🎨 Utilisation du fond animé CSS');
+                });
+                
+                // Gestion de la visibilité de la page
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        video.pause();
+                    } else {
+                        video.play().catch(e => console.log('Relecture vidéo:', e));
+                    }
+                });
+                
+                // Tentative de lecture automatique
+                video.play().catch(e => {
+                    console.log('Lecture auto vidéo:', e);
+                });
+            }
         });
     </script>
 </body>
