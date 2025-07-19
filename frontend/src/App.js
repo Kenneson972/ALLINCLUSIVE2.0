@@ -481,28 +481,12 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* YouTube Background Video - Test iframe direct */}
+      {/* Cloudinary Background Video - Ultra fiable ! */}
       <div className="video-background-loop">
-        <div className="youtube-background-container">
-          <iframe
-            id="youtube-background-iframe"
-            src="https://www.youtube.com/embed/STVVF6IiGIc?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&playlist=STVVF6IiGIc&start=0&fs=0&disablekb=1"
-            title="Background Video"
-            frameBorder="0"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              pointerEvents: 'none',
-              border: 'none'
-            }}
-          />
-        </div>
-        <div id="youtube-background" className="youtube-background-container" style={{display: 'none'}}></div>
+        <video autoPlay muted loop playsInline className="background-video">
+          <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
+          Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
         <div className="video-overlay"></div>
       </div>
 
