@@ -16,6 +16,20 @@ from jose import JWTError, jwt
 
 load_dotenv()
 
+# Configuration sécurité
+SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here-change-in-production")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+# Données admin (à remplacer par une vraie base de données d'utilisateurs)
+ADMIN_USERS = {
+    "admin": {
+        "username": "admin",
+        "hashed_password": hashlib.sha256("khanelconcept2025".encode()).hexdigest(),
+        "role": "admin"
+    }
+}
+
 app = FastAPI(
     title="KhanelConcept API",
     description="API pour la plateforme de location de villas de luxe en Martinique",
