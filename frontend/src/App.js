@@ -481,9 +481,28 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* YouTube Background Video */}
+      {/* YouTube Background Video - Test iframe direct */}
       <div className="video-background-loop">
-        <div id="youtube-background" className="youtube-background-container"></div>
+        <div className="youtube-background-container">
+          <iframe
+            id="youtube-background-iframe"
+            src="https://www.youtube.com/embed/STVVF6IiGIc?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&playlist=STVVF6IiGIc&start=0&fs=0&disablekb=1"
+            title="Background Video"
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: 'none',
+              border: 'none'
+            }}
+          />
+        </div>
+        <div id="youtube-background" className="youtube-background-container" style={{display: 'none'}}></div>
         <div className="video-overlay"></div>
       </div>
 
