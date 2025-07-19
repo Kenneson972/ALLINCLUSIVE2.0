@@ -73,6 +73,35 @@ function App() {
     loadVillasData();
   }, []);
 
+  // Script pour forcer le chargement vidéo Cloudinary
+  useEffect(() => {
+    const video = document.querySelector('.background-video');
+    if (video) {
+      console.log('🔍 Vidéo trouvée:', video);
+      
+      video.addEventListener('loadstart', () => console.log('🎬 loadstart'));
+      video.addEventListener('loadedmetadata', () => console.log('📊 loadedmetadata'));
+      video.addEventListener('loadeddata', () => console.log('📹 loadeddata'));
+      video.addEventListener('canplay', () => console.log('✅ canplay'));
+      video.addEventListener('canplaythrough', () => console.log('🚀 canplaythrough'));
+      video.addEventListener('playing', () => console.log('▶️ playing'));
+      video.addEventListener('error', (e) => {
+        console.error('❌ Erreur vidéo:', e);
+        console.error('Error details:', e.target.error);
+      });
+
+      // Forcer la lecture
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => console.log('✅ Autoplay réussi !'))
+          .catch((error) => console.error('❌ Autoplay échoué:', error));
+      }
+    } else {
+      console.error('❌ Élément vidéo non trouvé !');
+    }
+  }, []);
+
   // Initialisation des calendriers
   useEffect(() => {
     if (checkinRef.current && checkoutRef.current) {
