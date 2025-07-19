@@ -2005,8 +2005,12 @@
                 }
             });
 
+            // S'assurer que les villas s'affichent au chargement
+            console.log(`📊 Nombre de villas chargées: ${villasData.length}`);
+            console.log(`📊 Nombre de villas filtrées: ${filteredVillas.length}`);
+            
             displayVillas();
-            showStatusMessage('Bienvenue sur KhanelConcept ! Découvrez nos 21 villas de luxe disponibles.', 'success');
+            showStatusMessage(`✅ Bienvenue sur KhanelConcept ! ${villasData.length} villas de luxe disponibles.`, 'success');
         });
 
         // Fonctions de gestion des sections
