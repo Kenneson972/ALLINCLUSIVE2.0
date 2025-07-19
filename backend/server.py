@@ -476,6 +476,29 @@ villas_data = [
         "fallback_icon": "👑",
         "amenities": ["Service conciergerie", "Piscine à débordement", "Cuisine chef", "WiFi", "Climatisation", "Spa privé"],
         "description": "Villa de grand luxe avec service conciergerie et toutes les prestations haut de gamme."
+    },
+    {
+        "id": "22",
+        "name": "Villa F6 Petit Macabou",
+        "location": "Petit Macabou au Vauclin",
+        "price": 2000.0,
+        "guests": 13,
+        "guests_detail": "10 à 13 personnes (14 max)",
+        "features": "3 chambres climatisées, 1 mezzanine, 2 studios aux extrémités",
+        "category": "fete",
+        "image": "/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+        "gallery": [
+            "/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+            "/images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+            "/images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+            "/images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+            "/images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+            "/images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+            "/images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+        ],
+        "fallback_icon": "🎊",
+        "amenities": ["3 chambres climatisées", "1 mezzanine", "2 studios aux extrémités", "Piscine", "Terrasse couverte", "WiFi", "Climatisation", "Cuisine moderne"],
+        "description": "Villa F6 exceptionnelle à Petit Macabou avec 3 chambres climatisées avec salle d'eau attenante, 1 mezzanine et 2 studios aux extrémités. Fête autorisée de 09h à 19h, 30 convives max. Possibilité de louer en supplément les 3 bungalows avec SDB à 5 punch chacun situés sur le même terrain. Piscine et fêtes jusqu'à 150 convives."
     }
 ]
 
