@@ -1636,42 +1636,51 @@
         }
 
         function displayVillaDetails(villa) {
-            // Update page title
-            document.title = `${villa.name} - KhanelConcept`;
-            document.getElementById('villa-title').textContent = `${villa.name} - KhanelConcept`;
+            try {
+                console.log('Displaying villa:', villa.name);
+                
+                // Update page title
+                document.title = `${villa.name} - KhanelConcept`;
+                document.getElementById('villa-title').textContent = `${villa.name} - KhanelConcept`;
 
-            // Update villa header
-            document.getElementById('villa-name').textContent = villa.name;
-            document.getElementById('villa-location').querySelector('span').textContent = villa.location;
-            document.getElementById('villa-price').innerHTML = `${villa.price}€ <small>/nuit</small>`;
-            document.getElementById('villa-guests-detail').textContent = villa.guestsDetail;
+                // Update villa header
+                document.getElementById('villa-name').textContent = villa.name;
+                document.getElementById('villa-location').querySelector('span').textContent = villa.location;
+                document.getElementById('villa-price').innerHTML = `${villa.price}€ <small>/nuit</small>`;
+                document.getElementById('villa-guests-detail').textContent = villa.guestsDetail;
 
-            // Update description
-            document.getElementById('villa-description').textContent = villa.description;
-            document.getElementById('villa-features').innerHTML = `<p><strong>Caractéristiques:</strong> ${villa.features}</p>`;
+                // Update description
+                document.getElementById('villa-description').textContent = villa.description;
+                document.getElementById('villa-features').innerHTML = `<p><strong>Caractéristiques:</strong> ${villa.features}</p>`;
 
-            // Update amenities
-            const amenitiesList = document.getElementById('villa-amenities');
-            if (Array.isArray(villa.amenities) && villa.amenities.length > 0 && typeof villa.amenities[0] === 'object') {
-                // New format with icons
-                amenitiesList.innerHTML = villa.amenities.map(amenity => 
-                    `<li><span style="margin-right: 10px; font-size: 1.2em;">${amenity.icon}</span> ${amenity.name}</li>`
-                ).join('');
-            } else {
-                // Fallback for old format
-                amenitiesList.innerHTML = villa.amenities.map(amenity => 
-                    `<li><i class="fas fa-check"></i> ${amenity}</li>`
-                ).join('');
+                // Update amenities
+                const amenitiesList = document.getElementById('villa-amenities');
+                if (Array.isArray(villa.amenities) && villa.amenities.length > 0 && typeof villa.amenities[0] === 'object') {
+                    // New format with icons
+                    amenitiesList.innerHTML = villa.amenities.map(amenity => 
+                        `<li><span style="margin-right: 10px; font-size: 1.2em;">${amenity.icon}</span> ${amenity.name}</li>`
+                    ).join('');
+                } else {
+                    // Fallback for old format
+                    amenitiesList.innerHTML = villa.amenities.map(amenity => 
+                        `<li><i class="fas fa-check"></i> ${amenity}</li>`
+                    ).join('');
+                }
+
+                // Load gallery
+                loadGallery(villa.gallery, villa.fallbackIcon);
+
+                // Update reservation button
+                document.getElementById('btn-reserve').onclick = function() {
+                    // Navigate to reservation page with villa ID
+                    window.location.href = `reservation.html?villa=${villa.id}`;
+                };
+                
+                console.log('Villa details updated successfully');
+            } catch (error) {
+                console.error('Error in displayVillaDetails:', error);
+                throw error;
             }
-
-            // Load gallery
-            loadGallery(villa.gallery, villa.fallbackIcon);
-
-            // Update reservation button
-            document.getElementById('btn-reserve').onclick = function() {
-                // Navigate to reservation page with villa ID
-                window.location.href = `reservation.html?villa=${villa.id}`;
-            };
         }
 
         function loadGallery(gallery, fallbackIcon) {
