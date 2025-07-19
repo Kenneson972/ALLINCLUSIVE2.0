@@ -13,8 +13,8 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [currentSection, setCurrentSection] = useState('home');
   
-  // États pour la vue détaillée des villas
-  const [showVillaDetail, setShowVillaDetail] = useState(false);
+  // États pour la vue détaillée des villas  
+  const [currentView, setCurrentView] = useState('home'); // 'home' ou 'villa'
   const [selectedVilla, setSelectedVilla] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState('basse'); // 'basse' ou 'haute'
   
