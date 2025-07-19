@@ -83,7 +83,9 @@ function App() {
     
     // Fonction globale requise par l'API YouTube
     window.onYouTubeIframeAPIReady = () => {
-      new window.YT.Player('youtube-background', {
+      console.log('🎬 API YouTube chargée !');
+      
+      const player = new window.YT.Player('youtube-background', {
         height: '100%',
         width: '100%',
         videoId: 'STVVF6IiGIc',
@@ -98,22 +100,73 @@ function App() {
           modestbranding: 1,
           playsinline: 1,
           enablejsapi: 1,
-          origin: window.location.origin,
-          playlist: 'STVVF6IiGIc' // Requis pour le loop
+          start: 0,
+          end: 0,
+          disablekb: 1,
+          fs: 0,
+          cc_load_policy: 0,
+          playlist: 'STVVF6IiGIc'
         },
         events: {
           onReady: (event) => {
             console.log('🎬 Vidéo YouTube background prête !');
+            console.log('Player:', event.target);
+            event.target.setVolume(0);
             event.target.playVideo();
+            
+            // Forcer le plein écran du player
+            const iframe = document.querySelector('#youtube-background iframe');
+            if (iframe) {
+              iframe.style.position = 'absolute';
+              iframe.style.top = '0';
+              iframe.style.left = '0';
+              iframe.style.width = '100%';
+              iframe.style.height = '100%';
+              iframe.style.pointerEvents = 'none';
+              console.log('✅ Styles iframe appliqués');
+            }
           },
           onStateChange: (event) => {
+            console.log('🎬 État vidéo changé:', event.data);
+            
             // Assurer le loop
             if (event.data === window.YT.PlayerState.ENDED) {
+              console.log('🔄 Redémarrage de la vidéo...');
+              event.target.seekTo(0);
               event.target.playVideo();
+            }
+            
+            // Si la vidéo est mise en pause, la redémarrer
+            if (event.data === window.YT.PlayerState.PAUSED) {
+              console.log('▶️ Relance de la vidéo...');
+              event.target.playVideo();
+            }
+            
+            // Quand la vidéo commence
+            if (event.data === window.YT.PlayerState.PLAYING) {
+              console.log('✅ Vidéo YouTube en cours de lecture !');
             }
           },
           onError: (event) => {
             console.error('❌ Erreur vidéo YouTube:', event.data);
+            console.log('Code erreur:', event.data);
+            
+            // Codes d'erreur YouTube communs :
+            switch(event.data) {
+              case 2:
+                console.error('❌ ID vidéo invalide');
+                break;
+              case 5:
+                console.error('❌ Erreur HTML5 player');
+                break;
+              case 100:
+                console.error('❌ Vidéo non trouvée ou privée');
+                break;
+              case 101:
+              case 150:
+                console.error('❌ Vidéo n\'autorise pas l\'intégration');
+                break;
+            }
             console.log('🎨 Utilisation du fond animé CSS');
           }
         }
