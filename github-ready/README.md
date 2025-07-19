@@ -13,9 +13,9 @@ Plateforme moderne de réservation de villas de luxe en Martinique avec interfac
 - ⚡ **Performance optimisée** avec animations fluides
 
 ### 🏖️ **Catalogue de Villas**
-- **12 villas de luxe** disponibles à la réservation
-- **Prix de 290€ à 2200€/nuit** selon villa et saison
-- **Capacités de 2 à 16 personnes** + invités
+- **21 villas de luxe** disponibles à la réservation
+- **Prix de 150€ à 2200€/nuit** selon villa et saison
+- **Capacités de 2 à 35 personnes** + invités
 - **Galeries complètes** avec 3-7 photos par villa
 
 ## 🚀 **Démo Live**
