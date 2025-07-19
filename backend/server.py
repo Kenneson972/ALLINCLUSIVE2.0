@@ -97,6 +97,39 @@ class SearchFilters(BaseModel):
     min_price: Optional[float] = None
     max_price: Optional[float] = None
 
+class AdminLogin(BaseModel):
+    username: str
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class VillaCreate(BaseModel):
+    name: str
+    location: str
+    price: float
+    guests: int
+    guests_detail: str
+    features: str
+    category: str
+    description: Optional[str] = ""
+    amenities: Optional[List[str]] = []
+
+class VillaUpdate(BaseModel):
+    name: Optional[str] = None
+    location: Optional[str] = None
+    price: Optional[float] = None
+    guests: Optional[int] = None
+    guests_detail: Optional[str] = None
+    features: Optional[str] = None
+    category: Optional[str] = None
+    description: Optional[str] = None
+    amenities: Optional[List[str]] = None
+
+class ReservationStatusUpdate(BaseModel):
+    status: str
+
 # ========== VILLA DATA ==========
 
 villas_data = [
