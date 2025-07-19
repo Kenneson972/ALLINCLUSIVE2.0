@@ -1913,58 +1913,97 @@
         let checkinCalendar, checkoutCalendar, modalCheckinCalendar, modalCheckoutCalendar;
 
         document.addEventListener('DOMContentLoaded', function() {
-            // S'assurer que filteredVillas est bien initialisé
-            filteredVillas = [...villasData];
+            console.log("🚀 DOM Content Loaded - Initialisation...");
             
-            // Initialiser les calendriers
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-
-            // Initialiser les calendriers avec un délai pour être sûr que Flatpickr est bien chargé
-            setTimeout(() => {
-                if (typeof flatpickr !== 'undefined') {
-                    console.log("✅ Flatpickr est disponible, initialisation des calendriers...");
-                    
-                    // Calendriers de la barre de recherche
-                    checkinCalendar = flatpickr("#checkin", {
+            // CORRECTION 1 : S'assurer que toutes les villas s'affichent au chargement
+            filteredVillas = [...villasData];
+            console.log(`📊 Villas chargées: ${villasData.length}, filtrées: ${filteredVillas.length}`);
+            
+            // Afficher les villas IMMÉDIATEMENT
+            displayVillas();
+            
+            // CORRECTION 2 : Initialisation des calendriers avec vérification complète
+            setTimeout(function() {
+                console.log("📅 Initialisation des calendriers...");
+                
+                // Vérifier que Flatpickr est disponible
+                if (typeof flatpickr === 'undefined') {
+                    console.error("❌ Flatpickr n'est pas chargé !");
+                    return;
+                }
+                
+                // Vérifier que les éléments existent
+                const checkinElement = document.getElementById('checkin');
+                const checkoutElement = document.getElementById('checkout');
+                
+                if (!checkinElement || !checkoutElement) {
+                    console.error("❌ Éléments calendrier non trouvés !");
+                    return;
+                }
+                
+                console.log("✅ Flatpickr disponible, éléments trouvés");
+                
+                // Initialiser les calendriers
+                const today = new Date();
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                try {
+                    // Calendrier arrivée
+                    checkinCalendar = flatpickr(checkinElement, {
                         locale: "fr",
                         minDate: today,
                         dateFormat: "d/m/Y",
-                        placeholder: "Date d'arrivée",
                         allowInput: true,
                         clickOpens: true,
                         disableMobile: false,
                         onChange: function(selectedDates) {
-                            if (selectedDates[0]) {
+                            console.log("📅 Date arrivée sélectionnée:", selectedDates[0]);
+                            if (selectedDates[0] && checkoutCalendar) {
                                 const nextDay = new Date(selectedDates[0]);
                                 nextDay.setDate(nextDay.getDate() + 1);
                                 checkoutCalendar.set('minDate', nextDay);
-                                console.log("📅 Date d'arrivée sélectionnée:", selectedDates[0]);
-                            }
-                        }
-                    });
-
-                    checkoutCalendar = flatpickr("#checkout", {
-                        locale: "fr",
-                        minDate: tomorrow,
-                        dateFormat: "d/m/Y",
-                        placeholder: "Date de départ",
-                        allowInput: true,
-                        clickOpens: true,
-                        disableMobile: false,
-                        onChange: function(selectedDates) {
-                            if (selectedDates[0]) {
-                                console.log("📅 Date de départ sélectionnée:", selectedDates[0]);
                             }
                         }
                     });
                     
-                    console.log("✅ Calendriers initialisés avec succès");
-                } else {
-                    console.error("❌ Flatpickr n'est pas disponible");
+                    // Calendrier départ
+                    checkoutCalendar = flatpickr(checkoutElement, {
+                        locale: "fr",
+                        minDate: tomorrow,
+                        dateFormat: "d/m/Y",
+                        allowInput: true,
+                        clickOpens: true,
+                        disableMobile: false,
+                        onChange: function(selectedDates) {
+                            console.log("📅 Date départ sélectionnée:", selectedDates[0]);
+                        }
+                    });
+                    
+                    console.log("✅ Calendriers initialisés avec succès !");
+                    
+                    // Test d'ouverture forcée au clic
+                    checkinElement.addEventListener('click', function(e) {
+                        console.log("🖱️ Clic sur arrivée");
+                        e.preventDefault();
+                        if (checkinCalendar) {
+                            checkinCalendar.open();
+                        }
+                    });
+                    
+                    checkoutElement.addEventListener('click', function(e) {
+                        console.log("🖱️ Clic sur départ");
+                        e.preventDefault();
+                        if (checkoutCalendar) {
+                            checkoutCalendar.open();
+                        }
+                    });
+                    
+                } catch (error) {
+                    console.error("❌ Erreur initialisation calendriers:", error);
                 }
-            }, 100);
+                
+            }, 500); // Délai plus long pour être sûr
 
             // Forcer l'ouverture des calendriers au clic
             document.getElementById('checkin').addEventListener('click', function() {
