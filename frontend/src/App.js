@@ -200,6 +200,25 @@ function App() {
     }, 3000);
   };
 
+  const performSearch = async () => {
+    showStatusMessage('Recherche en cours...', 'loading');
+    
+    try {
+      const response = await axios.post(`${API_BASE_URL}/villas/search`, searchFilters);
+      setFilteredVillas(response.data);
+      
+      if (response.data.length === 0) {
+        showStatusMessage('Aucune villa trouvée pour ces critères. Essayez avec d\'autres paramètres.', 'error');
+      } else {
+        showStatusMessage(`${response.data.length} villa(s) trouvée(s) !`, 'success');
+      }
+    } catch (error) {
+      console.error('Erreur lors de la recherche:', error);
+      showStatusMessage('Erreur lors de la recherche. Toutes les villas sont affichées.', 'error');
+      setFilteredVillas(villas);
+    }
+  };
+
   const filterVillas = (category) => {
     setSearchFilters(prev => ({ ...prev, category }));
     
