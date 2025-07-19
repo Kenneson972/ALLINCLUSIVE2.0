@@ -808,7 +808,7 @@ async def delete_villa(villa_id: str):
 async def get_all_reservations():
     """Récupérer toutes les réservations (admin)"""
     try:
-        reservations = await db.reservations.find({}).sort("created_at", -1).to_list(1000)
+        reservations = await db.reservations.find({}, {"_id": 0}).sort("created_at", -1).to_list(1000)
         return reservations
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur: {e}")
