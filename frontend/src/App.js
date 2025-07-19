@@ -380,9 +380,11 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Background Image with Animation */}
-      <div className="background-container">
-        <div className="background-image"></div>
+      {/* Video Background with Loop Animation */}
+      <div className="video-background-loop">
+        <video autoPlay muted loop playsInline className="background-video">
+          <source src="https://raw.githubusercontent.com/Kenneson972/ALLINCLUSIVE2.0/conflict_190725_1303/assets/js/background-video.mp4.mp4" type="video/mp4" />
+        </video>
         <div className="video-overlay"></div>
       </div>
 
