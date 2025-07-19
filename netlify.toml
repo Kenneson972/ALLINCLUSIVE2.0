@@ -11,6 +11,8 @@
     deliveryType = "fetch"
 
 [build.environment]
+  NODE_VERSION = "18"
+  YARN_VERSION = "1.22.19"
   CLOUDINARY_CLOUD_NAME = "ddulasmtz"
 
 [[headers]]
