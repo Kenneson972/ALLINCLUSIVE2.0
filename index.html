@@ -1913,6 +1913,9 @@
         let checkinCalendar, checkoutCalendar, modalCheckinCalendar, modalCheckoutCalendar;
 
         document.addEventListener('DOMContentLoaded', function() {
+            // S'assurer que filteredVillas est bien initialisé
+            filteredVillas = [...villasData];
+            
             // Initialiser les calendriers
             const today = new Date();
             const tomorrow = new Date(today);
