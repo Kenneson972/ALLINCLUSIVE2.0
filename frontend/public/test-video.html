@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Vidéo Cloudinary</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .video-test {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+            border: 2px solid #333;
+            position: relative;
+        }
+        
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .success { background: #4CAF50; }
+        .error { background: #f44336; }
+        .info { background: #2196F3; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test Vidéo Cloudinary - KhanelConcept</h1>
+        
+        <div class="status info">
+            <strong>📹 URL testée:</strong><br>
+            https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4
+        </div>
+        
+        <div class="video-test">
+            <video 
+                id="testVideo"
+                autoplay 
+                muted 
+                loop 
+                playsInline
+                controls
+            >
+                <source 
+                    src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" 
+                    type="video/mp4"
+                />
+                Votre navigateur ne supporte pas les vidéos HTML5.
+            </video>
+        </div>
+        
+        <div id="videoStatus" class="status info">
+            ⏳ Test en cours...
+        </div>
+        
+        <div class="status info">
+            <h3>🔍 Diagnostics:</h3>
+            <ul>
+                <li><strong>Environnement:</strong> <span id="env">Détection...</span></li>
+                <li><strong>HTTPS:</strong> <span id="https">Vérification...</span></li>
+                <li><strong>User Agent:</strong> <span id="userAgent">Détection...</span></li>
+                <li><strong>Horodatage:</strong> <span id="timestamp"></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('testVideo');
+        const statusDiv = document.getElementById('videoStatus');
+        
+        // Diagnostics environnement
+        document.getElementById('env').textContent = window.location.hostname.includes('netlify') ? 'Netlify Production' : 'Développement Local';
+        document.getElementById('https').textContent = window.location.protocol === 'https:' ? '✅ Activé' : '❌ Désactivé';
+        document.getElementById('userAgent').textContent = navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Autre navigateur';
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Tests vidéo
+        video.addEventListener('loadstart', () => {
+            console.log('🎬 Début du chargement vidéo');
+            statusDiv.textContent = '📥 Chargement de la vidéo...';
+            statusDiv.className = 'status info';
+        });
+        
+        video.addEventListener('loadedmetadata', () => {
+            console.log('📊 Métadonnées chargées');
+            statusDiv.textContent = '📊 Métadonnées vidéo chargées';
+        });
+        
+        video.addEventListener('loadeddata', () => {
+            console.log('📹 Données vidéo chargées');
+            statusDiv.textContent = '📹 Données vidéo prêtes';
+        });
+        
+        video.addEventListener('canplay', () => {
+            console.log('✅ Vidéo prête à jouer');
+            statusDiv.textContent = '✅ Succès ! Vidéo chargée et prête';
+            statusDiv.className = 'status success';
+        });
+        
+        video.addEventListener('playing', () => {
+            console.log('▶️ Vidéo en lecture');
+            statusDiv.textContent = '▶️ Parfait ! Vidéo en lecture';
+            statusDiv.className = 'status success';
+        });
+        
+        video.addEventListener('error', (e) => {
+            console.error('❌ Erreur vidéo:', e);
+            console.error('Détails erreur:', e.target.error);
+            statusDiv.textContent = `❌ Erreur: ${e.target.error ? e.target.error.message : 'Erreur inconnue'}`;
+            statusDiv.className = 'status error';
+        });
+        
+        video.addEventListener('stalled', () => {
+            console.warn('⚠️ Vidéo bloquée');
+            statusDiv.textContent = '⚠️ Chargement bloqué - problème réseau ?';
+            statusDiv.className = 'status error';
+        });
+        
+        // Test de force play après 2 secondes
+        setTimeout(() => {
+            if (video.paused) {
+                console.log('🔄 Tentative de lecture forcée');
+                video.play().then(() => {
+                    console.log('✅ Lecture forcée réussie');
+                }).catch((error) => {
+                    console.error('❌ Lecture forcée échouée:', error);
+                    statusDiv.textContent = `❌ Autoplay bloqué: ${error.message}`;
+                    statusDiv.className = 'status error';
+                });
+            }
+        }, 2000);
+        
+        // Log toutes les 5 secondes pour monitoring
+        setInterval(() => {
+            console.log(`📊 État vidéo: paused=${video.paused}, ended=${video.ended}, currentTime=${video.currentTime}`);
+        }, 5000);
+    </script>
+</body>
+</html>
