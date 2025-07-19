@@ -303,16 +303,27 @@ function App() {
   };
 
   const viewDetails = (villa) => {
-    const priceUnit = villa.priceUnit || '€/nuit';
-    
-    alert(`Détails - ${villa.name}
+    setSelectedVilla(villa);
+    setShowVillaDetail(true);
+  };
 
-📍 ${villa.location}
-👥 ${villa.guests_detail}
-🏊 ${villa.features}
-💰 ${villa.price} ${priceUnit}
+  const closeVillaDetail = () => {
+    setShowVillaDetail(false);
+    setSelectedVilla(null);
+  };
 
-Contactez-nous pour plus d'informations !`);
+  const openReservationFromDetail = (villa) => {
+    setCurrentVilla(villa);
+    setReservationData({
+      customerName: '',
+      customerEmail: '',
+      customerPhone: '',
+      checkinDate: searchFilters.checkin || '',
+      checkoutDate: searchFilters.checkout || '',
+      guestsCount: searchFilters.guests || '',
+      message: ''
+    });
+    setShowReservationModal(true);
   };
 
   const contactPrestataire = (service) => {
