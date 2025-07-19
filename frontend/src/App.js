@@ -370,14 +370,14 @@ Contactez-nous pour plus d'informations :
           </div>
           
           <nav className="nav-links">
-            <a onClick={() => showSection('home')} className={currentSection === 'home' ? 'active' : ''}>Accueil</a>
-            <a onClick={() => showSection('prestataires')} className={currentSection === 'prestataires' ? 'active' : ''}>Prestataires</a>
-            <a onClick={() => showSection('billetterie')} className={currentSection === 'billetterie' ? 'active' : ''}>Billetterie</a>
-            <a onClick={() => showSection('mobilier')} className={currentSection === 'mobilier' ? 'active' : ''}>Mobilier</a>
-            <a onClick={() => showSection('excursions')} className={currentSection === 'excursions' ? 'active' : ''}>Excursions</a>
-            <a onClick={() => showSection('comptes')} className={currentSection === 'comptes' ? 'active' : ''}>Comptes</a>
-            <a onClick={() => showSection('fidelite')} className={currentSection === 'fidelite' ? 'active' : ''}>Fidélité</a>
-            <a onClick={() => showSection('pmr')} className={currentSection === 'pmr' ? 'active' : ''}>PMR</a>
+            <button onClick={() => showSection('home')} className={currentSection === 'home' ? 'active' : ''}>Accueil</button>
+            <button onClick={() => showSection('prestataires')} className={currentSection === 'prestataires' ? 'active' : ''}>Prestataires</button>
+            <button onClick={() => showSection('billetterie')} className={currentSection === 'billetterie' ? 'active' : ''}>Billetterie</button>
+            <button onClick={() => showSection('mobilier')} className={currentSection === 'mobilier' ? 'active' : ''}>Mobilier</button>
+            <button onClick={() => showSection('excursions')} className={currentSection === 'excursions' ? 'active' : ''}>Excursions</button>
+            <button onClick={() => showSection('comptes')} className={currentSection === 'comptes' ? 'active' : ''}>Comptes</button>
+            <button onClick={() => showSection('fidelite')} className={currentSection === 'fidelite' ? 'active' : ''}>Fidélité</button>
+            <button onClick={() => showSection('pmr')} className={currentSection === 'pmr' ? 'active' : ''}>PMR</button>
           </nav>
         </div>
       </header>
