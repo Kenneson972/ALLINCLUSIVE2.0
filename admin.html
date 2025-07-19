@@ -418,9 +418,19 @@
     </style>
 </head>
 <body>
-    <!-- Container pour la vidéo background YouTube -->
+    <!-- Container pour la vidéo background Cloudinary -->
     <div class="video-background">
-        <div id="youtube-background-admin" class="youtube-background-container"></div>
+        <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            preload="auto"
+            class="cloudinary-background-video"
+        >
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
         <div class="video-overlay"></div>
     </div>
 
