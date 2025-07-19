@@ -240,6 +240,74 @@ function App() {
     setFilteredVillas(filtered);
   };
 
+  // Fonction pour gérer les filtres de catégorie (alias pour filterVillas)
+  const handleCategoryFilter = (category) => {
+    filterVillas(category);
+  };
+
+  // Liste des communes de Martinique pour l'autocomplete
+  const communesMartinique = [
+    'Sainte-Anne', 'Vauclin', 'Lamentin', 'Macabou', 'Sainte-Luce', 
+    'Trinité', 'Le Robert', 'Rivière-Pilote', 'Ducos', 'Fort-de-France', 
+    'Trenelle', 'Le Marin', 'Rivière-Salée', 'Les Trois-Îlets', 
+    'Le Diamant', 'Les Anses-d\'Arlet', 'Le Carbet', 'Bellefontaine',
+    'Case-Pilote', 'Schoelcher', 'Saint-Joseph', 'Le Lorrain',
+    'Marigot', 'Sainte-Marie', 'Le Prêcheur', 'Grand\'Rivière',
+    'L\'Ajoupa-Bouillon', 'Basse-Pointe', 'Macouba', 'Le Morne-Rouge',
+    'Saint-Pierre', 'Le Morne-Vert', 'Fonds-Saint-Denis'
+  ];
+
+  // Fonction pour gérer l'input de localisation
+  const handleLocationInput = (e) => {
+    const value = e.target.value;
+    setSearchFilters(prev => ({ ...prev, destination: value }));
+    
+    if (value.length > 0) {
+      const filtered = communesMartinique.filter(commune =>
+        commune.toLowerCase().includes(value.toLowerCase())
+      );
+      setLocationSuggestions(filtered.slice(0, 5)); // Limiter à 5 suggestions
+    } else {
+      setLocationSuggestions([]);
+    }
+  };
+
+  // Fonction pour sélectionner une localisation
+  const selectLocation = (commune) => {
+    setSearchFilters(prev => ({ ...prev, destination: commune }));
+    setLocationSuggestions([]);
+    setShowLocationSuggestions(false);
+  };
+
+  // Fonction pour toggle le dropdown voyageurs
+  const toggleVoyageursDropdown = () => {
+    setShowVoyageursDropdown(!showVoyageursDropdown);
+  };
+
+  // Fonction pour mettre à jour le nombre de voyageurs
+  const updateVoyageurs = (type, increment) => {
+    setVoyageursCount(prev => ({
+      ...prev,
+      [type]: Math.max(0, prev[type] + increment)
+    }));
+  };
+
+  // Fonction pour afficher le texte des voyageurs
+  const getVoyageursDisplay = () => {
+    const total = voyageursCount.adultes + voyageursCount.enfants + voyageursCount.bebes;
+    if (total === 0) return 'Ajouter des voyageurs';
+    
+    let display = `${voyageursCount.adultes} adulte${voyageursCount.adultes > 1 ? 's' : ''}`;
+    if (voyageursCount.enfants > 0) {
+      display += `, ${voyageursCount.enfants} enfant${voyageursCount.enfants > 1 ? 's' : ''}`;
+    }
+    if (voyageursCount.bebes > 0) {
+      display += `, ${voyageursCount.bebes} bébé${voyageursCount.bebes > 1 ? 's' : ''}`;
+    }
+    
+    return display;
+  };
+
   const openReservationModal = (villa) => {
     setCurrentVilla(villa);
     setReservationData({
