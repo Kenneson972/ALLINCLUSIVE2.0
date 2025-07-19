@@ -1858,5 +1858,43 @@
             }
         }
     </script>
+    
+    <!-- Script pour gérer le chargement et l'optimisation de la vidéo -->
+    <script>
+        // Script pour gérer le chargement et l'optimisation de la vidéo
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.video-background video');
+            
+            // Gestion du chargement de la vidéo
+            video.addEventListener('loadstart', function() {
+                console.log('Chargement de la vidéo commencé');
+            });
+            
+            video.addEventListener('canplay', function() {
+                console.log('Vidéo prête à être lue');
+            });
+            
+            video.addEventListener('error', function(e) {
+                console.error('Erreur de chargement de la vidéo:', e);
+                // Fallback: masquer la vidéo et afficher un fond de couleur
+                document.querySelector('.video-background').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            });
+            
+            // Optimisation pour les appareils mobiles
+            if (window.innerWidth <= 768) {
+                // Réduire la qualité ou désactiver la vidéo sur mobile si nécessaire
+                video.style.display = 'block';
+            }
+            
+            // Gestion de la mise en pause/lecture selon la visibilité de la page
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    video.pause();
+                } else {
+                    video.play().catch(e => console.log('Erreur de lecture:', e));
+                }
+            });
+        });
+    </script>
 </body>
 </html>
