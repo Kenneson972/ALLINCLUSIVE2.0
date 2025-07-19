@@ -571,69 +571,169 @@ Contactez-nous pour plus d'informations :
               <p>Villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
               
               {/* Recherche fonctionnelle */}
-              <div className="search-section">
-                <h2>🔍 Rechercher une Villa</h2>
-                <div className="booking-search-container">
-                  <div className="search-field">
-                    <label className="search-field-label">Destination</label>
-                    <select 
-                      value={searchFilters.destination} 
-                      onChange={(e) => setSearchFilters(prev => ({...prev, destination: e.target.value}))}
-                    >
-                      <option value="">Toutes les destinations</option>
-                      <option value="petit-macabou">Petit Macabou</option>
-                      <option value="ste-anne">Sainte-Anne</option>
-                      <option value="lamentin">Lamentin</option>
-                      <option value="ste-luce">Sainte-Luce</option>
-                      <option value="vauclin">Vauclin</option>
-                      <option value="trinite">Trinité</option>
-                      <option value="robert">Le Robert</option>
-                      <option value="riviere-pilote">Rivière-Pilote</option>
-                      <option value="ducos">Ducos</option>
-                      <option value="fort-de-france">Fort-de-France</option>
-                      <option value="trenelle">Trenelle</option>
-                    </select>
+              <div className="search-container">
+                <h2 className="search-title">🔍 Rechercher une Villa</h2>
+                
+                <div className="villa-search-form">
+                  {/* Localisation avec autocomplete - Position 1 */}
+                  <div className="search-field location-field">
+                    <label htmlFor="location-search">📍 Localisation</label>
+                    <input 
+                      type="text" 
+                      id="location-search" 
+                      className="location-input"
+                      placeholder="Tapez une ville..."
+                      autoComplete="off"
+                      value={searchFilters.destination}
+                      onChange={handleLocationInput}
+                      onFocus={() => setShowLocationSuggestions(true)}
+                    />
+                    {showLocationSuggestions && locationSuggestions.length > 0 && (
+                      <div className="location-suggestions" id="suggestions-dropdown">
+                        {locationSuggestions.map((commune, index) => (
+                          <div 
+                            key={index}
+                            className="suggestion-item"
+                            onClick={() => selectLocation(commune)}
+                          >
+                            📍 {commune}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   
+                  {/* Date d'arrivée - Position 2 */}
                   <div className="search-field">
-                    <label className="search-field-label">Arrivée</label>
-                    <input type="text" ref={checkinRef} placeholder="Sélectionner une date" />
+                    <label htmlFor="checkin">ARRIVÉE</label>
+                    <input type="text" id="checkin" ref={checkinRef} placeholder="Sélectionner une date" />
                   </div>
                   
+                  {/* Date de départ - Position 3 */}
                   <div className="search-field">
-                    <label className="search-field-label">Départ</label>
-                    <input type="text" ref={checkoutRef} placeholder="Sélectionner une date" />
+                    <label htmlFor="checkout">DÉPART</label>
+                    <input type="text" id="checkout" ref={checkoutRef} placeholder="Sélectionner une date" />
                   </div>
                   
+                  {/* Bouton rechercher - Position 4 */}
                   <div className="search-field">
-                    <label className="search-field-label">Voyageurs</label>
-                    <select 
-                      value={searchFilters.guests} 
-                      onChange={(e) => setSearchFilters(prev => ({...prev, guests: e.target.value}))}
-                    >
-                      <option value="">Nombre de personnes</option>
-                      <option value="2">2 personnes</option>
-                      <option value="4">4 personnes</option>
-                      <option value="6">6 personnes</option>
-                      <option value="8">8 personnes</option>
-                      <option value="10">10 personnes</option>
-                      <option value="15">15+ personnes</option>
-                    </select>
+                    <button className="search-btn" onClick={performSearch}>
+                      <i className="fas fa-search"></i>
+                      Rechercher
+                    </button>
                   </div>
                   
-                  <button className="search-button" onClick={performSearch}>
-                    <i className="fas fa-search"></i>
-                    Rechercher
+                  {/* Voyageurs - POSITIONNÉ EN BAS À DROITE - Position 5 */}
+                  <div className="search-field voyageurs-field bottom-right-position">
+                    <label>👥 Voyageurs</label>
+                    <div className="voyageurs-dropdown">
+                      <input 
+                        type="text" 
+                        className="voyageurs-display" 
+                        value={getVoyageursDisplay()}
+                        readOnly
+                        onClick={toggleVoyageursDropdown}
+                      />
+                      
+                      {showVoyageursDropdown && (
+                        <div className="dropdown-menu voyageurs-menu">
+                          {/* Adultes */}
+                          <div className="voyageur-row">
+                            <div className="voyageur-info">
+                              <span className="voyageur-label">Adultes</span>
+                              <small>13 ans et plus</small>
+                            </div>
+                            <div className="voyageur-counter">
+                              <button 
+                                type="button" 
+                                className="counter-btn minus" 
+                                onClick={() => updateVoyageurs('adultes', -1)}
+                                disabled={voyageursCount.adultes <= 1}
+                              >-</button>
+                              <span className="counter-value">{voyageursCount.adultes}</span>
+                              <button 
+                                type="button" 
+                                className="counter-btn plus" 
+                                onClick={() => updateVoyageurs('adultes', 1)}
+                              >+</button>
+                            </div>
+                          </div>
+                          
+                          {/* Enfants */}
+                          <div className="voyageur-row">
+                            <div className="voyageur-info">
+                              <span className="voyageur-label">Enfants</span>
+                              <small>2-12 ans</small>
+                            </div>
+                            <div className="voyageur-counter">
+                              <button 
+                                type="button" 
+                                className="counter-btn minus" 
+                                onClick={() => updateVoyageurs('enfants', -1)}
+                                disabled={voyageursCount.enfants <= 0}
+                              >-</button>
+                              <span className="counter-value">{voyageursCount.enfants}</span>
+                              <button 
+                                type="button" 
+                                className="counter-btn plus" 
+                                onClick={() => updateVoyageurs('enfants', 1)}
+                              >+</button>
+                            </div>
+                          </div>
+                          
+                          {/* Bébés */}
+                          <div className="voyageur-row">
+                            <div className="voyageur-info">
+                              <span className="voyageur-label">Bébés</span>
+                              <small>0-2 ans</small>
+                            </div>
+                            <div className="voyageur-counter">
+                              <button 
+                                type="button" 
+                                className="counter-btn minus" 
+                                onClick={() => updateVoyageurs('bebes', -1)}
+                                disabled={voyageursCount.bebes <= 0}
+                              >-</button>
+                              <span className="counter-value">{voyageursCount.bebes}</span>
+                              <button 
+                                type="button" 
+                                className="counter-btn plus" 
+                                onClick={() => updateVoyageurs('bebes', 1)}
+                              >+</button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="category-filters">
+                  <button 
+                    className={searchFilters.category === 'all' ? 'active' : ''}
+                    onClick={() => handleCategoryFilter('all')}
+                  >
+                    Toutes
+                  </button>
+                  <button 
+                    className={searchFilters.category === 'sejour' ? 'active' : ''}
+                    onClick={() => handleCategoryFilter('sejour')}
+                  >
+                    Séjour
+                  </button>
+                  <button 
+                    className={searchFilters.category === 'fete' ? 'active' : ''}
+                    onClick={() => handleCategoryFilter('fete')}
+                  >
+                    Fête/Journée
+                  </button>
+                  <button 
+                    className={searchFilters.category === 'speciales' ? 'active' : ''}
+                    onClick={() => handleCategoryFilter('speciales')}
+                  >
+                    Spéciales
                   </button>
                 </div>
-              </div>
-              
-              {/* Filtres */}
-              <div className="filters">
-                <button className={`filter-btn ${searchFilters.category === 'all' ? 'active' : ''}`} onClick={() => filterVillas('all')}>Toutes</button>
-                <button className={`filter-btn ${searchFilters.category === 'sejour' ? 'active' : ''}`} onClick={() => filterVillas('sejour')}>Séjour</button>
-                <button className={`filter-btn ${searchFilters.category === 'fete' ? 'active' : ''}`} onClick={() => filterVillas('fete')}>Fête/Journée</button>
-                <button className={`filter-btn ${searchFilters.category === 'special' ? 'active' : ''}`} onClick={() => filterVillas('special')}>Spéciales</button>
               </div>
               
               <h2>🏖️ Nos 21 Villas de Luxe</h2>
