@@ -1128,9 +1128,8 @@
 
             // Update reservation button
             document.getElementById('btn-reserve').onclick = function() {
-                // For now, we'll create a simple alert
-                // Later this will navigate to reservation.html
-                alert(`Réservation pour ${villa.name}\nPrix: ${villa.price}€/nuit\nCapacité: ${villa.guestsDetail}\n\nContactez-nous pour finaliser votre réservation!`);
+                // Navigate to reservation page with villa ID
+                window.location.href = `reservation.html?villa=${villa.id}`;
             };
         }
 
