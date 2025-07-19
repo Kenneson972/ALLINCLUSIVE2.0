@@ -15,89 +15,125 @@
 
 /* === FOND VIDEO EN LOOP AMELIORE === */
 
-.video-background-loop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  overflow: hidden;
-}
+        /* Fond animé CSS en fallback pour remplacer la vidéo */
+        .video-background-loop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+            /* Fallback animé si pas de vidéo */
+            background: linear-gradient(
+                45deg,
+                #667eea 0%,
+                #764ba2 25%,
+                #f093fb 50%,
+                #f5576c 75%,
+                #4facfe 100%
+            );
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+        }
 
-.background-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  animation: subtle-zoom 20s ease-in-out infinite alternate;
-  filter: brightness(0.7) contrast(1.1) saturate(1.2);
-}
+        /* Animation du gradient de fond */
+        @keyframes gradient-shift {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 100% 100%;
+            }
+            75% {
+                background-position: 0% 100%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-/* Animation subtile de zoom pour créer un effet dynamique */
-@keyframes subtle-zoom {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.05);
-  }
-}
+        .background-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: subtle-zoom 20s ease-in-out infinite alternate;
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
+            /* La vidéo s'affiche au-dessus du gradient si elle se charge */
+            position: relative;
+            z-index: 1;
+        }
 
-/* Overlay amélioré avec gradient */
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(102, 126, 234, 0.3) 0%,
-    rgba(118, 75, 162, 0.4) 50%,
-    rgba(64, 123, 255, 0.3) 100%
-  );
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
-}
+        /* Animation subtile de zoom pour la vidéo */
+        @keyframes subtle-zoom {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.05);
+            }
+        }
 
-/* Animation du gradient pour un effet dynamique */
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+        /* Overlay amélioré avec gradient */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg,
+                rgba(102, 126, 234, 0.3) 0%,
+                rgba(118, 75, 162, 0.4) 50%,
+                rgba(64, 123, 255, 0.3) 100%
+            );
+            background-size: 200% 200%;
+            animation: overlay-shift 12s ease infinite;
+            z-index: 2;
+        }
 
-/* Effet de particules flottantes (optionnel) */
-.video-background-loop::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 200px 200px, 300px 300px, 150px 150px;
-  animation: float-particles 25s linear infinite;
-  pointer-events: none;
-}
+        /* Animation de l'overlay */
+        @keyframes overlay-shift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-@keyframes float-particles {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-100px);
-  }
-}
+        /* Effet de particules flottantes */
+        .video-background-loop::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 200px 200px, 300px 300px, 150px 150px;
+            animation: float-particles 25s linear infinite;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        @keyframes float-particles {
+            from {
+                transform: translateY(0px);
+            }
+            to {
+                transform: translateY(-100px);
+            }
+        }
 
 /* Responsive - optimisation mobile */
 @media (max-width: 768px) {
