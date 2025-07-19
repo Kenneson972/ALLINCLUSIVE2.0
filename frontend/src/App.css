@@ -1,0 +1,14 @@
+/* Styles supplémentaires pour React si nécessaire */
+.App {
+  text-align: left;
+}
+
+/* Corrections pour React */
+.nav-links a {
+  user-select: none;
+}
+
+/* Ajustements pour les clics React */
+.villa-image, .image-placeholder, .thumbnail {
+  user-select: none;
+}
