@@ -1044,8 +1044,9 @@
     <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
 
     <script>
-        // Base de données des villas avec chemins d'images corrigés pour GitHub
+        // Base de données COMPLÈTE des 21 villas avec chemins d'images corrigés
         const villasData = [
+            // === VILLAS DE SÉJOUR ===
             {
                 id: 1,
                 name: "Villa F3 Petit Macabou",
@@ -1089,7 +1090,7 @@
             },
             {
                 id: 3,
-                name: "Villa F3 POUR LA BACCHA",
+                name: "Villa F3 Baccha Petit Macabou",
                 location: "Petit Macabou",
                 price: 1350,
                 guests: 6,
@@ -1109,7 +1110,7 @@
             },
             {
                 id: 4,
-                name: "Villa F6 au Lamentin",
+                name: "Villa F6 Lamentin",
                 location: "Quartier Bélème au Lamentin",
                 price: 1500,
                 guests: 10,
@@ -1158,7 +1159,8 @@
                     "./images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
                     "./images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
                     "./images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
-                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg"
+                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
                 ],
                 fallbackIcon: "🎊"
             },
@@ -1240,6 +1242,47 @@
             },
             {
                 id: 11,
+                name: "Villa F3 Le François",
+                location: "Le François, Martinique",
+                price: 950,
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, terrasse vue mer panoramique",
+                category: "sejour",
+                image: "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                gallery: [
+                    "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                    "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
+                    "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg",
+                    "./images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg",
+                    "./images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg",
+                    "./images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg",
+                    "./images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg"
+                ],
+                fallbackIcon: "🌅"
+            },
+            {
+                id: 12,
+                name: "Villa F5 Vauclin Ravine Plate",
+                location: "Ravine Plate, Vauclin",
+                price: 1200,
+                guests: 10,
+                guestsDetail: "10 personnes",
+                features: "Piscine à débordement, vue panoramique",
+                category: "sejour",
+                image: "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                gallery: [
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/cuisine_equipee_bois_fonce_granite.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_1_poutres_apparentes_orange.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_2_suite_parentale_sdb_attenante.jpg"
+                ],
+                fallbackIcon: "🏔️"
+            },
+            {
+                id: 13,
                 name: "Bas Villa F3 Ste Luce",
                 location: "Sainte-Luce",
                 price: 470,
@@ -1259,7 +1302,29 @@
                 fallbackIcon: "💡"
             },
             {
-                id: 12,
+                id: 14,
+                name: "Villa F3 Trenelle",
+                location: "Trenelle, Location Annuelle",
+                price: 800,
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Location longue durée, entièrement équipée",
+                category: "sejour",
+                image: "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                gallery: [
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg"
+                ],
+                fallbackIcon: "🏠"
+            },
+
+            // === VILLAS SPÉCIALES ===
+            {
+                id: 15,
                 name: "Studio Cocooning Lamentin",
                 location: "Morne Pitault, Lamentin",
                 price: 290,
@@ -1277,6 +1342,116 @@
                     "./images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
                 ],
                 fallbackIcon: "💕"
+            },
+            {
+                id: 16,
+                name: "Espace Piscine Journée Bungalow",
+                location: "Martinique",
+                price: 150,
+                guests: 8,
+                guestsDetail: "8 personnes en journée",
+                features: "Bungalow créole, piscine, véranda",
+                category: "special",
+                image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                gallery: [
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
+                ],
+                fallbackIcon: "🏕️"
+            },
+
+            // === VILLAS FÊTE/JOURNÉE ===
+            {
+                id: 17,
+                name: "Villa Fête Ducos",
+                location: "Ducos, Martinique",
+                price: 200,
+                guests: 25,
+                guestsDetail: "Jusqu'à 25 personnes",
+                features: "Piscine, bar extérieur, gazebo",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg"
+                ],
+                fallbackIcon: "🎉"
+            },
+            {
+                id: 18,
+                name: "Villa Fête Fort-de-France",
+                location: "Fort-de-France, Martinique",
+                price: 250,
+                guests: 30,
+                guestsDetail: "Jusqu'à 30 personnes",
+                features: "Piscine, véranda coloniale, vue panoramique",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg"
+                ],
+                fallbackIcon: "🏛️"
+            },
+            {
+                id: 19,
+                name: "Villa Fête Rivière-Pilote",
+                location: "Rivière-Pilote, Martinique",
+                price: 180,
+                guests: 20,
+                guestsDetail: "Jusqu'à 20 personnes",
+                features: "Villa créole, piscine tropicale",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/06_terrasse_pierre_piscine.jpg"
+                ],
+                fallbackIcon: "🌴"
+            },
+            {
+                id: 20,
+                name: "Villa Fête Sainte-Luce",
+                location: "Sainte-Luce, Martinique",
+                price: 220,
+                guests: 35,
+                guestsDetail: "Jusqu'à 35 personnes",
+                features: "Villa moderne, tentes, mobilier événementiel",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg"
+                ],
+                fallbackIcon: "🎪"
+            },
+            {
+                id: 21,
+                name: "Villa Fête Rivière-Salée",
+                location: "Rivière-Salée, Martinique",
+                price: 160,
+                guests: 15,
+                guestsDetail: "Jusqu'à 15 personnes",
+                features: "Piscine, tente couverte",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
+                ],
+                fallbackIcon: "⛺"
             }
         ];
 
