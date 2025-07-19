@@ -1134,9 +1134,17 @@
 
             // Update amenities
             const amenitiesList = document.getElementById('villa-amenities');
-            amenitiesList.innerHTML = villa.amenities.map(amenity => 
-                `<li><i class="fas fa-check"></i> ${amenity}</li>`
-            ).join('');
+            if (Array.isArray(villa.amenities) && villa.amenities.length > 0 && typeof villa.amenities[0] === 'object') {
+                // New format with icons
+                amenitiesList.innerHTML = villa.amenities.map(amenity => 
+                    `<li><span style="margin-right: 10px; font-size: 1.2em;">${amenity.icon}</span> ${amenity.name}</li>`
+                ).join('');
+            } else {
+                // Fallback for old format
+                amenitiesList.innerHTML = villa.amenities.map(amenity => 
+                    `<li><i class="fas fa-check"></i> ${amenity}</li>`
+                ).join('');
+            }
 
             // Load gallery
             loadGallery(villa.gallery, villa.fallbackIcon);
