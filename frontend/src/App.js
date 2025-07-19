@@ -211,23 +211,87 @@ function App() {
     }, 3000);
   };
 
-  const performSearch = async () => {
-    showStatusMessage('Recherche en cours...', 'loading');
+  const handleCategoryFilter = (category) => {
+    filterVillas(category);
+  };
+
+  // Liste des communes de Martinique pour l'autocomplete
+  const communesMartinique = [
+    'Sainte-Anne', 'Vauclin', 'Lamentin', 'Macabou', 'Sainte-Luce', 
+    'Trinité', 'Le Robert', 'Rivière-Pilote', 'Ducos', 'Fort-de-France', 
+    'Trenelle', 'Le Marin', 'Rivière-Salée', 'Les Trois-Îlets', 
+    'Le Diamant', 'Les Anses-d\'Arlet', 'Le Carbet', 'Bellefontaine',
+    'Case-Pilote', 'Schoelcher', 'Saint-Joseph', 'Le Lorrain',
+    'Marigot', 'Sainte-Marie', 'Le Prêcheur', 'Grand\'Rivière',
+    'L\'Ajoupa-Bouillon', 'Basse-Pointe', 'Macouba', 'Le Morne-Rouge',
+    'Saint-Pierre', 'Le Morne-Vert', 'Fonds-Saint-Denis'
+  ];
+
+  // Fonction pour gérer l'input de localisation
+  const handleLocationInput = (e) => {
+    const value = e.target.value;
+    setSearchFilters(prev => ({ ...prev, destination: value }));
     
-    try {
-      const response = await axios.post(`${API_BASE_URL}/villas/search`, searchFilters);
-      setFilteredVillas(response.data);
-      
-      if (response.data.length === 0) {
-        showStatusMessage('Aucune villa trouvée pour ces critères. Essayez avec d\'autres paramètres.', 'error');
-      } else {
-        showStatusMessage(`${response.data.length} villa(s) trouvée(s) !`, 'success');
-      }
-    } catch (error) {
-      console.error('Erreur lors de la recherche:', error);
-      showStatusMessage('Erreur lors de la recherche.', 'error');
+    if (value.length > 0) {
+      const filtered = communesMartinique.filter(commune =>
+        commune.toLowerCase().includes(value.toLowerCase())
+      );
+      setLocationSuggestions(filtered.slice(0, 5));
+    } else {
+      setLocationSuggestions([]);
     }
   };
+
+  // Fonction pour sélectionner une localisation
+  const selectLocation = (commune) => {
+    setSearchFilters(prev => ({ ...prev, destination: commune }));
+    setLocationSuggestions([]);
+    setShowLocationSuggestions(false);
+  };
+
+  // Fonction pour toggle le dropdown voyageurs
+  const toggleVoyageursDropdown = () => {
+    setShowVoyageursDropdown(!showVoyageursDropdown);
+  };
+
+  // Fonction pour mettre à jour le nombre de voyageurs
+  const updateVoyageurs = (type, increment) => {
+    setVoyageursCount(prev => ({
+      ...prev,
+      [type]: Math.max(0, prev[type] + increment)
+    }));
+  };
+
+  // Fonction pour afficher le texte des voyageurs
+  const getVoyageursDisplay = () => {
+    const total = voyageursCount.adultes + voyageursCount.enfants + voyageursCount.bebes;
+    if (total === 0) return 'Ajouter des voyageurs';
+    
+    let display = `${voyageursCount.adultes} adulte${voyageursCount.adultes > 1 ? 's' : ''}`;
+    if (voyageursCount.enfants > 0) {
+      display += `, ${voyageursCount.enfants} enfant${voyageursCount.enfants > 1 ? 's' : ''}`;
+    }
+    if (voyageursCount.bebes > 0) {
+      display += `, ${voyageursCount.bebes} bébé${voyageursCount.bebes > 1 ? 's' : ''}`;
+    }
+    
+    return display;
+  };
+
+  // Gestion des clics en dehors des dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showLocationSuggestions && !event.target.closest('.location-field')) {
+        setShowLocationSuggestions(false);
+      }
+      if (showVoyageursDropdown && !event.target.closest('.voyageurs-field')) {
+        setShowVoyageursDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showLocationSuggestions, showVoyageursDropdown]);
 
   const filterVillas = (category) => {
     setSearchFilters(prev => ({ ...prev, category }));
