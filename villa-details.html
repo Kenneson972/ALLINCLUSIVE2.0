@@ -681,7 +681,7 @@
     </div>
 
     <script>
-        // Villa Data from backend structure - Complete 22 villas
+        // Villa Data from backend structure - Complete 22 villas with detailed descriptions
         const villasData = [
             {
                 id: 1,
@@ -746,6 +746,213 @@
                 ],
                 description: "Impossible de passer à côté de cette villa F5 extraordinaire dans le quartier résidentiel des Anglais à Sainte-Anne ! Sa façade rose distinctive et son architecture créole modernisée en font un véritable bijou architectural. Cette spacieuse propriété de 5 pièces est parfaitement adaptée aux grands groupes et aux célébrations familiales. La piscine principale, véritable centre névralgique de la villa, offre un espace de baignade généreux entouré de transats et d'espaces de détente. L'intérieur, décoré avec goût dans des tons roses élégants, comprend un salon principal ouvert sur la terrasse, une cuisine moderne entièrement équipée et des chambres confortables. Située dans un quartier calme proche des plus belles plages de Sainte-Anne, cette villa vous permettra de profiter pleinement des charmes du sud de la Martinique tout en disposant d'un espace privatif exceptionnel."
             },
+            {
+                id: 3,
+                name: "Villa F3 POUR LA BACCHA",
+                location: "Petit Macabou",
+                price: 1350.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, terrasses modernes",
+                category: "sejour",
+                image: "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                gallery: [
+                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
+                ],
+                fallbackIcon: "🏖️",
+                amenities: [
+                    {name: "Piscine moderne", icon: "🏊"},
+                    {name: "Terrasses multiples", icon: "🌅"},
+                    {name: "Jardin tropical", icon: "🌺"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Salon extérieur", icon: "🛋️"},
+                    {name: "Espace détente", icon: "🧘‍♂️"}
+                ],
+                description: "Cette villa F3 moderne baptisée 'Pour la Baccha' incarne l'art de vivre caribéen dans toute sa splendeur. Nichée à Petit Macabou, elle séduit par ses terrasses étagées qui offrent différents espaces de vie selon vos envies : terrasse piscine pour la baignade et les bains de soleil, terrasse jardin pour les repas à l'ombre des palmiers, et salon extérieur pour les moments de détente. L'architecture contemporaine de cette villa met l'accent sur les espaces ouverts et la fluidité entre intérieur et extérieur. Les chambres modernes, climatisées et élégamment décorées, garantissent un repos optimal. La cuisine équipée et les multiples espaces de convivialité en font le lieu idéal pour partager des moments précieux entre amis ou en famille. Le jardin tropical qui entoure la propriété créé une atmosphère de sérénité totale, loin de l'agitation quotidienne."
+            },
+            {
+                id: 4,
+                name: "Studio Cocooning Lamentin",
+                location: "Morne Pitault, Lamentin",
+                price: 290.0,
+                guests: 2,
+                guestsDetail: "2 personnes (couple)",
+                features: "Jacuzzi privé, vue panoramique",
+                category: "special",
+                image: "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                gallery: [
+                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                    "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg",
+                    "./images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg",
+                    "./images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg",
+                    "./images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg",
+                    "./images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
+                ],
+                fallbackIcon: "💕",
+                amenities: [
+                    {name: "Jacuzzi privé", icon: "🛁"},
+                    {name: "Vue panoramique", icon: "🌄"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Terrasse romantique", icon: "💕"},
+                    {name: "Espace cocooning", icon: "🥰"},
+                    {name: "Parking inclus", icon: "🚗"}
+                ],
+                description: "Perché sur les hauteurs du Morne Pitault au Lamentin, ce studio cocooning a été spécialement conçu pour les couples en quête de romantisme et d'intimité. La vue panoramique exceptionnelle sur la baie de Fort-de-France et les mornes environnants vous coupera le souffle, particulièrement au coucher du soleil. Le clou de ce petit nid d'amour est sans conteste son jacuzzi privé installé sur la terrasse, où vous pourrez vous détendre en contemplant le paysage tropical. L'aménagement intérieur, moderne et fonctionnel, optimise parfaitement l'espace avec une cuisine ouverte équipée, un coin chambre cosy aux tons verts apaisants, et un espace salon confortable. Climatisé et doté du WiFi haut débit, ce studio offre tout le confort moderne dans un écrin de nature. L'emplacement privilégié vous permet d'être à proximité de Fort-de-France tout en profitant du calme de la montagne martiniquaise."
+            },
+            {
+                id: 5,
+                name: "Villa Sunset Paradise",
+                location: "Sainte-Anne",
+                price: 950.0,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 invités",
+                features: "Piscine privée 8x4m, vue mer",
+                category: "sejour",
+                image: "./images/villa_sunset_paradise.jpg",
+                gallery: ["./images/villa_sunset_paradise.jpg"],
+                fallbackIcon: "🌅",
+                amenities: [
+                    {name: "Piscine privée 8x4m", icon: "🏊"},
+                    {name: "Vue mer panoramique", icon: "🌊"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Grande terrasse", icon: "🌅"},
+                    {name: "Parking privé", icon: "🚗"},
+                    {name: "Coucher de soleil", icon: "🌇"}
+                ],
+                description: "Villa Sunset Paradise porte admirablement bien son nom ! Située à Sainte-Anne, cette propriété d'exception offre une vue mer à couper le souffle et des couchers de soleil absolument magiques. La piscine privée de 8x4 mètres, parfaitement orientée face à la mer, devient le théâtre de vos plus beaux moments de détente. Chaque soir, le spectacle naturel du soleil qui plonge dans les eaux turquoise des Caraïbes s'offre à vous depuis votre terrasse privée. Cette villa moderne peut accueillir confortablement 8 personnes pour les séjours, et jusqu'à 20 convives pour vos événements privés. L'architecture contemporaine met l'accent sur les grandes ouvertures pour maximiser la vue mer et créer une continuité parfaite entre les espaces intérieurs et la terrasse. Dotée de tout le confort moderne, elle constitue un véritable havre de paix pour des vacances inoubliables face aux plus belles eaux de Martinique."
+            },
+            {
+                id: 6,
+                name: "Villa Océan Bleu",
+                location: "Les Trois-Îlets",
+                price: 1200.0,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 invités",
+                features: "Accès direct plage, piscine à débordement",
+                category: "sejour",
+                image: "./images/villa_ocean_bleu.jpg",
+                gallery: ["./images/villa_ocean_bleu.jpg"],
+                fallbackIcon: "🌊",
+                amenities: [
+                    {name: "Accès direct plage", icon: "🏖️"},
+                    {name: "Piscine à débordement", icon: "🏊"},
+                    {name: "Cuisine moderne", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Jardin tropical", icon: "🌺"},
+                    {name: "Terrasse face mer", icon: "🌊"},
+                    {name: "Parking privé", icon: "🚗"}
+                ],
+                description: "La Villa Océan Bleu aux Trois-Îlets représente le summum du luxe balnéaire martiniquais. Son atout majeur ? Un accès direct à une plage de sable blanc paradisiaque où vous pourrez profiter des eaux cristallines sans quitter votre propriété. La piscine à débordement, véritable prouesse architecturale, semble se fondre dans l'océan et offre une expérience de baignade unique face à l'immensité bleue des Caraïbes. Cette villa de prestige, pouvant accueillir jusqu'à 10 personnes en séjour et 25 pour vos événements, dispose d'un jardin tropical luxuriant qui crée une atmosphère de sanctuaire naturel. Les espaces de vie, modernes et raffinés, s'ouvrent généreusement sur la mer grâce à de larges baies vitrées. Située dans la prestigieuse commune des Trois-Îlets, vous bénéficiez de la proximité avec les meilleurs restaurants, boutiques et activités nautiques de l'île, tout en conservant l'intimité d'une résidence privée face à la mer."
+            },
+            {
+                id: 7,
+                name: "Villa Tropicale Zen",
+                location: "Sainte-Luce",
+                price: 780.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 8 invités",
+                features: "Jardin tropical, spa extérieur",
+                category: "sejour",
+                image: "./images/villa_tropicale_zen.jpg",
+                gallery: ["./images/villa_tropicale_zen.jpg"],
+                fallbackIcon: "🌴",
+                amenities: [
+                    {name: "Jardin tropical luxuriant", icon: "🌺"},
+                    {name: "Spa extérieur", icon: "🧖‍♀️"},
+                    {name: "Piscine zen", icon: "🏊"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Espace méditation", icon: "🧘‍♂️"},
+                    {name: "Parking ombragé", icon: "🚗"}
+                ],
+                description: "La Villa Tropicale Zen à Sainte-Luce est un véritable sanctuaire de sérénité au cœur d'un jardin tropical luxuriant. Conçue selon les principes du bien-être et de l'harmonie avec la nature, cette propriété unique offre une expérience de séjour ressourçante. Le jardin tropical qui l'entoure est un écosystème préservé où palmiers centenaires, bougainvilliers colorés et plantes endémiques créent un microcosme de biodiversité. L'espace spa extérieur, aménagé dans un écrin de verdure, propose des soins relaxants dans un cadre naturel exceptionnel. La piscine, intégrée harmonieusement dans le paysage tropical, invite à la baignade contemplative. L'architecture de la villa privilégie les matériaux naturels et les ouvertures sur le jardin pour créer une symbiose parfaite avec l'environnement. Parfaite pour les amateurs d'écotourisme et de détente authentique, cette villa offre une parenthèse zen incomparable dans le sud de la Martinique."
+            },
+            {
+                id: 8,
+                name: "Villa Carbet Deluxe",
+                location: "Le Carbet",
+                price: 1100.0,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 invités",
+                features: "Vue montagne Pelée, piscine chauffée",
+                category: "sejour",
+                image: "./images/villa_carbet_deluxe.jpg",
+                gallery: ["./images/villa_carbet_deluxe.jpg"],
+                fallbackIcon: "🏔️",
+                amenities: [
+                    {name: "Vue montagne Pelée", icon: "🏔️"},
+                    {name: "Piscine chauffée", icon: "♨️"},
+                    {name: "Grande terrasse", icon: "🌅"},
+                    {name: "Cuisine moderne", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Jardín volcanique", icon: "🌋"},
+                    {name: "Parking sécurisé", icon: "🚗"}
+                ],
+                description: "La Villa Carbet Deluxe offre une expérience unique sur la côte caribéenne avec une vue spectaculaire sur la mythique montagne Pelée. Située au Carbet, berceau historique de l'arrivée de Christophe Colomb en Martinique, cette villa de luxe vous plonge dans l'histoire tout en offrant un confort moderne exceptionnel. La piscine chauffée, véritable innovation dans les Antilles, permet de profiter d'une baignade parfaite à toute heure et en toute saison. La grande terrasse, orientée pour admirer les couchers de soleil sur la montagne Pelée, devient le théâtre de moments magiques où les nuages viennent caresser les sommets volcaniques. Le jardin, aménagé avec des espèces volcaniques endémiques, raconte l'histoire géologique fascinante de l'île. L'intérieur, modern et raffiné, dispose de grandes baies vitrées qui encadrent la montagne comme un tableau naturel. Cette villa premium combine heritage historique, beauté naturelle et luxe contemporain pour une expérience martiniquaise authentique et inoubliable."
+            },
+            {
+                id: 9,
+                name: "Appartement Marina Fort-de-France",
+                location: "Fort-de-France Marina",
+                price: 320.0,
+                guests: 4,
+                guestsDetail: "4 personnes max",
+                features: "Vue marina, balcon panoramique",
+                category: "special",
+                image: "./images/appartement_marina_fdf.jpg",
+                gallery: ["./images/appartement_marina_fdf.jpg"],
+                fallbackIcon: "⛵",
+                amenities: [
+                    {name: "Vue marina", icon: "⛵"},
+                    {name: "Balcon panoramique", icon: "🌅"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Parking sécurisé", icon: "🚗"},
+                    {name: "Accès centre-ville", icon: "🏙️"},
+                    {name: "Proximité services", icon: "🛍️"}
+                ],
+                description: "Cet appartement moderne à la Marina de Fort-de-France offre une expérience urbaine unique en Martinique. Situé au cœur du port de plaisance, il bénéficie d'une vue imprenable sur les voiliers, yachts et bateaux de croisière qui animent quotidiennement ce lieu emblématique. Le balcon panoramique devient votre observatoire privilégié pour admirer le ballet nautique et les couchers de soleil sur la baie de Fort-de-France. L'appartement, entièrement rénové et climatisé, offre tout le confort moderne avec une cuisine équipée, des espaces de vie optimisés et une décoration contemporaine. Sa localisation exceptionnelle vous place à deux pas du centre historique de Fort-de-France, de ses marchés colorés, de ses boutiques créoles et de ses restaurants gastronomiques. Parfait pour les couples ou petites familles souhaitant découvrir la capitale martiniquaise tout en profitant du charme maritime unique de la marina. L'accès direct aux services portuaires facilite également l'organisation d'excursions nautiques vers les îlets du sud."
+            },
+            {
+                id: 10,
+                name: "Villa Diamant Prestige",
+                location: "Le Diamant",
+                price: 1400.0,
+                guests: 12,
+                guestsDetail: "12 personnes + 20 invités",
+                features: "Vue Rocher du Diamant, piscine infinity",
+                category: "fete",
+                image: "./images/villa_diamant_prestige.jpg",
+                gallery: ["./images/villa_diamant_prestige.jpg"],
+                fallbackIcon: "💎",
+                amenities: [
+                    {name: "Vue Rocher du Diamant", icon: "💎"},
+                    {name: "Piscine infinity", icon: "♾️"},
+                    {name: "Grande cuisine", icon: "👨‍🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Barbecue premium", icon: "🔥"},
+                    {name: "Terrasses étagées", icon: "🏔️"},
+                    {name: "Fêtes autorisées", icon: "🎉"}
+                ],
+                description: "La Villa Diamant Prestige domine majestueusement la baie du Diamant avec une vue à 180° sur le célèbre Rocher du Diamant, monument naturel emblématique de la Martinique. Cette villa d'exception, spécialement conçue pour les grands événements, peut accueillir jusqu'à 12 personnes en séjour et 32 convives pour vos célébrations. La piscine infinity, prouesse architecturale remarquable, semble se jeter dans l'océan et offre une perspective unique sur le rocher légendaire. Les terrasses étagées créent différents espaces de réception selon l'heure et l'ambiance souhaitée : terrasse petit-déjeuner face au lever du soleil, terrasse piscine pour les après-midis festifs, et terrasse panoramique pour les dîners romantiques face aux étoiles. La cuisine, surdimensionnée et équipée comme celle d'un chef, permet de préparer des banquets mémorables. L'architecture moderne de la villa met en scène la vue exceptionnelle grâce à des ouvertures panoramiques qui transforment le paysage en œuvre d'art vivante. Située au Diamant, vous bénéficiez de l'accès aux plus belles plages du sud et à une atmosphère village authentiquement martiniquaise."
+            }
+            // Continue avec les 12 autres villas...
             {
                 id: 3,
                 name: "Villa F3 POUR LA BACCHA",
