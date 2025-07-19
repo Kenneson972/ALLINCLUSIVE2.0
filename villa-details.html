@@ -679,6 +679,13 @@
             document.getElementById('villa-guests').textContent = villa.guests;
             document.getElementById('villa-description').textContent = villa.description;
 
+            // Update villa image
+            if (villa.image) {
+                const imageElement = document.getElementById('villa-image');
+                imageElement.src = villa.image;
+                imageElement.alt = villa.name;
+            }
+
             // Update amenities
             const amenitiesList = document.getElementById('amenities-list');
             amenitiesList.innerHTML = villa.amenities.map(amenity => `
