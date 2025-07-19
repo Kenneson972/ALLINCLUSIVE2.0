@@ -13,7 +13,7 @@
   user-select: none;
 }
 
-/* === FOND VIDEO CLOUDINARY BACKGROUND === */
+/* === FOND VIDEO CLOUDINARY BACKGROUND OPTIMISE === */
 
 .video-background-loop {
     position: fixed;
@@ -37,18 +37,28 @@
 }
 
 .background-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    animation: subtle-zoom 20s ease-in-out infinite alternate;
-    filter: brightness(0.7) contrast(1.1) saturate(1.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
     z-index: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    background-size: cover;
+    filter: brightness(0.7) contrast(1.1) saturate(1.2);
+    /* Assure la visibilité */
+    opacity: 1;
+    /* Animation subtile */
+    animation: subtle-zoom 20s ease-in-out infinite alternate;
 }
 
 /* Animation subtile de zoom pour la vidéo */
 @keyframes subtle-zoom {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
+    0% { transform: translate(-50%, -50%) scale(1); }
+    100% { transform: translate(-50%, -50%) scale(1.05); }
 }
 
 /* Animation du gradient de fond fallback */
@@ -58,6 +68,23 @@
     50% { background-position: 100% 100%; }
     75% { background-position: 0% 100%; }
     100% { background-position: 0% 50%; }
+}
+
+/* Overlay avec z-index correct */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(102, 126, 234, 0.3) 0%,
+        rgba(118, 75, 162, 0.4) 50%,
+        rgba(64, 123, 255, 0.3) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
 }
 
         .background-video {
