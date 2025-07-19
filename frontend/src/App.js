@@ -12,6 +12,7 @@ function App() {
   const [filteredVillas, setFilteredVillas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentSection, setCurrentSection] = useState('home');
+  const [statusMessage, setStatusMessage] = useState({ text: '', type: '' });
   
   // États pour la vue détaillée des villas  
   const [currentView, setCurrentView] = useState('home'); // 'home' ou 'villa'
