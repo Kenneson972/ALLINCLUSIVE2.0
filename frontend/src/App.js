@@ -475,6 +475,21 @@ Contactez-nous pour plus d'informations :
     }, 1000);
   };
 
+  // Gestion des clics en dehors des dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showLocationSuggestions && !event.target.closest('.location-field')) {
+        setShowLocationSuggestions(false);
+      }
+      if (showVoyageursDropdown && !event.target.closest('.voyageurs-field')) {
+        setShowVoyageursDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showLocationSuggestions, showVoyageursDropdown]);
+
   // Gestion des événements clavier
   useEffect(() => {
     const handleKeyDown = (e) => {
