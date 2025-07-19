@@ -1976,8 +1976,20 @@
         // Fonction pour toggle le dropdown voyageurs
         function toggleVoyageursDropdown() {
             const menu = document.getElementById('voyageurs-menu');
+            const trigger = document.querySelector('.voyageurs-display');
+            
             showVoyageursDropdownFlag = !showVoyageursDropdownFlag;
-            menu.style.display = showVoyageursDropdownFlag ? 'block' : 'none';
+            
+            if (showVoyageursDropdownFlag) {
+                // Positionner le dropdown près du trigger
+                const rect = trigger.getBoundingClientRect();
+                menu.style.top = (rect.bottom + 10) + 'px';
+                menu.style.left = (rect.left) + 'px';
+                menu.style.transform = 'none';
+                menu.style.display = 'block';
+            } else {
+                menu.style.display = 'none';
+            }
         }
 
         // Fonction pour mettre à jour le nombre de voyageurs
