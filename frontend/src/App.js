@@ -712,7 +712,7 @@ Contactez-nous pour plus d'informations :
       </main>
 
       {/* Nouveau Modal Glassmorphism Tropical */}
-      {showVillaDetail && selectedVilla && (
+      {currentView === 'villa' && selectedVilla && (
         <div className="villa-glassmorphism-modal" onClick={closeVillaDetail}>
           <div className="villa-glassmorphism-container" onClick={(e) => e.stopPropagation()}>
             {/* Header Glassmorphism */}
