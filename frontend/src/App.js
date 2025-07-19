@@ -409,31 +409,10 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Vidéo Background - Compatible Netlify-Cloudinary */}
+      {/* Cloudinary Background Video - Version qui fonctionnait */}
       <div className="video-background-loop">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          preload="metadata"
-          className="background-video"
-          onLoadStart={() => console.log('🎬 Chargement vidéo...')}
-          onCanPlay={() => console.log('✅ Vidéo prête !')}
-          onError={(e) => console.error('❌ Erreur vidéo:', e)}
-        >
-          {/* Source pour déploiement Netlify (optimisé par plugin Cloudinary) */}
-          <source src="/videos/background-video.mp4" type="video/mp4" />
-          
-          {/* Sources Cloudinary directes pour développement local */}
-          <source 
-            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_30,br_500k,c_scale,w_1280,h_720/v1752950782/background-video.mp4_qoofsz.mp4" 
-            type="video/mp4" 
-          />
-          <source 
-            src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" 
-            type="video/mp4" 
-          />
+        <video autoPlay muted loop playsInline className="background-video">
+          <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
         <div className="video-overlay"></div>
