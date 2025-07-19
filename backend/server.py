@@ -10,6 +10,9 @@ from datetime import datetime, timedelta
 import uuid
 import json
 from dotenv import load_dotenv
+import hashlib
+import secrets
+from jose import JWTError, jwt
 
 load_dotenv()
 
