@@ -409,9 +409,9 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Cloudinary Background Video - Version qui fonctionnait */}
+      {/* Background Video Cloudinary */}
       <div className="video-background-loop">
-        <video autoPlay muted loop playsInline className="background-video">
+        <video autoPlay muted loop playsInline preload="auto" className="background-video">
           <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
