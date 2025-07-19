@@ -57,18 +57,6 @@ function App() {
     bebes: 0
   });
   
-  // États pour l'autocomplete de localisation
-  const [showLocationSuggestions, setShowLocationSuggestions] = useState(false);
-  const [locationSuggestions, setLocationSuggestions] = useState([]);
-  
-  // États pour le dropdown voyageurs
-  const [showVoyageursDropdown, setShowVoyageursDropdown] = useState(false);
-  const [voyageursCount, setVoyageursCount] = useState({
-    adultes: 2,
-    enfants: 0,
-    bebes: 0
-  });
-  
   // Références pour les calendriers
   const checkinRef = React.useRef();
   const checkoutRef = React.useRef();
