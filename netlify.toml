@@ -1,5 +1,6 @@
 [build]
-  command = "cd frontend && yarn install && yarn build"
+  base = "."
+  command = "yarn install-frontend && cd frontend && yarn build"
   publish = "frontend/build"
 
 [[plugins]]
