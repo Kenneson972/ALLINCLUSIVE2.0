@@ -2403,10 +2403,11 @@
 
         // Fonctions d'actions
         function viewDetails(villaId) {
-            const villa = villasData.find(v => v.id === villaId);
-            const priceUnit = villa.priceUnit || '€/nuit';
+            // Store villa ID for villa-details page
+            localStorage.setItem('selectedVillaId', villaId);
             
-            alert(`Détails - ${villa.name}\n\n📍 ${villa.location}\n👥 ${villa.guestsDetail}\n🏊 ${villa.features}\n💰 ${villa.price} ${priceUnit}\n\nContactez-nous pour plus d'informations !`);
+            // Navigate to villa details page
+            window.location.href = `villa-details.html?id=${villaId}`;
         }
 
         function contactPrestataire(service) {
