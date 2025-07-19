@@ -422,7 +422,7 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Cloudinary Background Video - Version Optimisée 2025 */}
+      {/* Vidéo Background - Compatible Netlify-Cloudinary */}
       <div className="video-background-loop">
         <video 
           autoPlay 
@@ -431,23 +431,18 @@ Contactez-nous pour plus d'informations :
           playsInline 
           preload="metadata"
           className="background-video"
-          poster="https://res.cloudinary.com/ddulasmtz/video/upload/so_0,q_auto,f_jpg,w_1920,h_1080/v1752950782/background-video.mp4_qoofsz.jpg"
-          onLoadStart={() => console.log('🎬 Chargement vidéo Cloudinary...')}
-          onCanPlay={() => console.log('✅ Vidéo Cloudinary prête !')}
-          onLoadedData={() => console.log('📹 Données vidéo Cloudinary chargées !')}
-          onError={(e) => console.error('❌ Erreur vidéo Cloudinary:', e)}
+          onLoadStart={() => console.log('🎬 Chargement vidéo...')}
+          onCanPlay={() => console.log('✅ Vidéo prête !')}
+          onError={(e) => console.error('❌ Erreur vidéo:', e)}
         >
-          {/* Source ultra-légère optimisée */}
+          {/* Source pour déploiement Netlify (optimisé par plugin Cloudinary) */}
+          <source src="/videos/background-video.mp4" type="video/mp4" />
+          
+          {/* Sources Cloudinary directes pour développement local */}
           <source 
             src="https://res.cloudinary.com/ddulasmtz/video/upload/q_30,br_500k,c_scale,w_1280,h_720/v1752950782/background-video.mp4_qoofsz.mp4" 
             type="video/mp4" 
           />
-          {/* Source moyenne qualité */}
-          <source 
-            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_60,c_scale,w_1920/v1752950782/background-video.mp4_qoofsz.mp4" 
-            type="video/mp4" 
-          />
-          {/* Source originale en dernier recours */}
           <source 
             src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" 
             type="video/mp4" 
