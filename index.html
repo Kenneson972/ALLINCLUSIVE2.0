@@ -1214,14 +1214,14 @@
                                        readonly
                                        onclick="toggleVoyageursDropdown()">
                                 
-                                <div class="dropdown-menu guests-dropdown" id="voyageurs-menu" style="display: none;">
+                                <div class="dropdown-menu guests-dropdown" id="voyageurs-menu">
                                     <!-- Adultes -->
-                                    <div class="voyageur-row">
-                                        <div class="voyageur-info">
-                                            <span class="voyageur-label">Adultes</span>
-                                            <small>13 ans et plus</small>
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Adultes</div>
+                                            <div class="guest-description">13 ans et plus</div>
                                         </div>
-                                        <div class="voyageur-counter">
+                                        <div class="guest-counter">
                                             <button type="button" class="counter-btn minus" onclick="updateVoyageurs('adultes', -1)">-</button>
                                             <span class="counter-value" id="adultes-count">2</span>
                                             <button type="button" class="counter-btn plus" onclick="updateVoyageurs('adultes', 1)">+</button>
@@ -1229,12 +1229,12 @@
                                     </div>
                                     
                                     <!-- Enfants -->
-                                    <div class="voyageur-row">
-                                        <div class="voyageur-info">
-                                            <span class="voyageur-label">Enfants</span>
-                                            <small>De 2 à 12 ans</small>
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Enfants</div>
+                                            <div class="guest-description">De 2 à 12 ans</div>
                                         </div>
-                                        <div class="voyageur-counter">
+                                        <div class="guest-counter">
                                             <button type="button" class="counter-btn minus" onclick="updateVoyageurs('enfants', -1)">-</button>
                                             <span class="counter-value" id="enfants-count">0</span>
                                             <button type="button" class="counter-btn plus" onclick="updateVoyageurs('enfants', 1)">+</button>
@@ -1242,12 +1242,12 @@
                                     </div>
                                     
                                     <!-- Bébés -->
-                                    <div class="voyageur-row">
-                                        <div class="voyageur-info">
-                                            <span class="voyageur-label">Bébés</span>
-                                            <small>Moins de 2 ans</small>
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Bébés</div>
+                                            <div class="guest-description">Moins de 2 ans</div>
                                         </div>
-                                        <div class="voyageur-counter">
+                                        <div class="guest-counter">
                                             <button type="button" class="counter-btn minus" onclick="updateVoyageurs('bebes', -1)">-</button>
                                             <span class="counter-value" id="bebes-count">0</span>
                                             <button type="button" class="counter-btn plus" onclick="updateVoyageurs('bebes', 1)">+</button>
