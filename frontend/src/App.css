@@ -13,7 +13,7 @@
   user-select: none;
 }
 
-/* === FOND VIDEO YOUTUBE BACKGROUND === */
+/* === FOND VIDEO CLOUDINARY BACKGROUND === */
 
 .video-background-loop {
     position: fixed;
@@ -23,7 +23,7 @@
     height: 100%;
     z-index: -2;
     overflow: hidden;
-    /* Magnifique fallback animé si YouTube ne charge pas */
+    /* Magnifique fallback animé si vidéo ne charge pas */
     background: linear-gradient(
         45deg,
         #667eea 0%,
@@ -36,28 +36,22 @@
     animation: gradient-shift 15s ease infinite;
 }
 
-.youtube-background-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100vw;
-    height: 56.25vw; /* 16:9 Aspect Ratio */
-    min-height: 100vh;
-    min-width: 177.77vh; /* 16:9 */
-    transform: translate(-50%, -50%);
+.background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: subtle-zoom 20s ease-in-out infinite alternate;
+    filter: brightness(0.7) contrast(1.1) saturate(1.2);
     z-index: 1;
 }
 
-.youtube-background-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Désactive les interactions */
+/* Animation subtile de zoom pour la vidéo */
+@keyframes subtle-zoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
 }
 
-/* Animation du gradient de fond */
+/* Animation du gradient de fond fallback */
 @keyframes gradient-shift {
     0% { background-position: 0% 50%; }
     25% { background-position: 100% 50%; }
