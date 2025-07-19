@@ -380,15 +380,9 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Video Background with Loop Animation - Google Drive Video Fixed */}
+      {/* YouTube Background Video */}
       <div className="video-background-loop">
-        <video autoPlay muted loop playsInline className="background-video">
-          <source src="https://drive.usercontent.google.com/download?id=1itDRVOJqNI3fPmJMnJJ2JgDj-Pb7LsLc&export=view" type="video/mp4" />
-          <source src="https://drive.google.com/uc?export=view&id=1itDRVOJqNI3fPmJMnJJ2JgDj-Pb7LsLc" type="video/mp4" />
-          <source src="./background-video.mp4.mp4" type="video/mp4" />
-          <source src="/background-video.mp4.mp4" type="video/mp4" />
-          Votre navigateur ne supporte pas la lecture de vidéos HTML5.
-        </video>
+        <div id="youtube-background" className="youtube-background-container"></div>
         <div className="video-overlay"></div>
       </div>
 
