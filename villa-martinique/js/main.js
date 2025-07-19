@@ -1,0 +1,389 @@
+// ===== BASE DE DONNÉES VILLAS MARTINIQUE ===== 
+
+const villasData = [
+    // === VILLAS DE SÉJOUR ===
+    {
+        id: "1",
+        name: "Villa F3 Petit Macabou",
+        location: "Petit Macabou au Vauclin",
+        price: 850.0,
+        guests: 6,
+        guests_detail: "6 personnes (8 max)",
+        features: "Vue mer panoramique, terrasses multiples, jardin tropical",
+        category: "sejour",
+        image: "../images/Villa_F3_Petit_Macabou/villa_f3_petit_macabou.jpg",
+        gallery: [
+            "../images/Villa_F3_Petit_Macabou/villa_f3_petit_macabou.jpg",
+            "../images/Villa_F3_Petit_Macabou/terrasse_vue_mer.jpg",
+            "../images/Villa_F3_Petit_Macabou/jardin_tropical.jpg"
+        ],
+        fallback_icon: "🏖️",
+        amenities: ["Piscine", "Vue mer", "Jardin tropical", "WiFi", "Climatisation", "Terrasses multiples"],
+        description: "Villa F3 avec vue mer exceptionnelle à Petit Macabou. Terrasses multiples pour profiter des couchers de soleil martiniquais. Jardin tropical privé et piscine avec vue panoramique."
+    },
+    {
+        id: "2", 
+        name: "Villa F5 Ste Anne",
+        location: "Sainte-Anne",
+        price: 1200.0,
+        guests: 10,
+        guests_detail: "8 à 10 personnes",
+        features: "Piscine privée, 5 chambres climatisées, proche plages",
+        category: "sejour",
+        image: "../images/Villa_F5_Ste_Anne/villa_f5_ste_anne.jpg",
+        gallery: [
+            "../images/Villa_F5_Ste_Anne/villa_f5_ste_anne.jpg",
+            "../images/Villa_F5_Ste_Anne/piscine_privee.jpg",
+            "../images/Villa_F5_Ste_Anne/chambre_principale.jpg"
+        ],
+        fallback_icon: "🌺",
+        amenities: ["Piscine privée", "5 chambres", "Climatisation", "WiFi", "Proche plages", "Cuisine équipée"],
+        description: "Magnifique villa F5 à Sainte-Anne, proche des plus belles plages de Martinique. 5 chambres climatisées, piscine privée et grand espace de vie pour des vacances inoubliables en famille."
+    },
+    {
+        id: "3",
+        name: "Villa F3 Baccha Petit Macabou", 
+        location: "Petit Macabou au Vauclin",
+        price: 750.0,
+        guests: 6,
+        guests_detail: "4 à 6 personnes",
+        features: "Villa moderne, terrasse couverte, proximité mer",
+        category: "sejour",
+        image: "../images/Villa_F3_Baccha_Petit_Macabou/villa_baccha.jpg",
+        gallery: [
+            "../images/Villa_F3_Baccha_Petit_Macabou/villa_baccha.jpg",
+            "../images/Villa_F3_Baccha_Petit_Macabou/terrasse_couverte.jpg",
+            "../images/Villa_F3_Baccha_Petit_Macabou/salon_moderne.jpg"
+        ],
+        fallback_icon: "🌊",
+        amenities: ["Terrasse couverte", "Design moderne", "Proximité mer", "WiFi", "Climatisation", "Cuisine équipée"],
+        description: "Villa F3 moderne Baccha située à Petit Macabou. Architecture contemporaine avec terrasse couverte et vue sur la mer des Caraïbes. Idéale pour un séjour relaxant."
+    },
+    {
+        id: "22",
+        name: "Villa F6 Petit Macabou",
+        location: "Petit Macabou au Vauclin", 
+        price: 2000.0,
+        guests: 13,
+        guests_detail: "10 à 13 personnes (14 max)",
+        features: "3 chambres climatisées, 1 mezzanine, 2 studios aux extrémités",
+        category: "fete",
+        image: "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+        gallery: [
+            "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+            "../images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+            "../images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+            "../images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+            "../images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+            "../images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+            "../images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+        ],
+        fallback_icon: "🎊",
+        amenities: ["3 chambres climatisées", "1 mezzanine", "2 studios aux extrémités", "Piscine", "Terrasse couverte", "WiFi", "Climatisation", "Cuisine moderne"],
+        description: "Villa F6 exceptionnelle à Petit Macabou avec 3 chambres climatisées avec salle d'eau attenante, 1 mezzanine et 2 studios aux extrémités. Fête autorisée de 09h à 19h, 30 convives max. Possibilité de louer en supplément les 3 bungalows avec SDB à 5 punch chacun situés sur le même terrain. Piscine et fêtes jusqu'à 150 convives."
+    }
+    // Ajouter d'autres villas ici...
+];
+
+// ===== COMMUNES MARTINIQUE ===== 
+
+const communesMartinique = [
+    'Sainte-Anne', 'Vauclin', 'Lamentin', 'Macabou', 'Petit Macabou', 'Sainte-Luce', 
+    'Trinité', 'Le Robert', 'Rivière-Pilote', 'Ducos', 'Fort-de-France', 
+    'Trenelle', 'Le Marin', 'Rivière-Salée', 'Les Trois-Îlets', 
+    'Le Diamant', 'Les Anses-d\'Arlet', 'Le Carbet', 'Bellefontaine',
+    'Case-Pilote', 'Schoelcher', 'Saint-Joseph', 'Le Lorrain',
+    'Marigot', 'Sainte-Marie', 'Le Prêcheur', 'Grand\'Rivière',
+    'L\'Ajoupa-Bouillon', 'Basse-Pointe', 'Macouba', 'Le Morne-Rouge',
+    'Saint-Pierre', 'Le Morne-Vert', 'Fonds-Saint-Denis'
+];
+
+// ===== VARIABLES GLOBALES =====
+
+let currentPage = '';
+let filteredVillas = [...villasData];
+let currentSearch = {
+    destination: '',
+    checkin: '',
+    checkout: '',
+    adults: 2,
+    children: 0,
+    babies: 0
+};
+
+// ===== NAVIGATION SYSTEM =====
+
+function initNavigation() {
+    // Déterminer la page courante
+    const path = window.location.pathname;
+    currentPage = path.substring(path.lastIndexOf('/') + 1);
+    if (!currentPage) currentPage = 'index.html';
+    
+    // Activer le lien de navigation courant
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage || (currentPage === 'index.html' && href === 'index.html')) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Mobile menu toggle
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks2 = document.querySelector('.nav-links');
+    
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', () => {
+            navLinks2.classList.toggle('mobile-open');
+        });
+    }
+    
+    console.log(`📄 Page courante: ${currentPage}`);
+}
+
+// ===== STATUS MESSAGES =====
+
+function showStatusMessage(message, type = 'success') {
+    // Supprimer les anciens messages
+    const existingMessages = document.querySelectorAll('.status-message');
+    existingMessages.forEach(msg => msg.remove());
+    
+    // Créer le nouveau message
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `status-message ${type}`;
+    messageDiv.textContent = message;
+    
+    // Ajouter au DOM
+    document.body.appendChild(messageDiv);
+    
+    // Auto-supprimer après 5 secondes
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.remove();
+        }
+    }, 5000);
+    
+    console.log(`📢 ${type.toUpperCase()}: ${message}`);
+}
+
+// ===== LOCAL STORAGE FUNCTIONS =====
+
+function saveSearchData(searchData) {
+    localStorage.setItem('villaSearch', JSON.stringify(searchData));
+    console.log('💾 Recherche sauvegardée:', searchData);
+}
+
+function loadSearchData() {
+    const saved = localStorage.getItem('villaSearch');
+    if (saved) {
+        const data = JSON.parse(saved);
+        currentSearch = { ...currentSearch, ...data };
+        console.log('📂 Recherche chargée:', currentSearch);
+        return data;
+    }
+    return null;
+}
+
+function saveReservationData(reservationData) {
+    localStorage.setItem('villaReservation', JSON.stringify(reservationData));
+    console.log('💾 Réservation sauvegardée:', reservationData);
+}
+
+function loadReservationData() {
+    const saved = localStorage.getItem('villaReservation');
+    if (saved) {
+        const data = JSON.parse(saved);
+        console.log('📂 Réservation chargée:', data);
+        return data;
+    }
+    return null;
+}
+
+// ===== UTILITY FUNCTIONS =====
+
+function getVillaById(id) {
+    return villasData.find(villa => villa.id === id);
+}
+
+function filterVillasByCategory(category) {
+    if (category === 'all') {
+        return villasData;
+    }
+    return villasData.filter(villa => villa.category === category);
+}
+
+function searchVillas(searchCriteria) {
+    let filtered = [...villasData];
+    
+    // Filtrer par destination
+    if (searchCriteria.destination) {
+        filtered = filtered.filter(villa => 
+            villa.location.toLowerCase().includes(searchCriteria.destination.toLowerCase())
+        );
+    }
+    
+    // Filtrer par nombre de voyageurs
+    if (searchCriteria.totalGuests) {
+        filtered = filtered.filter(villa => villa.guests >= searchCriteria.totalGuests);
+    }
+    
+    // Filtrer par prix (si spécifié)
+    if (searchCriteria.maxPrice) {
+        filtered = filtered.filter(villa => villa.price <= searchCriteria.maxPrice);
+    }
+    
+    console.log(`🔍 ${filtered.length} villas trouvées sur ${villasData.length}`);
+    return filtered;
+}
+
+function calculateTotalGuests(adults, children, babies) {
+    // Les bébés ne comptent pas dans la capacité
+    return parseInt(adults) + parseInt(children);
+}
+
+function formatPrice(price) {
+    return new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'EUR'
+    }).format(price);
+}
+
+function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR');
+}
+
+// ===== URL PARAMETERS =====
+
+function getURLParameter(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+function setURLParameter(param, value) {
+    const url = new URL(window.location);
+    url.searchParams.set(param, value);
+    window.history.pushState({}, '', url);
+}
+
+function navigateToVillaDetails(villaId) {
+    window.location.href = `villa-details.html?villa=${villaId}`;
+}
+
+function navigateToReservation(villaId) {
+    // Sauvegarder les données de recherche
+    saveSearchData(currentSearch);
+    window.location.href = `reservation.html?villa=${villaId}`;
+}
+
+// ===== PAGE TRANSITIONS =====
+
+function smoothPageTransition(callback) {
+    document.body.style.opacity = '0.8';
+    document.body.style.transform = 'scale(0.98)';
+    
+    setTimeout(() => {
+        if (callback) callback();
+        document.body.style.opacity = '1';
+        document.body.style.transform = 'scale(1)';
+    }, 200);
+}
+
+// ===== GLASSMORPHISM EFFECTS =====
+
+function addGlassEffect(element) {
+    element.style.background = 'var(--glass-bg)';
+    element.style.backdropFilter = 'blur(20px)';
+    element.style.webkitBackdropFilter = 'blur(20px)';
+    element.style.border = '1px solid var(--glass-border)';
+    element.style.boxShadow = 'var(--glass-shadow)';
+}
+
+function addWaveAnimation(element) {
+    element.classList.add('wave-animation');
+}
+
+// ===== EVENT LISTENERS GLOBAUX =====
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Villa Martinique - Initialisation...');
+    
+    // Initialiser la navigation
+    initNavigation();
+    
+    // Charger les données sauvegardées
+    loadSearchData();
+    
+    // Message de bienvenue selon la page
+    const welcomeMessages = {
+        'index.html': '🏝️ Bienvenue sur Villa Martinique !',
+        'villas.html': '🏖️ Découvrez nos villas de luxe',
+        'reservation.html': '📅 Finalisez votre réservation',
+        'villa-details.html': '🌺 Détails de la villa',
+        'contact.html': '📞 Contactez-nous'
+    };
+    
+    const message = welcomeMessages[currentPage] || '🌊 Villa Martinique';
+    showStatusMessage(message, 'success');
+    
+    // Ajouter les écouteurs d'événements globaux
+    addGlobalEventListeners();
+    
+    console.log(`✅ ${currentPage} initialisé avec succès`);
+});
+
+function addGlobalEventListeners() {
+    // Fermer les dropdowns en cliquant à l'extérieur
+    document.addEventListener('click', function(event) {
+        const dropdowns = document.querySelectorAll('.dropdown-glass.active');
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(event.target) && !event.target.closest('[data-dropdown]')) {
+                dropdown.classList.remove('active');
+            }
+        });
+    });
+    
+    // Gestion des touches clavier
+    document.addEventListener('keydown', function(event) {
+        // Échap pour fermer les modales et dropdowns
+        if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('.modal-glass');
+            const dropdowns = document.querySelectorAll('.dropdown-glass.active');
+            
+            modals.forEach(modal => modal.remove());
+            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+        }
+    });
+}
+
+// ===== EXPORTS POUR LES AUTRES PAGES =====
+
+window.VillaMartinique = {
+    villasData,
+    communesMartinique,
+    currentSearch,
+    filteredVillas,
+    
+    // Functions
+    showStatusMessage,
+    saveSearchData,
+    loadSearchData,
+    saveReservationData,
+    loadReservationData,
+    getVillaById,
+    filterVillasByCategory,
+    searchVillas,
+    calculateTotalGuests,
+    formatPrice,
+    formatDate,
+    getURLParameter,
+    setURLParameter,
+    navigateToVillaDetails,
+    navigateToReservation,
+    smoothPageTransition,
+    addGlassEffect,
+    addWaveAnimation
+};
+
+console.log('🎯 Villa Martinique Core chargé successfully!');
