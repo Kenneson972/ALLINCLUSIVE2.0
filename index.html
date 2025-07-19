@@ -766,7 +766,7 @@
 <body>
     <!-- Container pour la vidéo background -->
     <div class="video-background">
-        <!-- Vidéo en fond d'écran avec tous les attributs nécessaires -->
+        <!-- Vidéo en fond d'écran avec Google Drive -->
         <video 
             autoplay 
             muted 
@@ -775,7 +775,10 @@
             preload="auto"
             poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB2aWV3Qm94PSIwIDAgMTkyMCAxMDgwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjEwODAiIGZpbGw9IiMzMzMiLz48L3N2Zz4="
         >
-            <!-- Source de la vidéo locale -->
+            <!-- Source principale - Google Drive -->
+            <source src="https://drive.google.com/uc?export=view&id=1itDRVOJqNI3fPmJMnJJ2JgDj-Pb7LsLc" type="video/mp4">
+            
+            <!-- Source de fallback locale -->
             <source src="background-video.mp4.mp4" type="video/mp4">
             
             <!-- Message de fallback pour les navigateurs qui ne supportent pas la vidéo -->
