@@ -778,55 +778,95 @@
                 <h1>🏝️ Découvrez la Martinique</h1>
                 <p>21 villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
                 
-                <!-- Recherche Booking.com Style -->
+                <!-- Recherche Intelligente avec Autocomplete -->
                 <div class="search-section">
                     <h2>🔍 Rechercher une Villa</h2>
-                    <div class="booking-search-container">
-                        <div class="search-field">
-                            <label class="search-field-label">Destination</label>
-                            <select id="destination">
-                                <option value="">Toutes les destinations</option>
-                                <option value="petit-macabou">Petit Macabou</option>
-                                <option value="ste-anne">Sainte-Anne</option>
-                                <option value="lamentin">Lamentin</option>
-                                <option value="ste-luce">Sainte-Luce</option>
-                                <option value="vauclin">Vauclin</option>
-                                <option value="trinite">Trinité</option>
-                                <option value="robert">Le Robert</option>
-                                <option value="riviere-pilote">Rivière-Pilote</option>
-                                <option value="ducos">Ducos</option>
-                                <option value="fort-de-france">Fort-de-France</option>
-                                <option value="trenelle">Trenelle</option>
-                            </select>
+                    <div class="villa-search-form">
+                        <!-- Localisation avec autocomplete - Position 1 -->
+                        <div class="search-field location-field">
+                            <label for="location-search">📍 Localisation</label>
+                            <input type="text" 
+                                   id="location-search" 
+                                   class="location-input"
+                                   placeholder="Tapez une ville..."
+                                   autocomplete="off"
+                                   oninput="handleLocationInput(this.value)"
+                                   onfocus="showLocationSuggestions(true)">
+                            <div class="location-suggestions" id="suggestions-dropdown"></div>
                         </div>
                         
+                        <!-- Date d'arrivée - Position 2 -->
                         <div class="search-field">
-                            <label class="search-field-label">Arrivée</label>
+                            <label for="checkin">ARRIVÉE</label>
                             <input type="text" id="checkin" placeholder="Sélectionner une date">
                         </div>
                         
+                        <!-- Date de départ - Position 3 -->
                         <div class="search-field">
-                            <label class="search-field-label">Départ</label>
+                            <label for="checkout">DÉPART</label>
                             <input type="text" id="checkout" placeholder="Sélectionner une date">
                         </div>
                         
+                        <!-- Bouton rechercher - Position 4 -->
                         <div class="search-field">
-                            <label class="search-field-label">Voyageurs</label>
-                            <select id="guests">
-                                <option value="">Nombre de personnes</option>
-                                <option value="2">2 personnes</option>
-                                <option value="4">4 personnes</option>
-                                <option value="6">6 personnes</option>
-                                <option value="8">8 personnes</option>
-                                <option value="10">10 personnes</option>
-                                <option value="15">15+ personnes</option>
-                            </select>
+                            <button class="search-btn" onclick="performSearch()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
                         </div>
                         
-                        <button class="search-button" onclick="performSearch()">
-                            <i class="fas fa-search"></i>
-                            Rechercher
-                        </button>
+                        <!-- Voyageurs - POSITIONNÉ EN BAS À DROITE - Position 5 -->
+                        <div class="search-field voyageurs-field bottom-right-position">
+                            <label>👥 Voyageurs</label>
+                            <div class="voyageurs-dropdown">
+                                <input type="text" 
+                                       class="voyageurs-display" 
+                                       value="2 adultes"
+                                       readonly
+                                       onclick="toggleVoyageursDropdown()">
+                                
+                                <div class="dropdown-menu voyageurs-menu" id="voyageurs-menu" style="display: none;">
+                                    <!-- Adultes -->
+                                    <div class="voyageur-row">
+                                        <div class="voyageur-info">
+                                            <span class="voyageur-label">Adultes</span>
+                                            <small>13 ans et plus</small>
+                                        </div>
+                                        <div class="voyageur-counter">
+                                            <button type="button" class="counter-btn minus" onclick="updateVoyageurs('adultes', -1)">-</button>
+                                            <span class="counter-value" id="adultes-count">2</span>
+                                            <button type="button" class="counter-btn plus" onclick="updateVoyageurs('adultes', 1)">+</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Enfants -->
+                                    <div class="voyageur-row">
+                                        <div class="voyageur-info">
+                                            <span class="voyageur-label">Enfants</span>
+                                            <small>2-12 ans</small>
+                                        </div>
+                                        <div class="voyageur-counter">
+                                            <button type="button" class="counter-btn minus" onclick="updateVoyageurs('enfants', -1)">-</button>
+                                            <span class="counter-value" id="enfants-count">0</span>
+                                            <button type="button" class="counter-btn plus" onclick="updateVoyageurs('enfants', 1)">+</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bébés -->
+                                    <div class="voyageur-row">
+                                        <div class="voyageur-info">
+                                            <span class="voyageur-label">Bébés</span>
+                                            <small>0-2 ans</small>
+                                        </div>
+                                        <div class="voyageur-counter">
+                                            <button type="button" class="counter-btn minus" onclick="updateVoyageurs('bebes', -1)">-</button>
+                                            <span class="counter-value" id="bebes-count">0</span>
+                                            <button type="button" class="counter-btn plus" onclick="updateVoyageurs('bebes', 1)">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
