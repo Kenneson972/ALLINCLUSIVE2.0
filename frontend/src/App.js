@@ -416,24 +416,25 @@ Contactez-nous pour plus d'informations :
           muted 
           loop 
           playsInline 
-          preload="auto"
+          preload="metadata"
           className="background-video"
+          poster="https://res.cloudinary.com/ddulasmtz/video/upload/so_0,q_auto,f_jpg,w_1920,h_1080/v1752950782/background-video.mp4_qoofsz.jpg"
           onLoadStart={() => console.log('🎬 Chargement vidéo Cloudinary...')}
           onCanPlay={() => console.log('✅ Vidéo Cloudinary prête !')}
           onLoadedData={() => console.log('📹 Données vidéo Cloudinary chargées !')}
           onError={(e) => console.error('❌ Erreur vidéo Cloudinary:', e)}
         >
-          {/* Source principale MP4 optimisée Cloudinary */}
+          {/* Source ultra-légère optimisée */}
           <source 
-            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_auto,f_mp4,c_scale,w_1920/v1752950782/background-video.mp4_qoofsz.mp4" 
+            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_30,br_500k,c_scale,w_1280,h_720/v1752950782/background-video.mp4_qoofsz.mp4" 
             type="video/mp4" 
           />
-          {/* Source WebM optimisée pour meilleure compatibilité */}
+          {/* Source moyenne qualité */}
           <source 
-            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_auto,f_webm,c_scale,w_1920/v1752950782/background-video.mp4_qoofsz.webm" 
-            type="video/webm" 
+            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_60,c_scale,w_1920/v1752950782/background-video.mp4_qoofsz.mp4" 
+            type="video/mp4" 
           />
-          {/* Source originale en fallback */}
+          {/* Source originale en dernier recours */}
           <source 
             src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" 
             type="video/mp4" 
