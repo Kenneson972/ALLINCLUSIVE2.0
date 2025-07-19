@@ -2076,9 +2076,9 @@
                 menu.style.top = (rect.bottom + 10) + 'px';
                 menu.style.left = (rect.left) + 'px';
                 menu.style.transform = 'none';
-                menu.style.display = 'block';
+                menu.classList.add('active');
             } else {
-                menu.style.display = 'none';
+                menu.classList.remove('active');
             }
         }
 
