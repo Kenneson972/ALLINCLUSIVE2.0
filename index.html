@@ -34,7 +34,7 @@
             overflow-x: hidden;
         }
         
-        /* Container principal pour la vidéo background */
+        /* Container principal pour la vidéo background YouTube */
         .video-background {
             position: fixed;
             top: 0;
@@ -43,7 +43,7 @@
             height: 100%;
             z-index: -2;
             overflow: hidden;
-            /* Magnifique fallback animé tropical */
+            /* Magnifique fallback animé si YouTube ne charge pas */
             background: linear-gradient(
                 45deg,
                 #667eea 0%,
@@ -56,6 +56,27 @@
             animation: tropical-waves 15s ease infinite;
         }
 
+        .youtube-background-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .youtube-background-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
         /* Animation des vagues tropicales */
         @keyframes tropical-waves {
             0% { background-position: 0% 50%; }
@@ -64,33 +85,6 @@
             75% { background-position: 0% 100%; }
             100% { background-position: 0% 50%; }
         }
-
-        /* Vidéo en fond d'écran */
-        .video-background video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        /* Fallback pour les navigateurs qui ne supportent pas object-fit */
-        @supports not (object-fit: cover) {
-            .video-background video {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
-        }
-        
-        .video-overlay {
             position: absolute;
             top: 0;
             left: 0;
