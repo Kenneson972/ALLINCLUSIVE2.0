@@ -1900,6 +1900,139 @@
             displayVillas();
         }
 
+        // ===== FONCTIONS BARRE DE RECHERCHE INTELLIGENTE =====
+        
+        // Liste des communes de Martinique pour l'autocomplete
+        const communesMartinique = [
+            'Sainte-Anne', 'Vauclin', 'Lamentin', 'Macabou', 'Petit Macabou', 'Sainte-Luce', 
+            'Trinité', 'Le Robert', 'Rivière-Pilote', 'Ducos', 'Fort-de-France', 
+            'Trenelle', 'Le Marin', 'Rivière-Salée', 'Les Trois-Îlets', 
+            'Le Diamant', 'Les Anses-d\'Arlet', 'Le Carbet', 'Bellefontaine',
+            'Case-Pilote', 'Schoelcher', 'Saint-Joseph', 'Le Lorrain',
+            'Marigot', 'Sainte-Marie', 'Le Prêcheur', 'Grand\'Rivière',
+            'L\'Ajoupa-Bouillon', 'Basse-Pointe', 'Macouba', 'Le Morne-Rouge',
+            'Saint-Pierre', 'Le Morne-Vert', 'Fonds-Saint-Denis'
+        ];
+
+        // État des voyageurs
+        let voyageursCount = {
+            adultes: 2,
+            enfants: 0,
+            bebes: 0
+        };
+
+        let showLocationSuggestionsFlag = false;
+        let showVoyageursDropdownFlag = false;
+
+        // Fonction pour gérer l'input de localisation
+        function handleLocationInput(value) {
+            const suggestionsDiv = document.getElementById('suggestions-dropdown');
+            
+            if (value.length > 0) {
+                const filtered = communesMartinique.filter(commune =>
+                    commune.toLowerCase().includes(value.toLowerCase())
+                );
+                
+                if (filtered.length > 0) {
+                    suggestionsDiv.innerHTML = filtered.slice(0, 5).map(commune => 
+                        `<div class="suggestion-item" onclick="selectLocation('${commune}')">📍 ${commune}</div>`
+                    ).join('');
+                    suggestionsDiv.style.display = 'block';
+                } else {
+                    suggestionsDiv.style.display = 'none';
+                }
+            } else {
+                suggestionsDiv.style.display = 'none';
+            }
+        }
+
+        // Fonction pour sélectionner une localisation
+        function selectLocation(commune) {
+            document.getElementById('location-search').value = commune;
+            document.getElementById('suggestions-dropdown').style.display = 'none';
+        }
+
+        // Fonction pour montrer/cacher les suggestions
+        function showLocationSuggestions(show) {
+            showLocationSuggestionsFlag = show;
+        }
+
+        // Fonction pour toggle le dropdown voyageurs
+        function toggleVoyageursDropdown() {
+            const menu = document.getElementById('voyageurs-menu');
+            showVoyageursDropdownFlag = !showVoyageursDropdownFlag;
+            menu.style.display = showVoyageursDropdownFlag ? 'block' : 'none';
+        }
+
+        // Fonction pour mettre à jour le nombre de voyageurs
+        function updateVoyageurs(type, increment) {
+            if (type === 'adultes' && voyageursCount.adultes + increment < 1) return;
+            if (voyageursCount[type] + increment < 0) return;
+            
+            voyageursCount[type] += increment;
+            
+            // Mettre à jour l'affichage
+            document.getElementById(type + '-count').textContent = voyageursCount[type];
+            updateVoyageursDisplay();
+            
+            // Désactiver/activer les boutons
+            updateCounterButtons();
+        }
+
+        // Fonction pour afficher le texte des voyageurs
+        function updateVoyageursDisplay() {
+            let display = `${voyageursCount.adultes} adulte${voyageursCount.adultes > 1 ? 's' : ''}`;
+            if (voyageursCount.enfants > 0) {
+                display += `, ${voyageursCount.enfants} enfant${voyageursCount.enfants > 1 ? 's' : ''}`;
+            }
+            if (voyageursCount.bebes > 0) {
+                display += `, ${voyageursCount.bebes} bébé${voyageursCount.bebes > 1 ? 's' : ''}`;
+            }
+            
+            document.querySelector('.voyageurs-display').value = display;
+        }
+
+        // Fonction pour mettre à jour l'état des boutons
+        function updateCounterButtons() {
+            // Bouton minus adultes
+            const adultesMinusBtn = document.querySelector('button[onclick="updateVoyageurs(\'adultes\', -1)"]');
+            if (adultesMinusBtn) {
+                adultesMinusBtn.disabled = voyageursCount.adultes <= 1;
+            }
+            
+            // Boutons minus enfants et bébés
+            const enfantsMinusBtn = document.querySelector('button[onclick="updateVoyageurs(\'enfants\', -1)"]');
+            if (enfantsMinusBtn) {
+                enfantsMinusBtn.disabled = voyageursCount.enfants <= 0;
+            }
+            
+            const bebesMinusBtn = document.querySelector('button[onclick="updateVoyageurs(\'bebes\', -1)"]');
+            if (bebesMinusBtn) {
+                bebesMinusBtn.disabled = voyageursCount.bebes <= 0;
+            }
+        }
+
+        // Gestion des clics en dehors des dropdowns
+        document.addEventListener('click', function(event) {
+            // Fermer suggestions localisation
+            if (!event.target.closest('.location-field')) {
+                document.getElementById('suggestions-dropdown').style.display = 'none';
+            }
+            
+            // Fermer dropdown voyageurs
+            if (!event.target.closest('.voyageurs-field')) {
+                document.getElementById('voyageurs-menu').style.display = 'none';
+                showVoyageursDropdownFlag = false;
+            }
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCounterButtons();
+        });
+
+        // ===== FIN FONCTIONS BARRE DE RECHERCHE INTELLIGENTE =====
+
         // Fonction de recherche
         function performSearch() {
             const destination = document.getElementById('destination').value.toLowerCase();
