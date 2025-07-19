@@ -383,6 +383,7 @@ Contactez-nous pour plus d'informations :
       {/* Video Background with Loop Animation - Local Video */}
       <div className="video-background-loop">
         <video autoPlay muted loop playsInline className="background-video">
+          <source src="./background-video.mp4.mp4" type="video/mp4" />
           <source src="/background-video.mp4.mp4" type="video/mp4" />
           Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
