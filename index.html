@@ -1097,7 +1097,7 @@
                 <h1>🏝️ Découvrez la Martinique</h1>
                 <p>21 villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
                 
-                <!-- Recherche Style Booking.com Simplifiée -->
+                <!-- Recherche Style Booking.com Complète -->
                 <div class="search-section">
                     <h2>🔍 Rechercher une Villa</h2>
                     <div class="villa-search-form">
@@ -1112,6 +1112,18 @@
                                    oninput="handleLocationInput(this.value)"
                                    onfocus="showLocationSuggestions(true)">
                             <div class="location-suggestions" id="suggestions-dropdown"></div>
+                        </div>
+                        
+                        <!-- Arrivée avec calendrier -->
+                        <div class="search-field">
+                            <label for="checkin">ARRIVÉE</label>
+                            <input type="text" id="checkin" placeholder="Ajouter des dates" readonly>
+                        </div>
+                        
+                        <!-- Départ avec calendrier -->
+                        <div class="search-field">
+                            <label for="checkout">DÉPART</label>
+                            <input type="text" id="checkout" placeholder="Ajouter des dates" readonly>
                         </div>
                         
                         <!-- Voyageurs -->
