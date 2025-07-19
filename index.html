@@ -43,6 +43,26 @@
             height: 100%;
             z-index: -2;
             overflow: hidden;
+            /* Magnifique fallback animé tropical */
+            background: linear-gradient(
+                45deg,
+                #667eea 0%,
+                #764ba2 25%,
+                #f093fb 50%,
+                #f5576c 75%,
+                #4facfe 100%
+            );
+            background-size: 400% 400%;
+            animation: tropical-waves 15s ease infinite;
+        }
+
+        /* Animation des vagues tropicales */
+        @keyframes tropical-waves {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Vidéo en fond d'écran */
@@ -56,7 +76,7 @@
             height: auto;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            /* Assure que la vidéo couvre tout l'écran sans déformation */
+            z-index: 1;
         }
 
         /* Fallback pour les navigateurs qui ne supportent pas object-fit */
