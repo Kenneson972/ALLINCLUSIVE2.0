@@ -34,7 +34,7 @@
             overflow-x: hidden;
         }
         
-        /* Container principal pour la vidéo background Cloudinary */
+        /* Video Background */
         .video-background {
             position: fixed;
             top: 0;
@@ -43,49 +43,21 @@
             height: 100%;
             z-index: -2;
             overflow: hidden;
-            /* Magnifique fallback animé si vidéo ne charge pas */
-            background: linear-gradient(
-                45deg,
-                #667eea 0%,
-                #764ba2 25%,
-                #f093fb 50%,
-                #f5576c 75%,
-                #4facfe 100%
-            );
-            background-size: 400% 400%;
-            animation: tropical-waves 15s ease infinite;
         }
-
-        .cloudinary-background-video {
+        
+        .video-background video {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
             transform: translate(-50%, -50%);
-            filter: brightness(0.7) contrast(1.1) saturate(1.2);
-            z-index: 1;
+            object-fit: cover;
         }
-
+        
         .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 2;
-        }
-
-        /* Animation des vagues tropicales */
-        @keyframes tropical-waves {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 100% 50%; }
-            50% { background-position: 100% 100%; }
-            75% { background-position: 0% 100%; }
-            100% { background-position: 0% 50%; }
-        }
             position: absolute;
             top: 0;
             left: 0;
@@ -759,19 +731,8 @@
     </style>
 </head>
 <body>
-    <!-- Container pour la vidéo background Cloudinary -->
+    <!-- Background with gradient fallback -->
     <div class="video-background">
-        <video 
-            autoplay 
-            muted 
-            loop 
-            playsinline 
-            preload="auto"
-            class="cloudinary-background-video"
-        >
-            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
-        </video>
         <div class="video-overlay"></div>
     </div>
 
@@ -1860,47 +1821,6 @@
                 closeImageGallery();
             }
         }
-    </script>
-    
-    <!-- Script Cloudinary Background pour HTML Statique -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.querySelector('.cloudinary-background-video');
-            
-            if (video) {
-                // Gestion du chargement de la vidéo Cloudinary
-                video.addEventListener('loadstart', function() {
-                    console.log('🎬 Chargement vidéo Cloudinary commencé');
-                });
-                
-                video.addEventListener('canplay', function() {
-                    console.log('✅ Vidéo Cloudinary prête à lire');
-                });
-                
-                video.addEventListener('loadeddata', function() {
-                    console.log('📹 Vidéo Cloudinary chargée avec succès !');
-                });
-                
-                video.addEventListener('error', function(e) {
-                    console.error('❌ Erreur vidéo Cloudinary:', e);
-                    console.log('🎨 Utilisation du fond animé CSS');
-                });
-                
-                // Gestion de la visibilité de la page
-                document.addEventListener('visibilitychange', function() {
-                    if (document.hidden) {
-                        video.pause();
-                    } else {
-                        video.play().catch(e => console.log('Relecture vidéo:', e));
-                    }
-                });
-                
-                // Tentative de lecture automatique
-                video.play().catch(e => {
-                    console.log('Lecture auto vidéo:', e);
-                });
-            }
-        });
     </script>
 </body>
 </html>
