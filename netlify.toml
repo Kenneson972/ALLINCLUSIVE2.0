@@ -16,6 +16,8 @@
   YARN_VERSION = "1.22.19"
   CLOUDINARY_CLOUD_NAME = "ddulasmtz"
   CI = "false"
+  GENERATE_SOURCEMAP = "false"
+  DISABLE_ESLINT_PLUGIN = "true"
 
 [[headers]]
   for = "/*"
