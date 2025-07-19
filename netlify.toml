@@ -1,43 +1,9 @@
+# Netlify configuration file
 [build]
-  base = "."
-  command = "yarn install-frontend && cd frontend && yarn build"
+  command = "cd frontend && yarn install && yarn build"
   publish = "frontend/build"
 
-[[plugins]]
-  package = "netlify-plugin-cloudinary"
-
-  [plugins.inputs]
-    cloudName = "ddulasmtz"
-    imagesPath = ["/images", "/videos", "/static"]
-    deliveryType = "fetch"
-
-[build.environment]
-  NODE_VERSION = "18"
-  YARN_VERSION = "1.22.19"
-  CLOUDINARY_CLOUD_NAME = "ddulasmtz"
-  CI = "false"
-  GENERATE_SOURCEMAP = "false"
-  DISABLE_ESLINT_PLUGIN = "true"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-
-[[headers]]
-  for = "/videos/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.mp4"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-    Content-Type = "video/mp4"
-
 [[redirects]]
-  from = "/admin"
-  to = "/admin.html"
+  from = "/*"
+  to = "/index.html"
   status = 200
