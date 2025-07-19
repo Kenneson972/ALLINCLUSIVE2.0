@@ -16,6 +16,7 @@ function App() {
   // États pour la vue détaillée des villas
   const [showVillaDetail, setShowVillaDetail] = useState(false);
   const [selectedVilla, setSelectedVilla] = useState(null);
+  const [selectedSeason, setSelectedSeason] = useState('basse'); // 'basse' ou 'haute'
   
   // États pour la réservation
   const [showReservationModal, setShowReservationModal] = useState(false);
