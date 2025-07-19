@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa de Luxe Martinique - Réservation Saint-Joseph | Villa Martinique</title>
+    <meta name="description" content="Réservez votre villa de rêve en Martinique. Villas luxueuses à Saint-Joseph, Sainte-Anne, Fort-de-France avec piscine et vue mer. Location saisonnière premium.">
+    <meta name="keywords" content="villa martinique, location vacances, saint-joseph, luxe tropical, piscine privée, vue mer, sainte-anne">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Villa de Luxe Martinique - Location Saisonnière">
+    <meta property="og:description" content="Découvrez nos villas de luxe en Martinique avec piscine, vue mer et services premium">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://villa-martinique.github.io/">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/glassmorphism.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Flatpickr pour les calendriers -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <!-- Video Background -->
+    <video class="video-background" autoplay muted loop playsInline>
+        <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas les vidéos HTML5.
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar-glassmorphism">
+        <a href="index.html" class="logo">
+            🏝️ Villa Martinique
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="villas.html">Nos Villas</a></li>
+            <li><a href="reservation.html">Réserver</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" aria-label="Menu mobile">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Contenu Principal -->
+    <main class="page-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        🏝️ Découvrez la Martinique
+                    </h1>
+                    <p class="hero-subtitle">
+                        Villas de luxe et services exceptionnels dans un cadre paradisiaque
+                    </p>
+
+                    <!-- Barre de Recherche Principale -->
+                    <div class="search-section">
+                        <h2 class="search-title">🔍 Rechercher une Villa</h2>
+                        <div class="search-bar-glass">
+                            <!-- Destination -->
+                            <div class="search-field-glass location-field">
+                                <label for="home-destination">DESTINATION</label>
+                                <input type="text" 
+                                       id="home-destination" 
+                                       placeholder="Où souhaitez-vous aller ?"
+                                       autocomplete="off"
+                                       data-dropdown="location">
+                                <div class="dropdown-glass location-suggestions" id="home-location-suggestions"></div>
+                            </div>
+                            
+                            <!-- Arrivée -->
+                            <div class="search-field-glass">
+                                <label for="home-checkin">ARRIVÉE</label>
+                                <input type="text" id="home-checkin" placeholder="Ajouter des dates">
+                            </div>
+                            
+                            <!-- Départ -->
+                            <div class="search-field-glass">
+                                <label for="home-checkout">DÉPART</label>
+                                <input type="text" id="home-checkout" placeholder="Ajouter des dates">
+                            </div>
+                            
+                            <!-- Voyageurs -->
+                            <div class="search-field-glass guests-field">
+                                <label>VOYAGEURS</label>
+                                <input type="text" 
+                                       class="guests-display" 
+                                       value="2 adultes"
+                                       readonly
+                                       data-dropdown="guests">
+                                
+                                <div class="dropdown-glass guests-dropdown" id="home-guests-dropdown">
+                                    <!-- Adultes -->
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Adultes</div>
+                                            <div class="guest-description">13 ans et plus</div>
+                                        </div>
+                                        <div class="guest-counter">
+                                            <button type="button" class="counter-btn minus" data-target="adults">-</button>
+                                            <span class="counter-value" id="adults-count">2</span>
+                                            <button type="button" class="counter-btn plus" data-target="adults">+</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Enfants -->
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Enfants</div>
+                                            <div class="guest-description">De 2 à 12 ans</div>
+                                        </div>
+                                        <div class="guest-counter">
+                                            <button type="button" class="counter-btn minus" data-target="children">-</button>
+                                            <span class="counter-value" id="children-count">0</span>
+                                            <button type="button" class="counter-btn plus" data-target="children">+</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bébés -->
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Bébés</div>
+                                            <div class="guest-description">Moins de 2 ans</div>
+                                        </div>
+                                        <div class="guest-counter">
+                                            <button type="button" class="counter-btn minus" data-target="babies">-</button>
+                                            <span class="counter-value" id="babies-count">0</span>
+                                            <button type="button" class="counter-btn plus" data-target="babies">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bouton Rechercher -->
+                            <div class="search-field-glass">
+                                <button class="btn-primary search-btn" id="home-search-btn">
+                                    <i class="fas fa-search"></i>
+                                    Rechercher
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Filtres Catégories -->
+                        <div class="category-filters">
+                            <button class="filter-btn active" data-category="all">Toutes</button>
+                            <button class="filter-btn" data-category="sejour">Séjour</button>
+                            <button class="filter-btn" data-category="fete">Fête/Journée</button>
+                            <button class="filter-btn" data-category="speciales">Spéciales</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Villas Populaires -->
+        <section class="popular-villas">
+            <div class="container">
+                <h2 class="section-title">🏖️ Nos Villas Populaires</h2>
+                <div class="villas-grid" id="popular-villas-grid">
+                    <!-- Villas chargées dynamiquement -->
+                </div>
+                <div class="text-center">
+                    <a href="villas.html" class="btn-primary">
+                        <i class="fas fa-eye"></i>
+                        Voir toutes nos villas
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Premium -->
+        <section class="services-section">
+            <div class="container">
+                <h2 class="section-title">🌟 Services Premium</h2>
+                <div class="features-grid">
+                    <div class="glass-card">
+                        <div class="service-icon">🚤</div>
+                        <h3>Nautique</h3>
+                        <p>Excursions en catamaran, sports nautiques, plongée sous-marine dans les eaux cristallines de la Martinique.</p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="service-icon">🍽️</div>
+                        <h3>Culinaire</h3>
+                        <p>Chefs privés, cuisine créole authentique, dégustations de rhum et cours de cuisine tropicale.</p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="service-icon">🎉</div>
+                        <h3>Événementiel</h3>
+                        <p>Organisation de mariages tropicaux, anniversaires, événements d'entreprise dans un cadre paradisiaque.</p>
+                    </div>
+                    
+                    <div class="glass-card">
+                        <div class="service-icon">🌺</div>
+                        <h3>Bien-être</h3>
+                        <p>Massages tropicaux, yoga face à la mer, spa privatisé et soins aux huiles essentielles locales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Découvrir Saint-Joseph -->
+        <section class="location-section">
+            <div class="container">
+                <div class="glass-card location-card">
+                    <h2 class="section-title">📍 Découvrir Saint-Joseph</h2>
+                    <div class="location-content">
+                        <div class="location-text">
+                            <p>
+                                Nichée au cœur de la Martinique, <strong>Saint-Joseph</strong> offre un cadre authentique 
+                                entre mer et montagne. Nos villas vous permettent de découvrir les richesses naturelles 
+                                de l'île : plages sauvages, forêt tropicale et patrimoine créole.
+                            </p>
+                            <ul class="location-highlights">
+                                <li><i class="fas fa-map-marker-alt"></i> Centre géographique de la Martinique</li>
+                                <li><i class="fas fa-mountain"></i> Proche des pitons du Carbet</li>
+                                <li><i class="fas fa-leaf"></i> Forêt tropicale et jardins botaniques</li>
+                                <li><i class="fas fa-waves"></i> Accès rapide aux plus belles plages</li>
+                            </ul>
+                            <a href="contact.html" class="btn-secondary">
+                                <i class="fas fa-info-circle"></i>
+                                En savoir plus
+                            </a>
+                        </div>
+                        <div class="location-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-mountain" style="font-size: 4rem; color: var(--turquoise-caribbean);"></i>
+                                <p>Saint-Joseph, Martinique</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/villa-search.js"></script>
+
+    <script>
+        // Initialisation de la page d'accueil
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏠 Initialisation page accueil...');
+            
+            // Charger les villas populaires (premières 6)
+            const popularVillas = VillaMartinique.villasData.slice(0, 6);
+            displayPopularVillas(popularVillas);
+            
+            // Initialiser la barre de recherche
+            if (typeof initHomeSearch === 'function') {
+                initHomeSearch();
+            }
+        });
+
+        function displayPopularVillas(villas) {
+            const grid = document.getElementById('popular-villas-grid');
+            if (!grid) return;
+
+            const villasHTML = villas.map(villa => `
+                <div class="villa-card-glass">
+                    <div class="villa-image">
+                        <img src="${villa.image}" alt="${villa.name}" class="villa-card-image" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder" style="display: none;">
+                            <span style="font-size: 3rem;">${villa.fallback_icon}</span>
+                        </div>
+                    </div>
+                    <div class="villa-card-content">
+                        <h3 class="villa-name">${villa.name}</h3>
+                        <p class="villa-location">
+                            <i class="fas fa-map-marker-alt"></i> ${villa.location}
+                        </p>
+                        <p class="villa-guests">
+                            <i class="fas fa-users"></i> ${villa.guests_detail}
+                        </p>
+                        <div class="villa-price">
+                            <span class="price">${VillaMartinique.formatPrice(villa.price)}</span>
+                            <span class="price-unit">/nuit</span>
+                        </div>
+                        <div class="villa-actions">
+                            <button class="btn-secondary" onclick="VillaMartinique.navigateToVillaDetails('${villa.id}')">
+                                <i class="fas fa-info-circle"></i>
+                                Détails
+                            </button>
+                            <button class="btn-primary" onclick="VillaMartinique.navigateToReservation('${villa.id}')">
+                                <i class="fas fa-calendar-check"></i>
+                                Réserver
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            grid.innerHTML = villasHTML;
+            console.log(`✅ ${villas.length} villas populaires affichées`);
+        }
+    </script>
+
+    <style>
+        /* Styles spécifiques à la page d'accueil */
+        .hero-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .search-section {
+            margin-bottom: 4rem;
+        }
+
+        .search-title {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--turquoise-caribbean);
+            border-color: var(--turquoise-caribbean);
+            transform: translateY(-2px);
+        }
+
+        .popular-villas {
+            padding: 4rem 0;
+        }
+
+        .services-section {
+            padding: 4rem 0;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .location-section {
+            padding: 4rem 0;
+        }
+
+        .location-card {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .location-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .location-highlights {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .location-highlights li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .location-highlights i {
+            color: var(--turquoise-caribbean);
+            width: 20px;
+        }
+
+        .image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .villa-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .villa-actions .btn-secondary,
+        .villa-actions .btn-primary {
+            flex: 1;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .location-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .villa-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</body>
+</html>
