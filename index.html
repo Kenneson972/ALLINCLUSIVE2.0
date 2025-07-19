@@ -1953,6 +1953,19 @@
                 }
             });
 
+            // Forcer l'ouverture des calendriers au clic
+            document.getElementById('checkin').addEventListener('click', function() {
+                if (checkinCalendar) {
+                    checkinCalendar.open();
+                }
+            });
+
+            document.getElementById('checkout').addEventListener('click', function() {
+                if (checkoutCalendar) {
+                    checkoutCalendar.open();
+                }
+            });
+
             // Calendriers de la modale
             modalCheckinCalendar = flatpickr("#modalCheckin", {
                 locale: "fr",
