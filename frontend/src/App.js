@@ -17,6 +17,9 @@ function App() {
   const [showVillaDetail, setShowVillaDetail] = useState(false);
   const [selectedVilla, setSelectedVilla] = useState(null);
   
+  // État pour la vidéo background
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  
   // États pour la réservation
   const [showReservationModal, setShowReservationModal] = useState(false);
   const [currentVilla, setCurrentVilla] = useState(null);
