@@ -344,7 +344,17 @@ function App() {
     setSelectedVilla(null);
   };
 
-  const openReservationFromDetail = (villa) => {
+  const activateVideo = () => {
+    const video = document.querySelector('.background-video');
+    if (video) {
+      video.play()
+        .then(() => {
+          console.log('✅ Vidéo activée avec succès !');
+          setVideoPlaying(true);
+        })
+        .catch(err => console.error('❌ Erreur activation vidéo:', err));
+    }
+  };
     setCurrentVilla(villa);
     setReservationData({
       customerName: '',
