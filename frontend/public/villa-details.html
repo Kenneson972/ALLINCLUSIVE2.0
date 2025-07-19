@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa Details - KhanelConcept</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0080ff 0%, #00bcd4 50%, #ff6b35 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .villa-details {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        
+        .villa-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .villa-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #00bcd4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .villa-location {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        .villa-price {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .villa-guests {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        .section {
+            margin: 2rem 0;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .description {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .amenity-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .amenity-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .amenity-icon {
+            font-size: 1.5rem;
+        }
+        
+        .amenity-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .reserve-section {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .reserve-btn {
+            background: linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%);
+            color: white;
+            padding: 1.25rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .reserve-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 4rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 4rem 0;
+            color: #ff6b35;
+        }
+        
+        .error-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .villa-name {
+                font-size: 2rem;
+            }
+            
+            .villa-price {
+                font-size: 2rem;
+            }
+            
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .villa-details {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">🌴 KhanelConcept</div>
+            <a href="/" class="back-btn">← Retour à l'accueil</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div>⏳ Chargement...</div>
+        </div>
+
+        <!-- Villa Content -->
+        <div id="villa-content" style="display: none;">
+            <div class="villa-details">
+                <!-- Header -->
+                <div class="villa-header">
+                    <h1 class="villa-name" id="villa-name"></h1>
+                    <p class="villa-location" id="villa-location"></p>
+                    <div class="villa-price" id="villa-price"></div>
+                    <p class="villa-guests" id="villa-guests"></p>
+                </div>
+
+                <!-- Description -->
+                <div class="section">
+                    <h2 class="section-title">📝 Description</h2>
+                    <p class="description" id="villa-description"></p>
+                </div>
+
+                <!-- Amenities -->
+                <div class="section">
+                    <h2 class="section-title">⭐ Équipements & Services</h2>
+                    <div class="amenities-grid" id="amenities-list"></div>
+                </div>
+
+                <!-- Reserve -->
+                <div class="reserve-section">
+                    <a href="#" class="reserve-btn" id="reserve-btn">
+                        🏖️ Réserver Maintenant
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="error" style="display: none;">
+            <div class="error-title">❌ Villa non trouvée</div>
+            <p>Désolé, nous n'avons pas trouvé cette villa.</p>
+            <a href="/" class="back-btn" style="margin-top: 1rem; display: inline-block;">
+                Retour à l'accueil
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Villa data - Simple and fast
+        const villas = {
+            1: {
+                name: "Villa F3 Petit Macabou",
+                location: "📍 Petit Macabou au Vauclin",
+                price: "850€ /nuit",
+                guests: "👥 6 personnes + 9 invités",
+                description: "Cette magnifique villa F3 située au cœur de Petit Macabou au Vauclin représente l'essence même du luxe tropical martiniquais. Conçue pour offrir une expérience de détente absolue, elle dispose d'un sauna privé où vous pourrez vous relaxer après une journée ensoleillée, d'un jacuzzi bouillonnant pour des moments romantiques sous les étoiles, et de deux douches extérieures rafraîchissantes qui vous permettront de vous rincer tout en profitant de la brise caribéenne. La piscine extérieure, véritable joyau de la propriété, est entourée d'une terrasse spacieuse avec salon extérieur, parfaite pour des moments de convivialité.",
+                amenities: [
+                    {icon: "🏊", name: "Piscine extérieure"},
+                    {icon: "🧖‍♀️", name: "Sauna privé"},
+                    {icon: "🛁", name: "Jacuzzi"},
+                    {icon: "🚿", name: "2 Douches extérieures"},
+                    {icon: "🍳", name: "Cuisine équipée"},
+                    {icon: "📶", name: "WiFi haut débit"},
+                    {icon: "❄️", name: "Climatisation"},
+                    {icon: "🛋️", name: "Terrasse salon"}
+                ]
+            },
+            2: {
+                name: "Villa F5 Ste Anne",
+                location: "📍 Quartier Les Anglais, Ste Anne",
+                price: "1300€ /nuit",
+                guests: "👥 10 personnes + 15 invités",
+                description: "Impossible de passer à côté de cette villa F5 extraordinaire dans le quartier résidentiel des Anglais à Sainte-Anne ! Sa façade rose distinctive et son architecture créole modernisée en font un véritable bijou architectural. Cette spacieuse propriété de 5 pièces est parfaitement adaptée aux grands groupes et aux célébrations familiales. La piscine principale, véritable centre névralgique de la villa, offre un espace de baignade généreux entouré de transats et d'espaces de détente. L'intérieur, décoré avec goût dans des tons roses élégants, comprend un salon principal ouvert sur la terrasse, une cuisine moderne entièrement équipée et des chambres confortables.",
+                amenities: [
+                    {icon: "🏊", name: "Grande piscine"},
+                    {icon: "🍳", name: "Cuisine moderne équipée"},
+                    {icon: "🌅", name: "Grande terrasse"},
+                    {icon: "📶", name: "WiFi haut débit"},
+                    {icon: "❄️", name: "Climatisation"},
+                    {icon: "🚗", name: "Parking privé"},
+                    {icon: "🛋️", name: "Salon spacieux"},
+                    {icon: "🎨", name: "Décoration unique"}
+                ]
+            },
+            22: {
+                name: "Villa F6 Petit Macabou",
+                location: "📍 Petit Macabou au Vauclin",
+                price: "2000€ /nuit",
+                guests: "👥 10 à 13 personnes (14 max)",
+                description: "La Villa F6 Petit Macabou représente l'excellence de l'hébergement événementiel en Martinique. Cette propriété d'exception, située dans le prestigieux secteur de Petit Macabou au Vauclin, a été spécialement conçue pour accueillir vos plus belles célébrations. Elle se compose d'un bâtiment principal avec 3 chambres climatisées, chacune dotée de sa salle d'eau attenante, d'une mezzanine offrant un espace de vie supplémentaire, et de 2 studios indépendants aux extrémités pour une intimité parfaite. La piscine XXL et ses terrasses aménagées peuvent transformer vos événements privés en moments inoubliables. Les fêtes sont autorisées de 9h à 19h avec une capacité maximale de 30 convives pour les séjours résidentiels, et jusqu'à 150 personnes pour les événements ponctuels.",
+                amenities: [
+                    {icon: "🛏️", name: "3 chambres climatisées"},
+                    {icon: "🏠", name: "Mezzanine"},
+                    {icon: "🏡", name: "2 studios indépendants"},
+                    {icon: "🏊", name: "Piscine XXL"},
+                    {icon: "🏖️", name: "Terrasse couverte"},
+                    {icon: "📶", name: "WiFi haut débit"},
+                    {icon: "❄️", name: "Climatisation"},
+                    {icon: "🍳", name: "Cuisine moderne"},
+                    {icon: "🎉", name: "Fêtes autorisées"},
+                    {icon: "👥", name: "Jusqu'à 150 convives"}
+                ]
+            }
+        };
+
+        // Initialize immediately when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const villaId = urlParams.get('id');
+            
+            if (!villaId || !villas[villaId]) {
+                showError();
+                return;
+            }
+
+            // Load villa immediately - no delay
+            loadVilla(villas[villaId], villaId);
+        });
+
+        function loadVilla(villa, villaId) {
+            // Update content
+            document.getElementById('villa-name').textContent = villa.name;
+            document.getElementById('villa-location').textContent = villa.location;
+            document.getElementById('villa-price').textContent = villa.price;
+            document.getElementById('villa-guests').textContent = villa.guests;
+            document.getElementById('villa-description').textContent = villa.description;
+
+            // Update amenities
+            const amenitiesList = document.getElementById('amenities-list');
+            amenitiesList.innerHTML = villa.amenities.map(amenity => `
+                <div class="amenity-item">
+                    <span class="amenity-icon">${amenity.icon}</span>
+                    <span class="amenity-name">${amenity.name}</span>
+                </div>
+            `).join('');
+
+            // Update reserve button
+            document.getElementById('reserve-btn').onclick = function() {
+                window.location.href = `reservation.html?villa=${villaId}`;
+            };
+
+            // Show content immediately
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('villa-content').style.display = 'block';
+        }
+
+        function showError() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-state').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
