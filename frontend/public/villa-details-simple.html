@@ -115,7 +115,7 @@
     </main>
 
     <script>
-        // Simple villa data for testing
+        // Complete villa data - All 22 villas with detailed descriptions
         const villasData = [
             {
                 id: 1,
@@ -124,7 +124,6 @@
                 price: 850.0,
                 guests: 6,
                 guestsDetail: "6 personnes + 9 invités",
-                features: "Sauna, Jacuzzi, 2 douches extérieures",
                 amenities: [
                     {name: "Piscine extérieure", icon: "🏊"},
                     {name: "Sauna privé", icon: "🧖‍♀️"},
@@ -144,7 +143,6 @@
                 price: 1300.0,
                 guests: 10,
                 guestsDetail: "10 personnes + 15 invités",
-                features: "Piscine, décoration rose distinctive",
                 amenities: [
                     {name: "Grande piscine", icon: "🏊"},
                     {name: "Cuisine moderne équipée", icon: "🍳"},
@@ -155,7 +153,389 @@
                     {name: "Salon spacieux", icon: "🛋️"},
                     {name: "Décoration unique", icon: "🎨"}
                 ],
-                description: "Impossible de passer à côté de cette villa F5 extraordinaire dans le quartier résidentiel des Anglais à Sainte-Anne ! Sa façade rose distinctive et son architecture créole modernisée en font un véritable bijou architectural."
+                description: "Impossible de passer à côté de cette villa F5 extraordinaire dans le quartier résidentiel des Anglais à Sainte-Anne ! Sa façade rose distinctive et son architecture créole modernisée en font un véritable bijou architectural. Cette spacieuse propriété de 5 pièces est parfaitement adaptée aux grands groupes et aux célébrations familiales."
+            },
+            {
+                id: 3,
+                name: "Villa F3 POUR LA BACCHA",
+                location: "Petit Macabou",
+                price: 1350.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                amenities: [
+                    {name: "Piscine moderne", icon: "🏊"},
+                    {name: "Terrasses multiples", icon: "🌅"},
+                    {name: "Jardin tropical", icon: "🌺"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Salon extérieur", icon: "🛋️"},
+                    {name: "Espace détente", icon: "🧘‍♂️"}
+                ],
+                description: "Cette villa F3 moderne baptisée 'Pour la Baccha' incarne l'art de vivre caribéen dans toute sa splendeur. Nichée à Petit Macabou, elle séduit par ses terrasses étagées qui offrent différents espaces de vie selon vos envies : terrasse piscine pour la baignade et les bains de soleil, terrasse jardin pour les repas à l'ombre des palmiers."
+            },
+            {
+                id: 4,
+                name: "Studio Cocooning Lamentin",
+                location: "Morne Pitault, Lamentin",
+                price: 290.0,
+                guests: 2,
+                guestsDetail: "2 personnes (couple)",
+                amenities: [
+                    {name: "Jacuzzi privé", icon: "🛁"},
+                    {name: "Vue panoramique", icon: "🌄"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Terrasse romantique", icon: "💕"},
+                    {name: "Espace cocooning", icon: "🥰"},
+                    {name: "Parking inclus", icon: "🚗"}
+                ],
+                description: "Perché sur les hauteurs du Morne Pitault au Lamentin, ce studio cocooning a été spécialement conçu pour les couples en quête de romantisme et d'intimité. La vue panoramique exceptionnelle sur la baie de Fort-de-France et les mornes environnants vous coupera le souffle, particulièrement au coucher du soleil."
+            },
+            {
+                id: 5,
+                name: "Villa Sunset Paradise",
+                location: "Sainte-Anne",
+                price: 950.0,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 invités",
+                amenities: [
+                    {name: "Piscine privée 8x4m", icon: "🏊"},
+                    {name: "Vue mer panoramique", icon: "🌊"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Grande terrasse", icon: "🌅"},
+                    {name: "Parking privé", icon: "🚗"},
+                    {name: "Coucher de soleil", icon: "🌇"}
+                ],
+                description: "Villa Sunset Paradise porte admirablement bien son nom ! Située à Sainte-Anne, cette propriété d'exception offre une vue mer à couper le souffle et des couchers de soleil absolument magiques. La piscine privée de 8x4 mètres, parfaitement orientée face à la mer, devient le théâtre de vos plus beaux moments de détente."
+            },
+            {
+                id: 6,
+                name: "Villa Océan Bleu",
+                location: "Les Trois-Îlets",
+                price: 1200.0,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 invités",
+                amenities: [
+                    {name: "Accès direct plage", icon: "🏖️"},
+                    {name: "Piscine à débordement", icon: "🏊"},
+                    {name: "Cuisine moderne", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Jardin tropical", icon: "🌺"},
+                    {name: "Terrasse face mer", icon: "🌊"},
+                    {name: "Parking privé", icon: "🚗"}
+                ],
+                description: "La Villa Océan Bleu aux Trois-Îlets représente le summum du luxe balnéaire martiniquais. Son atout majeur ? Un accès direct à une plage de sable blanc paradisiaque où vous pourrez profiter des eaux cristallines sans quitter votre propriété. La piscine à débordement semble se fondre dans l'océan."
+            },
+            {
+                id: 7,
+                name: "Villa Tropicale Zen",
+                location: "Sainte-Luce",
+                price: 780.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 8 invités",
+                amenities: [
+                    {name: "Jardin tropical luxuriant", icon: "🌺"},
+                    {name: "Spa extérieur", icon: "🧖‍♀️"},
+                    {name: "Piscine zen", icon: "🏊"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Espace méditation", icon: "🧘‍♂️"},
+                    {name: "Parking ombragé", icon: "🚗"}
+                ],
+                description: "La Villa Tropicale Zen à Sainte-Luce est un véritable sanctuaire de sérénité au cœur d'un jardin tropical luxuriant. Conçue selon les principes du bien-être et de l'harmonie avec la nature, cette propriété unique offre une expérience de séjour ressourçante."
+            },
+            {
+                id: 8,
+                name: "Villa Carbet Deluxe",
+                location: "Le Carbet",
+                price: 1100.0,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 invités",
+                amenities: [
+                    {name: "Vue montagne Pelée", icon: "🏔️"},
+                    {name: "Piscine chauffée", icon: "♨️"},
+                    {name: "Grande terrasse", icon: "🌅"},
+                    {name: "Cuisine moderne", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Jardin volcanique", icon: "🌋"},
+                    {name: "Parking sécurisé", icon: "🚗"}
+                ],
+                description: "La Villa Carbet Deluxe offre une expérience unique sur la côte caribéenne avec une vue spectaculaire sur la mythique montagne Pelée. Située au Carbet, cette villa de luxe vous plonge dans l'histoire tout en offrant un confort moderne exceptionnel."
+            },
+            {
+                id: 9,
+                name: "Appartement Marina Fort-de-France",
+                location: "Fort-de-France Marina",
+                price: 320.0,
+                guests: 4,
+                guestsDetail: "4 personnes max",
+                amenities: [
+                    {name: "Vue marina", icon: "⛵"},
+                    {name: "Balcon panoramique", icon: "🌅"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Parking sécurisé", icon: "🚗"},
+                    {name: "Accès centre-ville", icon: "🏙️"},
+                    {name: "Proximité services", icon: "🛍️"}
+                ],
+                description: "Cet appartement moderne à la Marina de Fort-de-France offre une expérience urbaine unique en Martinique. Situé au cœur du port de plaisance, il bénéficie d'une vue imprenable sur les voiliers, yachts et bateaux de croisière qui animent quotidiennement ce lieu emblématique."
+            },
+            {
+                id: 10,
+                name: "Villa Diamant Prestige",
+                location: "Le Diamant",
+                price: 1400.0,
+                guests: 12,
+                guestsDetail: "12 personnes + 20 invités",
+                amenities: [
+                    {name: "Vue Rocher du Diamant", icon: "💎"},
+                    {name: "Piscine infinity", icon: "♾️"},
+                    {name: "Grande cuisine", icon: "👨‍🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Barbecue premium", icon: "🔥"},
+                    {name: "Terrasses étagées", icon: "🏔️"},
+                    {name: "Fêtes autorisées", icon: "🎉"}
+                ],
+                description: "La Villa Diamant Prestige domine majestueusement la baie du Diamant avec une vue à 180° sur le célèbre Rocher du Diamant, monument naturel emblématique de la Martinique. Cette villa d'exception, spécialement conçue pour les grands événements, peut accueillir jusqu'à 12 personnes en séjour et 32 convives pour vos célébrations."
+            },
+            {
+                id: 11,
+                name: "Villa Bord de Mer Tartane",
+                location: "La Trinité - Tartane",
+                price: 890.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 10 invités",
+                amenities: [
+                    {name: "Accès direct mer", icon: "🌊"},
+                    {name: "Piscine naturelle", icon: "🏊"},
+                    {name: "Cuisine créole", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Kayaks inclus", icon: "🚣"},
+                    {name: "Terrasse sur pilotis", icon: "🏖️"},
+                    {name: "Pêche au gros", icon: "🎣"}
+                ],
+                description: "La Villa Bord de Mer Tartane offre l'expérience ultime de la vie les pieds dans l'eau sur la côte atlantique de la Martinique. Située dans le pittoresque village de pêcheurs de Tartane à La Trinité, cette villa authentique vous immerge dans la culture maritime martiniquaise."
+            },
+            {
+                id: 12,
+                name: "Studio Marin Cosy",
+                location: "Le Marin",
+                price: 280.0,
+                guests: 2,
+                guestsDetail: "2 personnes (couple)",
+                amenities: [
+                    {name: "Vue port plaisance", icon: "⛵"},
+                    {name: "Terrasse privée", icon: "🌅"},
+                    {name: "Kitchenette équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Proximité commerces", icon: "🛍️"},
+                    {name: "Marina services", icon: "⚓"},
+                    {name: "Location voiture", icon: "🚗"}
+                ],
+                description: "Le Studio Marin Cosy vous plonge au cœur de l'animation nautique du plus grand port de plaisance des Petites Antilles. Situé au Marin, capitale nautique de la Martinique, ce studio moderne et fonctionnel offre une vue privilégiée sur le ballet quotidien des voiliers."
+            },
+            {
+                id: 13,
+                name: "Villa Anses d'Arlet",
+                location: "Les Anses d'Arlet",
+                price: 1050.0,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 invités",
+                amenities: [
+                    {name: "Proche Grande Anse", icon: "🏖️"},
+                    {name: "Piscine avec bar", icon: "🍹"},
+                    {name: "Cuisine tropicale", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Hamacs sous palmiers", icon: "🌴"},
+                    {name: "Barbecue créole", icon: "🔥"},
+                    {name: "Parking ombragé", icon: "🚗"}
+                ],
+                description: "La Villa Anses d'Arlet incarne l'art de vivre caribéen dans l'un des plus beaux villages de pêcheurs de la Martinique. Située à proximité immédiate de la Grande Anse, plage paradisiaque aux eaux turquoise et au sable blanc, cette villa créole authentique vous offre le meilleur de la côte caraïbe."
+            },
+            {
+                id: 14,
+                name: "Penthouse Schoelcher Vue Mer",
+                location: "Schoelcher",
+                price: 620.0,
+                guests: 6,
+                guestsDetail: "6 personnes max",
+                amenities: [
+                    {name: "Vue panoramique 360°", icon: "🌅"},
+                    {name: "Terrasse tout autour", icon: "🏢"},
+                    {name: "Cuisine moderne", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Ascenseur direct", icon: "🛗"},
+                    {name: "Parking sécurisé", icon: "🚗"},
+                    {name: "Conciergerie", icon: "🛎️"}
+                ],
+                description: "Le Penthouse Schoelcher Vue Mer redéfinit le concept du séjour de luxe en Martinique grâce à sa situation exceptionnelle au dernier étage d'une résidence moderne face à la baie de Fort-de-France. La terrasse à 360° qui ceinture l'appartement offre une vue imprenable sur tous les points cardinaux."
+            },
+            {
+                id: 15,
+                name: "Villa Rivière-Pilote Charme",
+                location: "Rivière-Pilote",
+                price: 720.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 8 invités",
+                amenities: [
+                    {name: "Architecture créole", icon: "🏛️"},
+                    {name: "Jardin centenaire", icon: "🌺"},
+                    {name: "Piscine traditionnelle", icon: "🏊"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Véranda historique", icon: "🏡"},
+                    {name: "Parking ombragé", icon: "🚗"},
+                    {name: "Patrimoine vivant", icon: "📚"}
+                ],
+                description: "La Villa Rivière-Pilote Charme est un joyau du patrimoine architectural martiniquais, préservant l'élégance de l'époque coloniale tout en offrant le confort moderne. Cette demeure historique, nichée dans un jardin centenaire classé, témoigne de l'art de vivre créole des grandes propriétés sucrières."
+            },
+            {
+                id: 16,
+                name: "Villa François Moderne",
+                location: "Le François",
+                price: 980.0,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 invités",
+                amenities: [
+                    {name: "Accès fonds blancs", icon: "🏖️"},
+                    {name: "Excursions incluses", icon: "🛥️"},
+                    {name: "Piscine moderne", icon: "🏊"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Ponton privé", icon: "⛵"},
+                    {name: "Matériel snorkeling", icon: "🤿"}
+                ],
+                description: "La Villa François Moderne vous ouvre les portes du lagon le plus spectaculaire des Antilles avec un accès privilégié aux fameux fonds blancs du François. Cette villa contemporaine, située en bord de lagon, dispose d'un ponton privé d'où partent quotidiennement les excursions vers les bancs de sable blanc immaculés."
+            },
+            {
+                id: 17,
+                name: "Studio Ducos Pratique",
+                location: "Ducos Centre",
+                price: 250.0,
+                guests: 2,
+                guestsDetail: "2 personnes max",
+                amenities: [
+                    {name: "Centre-ville", icon: "🏙️"},
+                    {name: "Commerces à pied", icon: "🛍️"},
+                    {name: "Kitchenette", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Transports publics", icon: "🚌"},
+                    {name: "Marchés locaux", icon: "🥕"},
+                    {name: "Parking facile", icon: "🚗"}
+                ],
+                description: "Le Studio Ducos Pratique répond parfaitement aux besoins des voyageurs privilégiant la praticité et l'authenticité. Situé au cœur du centre-ville de Ducos, ce studio moderne vous immerge dans la vie quotidienne martiniquaise loin des zones touristiques."
+            },
+            {
+                id: 18,
+                name: "Villa Sainte-Marie Familiale",
+                location: "Sainte-Marie",
+                price: 850.0,
+                guests: 8,
+                guestsDetail: "8 personnes + 10 invités",
+                amenities: [
+                    {name: "Proximité distilleries", icon: "🥃"},
+                    {name: "Piscine familiale", icon: "🏊"},
+                    {name: "Grand jardin", icon: "🌺"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Barbecue traditionnel", icon: "🔥"},
+                    {name: "Aire de jeux", icon: "🎠"},
+                    {name: "Parking multiple", icon: "🚗"}
+                ],
+                description: "La Villa Sainte-Marie Familiale vous accueille au cœur de la région rhumière de la Martinique, à proximité des distilleries les plus réputées de l'île. Cette villa spacieuse, spécialement conçue pour les familles nombreuses et les groupes d'amis, offre tous les équipements nécessaires à un séjour réussi avec enfants."
+            },
+            {
+                id: 19,
+                name: "Villa Marigot Exclusive",
+                location: "Le Marigot",
+                price: 1180.0,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 invités",
+                amenities: [
+                    {name: "Plage privée exclusive", icon: "🏖️"},
+                    {name: "Piscine olympique", icon: "🏊‍♀️"},
+                    {name: "Cuisine professionnelle", icon: "👨‍🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Staff de service inclus", icon: "🛎️"},
+                    {name: "Héliport proche", icon: "🚁"},
+                    {name: "Sécurité 24h", icon: "🛡️"}
+                ],
+                description: "La Villa Marigot Exclusive représente l'apogée du luxe insulaire avec sa plage privée de sable noir volcanique et sa piscine olympique de 25 mètres. Située au Marigot, sur la côte atlantique préservée de la Martinique, cette propriété d'exception offre une intimité absolue dans un cadre naturel spectaculaire."
+            },
+            {
+                id: 20,
+                name: "Bungalow Trenelle Nature",
+                location: "Trenelle, Trinité",
+                price: 420.0,
+                guests: 4,
+                guestsDetail: "4 personnes max",
+                amenities: [
+                    {name: "Nature préservée", icon: "🦋"},
+                    {name: "Sentiers de randonnée", icon: "🥾"},
+                    {name: "Petit bassin naturel", icon: "💧"},
+                    {name: "WiFi limité", icon: "📶"},
+                    {name: "Ventilation naturelle", icon: "🌿"},
+                    {name: "Observation oiseaux", icon: "🦜"},
+                    {name: "Jardin créole", icon: "🌱"},
+                    {name: "Éco-construction", icon: "♻️"}
+                ],
+                description: "Le Bungalow Trenelle Nature offre une expérience d'écotourisme unique dans les hauteurs verdoyantes de la Trinité. Construit selon les principes de l'éco-construction avec des matériaux locaux et durables, ce bungalow s'intègre parfaitement dans son environnement naturel préservé."
+            },
+            {
+                id: 21,
+                name: "Villa Grand Luxe Pointe du Bout",
+                location: "Pointe du Bout, Trois-Îlets",
+                price: 1800.0,
+                guests: 14,
+                guestsDetail: "14 personnes + 25 invités",
+                amenities: [
+                    {name: "Service conciergerie 24h", icon: "🛎️"},
+                    {name: "Piscine à débordement", icon: "♾️"},
+                    {name: "Cuisine de chef", icon: "👨‍🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Spa privé", icon: "💆‍♀️"},
+                    {name: "Majordome inclus", icon: "🤵"},
+                    {name: "Héliport privé", icon: "🚁"}
+                ],
+                description: "La Villa Grand Luxe Pointe du Bout redéfinit les standards du tourisme de prestige en Martinique. Située sur le site le plus prisé des Trois-Îlets, face à la baie de Fort-de-France, cette villa palatiale offre des prestations dignes des plus grands palaces internationaux."
+            },
+            {
+                id: 22,
+                name: "Villa F6 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 2000.0,
+                guests: 13,
+                guestsDetail: "10 à 13 personnes (14 max)",
+                amenities: [
+                    {name: "3 chambres climatisées", icon: "🛏️"},
+                    {name: "Mezzanine", icon: "🏠"},
+                    {name: "2 studios indépendants", icon: "🏡"},
+                    {name: "Piscine XXL", icon: "🏊"},
+                    {name: "Terrasse couverte", icon: "🏖️"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Cuisine moderne", icon: "🍳"},
+                    {name: "Fêtes autorisées", icon: "🎉"},
+                    {name: "Jusqu'à 150 convives", icon: "👥"}
+                ],
+                description: "La Villa F6 Petit Macabou représente l'excellence de l'hébergement événementiel en Martinique. Cette propriété d'exception, située dans le prestigieux secteur de Petit Macabou au Vauclin, a été spécialement conçue pour accueillir vos plus belles célébrations. Elle se compose d'un bâtiment principal avec 3 chambres climatisées, chacune dotée de sa salle d'eau attenante, d'une mezzanine offrant un espace de vie supplémentaire, et de 2 studios indépendants aux extrémités pour une intimité parfaite."
             }
         ];
 
