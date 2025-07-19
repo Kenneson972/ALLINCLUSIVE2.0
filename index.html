@@ -34,7 +34,7 @@
             overflow-x: hidden;
         }
         
-        /* Container principal pour la vidéo background YouTube */
+        /* Container principal pour la vidéo background Cloudinary */
         .video-background {
             position: fixed;
             top: 0;
@@ -43,7 +43,7 @@
             height: 100%;
             z-index: -2;
             overflow: hidden;
-            /* Magnifique fallback animé si YouTube ne charge pas */
+            /* Magnifique fallback animé si vidéo ne charge pas */
             background: linear-gradient(
                 45deg,
                 #667eea 0%,
@@ -56,25 +56,26 @@
             animation: tropical-waves 15s ease infinite;
         }
 
-        .youtube-background-container {
+        .cloudinary-background-video {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 100vw;
-            height: 56.25vw;
-            min-height: 100vh;
-            min-width: 177.77vh;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transform: translate(-50%, -50%);
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
             z-index: 1;
         }
 
-        .youtube-background-container iframe {
+        .video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 2;
         }
 
         /* Animation des vagues tropicales */
