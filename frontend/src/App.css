@@ -505,6 +505,339 @@
   opacity: 0.8;
 }
 
+/* ===== BARRE DE RECHERCHE INTELLIGENTE ===== */
+
+.villa-search-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 20px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(30, 64, 175, 0.2);
+}
+
+/* CHAMP DE RECHERCHE DE LOCALISATION AVEC AUTOCOMPLETE */
+.location-field {
+  position: relative;
+}
+
+.location-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.location-input:focus {
+  outline: none;
+  border-color: #06b6d4;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.location-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* DROPDOWN SUGGESTIONS LOCALISATION */
+.location-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 8px;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.suggestion-item {
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #1e40af;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.suggestion-item:hover {
+  background: rgba(6, 182, 212, 0.1);
+  color: #0891b2;
+  transform: translateX(5px);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+/* SÉLECTEUR VOYAGEURS - POSITION BAS DROITE */
+.voyageurs-field.bottom-right-position {
+  grid-column: 4 / 5;  /* Dernière colonne */
+  grid-row: 2 / 3;     /* Deuxième ligne */
+  justify-self: end;   /* Alignement à droite */
+  align-self: end;     /* Alignement en bas */
+  min-width: 250px;
+}
+
+.voyageurs-dropdown {
+  position: relative;
+}
+
+.voyageurs-display {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.voyageurs-display:hover {
+  border-color: #06b6d4;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+/* DROPDOWN MENU VOYAGEURS */
+.voyageurs-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 320px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  margin-top: 8px;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.voyageur-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.voyageur-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.voyageur-info {
+  flex: 1;
+}
+
+.voyageur-label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #1e40af;
+  margin-bottom: 4px;
+}
+
+.voyageur-info small {
+  color: #64748b;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+
+/* COMPTEURS VOYAGEURS */
+.voyageur-counter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.counter-btn {
+  background: #06b6d4;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.counter-btn:hover:not(:disabled) {
+  background: #0891b2;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.4);
+}
+
+.counter-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.counter-value {
+  min-width: 40px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #1e40af;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* RESPONSIVE - MAINTENIR POSITION BAS DROITE */
+@media (max-width: 1200px) {
+  .villa-search-form {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .voyageurs-field.bottom-right-position {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .villa-search-form {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .voyageurs-field.bottom-right-position {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    min-width: auto;
+  }
+  
+  .voyageurs-menu {
+    right: -20px;
+    min-width: 300px;
+  }
+  
+  .location-suggestions {
+    left: -10px;
+    right: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .villa-search-form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .voyageurs-field.bottom-right-position {
+    grid-column: 1 / 2;
+    grid-row: 5 / 6;
+    justify-self: stretch;
+    align-self: stretch;
+  }
+  
+  .voyageurs-menu {
+    left: 0;
+    right: 0;
+    min-width: auto;
+  }
+}
+
+/* STYLES GÉNÉRAUX DES CHAMPS DE RECHERCHE */
+.search-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-field label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.search-field input:not(.location-input):not(.voyageurs-display) {
+  padding: 15px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.search-field input:focus {
+  outline: none;
+  border-color: #06b6d4;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #1e40af 0%, #06b6d4 100%);
+  border: none;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.search-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(30, 64, 175, 0.4);
+}
+
+/* ===== FIN BARRE DE RECHERCHE INTELLIGENTE ===== */
+
 /* ===== PAGE VILLA DÉDIÉE ===== */
 
 .villa-page {
