@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhanelConcept - Plateforme Connectée</title>
+    <title>KhanelConcept - Plateforme Connectée | Villas de Luxe Martinique</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Découvrez nos villas de luxe en Martinique. Réservation en ligne avec galeries interactives, calendriers avancés et système de réservation professionnel.">
+    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique">
+    <meta name="author" content="KhanelConcept">
+    <meta property="og:title" content="KhanelConcept - Villas de Luxe Martinique">
+    <meta property="og:description" content="Plateforme moderne de réservation de villas de luxe en Martinique avec interface glassmorphism">
+    <meta property="og:type" content="website">
+    
+    <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <!-- Flatpickr pour le calendrier -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
     
+    <!-- Custom CSS -->
     <style>
         * {
             margin: 0;
@@ -20,7 +28,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: transparent;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -55,11 +63,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.3);
             z-index: -1;
         }
         
-        /* Header amélioré */
+        /* Header Glassmorphism */
         .header {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
@@ -89,6 +97,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            cursor: pointer;
         }
         
         .logo i {
@@ -112,6 +121,7 @@
             padding: 0.5rem 1rem;
             border-radius: 25px;
             font-size: 0.9rem;
+            cursor: pointer;
         }
         
         .nav-links a:hover, .nav-links a.active {
@@ -119,7 +129,7 @@
             backdrop-filter: blur(10px);
         }
         
-        /* Contenu principal */
+        /* Main Content */
         .main-content {
             position: relative;
             z-index: 1;
@@ -165,7 +175,7 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
-        /* Cartes uniformisées */
+        /* Glass Cards */
         .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -185,7 +195,7 @@
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
         }
         
-        /* Villa cards uniformes */
+        /* Villa Cards */
         .villa-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -194,7 +204,7 @@
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            height: 560px; /* Hauteur fixe pour uniformité */
+            height: 560px;
             display: flex;
             flex-direction: column;
         }
@@ -206,7 +216,7 @@
         
         .villa-image {
             width: 100%;
-            height: 200px; /* Hauteur fixe pour toutes les images */
+            height: 200px;
             object-fit: cover;
             border-radius: 15px 15px 0 0;
             cursor: pointer;
@@ -223,7 +233,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: rgba(0, 0, 0, 0.3); /* Background semi-transparent pour éviter superposition */
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
         }
         
@@ -289,7 +299,7 @@
             background: rgba(255, 255, 255, 0.3);
         }
         
-        /* Barre de recherche améliorée */
+        /* Search Section */
         .search-section {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -379,7 +389,7 @@
             transform: translateY(-1px);
         }
         
-        /* Grilles uniformes */
+        /* Villa Grid */
         .villas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -387,6 +397,7 @@
             margin-top: 2rem;
         }
         
+        /* Filters */
         .filters {
             display: flex;
             gap: 1rem;
@@ -410,7 +421,7 @@
             border-color: #FFA500;
         }
         
-        /* Image placeholder pour images cassées */
+        /* Image Placeholder */
         .image-placeholder {
             width: 100%;
             height: 200px;
@@ -421,9 +432,10 @@
             color: white;
             font-size: 3rem;
             border-radius: 15px 15px 0 0;
+            cursor: pointer;
         }
         
-        /* Modale de réservation */
+        /* Modals */
         .modal {
             display: none;
             position: fixed;
@@ -496,14 +508,6 @@
             border-color: #FFA500;
         }
         
-        .calendar-container {
-            background: white;
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            border: 2px solid #ddd;
-        }
-        
         .price-summary {
             background: rgba(255, 165, 0, 0.1);
             border: 2px solid #FFA500;
@@ -531,7 +535,7 @@
             margin-top: 1rem;
         }
         
-        /* Galerie d'images */
+        /* Gallery Modal */
         .image-gallery-modal {
             display: none;
             position: fixed;
@@ -632,7 +636,41 @@
             opacity: 1;
         }
         
-        /* Responsive */
+        /* Status Messages */
+        .status-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: rgba(34, 197, 94, 1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .loading {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: rgba(59, 130, 246, 1);
+        }
+        
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: rgba(239, 68, 68, 1);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .villa-card {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -690,58 +728,21 @@
                 padding: 1rem;
             }
         }
-        
-        /* Animations d'apparition */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .villa-card {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        /* Messages de statut */
-        .status-message {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: rgba(34, 197, 94, 1);
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        
-        .loading {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: rgba(59, 130, 246, 0.3);
-            color: rgba(59, 130, 246, 1);
-        }
-        
-        .error {
-            background: rgba(239, 68, 68, 0.1);
-            border-color: rgba(239, 68, 68, 0.3);
-            color: rgba(239, 68, 68, 1);
-        }
     </style>
 </head>
 <body>
-    <!-- Video Background -->
+    <!-- Background with gradient fallback -->
     <div class="video-background">
-        <video autoplay muted loop playsinline>
-            <source src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/eec103a6-13ba-46b0-89f4-ad38171d7b73?se=2025-07-18T15%3A15%3A39Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22temp_video_1752611476.0922918.mov%22&sig=0EU%2BXrTFddBhII4fElDbO3Ak7EjVWlkcA84aHMzt%2BQY%3D" type="video/mp4">
-        </video>
         <div class="video-overlay"></div>
     </div>
 
     <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <a href="#" class="logo" onclick="showSection('home')">
+            <div class="logo" onclick="showSection('home')">
                 <i class="fas fa-palm-tree"></i>
                 KhanelConcept
-            </a>
+            </div>
             
             <nav class="nav-links">
                 <a href="#" onclick="showSection('home')" class="active" id="nav-home">Accueil</a>
@@ -762,9 +763,9 @@
         <section id="home" class="section active">
             <div class="container">
                 <h1>🏝️ Découvrez la Martinique</h1>
-                <p>Villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
+                <p>21 villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
                 
-                <!-- Recherche fonctionnelle -->
+                <!-- Recherche Booking.com Style -->
                 <div class="search-section">
                     <h2>🔍 Rechercher une Villa</h2>
                     <div class="booking-search-container">
@@ -824,7 +825,7 @@
                     <button class="filter-btn" onclick="filterVillas('special')">Spéciales</button>
                 </div>
                 
-                <h2>🏖️ Nos Villas de Luxe</h2>
+                <h2>🏖️ Nos 21 Villas de Luxe</h2>
                 <div class="status-message" id="status-message" style="display: none;"></div>
                 <div class="villas-grid" id="villasGrid">
                     <!-- Les villas seront chargées dynamiquement -->
@@ -863,7 +864,7 @@
             </div>
         </section>
 
-        <!-- Autres sections (inchangées) -->
+        <!-- Autres sections -->
         <section id="billetterie" class="section">
             <div class="container">
                 <h1>🎫 Billetterie Événementielle</h1>
@@ -1038,9 +1039,14 @@
         </div>
     </div>
 
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+
     <script>
-        // Base de données des villas avec chemins d'images corrigés
+        // Base de données COMPLÈTE des 21 villas avec chemins d'images corrigés
         const villasData = [
+            // === VILLAS DE SÉJOUR ===
             {
                 id: 1,
                 name: "Villa F3 Petit Macabou",
@@ -1084,7 +1090,7 @@
             },
             {
                 id: 3,
-                name: "Villa F3 POUR LA BACCHA",
+                name: "Villa F3 Baccha Petit Macabou",
                 location: "Petit Macabou",
                 price: 1350,
                 guests: 6,
@@ -1104,7 +1110,7 @@
             },
             {
                 id: 4,
-                name: "Villa F6 au Lamentin",
+                name: "Villa F6 Lamentin",
                 location: "Quartier Bélème au Lamentin",
                 price: 1500,
                 guests: 10,
@@ -1153,7 +1159,8 @@
                     "./images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
                     "./images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
                     "./images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
-                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg"
+                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
                 ],
                 fallbackIcon: "🎊"
             },
@@ -1235,6 +1242,47 @@
             },
             {
                 id: 11,
+                name: "Villa F3 Le François",
+                location: "Le François, Martinique",
+                price: 950,
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, terrasse vue mer panoramique",
+                category: "sejour",
+                image: "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                gallery: [
+                    "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                    "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
+                    "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg",
+                    "./images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg",
+                    "./images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg",
+                    "./images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg",
+                    "./images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg"
+                ],
+                fallbackIcon: "🌅"
+            },
+            {
+                id: 12,
+                name: "Villa F5 Vauclin Ravine Plate",
+                location: "Ravine Plate, Vauclin",
+                price: 1200,
+                guests: 10,
+                guestsDetail: "10 personnes",
+                features: "Piscine à débordement, vue panoramique",
+                category: "sejour",
+                image: "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                gallery: [
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/cuisine_equipee_bois_fonce_granite.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_1_poutres_apparentes_orange.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_2_suite_parentale_sdb_attenante.jpg"
+                ],
+                fallbackIcon: "🏔️"
+            },
+            {
+                id: 13,
                 name: "Bas Villa F3 Ste Luce",
                 location: "Sainte-Luce",
                 price: 470,
@@ -1254,7 +1302,29 @@
                 fallbackIcon: "💡"
             },
             {
-                id: 12,
+                id: 14,
+                name: "Villa F3 Trenelle",
+                location: "Trenelle, Location Annuelle",
+                price: 800,
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Location longue durée, entièrement équipée",
+                category: "sejour",
+                image: "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                gallery: [
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg"
+                ],
+                fallbackIcon: "🏠"
+            },
+
+            // === VILLAS SPÉCIALES ===
+            {
+                id: 15,
                 name: "Studio Cocooning Lamentin",
                 location: "Morne Pitault, Lamentin",
                 price: 290,
@@ -1272,6 +1342,116 @@
                     "./images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
                 ],
                 fallbackIcon: "💕"
+            },
+            {
+                id: 16,
+                name: "Espace Piscine Journée Bungalow",
+                location: "Martinique",
+                price: 150,
+                guests: 8,
+                guestsDetail: "8 personnes en journée",
+                features: "Bungalow créole, piscine, véranda",
+                category: "special",
+                image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                gallery: [
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
+                ],
+                fallbackIcon: "🏕️"
+            },
+
+            // === VILLAS FÊTE/JOURNÉE ===
+            {
+                id: 17,
+                name: "Villa Fête Ducos",
+                location: "Ducos, Martinique",
+                price: 200,
+                guests: 25,
+                guestsDetail: "Jusqu'à 25 personnes",
+                features: "Piscine, bar extérieur, gazebo",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg"
+                ],
+                fallbackIcon: "🎉"
+            },
+            {
+                id: 18,
+                name: "Villa Fête Fort-de-France",
+                location: "Fort-de-France, Martinique",
+                price: 250,
+                guests: 30,
+                guestsDetail: "Jusqu'à 30 personnes",
+                features: "Piscine, véranda coloniale, vue panoramique",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg"
+                ],
+                fallbackIcon: "🏛️"
+            },
+            {
+                id: 19,
+                name: "Villa Fête Rivière-Pilote",
+                location: "Rivière-Pilote, Martinique",
+                price: 180,
+                guests: 20,
+                guestsDetail: "Jusqu'à 20 personnes",
+                features: "Villa créole, piscine tropicale",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/06_terrasse_pierre_piscine.jpg"
+                ],
+                fallbackIcon: "🌴"
+            },
+            {
+                id: 20,
+                name: "Villa Fête Sainte-Luce",
+                location: "Sainte-Luce, Martinique",
+                price: 220,
+                guests: 35,
+                guestsDetail: "Jusqu'à 35 personnes",
+                features: "Villa moderne, tentes, mobilier événementiel",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg"
+                ],
+                fallbackIcon: "🎪"
+            },
+            {
+                id: 21,
+                name: "Villa Fête Rivière-Salée",
+                location: "Rivière-Salée, Martinique",
+                price: 160,
+                guests: 15,
+                guestsDetail: "Jusqu'à 15 personnes",
+                features: "Piscine, tente couverte",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg",
+                gallery: [
+                    "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
+                ],
+                fallbackIcon: "⛺"
             }
         ];
 
@@ -1338,7 +1518,7 @@
             });
 
             displayVillas();
-            showStatusMessage('Bienvenue sur KhanelConcept ! Toutes les villas sont disponibles.', 'success');
+            showStatusMessage('Bienvenue sur KhanelConcept ! Découvrez nos 21 villas de luxe disponibles.', 'success');
         });
 
         // Fonctions de gestion des sections
