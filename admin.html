@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanelConcept - Administration</title>
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Container principal pour la vidéo background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        /* Vidéo en fond d'écran */
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Login Container */
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .admin-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background: #FFA500;
+            border-color: #FFA500;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFA500;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Content Sections */
+        .admin-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-section h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Table Styles */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-table th {
+            background: rgba(255, 165, 0, 0.1);
+            font-weight: bold;
+            color: #333;
+        }
+
+        .admin-table tr:hover {
+            background: rgba(255, 165, 0, 0.05);
+        }
+
+        /* Form Styles */
+        .admin-form {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFA500;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin: 0.25rem;
+        }
+
+        .btn-primary {
+            background: #FFA500;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #FF8C00;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        /* Status Messages */
+        .status-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: rgba(34, 197, 94, 1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-message.loading {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: rgba(59, 130, 246, 1);
+        }
+
+        .status-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: rgba(239, 68, 68, 1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-nav {
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .admin-table {
+                font-size: 0.8rem;
+            }
+            
+            .admin-table th,
+            .admin-table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Container pour la vidéo background -->
+    <div class="video-background">
+        <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            preload="auto"
+        >
+            <source src="https://page.gensparksite.com/get_upload_url/eb4cd26aad71adfa4e2f10df97329e5a42eab052aeea7a995d466174b1f7ebeb/default/d83771b0-06a8-4258-bd43-5776f63fa278" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Login Section -->
+    <div id="loginSection" class="login-container">
+        <div class="login-card">
+            <div class="text-center mb-8">
+                <i class="fas fa-palm-tree text-4xl text-orange-500 mb-4"></i>
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">Administration KhanelConcept</h1>
+                <p class="text-gray-600">Connectez-vous pour accéder au tableau de bord</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    Se connecter
+                </button>
+            </form>
+
+            <div id="loginMessage" class="status-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="admin-dashboard">
+        <!-- Header -->
+        <div class="admin-header">
+            <div>
+                <h1 class="text-white text-2xl font-bold">
+                    <i class="fas fa-palm-tree text-orange-500 mr-2"></i>
+                    Administration KhanelConcept
+                </h1>
+                <p class="text-white opacity-75">Tableau de bord administrateur</p>
+            </div>
+            <div>
+                <span class="text-white mr-4">Bienvenue, Admin</span>
+                <button onclick="logout()" class="btn btn-secondary">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Déconnexion
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="admin-nav">
+            <button class="nav-btn active" onclick="showSection('dashboard')">
+                <i class="fas fa-chart-bar mr-2"></i>Tableau de bord
+            </button>
+            <button class="nav-btn" onclick="showSection('villas')">
+                <i class="fas fa-home mr-2"></i>Gestion Villas
+            </button>
+            <button class="nav-btn" onclick="showSection('reservations')">
+                <i class="fas fa-calendar mr-2"></i>Réservations
+            </button>
+            <button class="nav-btn" onclick="showSection('settings')">
+                <i class="fas fa-cog mr-2"></i>Paramètres
+            </button>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="admin-section active">
+            <h2><i class="fas fa-chart-bar mr-2"></i>Tableau de Bord</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalVillas">21</div>
+                    <div class="stat-label">Villas Total</div>
+                    <div class="stat-description">Toutes catégories confondues</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="totalReservations">0</div>
+                    <div class="stat-label">Réservations</div>
+                    <div class="stat-description">Total des réservations</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="monthlyRevenue">0€</div>
+                    <div class="stat-label">Revenus du mois</div>
+                    <div class="stat-description">Chiffre d'affaires mensuel</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingReservations">0</div>
+                    <div class="stat-label">En attente</div>
+                    <div class="stat-description">Réservations à traiter</div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="admin-form">
+                <h3 class="text-lg font-bold mb-4">Activité récente</h3>
+                <div id="recentActivity">
+                    <p class="text-gray-600">Chargement de l'activité récente...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Villas Management Section -->
+        <div id="villas" class="admin-section">
+            <h2><i class="fas fa-home mr-2"></i>Gestion des Villas</h2>
+            
+            <button onclick="showAddVillaForm()" class="btn btn-primary mb-4">
+                <i class="fas fa-plus mr-2"></i>Ajouter une villa
+            </button>
+
+            <div class="admin-form">
+                <h3 class="text-lg font-bold mb-4">Liste des villas</h3>
+                <div id="villasTableContainer">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Location</th>
+                                <th>Prix/nuit</th>
+                                <th>Capacité</th>
+                                <th>Catégorie</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="villasTableBody">
+                            <!-- Will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reservations Section -->
+        <div id="reservations" class="admin-section">
+            <h2><i class="fas fa-calendar mr-2"></i>Gestion des Réservations</h2>
+            
+            <div class="admin-form">
+                <h3 class="text-lg font-bold mb-4">Liste des réservations</h3>
+                <div id="reservationsTableContainer">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Villa</th>
+                                <th>Client</th>
+                                <th>Dates</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservationsTableBody">
+                            <!-- Will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings" class="admin-section">
+            <h2><i class="fas fa-cog mr-2"></i>Paramètres</h2>
+            
+            <div class="admin-form">
+                <h3 class="text-lg font-bold mb-4">Configuration du site</h3>
+                <form id="settingsForm">
+                    <div class="form-group">
+                        <label for="siteName">Nom du site</label>
+                        <input type="text" id="siteName" value="KhanelConcept">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adminEmail">Email administrateur</label>
+                        <input type="email" id="adminEmail" value="admin@khanelconcept.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="defaultPriceUnit">Unité de prix par défaut</label>
+                        <select id="defaultPriceUnit">
+                            <option value="€/nuit">€/nuit</option>
+                            <option value="€/jour">€/jour</option>
+                            <option value="€/semaine">€/semaine</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-2"></i>
+                        Sauvegarder
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Villa Modal -->
+    <div id="villaModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeVillaModal()">&times;</span>
+            <h2 id="villaModalTitle">Ajouter une villa</h2>
+            
+            <form id="villaForm">
+                <div class="form-group">
+                    <label for="villaName">Nom de la villa *</label>
+                    <input type="text" id="villaName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="villaLocation">Localisation *</label>
+                    <input type="text" id="villaLocation" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="villaPrice">Prix par nuit (€) *</label>
+                    <input type="number" id="villaPrice" required min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="villaGuests">Nombre d'invités *</label>
+                    <input type="number" id="villaGuests" required min="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="villaGuestsDetail">Détail capacité</label>
+                    <input type="text" id="villaGuestsDetail" placeholder="Ex: 8 personnes + 12 invités">
+                </div>
+                
+                <div class="form-group">
+                    <label for="villaFeatures">Équipements</label>
+                    <textarea id="villaFeatures" rows="3" placeholder="Ex: Piscine, Jacuzzi, Vue mer..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="villaCategory">Catégorie *</label>
+                    <select id="villaCategory" required>
+                        <option value="">Choisir une catégorie</option>
+                        <option value="sejour">Séjour</option>
+                        <option value="fete">Fête/Journée</option>
+                        <option value="special">Spéciales</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="villaDescription">Description</label>
+                    <textarea id="villaDescription" rows="4" placeholder="Description détaillée de la villa..."></textarea>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" onclick="closeVillaModal()" class="btn btn-secondary" style="flex: 1;">Annuler</button>
+                    <button type="submit" class="btn btn-primary" style="flex: 2;">
+                        <i class="fas fa-save mr-2"></i>
+                        Sauvegarder
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Status Message -->
+    <div id="statusMessage" class="status-message" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 2000;"></div>
+
+    <script>
+        // Configuration API
+        const API_BASE_URL = 'http://localhost:8001/api';
+        
+        // Variables globales
+        let isAuthenticated = false;
+        let currentEditingVilla = null;
+        let dashboardData = {};
+
+        // Données d'authentification (à remplacer par une vraie authentification)
+        const ADMIN_CREDENTIALS = {
+            username: 'admin',
+            password: 'khanelconcept2025'
+        };
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vérifier si déjà connecté
+            const authToken = localStorage.getItem('admin_auth');
+            if (authToken === 'authenticated') {
+                showDashboard();
+            }
+
+            // Event listeners
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('villaForm').addEventListener('submit', handleVillaSubmit);
+            document.getElementById('settingsForm').addEventListener('submit', handleSettingsSubmit);
+        });
+
+        // Authentification
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            showMessage('Connexion en cours...', 'loading', 'loginMessage');
+            
+            setTimeout(() => {
+                if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                    localStorage.setItem('admin_auth', 'authenticated');
+                    showDashboard();
+                    showMessage('Connexion réussie !', 'success', 'loginMessage');
+                } else {
+                    showMessage('Identifiants incorrects', 'error', 'loginMessage');
+                }
+            }, 1000);
+        }
+
+        function logout() {
+            localStorage.removeItem('admin_auth');
+            isAuthenticated = false;
+            document.getElementById('loginSection').style.display = 'flex';
+            document.getElementById('adminDashboard').style.display = 'none';
+            showMessage('Déconnexion réussie', 'success', 'statusMessage');
+        }
+
+        function showDashboard() {
+            isAuthenticated = true;
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadDashboardData();
+            loadVillas();
+            loadReservations();
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Chargement des données
+        async function loadDashboardData() {
+            try {
+                showMessage('Chargement des statistiques...', 'loading', 'statusMessage');
+                
+                const response = await fetch(`${API_BASE_URL}/stats/dashboard`);
+                const data = await response.json();
+                
+                dashboardData = data;
+                updateDashboardStats(data);
+                loadRecentActivity();
+                
+                setTimeout(() => {
+                    document.getElementById('statusMessage').style.display = 'none';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des statistiques:', error);
+                showMessage('Erreur lors du chargement des statistiques', 'error', 'statusMessage');
+            }
+        }
+
+        function updateDashboardStats(data) {
+            document.getElementById('totalVillas').textContent = data.total_villas || 21;
+            document.getElementById('totalReservations').textContent = data.total_reservations || 0;
+            document.getElementById('monthlyRevenue').textContent = `${data.monthly_revenue || 0}€`;
+            document.getElementById('pendingReservations').textContent = data.pending_reservations || 0;
+        }
+
+        async function loadRecentActivity() {
+            const activityContainer = document.getElementById('recentActivity');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/reservations/customer/recent`);
+                const reservations = await response.json();
+                
+                if (reservations && reservations.length > 0) {
+                    const activityHTML = reservations.slice(0, 5).map(reservation => `
+                        <div class="flex items-center justify-between p-2 border-b">
+                            <div>
+                                <span class="font-medium">${reservation.customer_name}</span>
+                                <span class="text-sm text-gray-600">a réservé ${reservation.villa_name}</span>
+                            </div>
+                            <span class="text-sm text-orange-600">${reservation.total_price}€</span>
+                        </div>
+                    `).join('');
+                    
+                    activityContainer.innerHTML = activityHTML;
+                } else {
+                    activityContainer.innerHTML = '<p class="text-gray-600">Aucune activité récente</p>';
+                }
+            } catch (error) {
+                activityContainer.innerHTML = '<p class="text-red-600">Erreur lors du chargement de l\'activité</p>';
+            }
+        }
+
+        // Gestion des villas
+        async function loadVillas() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/villas`);
+                const villas = await response.json();
+                
+                const tbody = document.getElementById('villasTableBody');
+                tbody.innerHTML = villas.map(villa => `
+                    <tr>
+                        <td>${villa.id}</td>
+                        <td>${villa.name}</td>
+                        <td>${villa.location}</td>
+                        <td>${villa.price}€</td>
+                        <td>${villa.guests}</td>
+                        <td><span class="px-2 py-1 rounded text-xs bg-orange-100 text-orange-800">${villa.category}</span></td>
+                        <td>
+                            <button onclick="editVilla('${villa.id}')" class="btn btn-primary btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="deleteVilla('${villa.id}')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des villas:', error);
+                showMessage('Erreur lors du chargement des villas', 'error', 'statusMessage');
+            }
+        }
+
+        // Gestion des réservations
+        async function loadReservations() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/reservations`);
+                const reservations = await response.json();
+                
+                const tbody = document.getElementById('reservationsTableBody');
+                if (reservations && reservations.length > 0) {
+                    tbody.innerHTML = reservations.map(reservation => `
+                        <tr>
+                            <td>${reservation.id}</td>
+                            <td>${reservation.villa_name}</td>
+                            <td>
+                                <div>
+                                    <div class="font-medium">${reservation.customer_name}</div>
+                                    <div class="text-sm text-gray-600">${reservation.customer_email}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-sm">
+                                    Du ${reservation.checkin_date}<br>
+                                    au ${reservation.checkout_date}
+                                </div>
+                            </td>
+                            <td>${reservation.total_price}€</td>
+                            <td>
+                                <span class="px-2 py-1 rounded text-xs ${getStatusClass(reservation.status)}">
+                                    ${getStatusText(reservation.status)}
+                                </span>
+                            </td>
+                            <td>
+                                <button onclick="updateReservationStatus('${reservation.id}', 'confirmed')" class="btn btn-success btn-sm">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button onclick="updateReservationStatus('${reservation.id}', 'cancelled')" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center">Aucune réservation trouvée</td></tr>';
+                }
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des réservations:', error);
+                const tbody = document.getElementById('reservationsTableBody');
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-red-600">Erreur lors du chargement</td></tr>';
+            }
+        }
+
+        function getStatusClass(status) {
+            switch (status) {
+                case 'confirmed': return 'bg-green-100 text-green-800';
+                case 'cancelled': return 'bg-red-100 text-red-800';
+                case 'pending': return 'bg-yellow-100 text-yellow-800';
+                default: return 'bg-gray-100 text-gray-800';
+            }
+        }
+
+        function getStatusText(status) {
+            switch (status) {
+                case 'confirmed': return 'Confirmée';
+                case 'cancelled': return 'Annulée';
+                case 'pending': return 'En attente';
+                default: return status;
+            }
+        }
+
+        // Modal de villa
+        function showAddVillaForm() {
+            currentEditingVilla = null;
+            document.getElementById('villaModalTitle').textContent = 'Ajouter une villa';
+            document.getElementById('villaForm').reset();
+            document.getElementById('villaModal').classList.add('active');
+        }
+
+        function editVilla(villaId) {
+            // TODO: Charger les données de la villa et les afficher dans le modal
+            currentEditingVilla = villaId;
+            document.getElementById('villaModalTitle').textContent = 'Modifier une villa';
+            document.getElementById('villaModal').classList.add('active');
+            showMessage('Fonctionnalité en cours de développement', 'loading', 'statusMessage');
+        }
+
+        function deleteVilla(villaId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette villa ?')) {
+                showMessage('Fonctionnalité en cours de développement', 'loading', 'statusMessage');
+            }
+        }
+
+        function closeVillaModal() {
+            document.getElementById('villaModal').classList.remove('active');
+            currentEditingVilla = null;
+        }
+
+        function handleVillaSubmit(e) {
+            e.preventDefault();
+            showMessage('Fonctionnalité en cours de développement', 'loading', 'statusMessage');
+            closeVillaModal();
+        }
+
+        // Mise à jour du statut des réservations
+        async function updateReservationStatus(reservationId, status) {
+            try {
+                showMessage('Mise à jour en cours...', 'loading', 'statusMessage');
+                
+                const response = await fetch(`${API_BASE_URL}/reservations/${reservationId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: status })
+                });
+                
+                if (response.ok) {
+                    showMessage('Statut mis à jour avec succès', 'success', 'statusMessage');
+                    loadReservations();
+                    loadDashboardData();
+                } else {
+                    showMessage('Erreur lors de la mise à jour', 'error', 'statusMessage');
+                }
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                showMessage('Erreur lors de la mise à jour', 'error', 'statusMessage');
+            }
+        }
+
+        // Paramètres
+        function handleSettingsSubmit(e) {
+            e.preventDefault();
+            showMessage('Paramètres sauvegardés', 'success', 'statusMessage');
+        }
+
+        // Utilitaires
+        function showMessage(message, type, containerId = 'statusMessage') {
+            const container = document.getElementById(containerId);
+            container.textContent = message;
+            container.className = `status-message ${type}`;
+            container.style.display = 'block';
+            
+            if (type !== 'loading') {
+                setTimeout(() => {
+                    container.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // Gestion des erreurs globales
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Erreur non gérée:', event.reason);
+            showMessage('Une erreur est survenue', 'error', 'statusMessage');
+        });
+    </script>
+
+    <!-- Script pour gérer le chargement et l'optimisation de la vidéo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.video-background video');
+            
+            if (video) {
+                video.addEventListener('loadstart', function() {
+                    console.log('Chargement de la vidéo commencé');
+                });
+                
+                video.addEventListener('canplay', function() {
+                    console.log('Vidéo prête à être lue');
+                });
+                
+                video.addEventListener('error', function(e) {
+                    console.error('Erreur de chargement de la vidéo:', e);
+                    document.querySelector('.video-background').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                });
+                
+                document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                        video.pause();
+                    } else {
+                        video.play().catch(e => console.log('Erreur de lecture:', e));
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
