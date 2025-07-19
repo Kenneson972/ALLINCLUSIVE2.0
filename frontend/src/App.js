@@ -711,23 +711,23 @@ Contactez-nous pour plus d'informations :
         )}
       </main>
 
-      {/* Nouveau Modal Glassmorphism Tropical */}
+      {/* Page Villa Dédiée - Remplace le Modal */}
       {currentView === 'villa' && selectedVilla && (
-        <div className="villa-glassmorphism-modal" onClick={closeVillaDetail}>
-          <div className="villa-glassmorphism-container" onClick={(e) => e.stopPropagation()}>
-            {/* Header Glassmorphism */}
-            <div className="villa-glassmorphism-header">
-              <button className="villa-back-button" onClick={closeVillaDetail}>
-                <i className="fas fa-arrow-left"></i>
-                Retour aux villas
-              </button>
-              <button className="villa-close-button" onClick={closeVillaDetail}>
-                ×
-              </button>
+        <div className="villa-page">
+          {/* Header de la page villa */}
+          <div className="villa-page-header">
+            <button className="villa-back-button" onClick={closeVillaDetail}>
+              <i className="fas fa-arrow-left"></i>
+              Retour aux villas
+            </button>
+            <div className="villa-page-logo">
+              <h1>KhanelConcept</h1>
             </div>
+          </div>
 
+          <div className="villa-page-content">
             {/* Hero Section */}
-            <div className="villa-glassmorphism-hero">
+            <div className="villa-page-hero">
               <h1 className="villa-hero-title">
                 🏖️ {selectedVilla.name}
               </h1>
