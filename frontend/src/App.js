@@ -149,21 +149,6 @@ function App() {
     }
   }, [showReservationModal]);
 
-  const loadVillas = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(`${API_BASE_URL}/villas`);
-      setVillas(response.data);
-      setFilteredVillas(response.data);
-      showStatusMessage('Bienvenue sur KhanelConcept ! Toutes les villas sont disponibles.', 'success');
-    } catch (error) {
-      console.error('Erreur lors du chargement des villas:', error);
-      showStatusMessage('Erreur lors du chargement des villas.', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const showStatusMessage = (text, type) => {
     setStatusMessage({ text, type });
     setTimeout(() => {
