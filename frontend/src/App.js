@@ -340,6 +340,19 @@ function App() {
   const closeVillaDetail = () => {
     setShowVillaDetail(false);
     setSelectedVilla(null);
+    setSelectedSeason('basse');
+  };
+
+  const toggleSeason = (season) => {
+    setSelectedSeason(season);
+  };
+
+  const getCurrentPrice = () => {
+    if (!selectedVilla) return 0;
+    // Augmenter de 30% en haute saison
+    return selectedSeason === 'haute' 
+      ? Math.round(selectedVilla.price * 1.3) 
+      : selectedVilla.price;
   };
 
   const openReservationFromDetail = (villa) => {
