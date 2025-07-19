@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="villa-title">Villa Details - KhanelConcept</title>
+    <style>
+        :root {
+            --primary-color: #0080ff;
+            --accent-color: #ff6b35;
+            --text-light: #ffffff;
+            --glass-background: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, rgba(0, 128, 255, 0.4), rgba(0, 188, 212, 0.3));
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .header {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo { font-size: 1.5rem; font-weight: 700; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        
+        .villa-card {
+            background: var(--glass-background);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .villa-name { font-size: 2.5rem; margin-bottom: 1rem; }
+        .villa-location { font-size: 1.25rem; margin-bottom: 1rem; opacity: 0.9; }
+        .villa-price { font-size: 2rem; color: var(--accent-color); margin-bottom: 1rem; }
+        .villa-description { line-height: 1.6; margin-bottom: 2rem; }
+        
+        .amenities-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem; }
+        .amenities-list li { padding: 0.5rem; background: rgba(255, 255, 255, 0.1); border-radius: 8px; }
+        
+        .btn-reserve {
+            background: linear-gradient(135deg, var(--accent-color), #e55a2b);
+            color: white;
+            padding: 1.25rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 2rem;
+        }
+        
+        .loading { text-align: center; padding: 4rem 0; font-size: 1.2rem; }
+        .error { text-align: center; padding: 4rem 0; color: #ff6b35; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">🌴 KhanelConcept</div>
+        <a href="index.html" class="back-btn">← Retour à l'accueil</a>
+    </header>
+
+    <main class="container">
+        <div id="loading" class="loading">
+            <div>⏳ Chargement des détails de la villa...</div>
+        </div>
+
+        <div id="villa-content" style="display: none;">
+            <div class="villa-card">
+                <h1 class="villa-name" id="villa-name">Nom de la villa</h1>
+                <p class="villa-location" id="villa-location">📍 Localisation</p>
+                <p class="villa-price" id="villa-price">Prix €/nuit</p>
+                <p class="villa-guests" id="villa-guests">Capacité</p>
+                
+                <h3 style="margin: 2rem 0 1rem 0;">📝 Description</h3>
+                <p class="villa-description" id="villa-description">Description de la villa...</p>
+                
+                <h3 style="margin: 2rem 0 1rem 0;">⭐ Équipements & Services</h3>
+                <ul class="amenities-list" id="villa-amenities">
+                    <!-- Amenities will be loaded here -->
+                </ul>
+                
+                <a href="#" class="btn-reserve" id="btn-reserve">🏖️ Réserver Maintenant</a>
+            </div>
+        </div>
+
+        <div id="error-state" class="error" style="display: none;">
+            <p>❌ Villa non trouvée</p>
+            <a href="index.html" class="back-btn">Retour à l'accueil</a>
+        </div>
+    </main>
+
+    <script>
+        // Simple villa data for testing
+        const villasData = [
+            {
+                id: 1,
+                name: "Villa F3 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 850.0,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 invités",
+                features: "Sauna, Jacuzzi, 2 douches extérieures",
+                amenities: [
+                    {name: "Piscine extérieure", icon: "🏊"},
+                    {name: "Sauna privé", icon: "🧖‍♀️"},
+                    {name: "Jacuzzi", icon: "🛁"},
+                    {name: "2 Douches extérieures", icon: "🚿"},
+                    {name: "Cuisine équipée", icon: "🍳"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Terrasse salon", icon: "🛋️"}
+                ],
+                description: "Cette magnifique villa F3 située au cœur de Petit Macabou au Vauclin représente l'essence même du luxe tropical martiniquais. Conçue pour offrir une expérience de détente absolue, elle dispose d'un sauna privé où vous pourrez vous relaxer après une journée ensoleillée, d'un jacuzzi bouillonnant pour des moments romantiques sous les étoiles, et de deux douches extérieures rafraîchissantes qui vous permettront de vous rincer tout en profitant de la brise caribéenne."
+            },
+            {
+                id: 2,
+                name: "Villa F5 Ste Anne",
+                location: "Quartier Les Anglais, Ste Anne",
+                price: 1300.0,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 invités",
+                features: "Piscine, décoration rose distinctive",
+                amenities: [
+                    {name: "Grande piscine", icon: "🏊"},
+                    {name: "Cuisine moderne équipée", icon: "🍳"},
+                    {name: "Grande terrasse", icon: "🌅"},
+                    {name: "WiFi haut débit", icon: "📶"},
+                    {name: "Climatisation", icon: "❄️"},
+                    {name: "Parking privé", icon: "🚗"},
+                    {name: "Salon spacieux", icon: "🛋️"},
+                    {name: "Décoration unique", icon: "🎨"}
+                ],
+                description: "Impossible de passer à côté de cette villa F5 extraordinaire dans le quartier résidentiel des Anglais à Sainte-Anne ! Sa façade rose distinctive et son architecture créole modernisée en font un véritable bijou architectural."
+            }
+        ];
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVillaDetails();
+        });
+
+        function loadVillaDetails() {
+            // Get villa ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const villaId = urlParams.get('id');
+            
+            console.log('Looking for villa ID:', villaId);
+            
+            if (!villaId) {
+                showError();
+                return;
+            }
+
+            // Find villa
+            const villa = villasData.find(v => v.id == parseInt(villaId));
+            
+            if (!villa) {
+                console.log('Villa not found');
+                showError();
+                return;
+            }
+
+            // Display villa after delay
+            setTimeout(() => {
+                displayVilla(villa);
+            }, 1500);
+        }
+
+        function displayVilla(villa) {
+            try {
+                // Update content
+                document.getElementById('villa-name').textContent = villa.name;
+                document.getElementById('villa-location').textContent = '📍 ' + villa.location;
+                document.getElementById('villa-price').textContent = villa.price + '€ /nuit';
+                document.getElementById('villa-guests').textContent = '👥 ' + villa.guestsDetail;
+                document.getElementById('villa-description').textContent = villa.description;
+
+                // Update amenities
+                const amenitiesList = document.getElementById('villa-amenities');
+                amenitiesList.innerHTML = villa.amenities.map(amenity => 
+                    `<li><span style="margin-right: 8px;">${amenity.icon}</span> ${amenity.name}</li>`
+                ).join('');
+
+                // Update reserve button
+                document.getElementById('btn-reserve').onclick = function() {
+                    window.location.href = `reservation.html?villa=${villa.id}`;
+                };
+
+                // Show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('villa-content').style.display = 'block';
+                
+                console.log('Villa displayed successfully');
+            } catch (error) {
+                console.error('Error displaying villa:', error);
+                showError();
+            }
+        }
+
+        function showError() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-state').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
