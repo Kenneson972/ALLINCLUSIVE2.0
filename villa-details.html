@@ -1602,25 +1602,37 @@
             const urlParams = new URLSearchParams(window.location.search);
             const villaId = urlParams.get('id') || localStorage.getItem('selectedVillaId');
             
+            console.log('Looking for villa ID:', villaId);
+            
             if (!villaId) {
+                console.log('No villa ID found');
                 showErrorState();
                 return;
             }
 
-            // Find villa in data
-            currentVilla = villasData.find(villa => villa.id == villaId);
+            // Find villa in data - convert villaId to number for comparison
+            currentVilla = villasData.find(villa => villa.id == parseInt(villaId));
+            
+            console.log('Found villa:', currentVilla);
             
             if (!currentVilla) {
+                console.log('Villa not found for ID:', villaId);
                 showErrorState();
                 return;
             }
 
             // Display villa details
             setTimeout(() => {
-                displayVillaDetails(currentVilla);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('villa-details').style.display = 'block';
-            }, 800);
+                try {
+                    displayVillaDetails(currentVilla);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('villa-details').style.display = 'block';
+                    console.log('Villa details displayed successfully');
+                } catch (error) {
+                    console.error('Error displaying villa details:', error);
+                    showErrorState();
+                }
+            }, 1000);
         }
 
         function displayVillaDetails(villa) {
