@@ -380,11 +380,9 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Video Background */}
-      <div className="video-background">
-        <video autoPlay muted loop playsInline>
-          <source src="https://gensparkstorageprodwest.blob.core.windows.net/web-drive/54341a45-da16-4d6c-aca3-03992a0b1d20/eec103a6-13ba-46b0-89f4-ad38171d7b73?se=2025-07-18T15%3A15%3A39Z&sp=r&sv=2025-05-05&sr=b&rscd=attachment%3B%20filename%3D%22temp_video_1752611476.0922918.mov%22&sig=0EU%2BXrTFddBhII4fElDbO3Ak7EjVWlkcA84aHMzt%2BQY%3D" type="video/mp4" />
-        </video>
+      {/* Background Image with Animation */}
+      <div className="background-container">
+        <div className="background-image"></div>
         <div className="video-overlay"></div>
       </div>
 
