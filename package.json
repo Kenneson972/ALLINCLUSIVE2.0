@@ -1,0 +1,19 @@
+{
+  "name": "khanelconcept-netlify",
+  "version": "1.0.0",
+  "description": "KhanelConcept Villa Rental - Netlify Configuration",
+  "private": true,
+  "workspaces": ["frontend"],
+  "scripts": {
+    "build": "cd frontend && yarn install && yarn build",
+    "start": "cd frontend && yarn start",
+    "test-video": "echo 'Test vidéo Cloudinary disponible sur /test-video.html'"
+  },
+  "devDependencies": {
+    "netlify-plugin-cloudinary": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=1.22.0"
+  }
+}
