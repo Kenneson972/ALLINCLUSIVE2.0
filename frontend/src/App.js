@@ -427,29 +427,18 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Background Video Cloudinary - Version Optimisée */}
+      {/* Fond vidéo Cloudinary */}
       <div className="video-background-loop">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          preload="metadata" 
+        <video
           className="background-video"
-          onError={(e) => console.error('❌ Erreur vidéo:', e)}
-          onLoadStart={() => console.log('🎬 Chargement vidéo...')}
-          onCanPlay={() => console.log('✅ Vidéo prête!')}
-          onPlaying={() => console.log('▶️ Vidéo en lecture')}
+          autoPlay
+          muted
+          loop
+          playsInline
         >
-          {/* URL optimisée pour le web */}
-          <source 
-            src="https://res.cloudinary.com/ddulasmtz/video/upload/f_auto,q_auto:eco,w_1920/v1752950782/background-video.mp4" 
-            type="video/mp4" 
-          />
-          {/* Fallback vers l'URL originale */}
-          <source 
-            src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" 
-            type="video/mp4" 
+          <source
+            src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4"
+            type="video/mp4"
           />
           Votre navigateur ne supporte pas les vidéos HTML5.
         </video>
