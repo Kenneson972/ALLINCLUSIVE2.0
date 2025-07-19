@@ -380,10 +380,35 @@ Contactez-nous pour plus d'informations :
 
   return (
     <div className="App">
-      {/* Cloudinary Background Video - Ultra fiable ! */}
+      {/* Cloudinary Background Video - Version Optimisée 2025 */}
       <div className="video-background-loop">
-        <video autoPlay muted loop playsInline className="background-video">
-          <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+          preload="auto"
+          className="background-video"
+          onLoadStart={() => console.log('🎬 Chargement vidéo Cloudinary...')}
+          onCanPlay={() => console.log('✅ Vidéo Cloudinary prête !')}
+          onLoadedData={() => console.log('📹 Données vidéo Cloudinary chargées !')}
+          onError={(e) => console.error('❌ Erreur vidéo Cloudinary:', e)}
+        >
+          {/* Source principale MP4 optimisée Cloudinary */}
+          <source 
+            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_auto,f_mp4,c_scale,w_1920/v1752950782/background-video.mp4_qoofsz.mp4" 
+            type="video/mp4" 
+          />
+          {/* Source WebM optimisée pour meilleure compatibilité */}
+          <source 
+            src="https://res.cloudinary.com/ddulasmtz/video/upload/q_auto,f_webm,c_scale,w_1920/v1752950782/background-video.mp4_qoofsz.webm" 
+            type="video/webm" 
+          />
+          {/* Source originale en fallback */}
+          <source 
+            src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" 
+            type="video/mp4" 
+          />
           Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
         <div className="video-overlay"></div>
