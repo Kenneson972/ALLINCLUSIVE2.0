@@ -357,6 +357,20 @@ function App() {
     });
     setShowReservationModal(true);
   };
+
+  const openReservationFromDetail = (villa) => {
+    setCurrentVilla(villa);
+    setReservationData({
+      customerName: '',
+      customerEmail: '',
+      customerPhone: '',
+      checkinDate: searchFilters.checkin || '',
+      checkoutDate: searchFilters.checkout || '',
+      guestsCount: searchFilters.guests || '',
+      message: ''
+    });
+    setShowReservationModal(true);
+  };
     setCurrentVilla(villa);
     setReservationData({
       customerName: '',
