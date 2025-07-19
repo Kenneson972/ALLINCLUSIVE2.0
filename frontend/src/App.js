@@ -368,11 +368,15 @@ Contactez-nous pour plus d'informations :
       if (showReservationModal) {
         if (e.key === 'Escape') closeReservationModal();
       }
+      
+      if (showVillaDetail) {
+        if (e.key === 'Escape') closeVillaDetail();
+      }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [showGalleryModal, showReservationModal, currentGallery.length]);
+  }, [showGalleryModal, showReservationModal, showVillaDetail, currentGallery.length]);
 
   return (
     <div className="App">
