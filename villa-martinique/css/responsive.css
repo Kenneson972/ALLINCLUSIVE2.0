@@ -1,0 +1,445 @@
+/* ===== RESPONSIVE DESIGN MOBILE FIRST ===== */
+
+/* Mobile base styles */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .navbar-glassmorphism {
+        padding: 0.75rem 1rem;
+    }
+    
+    .navbar-glassmorphism .logo {
+        font-size: 1.25rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+    
+    .page-content {
+        margin-top: 80px;
+        padding: 1rem 0;
+    }
+    
+    .breadcrumb {
+        padding: 0.75rem 1rem;
+        margin-top: 70px;
+        font-size: 0.8rem;
+    }
+    
+    /* Boutons responsive */
+    .btn-primary,
+    .btn-secondary {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Cards responsive */
+    .glass-card {
+        padding: 1rem;
+        border-radius: 16px;
+        margin-bottom: 1rem;
+    }
+    
+    .villa-card-glass {
+        border-radius: 20px;
+    }
+    
+    /* Search bar mobile */
+    .search-bar-glass {
+        flex-direction: column;
+        padding: 0.75rem;
+        border-radius: 16px;
+        margin: 1rem;
+    }
+    
+    .search-field-glass {
+        padding: 0.75rem 1rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        min-width: auto;
+    }
+    
+    .search-field-glass:last-child {
+        border-bottom: none;
+        margin-top: 0.5rem;
+    }
+    
+    /* Status messages mobile */
+    .status-message {
+        right: 1rem;
+        left: 1rem;
+        top: 80px;
+        max-width: none;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .navbar-glassmorphism {
+        padding: 1rem 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.25rem;
+    }
+    
+    .page-content {
+        margin-top: 90px;
+        padding: 1.5rem 0;
+    }
+    
+    /* Grid layouts tablet */
+    .villas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    /* Search bar tablet */
+    .search-bar-glass {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .search-field-glass {
+        min-width: 200px;
+        flex: 1 1 40%;
+    }
+}
+
+/* Desktop small */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    /* Grid layouts desktop small */
+    .villas-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Desktop large */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 1200px;
+    }
+    
+    /* Grid layouts desktop large */
+    .villas-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Ultra wide screens */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+    
+    .villas-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* ===== RESPONSIVE COMPONENTS ===== */
+
+/* Villa cards responsive */
+.villas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 480px) {
+    .villas-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Villa card content responsive */
+.villa-card-content {
+    padding: 1.5rem;
+}
+
+.villa-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+@media (max-width: 480px) {
+    .villa-card-content {
+        padding: 1rem;
+    }
+    
+    .villa-card-image {
+        height: 180px;
+    }
+}
+
+/* Features grid responsive */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 480px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Filter panel responsive */
+.filter-panel-glass {
+    position: sticky;
+    top: 100px;
+}
+
+@media (max-width: 768px) {
+    .filter-panel-glass {
+        position: relative;
+        top: 0;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Gallery responsive */
+@media (max-width: 768px) {
+    .gallery-content {
+        max-width: 95vw;
+    }
+    
+    .gallery-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .gallery-nav.prev {
+        left: -50px;
+    }
+    
+    .gallery-nav.next {
+        right: -50px;
+    }
+    
+    .gallery-close {
+        top: -40px;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-nav.prev {
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .gallery-nav.next {
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .gallery-close {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* Modal responsive */
+@media (max-width: 768px) {
+    .modal-glass {
+        padding: 1rem;
+    }
+    
+    .modal-content-glass {
+        border-radius: 20px;
+        max-height: 85vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-glass {
+        padding: 0.5rem;
+    }
+    
+    .modal-content-glass {
+        border-radius: 16px;
+        max-height: 90vh;
+    }
+}
+
+/* Form responsive */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+@media (max-width: 480px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 480px) {
+    .form-group {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Navigation mobile */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid var(--glass-border);
+        flex-direction: column;
+        padding: 1rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links.mobile-open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .nav-links a:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) {
+    .glass-card:hover,
+    .villa-card-glass:hover {
+        transform: none;
+    }
+    
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: none;
+    }
+    
+    /* Add touch states instead */
+    .glass-card:active,
+    .villa-card-glass:active {
+        transform: scale(0.98);
+    }
+    
+    .btn-primary:active,
+    .btn-secondary:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Landscape mobile optimizations */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .navbar-glassmorphism {
+        padding: 0.5rem 1rem;
+    }
+    
+    .page-content {
+        margin-top: 70px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .modal-content-glass {
+        max-height: 95vh;
+    }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .villa-card-image,
+    .gallery-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
