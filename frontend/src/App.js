@@ -73,6 +73,54 @@ function App() {
     loadVillasData();
   }, []);
 
+  // YouTube Background Video Setup
+  useEffect(() => {
+    // Charger l'API YouTube
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+    // Fonction globale requise par l'API YouTube
+    window.onYouTubeIframeAPIReady = () => {
+      new window.YT.Player('youtube-background', {
+        height: '100%',
+        width: '100%',
+        videoId: 'STVVF6IiGIc',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          loop: 1,
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          iv_load_policy: 3,
+          modestbranding: 1,
+          playsinline: 1,
+          enablejsapi: 1,
+          origin: window.location.origin,
+          playlist: 'STVVF6IiGIc' // Requis pour le loop
+        },
+        events: {
+          onReady: (event) => {
+            console.log('🎬 Vidéo YouTube background prête !');
+            event.target.playVideo();
+          },
+          onStateChange: (event) => {
+            // Assurer le loop
+            if (event.data === window.YT.PlayerState.ENDED) {
+              event.target.playVideo();
+            }
+          },
+          onError: (event) => {
+            console.error('❌ Erreur vidéo YouTube:', event.data);
+            console.log('🎨 Utilisation du fond animé CSS');
+          }
+        }
+      });
+    };
+  }, []);
+
   // Initialisation des calendriers
   useEffect(() => {
     if (checkinRef.current && checkoutRef.current) {
