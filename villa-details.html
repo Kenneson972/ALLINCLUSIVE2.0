@@ -311,9 +311,9 @@
     </main>
 
     <script>
-        console.log("Script loaded - Version 2.0 with all 22 villas!");
+        console.log("Script loaded - Version 3.0 with REAL villa data and images!");
         
-        // Villa data - All 22 villas
+        // Villa data - All 22 villas with REAL information from image folders
         const villas = {
             1: {
                 name: "Villa F3 Petit Macabou",
@@ -321,16 +321,25 @@
                 price: "850€ /nuit",
                 guests: "👥 6 personnes + 9 invités",
                 image: "/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                description: "Cette magnifique villa F3 située au cœur de Petit Macabou au Vauclin représente l'essence même du luxe tropical martiniquais. Conçue pour offrir une expérience de détente absolue, elle dispose d'un sauna privé où vous pourrez vous relaxer après une journée ensoleillée, d'un jacuzzi bouillonnant pour des moments romantiques sous les étoiles, et de deux douches extérieures rafraîchissantes qui vous permettront de vous rincer tout en profitant de la brise caribéenne.",
+                gallery: [
+                    "/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "/images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "/images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+                    "/images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+                    "/images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "/images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+                    "/images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
+                ],
+                description: "Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un séjour de détente en famille. Située à Petit Macabou au Vauclin, cette villa offre une piscine extérieure, un sauna privé, un jacuzzi et deux douches extérieures dans un cadre tropical exceptionnel.",
                 amenities: [
                     {icon: "🏊", name: "Piscine extérieure"},
                     {icon: "🧖‍♀️", name: "Sauna privé"},
                     {icon: "🛁", name: "Jacuzzi"},
                     {icon: "🚿", name: "2 Douches extérieures"},
                     {icon: "🍳", name: "Cuisine équipée"},
-                    {icon: "📶", name: "WiFi haut débit"},
-                    {icon: "❄️", name: "Climatisation"},
-                    {icon: "🛋️", name: "Terrasse salon"}
+                    {icon: "🛏️", name: "Chambre principale"},
+                    {icon: "🚽", name: "Toilettes indépendantes"},
+                    {icon: "🌴", name: "Terrasse salon extérieur"}
                 ]
             },
             2: {
