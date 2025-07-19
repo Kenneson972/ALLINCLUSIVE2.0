@@ -1038,25 +1038,39 @@
             const video = document.querySelector('.video-background video');
             
             if (video) {
+                // Gestion du chargement de la vidéo
                 video.addEventListener('loadstart', function() {
-                    console.log('Chargement de la vidéo commencé');
+                    console.log('🎬 Chargement vidéo commencé');
                 });
                 
                 video.addEventListener('canplay', function() {
-                    console.log('Vidéo prête à être lue');
+                    console.log('✅ Vidéo prête à lire');
+                });
+                
+                video.addEventListener('loadeddata', function() {
+                    console.log('📹 Données vidéo chargées');
+                    // Afficher la vidéo une fois chargée
+                    video.style.opacity = '1';
                 });
                 
                 video.addEventListener('error', function(e) {
-                    console.error('Erreur de chargement de la vidéo:', e);
-                    document.querySelector('.video-background').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    console.error('❌ Erreur vidéo:', e);
+                    console.log('🎨 Utilisation du fond animé CSS');
+                    // Le fond animé CSS reste visible
                 });
                 
+                // Gestion de la visibilité de la page
                 document.addEventListener('visibilitychange', function() {
                     if (document.hidden) {
                         video.pause();
                     } else {
-                        video.play().catch(e => console.log('Erreur de lecture:', e));
+                        video.play().catch(e => console.log('Relecture vidéo:', e));
                     }
+                });
+                
+                // Tentative de lecture automatique
+                video.play().catch(e => {
+                    console.log('Lecture auto vidéo bloquée:', e);
                 });
             }
         });
