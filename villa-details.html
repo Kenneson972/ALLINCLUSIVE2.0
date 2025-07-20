@@ -409,9 +409,9 @@
     </main>
 
     <script>
-        console.log("Script loaded - Version 4.0 FINAL with ALL 22 villas and ALL images - Timestamp: " + new Date().getTime());
+        console.log("Script loaded - Version FINAL with ALL 21 villas with CORRECT ID mapping and video background!");
         
-        // Villa data - All 22 villas with COMPLETE image galleries
+        // Villa data - ALL 21 villas with EXACT ID mapping from index.html
         const villas = {
             1: {
                 name: "Villa F3 Petit Macabou",
@@ -439,6 +439,82 @@
                     {icon: "🛏️", name: "Chambre principale cosy"},
                     {icon: "🚽", name: "Toilettes indépendantes"},
                     {icon: "🌴", name: "Terrasse salon extérieur"}
+                ]
+            },
+            2: {
+                name: "Villa F5 Ste Anne",
+                location: "📍 Quartier Les Anglais, Ste Anne",
+                price: "1300€ /nuit",
+                guests: "👥 10 personnes + 15 invités",
+                image: "/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                gallery: [
+                    "/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "/images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+                    "/images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+                    "/images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+                    "/images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+                    "/images/Villa_F5_Ste_Anne/06_chambre_principale.jpg",
+                    "/images/Villa_F5_Ste_Anne/07_chambre_enfants.jpg",
+                    "/images/Villa_F5_Ste_Anne/08_terrasse_couverte.jpg",
+                    "/images/Villa_F5_Ste_Anne/09_terrasse_vue_jardin.jpg"
+                ],
+                description: "Villa F5 distinctive avec sa façade rose emblématique, située dans le quartier résidentiel des Anglais à Sainte-Anne. Cette spacieuse propriété dispose d'une grande piscine, d'une cuisine moderne, d'un salon principal spacieux et de chambres confortables dont une chambre enfants spécialisée.",
+                amenities: [
+                    {icon: "🏊", name: "Grande piscine principale"},
+                    {icon: "🏡", name: "Façade rose distinctive"},
+                    {icon: "🍳", name: "Cuisine moderne équipée"},
+                    {icon: "🛋️", name: "Salon principal spacieux"},
+                    {icon: "🛏️", name: "Chambre principale"},
+                    {icon: "👶", name: "Chambre enfants spécialisée"},
+                    {icon: "🌅", name: "Terrasse couverte"},
+                    {icon: "🌳", name: "Terrasse vue jardin"},
+                    {icon: "🚁", name: "Vue aérienne spectaculaire"}
+                ]
+            },
+            3: {
+                name: "Villa F3 Baccha Petit Macabou",
+                location: "📍 Petit Macabou",
+                price: "1350€ /nuit",
+                guests: "👥 6 personnes + 9 convives",
+                image: "/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                gallery: [
+                    "/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "/images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+                    "/images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+                    "/images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+                    "/images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "/images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg",
+                    "/images/Villa_F3_Baccha_Petit_Macabou/07_salle_de_bain_moderne.jpg"
+                ],
+                description: "Villa F3 moderne 'Pour la Baccha' à Petit Macabou, avec terrasses étagées offrant différents espaces de vie. Parfaite pour les moments festifs avec piscine, terrasse jardin et équipements modernes pour la célébration.",
+                amenities: [
+                    {icon: "🏊", name: "Piscine avec terrasse salon"},
+                    {icon: "🌅", name: "Terrasse piscine angle vue"},
+                    {icon: "🛏️", name: "Chambre moderne principale"},
+                    {icon: "🛏️", name: "Chambre 2 confortable"},
+                    {icon: "🍳", name: "Cuisine équipée complète"},
+                    {icon: "🛁", name: "Salle de bain moderne"},
+                    {icon: "🌺", name: "Terrasse jardin privée"},
+                    {icon: "🎉", name: "Espace festif 'Baccha'"}
+                ]
+            },
+            4: {
+                name: "Villa F6 Lamentin",
+                location: "📍 Lamentin",
+                price: "1100€ /nuit",
+                guests: "👥 12 personnes + 18 invités",
+                image: "/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
+                gallery: [
+                    "/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
+                ],
+                description: "Villa F6 au Lamentin avec piscine et jacuzzi vue d'ensemble spectaculaire. Propriété spacieuse idéale pour grands groupes avec équipements complets pour séjours détente et fêtes familiales.",
+                amenities: [
+                    {icon: "🏊", name: "Piscine spacieuse"},
+                    {icon: "🛁", name: "Jacuzzi intégré"},
+                    {icon: "👥", name: "Capacité 12 personnes"},
+                    {icon: "🎉", name: "18 invités autorisés"},
+                    {icon: "🏠", name: "Villa F6 spacieuse"},
+                    {icon: "🌴", name: "Vue d'ensemble panoramique"}
                 ]
             },
             2: {
