@@ -68,7 +68,7 @@ class AdminApp {
                     guestsDetail: `${villa.capacity} personnes`,
                     features: (villa.amenities || []).join(', '),
                     category: 'sejour',
-                    image: villa.photos && villa.photos[0] ? villa.photos[0] : '../images/placeholder.jpg',
+                    image: villa.photos && villa.photos[0] ? villa.photos[0] : './images/placeholder.jpg',
                     gallery: villa.photos || [],
                     fallbackIcon: this.getVillaIcon(villa),
                     description: villa.description,
