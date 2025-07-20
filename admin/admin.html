@@ -1218,106 +1218,114 @@
 
         // Initialisation des graphiques
         function initializeCharts() {
-            const priceCtx = document.getElementById('priceChart');
-            const categoryCtx = document.getElementById('categoryChart');
+            try {
+                const priceCtx = document.getElementById('priceChart');
+                const categoryCtx = document.getElementById('categoryChart');
 
-            // Graphique des prix
-            if (priceCtx) {
-                const priceRanges = {
-                    '< 1000€': villasData.filter(v => v.price < 1000).length,
-                    '1000-1500€': villasData.filter(v => v.price >= 1000 && v.price < 1500).length,
-                    '1500-2000€': villasData.filter(v => v.price >= 1500 && v.price < 2000).length,
-                    '> 2000€': villasData.filter(v => v.price >= 2000).length
-                };
+                // Graphique des prix
+                if (priceCtx && typeof Chart !== 'undefined') {
+                    const priceRanges = {
+                        '< 1000€': villasData.filter(v => v.price < 1000).length,
+                        '1000-1500€': villasData.filter(v => v.price >= 1000 && v.price < 1500).length,
+                        '1500-2000€': villasData.filter(v => v.price >= 1500 && v.price < 2000).length,
+                        '> 2000€': villasData.filter(v => v.price >= 2000).length
+                    };
 
-                priceChart = new Chart(priceCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: Object.keys(priceRanges),
-                        datasets: [{
-                            data: Object.values(priceRanges),
-                            backgroundColor: [
-                                'rgba(79, 172, 254, 0.8)',
-                                'rgba(245, 87, 108, 0.8)',
-                                'rgba(32, 201, 151, 0.8)',
-                                'rgba(255, 193, 7, 0.8)'
-                            ],
-                            borderWidth: 2,
-                            borderColor: 'rgba(255, 255, 255, 0.8)'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    color: 'white',
-                                    padding: 15
+                    priceChart = new Chart(priceCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: Object.keys(priceRanges),
+                            datasets: [{
+                                data: Object.values(priceRanges),
+                                backgroundColor: [
+                                    'rgba(79, 172, 254, 0.8)',
+                                    'rgba(245, 87, 108, 0.8)',
+                                    'rgba(32, 201, 151, 0.8)',
+                                    'rgba(255, 193, 7, 0.8)'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        color: 'white',
+                                        padding: 15,
+                                        font: {
+                                            size: 12
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                });
-            }
+                    });
+                    console.log("✅ Price chart initialized");
+                }
 
-            // Graphique des catégories
-            if (categoryCtx) {
-                const categoryStats = {
-                    'Séjour': villasData.filter(v => v.category === 'sejour').length,
-                    'Fête': villasData.filter(v => v.category === 'fete').length,
-                    'Piscine': villasData.filter(v => v.category === 'piscine').length
-                };
+                // Graphique des catégories
+                if (categoryCtx && typeof Chart !== 'undefined') {
+                    const categoryStats = {
+                        'Séjour': villasData.filter(v => v.category === 'sejour').length,
+                        'Fête': villasData.filter(v => v.category === 'fete').length,
+                        'Piscine': villasData.filter(v => v.category === 'piscine').length
+                    };
 
-                categoryChart = new Chart(categoryCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: Object.keys(categoryStats),
-                        datasets: [{
-                            label: 'Nombre de villas',
-                            data: Object.values(categoryStats),
-                            backgroundColor: [
-                                'rgba(79, 172, 254, 0.8)',
-                                'rgba(245, 87, 108, 0.8)',
-                                'rgba(32, 201, 151, 0.8)'
-                            ],
-                            borderColor: [
-                                'rgba(79, 172, 254, 1)',
-                                'rgba(245, 87, 108, 1)',
-                                'rgba(32, 201, 151, 1)'
-                            ],
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
+                    categoryChart = new Chart(categoryCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(categoryStats),
+                            datasets: [{
+                                label: 'Nombre de villas',
+                                data: Object.values(categoryStats),
+                                backgroundColor: [
+                                    'rgba(79, 172, 254, 0.8)',
+                                    'rgba(245, 87, 108, 0.8)',
+                                    'rgba(32, 201, 151, 0.8)'
+                                ],
+                                borderWidth: 0
+                            }]
                         },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    color: 'white'
-                                },
-                                grid: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: {
+                                legend: {
+                                    display: false
                                 }
                             },
-                            x: {
-                                ticks: {
-                                    color: 'white'
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: 'white',
+                                        stepSize: 1
+                                    },
+                                    grid: {
+                                        color: 'rgba(255, 255, 255, 0.1)'
+                                    }
                                 },
-                                grid: {
-                                    color: 'rgba(255, 255, 255, 0.1)'
+                                x: {
+                                    ticks: {
+                                        color: 'white'
+                                    },
+                                    grid: {
+                                        display: false
+                                    }
                                 }
                             }
                         }
-                    }
+                    });
+                    console.log("✅ Category chart initialized");
+                }
+            } catch (error) {
+                console.error("❌ Error initializing charts:", error);
+                // Cacher les conteneurs de graphiques en cas d'erreur
+                document.querySelectorAll('.chart-container').forEach(container => {
+                    container.innerHTML = '<div class="text-center text-white-50 p-4"><i class="fas fa-chart-bar fa-2x mb-2"></i><br>Graphique en cours de chargement...</div>';
                 });
             }
         }
