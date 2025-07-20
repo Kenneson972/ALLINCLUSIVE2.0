@@ -343,81 +343,253 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Get backend URL from environment or use default
+        // Configuration et variables globales
         const BACKEND_URL = window.location.origin;
-
-        // Wait for DOM to be fully loaded before attaching event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Auto focus on password
-            document.getElementById('password').focus();
+        let isSubmitting = false;
+        
+        // Éléments DOM
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const submitButton = loginForm.querySelector('button[type="submit"]');
+        const buttonText = submitButton.querySelector('.button-text');
+        const errorAlert = document.getElementById('errorAlert');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Fonction d'affichage des erreurs accessibles
+        function showError(message, focusElement = null) {
+            errorMessage.textContent = message;
+            errorAlert.style.display = 'block';
+            errorAlert.setAttribute('aria-expanded', 'true');
             
-            // Clear any existing tokens when accessing login page
+            // Focus sur l'élément approprié pour l'accessibilité
+            if (focusElement) {
+                setTimeout(() => {
+                    focusElement.focus();
+                    focusElement.select();
+                }, 100);
+            }
+            
+            // Annoncer l'erreur aux lecteurs d'écran
+            errorAlert.setAttribute('aria-live', 'assertive');
+            setTimeout(() => {
+                errorAlert.setAttribute('aria-live', 'polite');
+            }, 1000);
+        }
+        
+        // Fonction de masquage des erreurs
+        function hideError() {
+            errorAlert.style.display = 'none';
+            errorAlert.setAttribute('aria-expanded', 'false');
+        }
+        
+        // Validation côté client améliorée
+        function validateForm() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            
+            if (!username) {
+                showError('Le nom d\'utilisateur est requis.', usernameInput);
+                return false;
+            }
+            
+            if (!password) {
+                showError('Le mot de passe est requis.', passwordInput);
+                return false;
+            }
+            
+            if (username.length < 2) {
+                showError('Le nom d\'utilisateur doit contenir au moins 2 caractères.', usernameInput);
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // États du bouton de soumission
+        function setSubmittingState(isSubmitting) {
+            if (isSubmitting) {
+                submitButton.disabled = true;
+                submitButton.setAttribute('aria-busy', 'true');
+                buttonText.innerHTML = '<i class="fas fa-spinner fa-spin me-2" aria-hidden="true"></i>Connexion en cours...';
+                submitButton.setAttribute('aria-describedby', 'loading-description');
+                
+                // Ajouter description pour les lecteurs d'écran
+                if (!document.getElementById('loading-description')) {
+                    const loadingDesc = document.createElement('div');
+                    loadingDesc.id = 'loading-description';
+                    loadingDesc.className = 'visually-hidden';
+                    loadingDesc.textContent = 'Connexion en cours, veuillez patienter';
+                    document.body.appendChild(loadingDesc);
+                }
+            } else {
+                submitButton.disabled = false;
+                submitButton.setAttribute('aria-busy', 'false');
+                buttonText.innerHTML = '<i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>Se connecter';
+                submitButton.removeAttribute('aria-describedby');
+                
+                const loadingDesc = document.getElementById('loading-description');
+                if (loadingDesc) loadingDesc.remove();
+            }
+        }
+        
+        // Fonction de connexion améliorée
+        async function handleLogin(username, password) {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/admin/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username.trim(),
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.access_token) {
+                    // Stockage sécurisé des tokens
+                    localStorage.setItem('admin_token', data.access_token);
+                    localStorage.setItem('admin_username', username.trim());
+                    localStorage.setItem('admin_login_time', Date.now().toString());
+                    
+                    console.log('✅ Connexion réussie');
+                    
+                    // État de succès avec feedback accessibilité
+                    submitButton.className = 'btn btn-success';
+                    submitButton.setAttribute('aria-busy', 'false');
+                    buttonText.innerHTML = '<i class="fas fa-check me-2" aria-hidden="true"></i>Connexion réussie';
+                    
+                    // Annoncer le succès
+                    const successAnnouncement = document.createElement('div');
+                    successAnnouncement.className = 'visually-hidden';
+                    successAnnouncement.setAttribute('aria-live', 'assertive');
+                    successAnnouncement.textContent = 'Connexion réussie, redirection vers le panneau d\'administration';
+                    document.body.appendChild(successAnnouncement);
+                    
+                    // Redirection avec délai pour le feedback
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 1200);
+                    
+                    return true;
+                } else {
+                    throw new Error(data.detail || 'Erreur de connexion');
+                }
+                
+            } catch (error) {
+                console.error('❌ Erreur de connexion:', error);
+                
+                // Messages d'erreur spécifiques
+                let errorMsg = 'Une erreur est survenue lors de la connexion.';
+                
+                if (error.message.includes('Failed to fetch')) {
+                    errorMsg = 'Impossible de contacter le serveur. Vérifiez votre connexion Internet.';
+                } else if (error.message.includes('Identifiants incorrects') || error.message.includes('401')) {
+                    errorMsg = 'Nom d\'utilisateur ou mot de passe incorrect.';
+                } else if (error.message.includes('403')) {
+                    errorMsg = 'Accès non autorisé.';
+                } else if (error.message.includes('500')) {
+                    errorMsg = 'Erreur du serveur. Veuillez réessayer plus tard.';
+                }
+                
+                showError(errorMsg, passwordInput);
+                passwordInput.value = ''; // Vider le mot de passe pour sécurité
+                
+                return false;
+            }
+        }
+        
+        // Gestionnaire d'événements principal
+        document.addEventListener('DOMContentLoaded', function() {
+            // Focus initial sur le champ utilisateur
+            usernameInput.focus();
+            
+            // Nettoyage des tokens existants
             localStorage.removeItem('admin_token');
             localStorage.removeItem('admin_username');
+            localStorage.removeItem('admin_login_time');
             
-            // Attach form submission handler
-            const loginForm = document.getElementById('loginForm');
+            // Gestion de la soumission du formulaire
             if (loginForm) {
                 loginForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     
-                    const username = document.getElementById('username').value;
-                    const password = document.getElementById('password').value;
-                    const submitButton = e.target.querySelector('button[type="submit"]');
+                    // Éviter les soumissions multiples
+                    if (isSubmitting) return;
                     
-                    // Show loading state
-                    const originalText = submitButton.innerHTML;
-                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Connexion...';
-                    submitButton.disabled = true;
+                    hideError();
+                    
+                    // Validation
+                    if (!validateForm()) return;
+                    
+                    const username = usernameInput.value.trim();
+                    const password = passwordInput.value;
+                    
+                    isSubmitting = true;
+                    setSubmittingState(true);
                     
                     try {
-                        // Call backend authentication API
-                        const response = await fetch(`${BACKEND_URL}/api/admin/login`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                username: username,
-                                password: password
-                            })
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (response.ok) {
-                            // Store JWT token securely
-                            localStorage.setItem('admin_token', data.access_token);
-                            localStorage.setItem('admin_username', username);
-                            console.log('✅ Login successful');
-                            
-                            // Show success message
-                            submitButton.innerHTML = '<i class="fas fa-check me-2"></i>Connexion réussie';
-                            submitButton.className = 'btn btn-success';
-                            
-                            // Redirect to admin panel
-                            setTimeout(() => {
-                                window.location.href = 'admin.html';
-                            }, 1000);
-                            
-                        } else {
-                            throw new Error(data.detail || 'Erreur de connexion');
+                        const success = await handleLogin(username, password);
+                        if (!success) {
+                            setSubmittingState(false);
+                            submitButton.className = 'btn btn-login';
                         }
-                        
                     } catch (error) {
-                        console.error('❌ Login failed:', error);
-                        alert('❌ Identifiants incorrects ou erreur de connexion');
-                        document.getElementById('password').value = '';
-                        
-                        // Reset button
-                        submitButton.innerHTML = originalText;
-                        submitButton.disabled = false;
+                        setSubmittingState(false);
                         submitButton.className = 'btn btn-login';
+                        showError('Une erreur inattendue est survenue.', passwordInput);
+                    } finally {
+                        isSubmitting = false;
                     }
                 });
             }
+            
+            // Masquer les erreurs lors de la saisie
+            [usernameInput, passwordInput].forEach(input => {
+                if (input) {
+                    input.addEventListener('input', hideError);
+                    input.addEventListener('focus', hideError);
+                }
+            });
+            
+            // Support clavier amélioré
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    hideError();
+                }
+            });
+            
+            // Détection de la perte de connexion
+            window.addEventListener('online', function() {
+                if (errorMessage.textContent.includes('connexion Internet')) {
+                    hideError();
+                }
+            });
+            
+            console.log('✅ Système d\'authentification initialisé');
         });
+        
+        // Gestion des erreurs globales
+        window.addEventListener('error', function(e) {
+            console.error('Erreur JavaScript:', e.error);
+            if (isSubmitting) {
+                setSubmittingState(false);
+                submitButton.className = 'btn btn-login';
+                showError('Une erreur technique est survenue. Veuillez réessayer.');
+                isSubmitting = false;
+            }
+        });
+        
+        // Performance et accessibilité
+        if ('serviceWorker' in navigator) {
+            // Possibilité d'ajouter un service worker pour le cache si nécessaire
+        }
     </script>
 </body>
 </html>
