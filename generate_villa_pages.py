@@ -8,6 +8,25 @@ import os
 import json
 from pathlib import Path
 
+def discover_villa_images(folder_name):
+    """Découvre automatiquement les images disponibles dans un dossier de villa"""
+    images_path = Path("/app/images") / folder_name
+    if not images_path.exists():
+        return []
+    
+    # Extensions d'images supportées
+    image_extensions = ['.jpg', '.jpeg', '.png', '.webp']
+    
+    # Trouver toutes les images dans le dossier
+    images = []
+    for file in sorted(images_path.glob('*')):
+        if file.is_file() and file.suffix.lower() in image_extensions:
+            # Exclure les fichiers d'information catalogue
+            if 'information' not in file.name.lower() and 'catalogue' not in file.name.lower():
+                images.append(f"./images/{folder_name}/{file.name}")
+    
+    return images
+
 # Données des 21 villas
 villas_data = [
     {
