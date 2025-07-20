@@ -54,6 +54,18 @@ backend:
         agent: "testing"
         comment: "✅ PASSED - Fixed MongoDB ObjectId serialization issue by excluding _id field from query projection. Admin reservation management endpoint GET /api/admin/reservations now working correctly. Returns reservation list with proper structure and can handle multiple reservations. Tested with 2 sample reservations successfully."
 
+  - task: "Static Villa Pages Serving"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ PASSED - Static villa HTML pages are being served correctly by FastAPI. All 18 tested villa pages (villa-f3-petit-macabou.html, villa-f5-ste-anne.html, etc.) are accessible via backend localhost. FastAPI static file mount at '/' successfully serves generated villa detail pages. Villa pages contain proper content and titles. Backend now serves 22 villas with proper ID mapping 1-22. Minor: External URL routing has configuration issue for static files but backend functionality is working correctly."
+
   - task: "Public Villa API Endpoints"
     implemented: true
     working: true
