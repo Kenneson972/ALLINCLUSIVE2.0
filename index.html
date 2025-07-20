@@ -2406,12 +2406,44 @@
         }
 
         // Fonctions d'actions
+        function getVillaPageUrl(villaId) {
+            // Correspondance entre les IDs des villas et leurs pages HTML détails
+            const villaPageMapping = {
+                1: "villa-f3-petit-macabou.html",
+                2: "villa-f5-ste-anne.html", 
+                3: "villa-f3-baccha-petit-macabou.html",
+                4: "studio-cocooning-lamentin.html",
+                5: "villa-f6-lamentin.html",
+                6: "villa-f5-vauclin-ravine-plate.html",
+                7: "villa-f6-petit-macabou.html",
+                8: "villa-f3-le-francois.html",
+                9: "bas-villa-f3-ste-luce.html",
+                10: "villa-f3-trinite-cosmy.html",
+                11: "villa-f7-baie-des-mulets-vauclin.html",
+                12: "villa-f6-ste-luce-plage.html",
+                13: "villa-f3-robert-pointe-hyacinthe.html",
+                14: "villa-f5-r-pilote-la-renee.html",
+                15: "villa-f3-trenelle-location-annuelle.html",
+                16: "villa-fete-journee-fort-de-france.html",
+                17: "villa-fete-journee-sainte-luce.html",
+                18: "villa-fete-journee-ducos.html",
+                19: "villa-fete-journee-r-pilote.html",
+                20: "villa-fete-journee-riviere-salee.html",
+                21: "espace-piscine-journee-bungalow.html"
+            };
+            
+            return villaPageMapping[villaId] || 'index.html';
+        }
+
         function viewDetails(villaId) {
-            // Store villa ID for villa-details page
+            // Rediriger vers la page détail spécifique de la villa
+            const villaPageUrl = getVillaPageUrl(villaId);
+            
+            // Store villa ID pour compatibilité future
             localStorage.setItem('selectedVillaId', villaId);
             
-            // Navigate to villa details page
-            window.location.href = `villa-details.html?id=${villaId}`;
+            // Navigation vers la page détail spécifique
+            window.location.href = villaPageUrl;
         }
 
         function contactPrestataire(service) {
