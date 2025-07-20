@@ -53,6 +53,9 @@ db = client.khanelconcept
 # Servir les images statiques
 app.mount("/images", StaticFiles(directory="../images"), name="images")
 
+# Servir les fichiers statiques de l'admin
+app.mount("/admin", StaticFiles(directory="../admin", html=True), name="admin")
+
 # ========== MODELS ==========
 
 class Villa(BaseModel):
