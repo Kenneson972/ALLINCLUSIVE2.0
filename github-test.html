@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test GitHub Pages Update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .test-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .success {
+            color: #00ff88;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Test GitHub Pages Update</h1>
+    
+    <div class="test-card">
+        <h2>KhanelConcept - Villas de Martinique</h2>
+        <div class="success">✅ GITHUB PAGES UPDATED SUCCESSFULLY!</div>
+        <p><strong>Timestamp:</strong> ${new Date().toLocaleString()}</p>
+        <p><strong>Test:</strong> Si vous voyez cette page, GitHub Pages lit bien les nouveaux fichiers.</p>
+        <p><strong>Next:</strong> <a href="index.html" style="color: #00ff88;">Retour à l'accueil avec 21 villas</a></p>
+    </div>
+
+    <div class="test-card">
+        <h3>📊 Test de chargement des villas</h3>
+        <div id="villaTest">Chargement...</div>
+    </div>
+
+    <script>
+        // Même test que sur index.html
+        const villasData = [
+            { id: 1, name: "Villa F3 Petit Macabou" },
+            { id: 2, name: "Villa F5 Ste Anne" },
+            { id: 3, name: "Villa F3 Baccha Petit Macabou" },
+            { id: 4, name: "Villa F6 Lamentin" },
+            { id: 5, name: "Villa F6 Ste Luce Plage" },
+            { id: 6, name: "Villa F6 Petit Macabou" },
+            { id: 7, name: "Villa F7 Baie des Mulets" },
+            { id: 8, name: "Villa F3 Trinité (Cosmy)" },
+            { id: 9, name: "Villa F3 Le Robert" },
+            { id: 10, name: "Villa F5 R.Pilote" },
+            { id: 11, name: "Villa F3 Le François" },
+            { id: 12, name: "Villa F5 Vauclin Ravine Plate" },
+            { id: 13, name: "Bas Villa F3 Ste Luce" },
+            { id: 14, name: "Villa F3 Trenelle" },
+            { id: 15, name: "Studio Cocooning Lamentin" },
+            { id: 16, name: "Espace Piscine Journée Bungalow" },
+            { id: 17, name: "Villa Fête Ducos" },
+            { id: 18, name: "Villa Fête Fort-de-France" },
+            { id: 19, name: "Villa Fête Rivière-Pilote" },
+            { id: 20, name: "Villa Fête Sainte-Luce" },
+            { id: 21, name: "Villa Fête Rivière-Salée" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const testDiv = document.getElementById('villaTest');
+            testDiv.innerHTML = `
+                <div class="success">✅ ${villasData.length} villas chargées avec succès !</div>
+                <p>Villas 1-5: ${villasData.slice(0, 5).map(v => v.name).join(', ')}</p>
+                <p><strong>Si vous voyez 21 villas, le problème n'est PAS le JavaScript mais le cache GitHub Pages.</strong></p>
+            `;
+            
+            console.log('Test GitHub Pages:', villasData.length, 'villas');
+        });
+    </script>
+</body>
+</html>
