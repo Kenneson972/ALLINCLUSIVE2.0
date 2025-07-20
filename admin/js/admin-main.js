@@ -159,12 +159,12 @@ class AdminApp {
                 gps: "14.4298, -60.8824",
                 amenities: ["piscine", "wifi", "cuisine", "parking", "terrasse"],
                 photos: [
-                    "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
-                    "./images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
-                    "./images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
-                    "./images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
-                    "./images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
+                    "../images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "../images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+                    "../images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+                    "../images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+                    "../images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+                    "../images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
