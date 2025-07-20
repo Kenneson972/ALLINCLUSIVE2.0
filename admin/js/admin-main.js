@@ -223,19 +223,28 @@ class AdminApp {
 
     // Villa management methods
     editVilla(villaId) {
-        this.villaManager.editVilla(villaId);
+        if (this.villaManager) {
+            this.villaManager.editVilla(villaId);
+        }
     }
 
     duplicateVilla(villaId) {
-        this.villaManager.duplicateVilla(villaId);
+        if (this.villaManager) {
+            this.villaManager.duplicateVilla(villaId);
+        }
     }
 
     deleteVilla(villaId) {
-        this.villaManager.deleteVilla(villaId);
+        if (this.villaManager) {
+            this.villaManager.deleteVilla(villaId);
+        }
     }
 
     showAddVillaModal() {
-        this.villaManager.showAddVillaModal();
+        if (this.villaManager) {
+            this.villaManager.showAddVillaModal();
+        }
+    }
 
     updateDashboard() {
         // Update stats
