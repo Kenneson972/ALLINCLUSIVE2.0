@@ -468,70 +468,96 @@
             }
         }
         
-        // Fonction de connexion améliorée
+        // Fonction de connexion adaptée à l'environnement
         async function handleLogin(username, password) {
             try {
-                const response = await fetch(`${BACKEND_URL}/api/admin/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        username: username.trim(),
-                        password: password
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (response.ok && data.access_token) {
-                    // Stockage sécurisé des tokens
-                    localStorage.setItem('admin_token', data.access_token);
-                    localStorage.setItem('admin_username', username.trim());
-                    localStorage.setItem('admin_login_time', Date.now().toString());
+                if (IS_GITHUB_PAGES) {
+                    // Authentification côté client pour GitHub Pages
+                    console.log('🔐 Authentification GitHub Pages');
                     
-                    console.log('✅ Connexion réussie');
+                    if (username.trim() === 'admin') {
+                        const passwordHash = await simpleHash(password);
+                        const expectedHash = 'cd85c06b2d8c0f85a1f6db51e8c5f20b7e8c8a3cf5a4a8e6c4c8a6e5b4c3d2e1';
+                        
+                        // Pour le vrai hash de khanelconcept2025, calculons-le dynamiquement
+                        const realHash = await simpleHash('khanelconcept2025');
+                        
+                        if (passwordHash === realHash || password === 'khanelconcept2025') {
+                            // Simulation d'un token pour GitHub Pages
+                            const fakeToken = btoa(JSON.stringify({
+                                username: 'admin',
+                                timestamp: Date.now(),
+                                env: 'github-pages'
+                            }));
+                            
+                            localStorage.setItem('admin_token', fakeToken);
+                            localStorage.setItem('admin_username', 'admin');
+                            localStorage.setItem('admin_login_time', Date.now().toString());
+                            localStorage.setItem('auth_env', 'github-pages');
+                            
+                            console.log('✅ Connexion GitHub Pages réussie');
+                            return true;
+                        } else {
+                            throw new Error('Identifiants incorrects');
+                        }
+                    } else {
+                        throw new Error('Nom d\'utilisateur incorrect');
+                    }
                     
-                    // État de succès avec feedback accessibilité
-                    submitButton.className = 'btn btn-success';
-                    submitButton.setAttribute('aria-busy', 'false');
-                    buttonText.innerHTML = '<i class="fas fa-check me-2" aria-hidden="true"></i>Connexion réussie';
-                    
-                    // Annoncer le succès
-                    const successAnnouncement = document.createElement('div');
-                    successAnnouncement.className = 'visually-hidden';
-                    successAnnouncement.setAttribute('aria-live', 'assertive');
-                    successAnnouncement.textContent = 'Connexion réussie, redirection vers le panneau d\'administration';
-                    document.body.appendChild(successAnnouncement);
-                    
-                    // Redirection avec délai pour le feedback
-                    setTimeout(() => {
-                        window.location.href = 'admin.html';
-                    }, 1200);
-                    
-                    return true;
                 } else {
-                    throw new Error(data.detail || 'Erreur de connexion');
+                    // Authentification backend pour environnement local
+                    console.log('🔐 Authentification Backend API');
+                    
+                    const response = await fetch(`${BACKEND_URL}/api/admin/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            username: username.trim(),
+                            password: password
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok && data.access_token) {
+                        localStorage.setItem('admin_token', data.access_token);
+                        localStorage.setItem('admin_username', username.trim());
+                        localStorage.setItem('admin_login_time', Date.now().toString());
+                        localStorage.setItem('auth_env', 'backend');
+                        
+                        console.log('✅ Connexion Backend réussie');
+                        return true;
+                    } else {
+                        throw new Error(data.detail || 'Erreur de connexion');
+                    }
                 }
                 
             } catch (error) {
                 console.error('❌ Erreur de connexion:', error);
                 
-                // Messages d'erreur spécifiques
+                // Messages d'erreur spécifiques selon l'environnement
                 let errorMsg = 'Une erreur est survenue lors de la connexion.';
                 
-                if (error.message.includes('Failed to fetch')) {
-                    errorMsg = 'Impossible de contacter le serveur. Vérifiez votre connexion Internet.';
-                } else if (error.message.includes('Identifiants incorrects') || error.message.includes('401')) {
-                    errorMsg = 'Nom d\'utilisateur ou mot de passe incorrect.';
-                } else if (error.message.includes('403')) {
-                    errorMsg = 'Accès non autorisé.';
-                } else if (error.message.includes('500')) {
-                    errorMsg = 'Erreur du serveur. Veuillez réessayer plus tard.';
+                if (IS_GITHUB_PAGES) {
+                    if (error.message.includes('Identifiants incorrects')) {
+                        errorMsg = 'Nom d\'utilisateur ou mot de passe incorrect.\n\nUtilisez:\n• Nom d\'utilisateur: admin\n• Mot de passe: khanelconcept2025';
+                    }
+                } else {
+                    if (error.message.includes('Failed to fetch')) {
+                        errorMsg = 'Impossible de contacter le serveur. Vérifiez votre connexion Internet.';
+                    } else if (error.message.includes('Identifiants incorrects') || error.message.includes('401')) {
+                        errorMsg = 'Nom d\'utilisateur ou mot de passe incorrect.\n\nUtilisez:\n• Nom d\'utilisateur: admin\n• Mot de passe: khanelconcept2025';
+                    } else if (error.message.includes('403')) {
+                        errorMsg = 'Accès non autorisé.';
+                    } else if (error.message.includes('500')) {
+                        errorMsg = 'Erreur du serveur. Veuillez réessayer plus tard.';
+                    }
                 }
                 
                 showError(errorMsg, passwordInput);
-                passwordInput.value = ''; // Vider le mot de passe pour sécurité
+                passwordInput.value = '';
                 
                 return false;
             }
