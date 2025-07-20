@@ -594,7 +594,30 @@
                     
                     try {
                         const success = await handleLogin(username, password);
-                        if (!success) {
+                        if (success) {
+                            // État de succès avec feedback accessibilité
+                            submitButton.className = 'btn btn-success';
+                            submitButton.setAttribute('aria-busy', 'false');
+                            buttonText.innerHTML = '<i class="fas fa-check me-2" aria-hidden="true"></i>Connexion réussie';
+                            
+                            // Annoncer le succès
+                            const successAnnouncement = document.createElement('div');
+                            successAnnouncement.className = 'visually-hidden';
+                            successAnnouncement.setAttribute('aria-live', 'assertive');
+                            successAnnouncement.textContent = 'Connexion réussie, redirection vers le panneau d\'administration';
+                            document.body.appendChild(successAnnouncement);
+                            
+                            // Message spécifique selon l'environnement
+                            const envMessage = IS_GITHUB_PAGES ? 
+                                'Redirection vers admin panel GitHub Pages...' : 
+                                'Redirection vers admin panel sécurisé...';
+                            console.log(envMessage);
+                            
+                            // Redirection avec délai pour le feedback
+                            setTimeout(() => {
+                                window.location.href = 'admin.html';
+                            }, 1200);
+                        } else {
                             setSubmittingState(false);
                             submitButton.className = 'btn btn-login';
                         }
