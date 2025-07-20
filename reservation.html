@@ -3,510 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Réservation - KhanelConcept</title>
+    <title>Réservation - KhanelConcept Villas Luxe Martinique</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Confirmez votre réservation pour votre villa de luxe en Martinique - KhanelConcept">
-    <meta name="keywords" content="réservation, villa, martinique, confirmation, booking">
+    <meta name="description" content="Réservez votre villa de luxe en Martinique avec KhanelConcept. Système de réservation sécurisé et moderne.">
+    <meta name="keywords" content="réservation villa martinique, booking martinique, villa luxe réservation">
+    <meta name="author" content="KhanelConcept">
     
-    <!-- External Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
     
     <style>
-        /* Variables CSS héritées */
-        :root {
-            --primary-color: #0080ff;
-            --secondary-color: #00bcd4;
-            --accent-color: #ff6b35;
-            --success-color: #22c55e;
-            --text-light: #ffffff;
-            --text-dark: #333333;
-            --glass-background: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-light);
-            overflow-x: hidden;
-            background: linear-gradient(135deg, rgba(0, 128, 255, 0.3), rgba(0, 188, 212, 0.2));
-            min-height: 100vh;
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --accent-gold: #f6ad55;
+            --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-
-        /* Background Video */
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        /* Video Background */
         .video-background {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: -2;
             overflow: hidden;
         }
-
+        
         .video-background video {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
             object-fit: cover;
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
         }
-
+        
         .video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 128, 255, 0.4) 0%, rgba(0, 188, 212, 0.3) 50%, rgba(255, 107, 53, 0.2) 100%);
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }
-
+        
         /* Header */
         .header {
-            position: fixed;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        
+        /* Glass Cards */
+        .glass-card {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 1000;
-            padding: 0 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            padding: 2rem;
         }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-light);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .logo i {
-            color: var(--accent-color);
-            font-size: 1.8rem;
-        }
-
-        .back-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: var(--text-light);
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+        
+        .glass-card:hover {
             transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
-
-        /* Main Content */
-        .main-content {
-            margin-top: 90px;
-            padding: 2rem 0;
-            min-height: calc(100vh - 90px);
+        
+        /* Villa Header Card */
+        .villa-header-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            overflow: hidden;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        /* Reservation Layout */
-        .reservation-container {
-            display: grid;
-            gap: 2rem;
-        }
-
-        /* Page Header */
-        .page-header {
-            background: var(--glass-background);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            text-align: center;
-        }
-
-        .page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--text-light) 0%, var(--secondary-color) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .page-subtitle {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Villa Summary Card */
-        .villa-summary {
-            background: var(--glass-background);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
+        
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
             margin-bottom: 2rem;
         }
-
-        .villa-summary h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .summary-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--success-gradient);
             border-radius: 10px;
-            text-align: center;
+            transition: width 0.5s ease;
+            width: 33.33%;
         }
-
-        .summary-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .summary-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .summary-value.price {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        /* Reservation Form */
-        .reservation-form {
-            background: var(--glass-background);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-        }
-
-        .form-title {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .form-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
+        
+        /* Form Styles */
         .form-group {
-            display: grid;
-            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .form-group label {
-            color: var(--text-light);
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            color: var(--text-dark);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.1);
-            background: rgba(255, 255, 255, 0.95);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: #666;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* Date Inputs */
-        .date-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        /* Pricing Summary */
-        .pricing-summary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .pricing-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-line {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .pricing-line:last-child {
-            border-bottom: none;
-        }
-
-        .pricing-total {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--accent-color);
-            margin-top: 0.5rem;
-        }
-
-        /* Contact Information */
-        .contact-info {
-            background: rgba(0, 188, 212, 0.1);
-            border: 1px solid rgba(0, 188, 212, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .contact-info h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .contact-info p {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .contact-info i {
-            color: var(--secondary-color);
-            width: 20px;
-        }
-
-        /* Submit Button */
-        .submit-section {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, var(--success-color) 0%, #16a34a 100%);
+        
+        .form-label {
+            display: block;
             color: white;
-            padding: 1.25rem 3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-input.error {
+            border-color: #ff6b6b;
+            animation: shake 0.3s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 18px 40px;
             border: none;
             border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 600;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
-
-        .btn-submit:hover {
+        
+        .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
         }
-
-        .btn-submit i {
-            font-size: 1.3rem;
+        
+        .btn-primary:active {
+            transform: translateY(-1px);
         }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-light);
-            font-size: 1.2rem;
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid var(--primary-color);
-            border-radius: 50%;
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Counter Inputs */
+        .counter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .counter-btn {
             width: 40px;
             height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-
+        
+        .counter-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(246, 173, 85, 0.3);
+        }
+        
+        .counter-display {
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        /* Price Display */
+        .price-total {
+            background: var(--success-gradient);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        /* Trust Elements */
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Success Message */
-        .success-message {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            color: var(--success-color);
+        
+        .loading .loading-spinner {
+            display: inline-block;
+        }
+        
+        .loading .btn-text {
             display: none;
         }
-
-        .success-message.show {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .success-message h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .success-message p {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.5rem;
-        }
-
+        
         /* Responsive Design */
         @media (max-width: 768px) {
-            .page-title {
-                font-size: 2rem;
+            .glass-card {
+                padding: 1.5rem;
+                margin: 0.5rem;
             }
-
-            .summary-grid {
-                grid-template-columns: 1fr;
+            
+            .villa-header-card {
+                border-radius: 15px;
             }
-
-            .form-row,
-            .date-group {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-submit {
-                padding: 1rem 2rem;
+            
+            .btn-primary {
+                padding: 15px 30px;
                 font-size: 1rem;
             }
-
-            .reservation-form {
-                padding: 1.5rem;
+            
+            .price-total {
+                font-size: 1.5rem;
+                padding: 15px 20px;
             }
-
-            .villa-summary {
-                padding: 1.5rem;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(20px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-
-        .reservation-container > * {
-            animation: fadeIn 0.5s ease-in-out;
         }
     </style>
 </head>
+
 <body>
     <!-- Background Video -->
     <div class="video-background">
@@ -519,441 +352,550 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="header-content">
-            <div class="logo" onclick="window.location.href='index.html'">
-                <i class="fas fa-palm-tree"></i>
-                KhanelConcept
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="text-white hover:text-yellow-300 transition-colors">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                    </a>
+                    <h1 class="text-2xl font-bold text-white">KhanelConcept</h1>
+                </div>
+                <div class="hidden md:flex items-center gap-4 text-white">
+                    <div class="trust-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Paiement Sécurisé</span>
+                    </div>
+                </div>
             </div>
-            
-            <a href="javascript:history.back()" class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-                Retour
-            </a>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Loading State -->
-            <div id="loading" class="loading">
-                <div class="spinner"></div>
-                <p>Chargement des informations de réservation...</p>
-            </div>
-
-            <!-- Reservation Container -->
-            <div id="reservation-container" class="reservation-container" style="display: none;">
-                <!-- Page Header -->
-                <section class="page-header">
-                    <h1 class="page-title">
-                        <i class="fas fa-calendar-check"></i>
-                        Finaliser votre réservation
-                    </h1>
-                    <p class="page-subtitle">
-                        Complétez vos informations pour confirmer votre séjour de rêve en Martinique
-                    </p>
-                </section>
-
-                <!-- Villa Summary -->
-                <section class="villa-summary">
-                    <h2>
-                        <i class="fas fa-home"></i>
-                        Récapitulatif de votre séjour
-                    </h2>
-                    <div class="summary-grid">
-                        <div class="summary-item">
-                            <div class="summary-label">Villa sélectionnée</div>
-                            <div class="summary-value" id="summary-villa-name">Villa Name</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">Localisation</div>
-                            <div class="summary-value" id="summary-location">Location</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">Capacité</div>
-                            <div class="summary-value" id="summary-guests">Guests</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-label">Prix par nuit</div>
-                            <div class="summary-value price" id="summary-price">0€</div>
+    <div class="container mx-auto px-6 py-8 max-w-6xl">
+        
+        <!-- Progress Bar -->
+        <div class="progress-bar" data-aos="fade-down">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <!-- Villa Header -->
+        <div class="villa-header-card mb-8" data-aos="fade-up">
+            <div class="grid lg:grid-cols-2 gap-6 p-6">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-semibold">
+                            Villa de Luxe
+                        </span>
+                        <div class="trust-badge">
+                            <i class="fas fa-star"></i>
+                            <span>Réservé 12 fois cette semaine</span>
                         </div>
                     </div>
-                </section>
-
-                <!-- Reservation Form -->
-                <section class="reservation-form">
-                    <h2 class="form-title">
-                        <i class="fas fa-user-edit"></i>
-                        Vos informations
-                    </h2>
                     
-                    <form id="reservationForm" class="form-grid">
-                        <!-- Personal Information -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="firstName">Prénom *</label>
-                                <input type="text" id="firstName" required placeholder="Votre prénom">
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName">Nom *</label>
-                                <input type="text" id="lastName" required placeholder="Votre nom">
-                            </div>
+                    <h1 class="text-3xl lg:text-4xl font-bold text-white mb-4" id="villaName">
+                        Villa F3 Petit Macabou
+                    </h1>
+                    
+                    <p class="text-white/80 mb-4" id="villaLocation">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Petit Macabou au Vauclin, Martinique
+                    </p>
+                    
+                    <div class="flex items-center gap-4">
+                        <div class="text-3xl font-bold text-yellow-400" id="villaPrice">
+                            850€<span class="text-lg text-white/70">/nuit</span>
                         </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email *</label>
-                                <input type="email" id="email" required placeholder="votre@email.com">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Téléphone *</label>
-                                <input type="tel" id="phone" required placeholder="+33 6 XX XX XX XX">
-                            </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Annulation gratuite</span>
                         </div>
-
-                        <!-- Dates -->
-                        <div class="date-group">
-                            <div class="form-group">
-                                <label for="checkin">Date d'arrivée *</label>
-                                <input type="text" id="checkin" required placeholder="Sélectionner une date">
-                            </div>
-                            <div class="form-group">
-                                <label for="checkout">Date de départ *</label>
-                                <input type="text" id="checkout" required placeholder="Sélectionner une date">
-                            </div>
-                        </div>
-
-                        <!-- Guests -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="adults">Nombre d'adultes *</label>
-                                <select id="adults" required>
-                                    <option value="">Sélectionner</option>
-                                    <option value="1">1 adulte</option>
-                                    <option value="2" selected>2 adultes</option>
-                                    <option value="3">3 adultes</option>
-                                    <option value="4">4 adultes</option>
-                                    <option value="5">5 adultes</option>
-                                    <option value="6">6 adultes</option>
-                                    <option value="8">8 adultes</option>
-                                    <option value="10">10 adultes</option>
-                                    <option value="12">12 adultes</option>
-                                    <option value="14">14+ adultes</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="children">Enfants (optionnel)</label>
-                                <select id="children">
-                                    <option value="0" selected>Aucun enfant</option>
-                                    <option value="1">1 enfant</option>
-                                    <option value="2">2 enfants</option>
-                                    <option value="3">3 enfants</option>
-                                    <option value="4">4 enfants</option>
-                                    <option value="5">5+ enfants</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Special Requests -->
-                        <div class="form-group">
-                            <label for="specialRequests">Demandes spéciales (optionnel)</label>
-                            <textarea id="specialRequests" placeholder="Décrivez vos besoins particuliers, demandes d'équipements supplémentaires, ou informations importantes..."></textarea>
-                        </div>
-
-                        <!-- Pricing Summary -->
-                        <div class="pricing-summary">
-                            <div class="pricing-title">
-                                <i class="fas fa-calculator"></i>
-                                Détail des prix
-                            </div>
-                            <div class="pricing-line">
-                                <span>Villa par nuit:</span>
-                                <span id="price-per-night">0€</span>
-                            </div>
-                            <div class="pricing-line">
-                                <span>Nombre de nuits:</span>
-                                <span id="total-nights">0</span>
-                            </div>
-                            <div class="pricing-line">
-                                <span>Sous-total:</span>
-                                <span id="subtotal">0€</span>
-                            </div>
-                            <div class="pricing-line">
-                                <span>Frais de service:</span>
-                                <span id="service-fee">Inclus</span>
-                            </div>
-                            <div class="pricing-line pricing-total">
-                                <span>Total:</span>
-                                <span id="total-price">0€</span>
-                            </div>
-                        </div>
-
-                        <!-- Contact Information -->
-                        <div class="contact-info">
-                            <h3>
-                                <i class="fas fa-headset"></i>
-                                Besoin d'aide ?
-                            </h3>
-                            <p>
-                                <i class="fas fa-phone"></i>
-                                <strong>Téléphone:</strong> +596 696 XX XX XX
-                            </p>
-                            <p>
-                                <i class="fas fa-envelope"></i>
-                                <strong>Email:</strong> reservations@khanelconcept.com
-                            </p>
-                            <p>
-                                <i class="fas fa-clock"></i>
-                                <strong>Horaires:</strong> 9h - 19h (heure locale)
-                            </p>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="submit-section">
-                            <button type="submit" class="btn-submit">
-                                <i class="fas fa-paper-plane"></i>
-                                Envoyer la demande de réservation
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="relative rounded-xl overflow-hidden">
+                        <img id="villaImage" src="./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" 
+                             alt="Villa" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4">
+                            <button class="bg-white/20 backdrop-blur-md rounded-full p-2 text-white hover:bg-white/30 transition-colors">
+                                <i class="fas fa-images"></i>
                             </button>
-                            <p style="margin-top: 1rem; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">
-                                * Votre demande sera traitée dans les 24h
-                            </p>
                         </div>
-                    </form>
-                </section>
-
-                <!-- Success Message -->
-                <section class="success-message" id="successMessage">
-                    <h3>
-                        <i class="fas fa-check-circle"></i>
-                        Demande envoyée avec succès !
-                    </h3>
-                    <p><strong>Numéro de demande :</strong> <span id="confirmationNumber">RES-2025-XXXX</span></p>
-                    <p>Nous avons bien reçu votre demande de réservation.</p>
-                    <p>Notre équipe vous contactera dans les 24 heures pour finaliser les détails.</p>
-                    <p><strong>Un email de confirmation vous a été envoyé.</strong></p>
-                </section>
-            </div>
-
-            <!-- Error State -->
-            <div id="error-state" class="loading" style="display: none;">
-                <p><i class="fas fa-exclamation-triangle"></i> Informations de réservation non disponibles</p>
-                <a href="index.html" class="back-btn" style="margin-top: 1rem; display: inline-flex;">Retour à l'accueil</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
 
-    <!-- JavaScript Libraries -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Formulaire de Réservation -->
+            <div class="lg:col-span-2">
+                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <h2 class="text-2xl font-bold text-white mb-6">
+                        <i class="fas fa-calendar-alt mr-3 text-yellow-400"></i>
+                        Détails de votre séjour
+                    </h2>
+                    
+                    <form id="reservationForm" class="space-y-6">
+                        
+                        <!-- Dates de Séjour -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-calendar mr-2"></i>Date d'arrivée
+                                </label>
+                                <input type="text" id="checkinDate" class="form-input" placeholder="Sélectionnez une date" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-calendar mr-2"></i>Date de départ
+                                </label>
+                                <input type="text" id="checkoutDate" class="form-input" placeholder="Sélectionnez une date" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Nombre de Voyageurs -->
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-users mr-2"></i>Adultes
+                                </label>
+                                <div class="counter-group">
+                                    <button type="button" class="counter-btn" onclick="updateCounter('adults', -1)">-</button>
+                                    <span class="counter-display" id="adultsCount">2</span>
+                                    <button type="button" class="counter-btn" onclick="updateCounter('adults', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <i class="fas fa-child mr-2"></i>Enfants
+                                </label>
+                                <div class="counter-group">
+                                    <button type="button" class="counter-btn" onclick="updateCounter('children', -1)">-</button>
+                                    <span class="counter-display" id="childrenCount">0</span>
+                                    <button type="button" class="counter-btn" onclick="updateCounter('children', 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Informations Personnelles -->
+                        <div class="border-t border-white/10 pt-6 mt-8">
+                            <h3 class="text-xl font-bold text-white mb-4">
+                                <i class="fas fa-user mr-3 text-yellow-400"></i>
+                                Vos informations
+                            </h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="form-group">
+                                    <label class="form-label">Prénom *</label>
+                                    <input type="text" id="firstName" class="form-input" placeholder="Votre prénom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Nom *</label>
+                                    <input type="text" id="lastName" class="form-input" placeholder="Votre nom" required>
+                                </div>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="form-group">
+                                    <label class="form-label">Email *</label>
+                                    <input type="email" id="email" class="form-input" placeholder="votre@email.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Téléphone *</label>
+                                    <input type="tel" id="phone" class="form-input" placeholder="+33 6 XX XX XX XX" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Adresse complète</label>
+                                <input type="text" id="address" class="form-input" placeholder="123 Rue de la Paix, Paris, France">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Demandes spéciales</label>
+                                <textarea id="specialRequests" class="form-input" rows="3" placeholder="Célébration spéciale, allergies, préférences..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Services Additionnels -->
+                        <div class="border-t border-white/10 pt-6 mt-8">
+                            <h3 class="text-xl font-bold text-white mb-4">
+                                <i class="fas fa-plus-circle mr-3 text-yellow-400"></i>
+                                Services additionnels
+                            </h3>
+                            
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" id="carRental" class="sr-only">
+                                    <div class="w-5 h-5 border-2 border-white/30 rounded flex items-center justify-center checkbox-custom">
+                                        <i class="fas fa-check text-xs text-white opacity-0 transition-opacity"></i>
+                                    </div>
+                                    <span class="text-white">Location de voiture (+150€/semaine)</span>
+                                </label>
+                                
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="checkbox" id="cateringService" class="sr-only">
+                                    <div class="w-5 h-5 border-2 border-white/30 rounded flex items-center justify-center checkbox-custom">
+                                        <i class="fas fa-check text-xs text-white opacity-0 transition-opacity"></i>
+                                    </div>
+                                    <span class="text-white">Services culinaires (+200€/séjour)</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Récapitulatif -->
+            <div class="lg:col-span-1">
+                <div class="glass-card sticky top-24" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-xl font-bold text-white mb-4">
+                        <i class="fas fa-receipt mr-3 text-yellow-400"></i>
+                        Récapitulatif
+                    </h3>
+                    
+                    <div class="space-y-4 text-white">
+                        <div class="flex justify-between">
+                            <span>Villa:</span>
+                            <span id="summaryVilla">Villa F3 Petit Macabou</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Dates:</span>
+                            <span id="summaryDates">Sélectionnez vos dates</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Durée:</span>
+                            <span id="summaryNights">0 nuit(s)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Voyageurs:</span>
+                            <span id="summaryGuests">2 adultes</span>
+                        </div>
+                        
+                        <hr class="border-white/20">
+                        
+                        <div class="flex justify-between">
+                            <span>Prix/nuit:</span>
+                            <span id="summaryPricePerNight">850€</span>
+                        </div>
+                        <div class="flex justify-between" id="summaryServicesRow" style="display: none;">
+                            <span>Services additionnels:</span>
+                            <span id="summaryServicesPrice">0€</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-white/70">
+                            <span>Taxes & frais:</span>
+                            <span id="summaryTaxes">0€</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price-total" id="totalPrice">
+                        Total: 0€
+                    </div>
+                    
+                    <div class="text-center mb-4">
+                        <div class="trust-badge mx-auto">
+                            <i class="fas fa-lock"></i>
+                            <span>Paiement 100% sécurisé</span>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn-primary w-full" id="reserveBtn" onclick="processReservation()">
+                        <span class="btn-text">
+                            <i class="fas fa-credit-card mr-2"></i>
+                            Réserver Maintenant
+                        </span>
+                        <div class="loading-spinner"></div>
+                    </button>
+                    
+                    <p class="text-white/60 text-sm mt-3 text-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        Annulation gratuite jusqu'à 48h avant l'arrivée
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+    
     <script>
-        // Villa data and reservation state
-        let selectedVilla = null;
-        let checkinCalendar = null;
-        let checkoutCalendar = null;
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Global variables
+        let checkinPicker, checkoutPicker;
+        let reservationData = {
+            adults: 2,
+            children: 0,
+            pricePerNight: 850,
+            additionalServices: {
+                carRental: false,
+                catering: false
+            }
+        };
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            loadReservationData();
-            initializeCalendars();
-            initializeForm();
+            initializeDatePickers();
+            loadVillaFromURL();
+            setupFormValidation();
+            setupCheckboxes();
+            updateSummary();
         });
 
-        function loadReservationData() {
-            // Get villa data from URL or localStorage
+        // Villa data loading from URL
+        function loadVillaFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
-            const villaId = urlParams.get('villa') || localStorage.getItem('selectedVillaId');
+            const villaName = urlParams.get('villa');
+            const villaPrice = urlParams.get('price');
             
-            if (!villaId) {
-                showErrorState();
+            if (villaName && villaPrice) {
+                document.getElementById('villaName').textContent = villaName;
+                document.getElementById('summaryVilla').textContent = villaName;
+                document.getElementById('villaPrice').innerHTML = villaPrice + '€<span class="text-lg text-white/70">/nuit</span>';
+                document.getElementById('summaryPricePerNight').textContent = villaPrice + '€';
+                reservationData.pricePerNight = parseInt(villaPrice);
+                
+                updateSummary();
+            }
+        }
+
+        // Initialize date pickers
+        function initializeDatePickers() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            checkinPicker = flatpickr("#checkinDate", {
+                locale: "fr",
+                minDate: today,
+                dateFormat: "d/m/Y",
+                onChange: function(selectedDates) {
+                    if (selectedDates[0]) {
+                        const minCheckout = new Date(selectedDates[0]);
+                        minCheckout.setDate(minCheckout.getDate() + 1);
+                        checkoutPicker.set('minDate', minCheckout);
+                        updateSummary();
+                    }
+                }
+            });
+            
+            checkoutPicker = flatpickr("#checkoutDate", {
+                locale: "fr",
+                minDate: tomorrow,
+                dateFormat: "d/m/Y",
+                onChange: function(selectedDates) {
+                    updateSummary();
+                }
+            });
+        }
+
+        // Counter functions
+        function updateCounter(type, delta) {
+            const element = document.getElementById(type + 'Count');
+            let current = parseInt(element.textContent);
+            
+            if (type === 'adults') {
+                current = Math.max(1, Math.min(20, current + delta));
+            } else {
+                current = Math.max(0, Math.min(10, current + delta));
+            }
+            
+            element.textContent = current;
+            reservationData[type] = current;
+            updateSummary();
+        }
+
+        // Custom checkbox behavior
+        function setupCheckboxes() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const checkmark = this.parentNode.querySelector('.fas');
+                    if (this.checked) {
+                        checkmark.style.opacity = '1';
+                        this.parentNode.querySelector('.checkbox-custom').style.background = '#f6ad55';
+                    } else {
+                        checkmark.style.opacity = '0';
+                        this.parentNode.querySelector('.checkbox-custom').style.background = 'transparent';
+                    }
+                    
+                    // Update services
+                    if (this.id === 'carRental') {
+                        reservationData.additionalServices.carRental = this.checked;
+                    } else if (this.id === 'cateringService') {
+                        reservationData.additionalServices.catering = this.checked;
+                    }
+                    
+                    updateSummary();
+                });
+            });
+        }
+
+        // Update summary and pricing
+        function updateSummary() {
+            const checkinDate = checkinPicker.selectedDates[0];
+            const checkoutDate = checkoutPicker.selectedDates[0];
+            let nights = 0;
+            
+            if (checkinDate && checkoutDate) {
+                nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+                document.getElementById('summaryDates').textContent = 
+                    checkinDate.toLocaleDateString('fr-FR') + ' - ' + checkoutDate.toLocaleDateString('fr-FR');
+                document.getElementById('summaryNights').textContent = nights + ' nuit' + (nights > 1 ? 's' : '');
+            }
+            
+            // Update guests
+            const adults = reservationData.adults;
+            const children = reservationData.children;
+            let guestsText = adults + ' adulte' + (adults > 1 ? 's' : '');
+            if (children > 0) {
+                guestsText += ', ' + children + ' enfant' + (children > 1 ? 's' : '');
+            }
+            document.getElementById('summaryGuests').textContent = guestsText;
+            
+            // Calculate prices
+            let subtotal = nights * reservationData.pricePerNight;
+            let servicesTotal = 0;
+            
+            if (reservationData.additionalServices.carRental) {
+                servicesTotal += Math.ceil(nights / 7) * 150; // Per week
+            }
+            if (reservationData.additionalServices.catering) {
+                servicesTotal += 200; // Per stay
+            }
+            
+            const taxes = Math.round((subtotal + servicesTotal) * 0.05); // 5% taxes
+            const total = subtotal + servicesTotal + taxes;
+            
+            // Update display
+            document.getElementById('summaryTaxes').textContent = taxes + '€';
+            
+            if (servicesTotal > 0) {
+                document.getElementById('summaryServicesRow').style.display = 'flex';
+                document.getElementById('summaryServicesPrice').textContent = servicesTotal + '€';
+            } else {
+                document.getElementById('summaryServicesRow').style.display = 'none';
+            }
+            
+            document.getElementById('totalPrice').textContent = 'Total: ' + total + '€';
+            
+            // Update progress
+            const progress = nights > 0 ? 66.66 : 33.33;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Form validation
+        function setupFormValidation() {
+            const inputs = document.querySelectorAll('.form-input[required]');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+                
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        validateField(this);
+                    }
+                });
+            });
+        }
+
+        function validateField(field) {
+            const value = field.value.trim();
+            let isValid = true;
+            
+            if (field.hasAttribute('required') && !value) {
+                isValid = false;
+            }
+            
+            if (field.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                isValid = emailRegex.test(value);
+            }
+            
+            if (field.type === 'tel' && value) {
+                const phoneRegex = /^[+]?[\d\s\-\(\)]{10,}$/;
+                isValid = phoneRegex.test(value);
+            }
+            
+            if (isValid) {
+                field.classList.remove('error');
+            } else {
+                field.classList.add('error');
+            }
+            
+            return isValid;
+        }
+
+        // Process reservation
+        async function processReservation() {
+            // Validate form
+            const requiredFields = document.querySelectorAll('.form-input[required]');
+            let isFormValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!validateField(field)) {
+                    isFormValid = false;
+                }
+            });
+            
+            if (!checkinPicker.selectedDates[0] || !checkoutPicker.selectedDates[0]) {
+                alert('Veuillez sélectionner vos dates de séjour.');
                 return;
             }
-
-            // This would normally fetch from API, but for demo we'll use predefined data
-            const villasData = [
-                {
-                    id: 1,
-                    name: "Villa F3 Petit Macabou",
-                    location: "Petit Macabou au Vauclin",
-                    price: 850.0,
-                    guests: 6,
-                    guestsDetail: "6 personnes + 9 invités"
-                },
-                {
-                    id: 22,
-                    name: "Villa F6 Petit Macabou",
-                    location: "Petit Macabou au Vauclin", 
-                    price: 2000.0,
-                    guests: 13,
-                    guestsDetail: "10 à 13 personnes (14 max)"
-                }
-                // Add more villas as needed
-            ];
-
-            selectedVilla = villasData.find(villa => villa.id == villaId);
             
-            if (!selectedVilla) {
-                // Default fallback villa for demo
-                selectedVilla = {
-                    id: villaId,
-                    name: "Villa Sélectionnée",
-                    location: "Martinique",
-                    price: 850.0,
-                    guests: 6,
-                    guestsDetail: "6 personnes"
-                };
+            if (!isFormValid) {
+                alert('Veuillez corriger les erreurs dans le formulaire.');
+                return;
             }
-
-            // Display villa information
-            setTimeout(() => {
-                displayVillaInfo(selectedVilla);
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('reservation-container').style.display = 'block';
-            }, 1000);
-        }
-
-        function displayVillaInfo(villa) {
-            document.getElementById('summary-villa-name').textContent = villa.name;
-            document.getElementById('summary-location').textContent = villa.location;
-            document.getElementById('summary-guests').textContent = villa.guestsDetail;
-            document.getElementById('summary-price').textContent = villa.price + '€';
-            document.getElementById('price-per-night').textContent = villa.price + '€';
-        }
-
-        function initializeCalendars() {
-            // Initialize check-in calendar
-            checkinCalendar = flatpickr("#checkin", {
-                locale: "fr",
-                dateFormat: "d/m/Y",
-                minDate: "today",
-                onClose: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length > 0) {
-                        // Update checkout calendar minimum date
-                        if (checkoutCalendar) {
-                            const nextDay = new Date(selectedDates[0]);
-                            nextDay.setDate(nextDay.getDate() + 1);
-                            checkoutCalendar.set('minDate', nextDay);
-                        }
-                        calculatePricing();
-                    }
-                }
-            });
-
-            // Initialize check-out calendar
-            checkoutCalendar = flatpickr("#checkout", {
-                locale: "fr",
-                dateFormat: "d/m/Y",
-                minDate: "today",
-                onClose: function(selectedDates, dateStr, instance) {
-                    if (selectedDates.length > 0) {
-                        calculatePricing();
-                    }
-                }
-            });
-        }
-
-        function initializeForm() {
-            const form = document.getElementById('reservationForm');
-            form.addEventListener('submit', handleFormSubmit);
-
-            // Add event listeners for pricing calculation
-            document.getElementById('adults').addEventListener('change', calculatePricing);
-            document.getElementById('children').addEventListener('change', calculatePricing);
-        }
-
-        function calculatePricing() {
-            if (!selectedVilla) return;
-
-            const checkinValue = document.getElementById('checkin').value;
-            const checkoutValue = document.getElementById('checkout').value;
-
-            if (checkinValue && checkoutValue) {
-                const checkinDate = parseDate(checkinValue);
-                const checkoutDate = parseDate(checkoutValue);
-                
-                const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
-                const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-                if (nights > 0) {
-                    const subtotal = selectedVilla.price * nights;
-                    
-                    document.getElementById('total-nights').textContent = nights + ' nuit' + (nights > 1 ? 's' : '');
-                    document.getElementById('subtotal').textContent = subtotal + '€';
-                    document.getElementById('total-price').textContent = subtotal + '€';
-                } else {
-                    resetPricing();
-                }
-            } else {
-                resetPricing();
-            }
-        }
-
-        function parseDate(dateStr) {
-            const parts = dateStr.split('/');
-            return new Date(parts[2], parts[1] - 1, parts[0]);
-        }
-
-        function resetPricing() {
-            document.getElementById('total-nights').textContent = '0';
-            document.getElementById('subtotal').textContent = '0€';
-            document.getElementById('total-price').textContent = '0€';
-        }
-
-        function handleFormSubmit(event) {
-            event.preventDefault();
             
             // Show loading state
-            const submitBtn = document.querySelector('.btn-submit');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
-            submitBtn.disabled = true;
-
-            // Collect form data
-            const formData = {
-                villa: selectedVilla,
-                firstName: document.getElementById('firstName').value,
-                lastName: document.getElementById('lastName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                checkin: document.getElementById('checkin').value,
-                checkout: document.getElementById('checkout').value,
-                adults: document.getElementById('adults').value,
-                children: document.getElementById('children').value,
-                specialRequests: document.getElementById('specialRequests').value,
-                totalPrice: document.getElementById('total-price').textContent
-            };
-
-            // Simulate API call
-            setTimeout(() => {
-                // Generate confirmation number
-                const confirmationNumber = 'RES-2025-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            const btn = document.getElementById('reserveBtn');
+            btn.classList.add('loading');
+            
+            // Simulate processing
+            try {
+                await new Promise(resolve => setTimeout(resolve, 3000));
                 
-                // Show success message
-                document.getElementById('confirmationNumber').textContent = confirmationNumber;
-                document.getElementById('successMessage').classList.add('show');
+                // Show success
+                showReservationSuccess();
                 
-                // Scroll to success message
-                document.getElementById('successMessage').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-
-                // Reset button
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-
-                // Hide form after delay
-                setTimeout(() => {
-                    document.getElementById('reservationForm').style.display = 'none';
-                }, 2000);
-
-                console.log('Reservation submitted:', formData);
-            }, 2000);
+                // Update progress to 100%
+                document.getElementById('progressFill').style.width = '100%';
+                
+            } catch (error) {
+                alert('Une erreur est survenue. Veuillez réessayer.');
+            } finally {
+                btn.classList.remove('loading');
+            }
         }
 
-        function showErrorState() {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('error-state').style.display = 'block';
+        function showReservationSuccess() {
+            // Create success modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="glass-card max-w-md w-full text-center">
+                    <div class="text-6xl text-green-500 mb-4">✓</div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Réservation Confirmée!</h3>
+                    <p class="text-white/80 mb-6">
+                        Votre réservation a été enregistrée avec succès. 
+                        Vous recevrez un email de confirmation sous peu.
+                    </p>
+                    <button class="btn-primary" onclick="this.closest('.fixed').remove(); window.location.href='index.html'">
+                        Retour à l'accueil
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
     </script>
 </body>
