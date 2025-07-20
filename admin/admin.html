@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanelConcept - Administration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .villa-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        .villa-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        .btn-sync {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        .btn-sync:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+        }
+        .stats-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin: 10px 0;
+        }
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+        .villa-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .text-white {
+            color: white !important;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.1) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-cog me-2"></i>Admin KhanelConcept
+            </a>
+            <div class="ms-auto">
+                <button class="btn btn-sync" onclick="syncWithMainSite()">
+                    <i class="fas fa-sync-alt me-2"></i>Sync Site
+                </button>
+                <a href="../index.html" class="btn btn-outline-light ms-2">
+                    <i class="fas fa-home me-2"></i>Retour Site
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Header Stats -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <div class="stats-number" id="totalVillas">21</div>
+                    <div>Villas Totales</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <div class="stats-number" id="activeVillas">21</div>
+                    <div>Villas Actives</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <div class="stats-number">861€</div>
+                    <div>Prix Moyen</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Villas List -->
+        <div class="glass-card p-4">
+            <h2 class="text-white mb-4">
+                <i class="fas fa-hotel me-2"></i>Gestion des 21 Villas
+            </h2>
+            
+            <div id="villasContainer">
+                <!-- Les villas seront chargées ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container">
+        <div id="syncToast" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="fas fa-sync-alt text-success me-2"></i>
+                <strong class="me-auto">Synchronisation</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+                Message ici
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Données des 21 villas pour l'admin
+        const villasData = [
+            {
+                id: 1,
+                name: "Villa F3 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 850,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 invités",
+                features: "Sauna, Jacuzzi, 2 douches extérieures",
+                category: "sejour",
+                image: "../images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                gallery: [
+                    "../images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "../images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "../images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+                    "../images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+                    "../images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "../images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+                    "../images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
+                ],
+                fallbackIcon: "🏊"
+            },
+            {
+                id: 2,
+                name: "Villa F5 Ste Anne",
+                location: "Quartier Les Anglais, Ste Anne",
+                price: 1300,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 invités",
+                features: "Piscine, décoration rose distinctive",
+                category: "sejour",
+                image: "../images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                gallery: [
+                    "../images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "../images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+                    "../images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+                    "../images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+                    "../images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+                    "../images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
+                ],
+                fallbackIcon: "🌸"
+            },
+            {
+                id: 3,
+                name: "Villa F3 Baccha Petit Macabou",
+                location: "Petit Macabou",
+                price: 1350,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, terrasses modernes",
+                category: "sejour",
+                image: "../images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                gallery: [
+                    "../images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
+                ],
+                fallbackIcon: "🏖️"
+            },
+            {
+                id: 4,
+                name: "Villa F6 Lamentin",
+                location: "Quartier Bélème au Lamentin",
+                price: 1500,
+                guests: 10,
+                guestsDetail: "10 personnes + 20 invités max",
+                features: "Piscine, Jacuzzi, douche extérieure",
+                category: "sejour",
+                image: "../images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
+                gallery: [
+                    "../images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
+                ],
+                fallbackIcon: "🛁"
+            },
+            {
+                id: 5,
+                name: "Villa F6 Ste Luce Plage",
+                location: "Zac de Pont Café, Ste Luce",
+                price: 1700,
+                guests: 14,
+                guestsDetail: "10 à 14 personnes",
+                features: "Piscine, 1 minute de la plage",
+                category: "sejour",
+                image: "../images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
+                gallery: [
+                    "../images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg"
+                ],
+                fallbackIcon: "🏖️"
+            },
+            {
+                id: 6,
+                name: "Villa F6 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 2000,
+                guests: 13,
+                guestsDetail: "10 à 13 personnes (14 max)",
+                features: "Piscine, fêtes jusqu'à 150 convives",
+                category: "sejour",
+                image: "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                gallery: [
+                    "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    "../images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+                    "../images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+                    "../images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+                    "../images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+                    "../images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+                    "../images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+                ],
+                fallbackIcon: "🎊"
+            },
+            {
+                id: 7,
+                name: "Villa F7 Baie des Mulets",
+                location: "Baie des Mulets, Trinité",
+                price: 2200,
+                guests: 15,
+                guestsDetail: "10 à 15 personnes (16 max)",
+                features: "Vue mer exceptionnelle, piscine",
+                category: "sejour",
+                image: "../images/Villa_F7_Baie_des_Mulets/01_piscine_vue_mer.jpg",
+                gallery: [
+                    "../images/Villa_F7_Baie_des_Mulets/01_piscine_vue_mer.jpg"
+                ],
+                fallbackIcon: "🌊"
+            },
+            {
+                id: 8,
+                name: "Villa F3 Trinité (Cosmy)",
+                location: "Cosmy, Trinité",
+                price: 900,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, terrasse aménagée",
+                category: "sejour",
+                image: "../images/Villa_F3_Trinite_Cosmy/01_piscine_terrasse.jpg",
+                gallery: [
+                    "../images/Villa_F3_Trinite_Cosmy/01_piscine_terrasse.jpg"
+                ],
+                fallbackIcon: "🏝️"
+            },
+            {
+                id: 9,
+                name: "Villa F3 Le Robert",
+                location: "Le Robert",
+                price: 1000,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, proximité centre-ville",
+                category: "sejour",
+                image: "../images/Villa_F3_Le_Robert/01_piscine_jardin.jpg",
+                gallery: [
+                    "../images/Villa_F3_Le_Robert/01_piscine_jardin.jpg"
+                ],
+                fallbackIcon: "🏘️"
+            },
+            {
+                id: 10,
+                name: "Villa F5 R.Pilote",
+                location: "Rivière-Pilote",
+                price: 1200,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 convives",
+                features: "Piscine, grand jardin",
+                category: "sejour",
+                image: "../images/Villa_F5_R_Pilote/01_facade_piscine.jpg",
+                gallery: [
+                    "../images/Villa_F5_R_Pilote/01_facade_piscine.jpg"
+                ],
+                fallbackIcon: "🌳"
+            },
+            {
+                id: 11,
+                name: "Villa F3 Le François",
+                location: "Le François",
+                price: 1100,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, vue dégagée",
+                category: "sejour",
+                image: "../images/Villa_F3_Le_Francois/01_piscine_moderne.jpg",
+                gallery: [
+                    "../images/Villa_F3_Le_Francois/01_piscine_moderne.jpg"
+                ],
+                fallbackIcon: "🏞️"
+            },
+            {
+                id: 12,
+                name: "Villa F5 Vauclin Ravine Plate",
+                location: "Ravine Plate, Le Vauclin",
+                price: 1400,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 convives",
+                features: "Piscine, terrasses étagées",
+                category: "sejour",
+                image: "../images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_terrasse.jpg",
+                gallery: [
+                    "../images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_terrasse.jpg"
+                ],
+                fallbackIcon: "⛰️"
+            },
+            {
+                id: 13,
+                name: "Bas Villa F3 Ste Luce",
+                location: "Ste Luce",
+                price: 1300,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 convives",
+                features: "Piscine, proche plages",
+                category: "sejour",
+                image: "../images/Bas_Villa_F3_Ste_Luce/01_piscine_palmiers.jpg",
+                gallery: [
+                    "../images/Bas_Villa_F3_Ste_Luce/01_piscine_palmiers.jpg"
+                ],
+                fallbackIcon: "🌴"
+            },
+            {
+                id: 14,
+                name: "Villa F3 Trenelle",
+                location: "Trenelle",
+                price: 1600,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine premium, environnement calme",
+                category: "sejour",
+                image: "../images/Villa_F3_Trenelle/01_piscine_moderne.jpg",
+                gallery: [
+                    "../images/Villa_F3_Trenelle/01_piscine_moderne.jpg"
+                ],
+                fallbackIcon: "🌿"
+            },
+            {
+                id: 15,
+                name: "Studio Cocooning Lamentin",
+                location: "Lamentin",
+                price: 600,
+                guests: 2,
+                guestsDetail: "2 personnes max",
+                features: "Studio romantique, équipements modernes",
+                category: "sejour",
+                image: "../images/Studio_Cocooning_Lamentin/01_studio_moderne.jpg",
+                gallery: [
+                    "../images/Studio_Cocooning_Lamentin/01_studio_moderne.jpg"
+                ],
+                fallbackIcon: "💕"
+            },
+            {
+                id: 16,
+                name: "Espace Piscine Journée Bungalow",
+                location: "Bungalow",
+                price: 150,
+                priceUnit: "€/jour",
+                guests: 8,
+                guestsDetail: "Jusqu'à 8 personnes",
+                features: "Piscine, espace détente journée",
+                category: "piscine",
+                image: "../images/Espace_Piscine_Journee_Bungalow/01_piscine_detente.jpg",
+                gallery: [
+                    "../images/Espace_Piscine_Journee_Bungalow/01_piscine_detente.jpg"
+                ],
+                fallbackIcon: "☀️"
+            },
+            {
+                id: 17,
+                name: "Villa Fête Ducos",
+                location: "Ducos",
+                price: 200,
+                priceUnit: "€/jour",
+                guests: 25,
+                guestsDetail: "Jusqu'à 25 personnes",
+                features: "Espace fête, son autorisé",
+                category: "fete",
+                image: "../images/Villa_Fete_Ducos/01_espace_reception.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Ducos/01_espace_reception.jpg"
+                ],
+                fallbackIcon: "🎉"
+            },
+            {
+                id: 18,
+                name: "Villa Fête Fort-de-France",
+                location: "Fort-de-France",
+                price: 180,
+                priceUnit: "€/jour",
+                guests: 20,
+                guestsDetail: "Jusqu'à 20 personnes",
+                features: "Centre-ville, espace modulable",
+                category: "fete",
+                image: "../images/Villa_Fete_Fort_de_France/01_salon_fete.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Fort_de_France/01_salon_fete.jpg"
+                ],
+                fallbackIcon: "🏛️"
+            },
+            {
+                id: 19,
+                name: "Villa Fête Rivière-Pilote",
+                location: "Rivière-Pilote",
+                price: 250,
+                priceUnit: "€/jour",
+                guests: 35,
+                guestsDetail: "Jusqu'à 35 personnes",
+                features: "Grande capacité, jardin spacieux",
+                category: "fete",
+                image: "../images/Villa_Fete_Riviere_Pilote/01_grand_jardin.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Riviere_Pilote/01_grand_jardin.jpg"
+                ],
+                fallbackIcon: "🎪"
+            },
+            {
+                id: 20,
+                name: "Villa Fête Sainte-Luce",
+                location: "Sainte-Luce",
+                price: 160,
+                priceUnit: "€/jour",
+                guests: 15,
+                guestsDetail: "Jusqu'à 15 personnes",
+                features: "Proximité plage, ambiance tropicale",
+                category: "fete",
+                image: "../images/Villa_Fete_Journee_Sainte_Luce/01_terrasse_fete.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Journee_Sainte_Luce/01_terrasse_fete.jpg"
+                ],
+                fallbackIcon: "🏖️"
+            },
+            {
+                id: 21,
+                name: "Villa Fête Rivière-Salée",
+                location: "Rivière-Salée",
+                price: 160,
+                priceUnit: "€/jour",
+                guests: 15,
+                guestsDetail: "Jusqu'à 15 personnes",
+                features: "Piscine, tente couverte",
+                category: "fete",
+                image: "../images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
+                ],
+                fallbackIcon: "⛺"
+            }
+        ];
+
+        // Fonction d'initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("🚀 Admin loaded with", villasData.length, "villas");
+            displayVillas();
+        });
+
+        // Affichage des villas
+        function displayVillas() {
+            const container = document.getElementById('villasContainer');
+            if (!container) return;
+
+            container.innerHTML = villasData.map(villa => {
+                const priceUnit = villa.priceUnit || '€/nuit';
+                return `
+                    <div class="villa-card p-3 mb-3">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="${villa.image}" 
+                                     alt="${villa.name}" 
+                                     class="villa-image"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div style="display: none; height: 150px; align-items: center; justify-content: center; font-size: 3rem; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                                    ${villa.fallbackIcon}
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <h5 class="text-white">#${villa.id} - ${villa.name}</h5>
+                                <p class="text-white-50 mb-2">
+                                    <i class="fas fa-map-marker-alt me-2"></i>${villa.location}
+                                </p>
+                                <p class="text-white mb-2">
+                                    <i class="fas fa-euro-sign me-2"></i><strong>${villa.price} ${priceUnit}</strong>
+                                </p>
+                                <p class="text-white mb-2">
+                                    <i class="fas fa-users me-2"></i>${villa.guestsDetail}
+                                </p>
+                                <p class="text-white-50 small mb-0">${villa.features}</p>
+                                <span class="badge bg-success mt-2">${villa.category}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Fonction de synchronisation simple
+        function syncWithMainSite() {
+            console.log("🔄 Synchronizing 21 villas with main site...");
+            
+            // Convertir les données admin vers le format du site principal
+            const mainSiteData = villasData.map(villa => ({
+                id: villa.id,
+                name: villa.name,
+                location: villa.location,
+                price: villa.price,
+                guests: villa.guests,
+                guestsDetail: villa.guestsDetail,
+                features: villa.features,
+                category: villa.category,
+                image: villa.image,
+                gallery: villa.gallery,
+                fallbackIcon: villa.fallbackIcon,
+                priceUnit: villa.priceUnit
+            }));
+            
+            // Sauvegarder dans localStorage pour que index.html puisse les lire
+            localStorage.setItem('khanelconcept_villas', JSON.stringify(mainSiteData));
+            
+            // Afficher notification
+            showToast(`✅ Synchronisation réussie ! ${mainSiteData.length} villas mises à jour.`, 'success');
+            
+            console.log("✅ Sync completed -", mainSiteData.length, "villas synchronized");
+        }
+
+        // Affichage des toasts
+        function showToast(message, type = 'success') {
+            const toastElement = document.getElementById('syncToast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+
+        console.log("🎉 KhanelConcept Admin Ready - 21 villas loaded!");
+    </script>
+</body>
+</html>
