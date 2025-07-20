@@ -878,31 +878,67 @@ class AdminApp {
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card villa-card">
                     <div class="position-relative">
-                        <img src="${villa.photos[0] || 'https://via.placeholder.com/300x200'}" 
-                             class="card-img-top" alt="${villa.name}">
+                        <img src="${villa.photos && villa.photos[0] ? villa.photos[0] : 'https://via.placeholder.com/300x200?text=Aucune+image'}" 
+                             class="card-img-top" alt="${villa.name}" style="height: 200px; object-fit: cover;">
                         <span class="villa-status status-${villa.status}">
                             ${villa.status === 'active' ? 'Actif' : 'Inactif'}
                         </span>
+                        <div class="position-absolute top-0 start-0 p-2">
+                            <span class="badge bg-primary">ID: ${villa.id}</span>
+                        </div>
+                        ${villa.photos && villa.photos.length > 1 ? 
+                            `<div class="position-absolute bottom-0 end-0 p-2">
+                                <span class="badge bg-info"><i class="fas fa-images"></i> ${villa.photos.length}</span>
+                            </div>` : ''
+                        }
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">${villa.name}</h5>
-                        <p class="card-text text-muted small">${villa.location}</p>
-                        <p class="card-text">${villa.description.substring(0, 100)}...</p>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="villa-price">${villa.price}€</div>
-                            <small class="text-muted">
-                                <i class="fas fa-users me-1"></i>${villa.capacity} pers.
-                            </small>
+                        <p class="card-text text-muted small">
+                            <i class="fas fa-map-marker-alt me-1"></i>${villa.location}
+                        </p>
+                        <p class="card-text">${villa.description.substring(0, 80)}...</p>
+                        
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <div class="villa-price">${villa.price}€</div>
+                                <small class="text-muted">par nuit</small>
+                            </div>
+                            <div class="col-6 text-end">
+                                <small class="text-muted">
+                                    <i class="fas fa-users me-1"></i>${villa.capacity} pers.
+                                </small>
+                                <br>
+                                <small class="text-muted">
+                                    <i class="fas fa-bed me-1"></i>${villa.bedrooms || 0} ch.
+                                </small>
+                            </div>
                         </div>
+
+                        <!-- Amenities preview -->
+                        <div class="mb-3">
+                            <div class="d-flex flex-wrap gap-1">
+                                ${(villa.amenities || []).slice(0, 4).map(amenity => 
+                                    `<span class="badge bg-light text-dark">${this.getAmenityIcon(amenity)}</span>`
+                                ).join('')}
+                                ${villa.amenities && villa.amenities.length > 4 ? 
+                                    `<span class="badge bg-secondary">+${villa.amenities.length - 4}</span>` : ''
+                                }
+                            </div>
+                        </div>
+                        
                         <div class="btn-group w-100" role="group">
-                            <button class="btn btn-outline-primary btn-sm" onclick="app.editVilla(${villa.id})">
-                                <i class="fas fa-edit"></i> Éditer
+                            <button class="btn btn-outline-primary btn-sm" onclick="app.editVilla(${villa.id})" title="Éditer">
+                                <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-outline-success btn-sm" onclick="app.duplicateVilla(${villa.id})">
-                                <i class="fas fa-copy"></i> Dupliquer
+                            <button class="btn btn-outline-info btn-sm" onclick="app.previewVilla(${villa.id})" title="Aperçu">
+                                <i class="fas fa-eye"></i>
                             </button>
-                            <button class="btn btn-outline-danger btn-sm" onclick="app.deleteVilla(${villa.id})">
-                                <i class="fas fa-trash"></i> Supprimer
+                            <button class="btn btn-outline-success btn-sm" onclick="app.duplicateVilla(${villa.id})" title="Dupliquer">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="app.deleteVilla(${villa.id})" title="Supprimer">
+                                <i class="fas fa-trash"></i>
                             </button>
                         </div>
                     </div>
