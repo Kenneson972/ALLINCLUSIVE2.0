@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Villa Debug</title>
+</head>
+<body>
+    <h1 id="villa-name">Loading...</h1>
+    <p id="villa-location"></p>
+    
+    <script>
+        console.log("Script starting...");
+        
+        const villas = {
+            1: {
+                name: "Villa F3 Petit Macabou",
+                location: "📍 Petit Macabou au Vauclin",
+                price: "850€ /nuit"
+            },
+            5: {
+                name: "Villa F6 Ste Luce Plage",
+                location: "📍 Zac de Pont Café, Ste Luce",
+                price: "1700€ /nuit"
+            }
+        };
+        
+        console.log("Villas defined:", villas);
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded");
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const villaId = urlParams.get('id') || '1';
+            
+            console.log("Villa ID:", villaId);
+            console.log("Villa data:", villas[villaId]);
+            
+            if (villas[villaId]) {
+                document.getElementById('villa-name').textContent = villas[villaId].name;
+                document.getElementById('villa-location').textContent = villas[villaId].location;
+                console.log("Villa loaded successfully");
+            } else {
+                document.getElementById('villa-name').textContent = "Villa not found";
+                console.log("Villa not found");
+            }
+        });
+    </script>
+</body>
+</html>
