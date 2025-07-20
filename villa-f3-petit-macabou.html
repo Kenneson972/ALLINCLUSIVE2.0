@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Optimisé -->
+    <title>Villa F3 Petit Macabou - Vauclin | KhanelConcept Villas Luxe Martinique</title>
+    <meta name="description" content="Villa F3 Petit Macabou au Vauclin - Villa de luxe 6 personnes avec sauna, jacuzzi, piscine privée et 2 douches extérieures. Prix à partir de 850€/nuit. Réservation en ligne sécurisée.">
+    <meta name="keywords" content="villa martinique, Petit Macabou, Vauclin, location villa luxe, sauna, jacuzzi, piscine privée, vacances martinique">
+    <meta name="author" content="KhanelConcept">
+    
+    <!-- OpenGraph pour partage social -->
+    <meta property="og:title" content="Villa F3 Petit Macabou - Villa de luxe avec sauna et jacuzzi en Martinique">
+    <meta property="og:description" content="Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un séjour de détente en famille au Vauclin.">
+    <meta property="og:image" content="./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg">
+    <meta property="og:type" content="website">
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --accent-gold: #f6ad55;
+            --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        /* Header & Navigation */
+        .villa-header {
+            background: var(--primary-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Gallery */
+        .gallery-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .swiper-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        
+        .gallery-thumbnails img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .gallery-thumbnails img:hover,
+        .gallery-thumbnails img.active {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+        }
+        
+        /* Info Cards */
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Star Rating */
+        .star-rating {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+        
+        /* Price Display */
+        .price-display {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        /* Amenities */
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .amenity-item:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
+        }
+        
+        /* Action Buttons */
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--accent-gold);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--accent-gold);
+            color: white;
+        }
+        
+        /* Modal Gallery */
+        .modal-gallery {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-gallery.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        /* Social Share */
+        .social-share {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .social-btn.facebook { background: #4267B2; }
+        .social-btn.instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .social-btn.whatsapp { background: #25D366; }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .swiper-slide img {
+                height: 250px;
+            }
+            
+            .price-display {
+                font-size: 1.2rem;
+                padding: 12px 20px;
+            }
+            
+            .info-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation & Breadcrumb -->
+    <nav class="villa-header">
+        <div class="breadcrumb">
+            <div class="container mx-auto px-6">
+                <div class="flex items-center text-white text-sm">
+                    <a href="index.html" class="hover:text-yellow-300 transition-colors">
+                        <i class="fas fa-home mr-2"></i>Accueil
+                    </a>
+                    <i class="fas fa-chevron-right mx-3"></i>
+                    <a href="index.html#villas" class="hover:text-yellow-300 transition-colors">Villas</a>
+                    <i class="fas fa-chevron-right mx-3"></i>
+                    <span class="text-yellow-300">Villa F3 Petit Macabou</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Villa Header Info -->
+        <div class="container mx-auto px-6 py-16">
+            <div class="glass-overlay p-8">
+                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center">
+                    <div class="flex-1">
+                        <h1 class="text-4xl lg:text-5xl font-bold text-white mb-4">Villa F3 Petit Macabou</h1>
+                        <div class="flex items-center mb-4">
+                            <div class="star-rating mr-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-white ml-2">(5.0)</span>
+                            </div>
+                            <div class="text-white">
+                                <i class="fas fa-map-marker-alt mr-2"></i>Petit Macabou au Vauclin
+                            </div>
+                        </div>
+                        <p class="text-white text-lg opacity-90">Villa de luxe avec sauna, jacuzzi et 2 douches extérieures</p>
+                    </div>
+                    <div class="mt-6 lg:mt-0">
+                        <div class="price-display">
+                            À partir de 850€<span class="text-sm font-normal">/nuit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        
+        <!-- Gallery Section -->
+        <section class="mb-16" data-aos="fade-up">
+            <div class="gallery-container">
+                <!-- Main Swiper Gallery -->
+                <div class="swiper villa-gallery mb-6">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Piscine extérieure Villa F3 Petit Macabou" loading="lazy">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg" alt="Terrasse et salon extérieur" loading="lazy">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg" alt="Salle de bain moderne" loading="lazy">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg" alt="Chambre principale" loading="lazy">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg" alt="Cuisine équipée" loading="lazy">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg" alt="Sauna détente" loading="lazy">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg" alt="Douche extérieure" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                
+                <!-- Thumbnails -->
+                <div class="gallery-thumbnails flex gap-3 overflow-x-auto p-4 bg-gray-100 rounded-b-xl">
+                    <img src="./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Piscine" class="active">
+                    <img src="./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg" alt="Terrasse">
+                    <img src="./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg" alt="Salle de bain">
+                    <img src="./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg" alt="Chambre">
+                    <img src="./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg" alt="Cuisine">
+                    <img src="./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg" alt="Sauna">
+                    <img src="./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg" alt="Douche extérieure">
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Info Cards -->
+        <section class="mb-16" data-aos="fade-up" data-aos-delay="200">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="info-card text-center">
+                    <div class="text-3xl text-blue-600 mb-3"><i class="fas fa-users"></i></div>
+                    <div class="text-lg font-semibold">6 + 9</div>
+                    <div class="text-sm text-gray-600">Personnes + Invités</div>
+                </div>
+                <div class="info-card text-center">
+                    <div class="text-3xl text-green-600 mb-3"><i class="fas fa-bed"></i></div>
+                    <div class="text-lg font-semibold">3</div>
+                    <div class="text-sm text-gray-600">Chambres</div>
+                </div>
+                <div class="info-card text-center">
+                    <div class="text-3xl text-purple-600 mb-3"><i class="fas fa-bath"></i></div>
+                    <div class="text-lg font-semibold">2</div>
+                    <div class="text-sm text-gray-600">Salles de bain</div>
+                </div>
+                <div class="info-card text-center">
+                    <div class="text-3xl text-orange-600 mb-3"><i class="fas fa-hot-tub"></i></div>
+                    <div class="text-lg font-semibold">Sauna</div>
+                    <div class="text-sm text-gray-600">+ Jacuzzi</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Description & Amenities -->
+        <div class="grid lg:grid-cols-3 gap-12 mb-16">
+            <!-- Description -->
+            <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="300">
+                <div class="info-card">
+                    <h2 class="text-3xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-info-circle text-blue-600 mr-3"></i>
+                        Description de la villa
+                    </h2>
+                    <div class="prose prose-lg max-w-none">
+                        <p class="mb-4">
+                            <strong>Découvrez la Villa F3 Petit Macabou, un véritable havre de paix pour votre séjour en Martinique.</strong>
+                        </p>
+                        
+                        <p class="mb-4">
+                            Cette magnifique villa moderne située au cœur du Vauclin vous offre une expérience de détente unique avec ses équipements haut de gamme. 
+                            Conçue pour accueillir confortablement 6 personnes avec la possibilité de recevoir jusqu'à 9 invités supplémentaires, 
+                            elle est parfaite pour les familles ou les groupes d'amis en quête d'authenticité et de luxe.
+                        </p>
+                        
+                        <p class="mb-4">
+                            <strong>Les atouts exclusifs de cette villa :</strong><br>
+                            • Un sauna privatif pour des moments de relaxation absolue<br>
+                            • Un jacuzzi pour profiter des soirées tropicales<br>
+                            • Deux douches extérieures pour un contact privilégié avec la nature<br>
+                            • Une piscine privée entourée d'une terrasse spacieuse<br>
+                        </p>
+                        
+                        <p class="mb-4">
+                            L'architecture contemporaine de la villa s'intègre harmonieusement dans le paysage tropical du Petit Macabou. 
+                            Les espaces intérieurs sont lumineux et climatisés, avec une décoration soignée alliant modernité et touches créoles. 
+                            La cuisine entièrement équipée vous permet de préparer vos repas avec les produits locaux du marché de Vauclin.
+                        </p>
+                        
+                        <p class="mb-6">
+                            Située dans un quartier résidentiel calme, la villa offre un cadre paisible tout en restant proche des commerces, 
+                            restaurants et des plus belles plages de la côte atlantique martiniquaise.
+                        </p>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <button class="btn-primary" onclick="openReservationModal()">
+                            <i class="fas fa-calendar-check"></i>
+                            Réserver maintenant
+                        </button>
+                        <button class="btn-secondary" onclick="addToFavorites()">
+                            <i class="fas fa-heart"></i>
+                            Ajouter aux favoris
+                        </button>
+                        <button class="btn-secondary" onclick="window.print()">
+                            <i class="fas fa-print"></i>
+                            Imprimer
+                        </button>
+                    </div>
+                    
+                    <!-- Social Share -->
+                    <div class="social-share">
+                        <a href="#" class="social-btn facebook" onclick="shareOnFacebook()" title="Partager sur Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn instagram" onclick="shareOnInstagram()" title="Partager sur Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-btn whatsapp" onclick="shareOnWhatsApp()" title="Partager sur WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Amenities -->
+            <div data-aos="fade-up" data-aos-delay="400">
+                <div class="info-card">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-3"></i>
+                        Équipements principaux
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="amenity-item">
+                            <i class="fas fa-hot-tub text-red-500 mr-3"></i>
+                            <span>Sauna privatif</span>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fas fa-spa text-blue-500 mr-3"></i>
+                            <span>Jacuzzi</span>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fas fa-swimming-pool text-cyan-500 mr-3"></i>
+                            <span>Piscine privée</span>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fas fa-shower text-teal-500 mr-3"></i>
+                            <span>2 douches extérieures</span>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fas fa-snowflake text-blue-400 mr-3"></i>
+                            <span>Climatisation</span>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fas fa-wifi text-purple-500 mr-3"></i>
+                            <span>WiFi gratuit</span>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fas fa-utensils text-orange-500 mr-3"></i>
+                            <span>Cuisine équipée</span>
+                        </div>
+                        <div class="amenity-item">
+                            <i class="fas fa-car text-gray-600 mr-3"></i>
+                            <span>Parking privé</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Amenities -->
+        <section class="mb-16" data-aos="fade-up" data-aos-delay="500">
+            <div class="info-card">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <i class="fas fa-list-check text-green-600 mr-3"></i>
+                    Équipements détaillés
+                </h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cuisine -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-blue-600">
+                            <i class="fas fa-utensils mr-2"></i>Cuisine
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Réfrigérateur/congélateur</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Four micro-ondes</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Plaques de cuisson</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Lave-vaisselle</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Machine à café</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Grille-pain</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Ustensiles complets</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chambres -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-green-600">
+                            <i class="fas fa-bed mr-2"></i>Chambres
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Lits queen size</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Linge de lit fourni</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Oreillers supplémentaires</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Penderies spacieuses</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Tables de chevet</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Climatisation individuelle</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Salle de bain -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-purple-600">
+                            <i class="fas fa-bath mr-2"></i>Salle de bain
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Douche italienne</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> WC séparés</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Serviettes fournies</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Sèche-cheveux</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Produits d'accueil</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Miroir éclairé</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Extérieur -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-orange-600">
+                            <i class="fas fa-leaf mr-2"></i>Extérieur
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Terrasse couverte</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Salon de jardin</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Parasols</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Transats piscine</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Barbecue</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Jardin aménagé</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bien-être -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-red-600">
+                            <i class="fas fa-spa mr-2"></i>Bien-être
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Sauna 4 personnes</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Jacuzzi extérieur</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> 2 douches extérieures</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Espace détente</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Serviettes spa</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4 text-indigo-600">
+                            <i class="fas fa-concierge-bell mr-2"></i>Services
+                        </h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Ménage final inclus</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Linge fourni</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Accueil personnalisé</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Conciergerie</div>
+                            <div class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Assistance 24h/24</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location -->
+        <section class="mb-16" data-aos="fade-up" data-aos-delay="600">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="info-card">
+                    <h2 class="text-3xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-map-marker-alt text-red-600 mr-3"></i>
+                        Localisation
+                    </h2>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-lg mb-2">Adresse</h4>
+                        <p class="text-gray-600 mb-4">Quartier Petit Macabou, 97280 Le Vauclin, Martinique</p>
+                        
+                        <h4 class="font-semibold text-lg mb-2">Points d'intérêt à proximité</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-umbrella-beach text-blue-500 mr-2"></i> Plage de Pointe Faula - 3 km</div>
+                            <div class="flex items-center"><i class="fas fa-store text-green-500 mr-2"></i> Supermarché Leader Price - 2 km</div>
+                            <div class="flex items-center"><i class="fas fa-utensils text-orange-500 mr-2"></i> Restaurant Ti Sable - 1.5 km</div>
+                            <div class="flex items-center"><i class="fas fa-gas-pump text-red-500 mr-2"></i> Station service Total - 2 km</div>
+                            <div class="flex items-center"><i class="fas fa-pills text-purple-500 mr-2"></i> Pharmacie du Vauclin - 2.5 km</div>
+                        </div>
+                        
+                        <h4 class="font-semibold text-lg mt-6 mb-2">Temps de trajet</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center"><i class="fas fa-plane text-blue-500 mr-2"></i> Aéroport Martinique Aimé Césaire - 35 min</div>
+                            <div class="flex items-center"><i class="fas fa-city text-gray-500 mr-2"></i> Fort-de-France centre - 45 min</div>
+                            <div class="flex items-center"><i class="fas fa-shopping-bag text-purple-500 mr-2"></i> Centre commercial Cluny - 40 min</div>
+                            <div class="flex items-center"><i class="fas fa-mountain text-green-500 mr-2"></i> Montagne Pelée - 1h30</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="text-2xl font-bold mb-6">Carte de localisation</h3>
+                    <div class="bg-gray-100 rounded-15 h-96 flex items-center justify-center">
+                        <div class="text-center text-gray-500">
+                            <i class="fas fa-map text-6xl mb-4"></i>
+                            <p class="text-lg font-semibold">Villa F3 Petit Macabou</p>
+                            <p>Le Vauclin, Martinique</p>
+                            <p class="text-sm mt-2">Carte interactive disponible lors de la réservation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg opacity-0 transition-all duration-300 hover:bg-blue-700" style="display: none;">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Modal Gallery -->
+    <div id="modalGallery" class="modal-gallery">
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Villa Image">
+            <button class="absolute top-4 right-4 text-white text-3xl bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center" onclick="prevImage()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center" onclick="nextImage()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    
+    <script>
+        // Initialize AOS Animation
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize Swiper Gallery
+        const villaSwiper = new Swiper('.villa-gallery', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+        });
+
+        // Images pour la galerie modal
+        const galleryImages = [
+            './images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg',
+            './images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg',
+            './images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg',
+            './images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg',
+            './images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg',
+            './images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg',
+            './images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg'
+        ];
+
+        let currentImageIndex = 0;
+
+        // Thumbnail Gallery
+        function initThumbnails() {
+            const thumbnails = document.querySelectorAll('.gallery-thumbnails img');
+            thumbnails.forEach((thumb, index) => {
+                thumb.addEventListener('click', () => {
+                    villaSwiper.slideToLoop(index);
+                    updateActiveThumbnail(index);
+                });
+            });
+        }
+
+        function updateActiveThumbnail(activeIndex) {
+            const thumbnails = document.querySelectorAll('.gallery-thumbnails img');
+            thumbnails.forEach((thumb, index) => {
+                thumb.classList.toggle('active', index === activeIndex);
+            });
+        }
+
+        // Modal Gallery
+        function openModal(imageSrc, imageIndex = 0) {
+            const modal = document.getElementById('modalGallery');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+            currentImageIndex = imageIndex;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modalGallery');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            document.getElementById('modalImage').src = galleryImages[currentImageIndex];
+        }
+
+        function prevImage() {
+            currentImageIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+            document.getElementById('modalImage').src = galleryImages[currentImageIndex];
+        }
+
+        // Initialize Modal Gallery
+        function initModalGallery() {
+            const galleryImageElements = document.querySelectorAll('.swiper-slide img, .gallery-thumbnails img');
+            galleryImageElements.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    const actualIndex = index >= galleryImages.length ? index - galleryImages.length : index;
+                    openModal(img.src, actualIndex);
+                });
+            });
+        }
+
+        // Social Share Functions
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent('Villa F3 Petit Macabou - KhanelConcept');
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}`, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnInstagram() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Lien copié ! Collez-le dans votre post Instagram.');
+            });
+        }
+
+        function shareOnWhatsApp() {
+            const text = encodeURIComponent(`Découvrez la Villa F3 Petit Macabou avec sauna et jacuzzi ! ${window.location.href}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        // Reservation
+        function openReservationModal() {
+            const villaName = 'Villa F3 Petit Macabou';
+            window.location.href = `reservation.html?villa=${encodeURIComponent(villaName)}&price=850`;
+        }
+
+        // Add to Favorites
+        function addToFavorites() {
+            const villaData = {
+                name: 'Villa F3 Petit Macabou',
+                location: 'Petit Macabou au Vauclin',
+                price: '850',
+                image: './images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg',
+                url: window.location.href
+            };
+            
+            let favorites = JSON.parse(localStorage.getItem('villa_favorites') || '[]');
+            
+            const exists = favorites.some(fav => fav.name === villaData.name);
+            
+            if (exists) {
+                alert('Cette villa est déjà dans vos favoris !');
+            } else {
+                favorites.push(villaData);
+                localStorage.setItem('villa_favorites', JSON.stringify(favorites));
+                alert('Villa ajoutée à vos favoris !');
+            }
+        }
+
+        // Back to Top Button
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTop.style.display = 'block';
+                    backToTop.style.opacity = '1';
+                } else {
+                    backToTop.style.opacity = '0';
+                    setTimeout(() => {
+                        if (backToTop.style.opacity === '0') {
+                            backToTop.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            });
+            
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('modalGallery');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                }
+            }
+        });
+
+        // Initialize all functions
+        document.addEventListener('DOMContentLoaded', () => {
+            initThumbnails();
+            initModalGallery();
+            initBackToTop();
+            
+            console.log('Villa F3 Petit Macabou - Page détail chargée avec succès');
+        });
+    </script>
+</body>
+</html>
