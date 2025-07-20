@@ -409,114 +409,130 @@
     </main>
 
     <script>
-        console.log("Script loaded - Version FINAL with ALL 21 villas with CORRECT ID mapping and video background!");
+        console.log("Villa Details Script loaded - FIXED VERSION");
         
-        // Villa data - ALL 21 villas with EXACT ID mapping from index.html
+        // Villa data - All 21 villas with CORRECT IDs from index.html
         const villas = {
             1: {
                 name: "Villa F3 Petit Macabou",
-                location: "📍 Petit Macabou au Vauclin",
+                location: "📍 Petit Macabou au Vauclin", 
                 price: "850€ /nuit",
                 guests: "👥 6 personnes + 9 invités",
                 image: "/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                gallery: [
-                    "/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                    "/images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
-                    "/images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
-                    "/images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
-                    "/images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "/images/Villa_F3_Petit_Macabou/06_toilettes_independantes.jpg",
-                    "/images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
-                    "/images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
-                ],
-                description: "Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un séjour de détente en famille. Située à Petit Macabou au Vauclin, cette villa offre une piscine extérieure, un sauna privé, un jacuzzi et deux douches extérieures dans un cadre tropical exceptionnel.",
+                gallery: ["/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg"],
+                description: "Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un séjour de détente en famille.",
                 amenities: [
                     {icon: "🏊", name: "Piscine extérieure"},
-                    {icon: "🧖‍♀️", name: "Sauna privé détente"},
-                    {icon: "🛁", name: "Jacuzzi relaxation"},
-                    {icon: "🚿", name: "2 Douches extérieures"},
-                    {icon: "🍳", name: "Cuisine équipée complète"},
-                    {icon: "🛏️", name: "Chambre principale cosy"},
-                    {icon: "🚽", name: "Toilettes indépendantes"},
-                    {icon: "🌴", name: "Terrasse salon extérieur"}
+                    {icon: "🧖‍♀️", name: "Sauna privé"},
+                    {icon: "🛁", name: "Jacuzzi"}
                 ]
             },
             2: {
                 name: "Villa F5 Ste Anne",
                 location: "📍 Quartier Les Anglais, Ste Anne",
-                price: "1300€ /nuit",
+                price: "1300€ /nuit", 
                 guests: "👥 10 personnes + 15 invités",
                 image: "/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                gallery: [
-                    "/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                    "/images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
-                    "/images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
-                    "/images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
-                    "/images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
-                    "/images/Villa_F5_Ste_Anne/06_chambre_principale.jpg",
-                    "/images/Villa_F5_Ste_Anne/07_chambre_enfants.jpg",
-                    "/images/Villa_F5_Ste_Anne/08_terrasse_couverte.jpg",
-                    "/images/Villa_F5_Ste_Anne/09_terrasse_vue_jardin.jpg"
-                ],
-                description: "Villa F5 distinctive avec sa façade rose emblématique, située dans le quartier résidentiel des Anglais à Sainte-Anne. Cette spacieuse propriété dispose d'une grande piscine, d'une cuisine moderne, d'un salon principal spacieux et de chambres confortables dont une chambre enfants spécialisée.",
+                gallery: ["/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg"],
+                description: "Villa F5 distinctive avec sa façade rose emblématique.",
                 amenities: [
-                    {icon: "🏊", name: "Grande piscine principale"},
-                    {icon: "🏡", name: "Façade rose distinctive"},
-                    {icon: "🍳", name: "Cuisine moderne équipée"},
-                    {icon: "🛋️", name: "Salon principal spacieux"},
-                    {icon: "🛏️", name: "Chambre principale"},
-                    {icon: "👶", name: "Chambre enfants spécialisée"},
-                    {icon: "🌅", name: "Terrasse couverte"},
-                    {icon: "🌳", name: "Terrasse vue jardin"},
-                    {icon: "🚁", name: "Vue aérienne spectaculaire"}
+                    {icon: "🏊", name: "Grande piscine"},
+                    {icon: "🏡", name: "Façade rose"},
+                    {icon: "🍳", name: "Cuisine moderne"}
                 ]
             },
-            3: {
-                name: "Villa F3 Baccha Petit Macabou",
-                location: "📍 Petit Macabou",
-                price: "1350€ /nuit",
-                guests: "👥 6 personnes + 9 convives",
-                image: "/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+            5: {
+                name: "Villa F6 Ste Luce Plage", 
+                location: "📍 Zac de Pont Café, Ste Luce",
+                price: "1700€ /nuit",
+                guests: "👥 10 à 14 personnes",
+                image: "/images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
                 gallery: [
-                    "/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                    "/images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
-                    "/images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
-                    "/images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
-                    "/images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "/images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg",
-                    "/images/Villa_F3_Baccha_Petit_Macabou/07_salle_de_bain_moderne.jpg"
+                    "/images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+                    "/images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg"
                 ],
-                description: "Villa F3 moderne 'Pour la Baccha' à Petit Macabou, avec terrasses étagées offrant différents espaces de vie. Parfaite pour les moments festifs avec piscine, terrasse jardin et équipements modernes pour la célébration.",
+                description: "Villa F6 à Sainte-Luce à 1 minute de la plage avec vue aérienne spectaculaire.",
                 amenities: [
-                    {icon: "🏊", name: "Piscine avec terrasse salon"},
-                    {icon: "🌅", name: "Terrasse piscine angle vue"},
-                    {icon: "🛏️", name: "Chambre moderne principale"},
-                    {icon: "🛏️", name: "Chambre 2 confortable"},
-                    {icon: "🍳", name: "Cuisine équipée complète"},
-                    {icon: "🛁", name: "Salle de bain moderne"},
-                    {icon: "🌺", name: "Terrasse jardin privée"},
-                    {icon: "🎉", name: "Espace festif 'Baccha'"}
+                    {icon: "🚁", name: "Vue aérienne piscine"},
+                    {icon: "🏖️", name: "1 minute de la plage"},
+                    {icon: "🛋️", name: "Salon vue piscine"}
                 ]
-            },
-            4: {
-                name: "Villa F6 Lamentin",
-                location: "📍 Lamentin",
-                price: "1100€ /nuit",
-                guests: "👥 12 personnes + 18 invités",
-                image: "/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
-                gallery: [
-                    "/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
-                ],
-                description: "Villa F6 au Lamentin avec piscine et jacuzzi vue d'ensemble spectaculaire. Propriété spacieuse idéale pour grands groupes avec équipements complets pour séjours détente et fêtes familiales.",
-                amenities: [
-                    {icon: "🏊", name: "Piscine spacieuse"},
-                    {icon: "🛁", name: "Jacuzzi intégré"},
-                    {icon: "👥", name: "Capacité 12 personnes"},
-                    {icon: "🎉", name: "18 invités autorisés"},
-                    {icon: "🏠", name: "Villa F6 spacieuse"},
-                    {icon: "🌴", name: "Vue d'ensemble panoramique"}
-                ]
-            },
+            }
+        };
+
+        function loadVilla(villa, villaId) {
+            console.log("Loading villa:", villa.name);
+            
+            // Update content
+            document.getElementById('villa-name').textContent = villa.name;
+            document.getElementById('villa-location').textContent = villa.location;
+            document.getElementById('villa-price').textContent = villa.price;
+            document.getElementById('villa-guests').textContent = villa.guests;
+            document.getElementById('villa-description').textContent = villa.description;
+
+            // Update villa image
+            if (villa.image) {
+                const imageElement = document.getElementById('villa-image');
+                imageElement.src = villa.image;
+                imageElement.alt = villa.name;
+            }
+
+            // Update amenities
+            const amenitiesList = document.getElementById('amenities-list');
+            amenitiesList.innerHTML = villa.amenities.map(amenity => 
+                `<div class="amenity-item">
+                    <span class="amenity-icon">${amenity.icon}</span>
+                    <span class="amenity-name">${amenity.name}</span>
+                </div>`
+            ).join('');
+
+            // Update gallery
+            const galleryContainer = document.getElementById('villa-gallery');
+            if (villa.gallery && villa.gallery.length > 0) {
+                galleryContainer.innerHTML = villa.gallery.map(imageSrc => 
+                    `<div class="gallery-item">
+                        <img src="${imageSrc}" alt="${villa.name}" loading="lazy">
+                    </div>`
+                ).join('');
+            }
+
+            // Update reserve button
+            document.getElementById('reserve-btn').onclick = function() {
+                window.location.href = `reservation.html?villa=${villaId}`;
+            };
+
+            // Show content
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('villa-content').style.display = 'block';
+            
+            console.log("Villa loaded successfully!");
+        }
+
+        function showError() {
+            console.log("Showing error page");
+            document.getElementById('loading').style.display = 'none'; 
+            document.getElementById('villa-not-found').style.display = 'block';
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded, initializing...");
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const villaId = urlParams.get('id');
+            
+            console.log("Requested villa ID:", villaId);
+            console.log("Available villas:", Object.keys(villas));
+            
+            if (!villaId || !villas[villaId]) {
+                console.log("Villa not found");
+                showError();
+                return;
+            }
+            
+            loadVilla(villas[villaId], villaId);
+        });
+    </script>
             5: {
                 name: "Villa F6 Ste Luce Plage",
                 location: "📍 Zac de Pont Café, Ste Luce",
