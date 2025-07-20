@@ -208,6 +208,28 @@ class AdminApp {
         }
     }
 
+    loadImageGallery() {
+        if (window.imageHandler) {
+            window.imageHandler.loadImageGallery();
+        }
+    }
+
+    // Villa management methods
+    editVilla(villaId) {
+        this.villaManager.editVilla(villaId);
+    }
+
+    duplicateVilla(villaId) {
+        this.villaManager.duplicateVilla(villaId);
+    }
+
+    deleteVilla(villaId) {
+        this.villaManager.deleteVilla(villaId);
+    }
+
+    showAddVillaModal() {
+        this.villaManager.showAddVillaModal();
+
     updateDashboard() {
         // Update stats
         document.getElementById('totalVillas').textContent = this.villas.length;
