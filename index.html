@@ -2407,29 +2407,29 @@
 
         // Fonctions d'actions
         function getVillaPageUrl(villaId) {
-            // Correspondance entre les IDs des villas et leurs pages HTML détails
+            // Correspondance CORRIGÉE entre les IDs des villas et leurs pages HTML détails
             const villaPageMapping = {
-                1: "villa-f3-petit-macabou.html",
-                2: "villa-f5-ste-anne.html", 
-                3: "villa-f3-baccha-petit-macabou.html",
-                4: "studio-cocooning-lamentin.html",
-                5: "villa-f6-lamentin.html",
-                6: "villa-f5-vauclin-ravine-plate.html",
-                7: "villa-f6-petit-macabou.html",
-                8: "villa-f3-le-francois.html",
-                9: "bas-villa-f3-ste-luce.html",
-                10: "villa-f3-trinite-cosmy.html",
-                11: "villa-f7-baie-des-mulets-vauclin.html",
-                12: "villa-f6-ste-luce-plage.html",
-                13: "villa-f3-robert-pointe-hyacinthe.html",
-                14: "villa-f5-r-pilote-la-renee.html",
-                15: "villa-f3-trenelle-location-annuelle.html",
-                16: "villa-fete-journee-fort-de-france.html",
-                17: "villa-fete-journee-sainte-luce.html",
-                18: "villa-fete-journee-ducos.html",
-                19: "villa-fete-journee-r-pilote.html",
-                20: "villa-fete-journee-riviere-salee.html",
-                21: "espace-piscine-journee-bungalow.html"
+                1: "villa-f3-petit-macabou.html",                    // Villa F3 Petit Macabou
+                2: "villa-f5-ste-anne.html",                         // Villa F5 Ste Anne
+                3: "villa-f3-baccha-petit-macabou.html",             // Villa F3 Baccha Petit Macabou
+                4: "villa-f6-lamentin.html",                         // Villa F6 Lamentin
+                5: "villa-f6-ste-luce-plage.html",                   // Villa F6 Ste Luce Plage
+                6: "villa-f6-petit-macabou.html",                    // Villa F6 Petit Macabou
+                7: "villa-f7-baie-des-mulets-vauclin.html",          // Villa F7 Baie des Mulets
+                8: "villa-f3-trinite-cosmy.html",                    // Villa F3 Trinité (Cosmy)
+                9: "villa-f3-robert-pointe-hyacinthe.html",          // Villa F3 Le Robert
+                10: "villa-f5-r-pilote-la-renee.html",              // Villa F5 R.Pilote
+                11: "villa-f3-le-francois.html",                    // Villa F3 Le François
+                12: "villa-f5-vauclin-ravine-plate.html",           // Villa F5 Vauclin Ravine Plate
+                13: "bas-villa-f3-ste-luce.html",                   // Bas Villa F3 Ste Luce
+                14: "villa-f3-trenelle-location-annuelle.html",     // Villa F3 Trenelle
+                15: "studio-cocooning-lamentin.html",               // Studio Cocooning Lamentin
+                16: "espace-piscine-journee-bungalow.html",         // Espace Piscine Journée Bungalow
+                17: "villa-fete-journee-ducos.html",                // Villa Fête Ducos
+                18: "villa-fete-journee-fort-de-france.html",       // Villa Fête Fort-de-France
+                19: "villa-fete-journee-r-pilote.html",             // Villa Fête Rivière-Pilote
+                20: "villa-fete-journee-sainte-luce.html",          // Villa Fête Sainte-Luce
+                21: "villa-fete-journee-riviere-salee.html"         // Villa Fête Rivière-Salée
             };
             
             return villaPageMapping[villaId] || 'index.html';
