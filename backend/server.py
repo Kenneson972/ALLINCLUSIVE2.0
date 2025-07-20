@@ -102,6 +102,9 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+class TokenVerify(BaseModel):
+    token: str
+
 class VillaCreate(BaseModel):
     name: str
     location: str
