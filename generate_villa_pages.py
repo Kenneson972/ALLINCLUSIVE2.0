@@ -505,6 +505,12 @@ def create_villa_detail_page(villa):
     
     <!-- Custom CSS -->
     <style>
+        * {{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+    
         :root {{
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -518,8 +524,46 @@ def create_villa_detail_page(villa):
         
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
             line-height: 1.6;
             color: var(--text-primary);
+        }}
+        
+        /* Video Background identique à l'index */
+        .video-background {{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }}
+        
+        .video-background video {{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
+        }}
+        
+        .video-overlay {{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }}
         
         .villa-header {{
