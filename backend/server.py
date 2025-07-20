@@ -50,15 +50,6 @@ MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017/khanelconcept")
 client = AsyncIOMotorClient(MONGO_URL)
 db = client.khanelconcept
 
-# Servir les images statiques
-app.mount("/images", StaticFiles(directory="../images"), name="images")
-
-# Servir les fichiers statiques de l'admin
-app.mount("/admin", StaticFiles(directory="../admin", html=True), name="admin")
-
-# Servir les fichiers statiques du site principal
-app.mount("/", StaticFiles(directory="../", html=True), name="main_site")
-
 # ========== MODELS ==========
 
 class Villa(BaseModel):
