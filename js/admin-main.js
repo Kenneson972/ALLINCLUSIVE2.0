@@ -136,13 +136,13 @@ class AdminApp {
                 gps: "14.5428, -60.8357",
                 amenities: ["piscine", "sauna", "jacuzzi", "wifi", "terrasse"],
                 photos: [
-                    "../images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                    "../images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
-                    "../images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
-                    "../images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
-                    "../images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "../images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
-                    "../images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
+                    "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+                    "./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+                    "./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+                    "./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
