@@ -10,8 +10,17 @@ class ImageHandler {
     setupImageUpload() {
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('imageUpload');
+        const villaSelector = document.getElementById('villaSelector');
 
         if (!uploadArea || !fileInput) return;
+
+        // Setup villa selector
+        if (villaSelector) {
+            this.populateVillaSelector();
+            villaSelector.addEventListener('change', (e) => {
+                this.selectVilla(e.target.value);
+            });
+        }
 
         // Drag and drop events
         uploadArea.addEventListener('dragover', (e) => {
@@ -42,6 +51,51 @@ class ImageHandler {
         uploadArea.addEventListener('click', () => {
             fileInput.click();
         });
+    }
+
+    populateVillaSelector() {
+        const selector = document.getElementById('villaSelector');
+        if (!selector || !this.app.villas) return;
+
+        // Clear existing options except "All villas"
+        selector.innerHTML = '<option value="">Toutes les villas</option>';
+
+        // Add villa options
+        this.app.villas.forEach(villa => {
+            const option = document.createElement('option');
+            option.value = villa.id;
+            option.textContent = `${villa.name} (${villa.photos ? villa.photos.length : 0} photos)`;
+            selector.appendChild(option);
+        });
+    }
+
+    selectVilla(villaId) {
+        const selectedVillaInfo = document.getElementById('selectedVillaInfo');
+        
+        if (!villaId) {
+            selectedVillaInfo.style.display = 'none';
+            this.selectedVilla = null;
+            this.loadImageGallery();
+            return;
+        }
+
+        const villa = this.app.villas.find(v => v.id == villaId);
+        if (!villa) return;
+
+        this.selectedVilla = villa;
+        window.selectedVillaId = villa.id; // For global access
+
+        // Update villa info display
+        document.getElementById('selectedVillaName').textContent = villa.name;
+        document.getElementById('selectedVillaLocation').textContent = villa.location;
+        document.getElementById('selectedVillaDescription').textContent = villa.description.substring(0, 100) + '...';
+        document.getElementById('selectedVillaPrice').textContent = villa.price + '€/nuit';
+        document.getElementById('selectedVillaDetails').textContent = `${villa.capacity} personnes • ${villa.bedrooms || 0} chambres`;
+        
+        selectedVillaInfo.style.display = 'block';
+
+        // Filter images for this villa
+        this.loadImageGallery(villaId);
     }
 
     async handleFiles(files) {
