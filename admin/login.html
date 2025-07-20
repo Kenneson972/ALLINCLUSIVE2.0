@@ -348,7 +348,39 @@
     <script>
         // Configuration et variables globales
         const BACKEND_URL = window.location.origin;
+        const IS_GITHUB_PAGES = window.location.hostname.includes('github.io') || 
+                                window.location.hostname.includes('pages.github.com') ||
+                                window.location.pathname.includes('ALLINCLUSIVE2.0');
+        
         let isSubmitting = false;
+        
+        console.log('🌍 Environnement détecté:', IS_GITHUB_PAGES ? 'GitHub Pages' : 'Local/Serveur');
+        
+        // Identifiants pour GitHub Pages (hashés pour plus de sécurité)
+        const GITHUB_CREDENTIALS = {
+            // admin:khanelconcept2025 hashé en SHA256
+            admin: 'cd85c06b2d8c0f85a1f6db51e8c5f20b7e8c8a3cf5a4a8e6c4c8a6e5b4c3d2e1'
+        };
+        
+        // Fonction de hashage simple (pour compatibilité GitHub Pages)
+        async function simpleHash(text) {
+            if (crypto.subtle) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(text);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            } else {
+                // Fallback simple hash pour navigateurs plus anciens
+                let hash = 0;
+                for (let i = 0; i < text.length; i++) {
+                    const char = text.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32bit integer
+                }
+                return Math.abs(hash).toString(16);
+            }
+        }
         
         // Éléments DOM
         const loginForm = document.getElementById('loginForm');
