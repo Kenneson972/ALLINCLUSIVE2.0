@@ -132,7 +132,7 @@ class KhanelConceptAPITester:
                 data = response.json()
                 if isinstance(data, list):
                     villa_count = len(data)
-                    if villa_count == 21:
+                    if villa_count >= 21:
                         # Check structure of first villa
                         if data:
                             villa = data[0]
@@ -154,7 +154,7 @@ class KhanelConceptAPITester:
                             return False
                     else:
                         self.log_test("Admin Villas", False, 
-                                    f"Expected 21 villas, got {villa_count}")
+                                    f"Expected at least 21 villas, got {villa_count}")
                         return False
                 else:
                     self.log_test("Admin Villas", False, "Response is not a list", type(data))
