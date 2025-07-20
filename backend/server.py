@@ -904,6 +904,18 @@ async def get_detailed_stats():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur statistiques détaillées: {e}")
 
+# ========== STATIC FILE SERVING ==========
+# IMPORTANT: Static file mounts MUST be after all API routes to prevent routing conflicts
+
+# Servir les images statiques
+app.mount("/images", StaticFiles(directory="../images"), name="images")
+
+# Servir les fichiers statiques de l'admin
+app.mount("/admin", StaticFiles(directory="../admin", html=True), name="admin")
+
+# Servir les fichiers statiques du site principal
+app.mount("/", StaticFiles(directory="../", html=True), name="main_site")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
