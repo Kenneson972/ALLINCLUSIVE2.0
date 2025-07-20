@@ -12,8 +12,16 @@ class AdminApp {
     init() {
         this.loadData();
         this.setupEventListeners();
-        this.updateDashboard();
         this.checkAuthentication();
+        
+        // Initialize managers
+        this.villaManager = new VillaManager(this);
+        this.exportManager = new DataExportManager(this);
+        
+        // Initialize image handler
+        window.imageHandler = new ImageHandler(this);
+        
+        this.updateDashboard();
     }
 
     checkAuthentication() {
