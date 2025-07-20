@@ -614,56 +614,82 @@
             </div>
         </div>
 
-        <!-- Other Sections Placeholder -->
+        <!-- Reservations Section -->
         <div id="reservations-section" class="content-section" style="display: none;">
-            <div class="glass-card p-4 text-center">
-                <i class="fas fa-calendar-check fa-3x text-white mb-3"></i>
-                <h3 class="text-white">Gestion des Réservations</h3>
-                <p class="text-white-50">Fonctionnalité en cours de développement</p>
+            <div class="glass-card p-4">
+                <h3 class="text-white mb-4">
+                    <i class="fas fa-calendar-check me-2"></i>Gestion des Réservations
+                </h3>
+                <div class="text-center">
+                    <i class="fas fa-calendar-check fa-3x text-white mb-3 opacity-50"></i>
+                    <h4 class="text-white">Module Réservations</h4>
+                    <p class="text-white-50">Cette fonctionnalité sera bientôt disponible.</p>
+                    <p class="text-white-50">En attendant, les réservations peuvent être gérées manuellement.</p>
+                </div>
             </div>
         </div>
 
+        <!-- Analytics Section -->
         <div id="analytics-section" class="content-section" style="display: none;">
-            <div class="glass-card p-4 text-center">
-                <i class="fas fa-chart-bar fa-3x text-white mb-3"></i>
-                <h3 class="text-white">Analytiques Avancées</h3>
-                <p class="text-white-50">Fonctionnalité en cours de développement</p>
+            <div class="glass-card p-4">
+                <h3 class="text-white mb-4">
+                    <i class="fas fa-chart-bar me-2"></i>Analytiques Avancées
+                </h3>
+                <div class="text-center">
+                    <i class="fas fa-chart-line fa-3x text-white mb-3 opacity-50"></i>
+                    <h4 class="text-white">Module Analytiques</h4>
+                    <p class="text-white-50">Statistiques détaillées en cours de développement.</p>
+                    <p class="text-white-50">Les graphiques de base sont disponibles dans le Dashboard.</p>
+                </div>
             </div>
         </div>
 
+        <!-- Settings Section -->
         <div id="settings-section" class="content-section" style="display: none;">
             <div class="glass-card p-4">
                 <h3 class="text-white mb-4">
-                    <i class="fas fa-cog me-2"></i>Paramètres Généraux
+                    <i class="fas fa-cog me-2"></i>Paramètres de l'Application
                 </h3>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Nom de l'établissement</label>
-                            <input type="text" class="form-control" value="KhanelConcept">
+                            <label class="form-label text-white">Nom de l'établissement</label>
+                            <input type="text" class="form-control" value="KhanelConcept" readonly>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Email de contact</label>
-                            <input type="email" class="form-control" value="contact@khanelconcept.com">
+                            <label class="form-label text-white">Email de contact</label>
+                            <input type="email" class="form-control" value="contact@khanelconcept.com" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-white">Version admin</label>
+                            <input type="text" class="form-control" value="2.0 - Janvier 2025" readonly>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label">Téléphone</label>
-                            <input type="tel" class="form-control" value="+596 696 XX XX XX">
+                            <label class="form-label text-white">Téléphone</label>
+                            <input type="tel" class="form-control" value="+596 696 XX XX XX" readonly>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Devise par défaut</label>
-                            <select class="form-select">
-                                <option>EUR (€)</option>
-                                <option>USD ($)</option>
-                            </select>
+                            <label class="form-label text-white">Nombre de villas</label>
+                            <input type="text" class="form-control" value="21 villas actives" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-white">Statut</label>
+                            <div class="badge bg-success mt-2">✅ Système opérationnel</div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-gradient">
-                    <i class="fas fa-save me-2"></i>Sauvegarder
-                </button>
+                <hr class="text-white-50">
+                <h5 class="text-white mt-4">Actions système</h5>
+                <div class="d-flex gap-3 mt-3">
+                    <button class="btn btn-gradient" onclick="syncWithMainSite()">
+                        <i class="fas fa-sync-alt me-2"></i>Synchroniser le site
+                    </button>
+                    <button class="btn btn-gradient-danger" onclick="clearCache()">
+                        <i class="fas fa-trash me-2"></i>Vider le cache
+                    </button>
+                </div>
             </div>
         </div>
     </div>
