@@ -1446,6 +1446,18 @@
                 </div>
             `).join('');
 
+            // Update gallery
+            const galleryContainer = document.getElementById('villa-gallery');
+            if (villa.gallery && villa.gallery.length > 0) {
+                galleryContainer.innerHTML = villa.gallery.map(imageSrc => `
+                    <div class="gallery-item">
+                        <img src="${imageSrc}" alt="${villa.name}" loading="lazy">
+                    </div>
+                `).join('');
+            } else {
+                galleryContainer.innerHTML = '<p>Aucune photo supplémentaire disponible.</p>';
+            }
+
             // Update reserve button
             document.getElementById('reserve-btn').onclick = function() {
                 window.location.href = `reservation.html?villa=${villaId}`;
