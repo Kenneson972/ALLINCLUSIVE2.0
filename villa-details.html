@@ -592,7 +592,12 @@
     </div>
 
     <script>
-        console.log("Villa Details Script loaded - CLEAN VERSION");
+        console.log("Villa Details Script loaded - CLEAN VERSION WITH IMAGE INTERACTIVITY");
+        
+        // Variables globales pour la gestion des images
+        let currentImageIndex = 0;
+        let currentGallery = [];
+        let isModalOpen = false;
         
         // Villa data - ALL 21 villas with correct IDs matching index.html
         const villas = {
