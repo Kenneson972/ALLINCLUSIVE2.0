@@ -10,7 +10,7 @@ import os
 from datetime import datetime
 
 # Load environment variables
-BACKEND_URL = "https://d849aede-7e5e-4df5-8016-b5f24f99617e.preview.emergentagent.com"
+BACKEND_URL = "https://040fd5f6-f3ef-455f-8b25-4bc8d6e19120.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 # Admin credentials from the review request
