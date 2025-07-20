@@ -1355,6 +1355,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log("DOM loaded, initializing...");
             
+            // Setup modal event listeners
+            setupModalEventListeners();
+            
             const urlParams = new URLSearchParams(window.location.search);
             const villaId = urlParams.get('id');
             
