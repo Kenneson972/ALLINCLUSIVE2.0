@@ -817,10 +817,17 @@
         
         // Get backend URL from environment
         const BACKEND_URL = window.location.origin;
+        const IS_GITHUB_PAGES = window.location.hostname.includes('github.io') || 
+                                window.location.hostname.includes('pages.github.com') ||
+                                window.location.pathname.includes('ALLINCLUSIVE2.0');
+        
+        console.log('🌍 Admin - Environnement détecté:', IS_GITHUB_PAGES ? 'GitHub Pages' : 'Local/Serveur');
         
         // Check authentication immediately
         async function checkAuthentication() {
             const token = localStorage.getItem('admin_token');
+            const authEnv = localStorage.getItem('auth_env');
+            
             if (!token) {
                 alert('❌ Accès non autorisé. Veuillez vous connecter.');
                 window.location.href = 'login.html';
@@ -828,39 +835,84 @@
             }
             
             try {
-                // Verify token with backend
-                const response = await fetch(`${BACKEND_URL}/api/admin/verify-token`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ token: token })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Token invalide');
-                }
-                
-                const data = await response.json();
-                if (!data.valid) {
-                    throw new Error('Token invalide');
-                }
-                
-                // Display username in header if available
-                const username = localStorage.getItem('admin_username');
-                if (username) {
-                    const userDisplay = document.querySelector('.sidebar-header p');
-                    if (userDisplay) {
-                        userDisplay.innerHTML = `Connecté en tant que: <strong>${username}</strong>`;
+                if (IS_GITHUB_PAGES || authEnv === 'github-pages') {
+                    // Validation côté client pour GitHub Pages
+                    console.log('🔐 Validation token GitHub Pages');
+                    
+                    try {
+                        const tokenData = JSON.parse(atob(token));
+                        const loginTime = localStorage.getItem('admin_login_time');
+                        const currentTime = Date.now();
+                        const sessionDuration = currentTime - parseInt(loginTime);
+                        
+                        // Session expire après 8 heures (28800000 ms)
+                        if (sessionDuration > 28800000) {
+                            throw new Error('Session expirée');
+                        }
+                        
+                        if (tokenData.username === 'admin') {
+                            console.log('✅ Token GitHub Pages valide');
+                            
+                            // Display username in header
+                            const userDisplay = document.querySelector('.sidebar-header p');
+                            if (userDisplay) {
+                                userDisplay.innerHTML = `Connecté en tant que: <strong>admin</strong> <span class="badge bg-info ms-2">GitHub Pages</span>`;
+                            }
+                            
+                            return true;
+                        } else {
+                            throw new Error('Token invalide');
+                        }
+                    } catch (e) {
+                        throw new Error('Token GitHub Pages invalide');
                     }
+                    
+                } else {
+                    // Verification backend pour environnement local
+                    console.log('🔐 Validation token Backend');
+                    
+                    const response = await fetch(`${BACKEND_URL}/api/admin/verify-token`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ token: token })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('Token invalide');
+                    }
+                    
+                    const data = await response.json();
+                    if (!data.valid) {
+                        throw new Error('Token invalide');
+                    }
+                    
+                    console.log('✅ Token Backend valide');
+                    
+                    // Display username in header
+                    const username = localStorage.getItem('admin_username');
+                    if (username) {
+                        const userDisplay = document.querySelector('.sidebar-header p');
+                        if (userDisplay) {
+                            userDisplay.innerHTML = `Connecté en tant que: <strong>${username}</strong> <span class="badge bg-success ms-2">Sécurisé</span>`;
+                        }
+                    }
+                    
+                    return true;
                 }
                 
-                return true;
             } catch (error) {
                 console.error('❌ Authentication failed:', error);
-                alert('❌ Session expirée. Veuillez vous reconnecter.');
+                const errorMsg = IS_GITHUB_PAGES ? 
+                    '❌ Session GitHub Pages expirée. Veuillez vous reconnecter.' :
+                    '❌ Session expirée. Veuillez vous reconnecter.';
+                    
+                alert(errorMsg);
                 localStorage.removeItem('admin_token');
                 localStorage.removeItem('admin_username');
+                localStorage.removeItem('admin_login_time');
+                localStorage.removeItem('auth_env');
                 window.location.href = 'login.html';
                 return false;
             }
