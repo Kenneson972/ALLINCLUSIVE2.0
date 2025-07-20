@@ -48,6 +48,76 @@ class AdminApp {
     saveData() {
         localStorage.setItem('admin_villas', JSON.stringify(this.villas));
         localStorage.setItem('admin_settings', JSON.stringify(this.settings));
+        
+        // Sync with main website data
+        this.syncWithMainSite();
+    }
+
+    syncWithMainSite() {
+        // Generate data for main website integration
+        try {
+            const mainSiteData = this.villas
+                .filter(villa => villa.status === 'active')
+                .map(villa => ({
+                    id: villa.id,
+                    name: villa.name,
+                    location: villa.location,
+                    price: villa.price,
+                    guests: villa.capacity,
+                    guestsDetail: `${villa.capacity} personnes`,
+                    features: (villa.amenities || []).join(', '),
+                    category: 'sejour',
+                    image: villa.photos && villa.photos[0] ? villa.photos[0] : './images/placeholder.jpg',
+                    gallery: villa.photos || [],
+                    fallbackIcon: this.getVillaIcon(villa),
+                    description: villa.description,
+                    amenities: this.formatAmenitiesForWebsite(villa.amenities || [])
+                }));
+
+            // Store synchronized data for main site
+            localStorage.setItem('main_site_villas_data', JSON.stringify(mainSiteData));
+            
+            console.log('Data synchronized with main site:', mainSiteData.length, 'active villas');
+        } catch (error) {
+            console.error('Error syncing with main site:', error);
+        }
+    }
+
+    getVillaIcon(villa) {
+        if (villa.amenities) {
+            if (villa.amenities.includes('piscine')) return '🏊';
+            if (villa.amenities.includes('vue-mer')) return '🌊';
+            if (villa.amenities.includes('jacuzzi')) return '🛁';
+            if (villa.amenities.includes('plage')) return '🏖️';
+        }
+        return '🏠';
+    }
+
+    formatAmenitiesForWebsite(amenities) {
+        const iconMap = {
+            'piscine': '🏊',
+            'wifi': '📶',
+            'climatisation': '❄️',
+            'vue-mer': '🌊',
+            'parking': '🚗',
+            'cuisine': '🍳',
+            'terrasse': '🏖️',
+            'barbecue': '🔥',
+            'jacuzzi': '🛁',
+            'plage': '🏖️',
+            'jardin': '🌳',
+            'tv': '📺',
+            'sauna': '🧖‍♀️'
+        };
+
+        return amenities.map(amenity => ({
+            icon: iconMap[amenity] || '✨',
+            name: this.capitalizeFirst(amenity.replace('-', ' '))
+        }));
+    }
+
+    capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
     getDefaultVillas() {
