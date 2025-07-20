@@ -1102,6 +1102,763 @@
             }
         ];
 
+        // Variables globales
+        let currentSection = 'dashboard';
+        let currentVilla = null;
+        let filteredVillas = [...villasData];
+        let priceChart = null;
+        let categoryChart = null;
+
+        // Fonction d'initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("🚀 Advanced Admin loaded with", villasData.length, "villas");
+            initializeNavigation();
+            initializeCharts();
+            displayVillas();
+            initializeFilters();
+        });
+
+        // Navigation entre sections
+        function initializeNavigation() {
+            document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.dataset.section;
+                    showSection(section);
+                });
+            });
+        }
+
+        function showSection(sectionName) {
+            // Cacher toutes les sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Afficher la section demandée
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+
+            // Mettre à jour la navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+
+            // Mettre à jour le titre
+            const titles = {
+                dashboard: 'Dashboard',
+                villas: 'Gestion des Villas',
+                reservations: 'Réservations',
+                analytics: 'Analytiques',
+                settings: 'Paramètres'
+            };
+            document.getElementById('pageTitle').textContent = titles[sectionName] || sectionName;
+
+            currentSection = sectionName;
+        }
+
+        // Initialisation des graphiques
+        function initializeCharts() {
+            const priceCtx = document.getElementById('priceChart');
+            const categoryCtx = document.getElementById('categoryChart');
+
+            // Graphique des prix
+            if (priceCtx) {
+                const priceRanges = {
+                    '< 1000€': villasData.filter(v => v.price < 1000).length,
+                    '1000-1500€': villasData.filter(v => v.price >= 1000 && v.price < 1500).length,
+                    '1500-2000€': villasData.filter(v => v.price >= 1500 && v.price < 2000).length,
+                    '> 2000€': villasData.filter(v => v.price >= 2000).length
+                };
+
+                priceChart = new Chart(priceCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(priceRanges),
+                        datasets: [{
+                            data: Object.values(priceRanges),
+                            backgroundColor: [
+                                'rgba(79, 172, 254, 0.8)',
+                                'rgba(245, 87, 108, 0.8)',
+                                'rgba(32, 201, 151, 0.8)',
+                                'rgba(255, 193, 7, 0.8)'
+                            ],
+                            borderWidth: 2,
+                            borderColor: 'rgba(255, 255, 255, 0.8)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: 'white',
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Graphique des catégories
+            if (categoryCtx) {
+                const categoryStats = {
+                    'Séjour': villasData.filter(v => v.category === 'sejour').length,
+                    'Fête': villasData.filter(v => v.category === 'fete').length,
+                    'Piscine': villasData.filter(v => v.category === 'piscine').length
+                };
+
+                categoryChart = new Chart(categoryCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(categoryStats),
+                        datasets: [{
+                            label: 'Nombre de villas',
+                            data: Object.values(categoryStats),
+                            backgroundColor: [
+                                'rgba(79, 172, 254, 0.8)',
+                                'rgba(245, 87, 108, 0.8)',
+                                'rgba(32, 201, 151, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(79, 172, 254, 1)',
+                                'rgba(245, 87, 108, 1)',
+                                'rgba(32, 201, 151, 1)'
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: 'white'
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Affichage des villas
+        function displayVillas() {
+            const container = document.getElementById('villasGrid');
+            if (!container) return;
+
+            container.innerHTML = filteredVillas.map(villa => {
+                const priceUnit = villa.priceUnit || '€/nuit';
+                return `
+                    <div class="villa-card">
+                        <div class="villa-badge">#${villa.id}</div>
+                        <img src="${villa.image}" 
+                             alt="${villa.name}" 
+                             class="villa-image"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div style="display: none; height: 200px; align-items: center; justify-content: center; font-size: 4rem; background: rgba(255,255,255,0.1); border-radius: 15px; margin-bottom: 15px;">
+                            ${villa.fallbackIcon}
+                        </div>
+                        
+                        <h3 class="villa-title">${villa.name}</h3>
+                        
+                        <div class="villa-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${villa.location}
+                        </div>
+                        
+                        <div class="villa-info">
+                            <i class="fas fa-users"></i>
+                            ${villa.guestsDetail}
+                        </div>
+                        
+                        <div class="villa-price">${villa.price} ${priceUnit}</div>
+                        
+                        <p class="text-white-50" style="font-size: 0.9rem; line-height: 1.4;">
+                            ${villa.features}
+                        </p>
+                        
+                        <div class="villa-actions">
+                            <button class="btn btn-action btn-edit" onclick="editVilla(${villa.id})">
+                                <i class="fas fa-edit me-1"></i>Modifier
+                            </button>
+                            <button class="btn btn-action btn-delete" onclick="deleteVilla(${villa.id})">
+                                <i class="fas fa-trash me-1"></i>Supprimer
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialisation des filtres
+        function initializeFilters() {
+            const searchInput = document.getElementById('villaSearch');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const priceFilter = document.getElementById('priceFilter');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+            }
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', applyFilters);
+            }
+            if (priceFilter) {
+                priceFilter.addEventListener('change', applyFilters);
+            }
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('villaSearch')?.value.toLowerCase() || '';
+            const categoryFilter = document.getElementById('categoryFilter')?.value || '';
+            const priceFilter = document.getElementById('priceFilter')?.value || '';
+
+            filteredVillas = villasData.filter(villa => {
+                // Filtre de recherche
+                const matchesSearch = villa.name.toLowerCase().includes(searchTerm) ||
+                                    villa.location.toLowerCase().includes(searchTerm);
+                
+                // Filtre de catégorie
+                const matchesCategory = !categoryFilter || villa.category === categoryFilter;
+                
+                // Filtre de prix
+                let matchesPrice = true;
+                if (priceFilter) {
+                    const [min, max] = priceFilter.split('-').map(p => parseInt(p));
+                    if (max) {
+                        matchesPrice = villa.price >= min && villa.price <= max;
+                    } else {
+                        matchesPrice = villa.price >= min;
+                    }
+                }
+
+                return matchesSearch && matchesCategory && matchesPrice;
+            });
+
+            displayVillas();
+        }
+
+        // Modal de villa
+        function showAddVillaModal() {
+            currentVilla = null;
+            document.getElementById('modalTitle').textContent = 'Ajouter une Villa';
+            document.getElementById('villaForm').reset();
+            new bootstrap.Modal(document.getElementById('villaModal')).show();
+        }
+
+        function editVilla(villaId) {
+            currentVilla = villasData.find(v => v.id === villaId);
+            if (currentVilla) {
+                document.getElementById('modalTitle').textContent = 'Modifier la Villa';
+                document.getElementById('villaName').value = currentVilla.name;
+                document.getElementById('villaLocation').value = currentVilla.location;
+                document.getElementById('villaPrice').value = currentVilla.price;
+                document.getElementById('villaGuests').value = currentVilla.guests;
+                document.getElementById('villaCategory').value = currentVilla.category;
+                document.getElementById('villaFeatures').value = currentVilla.features;
+                document.getElementById('villaIcon').value = currentVilla.fallbackIcon;
+                
+                new bootstrap.Modal(document.getElementById('villaModal')).show();
+            }
+        }
+
+        function saveVilla() {
+            const form = document.getElementById('villaForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const villaData = {
+                name: document.getElementById('villaName').value,
+                location: document.getElementById('villaLocation').value,
+                price: parseInt(document.getElementById('villaPrice').value),
+                guests: parseInt(document.getElementById('villaGuests').value),
+                category: document.getElementById('villaCategory').value,
+                features: document.getElementById('villaFeatures').value,
+                fallbackIcon: document.getElementById('villaIcon').value || '🏨'
+            };
+
+            if (currentVilla) {
+                // Modification
+                Object.assign(currentVilla, villaData);
+                showToast('Villa modifiée avec succès !', 'success');
+            } else {
+                // Ajout
+                const newVilla = {
+                    id: Math.max(...villasData.map(v => v.id)) + 1,
+                    ...villaData,
+                    guestsDetail: `${villaData.guests} personnes`,
+                    image: `../images/placeholder.jpg`,
+                    gallery: []
+                };
+                villasData.push(newVilla);
+                showToast('Villa ajoutée avec succès !', 'success');
+            }
+
+            bootstrap.Modal.getInstance(document.getElementById('villaModal')).hide();
+            displayVillas();
+            updateStats();
+        }
+
+        function deleteVilla(villaId) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette villa ?')) {
+                const index = villasData.findIndex(v => v.id === villaId);
+                if (index > -1) {
+                    villasData.splice(index, 1);
+                    showToast('Villa supprimée avec succès !', 'success');
+                    displayVillas();
+                    updateStats();
+                }
+            }
+        }
+
+        // Mise à jour des statistiques
+        function updateStats() {
+            document.getElementById('totalVillas').textContent = villasData.length;
+            document.getElementById('activeVillas').textContent = villasData.filter(v => v.price > 0).length;
+        }
+
+        // Fonction de synchronisation améliorée
+        function syncWithMainSite() {
+            const syncText = document.getElementById('syncText');
+            const originalText = syncText.textContent;
+            
+            // Animation de chargement
+            syncText.innerHTML = '<span class="loading"></span> Sync en cours...';
+            
+            setTimeout(() => {
+                // Convertir les données admin vers le format du site principal
+                const mainSiteData = villasData.map(villa => ({
+                    id: villa.id,
+                    name: villa.name,
+                    location: villa.location,
+                    price: villa.price,
+                    guests: villa.guests,
+                    guestsDetail: villa.guestsDetail,
+                    features: villa.features,
+                    category: villa.category,
+                    image: villa.image,
+                    gallery: villa.gallery,
+                    fallbackIcon: villa.fallbackIcon,
+                    priceUnit: villa.priceUnit
+                }));
+                
+                // Sauvegarder dans localStorage pour que index.html puisse les lire
+                localStorage.setItem('khanelconcept_villas', JSON.stringify(mainSiteData));
+                
+                // Animation de succès
+                syncText.textContent = '✅ Synchronisé !';
+                syncText.parentElement.classList.add('pulse');
+                
+                // Afficher notification
+                showToast(`Synchronisation réussie ! ${mainSiteData.length} villas mises à jour.`, 'success');
+                
+                // Restaurer le texte original après 2 secondes
+                setTimeout(() => {
+                    syncText.textContent = originalText;
+                    syncText.parentElement.classList.remove('pulse');
+                }, 2000);
+                
+                console.log("✅ Advanced sync completed -", mainSiteData.length, "villas synchronized");
+            }, 1500);
+        }
+
+        // Affichage des toasts
+        function showToast(message, type = 'success') {
+            const toastElement = document.getElementById('successToast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+
+        // Fonction de déconnexion
+        function logout() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        console.log("🎉 KhanelConcept Advanced Admin Ready - 21 villas loaded!");
+    </script>
+        // Données des 21 villas pour l'admin
+        const villasData = [
+            {
+                id: 1,
+                name: "Villa F3 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 850,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 invités",
+                features: "Sauna, Jacuzzi, 2 douches extérieures",
+                category: "sejour",
+                image: "../images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                gallery: [
+                    "../images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "../images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "../images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+                    "../images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+                    "../images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "../images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+                    "../images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
+                ],
+                fallbackIcon: "🏊"
+            },
+            {
+                id: 2,
+                name: "Villa F5 Ste Anne",
+                location: "Quartier Les Anglais, Ste Anne",
+                price: 1300,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 invités",
+                features: "Piscine, décoration rose distinctive",
+                category: "sejour",
+                image: "../images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                gallery: [
+                    "../images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "../images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+                    "../images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+                    "../images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+                    "../images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+                    "../images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
+                ],
+                fallbackIcon: "🌸"
+            },
+            {
+                id: 3,
+                name: "Villa F3 Baccha Petit Macabou",
+                location: "Petit Macabou",
+                price: 1350,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, terrasses modernes",
+                category: "sejour",
+                image: "../images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                gallery: [
+                    "../images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
+                ],
+                fallbackIcon: "🏖️"
+            },
+            {
+                id: 4,
+                name: "Villa F6 Lamentin",
+                location: "Quartier Bélème au Lamentin",
+                price: 1500,
+                guests: 10,
+                guestsDetail: "10 personnes + 20 invités max",
+                features: "Piscine, Jacuzzi, douche extérieure",
+                category: "sejour",
+                image: "../images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
+                gallery: [
+                    "../images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
+                ],
+                fallbackIcon: "🛁"
+            },
+            {
+                id: 5,
+                name: "Villa F6 Ste Luce Plage",
+                location: "Zac de Pont Café, Ste Luce",
+                price: 1700,
+                guests: 14,
+                guestsDetail: "10 à 14 personnes",
+                features: "Piscine, 1 minute de la plage",
+                category: "sejour",
+                image: "../images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
+                gallery: [
+                    "../images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+                    "../images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg"
+                ],
+                fallbackIcon: "🏖️"
+            },
+            {
+                id: 6,
+                name: "Villa F6 Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 2000,
+                guests: 13,
+                guestsDetail: "10 à 13 personnes (14 max)",
+                features: "Piscine, fêtes jusqu'à 150 convives",
+                category: "sejour",
+                image: "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                gallery: [
+                    "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    "../images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+                    "../images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+                    "../images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+                    "../images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+                    "../images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+                    "../images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+                ],
+                fallbackIcon: "🎊"
+            },
+            {
+                id: 7,
+                name: "Villa F7 Baie des Mulets",
+                location: "Baie des Mulets, Trinité",
+                price: 2200,
+                guests: 15,
+                guestsDetail: "10 à 15 personnes (16 max)",
+                features: "Vue mer exceptionnelle, piscine",
+                category: "sejour",
+                image: "../images/Villa_F7_Baie_des_Mulets/01_piscine_vue_mer.jpg",
+                gallery: [
+                    "../images/Villa_F7_Baie_des_Mulets/01_piscine_vue_mer.jpg"
+                ],
+                fallbackIcon: "🌊"
+            },
+            {
+                id: 8,
+                name: "Villa F3 Trinité (Cosmy)",
+                location: "Cosmy, Trinité",
+                price: 900,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, terrasse aménagée",
+                category: "sejour",
+                image: "../images/Villa_F3_Trinite_Cosmy/01_piscine_terrasse.jpg",
+                gallery: [
+                    "../images/Villa_F3_Trinite_Cosmy/01_piscine_terrasse.jpg"
+                ],
+                fallbackIcon: "🏝️"
+            },
+            {
+                id: 9,
+                name: "Villa F3 Le Robert",
+                location: "Le Robert",
+                price: 1000,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, proximité centre-ville",
+                category: "sejour",
+                image: "../images/Villa_F3_Le_Robert/01_piscine_jardin.jpg",
+                gallery: [
+                    "../images/Villa_F3_Le_Robert/01_piscine_jardin.jpg"
+                ],
+                fallbackIcon: "🏘️"
+            },
+            {
+                id: 10,
+                name: "Villa F5 R.Pilote",
+                location: "Rivière-Pilote",
+                price: 1200,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 convives",
+                features: "Piscine, grand jardin",
+                category: "sejour",
+                image: "../images/Villa_F5_R_Pilote/01_facade_piscine.jpg",
+                gallery: [
+                    "../images/Villa_F5_R_Pilote/01_facade_piscine.jpg"
+                ],
+                fallbackIcon: "🌳"
+            },
+            {
+                id: 11,
+                name: "Villa F3 Le François",
+                location: "Le François",
+                price: 1100,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine, vue dégagée",
+                category: "sejour",
+                image: "../images/Villa_F3_Le_Francois/01_piscine_moderne.jpg",
+                gallery: [
+                    "../images/Villa_F3_Le_Francois/01_piscine_moderne.jpg"
+                ],
+                fallbackIcon: "🏞️"
+            },
+            {
+                id: 12,
+                name: "Villa F5 Vauclin Ravine Plate",
+                location: "Ravine Plate, Le Vauclin",
+                price: 1400,
+                guests: 10,
+                guestsDetail: "10 personnes + 15 convives",
+                features: "Piscine, terrasses étagées",
+                category: "sejour",
+                image: "../images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_terrasse.jpg",
+                gallery: [
+                    "../images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_terrasse.jpg"
+                ],
+                fallbackIcon: "⛰️"
+            },
+            {
+                id: 13,
+                name: "Bas Villa F3 Ste Luce",
+                location: "Ste Luce",
+                price: 1300,
+                guests: 8,
+                guestsDetail: "8 personnes + 12 convives",
+                features: "Piscine, proche plages",
+                category: "sejour",
+                image: "../images/Bas_Villa_F3_Ste_Luce/01_piscine_palmiers.jpg",
+                gallery: [
+                    "../images/Bas_Villa_F3_Ste_Luce/01_piscine_palmiers.jpg"
+                ],
+                fallbackIcon: "🌴"
+            },
+            {
+                id: 14,
+                name: "Villa F3 Trenelle",
+                location: "Trenelle",
+                price: 1600,
+                guests: 6,
+                guestsDetail: "6 personnes + 9 convives",
+                features: "Piscine premium, environnement calme",
+                category: "sejour",
+                image: "../images/Villa_F3_Trenelle/01_piscine_moderne.jpg",
+                gallery: [
+                    "../images/Villa_F3_Trenelle/01_piscine_moderne.jpg"
+                ],
+                fallbackIcon: "🌿"
+            },
+            {
+                id: 15,
+                name: "Studio Cocooning Lamentin",
+                location: "Lamentin",
+                price: 600,
+                guests: 2,
+                guestsDetail: "2 personnes max",
+                features: "Studio romantique, équipements modernes",
+                category: "sejour",
+                image: "../images/Studio_Cocooning_Lamentin/01_studio_moderne.jpg",
+                gallery: [
+                    "../images/Studio_Cocooning_Lamentin/01_studio_moderne.jpg"
+                ],
+                fallbackIcon: "💕"
+            },
+            {
+                id: 16,
+                name: "Espace Piscine Journée Bungalow",
+                location: "Bungalow",
+                price: 150,
+                priceUnit: "€/jour",
+                guests: 8,
+                guestsDetail: "Jusqu'à 8 personnes",
+                features: "Piscine, espace détente journée",
+                category: "piscine",
+                image: "../images/Espace_Piscine_Journee_Bungalow/01_piscine_detente.jpg",
+                gallery: [
+                    "../images/Espace_Piscine_Journee_Bungalow/01_piscine_detente.jpg"
+                ],
+                fallbackIcon: "☀️"
+            },
+            {
+                id: 17,
+                name: "Villa Fête Ducos",
+                location: "Ducos",
+                price: 200,
+                priceUnit: "€/jour",
+                guests: 25,
+                guestsDetail: "Jusqu'à 25 personnes",
+                features: "Espace fête, son autorisé",
+                category: "fete",
+                image: "../images/Villa_Fete_Ducos/01_espace_reception.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Ducos/01_espace_reception.jpg"
+                ],
+                fallbackIcon: "🎉"
+            },
+            {
+                id: 18,
+                name: "Villa Fête Fort-de-France",
+                location: "Fort-de-France",
+                price: 180,
+                priceUnit: "€/jour",
+                guests: 20,
+                guestsDetail: "Jusqu'à 20 personnes",
+                features: "Centre-ville, espace modulable",
+                category: "fete",
+                image: "../images/Villa_Fete_Fort_de_France/01_salon_fete.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Fort_de_France/01_salon_fete.jpg"
+                ],
+                fallbackIcon: "🏛️"
+            },
+            {
+                id: 19,
+                name: "Villa Fête Rivière-Pilote",
+                location: "Rivière-Pilote",
+                price: 250,
+                priceUnit: "€/jour",
+                guests: 35,
+                guestsDetail: "Jusqu'à 35 personnes",
+                features: "Grande capacité, jardin spacieux",
+                category: "fete",
+                image: "../images/Villa_Fete_Riviere_Pilote/01_grand_jardin.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Riviere_Pilote/01_grand_jardin.jpg"
+                ],
+                fallbackIcon: "🎪"
+            },
+            {
+                id: 20,
+                name: "Villa Fête Sainte-Luce",
+                location: "Sainte-Luce",
+                price: 160,
+                priceUnit: "€/jour",
+                guests: 15,
+                guestsDetail: "Jusqu'à 15 personnes",
+                features: "Proximité plage, ambiance tropicale",
+                category: "fete",
+                image: "../images/Villa_Fete_Journee_Sainte_Luce/01_terrasse_fete.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Journee_Sainte_Luce/01_terrasse_fete.jpg"
+                ],
+                fallbackIcon: "🏖️"
+            },
+            {
+                id: 21,
+                name: "Villa Fête Rivière-Salée",
+                location: "Rivière-Salée",
+                price: 160,
+                priceUnit: "€/jour",
+                guests: 15,
+                guestsDetail: "Jusqu'à 15 personnes",
+                features: "Piscine, tente couverte",
+                category: "fete",
+                image: "../images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg",
+                gallery: [
+                    "../images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
+                ],
+                fallbackIcon: "⛺"
+            }
+        ];
+
         // Fonction d'initialisation
         document.addEventListener('DOMContentLoaded', function() {
             console.log("🚀 Admin loaded with", villasData.length, "villas");
