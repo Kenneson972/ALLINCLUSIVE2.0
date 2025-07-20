@@ -582,5 +582,24 @@ function resetData() {
 // Initialize app when page loads
 let app;
 document.addEventListener('DOMContentLoaded', function() {
-    app = new AdminApp();
+    console.log("DOM Content Loaded - Initializing admin app...");
+    try {
+        app = new AdminApp();
+        console.log("Admin app initialized successfully");
+        
+        // Make app globally accessible for debugging
+        window.app = app;
+        
+        // Initialize default villa data if empty
+        if (!app.villas || app.villas.length === 0) {
+            console.log("No villas found, loading default data...");
+            app.villas = app.getDefaultVillas();
+            app.saveData();
+            app.updateDashboard();
+            console.log("Default villas loaded:", app.villas.length);
+        }
+        
+    } catch (error) {
+        console.error("Error initializing admin app:", error);
+    }
 });
