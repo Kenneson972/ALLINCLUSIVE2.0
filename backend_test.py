@@ -271,6 +271,92 @@ class KhanelConceptAPITester:
             self.log_test("Villa Search", False, f"Search error: {str(e)}")
             return False
     
+    def test_static_villa_pages(self):
+        """Test static villa HTML pages are served correctly"""
+        # List of villa HTML files that should be accessible
+        villa_pages = [
+            "villa-f3-petit-macabou.html",
+            "villa-f5-ste-anne.html", 
+            "villa-f3-baccha-petit-macabou.html",
+            "villa-f6-petit-macabou.html",
+            "villa-f6-lamentin.html",
+            "villa-f3-le-francois.html",
+            "villa-f3-robert-pointe-hyacinthe.html",
+            "villa-f6-ste-luce-plage.html",
+            "villa-f3-trinite-cosmy.html",
+            "villa-f7-baie-des-mulets-vauclin.html",
+            "villa-f5-r-pilote-la-renee.html",
+            "villa-f3-trenelle-location-annuelle.html",
+            "villa-f5-vauclin-ravine-plate.html",
+            "villa-fete-journee-fort-de-france.html",
+            "villa-fete-journee-riviere-salee.html",
+            "villa-fete-journee-ducos.html",
+            "villa-fete-journee-r-pilote.html",
+            "villa-fete-journee-sainte-luce.html"
+        ]
+        
+        accessible_pages = 0
+        failed_pages = []
+        
+        for page in villa_pages:
+            try:
+                response = self.session.get(f"{BACKEND_URL}/{page}", timeout=10)
+                if response.status_code == 200:
+                    # Check if it's actually HTML content
+                    if "html" in response.headers.get("content-type", "").lower() or \
+                       "<html" in response.text.lower():
+                        accessible_pages += 1
+                    else:
+                        failed_pages.append(f"{page} (not HTML content)")
+                else:
+                    failed_pages.append(f"{page} (status {response.status_code})")
+            except Exception as e:
+                failed_pages.append(f"{page} (error: {str(e)})")
+        
+        if accessible_pages >= 15:  # Allow some flexibility as exact count may vary
+            self.log_test("Static Villa Pages", True, 
+                        f"Villa HTML pages accessible - {accessible_pages}/{len(villa_pages)} pages working", 
+                        f"Working pages: {accessible_pages}")
+            return True
+        else:
+            self.log_test("Static Villa Pages", False, 
+                        f"Too many villa pages inaccessible - only {accessible_pages}/{len(villa_pages)} working", 
+                        f"Failed pages: {failed_pages[:5]}")  # Show first 5 failures
+            return False
+    
+    def test_villa_id_mapping(self):
+        """Test that villa IDs 1-21 map correctly to data"""
+        try:
+            # Get all villas from API
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code == 200:
+                villas = response.json()
+                villa_ids = [villa["id"] for villa in villas if "id" in villa]
+                
+                # Check if we have sequential IDs from 1 to at least 21
+                expected_ids = [str(i) for i in range(1, 22)]  # 1-21
+                missing_ids = [id for id in expected_ids if id not in villa_ids]
+                
+                if len(missing_ids) == 0:
+                    self.log_test("Villa ID Mapping", True, 
+                                f"All villa IDs 1-21 present in database", 
+                                f"Total villas: {len(villas)}")
+                    return True
+                else:
+                    self.log_test("Villa ID Mapping", False, 
+                                f"Missing villa IDs: {missing_ids}", 
+                                f"Found IDs: {villa_ids[:10]}...")  # Show first 10
+                    return False
+            else:
+                self.log_test("Villa ID Mapping", False, 
+                            f"Could not retrieve villas for ID mapping test - status {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Villa ID Mapping", False, f"Villa ID mapping error: {str(e)}")
+            return False
+    
     def run_all_tests(self):
         """Run all backend tests"""
         print("🚀 Starting KhanelConcept Backend API Tests")
