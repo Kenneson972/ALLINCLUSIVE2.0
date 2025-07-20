@@ -104,19 +104,64 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Get backend URL from environment or use default
+        const BACKEND_URL = window.location.origin;
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const submitButton = e.target.querySelector('button[type="submit"]');
             
-            // Simple authentication
-            if (username === 'khanel' && password === 'khanel-admin-2025') {
-                console.log('✅ Login successful');
-                window.location.href = 'admin.html';
-            } else {
-                alert('❌ Identifiants incorrects');
+            // Show loading state
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Connexion...';
+            submitButton.disabled = true;
+            
+            try {
+                // Call backend authentication API
+                const response = await fetch(`${BACKEND_URL}/api/admin/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Store JWT token securely
+                    localStorage.setItem('admin_token', data.access_token);
+                    localStorage.setItem('admin_username', username);
+                    console.log('✅ Login successful');
+                    
+                    // Show success message
+                    submitButton.innerHTML = '<i class="fas fa-check me-2"></i>Connexion réussie';
+                    submitButton.className = 'btn btn-success';
+                    
+                    // Redirect to admin panel
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 1000);
+                    
+                } else {
+                    throw new Error(data.detail || 'Erreur de connexion');
+                }
+                
+            } catch (error) {
+                console.error('❌ Login failed:', error);
+                alert('❌ Identifiants incorrects ou erreur de connexion');
                 document.getElementById('password').value = '';
+                
+                // Reset button
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+                submitButton.className = 'btn btn-login';
             }
         });
 
@@ -124,6 +169,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('password').focus();
         });
+
+        // Clear any existing tokens when accessing login page
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_username');
     </script>
 </body>
 </html>
