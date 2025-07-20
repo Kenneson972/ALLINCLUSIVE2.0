@@ -1499,26 +1499,7 @@
     <script>
         // Base de données COMPLÈTE des 21 villas avec chemins d'images corrigés
         // ===== DONNÉES DES VILLAS =====
-        
-        // Check for updated data from admin panel FIRST
-        let villasData = [];
-        const adminIndexData = localStorage.getItem('index_villas_data');
-        if (adminIndexData) {
-            try {
-                villasData = JSON.parse(adminIndexData);
-                console.log("🔄 Using updated villa data from admin panel:", villasData.length, "villas");
-            } catch (error) {
-                console.error("Error parsing admin index data:", error);
-                // Fall back to default data
-                villasData = getDefaultVillasData();
-            }
-        } else {
-            // Use default static data
-            villasData = getDefaultVillasData();
-        }
-
-        function getDefaultVillasData() {
-            return [
+        const villasData = [
             // === VILLAS DE SÉJOUR ===
             {
                 id: 1,
