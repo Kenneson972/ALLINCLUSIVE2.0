@@ -1497,27 +1497,9 @@
     <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
 
     <script>
-        // Base de données COMPLÈTE des 21 villas avec chemins d'images corrigés
-        // ===== DONNÉES DES VILLAS =====
-        
-        // Vérifier s'il y a des données synchronisées depuis l'admin
-        let villasData = [];
-        const syncedData = localStorage.getItem('khanelconcept_villas');
-        
-        if (syncedData) {
-            try {
-                villasData = JSON.parse(syncedData);
-                console.log("🔄 Using synced data from admin:", villasData.length, "villas");
-            } catch (error) {
-                console.error("Error parsing synced data:", error);
-                villasData = getDefaultVillasData();
-            }
-        } else {
-            villasData = getDefaultVillasData();
-        }
-        
-        function getDefaultVillasData() {
-            return [
+        // Base de données COMPLÈTE des 21 villas - VERSION GITHUB PAGES STATIQUE
+        // ===== DONNÉES STATIQUES DES VILLAS =====
+        const villasData = [
             // === VILLAS DE SÉJOUR ===
             {
                 id: 1,
