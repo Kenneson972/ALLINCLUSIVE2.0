@@ -182,12 +182,12 @@ class AdminApp {
                 gps: "14.5428, -60.8357",
                 amenities: ["piscine", "wifi", "terrasse", "jardin"],
                 photos: [
-                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
+                    "../images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "../images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
