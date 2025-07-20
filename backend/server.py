@@ -739,9 +739,6 @@ async def admin_login(login_data: AdminLogin):
     access_token = create_access_token(data={"sub": user["username"], "role": user["role"]})
     return {"access_token": access_token, "token_type": "bearer"}
 
-class TokenVerify(BaseModel):
-    token: str
-
 @app.post("/api/admin/verify-token")
 async def verify_admin_token(token_data: TokenVerify):
     """Vérifier un token admin"""
