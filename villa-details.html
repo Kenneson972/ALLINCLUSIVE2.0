@@ -1159,15 +1159,22 @@
                 </div>`
             ).join('');
 
-            // Update gallery
+            // Update gallery avec interactivité
             const galleryContainer = document.getElementById('villa-gallery');
             if (villa.gallery && villa.gallery.length > 0) {
-                galleryContainer.innerHTML = villa.gallery.map(imageSrc => 
-                    `<div class="gallery-item">
+                galleryContainer.innerHTML = villa.gallery.map((imageSrc, index) => 
+                    `<div class="gallery-item" onclick="openImageModal(${index})">
                         <img src="${imageSrc}" alt="${villa.name}" loading="lazy">
                     </div>`
                 ).join('');
             }
+
+            // Store current gallery for navigation
+            currentGallery = villa.gallery || [villa.image];
+            currentImageIndex = 0;
+
+            // Setup main image navigation
+            setupMainImageNavigation();
 
             // Update reserve button
             document.getElementById('reserve-btn').onclick = function() {
