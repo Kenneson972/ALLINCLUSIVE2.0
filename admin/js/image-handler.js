@@ -197,23 +197,52 @@ class ImageHandler {
         });
     }
 
-    loadImageGallery() {
+    loadImageGallery(villaId = null) {
         const gallery = document.getElementById('imageGallery');
         if (!gallery) return;
 
-        if (this.uploadedImages.length === 0) {
+        // Populate villa selector if not done
+        this.populateVillaSelector();
+
+        let imagesToShow = this.uploadedImages;
+
+        // Filter by villa if specified
+        if (villaId) {
+            // Show images from this specific villa
+            const villa = this.app.villas.find(v => v.id == villaId);
+            if (villa && villa.photos) {
+                // Convert villa photos to image format for display
+                imagesToShow = villa.photos.map((photo, index) => ({
+                    id: `villa_${villaId}_${index}`,
+                    name: `${villa.name} - ${index + 1}`,
+                    dataUrl: photo,
+                    size: 0,
+                    type: 'image/jpeg',
+                    width: 300,
+                    height: 200,
+                    uploaded: villa.updated,
+                    villaId: villaId,
+                    isVillaPhoto: true
+                }));
+            }
+        }
+
+        if (imagesToShow.length === 0) {
             gallery.innerHTML = `
                 <div class="col-12 text-center py-5">
                     <i class="fas fa-images fa-3x text-muted mb-3"></i>
-                    <h5>Aucune image</h5>
-                    <p class="text-muted">Uploadez vos premières images pour commencer</p>
+                    <h5>${villaId ? 'Aucune image pour cette villa' : 'Aucune image'}</h5>
+                    <p class="text-muted">${villaId ? 'Cette villa n\'a pas encore d\'images' : 'Uploadez vos premières images pour commencer'}</p>
+                    ${villaId ? `<button class="btn btn-primary" onclick="document.getElementById('imageUpload').click()">
+                        <i class="fas fa-plus me-2"></i>Ajouter des images à cette villa
+                    </button>` : ''}
                 </div>
             `;
             return;
         }
 
         // Sort by upload date (newest first)
-        const sortedImages = this.uploadedImages
+        const sortedImages = imagesToShow
             .sort((a, b) => new Date(b.uploaded) - new Date(a.uploaded));
 
         gallery.innerHTML = sortedImages.map(image => `
@@ -228,6 +257,14 @@ class ImageHandler {
                             <button class="btn btn-sm btn-success" onclick="imageHandler.copyImageUrl('${image.id}')" title="Copier URL">
                                 <i class="fas fa-copy"></i>
                             </button>
+                            ${image.isVillaPhoto ? 
+                                `<button class="btn btn-sm btn-warning" onclick="imageHandler.removeFromVilla('${image.id}')" title="Retirer de la villa">
+                                    <i class="fas fa-unlink"></i>
+                                </button>` :
+                                `<button class="btn btn-sm btn-info" onclick="imageHandler.assignToVilla('${image.id}')" title="Assigner à villa">
+                                    <i class="fas fa-link"></i>
+                                </button>`
+                            }
                             <button class="btn btn-sm btn-danger" onclick="imageHandler.deleteImage('${image.id}')" title="Supprimer">
                                 <i class="fas fa-trash"></i>
                             </button>
@@ -235,7 +272,11 @@ class ImageHandler {
                     </div>
                     <div class="image-info mt-2">
                         <small class="text-muted d-block">${image.name}</small>
-                        <small class="text-muted">${this.formatFileSize(image.size)} • ${image.width}×${image.height}</small>
+                        <small class="text-muted">
+                            ${this.formatFileSize(image.size)} 
+                            ${image.width && image.height ? `• ${image.width}×${image.height}` : ''}
+                        </small>
+                        ${image.villaId ? `<div><span class="badge bg-primary mt-1">Villa ID: ${image.villaId}</span></div>` : ''}
                     </div>
                 </div>
             </div>
