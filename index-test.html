@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>KhanelConcept - Test 21 Villas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .villa-card { border: 1px solid #ddd; margin: 10px; padding: 15px; border-radius: 8px; }
+        .villa-count { font-size: 24px; color: green; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Test KhanelConcept - Villas</h1>
+    <div id="villaCount" class="villa-count"></div>
+    <div id="villasContainer"></div>
+
+    <script>
+        const villasData = [
+            { id: 1, name: "Villa F3 Petit Macabou", location: "Petit Macabou au Vauclin", price: 850, guests: 6 },
+            { id: 2, name: "Villa F5 Ste Anne", location: "Quartier Les Anglais, Ste Anne", price: 1300, guests: 10 },
+            { id: 3, name: "Villa F3 Baccha Petit Macabou", location: "Petit Macabou", price: 1350, guests: 6 },
+            { id: 4, name: "Villa F6 Lamentin", location: "Quartier Bélème au Lamentin", price: 1500, guests: 10 },
+            { id: 5, name: "Villa F6 Ste Luce Plage", location: "Zac de Pont Café, Ste Luce", price: 1700, guests: 14 },
+            { id: 6, name: "Villa F6 Petit Macabou", location: "Petit Macabou au Vauclin", price: 2000, guests: 13 },
+            { id: 7, name: "Villa F7 Baie des Mulets", location: "Baie des Mulets, Trinité", price: 2200, guests: 15 },
+            { id: 8, name: "Villa F3 Trinité (Cosmy)", location: "Cosmy, Trinité", price: 900, guests: 6 },
+            { id: 9, name: "Villa F3 Le Robert", location: "Le Robert", price: 1000, guests: 6 },
+            { id: 10, name: "Villa F5 R.Pilote", location: "Rivière-Pilote", price: 1200, guests: 8 },
+            { id: 11, name: "Villa F3 Le François", location: "Le François", price: 1100, guests: 6 },
+            { id: 12, name: "Villa F5 Vauclin Ravine Plate", location: "Ravine Plate, Le Vauclin", price: 1400, guests: 10 },
+            { id: 13, name: "Bas Villa F3 Ste Luce", location: "Ste Luce", price: 1300, guests: 8 },
+            { id: 14, name: "Villa F3 Trenelle", location: "Trenelle", price: 1600, guests: 6 },
+            { id: 15, name: "Studio Cocooning Lamentin", location: "Lamentin", price: 600, guests: 2 },
+            { id: 16, name: "Espace Piscine Journée Bungalow", location: "Bungalow", price: 150, guests: 8 },
+            { id: 17, name: "Villa Fête Ducos", location: "Ducos", price: 200, guests: 25 },
+            { id: 18, name: "Villa Fête Fort-de-France", location: "Fort-de-France", price: 180, guests: 20 },
+            { id: 19, name: "Villa Fête Rivière-Pilote", location: "Rivière-Pilote", price: 250, guests: 35 },
+            { id: 20, name: "Villa Fête Sainte-Luce", location: "Sainte-Luce", price: 160, guests: 15 },
+            { id: 21, name: "Villa Fête Rivière-Salée", location: "Rivière-Salée", price: 160, guests: 15 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const countElement = document.getElementById('villaCount');
+            const container = document.getElementById('villasContainer');
+            
+            countElement.innerHTML = `✅ ${villasData.length} villas chargées avec succès !`;
+            
+            container.innerHTML = villasData.map(villa => `
+                <div class="villa-card">
+                    <h3>#${villa.id} - ${villa.name}</h3>
+                    <p><strong>Localisation:</strong> ${villa.location}</p>
+                    <p><strong>Prix:</strong> ${villa.price}€ | <strong>Capacité:</strong> ${villa.guests} personnes</p>
+                </div>
+            `).join('');
+            
+            console.log(`🚀 TEST: ${villasData.length} villas chargées avec succès !`);
+            console.log('Villas:', villasData.map(v => v.name));
+        });
+    </script>
+</body>
+</html>
