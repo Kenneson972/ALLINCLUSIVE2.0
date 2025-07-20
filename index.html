@@ -2501,6 +2501,14 @@
                 closeImageGallery();
             }
         }
+
+        // Admin access link visibility
+        if(sessionStorage.getItem('admin_access') === 'true') {
+            const adminLink = document.querySelector('.admin-link');
+            if (adminLink) {
+                adminLink.style.display = 'inline';
+            }
+        }
     </script>
 </body>
 </html>
