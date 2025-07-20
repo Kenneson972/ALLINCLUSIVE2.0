@@ -372,6 +372,10 @@ class KhanelConceptAPITester:
         self.test_public_villas_endpoint()
         self.test_villa_search()
         
+        # Test new static file serving functionality
+        self.test_static_villa_pages()
+        self.test_villa_id_mapping()
+        
         # Test admin authentication
         if not self.test_admin_login():
             print("❌ Admin login failed - skipping admin-only tests")
