@@ -30,6 +30,13 @@ class AdminApp {
             window.location.href = 'login.html';
             return;
         }
+        
+        // Display username
+        const adminUser = sessionStorage.getItem('admin_user') || 'Admin';
+        const usernameElement = document.getElementById('adminUsername');
+        if (usernameElement) {
+            usernameElement.textContent = adminUser;
+        }
     }
 
     loadData() {
