@@ -736,10 +736,13 @@ async def admin_login(login_data: AdminLogin):
     access_token = create_access_token(data={"sub": user["username"], "role": user["role"]})
     return {"access_token": access_token, "token_type": "bearer"}
 
+class TokenVerify(BaseModel):
+    token: str
+
 @app.post("/api/admin/verify-token")
-async def verify_admin_token(token: str):
+async def verify_admin_token(token_data: TokenVerify):
     """Vérifier un token admin"""
-    username = verify_token(token)
+    username = verify_token(token_data.token)
     if username is None:
         raise HTTPException(status_code=401, detail="Token invalide")
     return {"valid": True, "username": username}
