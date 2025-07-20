@@ -51,22 +51,27 @@ class AdminApp {
     }
 
     getDefaultVillas() {
-        // Import existing villas from the main site
+        // Import all 21 villas from the main site with real data
         return [
             {
                 id: 1,
                 name: "Villa F3 Petit Macabou",
-                description: "Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un séjour de détente en famille.",
+                description: "Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un séjour de détente en famille. Située à Petit Macabou au Vauclin, cette villa offre une piscine extérieure, un sauna privé, un jacuzzi et deux douches extérieures dans un cadre tropical exceptionnel.",
                 price: 850,
                 capacity: 6,
                 bedrooms: 2,
                 bathrooms: 2,
                 location: "Petit Macabou au Vauclin",
                 gps: "14.5428, -60.8357",
-                amenities: ["piscine", "wifi", "sauna", "jacuzzi", "terrasse"],
+                amenities: ["piscine", "sauna", "jacuzzi", "wifi", "terrasse"],
                 photos: [
                     "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg"
+                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+                    "./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+                    "./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+                    "./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -75,7 +80,7 @@ class AdminApp {
             {
                 id: 2,
                 name: "Villa F5 Ste Anne",
-                description: "Villa F5 distinctive avec sa façade rose emblématique, située dans le quartier résidentiel des Anglais à Sainte-Anne.",
+                description: "Villa F5 distinctive avec sa façade rose emblématique, située dans le quartier résidentiel des Anglais à Sainte-Anne. Cette spacieuse propriété dispose d'une grande piscine, cuisine moderne, salon principal et chambres confortables dont une spécialisée pour enfants.",
                 price: 1300,
                 capacity: 10,
                 bedrooms: 3,
@@ -85,7 +90,11 @@ class AdminApp {
                 amenities: ["piscine", "wifi", "cuisine", "parking", "terrasse"],
                 photos: [
                     "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                    "./images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg"
+                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+                    "./images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+                    "./images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+                    "./images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+                    "./images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -93,17 +102,416 @@ class AdminApp {
             },
             {
                 id: 3,
+                name: "Villa F3 Baccha Petit Macabou",
+                description: "Villa F3 moderne 'Pour la Baccha' à Petit Macabou, avec terrasses étagées offrant différents espaces de vie selon vos envies. Parfaite pour les moments festifs avec piscine, terrasse jardin et équipements modernes pour célébrations.",
+                price: 1350,
+                capacity: 6,
+                bedrooms: 2,
+                bathrooms: 2,
+                location: "Petit Macabou",
+                gps: "14.5428, -60.8357",
+                amenities: ["piscine", "wifi", "terrasse", "jardin"],
+                photos: [
+                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 4,
+                name: "Villa F6 Lamentin",
+                description: "Villa F6 au Lamentin avec piscine et jacuzzi vue d'ensemble spectaculaire. Propriété spacieuse idéale pour grands groupes avec équipements complets pour séjours détente et fêtes familiales dans un cadre luxueux.",
+                price: 1500,
+                capacity: 10,
+                bedrooms: 4,
+                bathrooms: 3,
+                location: "Quartier Bélème au Lamentin",
+                gps: "14.6097, -61.0242",
+                amenities: ["piscine", "jacuzzi", "wifi", "cuisine"],
+                photos: [
+                    "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 5,
+                name: "Villa F6 Ste Luce Plage",
+                description: "Villa F6 à Sainte-Luce à seulement 1 minute de la plage avec vue aérienne spectaculaire sur la piscine. Salon donnant sur piscine, cuisine moderne équipée, salle à manger spacieuse et chambres authentiques avec poutres apparentes.",
+                price: 1700,
+                capacity: 14,
+                bedrooms: 4,
+                bathrooms: 3,
+                location: "Zac de Pont Café, Ste Luce",
+                gps: "14.4686, -61.0553",
+                amenities: ["piscine", "vue-mer", "plage", "wifi", "cuisine"],
+                photos: [
+                    "./images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 6,
+                name: "Villa F6 Petit Macabou",
+                description: "Villa F6 événementielle d'exception à Petit Macabou. Vue aérienne spectaculaire jour/nuit, 3 chambres climatisées + mezzanine + 2 studios indépendants. Fêtes autorisées jusqu'à 150 convives avec terrasses multiples et piscine XXL.",
+                price: 2000,
+                capacity: 13,
+                bedrooms: 3,
+                bathrooms: 3,
+                location: "Petit Macabou au Vauclin",
+                gps: "14.5428, -60.8357",
+                amenities: ["piscine", "wifi", "terrasse", "vue-mer", "jacuzzi"],
+                photos: [
+                    "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+                    "./images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+                    "./images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 7,
+                name: "Villa F7 Baie des Mulets",
+                description: "Villa F7 prestige à la Baie des Mulets avec véranda salle à manger en bambou et coin détente avec fauteuils suspendus uniques. Design moderne blanc épuré avec chambre principale aux couleurs vives bleu-jaune. Fêtes autorisées jusqu'à 160 convives.",
+                price: 2200,
+                capacity: 16,
+                bedrooms: 5,
+                bathrooms: 4,
+                location: "Baie des Mulets, Vauclin",
+                gps: "14.5428, -60.8357",
+                amenities: ["piscine", "vue-mer", "wifi", "terrasse", "jardin"],
+                photos: [
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/veranda_salle_a_manger_bambou.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/coin_detente_fauteuils_suspendus.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 8,
+                name: "Villa F3 Trinité (Cosmy)",
+                description: "Villa F3 Cosmy à La Trinité avec double vue exceptionnelle : piscine chauffée vue collines et panorama océan. Décoration tropicale turquoise et bleue avec cuisine américaine bois et salon cosy avec coussins turquoise.",
+                price: 670,
+                capacity: 5,
+                bedrooms: 2,
+                bathrooms: 2,
+                location: "Cosmy, Trinité Martinique",
+                gps: "14.7394, -60.9693",
+                amenities: ["piscine", "vue-mer", "wifi", "cuisine"],
+                photos: [
+                    "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/piscine_vue_panoramique_ocean.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/cuisine_americaine_jaune_bois.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/chambre_1_linge_tropical_turquoise.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/chambre_2_bleu_blanc_tapis_moelleux.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 9,
+                name: "Villa F3 Le Robert",
+                description: "Villa F3 au Robert avec piscine rectangulaire moderne et équipements complets. Cuisine ouverte avec plan de travail, salon TV spacieux et magnifique terrasse couverte avec pergola et kitchenette extérieure.",
+                price: 750,
+                capacity: 10,
+                bedrooms: 2,
+                bathrooms: 2,
+                location: "Pointe Hyacinthe, Robert",
+                gps: "14.6753, -60.9398",
+                amenities: ["piscine", "wifi", "cuisine", "terrasse", "tv"],
+                photos: [
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/terrasse_couverte_pergola_kitchenette.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 10,
+                name: "Villa F5 R.Pilote",
+                description: "Villa F5 à La Renée avec piscine sur terrasse bois entourée de palmiers tropicaux. Design audacieux avec salon cuir noir sous plafond vert unique, terrasse hamacs pour la détente et cuisine bois clair moderne.",
+                price: 900,
+                capacity: 10,
+                bedrooms: 3,
+                bathrooms: 2,
+                location: "Quartier La Renée, Rivière-Pilote",
+                gps: "14.4172, -60.8945",
+                amenities: ["piscine", "wifi", "terrasse", "cuisine", "jardin"],
+                photos: [
+                    "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
+                    "./images/Villa_F5_R_Pilote_La_Renee/terrasse_hamacs_salon_exterieur.jpg",
+                    "./images/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg",
+                    "./images/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 11,
+                name: "Villa F3 Le François",
+                description: "Villa F3 au François avec terrasse piscine et vue mer panoramique spectaculaire. Design coloré avec cuisine bleue équipée, chambre moderne et salon extérieur détente avec vue aérienne exceptionnelle.",
+                price: 950,
+                capacity: 6,
+                bedrooms: 2,
+                bathrooms: 2,
+                location: "Le François, Martinique",
+                gps: "14.6207, -60.9067",
+                amenities: ["piscine", "vue-mer", "wifi", "cuisine", "terrasse"],
+                photos: [
+                    "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                    "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
+                    "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg",
+                    "./images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg",
+                    "./images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg",
+                    "./images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg",
+                    "./images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 12,
+                name: "Villa F5 Vauclin Ravine Plate",
+                description: "Villa F5 moderne au Vauclin avec piscine à débordement et vue panoramique sur les collines. Architecture contemporaine avec poutres apparentes, cuisine granite et suite parentale avec salle de bain attenante.",
+                price: 1200,
+                capacity: 10,
+                bedrooms: 3,
+                bathrooms: 2,
+                location: "Ravine Plate, Vauclin",
+                gps: "14.5428, -60.8357",
+                amenities: ["piscine", "vue-mer", "wifi", "cuisine", "terrasse"],
+                photos: [
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/cuisine_equipee_bois_fonce_granite.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_1_poutres_apparentes_orange.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_2_suite_parentale_sdb_attenante.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 13,
+                name: "Bas Villa F3 Ste Luce",
+                description: "Bas Villa F3 à Sainte-Luce avec terrasse couverte et éclairage LED ambiance unique. Équipements modernes avec salon TV, salle de bain contemporaine, chambre climatisée et terrasse lounge pour la détente.",
+                price: 470,
+                capacity: 4,
+                bedrooms: 1,
+                bathrooms: 1,
+                location: "Sainte-Luce",
+                gps: "14.4686, -61.0553",
+                amenities: ["wifi", "tv", "climatisation", "terrasse"],
+                photos: [
+                    "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 14,
+                name: "Villa F3 Trenelle",
+                description: "Villa F3 à Trenelle pour location longue durée, entièrement équipée avec salon salle à manger spacieux, espace détente confortable, cuisine moderne avec évier et entrée accueillante.",
+                price: 800,
+                capacity: 6,
+                bedrooms: 2,
+                bathrooms: 2,
+                location: "Trenelle, Location Annuelle",
+                gps: "14.6097, -61.0242",
+                amenities: ["wifi", "cuisine", "tv", "parking"],
+                photos: [
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 15,
                 name: "Studio Cocooning Lamentin",
-                description: "Studio cocooning romantique au Morne Pitault au Lamentin, avec vue panoramique sur la baie de Fort-de-France.",
+                description: "Studio cocooning romantique au Morne Pitault au Lamentin, avec vue panoramique sur la baie de Fort-de-France. Parfait pour couples avec jacuzzi privé, cuisine moderne et chambre au décor zen.",
                 price: 290,
                 capacity: 2,
                 bedrooms: 1,
                 bathrooms: 1,
                 location: "Morne Pitault, Lamentin",
                 gps: "14.6097, -61.0242",
-                amenities: ["jacuzzi", "wifi", "vue-mer", "cuisine"],
+                amenities: ["jacuzzi", "vue-mer", "wifi", "cuisine"],
                 photos: [
-                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg"
+                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                    "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg",
+                    "./images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg",
+                    "./images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg",
+                    "./images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg",
+                    "./images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 16,
+                name: "Espace Piscine Journée Bungalow",
+                description: "Espace piscine journée avec bungalow créole authentique et véranda traditionnelle. Studio intérieur avec kitchenette pour vos repas en journée dans un cadre tropical unique.",
+                price: 150,
+                capacity: 8,
+                bedrooms: 1,
+                bathrooms: 1,
+                location: "Martinique",
+                gps: "14.6415, -61.0242",
+                amenities: ["piscine", "cuisine", "terrasse"],
+                photos: [
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 17,
+                name: "Villa Fête Ducos",
+                description: "Villa fête à Ducos avec piscine équipée de jouets gonflables et bar extérieur gazebo. Parfaite pour événements avec terrasse couverte salon, mobilier extérieur et jardin parasol détente.",
+                price: 200,
+                capacity: 25,
+                bedrooms: 2,
+                bathrooms: 2,
+                location: "Ducos, Martinique",
+                gps: "14.7394, -60.8945",
+                amenities: ["piscine", "barbecue", "terrasse", "jardin"],
+                photos: [
+                    "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 18,
+                name: "Villa Fête Fort-de-France",
+                description: "Villa événementielle à Fort-de-France avec piscine panoramique et décor zen avec statues Buddha. Architecture coloniale authentique avec véranda à arches, terrasse à colonnes et cuisine moderne équipée.",
+                price: 250,
+                capacity: 30,
+                bedrooms: 3,
+                bathrooms: 2,
+                location: "Fort-de-France, Martinique",
+                gps: "14.6415, -61.0574",
+                amenities: ["piscine", "vue-mer", "terrasse", "cuisine", "jardin"],
+                photos: [
+                    "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 19,
+                name: "Villa Fête Rivière-Pilote",
+                description: "Villa fête créole à Rivière-Pilote avec piscine tropicale vue panoramique. Architecture authentique avec salle à manger intérieure, cuisine moderne équipée et terrasse pierre donnant sur piscine.",
+                price: 180,
+                capacity: 20,
+                bedrooms: 2,
+                bathrooms: 2,
+                location: "Rivière-Pilote, Martinique",
+                gps: "14.4172, -60.8945",
+                amenities: ["piscine", "cuisine", "terrasse", "vue-mer"],
+                photos: [
+                    "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/06_terrasse_pierre_piscine.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 20,
+                name: "Villa Fête Sainte-Luce",
+                description: "Villa fête moderne à Sainte-Luce avec piscine et terrasse aménagée. Équipements événementiels complets avec tentes blanches, mobilier professionnel et décorations anniversaire pour célébrations mémorables.",
+                price: 220,
+                capacity: 35,
+                bedrooms: 3,
+                bathrooms: 2,
+                location: "Sainte-Luce, Martinique",
+                gps: "14.4686, -61.0553",
+                amenities: ["piscine", "terrasse", "cuisine", "jardin"],
+                photos: [
+                    "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg"
+                ],
+                status: "active",
+                created: new Date().toISOString(),
+                updated: new Date().toISOString()
+            },
+            {
+                id: 21,
+                name: "Villa Fête Rivière-Salée",
+                description: "Villa fête à Rivière-Salée avec piscine et tente couverte pour événements intimistes. Parfaite pour petites célébrations familiales ou entre amis dans un cadre convivial et protégé.",
+                price: 160,
+                capacity: 15,
+                bedrooms: 2,
+                bathrooms: 1,
+                location: "Rivière-Salée, Martinique",
+                gps: "14.4172, -60.8945",
+                amenities: ["piscine", "terrasse"],
+                photos: [
+                    "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
