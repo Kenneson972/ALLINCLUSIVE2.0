@@ -324,11 +324,12 @@
             }
 
             async authenticate() {
+                const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
                 const loginBtn = document.getElementById('loginBtn');
 
-                if (!password.trim()) {
-                    this.showError('Veuillez saisir le mot de passe');
+                if (!username.trim() || !password.trim()) {
+                    this.showError('Veuillez saisir l\'identifiant et le mot de passe');
                     return;
                 }
 
@@ -339,10 +340,11 @@
                 // Simulate network delay for security
                 await new Promise(resolve => setTimeout(resolve, 800));
 
-                if (password === this.adminPassword) {
+                if (username === this.adminUsername && password === this.adminPassword) {
                     // Success
                     sessionStorage.setItem('admin_access', 'true');
                     sessionStorage.setItem('admin_login_time', new Date().toISOString());
+                    sessionStorage.setItem('admin_user', username);
                     
                     // Clear failed attempts
                     localStorage.removeItem('admin_failed_attempts');
@@ -357,7 +359,11 @@
                 } else {
                     // Failed attempt
                     this.handleFailedAttempt();
-                    this.showError('Mot de passe incorrect');
+                    if (username !== this.adminUsername) {
+                        this.showError('Identifiant incorrect');
+                    } else {
+                        this.showError('Mot de passe incorrect');
+                    }
                     
                     // Reset form
                     loginBtn.classList.remove('loading');
