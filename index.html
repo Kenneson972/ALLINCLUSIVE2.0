@@ -2311,22 +2311,20 @@
             }).join('');
         }
 
-        // Modale de réservation
+        // Redirection vers page de réservation moderne
         function openReservationModal(villaId) {
-            currentVilla = villasData.find(v => v.id === villaId);
-            document.getElementById('modalVillaName').textContent = `Réservation - ${currentVilla.name}`;
-            document.getElementById('reservationModal').classList.add('active');
-            
-            // Pré-remplir les dates si déjà sélectionnées
-            const checkinValue = document.getElementById('checkin').value;
-            const checkoutValue = document.getElementById('checkout').value;
-            const guestsValue = document.getElementById('guests').value;
-            
-            if (checkinValue) modalCheckinCalendar.setDate(checkinValue);
-            if (checkoutValue) modalCheckoutCalendar.setDate(checkoutValue);
-            if (guestsValue) document.getElementById('modalGuests').value = guestsValue;
-            
-            calculatePrice();
+            const villa = villasData.find(v => v.id === villaId);
+            if (villa) {
+                // Construire l'URL avec les paramètres de la villa
+                const params = new URLSearchParams({
+                    villa: villa.name,
+                    price: villa.price,
+                    location: villa.location
+                });
+                
+                // Rediriger vers la page de réservation
+                window.location.href = `reservation.html?${params.toString()}`;
+            }
         }
 
         function closeReservationModal() {
