@@ -1423,15 +1423,30 @@
             const villaId = urlParams.get('id');
             
             console.log("Requested villa ID:", villaId);
-            console.log("Available villas:", Object.keys(villas));
             
-            if (!villaId || !villas[villaId]) {
+            // Check if admin data is available (updated from admin panel)
+            const adminData = localStorage.getItem('villa_details_data');
+            let villasToUse = villas;
+            
+            if (adminData) {
+                try {
+                    const parsedAdminData = JSON.parse(adminData);
+                    console.log("🔄 Using updated data from admin panel");
+                    villasToUse = parsedAdminData;
+                } catch (error) {
+                    console.error("Error parsing admin data:", error);
+                }
+            }
+            
+            console.log("Available villas:", Object.keys(villasToUse));
+            
+            if (!villaId || !villasToUse[villaId]) {
                 console.log("Villa not found");
                 showError();
                 return;
             }
             
-            loadVilla(villas[villaId], villaId);
+            loadVilla(villasToUse[villaId], villaId);
         });
     </script>
 </body>
