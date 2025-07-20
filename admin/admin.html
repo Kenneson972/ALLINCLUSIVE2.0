@@ -807,6 +807,73 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // ============ AUTHENTICATION SECURITY ============
+        
+        // Get backend URL from environment
+        const BACKEND_URL = window.location.origin;
+        
+        // Check authentication immediately
+        async function checkAuthentication() {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                alert('❌ Accès non autorisé. Veuillez vous connecter.');
+                window.location.href = 'login.html';
+                return false;
+            }
+            
+            try {
+                // Verify token with backend
+                const response = await fetch(`${BACKEND_URL}/api/admin/verify-token`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(token)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Token invalide');
+                }
+                
+                const data = await response.json();
+                if (!data.valid) {
+                    throw new Error('Token invalide');
+                }
+                
+                // Display username in header if available
+                const username = localStorage.getItem('admin_username');
+                if (username) {
+                    const userDisplay = document.querySelector('.sidebar-header p');
+                    if (userDisplay) {
+                        userDisplay.innerHTML = `Connecté en tant que: <strong>${username}</strong>`;
+                    }
+                }
+                
+                return true;
+            } catch (error) {
+                console.error('❌ Authentication failed:', error);
+                alert('❌ Session expirée. Veuillez vous reconnecter.');
+                localStorage.removeItem('admin_token');
+                localStorage.removeItem('admin_username');
+                window.location.href = 'login.html';
+                return false;
+            }
+        }
+        
+        // Add logout functionality
+        function logout() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                localStorage.removeItem('admin_token');
+                localStorage.removeItem('admin_username');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // Make authentication check run immediately
+        checkAuthentication();
+        
+        // ============ VILLA DATA ============
+        
         // Données des 21 villas pour l'admin
         const villasData = [
             {
