@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanelConcept - Connexion Admin</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            min-height: 100vh;
+            font-family: 'Inter', 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2.5rem;
+            border: none;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header .logo {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header h2 {
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e2e8f0;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            color: white;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            border-radius: 10px;
+            border: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .security-note {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .security-note small {
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+        }
+
+        .security-note i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link a:hover {
+            opacity: 0.8;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn-login.loading {
+            pointer-events: none;
+        }
+
+        .btn-login.loading .loading {
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .login-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .login-header .logo {
+                font-size: 2rem;
+            }
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 3px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .strength-weak { background: #ef4444; width: 33%; }
+        .strength-medium { background: #f59e0b; width: 66%; }
+        .strength-strong { background: #22c55e; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="card login-card">
+                <div class="login-header">
+                    <div class="logo">
+                        <i class="fas fa-villa"></i>
+                    </div>
+                    <h2>Administration</h2>
+                    <p>KhanelConcept - Gestion des villas</p>
+                </div>
+
+                <div id="loginAlert" class="alert alert-danger" style="display: none;">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span id="loginAlertMessage"></span>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-floating mb-3">
+                        <input type="text" 
+                               class="form-control" 
+                               id="username" 
+                               placeholder="Identifiant"
+                               value="khanel"
+                               required>
+                        <label for="username">
+                            <i class="fas fa-user me-2"></i>Identifiant
+                        </label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="password" 
+                               class="form-control" 
+                               id="password" 
+                               placeholder="Mot de passe"
+                               required>
+                        <label for="password">
+                            <i class="fas fa-lock me-2"></i>Mot de passe
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-login" id="loginBtn">
+                        <i class="fas fa-sign-in-alt me-2"></i>
+                        Se connecter
+                        <div class="loading"></div>
+                    </button>
+                </form>
+
+                <div class="security-note">
+                    <small>
+                        <i class="fas fa-shield-alt"></i>
+                        Accès sécurisé réservé aux administrateurs autorisés
+                    </small>
+                </div>
+            </div>
+
+            <div class="back-link">
+                <a href="../index.html">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Retour au site principal
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        class AdminLogin {
+            constructor() {
+                // Admin credentials - Change this in production!
+                this.adminUsername = "khanel";
+                this.adminPassword = "khanel-admin-2025";
+                this.maxAttempts = 3;
+                this.lockoutTime = 5 * 60 * 1000; // 5 minutes
+                
+                this.init();
+            }
+
+            init() {
+                // Check if already logged in
+                if (sessionStorage.getItem('admin_access') === 'true') {
+                    window.location.href = 'admin.html';
+                    return;
+                }
+
+                // Check if locked out
+                if (this.isLockedOut()) {
+                    this.showLockoutMessage();
+                    return;
+                }
+
+                this.setupEventListeners();
+                this.focusPasswordField();
+            }
+
+            setupEventListeners() {
+                const form = document.getElementById('loginForm');
+                const passwordField = document.getElementById('password');
+
+                // Form submission
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.authenticate();
+                });
+
+                // Enter key handling
+                passwordField.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.authenticate();
+                    }
+                });
+
+                // Clear errors on input
+                passwordField.addEventListener('input', () => {
+                    this.clearError();
+                });
+
+                // Auto-focus on page load
+                passwordField.addEventListener('focus', () => {
+                    this.clearError();
+                });
+            }
+
+            async authenticate() {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const loginBtn = document.getElementById('loginBtn');
+
+                if (!username.trim() || !password.trim()) {
+                    this.showError('Veuillez saisir l\'identifiant et le mot de passe');
+                    return;
+                }
+
+                // Show loading
+                loginBtn.classList.add('loading');
+                loginBtn.disabled = true;
+
+                // Simulate network delay for security
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                if (username === this.adminUsername && password === this.adminPassword) {
+                    // Success
+                    sessionStorage.setItem('admin_access', 'true');
+                    sessionStorage.setItem('admin_login_time', new Date().toISOString());
+                    sessionStorage.setItem('admin_user', username);
+                    
+                    // Clear failed attempts
+                    localStorage.removeItem('admin_failed_attempts');
+                    localStorage.removeItem('admin_lockout_time');
+
+                    this.showSuccess();
+                    
+                    // Redirect after short delay
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 1000);
+                } else {
+                    // Failed attempt
+                    this.handleFailedAttempt();
+                    if (username !== this.adminUsername) {
+                        this.showError('Identifiant incorrect');
+                    } else {
+                        this.showError('Mot de passe incorrect');
+                    }
+                    
+                    // Reset form
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
+                }
+            }
+
+            handleFailedAttempt() {
+                const attempts = this.getFailedAttempts() + 1;
+                localStorage.setItem('admin_failed_attempts', attempts.toString());
+                localStorage.setItem('admin_last_attempt', new Date().toISOString());
+
+                if (attempts >= this.maxAttempts) {
+                    // Lock out user
+                    const lockoutUntil = new Date(Date.now() + this.lockoutTime).toISOString();
+                    localStorage.setItem('admin_lockout_time', lockoutUntil);
+                    this.showLockoutMessage();
+                } else {
+                    const remaining = this.maxAttempts - attempts;
+                    this.showError(`Mot de passe incorrect. ${remaining} tentative(s) restante(s)`);
+                }
+            }
+
+            getFailedAttempts() {
+                return parseInt(localStorage.getItem('admin_failed_attempts') || '0');
+            }
+
+            isLockedOut() {
+                const lockoutTime = localStorage.getItem('admin_lockout_time');
+                if (!lockoutTime) return false;
+
+                const lockoutUntil = new Date(lockoutTime);
+                const now = new Date();
+
+                if (now < lockoutUntil) {
+                    return true;
+                } else {
+                    // Lockout expired, clear data
+                    localStorage.removeItem('admin_lockout_time');
+                    localStorage.removeItem('admin_failed_attempts');
+                    return false;
+                }
+            }
+
+            showLockoutMessage() {
+                const lockoutTime = localStorage.getItem('admin_lockout_time');
+                const lockoutUntil = new Date(lockoutTime);
+                const now = new Date();
+                const minutes = Math.ceil((lockoutUntil - now) / (1000 * 60));
+
+                this.showError(`Trop de tentatives échouées. Réessayez dans ${minutes} minute(s).`);
+                
+                // Disable form
+                document.getElementById('password').disabled = true;
+                document.getElementById('loginBtn').disabled = true;
+
+                // Auto-refresh when lockout expires
+                setTimeout(() => {
+                    location.reload();
+                }, (lockoutUntil - now));
+            }
+
+            showError(message) {
+                const alert = document.getElementById('loginAlert');
+                const alertMessage = document.getElementById('loginAlertMessage');
+                
+                alertMessage.textContent = message;
+                alert.className = 'alert alert-danger';
+                alert.style.display = 'block';
+
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    this.clearError();
+                }, 5000);
+            }
+
+            showSuccess() {
+                const alert = document.getElementById('loginAlert');
+                const alertMessage = document.getElementById('loginAlertMessage');
+                
+                alertMessage.innerHTML = '<i class="fas fa-check-circle me-2"></i>Connexion réussie !';
+                alert.className = 'alert alert-success';
+                alert.style.display = 'block';
+            }
+
+            clearError() {
+                const alert = document.getElementById('loginAlert');
+                alert.style.display = 'none';
+            }
+
+            focusPasswordField() {
+                setTimeout(() => {
+                    document.getElementById('password').focus();
+                }, 100);
+            }
+
+            // Security features
+            checkBrowserSecurity() {
+                // Warn if not HTTPS (in production)
+                if (location.protocol !== 'https:' && location.hostname !== 'localhost') {
+                    console.warn('Admin panel should be served over HTTPS in production');
+                }
+
+                // Disable right-click context menu
+                document.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                });
+
+                // Disable F12 and other dev tools shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'F12' || 
+                        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+                        (e.ctrlKey && e.key === 'u')) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        }
+
+        // Initialize login when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdminLogin();
+        });
+
+        // Session management
+        window.addEventListener('beforeunload', () => {
+            // Optional: Clear session on browser close
+            // sessionStorage.removeItem('admin_access');
+        });
+
+        // Auto-logout after inactivity (optional)
+        let inactivityTimer;
+        const INACTIVITY_TIME = 30 * 60 * 1000; // 30 minutes
+
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                if (sessionStorage.getItem('admin_access') === 'true') {
+                    sessionStorage.removeItem('admin_access');
+                    alert('Session expirée pour des raisons de sécurité');
+                    location.reload();
+                }
+            }, INACTIVITY_TIME);
+        }
+
+        // Track user activity
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+            document.addEventListener(event, resetInactivityTimer, true);
+        });
+    </script>
+</body>
+</html>
