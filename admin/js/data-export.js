@@ -412,3 +412,12 @@ function resetData() {
         }
     }
 }
+
+// Synchronization functions
+function syncWithMainSite() {
+    if (window.app && window.app.syncManager) {
+        window.app.syncManager.syncWithMainSite();
+    } else {
+        console.error('Sync manager not available');
+    }
+}
