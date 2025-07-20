@@ -920,9 +920,16 @@
         
         // Add logout functionality
         function logout() {
-            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+            const envMessage = IS_GITHUB_PAGES ? 
+                'Êtes-vous sûr de vouloir vous déconnecter de GitHub Pages ?' :
+                'Êtes-vous sûr de vouloir vous déconnecter ?';
+                
+            if (confirm(envMessage)) {
                 localStorage.removeItem('admin_token');
                 localStorage.removeItem('admin_username');
+                localStorage.removeItem('admin_login_time');
+                localStorage.removeItem('auth_env');
+                console.log('🚪 Déconnexion réussie');
                 window.location.href = 'login.html';
             }
         }
