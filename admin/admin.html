@@ -362,7 +362,7 @@
 
         /* Form Controls */
         .form-control, .form-select {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
             border-radius: 12px;
@@ -373,7 +373,7 @@
         }
 
         .form-control:focus, .form-select:focus {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             border-color: rgba(255, 255, 255, 0.5);
             color: white;
             box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
@@ -382,6 +382,23 @@
         .form-label {
             color: white;
             font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        /* Modal form controls - plus lisibles */
+        .modal-body .form-control,
+        .modal-body .form-select {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .modal-body .form-control:focus,
+        .modal-body .form-select:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #4facfe;
+            color: white;
+            box-shadow: 0 0 0 0.25rem rgba(79, 172, 254, 0.25);
         }
 
         /* Toast */
