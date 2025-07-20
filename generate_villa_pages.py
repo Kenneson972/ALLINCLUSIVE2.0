@@ -1205,15 +1205,23 @@ def create_villa_detail_page(villa):
 </body>
 </html>"""
 
-    # Générer les images de la galerie
-    image_folder = Path(f"/app/images/{villa['folder']}")
+    # Découvrir automatiquement les images de la villa
     image_files = []
+    discovered_images = discover_villa_images(villa['folder'])
     
-    if image_folder.exists():
-        # Récupérer tous les fichiers image (excluant les informations)
-        for img_file in image_folder.glob("*.jpg"):
-            if "information" not in img_file.name.lower() and "tarif" not in img_file.name.lower():
-                image_files.append(img_file.name)
+    if discovered_images:
+        # Extraire juste les noms de fichiers des chemins complets
+        for img_path in discovered_images:
+            img_filename = img_path.split('/')[-1]  # Récupère juste le nom de fichier
+            image_files.append(img_filename)
+    
+    # Si aucune image trouvée, utiliser la méthode de fallback
+    if not image_files:
+        image_folder = Path(f"/app/images/{villa['folder']}")
+        if image_folder.exists():
+            for img_file in image_folder.glob("*.jpg"):
+                if "information" not in img_file.name.lower() and "tarif" not in img_file.name.lower():
+                    image_files.append(img_file.name)
     
     # Trier les images par numéro si possible
     image_files.sort()
