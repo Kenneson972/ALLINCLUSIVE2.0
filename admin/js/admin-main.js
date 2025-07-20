@@ -17,6 +17,7 @@ class AdminApp {
         // Initialize managers
         this.villaManager = new VillaManager(this);
         this.exportManager = new DataExportManager(this);
+        this.syncManager = new SyncManager(this);
         
         // Initialize image handler
         window.imageHandler = new ImageHandler(this);
