@@ -1570,6 +1570,21 @@
             }
         }
 
+        // Fonction pour vider le cache
+        function clearCache() {
+            if (confirm('Voulez-vous vider le cache de l\'application ?')) {
+                try {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    showToast('Cache vidé avec succès !', 'success');
+                    console.log('✅ Cache cleared');
+                } catch (error) {
+                    showToast('Erreur lors du vidage du cache', 'error');
+                    console.error('❌ Error clearing cache:', error);
+                }
+            }
+        }
+
         console.log("🎉 KhanelConcept Advanced Admin Ready - 21 villas loaded!");
     </script>
         // Données des 21 villas pour l'admin
