@@ -724,6 +724,34 @@ class AdminApp {
         }
     }
 
+    previewVilla(villaId) {
+        const villa = this.villas.find(v => v.id === villaId);
+        if (!villa) return;
+
+        // Open villa details in new tab/window
+        const url = `../villa-details.html?id=${villaId}`;
+        window.open(url, '_blank');
+    }
+
+    getAmenityIcon(amenity) {
+        const iconMap = {
+            'piscine': '🏊',
+            'wifi': '📶',
+            'climatisation': '❄️',
+            'vue-mer': '🌊',
+            'parking': '🚗',
+            'cuisine': '🍳',
+            'terrasse': '🏖️',
+            'barbecue': '🔥',
+            'jacuzzi': '🛁',
+            'plage': '🏖️',
+            'jardin': '🌳',
+            'tv': '📺',
+            'sauna': '🧖‍♀️'
+        };
+        return iconMap[amenity] || '✨';
+    }
+
     updateDashboard() {
         // Update stats
         document.getElementById('totalVillas').textContent = this.villas.length;
