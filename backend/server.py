@@ -56,6 +56,9 @@ app.mount("/images", StaticFiles(directory="../images"), name="images")
 # Servir les fichiers statiques de l'admin
 app.mount("/admin", StaticFiles(directory="../admin", html=True), name="admin")
 
+# Servir les fichiers statiques du site principal
+app.mount("/", StaticFiles(directory="../", html=True), name="main_site")
+
 # ========== MODELS ==========
 
 class Villa(BaseModel):
