@@ -3076,6 +3076,7 @@
             optimizeForTouch();
             preventIOSZoom();
             initBackgroundVideoiOS();
+            forceMobileNavigation(); // CRITIQUE : Force masquage nav mobile
             
             // Réinitialiser le menu mobile lors du redimensionnement
             window.addEventListener('resize', function() {
@@ -3085,9 +3086,65 @@
                     navMenu.style.position = '';
                     navMenu.style.background = '';
                     navMenu.style.padding = '';
+                } else {
+                    forceMobileNavigation();
                 }
             });
         });
+        
+        // SOLUTION RADICALE : Force navigation mobile via JavaScript
+        function forceMobileNavigation() {
+            if (window.innerWidth <= 768) {
+                console.log("🔧 FORCE NAVIGATION MOBILE");
+                
+                // Masquer tous les éléments de navigation desktop
+                const navElements = [
+                    '.nav-links',
+                    '.nav-menu', 
+                    'nav.nav-links',
+                    'nav.nav-menu',
+                    '.header-content .nav-links',
+                    '.header-content nav'
+                ];
+                
+                navElements.forEach(selector => {
+                    const elements = document.querySelectorAll(selector);
+                    elements.forEach(el => {
+                        el.style.display = 'none';
+                        el.style.visibility = 'hidden';
+                        el.style.opacity = '0';
+                        el.style.position = 'absolute';
+                        el.style.left = '-9999px';
+                    });
+                });
+                
+                // Forcer l'affichage du bouton hamburger
+                const hamburgerBtn = document.querySelector('.mobile-nav-toggle');
+                if (hamburgerBtn) {
+                    hamburgerBtn.style.display = 'block';
+                    hamburgerBtn.style.visibility = 'visible';
+                    hamburgerBtn.style.opacity = '1';
+                    hamburgerBtn.style.position = 'relative';
+                    hamburgerBtn.style.left = 'auto';
+                    console.log("✅ Bouton hamburger affiché");
+                } else {
+                    console.log("❌ Bouton hamburger non trouvé");
+                }
+                
+                // Forcer layout header mobile
+                const headerContent = document.querySelector('.header-content');
+                if (headerContent) {
+                    headerContent.style.display = 'flex';
+                    headerContent.style.flexDirection = 'row';
+                    headerContent.style.justifyContent = 'space-between';
+                    headerContent.style.alignItems = 'center';
+                    headerContent.style.textAlign = 'left';
+                    console.log("✅ Header layout mobile forcé");
+                }
+                
+                console.log("🎯 Navigation mobile forcée via JavaScript");
+            }
+        }
         
         // Correction vidéo background pour iOS
         function initBackgroundVideoiOS() {
