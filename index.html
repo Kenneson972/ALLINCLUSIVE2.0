@@ -2741,17 +2741,62 @@
                 closeImageGallery();
             }
         }
-        // Navigation mobile
+        // Navigation mobile intelligente
         function toggleMobileMenu() {
             const navMenu = document.querySelector('.nav-menu');
             const toggle = document.querySelector('.mobile-nav-toggle i');
             
             if (navMenu.classList.contains('mobile-open')) {
-                navMenu.classList.remove('mobile-open');
-                toggle.className = 'fas fa-bars';
+                closeMobileMenu();
             } else {
-                navMenu.classList.add('mobile-open');
-                toggle.className = 'fas fa-times';
+                openMobileMenu();
+            }
+        }
+        
+        function openMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            navMenu.classList.add('mobile-open');
+            toggle.className = 'fas fa-times';
+            
+            // Fermer le menu lors du clic sur un lien
+            const menuLinks = navMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                    // Petit délai pour voir l'animation avant la navigation
+                    setTimeout(() => {
+                        // Exécuter l'action du lien si nécessaire
+                        if (link.getAttribute('onclick')) {
+                            eval(link.getAttribute('onclick'));
+                        }
+                    }, 200);
+                });
+            });
+            
+            // Fermer le menu si clic à l'extérieur
+            setTimeout(() => {
+                document.addEventListener('click', handleOutsideClick);
+            }, 100);
+        }
+        
+        function closeMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            navMenu.classList.remove('mobile-open');
+            toggle.className = 'fas fa-bars';
+            
+            document.removeEventListener('click', handleOutsideClick);
+        }
+        
+        function handleOutsideClick(event) {
+            const navMenu = document.querySelector('.nav-menu');
+            const toggleBtn = document.querySelector('.mobile-nav-toggle');
+            
+            if (!navMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                closeMobileMenu();
             }
         }
         
