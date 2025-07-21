@@ -3073,7 +3073,67 @@
             }
         }
         
-        // Amélioration du scroll mobile
+        // Configuration tactile spéciale mobile pour INDEX
+        function setupMobileDateFieldsIndex() {
+            const isMobile = window.innerWidth <= 768;
+            if (!isMobile) return;
+            
+            console.log("🔧 Configuration tactile mobile INDEX");
+            
+            const checkinField = document.getElementById('checkin');
+            const checkoutField = document.getElementById('checkout');
+            
+            [checkinField, checkoutField].forEach(field => {
+                if (field) {
+                    console.log("📱 Configuration tactile pour:", field.id);
+                    
+                    // Supprimer readonly pour permettre le focus
+                    field.removeAttribute('readonly');
+                    
+                    // Événement touchstart pour iOS
+                    field.addEventListener('touchstart', function(e) {
+                        console.log("👆 Touch détecté sur", this.id);
+                        e.preventDefault();
+                        
+                        // Force l'ouverture du calendrier
+                        setTimeout(() => {
+                            if (this.id === 'checkin' && checkinCalendar) {
+                                console.log("📅 Ouverture calendrier arrivée");
+                                checkinCalendar.open();
+                            } else if (this.id === 'checkout' && checkoutCalendar) {
+                                console.log("📅 Ouverture calendrier départ");
+                                checkoutCalendar.open();
+                            }
+                        }, 100);
+                    }, { passive: false });
+                    
+                    // Événement click pour compatibilité
+                    field.addEventListener('click', function(e) {
+                        console.log("🖱️ Clic détecté sur", this.id);
+                        e.preventDefault();
+                        
+                        if (this.id === 'checkin' && checkinCalendar) {
+                            checkinCalendar.open();
+                        } else if (this.id === 'checkout' && checkoutCalendar) {
+                            checkoutCalendar.open();
+                        }
+                    });
+                    
+                    // Événement focus
+                    field.addEventListener('focus', function() {
+                        console.log("🎯 Focus sur", this.id);
+                        
+                        setTimeout(() => {
+                            if (this.id === 'checkin' && checkinCalendar) {
+                                checkinCalendar.open();
+                            } else if (this.id === 'checkout' && checkoutCalendar) {
+                                checkoutCalendar.open();
+                            }
+                        }, 50);
+                    });
+                }
+            });
+        }
         function smoothScrollMobile(elementId, offset = 100) {
             const element = document.getElementById(elementId);
             if (element && window.innerWidth <= 768) {
