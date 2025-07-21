@@ -2369,6 +2369,9 @@
                     
                     console.log("✅ Calendriers initialisés avec succès !");
                     
+                    // CORRECTION MOBILE : Ajouter événements tactiles
+                    setupMobileDateFieldsIndex();
+                    
                     // Test d'ouverture forcée au clic
                     checkinElement.addEventListener('click', function(e) {
                         console.log("🖱️ Clic sur arrivée");
