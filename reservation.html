@@ -900,7 +900,57 @@
             setupFormValidation();
             setupCheckboxes();
             updateSummary();
+            optimizeForMobile();
         });
+        
+        // Optimisations mobile pour la réservation
+        function optimizeForMobile() {
+            if (window.innerWidth <= 768) {
+                // Améliorer feedback tactile
+                const buttons = document.querySelectorAll('button, .btn, [onclick]');
+                buttons.forEach(btn => {
+                    btn.addEventListener('touchstart', function() {
+                        this.style.transform = 'scale(0.95)';
+                        this.style.transition = 'transform 0.1s ease';
+                    });
+                    
+                    btn.addEventListener('touchend', function() {
+                        this.style.transform = 'scale(1)';
+                    });
+                });
+                
+                // Prévenir zoom iOS
+                const inputs = document.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    input.style.fontSize = '16px';
+                });
+                
+                // Améliorer les counters pour mobile
+                optimizeMobileCounters();
+            }
+        }
+        
+        function optimizeMobileCounters() {
+            const counterBtns = document.querySelectorAll('.counter-btn');
+            counterBtns.forEach(btn => {
+                // Ajouter feedback tactile spécifique aux counters
+                btn.addEventListener('touchstart', function(e) {
+                    e.preventDefault(); // Éviter double tap
+                    this.style.transform = 'scale(0.9)';
+                    this.style.boxShadow = '0 2px 8px rgba(246, 173, 85, 0.5)';
+                });
+                
+                btn.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '';
+                    
+                    // Petit délai pour éviter les clics multiples
+                    setTimeout(() => {
+                        this.style.pointerEvents = 'auto';
+                    }, 200);
+                });
+            });
+        }
 
         // Villa data loading from URL
         function loadVillaFromURL() {
