@@ -1076,7 +1076,175 @@
             animation: fadeIn 0.5s ease-in-out;
         }
         
-        /* Responsive Design */
+        /* ===========================================
+           OPTIMISATIONS MOBILE RESPONSIVE
+           ========================================= */
+        
+        /* Navigation mobile améliorée */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0.75rem 0;
+            }
+            
+            .nav-menu {
+                display: none; /* Masquer nav sur mobile pour plus de place */
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                padding: 0.5rem;
+                cursor: pointer;
+            }
+        }
+        
+        /* Formulaire de recherche mobile */
+        @media (max-width: 768px) {
+            .search-section {
+                padding: 1.5rem !important;
+            }
+            
+            .search-form {
+                padding: 1.5rem !important;
+            }
+            
+            .search-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .search-group input,
+            .search-group select {
+                height: 50px !important;
+                font-size: 16px !important;
+                padding: 0 1rem !important;
+            }
+            
+            .btn-primary {
+                height: 50px !important;
+                font-size: 1rem !important;
+                padding: 0 2rem !important;
+            }
+        }
+        
+        /* Cartes villas mobile */
+        @media (max-width: 768px) {
+            .villas-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+                padding: 0 1rem !important;
+            }
+            
+            .villa-card {
+                max-width: none !important;
+                margin: 0 !important;
+            }
+            
+            .villa-image {
+                height: 220px !important;
+            }
+            
+            .villa-info {
+                padding: 1.5rem !important;
+            }
+            
+            .villa-name {
+                font-size: 1.3rem !important;
+                line-height: 1.4 !important;
+            }
+            
+            .villa-location,
+            .villa-details,
+            .villa-features {
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            .villa-actions {
+                gap: 0.75rem !important;
+                margin-top: 1.5rem !important;
+            }
+            
+            .villa-actions .btn {
+                height: 50px !important;
+                font-size: 1rem !important;
+                padding: 0 1.5rem !important;
+                min-width: 120px !important;
+            }
+            
+            .price-tag {
+                font-size: 1.4rem !important;
+                padding: 0.75rem 1rem !important;
+            }
+        }
+        
+        /* Conteneurs principaux mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem !important;
+            }
+            
+            .hero-section {
+                padding: 2rem 0 !important;
+                text-align: center !important;
+            }
+            
+            .hero-title {
+                font-size: 2rem !important;
+                line-height: 1.3 !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem !important;
+                line-height: 1.5 !important;
+            }
+            
+            .section-title {
+                font-size: 1.8rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+        }
+        
+        /* Navigation mobile - ajouter bouton hamburger */
+        @media (min-width: 769px) {
+            .mobile-nav-toggle {
+                display: none;
+            }
+        }
+        
+        /* Optimisations tactiles */
+        @media (max-width: 768px) {
+            /* Zones tactiles minimales */
+            button, .btn, a[role="button"] {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            /* Espacement entre éléments cliquables */
+            .villa-actions .btn + .btn {
+                margin-left: 8px;
+            }
+            
+            /* Améliorer contraste pour lecture mobile */
+            .villa-card {
+                background: rgba(255, 255, 255, 0.12) !important;
+            }
+            
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.15) !important;
+            }
+        }
+        
+        /* Prévention du zoom iOS sur les inputs */
+        @media (max-width: 768px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
