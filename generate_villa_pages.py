@@ -1198,6 +1198,7 @@ def create_villa_detail_page(villa):
             initThumbnails();
             initModalGallery();
             initBackToTop();
+            initBackgroundVideoiOS();
             
             console.log('{name} - Page détail chargée avec succès');
         }});
