@@ -788,9 +788,9 @@ def create_villa_detail_page(villa):
 </head>
 
 <body>
-    <!-- Background Video Cloudinary identique à l'index -->
+    <!-- Background Video Cloudinary avec support iOS -->
     <div class="video-background">
-        <video autoplay muted loop playsinline preload="auto">
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
             <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
