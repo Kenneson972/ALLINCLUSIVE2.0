@@ -2705,7 +2705,94 @@
                 closeImageGallery();
             }
         }
-    </script>
+        // Navigation mobile
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            if (navMenu.style.display === 'block') {
+                navMenu.style.display = 'none';
+                toggle.className = 'fas fa-bars';
+            } else {
+                navMenu.style.display = 'block';
+                navMenu.style.position = 'absolute';
+                navMenu.style.top = '100%';
+                navMenu.style.left = '0';
+                navMenu.style.right = '0';
+                navMenu.style.background = 'rgba(0, 0, 0, 0.9)';
+                navMenu.style.backdropFilter = 'blur(20px)';
+                navMenu.style.padding = '1rem';
+                navMenu.style.borderRadius = '0 0 15px 15px';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.gap = '1rem';
+                toggle.className = 'fas fa-times';
+            }
+        }
+        
+        // Optimisations tactiles pour mobile
+        function optimizeForTouch() {
+            // Améliorer feedback tactile sur tous les boutons
+            const buttons = document.querySelectorAll('button, .btn, [onclick]');
+            
+            buttons.forEach(btn => {
+                // Ajouter des états tactiles
+                btn.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                    this.style.transition = 'transform 0.1s ease';
+                });
+                
+                btn.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                // S'assurer que les boutons ont une taille minimale sur mobile
+                if (window.innerWidth <= 768) {
+                    btn.style.minHeight = '44px';
+                    btn.style.minWidth = '44px';
+                }
+            });
+        }
+        
+        // Prévenir le zoom sur les inputs iOS
+        function preventIOSZoom() {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                if (window.innerWidth <= 768) {
+                    input.style.fontSize = '16px';
+                }
+            });
+        }
+        
+        // Initialisation des optimisations mobiles
+        document.addEventListener('DOMContentLoaded', function() {
+            optimizeForTouch();
+            preventIOSZoom();
+            
+            // Réinitialiser le menu mobile lors du redimensionnement
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    const navMenu = document.querySelector('.nav-menu');
+                    navMenu.style.display = '';
+                    navMenu.style.position = '';
+                    navMenu.style.background = '';
+                    navMenu.style.padding = '';
+                }
+            });
+        });
+        
+        // Amélioration du scroll mobile
+        function smoothScrollMobile(elementId, offset = 100) {
+            const element = document.getElementById(elementId);
+            if (element && window.innerWidth <= 768) {
+                const elementPosition = element.offsetTop - offset;
+                window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        </script>
 
     <!-- Admin Access - Discreet Link -->
     <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
