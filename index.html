@@ -2825,9 +2825,9 @@
                 closeImageGallery();
             }
         }
-        // Navigation mobile intelligente
+        // Navigation mobile intelligente - CORRIGÉE
         function toggleMobileMenu() {
-            const navMenu = document.querySelector('.nav-menu');
+            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
             const toggle = document.querySelector('.mobile-nav-toggle i');
             
             if (navMenu.classList.contains('mobile-open')) {
@@ -2838,7 +2838,7 @@
         }
         
         function openMobileMenu() {
-            const navMenu = document.querySelector('.nav-menu');
+            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
             const toggle = document.querySelector('.mobile-nav-toggle i');
             
             navMenu.classList.add('mobile-open');
@@ -2866,7 +2866,7 @@
         }
         
         function closeMobileMenu() {
-            const navMenu = document.querySelector('.nav-menu');
+            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
             const toggle = document.querySelector('.mobile-nav-toggle i');
             
             navMenu.classList.remove('mobile-open');
@@ -2876,7 +2876,7 @@
         }
         
         function handleOutsideClick(event) {
-            const navMenu = document.querySelector('.nav-menu');
+            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
             const toggleBtn = document.querySelector('.mobile-nav-toggle');
             
             if (!navMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
