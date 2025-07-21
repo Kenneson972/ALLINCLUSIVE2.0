@@ -2818,13 +2818,6 @@
                 if (isIOS) {
                     console.log('iOS détecté - Initialisation vidéo background');
                     
-                    // Ajouter bouton debug pour iOS
-                    const debugBtn = document.createElement('button');
-                    debugBtn.className = 'video-debug-btn ios-show';
-                    debugBtn.innerHTML = '🎬 Démarrer Vidéo';
-                    debugBtn.onclick = () => forceStartVideo();
-                    document.body.appendChild(debugBtn);
-                    
                     // Forcer les attributs iOS
                     video.setAttribute('webkit-playsinline', '');
                     video.setAttribute('playsinline', '');
@@ -2832,27 +2825,17 @@
                     video.defaultMuted = true;
                     video.volume = 0;
                     
-                    // Fonction pour forcer démarrage
-                    window.forceStartVideo = () => {
-                        video.play().then(() => {
-                            console.log('✅ Vidéo background démarrée sur iOS');
-                            debugBtn.style.display = 'none';
-                        }).catch(err => {
-                            console.log('❌ Erreur démarrage vidéo iOS:', err);
-                            debugBtn.innerHTML = '❌ Erreur Vidéo';
-                        });
-                    };
-                    
                     // Essayer de démarrer immédiatement
                     video.play().then(() => {
                         console.log('✅ Autoplay vidéo réussi sur iOS');
-                        debugBtn.style.display = 'none';
                     }).catch(error => {
-                        console.log('⚠️ Autoplay bloqué - Bouton de démarrage disponible');
+                        console.log('⚠️ Autoplay bloqué - Démarrage au premier touch');
                         
                         // Démarrer au premier touch/click automatiquement
                         function startVideo() {
-                            forceStartVideo();
+                            video.play().then(() => {
+                                console.log('✅ Vidéo background démarrée sur iOS');
+                            }).catch(err => console.log('Erreur vidéo iOS:', err));
                             document.removeEventListener('touchstart', startVideo);
                             document.removeEventListener('click', startVideo);
                         }
