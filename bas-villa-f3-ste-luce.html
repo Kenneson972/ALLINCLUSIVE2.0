@@ -288,9 +288,9 @@
 </head>
 
 <body>
-    <!-- Background Video Cloudinary identique à l'index -->
+    <!-- Background Video Cloudinary avec support iOS -->
     <div class="video-background">
-        <video autoplay muted loop playsinline preload="auto">
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
             <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
@@ -757,11 +757,54 @@
             }
         });
 
+        // Correction vidéo background pour iOS
+        function initBackgroundVideoiOS() {
+            const video = document.getElementById('backgroundVideo');
+            if (video) {
+                // Détecter iOS
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                
+                if (isIOS) {
+                    console.log('iOS détecté - Initialisation vidéo background villa');
+                    
+                    // Forcer les attributs iOS
+                    video.setAttribute('webkit-playsinline', '');
+                    video.setAttribute('playsinline', '');
+                    video.muted = true;
+                    video.defaultMuted = true;
+                    video.volume = 0;
+                    
+                    // Essayer de démarrer immédiatement
+                    video.play().catch(error => {
+                        console.log('Autoplay bloqué - Attente interaction utilisateur');
+                        
+                        // Démarrer au premier touch/click
+                        function startVideo() {
+                            video.play().then(() => {
+                                console.log('✅ Vidéo background villa démarrée sur iOS');
+                                document.removeEventListener('touchstart', startVideo);
+                                document.removeEventListener('click', startVideo);
+                            }).catch(err => console.log('Erreur vidéo iOS:', err));
+                        }
+                        
+                        document.addEventListener('touchstart', startVideo, { once: true });
+                        document.addEventListener('click', startVideo, { once: true });
+                    });
+                } else {
+                    // Non-iOS : démarrage normal
+                    video.play().catch(error => {
+                        console.log('Erreur autoplay:', error);
+                    });
+                }
+            }
+        }
+
         // Initialize all functions
         document.addEventListener('DOMContentLoaded', () => {
             initThumbnails();
             initModalGallery();
             initBackToTop();
+            initBackgroundVideoiOS();
             
             console.log('Bas Villa F3 Ste Luce - Page détail chargée avec succès');
         });
