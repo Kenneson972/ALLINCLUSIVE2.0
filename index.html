@@ -1349,6 +1349,14 @@
         }
         
         @media screen and (max-width: 768px) {
+            /* CRITICAL: Override existing mobile CSS - Force hide nav-links */
+            .header-content .nav-links,
+            .nav-links,
+            nav.nav-links {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            
             /* Force hamburger button display */
             .mobile-nav-toggle {
                 display: block !important;
@@ -1362,14 +1370,17 @@
                 order: 2 !important;
             }
             
-            /* Hide desktop navigation */
-            .nav-menu {
+            /* Hide desktop navigation - all variants */
+            .nav-menu,
+            nav.nav-menu {
                 display: none !important;
+                visibility: hidden !important;
             }
             
             /* Show mobile menu when open */
             .nav-menu.mobile-open {
                 display: flex !important;
+                visibility: visible !important;
                 position: fixed !important;
                 top: 60px !important;
                 left: 0 !important;
@@ -1406,14 +1417,11 @@
             
             .header-content {
                 display: flex !important;
+                flex-direction: row !important;
                 justify-content: space-between !important;
                 align-items: center !important;
                 padding: 0.75rem 0 !important;
-            }
-            
-            /* Make sure nav-links are hidden on mobile */
-            .nav-links {
-                display: none !important;
+                text-align: left !important;
             }
         }
     </style>
