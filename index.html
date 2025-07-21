@@ -2726,21 +2726,11 @@
             const navMenu = document.querySelector('.nav-menu');
             const toggle = document.querySelector('.mobile-nav-toggle i');
             
-            if (navMenu.style.display === 'block') {
-                navMenu.style.display = 'none';
+            if (navMenu.classList.contains('mobile-open')) {
+                navMenu.classList.remove('mobile-open');
                 toggle.className = 'fas fa-bars';
             } else {
-                navMenu.style.display = 'block';
-                navMenu.style.position = 'absolute';
-                navMenu.style.top = '100%';
-                navMenu.style.left = '0';
-                navMenu.style.right = '0';
-                navMenu.style.background = 'rgba(0, 0, 0, 0.9)';
-                navMenu.style.backdropFilter = 'blur(20px)';
-                navMenu.style.padding = '1rem';
-                navMenu.style.borderRadius = '0 0 15px 15px';
-                navMenu.style.flexDirection = 'column';
-                navMenu.style.gap = '1rem';
+                navMenu.classList.add('mobile-open');
                 toggle.className = 'fas fa-times';
             }
         }
