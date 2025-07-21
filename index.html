@@ -1481,30 +1481,38 @@
         }
         
         /* ===========================================
-           OPTIMISATIONS MOBILE RESPONSIVE CRITIQUES
+           FORCE MOBILE NAVIGATION - PRIORITÉ ABSOLUE
            ========================================= */
         
-        /* FORCE MOBILE NAV - Priority override */
+        /* Desktop nav visible par défaut */
         .mobile-nav-toggle {
-            display: none !important;
+            display: none;
         }
         
+        /* MOBILE FORCE OVERRIDE */
         @media screen and (max-width: 768px) {
-            /* CRITICAL: Override existing mobile CSS - Force hide ALL navigation variants */
-            .header-content .nav-links,
+            /* CRITIQUE : Masquer COMPLÈTEMENT la navigation desktop */
+            .header-content > .nav-links,
+            .header-content > nav,
+            .header-content > .nav-links.nav-menu,
+            .header-content nav.nav-links,
+            .header-content nav.nav-menu,
+            nav[class*="nav-links"],
+            nav[class*="nav-menu"],
             .nav-links,
-            .nav-menu,
-            nav.nav-links,
-            nav.nav-menu,
-            .nav-links.nav-menu {
+            .nav-menu {
                 display: none !important;
                 visibility: hidden !important;
                 opacity: 0 !important;
+                position: absolute !important;
+                left: -9999px !important;
             }
             
-            /* Force hamburger button display */
+            /* Force hamburger button visible */
             .mobile-nav-toggle {
                 display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
                 background: none !important;
                 border: none !important;
                 color: white !important;
@@ -1512,10 +1520,20 @@
                 padding: 0.5rem !important;
                 cursor: pointer !important;
                 z-index: 1001 !important;
-                order: 2 !important;
+                position: relative !important;
             }
             
-            /* Show mobile menu when open - target the exact class combination */
+            /* Header layout mobile forcé */
+            .header-content {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 0.75rem 0 !important;
+                text-align: left !important;
+            }
+            
+            /* Show mobile menu when active */
             .nav-links.nav-menu.mobile-open {
                 display: flex !important;
                 visibility: visible !important;
@@ -1546,21 +1564,6 @@
                 text-decoration: none !important;
                 text-align: center !important;
                 display: block !important;
-            }
-            
-            .nav-links.nav-menu.mobile-open a:hover,
-            .nav-links.nav-menu.mobile-open a:active {
-                background: rgba(255, 255, 255, 0.2) !important;
-                transform: scale(1.02) !important;
-            }
-            
-            .header-content {
-                display: flex !important;
-                flex-direction: row !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                padding: 0.75rem 0 !important;
-                text-align: left !important;
             }
         }
     </style>
