@@ -1193,6 +1193,48 @@ def create_villa_detail_page(villa):
             }}
         }});
 
+        // Correction vidéo background pour iOS
+        function initBackgroundVideoiOS() {{
+            const video = document.getElementById('backgroundVideo');
+            if (video) {{
+                // Détecter iOS
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                
+                if (isIOS) {{
+                    console.log('iOS détecté - Initialisation vidéo background villa');
+                    
+                    // Forcer les attributs iOS
+                    video.setAttribute('webkit-playsinline', '');
+                    video.setAttribute('playsinline', '');
+                    video.muted = true;
+                    video.defaultMuted = true;
+                    video.volume = 0;
+                    
+                    // Essayer de démarrer immédiatement
+                    video.play().catch(error => {{
+                        console.log('Autoplay bloqué - Attente interaction utilisateur');
+                        
+                        // Démarrer au premier touch/click
+                        function startVideo() {{
+                            video.play().then(() => {{
+                                console.log('✅ Vidéo background villa démarrée sur iOS');
+                                document.removeEventListener('touchstart', startVideo);
+                                document.removeEventListener('click', startVideo);
+                            }}).catch(err => console.log('Erreur vidéo iOS:', err));
+                        }}
+                        
+                        document.addEventListener('touchstart', startVideo, {{ once: true }});
+                        document.addEventListener('click', startVideo, {{ once: true }});
+                    }});
+                }} else {{
+                    // Non-iOS : démarrage normal
+                    video.play().catch(error => {{
+                        console.log('Erreur autoplay:', error);
+                    }});
+                }}
+            }}
+        }}
+
         // Initialize all functions
         document.addEventListener('DOMContentLoaded', () => {{
             initThumbnails();
