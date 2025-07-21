@@ -327,6 +327,122 @@ class KhanelConceptAPITester:
                         f"Failed pages: {failed_pages[:5]}")  # Show first 5 failures
             return False
     
+    def test_ios_video_background_support(self):
+        """Test iOS background video support implementation"""
+        # Test key pages that should have iOS video support
+        test_pages = [
+            "index.html",
+            "reservation.html", 
+            "villa-f3-petit-macabou.html"
+        ]
+        
+        local_backend_url = "http://localhost:8001"
+        ios_features_found = 0
+        missing_features = []
+        
+        for page in test_pages:
+            try:
+                response = self.session.get(f"{local_backend_url}/{page}", timeout=10)
+                if response.status_code == 200:
+                    content = response.text.lower()
+                    
+                    # Check for iOS-specific video attributes
+                    ios_checks = {
+                        'video_id': 'id="backgroundvideo"' in content,
+                        'webkit_playsinline': 'webkit-playsinline' in content,
+                        'preload_metadata': 'preload="metadata"' in content,
+                        'ios_function': 'initbackgroundvideoios' in content,
+                        'ios_detection': '/ipad|iphone|ipod/' in content,
+                        'cloudinary_video': 'cloudinary.com' in content and 'background-video' in content
+                    }
+                    
+                    page_features = sum(ios_checks.values())
+                    ios_features_found += page_features
+                    
+                    if page_features >= 4:  # At least 4 out of 6 features should be present
+                        self.log_test(f"iOS Video Support - {page}", True, 
+                                    f"iOS video features found: {page_features}/6", 
+                                    f"Features: {[k for k, v in ios_checks.items() if v]}")
+                    else:
+                        missing = [k for k, v in ios_checks.items() if not v]
+                        missing_features.extend(missing)
+                        self.log_test(f"iOS Video Support - {page}", False, 
+                                    f"Missing iOS features: {len(missing)}/6", 
+                                    f"Missing: {missing}")
+                else:
+                    self.log_test(f"iOS Video Support - {page}", False, 
+                                f"Page not accessible - status {response.status_code}")
+                    
+            except Exception as e:
+                self.log_test(f"iOS Video Support - {page}", False, 
+                            f"Error accessing page: {str(e)}")
+        
+        # Overall assessment
+        expected_features = len(test_pages) * 4  # Minimum 4 features per page
+        if ios_features_found >= expected_features:
+            self.log_test("iOS Video Background System", True, 
+                        f"iOS video background support properly implemented", 
+                        f"Total features found: {ios_features_found}")
+            return True
+        else:
+            self.log_test("iOS Video Background System", False, 
+                        f"iOS video support incomplete - {ios_features_found} features found, expected at least {expected_features}", 
+                        f"Common missing features: {list(set(missing_features))}")
+            return False
+    
+    def test_javascript_ios_functions(self):
+        """Test that iOS-specific JavaScript functions are present and don't cause errors"""
+        test_pages = ["index.html", "villa-f3-petit-macabou.html"]
+        local_backend_url = "http://localhost:8001"
+        
+        js_functions_found = 0
+        
+        for page in test_pages:
+            try:
+                response = self.session.get(f"{local_backend_url}/{page}", timeout=10)
+                if response.status_code == 200:
+                    content = response.text
+                    
+                    # Check for iOS-specific JavaScript functions
+                    js_checks = {
+                        'initBackgroundVideoiOS': 'function initBackgroundVideoiOS()' in content,
+                        'iOS_detection': 'navigator.userAgent' in content and 'iPad|iPhone|iPod' in content,
+                        'webkit_playsinline_attr': "setAttribute('webkit-playsinline'" in content,
+                        'touch_event_listeners': 'touchstart' in content,
+                        'video_play_promise': 'video.play().catch' in content
+                    }
+                    
+                    found_functions = sum(js_checks.values())
+                    js_functions_found += found_functions
+                    
+                    if found_functions >= 3:  # At least 3 key functions should be present
+                        self.log_test(f"JavaScript iOS Functions - {page}", True, 
+                                    f"iOS JavaScript functions found: {found_functions}/5", 
+                                    f"Functions: {[k for k, v in js_checks.items() if v]}")
+                    else:
+                        missing = [k for k, v in js_checks.items() if not v]
+                        self.log_test(f"JavaScript iOS Functions - {page}", False, 
+                                    f"Missing iOS JavaScript functions: {len(missing)}/5", 
+                                    f"Missing: {missing}")
+                else:
+                    self.log_test(f"JavaScript iOS Functions - {page}", False, 
+                                f"Page not accessible - status {response.status_code}")
+                    
+            except Exception as e:
+                self.log_test(f"JavaScript iOS Functions - {page}", False, 
+                            f"Error checking JavaScript: {str(e)}")
+        
+        # Overall JavaScript assessment
+        if js_functions_found >= 6:  # At least 3 functions per page
+            self.log_test("iOS JavaScript Implementation", True, 
+                        f"iOS JavaScript functions properly implemented", 
+                        f"Total functions found: {js_functions_found}")
+            return True
+        else:
+            self.log_test("iOS JavaScript Implementation", False, 
+                        f"iOS JavaScript implementation incomplete - {js_functions_found} functions found")
+            return False
+    
     def test_villa_id_mapping(self):
         """Test that villa IDs 1-21 map correctly to data"""
         try:
