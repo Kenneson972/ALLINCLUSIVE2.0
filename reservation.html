@@ -540,17 +540,52 @@
             }
         }
         
-        /* Flatpickr mobile customization */
+        /* Flatpickr mobile customization - CORRECTION */
         @media (max-width: 768px) {
+            /* S'assurer que Flatpickr s'affiche au-dessus */
             .flatpickr-calendar {
                 font-size: 16px !important;
-                max-width: 100% !important;
+                max-width: 90vw !important;
+                z-index: 9999 !important;
+                position: fixed !important;
+                transform: none !important;
+                left: 50% !important;
+                top: 50% !important;
+                margin-left: -45vw !important;
+                margin-top: -150px !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+                border-radius: 15px !important;
+                backdrop-filter: blur(20px);
+                background: rgba(255, 255, 255, 0.95) !important;
             }
             
             .flatpickr-day {
                 height: 44px !important;
                 line-height: 44px !important;
                 min-width: 44px !important;
+                font-size: 16px !important;
+            }
+            
+            .flatpickr-current-month {
+                font-size: 18px !important;
+                padding: 10px 0 !important;
+            }
+            
+            .flatpickr-weekday {
+                font-size: 14px !important;
+                padding: 8px 0 !important;
+            }
+            
+            /* Overlay pour calendrier mobile */
+            .flatpickr-calendar.open::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: -1;
             }
         }
         
