@@ -495,6 +495,11 @@ class KhanelConceptAPITester:
         self.test_static_villa_pages()
         self.test_villa_id_mapping()
         
+        # Test iOS video background support (NEW)
+        print("\n🎬 Testing iOS Video Background Support...")
+        self.test_ios_video_background_support()
+        self.test_javascript_ios_functions()
+        
         # Test admin authentication
         if not self.test_admin_login():
             print("❌ Admin login failed - skipping admin-only tests")
