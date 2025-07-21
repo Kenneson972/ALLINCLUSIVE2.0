@@ -1077,21 +1077,30 @@
             }
         }
 
-        // Initialize date pickers avec optimisation mobile
+        // Initialize date pickers avec correction tactile mobile
         function initializeDatePickers() {
             const today = new Date();
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
             
-            // Configuration spéciale pour mobile
+            // Détection mobile
             const isMobile = window.innerWidth <= 768;
+            
+            // Configuration mobile spéciale pour iOS/Android
             const mobileConfig = isMobile ? {
                 mode: 'single',
-                static: true,
-                monthSelectorType: 'static',
-                positionElement: document.body,
-                appendTo: document.body
+                static: false,
+                inline: false,
+                allowInput: false,
+                clickOpens: true,
+                disableMobile: false, // IMPORTANT : permettre sur mobile
+                positionElement: undefined,
+                position: 'auto'
             } : {};
+            
+            // Détruire les instances existantes si présentes
+            if (checkinPicker) checkinPicker.destroy();
+            if (checkoutPicker) checkoutPicker.destroy();
             
             checkinPicker = flatpickr("#checkinDate", {
                 locale: "fr",
@@ -1105,6 +1114,9 @@
                         checkoutPicker.set('minDate', minCheckout);
                         updateSummary();
                     }
+                },
+                onOpen: function() {
+                    console.log("Calendrier arrivée ouvert sur mobile");
                 }
             });
             
@@ -1115,6 +1127,46 @@
                 ...mobileConfig,
                 onChange: function(selectedDates) {
                     updateSummary();
+                },
+                onOpen: function() {
+                    console.log("Calendrier départ ouvert sur mobile");
+                }
+            });
+            
+            // Force tactile sur mobile
+            if (isMobile) {
+                setupMobileDateFields();
+            }
+        }
+        
+        // Configuration tactile spéciale mobile
+        function setupMobileDateFields() {
+            const checkinField = document.getElementById('checkinDate');
+            const checkoutField = document.getElementById('checkoutDate');
+            
+            [checkinField, checkoutField].forEach(field => {
+                if (field) {
+                    // Supprimer readonly pour permettre le clic
+                    field.removeAttribute('readonly');
+                    
+                    // Forcer l'ouverture au touch
+                    field.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        this.focus();
+                        this.click();
+                    }, { passive: false });
+                    
+                    field.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log("Clic sur champ date mobile");
+                        
+                        // Force l'ouverture du flatpickr
+                        if (this.id === 'checkinDate' && checkinPicker) {
+                            checkinPicker.open();
+                        } else if (this.id === 'checkoutDate' && checkoutPicker) {
+                            checkoutPicker.open();
+                        }
+                    });
                 }
             });
         }
