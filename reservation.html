@@ -1077,16 +1077,27 @@
             }
         }
 
-        // Initialize date pickers
+        // Initialize date pickers avec optimisation mobile
         function initializeDatePickers() {
             const today = new Date();
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
             
+            // Configuration spéciale pour mobile
+            const isMobile = window.innerWidth <= 768;
+            const mobileConfig = isMobile ? {
+                mode: 'single',
+                static: true,
+                monthSelectorType: 'static',
+                positionElement: document.body,
+                appendTo: document.body
+            } : {};
+            
             checkinPicker = flatpickr("#checkinDate", {
                 locale: "fr",
                 minDate: today,
                 dateFormat: "d/m/Y",
+                ...mobileConfig,
                 onChange: function(selectedDates) {
                     if (selectedDates[0]) {
                         const minCheckout = new Date(selectedDates[0]);
@@ -1101,6 +1112,7 @@
                 locale: "fr",
                 minDate: tomorrow,
                 dateFormat: "d/m/Y",
+                ...mobileConfig,
                 onChange: function(selectedDates) {
                     updateSummary();
                 }
