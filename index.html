@@ -1370,6 +1370,57 @@
             input, select, textarea {
                 font-size: 16px !important;
             }
+            
+            /* CALENDRIERS INDEX MOBILE */
+            .flatpickr-calendar {
+                font-size: 16px !important;
+                max-width: 90vw !important;
+                z-index: 9999 !important;
+                position: fixed !important;
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+                border-radius: 15px !important;
+                backdrop-filter: blur(20px);
+                background: rgba(255, 255, 255, 0.95) !important;
+            }
+            
+            .flatpickr-day {
+                height: 44px !important;
+                line-height: 44px !important;
+                min-width: 44px !important;
+                font-size: 16px !important;
+            }
+            
+            .flatpickr-current-month {
+                font-size: 18px !important;
+                padding: 10px 0 !important;
+            }
+            
+            .flatpickr-weekday {
+                font-size: 14px !important;
+                padding: 8px 0 !important;
+            }
+            
+            /* Overlay pour calendrier mobile */
+            .flatpickr-calendar.open::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: -1;
+            }
+            
+            /* Champs de date INDEX - tactiles */
+            #checkin, #checkout {
+                cursor: pointer !important;
+                user-select: none !important;
+                -webkit-user-select: none !important;
+            }
         }
         @media (max-width: 768px) {
             .header-content {
