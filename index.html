@@ -1338,6 +1338,84 @@
                 padding: 1rem;
             }
         }
+        
+        /* ===========================================
+           OPTIMISATIONS MOBILE RESPONSIVE CRITIQUES
+           ========================================= */
+        
+        /* FORCE MOBILE NAV - Priority override */
+        .mobile-nav-toggle {
+            display: none !important;
+        }
+        
+        @media screen and (max-width: 768px) {
+            /* Force hamburger button display */
+            .mobile-nav-toggle {
+                display: block !important;
+                background: none !important;
+                border: none !important;
+                color: white !important;
+                font-size: 1.5rem !important;
+                padding: 0.5rem !important;
+                cursor: pointer !important;
+                z-index: 1001 !important;
+                order: 2 !important;
+            }
+            
+            /* Hide desktop navigation */
+            .nav-menu {
+                display: none !important;
+            }
+            
+            /* Show mobile menu when open */
+            .nav-menu.mobile-open {
+                display: flex !important;
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: rgba(0, 0, 0, 0.7) !important;
+                backdrop-filter: blur(25px) !important;
+                padding: 2rem 1rem !important;
+                border-radius: 0 0 20px 20px !important;
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+                z-index: 1000 !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+            }
+            
+            .nav-menu.mobile-open a {
+                color: white !important;
+                font-size: 1.1rem !important;
+                font-weight: 500 !important;
+                padding: 12px 20px !important;
+                border-radius: 10px !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                backdrop-filter: blur(10px) !important;
+                transition: all 0.3s ease !important;
+                text-decoration: none !important;
+                text-align: center !important;
+                display: block !important;
+            }
+            
+            .nav-menu.mobile-open a:hover,
+            .nav-menu.mobile-open a:active {
+                background: rgba(255, 255, 255, 0.2) !important;
+                transform: scale(1.02) !important;
+            }
+            
+            .header-content {
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 0.75rem 0 !important;
+            }
+            
+            /* Make sure nav-links are hidden on mobile */
+            .nav-links {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
