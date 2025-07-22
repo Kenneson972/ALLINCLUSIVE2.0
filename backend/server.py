@@ -28,6 +28,8 @@ load_dotenv()
 
 # Rate limiting pour protection brute force
 request_counts = defaultdict(lambda: {'count': 0, 'reset_time': time.time()})
+# Suivi des tentatives de login échouées
+failed_login_attempts = defaultdict(lambda: {'count': 0, 'reset_time': time.time()})
 
 class SecurityMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
