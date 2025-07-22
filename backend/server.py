@@ -127,6 +127,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ⚠️ MIDDLEWARE DE SÉCURITÉ OBLIGATOIRE
+app.add_middleware(SecurityMiddleware)
+
 # Configuration MongoDB
 MONGO_URL = os.getenv("MONGO_URL", "mongodb://localhost:27017/khanelconcept")
 client = AsyncIOMotorClient(MONGO_URL)
