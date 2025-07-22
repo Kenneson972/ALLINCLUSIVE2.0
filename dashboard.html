@@ -1336,14 +1336,6 @@
             history.pushState({ section: section }, '', url);
         }
 
-        // Check URL parameters on load
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const section = urlParams.get('section');
-            if (section) {
-                showSection(section);
-            }
-        });
     </script>
 </body>
 </html>
