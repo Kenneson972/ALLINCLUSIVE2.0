@@ -20,6 +20,7 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+MEMBER_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 jours pour les membres
 
 # Données admin (à remplacer par une vraie base de données d'utilisateurs)
 ADMIN_USERS = {
@@ -28,6 +29,14 @@ ADMIN_USERS = {
         "hashed_password": hashlib.sha256("khanelconcept2025".encode()).hexdigest(),
         "role": "admin"
     }
+}
+
+# Niveaux de membre et seuils de points
+MEMBER_LEVELS = {
+    "Découvreur": {"min_points": 0, "max_points": 499, "benefits": ["Avantages de base", "Support standard"]},
+    "Explorateur": {"min_points": 500, "max_points": 1499, "benefits": ["Check-in prioritaire", "Late checkout", "WiFi premium"]},
+    "Aventurier": {"min_points": 1500, "max_points": 2999, "benefits": ["Surclassement gratuit", "Minibar offert", "Room service 24/7"]},
+    "Légende": {"min_points": 3000, "max_points": float('inf'), "benefits": ["Conciergerie 24/7", "Transferts VIP", "Expériences privées"]}
 }
 
 app = FastAPI(
