@@ -198,6 +198,76 @@
             margin-left: 0.5rem;
         }
         
+        /* Member Profile Preview Styles */
+        .member-profile-preview {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 2px solid rgba(255, 255, 255, 0.15) !important;
+            border-radius: 25px !important;
+            padding: 6px 12px !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .member-profile-preview:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+        }
+        
+        .member-avatar {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #f6ad55 0%, #e69000 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .member-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .member-name {
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            line-height: 1;
+        }
+        
+        .member-level {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.7rem;
+            line-height: 1;
+            margin-top: 2px;
+        }
+        
+        .dashboard-link {
+            background: rgba(135, 206, 235, 0.2) !important;
+            border-color: rgba(135, 206, 235, 0.4) !important;
+        }
+        
+        .dashboard-link:hover {
+            background: rgba(135, 206, 235, 0.4) !important;
+            border-color: rgba(135, 206, 235, 0.6) !important;
+        }
+        
+        .logout-link {
+            background: rgba(245, 101, 101, 0.15) !important;
+            border-color: rgba(245, 101, 101, 0.3) !important;
+        }
+        
+        .logout-link:hover {
+            background: rgba(245, 101, 101, 0.3) !important;
+            border-color: rgba(245, 101, 101, 0.5) !important;
+        }
+        
         /* Mobile Member Links Styles */
         @media (max-width: 768px) {
             .member-links {
