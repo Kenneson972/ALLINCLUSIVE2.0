@@ -672,29 +672,77 @@
             loginBtn.classList.add('loading');
 
             try {
-                // Simulate login process
-                await new Promise(resolve => setTimeout(resolve, 2000));
-
-                // Demo credentials check
-                if (email === 'demo@khanelconcept.com' && password === 'demo123') {
-                    // Store login info
-                    localStorage.setItem('khanelconcept_user', JSON.stringify({
+                // Call actual backend API for login
+                const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+                const response = await fetch(`${backendUrl}/api/members/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
                         email: email,
-                        name: 'Membre Demo',
-                        level: 'Explorateur',
-                        points: 1250,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.token) {
+                    // Store login info with actual user data and JWT token
+                    localStorage.setItem('khanelconcept_user', JSON.stringify({
+                        id: data.member.id,
+                        email: data.member.email,
+                        firstName: data.member.firstName,
+                        lastName: data.member.lastName,
+                        phone: data.member.phone,
+                        level: data.member.level,
+                        points: data.member.points,
                         loginTime: new Date().toISOString()
                     }));
+                    
+                    localStorage.setItem('khanelconcept_token', data.token);
 
-                    showMessage('Connexion réussie ! Redirection...', 'success');
+                    showMessage('Connexion réussie ! Redirection vers votre dashboard...', 'success');
                     
                     // Redirect to dashboard
                     setTimeout(() => {
                         window.location.href = 'dashboard.html';
                     }, 1500);
                 } else {
-                    showMessage('Email ou mot de passe incorrect.', 'error');
+                    // Handle error response
+                    const errorMessage = data.detail || data.message || 'Email ou mot de passe incorrect.';
+                    showMessage(errorMessage, 'error');
                 }
+
+            } catch (error) {
+                console.error('Erreur de connexion:', error);
+                // Fallback for demo credentials during development
+                if (email === 'demo@khanelconcept.com' && password === 'demo123') {
+                    localStorage.setItem('khanelconcept_user', JSON.stringify({
+                        id: 'demo_user',
+                        email: email,
+                        firstName: 'Marie-Claire',
+                        lastName: 'Membre',
+                        phone: '+596 696 12 34 56',
+                        level: 'Explorateur',
+                        points: 1250,
+                        loginTime: new Date().toISOString()
+                    }));
+                    
+                    localStorage.setItem('khanelconcept_token', 'demo_token_' + Date.now());
+
+                    showMessage('Connexion demo réussie ! Redirection...', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                } else {
+                    showMessage('Erreur de connexion. Vérifiez votre connexion internet ou utilisez demo@khanelconcept.com / demo123 pour tester.', 'error');
+                }
+            } finally {
+                loginBtn.classList.remove('loading');
+            }
+        }
 
             } catch (error) {
                 showMessage('Une erreur est survenue. Veuillez réessayer.', 'error');
