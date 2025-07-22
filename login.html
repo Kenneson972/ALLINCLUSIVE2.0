@@ -736,6 +736,7 @@
                     showMessage('Connexion demo réussie ! Redirection...', 'success');
                     
                     setTimeout(() => {
+                        sessionStorage.setItem('dashboard_redirect', 'true');
                         window.location.href = 'dashboard.html';
                     }, 1500);
                 } else {
