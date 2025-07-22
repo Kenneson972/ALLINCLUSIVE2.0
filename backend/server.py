@@ -1146,21 +1146,44 @@ async def member_register(member_data: MemberRegister):
         raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
 
 @app.post("/api/members/login")
-async def member_login(login_data: MemberLogin):
-    """Connexion d'un membre"""
+async def member_login(login_data: MemberLogin, request: Request):
+    """Connexion d'un membre avec protection brute force"""
     try:
+        client_ip = request.client.host if request.client else "unknown"
+        email_key = f"{login_data.email}_{client_ip}"
+        
+        # 🔒 PROTECTION BRUTE FORCE
+        current_time = time.time()
+        if current_time - failed_login_attempts[email_key]['reset_time'] > 900:  # Reset après 15 min
+            failed_login_attempts[email_key] = {'count': 0, 'reset_time': current_time}
+        
+        # Bloquer après 5 tentatives échouées
+        if failed_login_attempts[email_key]['count'] >= 5:
+            remaining_time = int(900 - (current_time - failed_login_attempts[email_key]['reset_time']))
+            raise HTTPException(
+                status_code=429, 
+                detail=f"Trop de tentatives échouées. Réessayez dans {remaining_time//60} minutes"
+            )
+        
         # Rechercher le membre
         member = await db.members.find_one({"email": login_data.email})
         if not member:
+            # Incrémenter les tentatives échouées
+            failed_login_attempts[email_key]['count'] += 1
             raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect")
         
         # Vérifier le mot de passe
         if not verify_password(login_data.password, member["password"]):
+            # Incrémenter les tentatives échouées
+            failed_login_attempts[email_key]['count'] += 1
             raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect")
         
         # Vérifier que le compte est actif
         if not member.get("isActive", True):
             raise HTTPException(status_code=401, detail="Compte désactivé")
+        
+        # LOGIN RÉUSSI - Reset les tentatives échouées
+        failed_login_attempts[email_key] = {'count': 0, 'reset_time': current_time}
         
         # Créer le token
         token = create_member_token(member)
@@ -1170,6 +1193,9 @@ async def member_login(login_data: MemberLogin):
             {"id": member["id"]},
             {"$set": {"lastLogin": datetime.utcnow().isoformat()}}
         )
+        
+        # 📊 LOG DE SÉCURITÉ
+        print(f"🔐 LOGIN SUCCESS: {login_data.email} from {client_ip} at {datetime.utcnow()}")
         
         # Retourner les infos (sans le mot de passe et _id MongoDB)
         member.pop("password", None)
@@ -1182,6 +1208,9 @@ async def member_login(login_data: MemberLogin):
         }
         
     except HTTPException:
+        # LOG DE SÉCURITÉ pour tentatives échouées
+        client_ip = request.client.host if request.client else "unknown"
+        print(f"🚨 LOGIN FAILED: {login_data.email} from {client_ip} at {datetime.utcnow()}")
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
