@@ -1047,8 +1047,9 @@ async def member_login(login_data: MemberLogin):
             {"$set": {"lastLogin": datetime.utcnow().isoformat()}}
         )
         
-        # Retourner les infos (sans le mot de passe)
-        member.pop("password")
+        # Retourner les infos (sans le mot de passe et _id MongoDB)
+        member.pop("password", None)
+        member.pop("_id", None)  # Remove MongoDB ObjectId
         return {
             "success": True,
             "message": "Connexion réussie",
