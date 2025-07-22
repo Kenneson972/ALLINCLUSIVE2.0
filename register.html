@@ -882,7 +882,7 @@
             // =============================================================================
             
             function sanitizeInput(input) {
-                """Nettoie les entrées utilisateur contre XSS côté frontend"""
+                // Nettoie les entrées utilisateur contre XSS côté frontend
                 if (typeof input !== 'string') return input;
                 
                 return input
@@ -897,7 +897,7 @@
             }
             
             function sanitizeFormData(data) {
-                """Nettoie toutes les données du formulaire"""
+                // Nettoie toutes les données du formulaire
                 const cleaned = {};
                 for (const [key, value] of Object.entries(data)) {
                     if (typeof value === 'string') {
