@@ -138,6 +138,66 @@
             backdrop-filter: blur(10px);
         }
         
+        /* Member Links Styles */
+        .member-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1rem;
+            padding-right: 1rem;
+            position: relative;
+        }
+        
+        .member-link {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white !important;
+            text-decoration: none !important;
+            padding: 8px 16px !important;
+            border-radius: 25px !important;
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            transition: all 0.3s ease !important;
+            white-space: nowrap !important;
+        }
+        
+        .member-link:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: rgba(255, 255, 255, 0.4) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .login-link {
+            background: rgba(135, 206, 235, 0.15) !important;
+            border-color: rgba(135, 206, 235, 0.3) !important;
+        }
+        
+        .login-link:hover {
+            background: rgba(135, 206, 235, 0.3) !important;
+            border-color: rgba(135, 206, 235, 0.5) !important;
+        }
+        
+        .register-link {
+            background: rgba(246, 173, 85, 0.15) !important;
+            border-color: rgba(246, 173, 85, 0.3) !important;
+        }
+        
+        .register-link:hover {
+            background: rgba(246, 173, 85, 0.3) !important;
+            border-color: rgba(246, 173, 85, 0.5) !important;
+        }
+        
+        .member-separator {
+            width: 1px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            margin-left: 0.5rem;
+        }
+        
         /* Main Content */
         .main-content {
             position: relative;
