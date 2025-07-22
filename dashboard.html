@@ -843,6 +843,13 @@
             AOS.init({ duration: 1000, once: true });
             checkAuthentication();
             loadDashboardData();
+            
+            // Check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const section = urlParams.get('section');
+            if (section) {
+                showSection(section);
+            }
         });
 
         // iOS Video Background Support
