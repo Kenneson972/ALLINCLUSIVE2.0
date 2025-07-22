@@ -782,8 +782,12 @@ def verify_password(plain_password, hashed_password):
     """Vérifier le mot de passe"""
     return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
+def hash_password(password: str):
+    """Hacher un mot de passe"""
+    return hashlib.sha256(password.encode()).hexdigest()
+
 def authenticate_user(username: str, password: str):
-    """Authentifier un utilisateur"""
+    """Authentifier un utilisateur admin"""
     user = ADMIN_USERS.get(username)
     if not user:
         return False
@@ -791,13 +795,26 @@ def authenticate_user(username: str, password: str):
         return False
     return user
 
-def create_access_token(data: dict):
+def create_access_token(data: dict, expires_delta: timedelta = None):
     """Créer un token JWT"""
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+def create_member_token(member_data: dict):
+    """Créer un token JWT pour membre"""
+    expire = timedelta(minutes=MEMBER_TOKEN_EXPIRE_MINUTES)
+    to_encode = {
+        "sub": member_data["email"],
+        "member_id": member_data["id"],
+        "type": "member"
+    }
+    return create_access_token(to_encode, expire)
 
 def verify_token(token: str):
     """Vérifier un token JWT"""
@@ -806,9 +823,71 @@ def verify_token(token: str):
         username: str = payload.get("sub")
         if username is None:
             return None
-        return username
+        return payload
     except JWTError:
         return None
+
+def get_member_level(points: int):
+    """Déterminer le niveau d'un membre basé sur ses points"""
+    for level_name, level_data in MEMBER_LEVELS.items():
+        if level_data["min_points"] <= points <= level_data["max_points"]:
+            return level_name
+    return "Découvreur"
+
+async def add_loyalty_points(member_id: str, amount: int, description: str, reference: str = None):
+    """Ajouter des points de fidélité à un membre"""
+    try:
+        # Ajouter la transaction
+        transaction = {
+            "id": str(uuid.uuid4()),
+            "memberId": member_id,
+            "type": "earn",
+            "amount": amount,
+            "description": description,
+            "reference": reference,
+            "createdAt": datetime.utcnow()
+        }
+        await db.loyalty_transactions.insert_one(transaction)
+        
+        # Mettre à jour les points du membre
+        member = await db.members.find_one({"id": member_id})
+        if member:
+            new_points = member.get("points", 0) + amount
+            new_level = get_member_level(new_points)
+            
+            # Vérifier si le niveau a changé
+            old_level = member.get("level", "Découvreur")
+            level_changed = old_level != new_level
+            
+            await db.members.update_one(
+                {"id": member_id},
+                {
+                    "$set": {
+                        "points": new_points,
+                        "level": new_level
+                    }
+                }
+            )
+            
+            # Notifier si niveau changé
+            if level_changed:
+                notification = {
+                    "id": str(uuid.uuid4()),
+                    "memberId": member_id,
+                    "type": "loyalty",
+                    "title": f"🎉 Nouveau niveau atteint !",
+                    "message": f"Félicitations ! Vous êtes maintenant {new_level} avec {new_points} points.",
+                    "isRead": False,
+                    "createdAt": datetime.utcnow(),
+                    "actionUrl": "/dashboard"
+                }
+                await db.member_notifications.insert_one(notification)
+            
+            return {"success": True, "new_points": new_points, "new_level": new_level, "level_changed": level_changed}
+        
+    except Exception as e:
+        print(f"Erreur ajout points: {e}")
+        return {"success": False, "error": str(e)}
 
 # ========== ROUTES D'AUTHENTIFICATION ==========
 
