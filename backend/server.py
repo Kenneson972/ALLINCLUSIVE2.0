@@ -941,7 +941,7 @@ def authenticate_user(username: str, password: str):
     user = ADMIN_USERS.get(username)
     if not user:
         return False
-    if not verify_password(password, user["hashed_password"]):
+    if not verify_admin_password(password, user["hashed_password"]):
         return False
     return user
 
