@@ -148,7 +148,6 @@ class MemberRegister(BaseModel):
     phone: str
     password: str
     birthDate: Optional[str] = None
-    nationality: Optional[str] = None
     acceptTerms: bool = True
     
     @validator('firstName', 'lastName')
