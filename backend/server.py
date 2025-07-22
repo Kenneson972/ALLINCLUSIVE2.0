@@ -203,7 +203,6 @@ class Member(BaseModel):
     email: EmailStr
     phone: str
     birthDate: Optional[str] = None
-    nationality: Optional[str] = None
     level: str = "Découvreur"  # Découvreur, Explorateur, Aventurier, Légende
     points: int = 0
     joinDate: str
