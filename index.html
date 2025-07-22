@@ -3376,6 +3376,87 @@
             }
         }
         
+        // ==========================================
+        // Gestion de l'espace membre dans la navigation
+        // ==========================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            checkMemberStatus();
+        });
+        
+        function checkMemberStatus() {
+            const userData = localStorage.getItem('khanelconcept_user');
+            const token = localStorage.getItem('khanelconcept_token');
+            const memberLinksContainer = document.querySelector('.member-links');
+            
+            if (userData && token) {
+                try {
+                    const user = JSON.parse(userData);
+                    displayMemberDashboard(user);
+                } catch (error) {
+                    console.error('Error parsing user data:', error);
+                    displayGuestLinks();
+                }
+            } else {
+                displayGuestLinks();
+            }
+        }
+        
+        function displayMemberDashboard(user) {
+            const memberLinksContainer = document.querySelector('.member-links');
+            const firstName = user.firstName || 'Membre';
+            const level = user.level || 'Découvreur';
+            const points = user.points || 0;
+            
+            memberLinksContainer.innerHTML = `
+                <a href="dashboard.html" class="member-link dashboard-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <div class="member-profile-preview">
+                    <div class="member-avatar">${firstName.charAt(0).toUpperCase()}</div>
+                    <div class="member-info">
+                        <div class="member-name">${firstName}</div>
+                        <div class="member-level">${level} • ${points}pts</div>
+                    </div>
+                </div>
+                <button class="member-link logout-link" onclick="logoutMember()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Déconnexion</span>
+                </button>
+                <div class="member-separator"></div>
+            `;
+        }
+        
+        function displayGuestLinks() {
+            const memberLinksContainer = document.querySelector('.member-links');
+            memberLinksContainer.innerHTML = `
+                <a href="login.html" class="member-link login-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Connexion</span>
+                </a>
+                <a href="register.html" class="member-link register-link">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Inscription</span>
+                </a>
+                <div class="member-separator"></div>
+            `;
+        }
+        
+        function logoutMember() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                localStorage.removeItem('khanelconcept_user');
+                localStorage.removeItem('khanelconcept_token');
+                displayGuestLinks();
+                // Optionnel: afficher un message de confirmation
+                setTimeout(() => {
+                    alert('Vous avez été déconnecté avec succès.');
+                }, 100);
+            }
+        }
+        
+        // ==========================================
+        
         </script>
 
     <!-- Admin Access - Discreet Link -->
