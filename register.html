@@ -925,6 +925,37 @@
                 if (value.length < 8) {
                     isValid = false;
                     errorMessage = 'Minimum 8 caractères requis';
+                } else {
+                    // Si confirm password existe, vérifier correspondance
+                    const confirmPassword = document.getElementById('confirmPassword');
+                    if (confirmPassword && confirmPassword.value && confirmPassword.value !== value) {
+                        // Marquer le champ confirmation comme invalide
+                        const confirmError = document.getElementById('confirmPassword-error');
+                        if (confirmError) {
+                            confirmError.textContent = 'Les mots de passe ne correspondent pas';
+                            confirmError.style.display = 'block';
+                        }
+                        confirmPassword.classList.add('error');
+                    }
+                }
+            }
+
+            // Confirm Password validation
+            if (field.id === 'confirmPassword' && value) {
+                const password = document.getElementById('password').value;
+                if (password !== value) {
+                    isValid = false;
+                    errorMessage = 'Les mots de passe ne correspondent pas';
+                } else {
+                    // Si les mots de passe correspondent, enlever l'erreur du champ password aussi
+                    const passwordField = document.getElementById('password');
+                    const passwordError = document.getElementById('password-error');
+                    if (passwordField) {
+                        passwordField.classList.remove('error');
+                    }
+                    if (passwordError) {
+                        passwordError.style.display = 'none';
+                    }
                 }
             }
 
