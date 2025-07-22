@@ -707,6 +707,7 @@
                     
                     // Redirect to dashboard
                     setTimeout(() => {
+                        sessionStorage.setItem('dashboard_redirect', 'true');
                         window.location.href = 'dashboard.html';
                     }, 1500);
                 } else {
