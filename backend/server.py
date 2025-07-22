@@ -1095,6 +1095,7 @@ async def get_member_profile(member_id: str):
             raise HTTPException(status_code=404, detail="Membre introuvable")
         
         member.pop("password", None)
+        member.pop("_id", None)  # Remove MongoDB ObjectId
         return member
         
     except Exception as e:
