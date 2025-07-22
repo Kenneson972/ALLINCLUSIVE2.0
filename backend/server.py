@@ -1072,7 +1072,6 @@ async def member_register(member_data: MemberRegister):
             "phone": member_data.phone,
             "password": hash_password(member_data.password),
             "birthDate": member_data.birthDate,
-            "nationality": member_data.nationality,
             "level": "Découvreur",
             "points": 100,  # Bonus d'inscription
             "joinDate": datetime.utcnow().isoformat(),
