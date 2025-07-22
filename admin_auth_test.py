@@ -17,7 +17,7 @@ def test_admin_authentication():
     # Try different possible base URLs
     possible_urls = [
         "http://localhost:8001",
-        "https://d2f03f55-58bd-492d-b2e7-d222dccd8ffa.preview.emergentagent.com"
+        "https://f9688cbe-3b9b-449c-bc6c-4ec719e39048.preview.emergentagent.com"
     ]
     
     admin_credentials = {
