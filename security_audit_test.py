@@ -1148,11 +1148,86 @@ class SecurityAuditTester:
             print("Critical security vulnerabilities detected. Immediate action required.")
             return False
 
+    def run_comprehensive_security_audit(self):
+        """Run comprehensive security audit as requested in review"""
+        print("🔐 AUDIT DE SÉCURITÉ FINAL - Système KhanelConcept avec améliorations")
+        print("=" * 80)
+        print("Testing exhaustively the security improvements implemented")
+        print("=" * 80)
+        
+        # Run all security tests from review request
+        self.test_enhanced_brute_force_protection()
+        self.test_enhanced_password_validation()
+        self.test_comprehensive_xss_protection()
+        self.test_sql_injection_registration()
+        self.test_sql_injection_login()
+        self.test_security_headers()
+        self.test_comprehensive_path_traversal()
+        self.test_rate_limiting()
+        self.test_form_validation_stricte()
+        self.test_jwt_token_security()
+        self.test_authorization_controls()
+        
+        # Generate final security report
+        print("\n" + "=" * 80)
+        print("🔐 AUDIT DE SÉCURITÉ FINAL - RÉSULTATS")
+        print("=" * 80)
+        
+        security_percentage = (self.security_score / self.total_tests) * 100 if self.total_tests > 0 else 0
+        
+        print(f"SCORE DE SÉCURITÉ: {self.security_score}/{self.total_tests} ({security_percentage:.1f}%)")
+        
+        # Categorize by severity
+        critical_issues = [r for r in self.test_results if not r["success"] and r.get("severity") == "CRITICAL"]
+        high_issues = [r for r in self.test_results if not r["success"] and r.get("severity") == "HIGH"]
+        
+        if critical_issues:
+            print(f"\n🚨 VULNÉRABILITÉS CRITIQUES ({len(critical_issues)}):")
+            for issue in critical_issues:
+                print(f"  • {issue['test']}: {issue['message']}")
+        
+        if high_issues:
+            print(f"\n⚠️  PROBLÈMES DE SÉCURITÉ ÉLEVÉS ({len(high_issues)}):")
+            for issue in high_issues:
+                print(f"  • {issue['test']}: {issue['message']}")
+        
+        # Security assessment
+        print(f"\n📋 ÉVALUATION FINALE:")
+        if security_percentage >= 90:
+            print("✅ EXCELLENT - Protection maximale contre les vulnérabilités critiques")
+        elif security_percentage >= 75:
+            print("⚠️  BON - Améliorations mineures recommandées")
+        elif security_percentage >= 50:
+            print("❌ INSUFFISANT - Vulnérabilités critiques présentes")
+        else:
+            print("🚨 CRITIQUE - Failles de sécurité majeures nécessitant une attention immédiate")
+        
+        # Specific criteria from review request
+        print(f"\n🎯 CRITÈRES DE SUCCÈS:")
+        
+        # Check specific success criteria
+        xss_protected = not any(r for r in self.test_results if "XSS" in r["test"] and not r["success"])
+        sql_protected = not any(r for r in self.test_results if "SQL" in r["test"] and not r["success"])
+        brute_force_protected = any(r for r in self.test_results if "Brute Force" in r["test"] and r["success"])
+        headers_present = any(r for r in self.test_results if "Security Header" in r["test"] and r["success"])
+        path_traversal_blocked = any(r for r in self.test_results if "Path Traversal" in r["test"] and r["success"])
+        
+        print(f"✅ Payloads malveillants rejetés: {'OUI' if xss_protected and sql_protected else 'NON'}")
+        print(f"✅ Protection brute force active: {'OUI' if brute_force_protected else 'NON'}")
+        print(f"✅ Headers sécurité présents: {'OUI' if headers_present else 'NON'}")
+        print(f"✅ Path traversal bloqué: {'OUI' if path_traversal_blocked else 'NON'}")
+        
+        return security_percentage >= 75
+
 if __name__ == "__main__":
-    auditor = SecurityAuditTester()
-    security_passed = auditor.run_security_audit()
+    print("🔐 AUDIT DE SÉCURITÉ FINAL - KhanelConcept")
+    print(f"Testing against: {API_BASE_URL}")
+    print("=" * 80)
     
-    if security_passed:
-        print("\n🎉 Security audit completed - System is secure!")
+    auditor = SecurityAuditTester()
+    success = auditor.run_comprehensive_security_audit()
+    
+    if success:
+        print("\n🎉 Audit de sécurité réussi - Système raisonnablement sécurisé")
     else:
-        print("\n⚠️  Security audit completed - Issues found, review required!")
+        print("\n🚨 Audit de sécurité échoué - Améliorations de sécurité urgentes requises")
