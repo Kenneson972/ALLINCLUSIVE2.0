@@ -704,11 +704,37 @@ async def create_reservation(reservation: ReservationCreate):
         result = await db.reservations.insert_one(reservation_data)
         
         if result.inserted_id:
+            # Vérifier si c'est un membre et ajouter des points
+            member = await db.members.find_one({"email": reservation.customer_email})
+            if member:
+                # Ajouter des points (1 point par euro dépensé)
+                points_earned = int(reservation.total_price)
+                await add_loyalty_points(
+                    member["id"],
+                    points_earned,
+                    f"Réservation villa {villa['name']} - {reservation.checkin_date}",
+                    reservation_data["id"]
+                )
+                
+                # Notification de réservation
+                notification = {
+                    "id": str(uuid.uuid4()),
+                    "memberId": member["id"],
+                    "type": "reservation",
+                    "title": "✅ Réservation confirmée",
+                    "message": f"Votre réservation pour {villa['name']} est confirmée. Vous avez gagné {points_earned} points !",
+                    "isRead": False,
+                    "createdAt": datetime.utcnow(),
+                    "actionUrl": f"/reservations/{reservation_data['id']}"
+                }
+                await db.member_notifications.insert_one(notification)
+            
             return {
                 "success": True,
                 "reservation_id": reservation_data["id"],
                 "message": "Réservation créée avec succès",
-                "villa_name": villa["name"]
+                "villa_name": villa["name"],
+                "points_earned": int(reservation.total_price) if member else 0
             }
         else:
             raise HTTPException(status_code=500, detail="Erreur lors de la création de la réservation")
