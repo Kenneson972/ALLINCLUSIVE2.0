@@ -686,7 +686,12 @@
                     })
                 });
 
-                const data = await response.json();
+                let data = {};
+                try {
+                    data = await response.json();
+                } catch (jsonError) {
+                    console.log('❌ Erreur parsing JSON response:', jsonError);
+                }
 
                 if (response.ok && data.token) {
                     // Store login info with actual user data and JWT token
