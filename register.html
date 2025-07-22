@@ -877,6 +877,38 @@
                 errorMessage = 'Ce champ est requis';
             }
 
+            // =============================================================================
+            // 🔒 FONCTIONS DE SÉCURITÉ FRONTEND
+            // =============================================================================
+            
+            function sanitizeInput(input) {
+                """Nettoie les entrées utilisateur contre XSS côté frontend"""
+                if (typeof input !== 'string') return input;
+                
+                return input
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#x27;')
+                    .replace(/&/g, '&amp;')
+                    .replace(/javascript:/gi, '')
+                    .replace(/on\w+\s*=/gi, '')
+                    .trim();
+            }
+            
+            function sanitizeFormData(data) {
+                """Nettoie toutes les données du formulaire"""
+                const cleaned = {};
+                for (const [key, value] of Object.entries(data)) {
+                    if (typeof value === 'string') {
+                        cleaned[key] = sanitizeInput(value);
+                    } else {
+                        cleaned[key] = value;
+                    }
+                }
+                return cleaned;
+            }
+
             // Email validation
             if (field.type === 'email' && value) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
