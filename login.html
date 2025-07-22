@@ -745,13 +745,6 @@
             }
         }
 
-            } catch (error) {
-                showMessage('Une erreur est survenue. Veuillez réessayer.', 'error');
-            } finally {
-                loginBtn.classList.remove('loading');
-            }
-        }
-
         function showMessage(message, type) {
             const errorMsg = document.getElementById('error-message');
             const successMsg = document.getElementById('success-message');
