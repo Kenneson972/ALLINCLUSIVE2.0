@@ -216,7 +216,6 @@ class MemberProfile(BaseModel):
     lastName: Optional[str] = None
     phone: Optional[str] = None
     birthDate: Optional[str] = None
-    nationality: Optional[str] = None
     avatar: Optional[str] = None
     preferences: Optional[dict] = None
 
