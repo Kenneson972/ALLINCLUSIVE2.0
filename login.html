@@ -784,11 +784,6 @@
             showMessage('Connexion Facebook en cours de développement...', 'error');
         }
 
-        // Check if user is already logged in
-        document.addEventListener('DOMContentLoaded', function() {
-            checkExistingLogin();
-        });
-
         async function checkExistingLogin() {
             const user = localStorage.getItem('khanelconcept_user');
             const token = localStorage.getItem('khanelconcept_token');
