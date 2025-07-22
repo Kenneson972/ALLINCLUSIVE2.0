@@ -883,18 +883,40 @@
             const userData = localStorage.getItem('khanelconcept_user');
             const token = localStorage.getItem('khanelconcept_token');
             
+            // Add a flag to prevent infinite loops
+            const isFromLogin = sessionStorage.getItem('dashboard_redirect');
+            if (isFromLogin) {
+                sessionStorage.removeItem('dashboard_redirect');
+            }
+            
             if (!userData || !token) {
-                // Redirect to login if no user data
-                window.location.href = 'login.html';
+                console.log('❌ Aucune donnée utilisateur trouvée, redirection vers login');
+                // Add delay to prevent immediate redirect conflicts
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 100);
                 return;
             }
 
             try {
                 currentUser = JSON.parse(userData);
+                
+                // Validate user data structure
+                if (!currentUser.email && !currentUser.id) {
+                    throw new Error('Données utilisateur invalides');
+                }
+                
+                console.log('✅ Utilisateur authentifié:', currentUser.firstName || currentUser.email);
                 updateUserInterface();
             } catch (error) {
-                console.error('Error parsing user data:', error);
-                window.location.href = 'login.html';
+                console.error('❌ Erreur parsing données utilisateur:', error);
+                // Clear corrupt data
+                localStorage.removeItem('khanelconcept_user');
+                localStorage.removeItem('khanelconcept_token');
+                
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 100);
             }
         }
 
