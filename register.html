@@ -960,7 +960,7 @@
             const formData = new FormData(form);
             
             // Get form values
-            const userData = {
+            let userData = {
                 firstName: document.getElementById('firstName').value.trim(),
                 lastName: document.getElementById('lastName').value.trim(),
                 email: document.getElementById('email').value.trim(),
@@ -970,6 +970,10 @@
                 nationality: document.getElementById('nationality').value,
                 terms: document.getElementById('terms').checked
             };
+            
+            // 🔒 SANITISATION SÉCURITÉ XSS
+            userData = sanitizeFormData(userData);
+            console.log('🔒 Données sanitisées:', userData);
 
             // Validate all fields
             const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'password'];
