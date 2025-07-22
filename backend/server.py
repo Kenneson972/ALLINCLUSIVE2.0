@@ -148,6 +148,56 @@ class MemberRegister(BaseModel):
     birthDate: Optional[str] = None
     nationality: Optional[str] = None
     acceptTerms: bool = True
+    
+    @validator('firstName', 'lastName')
+    def validate_names(cls, v):
+        if not v or len(v.strip()) < 2:
+            raise ValueError('Le nom doit contenir au moins 2 caractères')
+        if len(v.strip()) > 50:
+            raise ValueError('Le nom ne peut dépasser 50 caractères')
+        # Supprimer les caractères potentiellement dangereux
+        sanitized = sanitize_input(v.strip())
+        if not re.match(r"^[a-zA-ZÀ-ÿ\s\-'\.]*$", sanitized):
+            raise ValueError('Le nom contient des caractères non autorisés')
+        return sanitized
+    
+    @validator('phone')
+    def validate_phone(cls, v):
+        if not v:
+            raise ValueError('Le téléphone est requis')
+        # Supprimer espaces et caractères spéciaux
+        phone_clean = re.sub(r'[^\d\+]', '', v)
+        # Vérifier format international
+        if not re.match(r'^\+[\d]{10,15}$', phone_clean):
+            raise ValueError('Format téléphone invalide (ex: +596123456789)')
+        return phone_clean
+    
+    @validator('password')
+    def validate_password(cls, v):
+        if not v:
+            raise ValueError('Le mot de passe est requis')
+        if not validate_password_strength(v):
+            raise ValueError('Mot de passe faible: 8+ caractères, majuscule, minuscule, chiffre, caractère spécial requis')
+        # Vérifier mots de passe communs
+        weak_passwords = ['password', 'admin', '123456', 'password123', 'azerty', 'qwerty']
+        if v.lower() in weak_passwords:
+            raise ValueError('Mot de passe trop commun, choisissez un mot de passe plus sûr')
+        return v
+    
+    @validator('nationality')
+    def validate_nationality(cls, v):
+        if v:
+            sanitized = sanitize_input(v.strip())
+            if len(sanitized) > 2:
+                raise ValueError('Code nationalité invalide')
+            return sanitized.upper()
+        return v
+    
+    @validator('acceptTerms')
+    def validate_terms(cls, v):
+        if not v:
+            raise ValueError('L\'acceptation des conditions générales est obligatoire')
+        return v
 
 class MemberLogin(BaseModel):
     email: EmailStr
