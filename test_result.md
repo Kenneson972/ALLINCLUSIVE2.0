@@ -304,8 +304,10 @@ metadata:
   test_sequence: 4
 
 test_plan:
-  current_focus: []
-  stuck_tasks: []
+  current_focus:
+    - "Frontend XSS Protection System"
+  stuck_tasks:
+    - "Frontend XSS Protection System"
   test_all: false
   test_priority: "high_first"
 
