@@ -932,8 +932,8 @@ async def get_dashboard_stats():
 
 # ========== FONCTIONS D'AUTHENTIFICATION ==========
 
-def verify_password(plain_password, hashed_password):
-    """Vérifier le mot de passe"""
+def verify_admin_password(plain_password, hashed_password):
+    """Vérifier le mot de passe admin (SHA256)"""
     return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
 def authenticate_user(username: str, password: str):
