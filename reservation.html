@@ -1410,6 +1410,102 @@
             
             document.body.appendChild(modal);
         }
+
+        // ==========================================
+        // Gestion des membres connectés dans réservation
+        // ==========================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            checkMemberStatusReservation();
+        });
+        
+        function checkMemberStatusReservation() {
+            const userData = localStorage.getItem('khanelconcept_user');
+            const token = localStorage.getItem('khanelconcept_token');
+            
+            if (userData && token) {
+                try {
+                    const user = JSON.parse(userData);
+                    prefillMemberInfo(user);
+                    showMemberBenefits(user);
+                } catch (error) {
+                    console.error('Error parsing user data:', error);
+                }
+            }
+        }
+        
+        function prefillMemberInfo(user) {
+            // Pré-remplir les informations du membre
+            if (user.firstName) document.getElementById('firstName').value = user.firstName;
+            if (user.lastName) document.getElementById('lastName').value = user.lastName;
+            if (user.email) document.getElementById('email').value = user.email;
+            if (user.phone) document.getElementById('phone').value = user.phone;
+            
+            console.log('✅ Informations membre pré-remplies');
+        }
+        
+        function showMemberBenefits(user) {
+            // Remplacer le lien de connexion par les avantages membre
+            const loginPrompt = document.querySelector('.border-t.border-white\\/10.pt-4.mt-6.mb-4');
+            
+            if (loginPrompt) {
+                const level = user.level || 'Découvreur';
+                const points = user.points || 0;
+                const discount = getMemberDiscount(level);
+                
+                loginPrompt.innerHTML = `
+                    <div class="text-center">
+                        <div class="inline-flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30 rounded-xl mb-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                ${user.firstName?.charAt(0).toUpperCase() || 'M'}
+                            </div>
+                            <div class="text-left">
+                                <p class="text-green-200 font-medium text-sm">
+                                    <i class="fas fa-crown mr-1 text-yellow-400"></i>
+                                    Bienvenue ${user.firstName || 'Membre'}
+                                </p>
+                                <p class="text-green-300/80 text-xs">
+                                    ${level} • ${points} points
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="bg-white/5 rounded-lg p-2">
+                                <p class="text-green-400 text-xs font-medium">Réduction</p>
+                                <p class="text-white font-bold text-sm">${discount}%</p>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2">
+                                <p class="text-blue-400 text-xs font-medium">Points</p>
+                                <p class="text-white font-bold text-sm">+${Math.round(currentSubtotal || 0)}pts</p>
+                            </div>
+                            <div class="bg-white/5 rounded-lg p-2">
+                                <p class="text-purple-400 text-xs font-medium">Statut</p>
+                                <p class="text-white font-bold text-sm">${level}</p>
+                            </div>
+                        </div>
+                        <p class="text-white/60 text-xs mt-2">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            Vos informations ont été pré-remplies • Réduction membre appliquée
+                        </p>
+                    </div>
+                `;
+                
+                console.log(`✅ Avantages membre affichés: ${discount}% de réduction`);
+            }
+        }
+        
+        function getMemberDiscount(level) {
+            const discounts = {
+                'Découvreur': 5,
+                'Explorateur': 10,
+                'Aventurier': 15,
+                'Légende': 20
+            };
+            return discounts[level] || 0;
+        }
+        
+        // ==========================================
+        
     </script>
 </body>
 </html>
