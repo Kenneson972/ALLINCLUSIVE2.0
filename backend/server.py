@@ -907,10 +907,405 @@ async def admin_login(login_data: AdminLogin):
 @app.post("/api/admin/verify-token")
 async def verify_admin_token(token_data: TokenVerify):
     """Vérifier un token admin"""
-    username = verify_token(token_data.token)
-    if username is None:
+    payload = verify_token(token_data.token)
+    if payload is None or payload.get("type") == "member":
+        raise HTTPException(status_code=401, detail="Token admin invalide")
+    return {"valid": True, "username": payload.get("sub")}
+
+# ========== ROUTES D'AUTHENTIFICATION MEMBRE ==========
+
+@app.post("/api/members/register")
+async def member_register(member_data: MemberRegister):
+    """Inscription d'un nouveau membre"""
+    try:
+        # Vérifier si l'email existe déjà
+        existing_member = await db.members.find_one({"email": member_data.email})
+        if existing_member:
+            raise HTTPException(status_code=400, detail="Un compte existe déjà avec cet email")
+        
+        # Créer le nouveau membre
+        new_member = {
+            "id": str(uuid.uuid4()),
+            "firstName": member_data.firstName,
+            "lastName": member_data.lastName,
+            "email": member_data.email,
+            "phone": member_data.phone,
+            "password": hash_password(member_data.password),
+            "birthDate": member_data.birthDate,
+            "nationality": member_data.nationality,
+            "level": "Découvreur",
+            "points": 100,  # Bonus d'inscription
+            "joinDate": datetime.utcnow().isoformat(),
+            "isVerified": False,
+            "isActive": True,
+            "avatar": None,
+            "preferences": {
+                "notifications": {
+                    "email": True,
+                    "sms": False,
+                    "push": True
+                },
+                "marketing": True,
+                "language": "fr"
+            }
+        }
+        
+        # Insérer en base
+        result = await db.members.insert_one(new_member)
+        
+        if result.inserted_id:
+            # Ajouter la transaction de bonus d'inscription
+            await add_loyalty_points(
+                new_member["id"], 
+                100, 
+                "Bonus d'inscription - Bienvenue chez KhanelConcept !", 
+                "registration"
+            )
+            
+            # Créer notification de bienvenue
+            welcome_notification = {
+                "id": str(uuid.uuid4()),
+                "memberId": new_member["id"],
+                "type": "system",
+                "title": "🌴 Bienvenue chez KhanelConcept !",
+                "message": f"Bonjour {member_data.firstName} ! Votre compte a été créé avec succès. Vous avez reçu 100 points de bienvenue.",
+                "isRead": False,
+                "createdAt": datetime.utcnow(),
+                "actionUrl": "/dashboard"
+            }
+            await db.member_notifications.insert_one(welcome_notification)
+            
+            # Créer le token
+            token = create_member_token(new_member)
+            
+            # Retourner les infos (sans le mot de passe)
+            new_member.pop("password")
+            return {
+                "success": True,
+                "message": "Compte créé avec succès",
+                "member": new_member,
+                "token": token
+            }
+        else:
+            raise HTTPException(status_code=500, detail="Erreur lors de la création du compte")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
+
+@app.post("/api/members/login")
+async def member_login(login_data: MemberLogin):
+    """Connexion d'un membre"""
+    try:
+        # Rechercher le membre
+        member = await db.members.find_one({"email": login_data.email})
+        if not member:
+            raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect")
+        
+        # Vérifier le mot de passe
+        if not verify_password(login_data.password, member["password"]):
+            raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect")
+        
+        # Vérifier que le compte est actif
+        if not member.get("isActive", True):
+            raise HTTPException(status_code=401, detail="Compte désactivé")
+        
+        # Créer le token
+        token = create_member_token(member)
+        
+        # Mettre à jour la dernière connexion
+        await db.members.update_one(
+            {"id": member["id"]},
+            {"$set": {"lastLogin": datetime.utcnow().isoformat()}}
+        )
+        
+        # Retourner les infos (sans le mot de passe)
+        member.pop("password")
+        return {
+            "success": True,
+            "message": "Connexion réussie",
+            "member": member,
+            "token": token
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
+
+@app.post("/api/members/verify-token")
+async def verify_member_token(token_data: TokenVerify):
+    """Vérifier un token membre"""
+    try:
+        payload = verify_token(token_data.token)
+        if payload is None or payload.get("type") != "member":
+            raise HTTPException(status_code=401, detail="Token invalide")
+        
+        # Vérifier que le membre existe toujours
+        member = await db.members.find_one({"id": payload.get("member_id")})
+        if not member or not member.get("isActive", True):
+            raise HTTPException(status_code=401, detail="Membre introuvable ou inactif")
+        
+        member.pop("password")
+        return {"valid": True, "member": member}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
         raise HTTPException(status_code=401, detail="Token invalide")
-    return {"valid": True, "username": username}
+
+# ========== ROUTES MEMBRE PROTÉGÉES ==========
+
+@app.get("/api/members/profile/{member_id}")
+async def get_member_profile(member_id: str):
+    """Récupérer le profil d'un membre"""
+    try:
+        member = await db.members.find_one({"id": member_id})
+        if not member:
+            raise HTTPException(status_code=404, detail="Membre introuvable")
+        
+        member.pop("password", None)
+        return member
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.put("/api/members/profile/{member_id}")
+async def update_member_profile(member_id: str, profile_data: MemberProfile):
+    """Mettre à jour le profil d'un membre"""
+    try:
+        # Construire les données à mettre à jour
+        update_data = {k: v for k, v in profile_data.dict().items() if v is not None}
+        
+        if update_data:
+            result = await db.members.update_one(
+                {"id": member_id},
+                {"$set": update_data}
+            )
+            
+            if result.modified_count:
+                # Récupérer le profil mis à jour
+                updated_member = await db.members.find_one({"id": member_id})
+                updated_member.pop("password", None)
+                return {"success": True, "member": updated_member}
+            else:
+                raise HTTPException(status_code=404, detail="Membre introuvable")
+        else:
+            raise HTTPException(status_code=400, detail="Aucune donnée à mettre à jour")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.get("/api/members/{member_id}/reservations")
+async def get_member_reservations(member_id: str):
+    """Récupérer les réservations d'un membre"""
+    try:
+        # Récupérer le membre pour obtenir l'email
+        member = await db.members.find_one({"id": member_id})
+        if not member:
+            raise HTTPException(status_code=404, detail="Membre introuvable")
+        
+        # Récupérer les réservations
+        reservations = await db.reservations.find(
+            {"customer_email": member["email"]}, 
+            {"_id": 0}
+        ).sort("created_at", -1).to_list(100)
+        
+        # Enrichir avec les infos des villas
+        for reservation in reservations:
+            villa = await db.villas.find_one({"id": reservation["villa_id"]})
+            if villa:
+                reservation["villa_info"] = {
+                    "name": villa["name"],
+                    "location": villa["location"],
+                    "image": villa["image"],
+                    "price": villa["price"]
+                }
+        
+        return reservations
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.get("/api/members/{member_id}/loyalty")
+async def get_member_loyalty(member_id: str):
+    """Récupérer les informations de fidélité d'un membre"""
+    try:
+        member = await db.members.find_one({"id": member_id})
+        if not member:
+            raise HTTPException(status_code=404, detail="Membre introuvable")
+        
+        # Récupérer l'historique des transactions
+        transactions = await db.loyalty_transactions.find(
+            {"memberId": member_id}, 
+            {"_id": 0}
+        ).sort("createdAt", -1).to_list(50)
+        
+        # Calculer les points par type
+        earned_points = sum([t["amount"] for t in transactions if t["type"] == "earn"])
+        spent_points = sum([t["amount"] for t in transactions if t["type"] == "spend"])
+        
+        # Informations du niveau actuel
+        current_level = member.get("level", "Découvreur")
+        current_points = member.get("points", 0)
+        level_info = MEMBER_LEVELS.get(current_level, MEMBER_LEVELS["Découvreur"])
+        
+        # Prochain niveau
+        next_level = None
+        points_to_next = 0
+        for level_name, level_data in MEMBER_LEVELS.items():
+            if level_data["min_points"] > current_points:
+                next_level = level_name
+                points_to_next = level_data["min_points"] - current_points
+                break
+        
+        return {
+            "member_id": member_id,
+            "current_points": current_points,
+            "current_level": current_level,
+            "level_benefits": level_info["benefits"],
+            "next_level": next_level,
+            "points_to_next": points_to_next,
+            "total_earned": earned_points,
+            "total_spent": spent_points,
+            "transactions": transactions[:10]  # Dernières 10 transactions
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.get("/api/members/{member_id}/notifications")
+async def get_member_notifications(member_id: str, limit: int = 20):
+    """Récupérer les notifications d'un membre"""
+    try:
+        notifications = await db.member_notifications.find(
+            {"memberId": member_id}, 
+            {"_id": 0}
+        ).sort("createdAt", -1).limit(limit).to_list(limit)
+        
+        return notifications
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.put("/api/members/{member_id}/notifications/{notification_id}/read")
+async def mark_notification_read(member_id: str, notification_id: str):
+    """Marquer une notification comme lue"""
+    try:
+        result = await db.member_notifications.update_one(
+            {"id": notification_id, "memberId": member_id},
+            {"$set": {"isRead": True}}
+        )
+        
+        if result.modified_count:
+            return {"success": True, "message": "Notification marquée comme lue"}
+        else:
+            raise HTTPException(status_code=404, detail="Notification introuvable")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.get("/api/members/{member_id}/wishlist")
+async def get_member_wishlist(member_id: str):
+    """Récupérer la wishlist d'un membre"""
+    try:
+        wishlist_items = await db.member_wishlist.find(
+            {"memberId": member_id}, 
+            {"_id": 0}
+        ).sort("addedAt", -1).to_list(100)
+        
+        # Enrichir avec les informations des villas
+        for item in wishlist_items:
+            villa = await db.villas.find_one({"id": item["villaId"]})
+            if villa:
+                item["villa"] = villa
+        
+        return wishlist_items
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.post("/api/members/{member_id}/wishlist")
+async def add_to_wishlist(member_id: str, villa_id: str):
+    """Ajouter une villa à la wishlist"""
+    try:
+        # Vérifier que la villa existe
+        villa = await db.villas.find_one({"id": villa_id})
+        if not villa:
+            raise HTTPException(status_code=404, detail="Villa introuvable")
+        
+        # Vérifier si déjà dans la wishlist
+        existing = await db.member_wishlist.find_one({
+            "memberId": member_id, 
+            "villaId": villa_id
+        })
+        
+        if existing:
+            raise HTTPException(status_code=400, detail="Villa déjà dans la wishlist")
+        
+        # Ajouter à la wishlist
+        wishlist_item = {
+            "id": str(uuid.uuid4()),
+            "memberId": member_id,
+            "villaId": villa_id,
+            "villaName": villa["name"],
+            "addedAt": datetime.utcnow(),
+            "notes": None
+        }
+        
+        await db.member_wishlist.insert_one(wishlist_item)
+        
+        return {"success": True, "message": "Villa ajoutée à la wishlist"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.delete("/api/members/{member_id}/wishlist/{villa_id}")
+async def remove_from_wishlist(member_id: str, villa_id: str):
+    """Retirer une villa de la wishlist"""
+    try:
+        result = await db.member_wishlist.delete_one({
+            "memberId": member_id,
+            "villaId": villa_id
+        })
+        
+        if result.deleted_count:
+            return {"success": True, "message": "Villa retirée de la wishlist"}
+        else:
+            raise HTTPException(status_code=404, detail="Villa non trouvée dans la wishlist")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
+
+@app.get("/api/members/stats")
+async def get_member_stats():
+    """Statistiques générales des membres pour l'admin"""
+    try:
+        total_members = await db.members.count_documents({"isActive": True})
+        new_members_month = await db.members.count_documents({
+            "joinDate": {"$gte": datetime.utcnow().replace(day=1, hour=0, minute=0, second=0, microsecond=0).isoformat()},
+            "isActive": True
+        })
+        
+        # Stats par niveau
+        level_stats = await db.members.aggregate([
+            {"$match": {"isActive": True}},
+            {"$group": {"_id": "$level", "count": {"$sum": 1}}}
+        ]).to_list(None)
+        
+        return {
+            "total_members": total_members,
+            "new_members_month": new_members_month,
+            "level_distribution": level_stats
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur: {e}")
 
 # ========== ROUTES ADMIN SÉCURISÉES ==========
 
