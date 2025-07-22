@@ -785,12 +785,53 @@
 
         // Check if user is already logged in
         document.addEventListener('DOMContentLoaded', function() {
-            const user = localStorage.getItem('khanelconcept_user');
-            if (user) {
-                // User already logged in, redirect to dashboard
-                window.location.href = 'dashboard.html';
-            }
+            checkExistingLogin();
         });
+
+        async function checkExistingLogin() {
+            const user = localStorage.getItem('khanelconcept_user');
+            const token = localStorage.getItem('khanelconcept_token');
+            
+            if (user && token) {
+                try {
+                    // Verify token with backend
+                    const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+                    const response = await fetch(`${backendUrl}/api/members/verify-token`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            token: token
+                        })
+                    });
+
+                    if (response.ok) {
+                        // Token is valid, redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                        return;
+                    } else {
+                        // Token is invalid, clear storage
+                        localStorage.removeItem('khanelconcept_user');
+                        localStorage.removeItem('khanelconcept_token');
+                    }
+                } catch (error) {
+                    // Network error or API unavailable - allow demo login to work
+                    console.log('Erreur vérification token:', error);
+                    if (user) {
+                        const userData = JSON.parse(user);
+                        if (userData.id === 'demo_user' || token.startsWith('demo_token_')) {
+                            // Allow demo user to proceed
+                            window.location.href = 'dashboard.html';
+                            return;
+                        }
+                    }
+                    // Clear invalid data
+                    localStorage.removeItem('khanelconcept_user');
+                    localStorage.removeItem('khanelconcept_token');
+                }
+            }
+        }
     </script>
 </body>
 </html>
