@@ -1118,6 +1118,7 @@ async def update_member_profile(member_id: str, profile_data: MemberProfile):
                 # Récupérer le profil mis à jour
                 updated_member = await db.members.find_one({"id": member_id})
                 updated_member.pop("password", None)
+                updated_member.pop("_id", None)  # Remove MongoDB ObjectId
                 return {"success": True, "member": updated_member}
             else:
                 raise HTTPException(status_code=404, detail="Membre introuvable")
