@@ -52,6 +52,75 @@ db = client.khanelconcept
 
 # ========== MODELS ==========
 
+# ========== MEMBER MODELS ==========
+
+class MemberRegister(BaseModel):
+    firstName: str
+    lastName: str
+    email: EmailStr
+    phone: str
+    password: str
+    birthDate: Optional[str] = None
+    nationality: Optional[str] = None
+    acceptTerms: bool = True
+
+class MemberLogin(BaseModel):
+    email: EmailStr
+    password: str
+    remember: bool = False
+
+class Member(BaseModel):
+    id: Optional[str] = None
+    firstName: str
+    lastName: str
+    email: EmailStr
+    phone: str
+    birthDate: Optional[str] = None
+    nationality: Optional[str] = None
+    level: str = "Découvreur"  # Découvreur, Explorateur, Aventurier, Légende
+    points: int = 0
+    joinDate: str
+    isVerified: bool = False
+    isActive: bool = True
+    avatar: Optional[str] = None
+    preferences: Optional[dict] = {}
+
+class MemberProfile(BaseModel):
+    firstName: Optional[str] = None
+    lastName: Optional[str] = None
+    phone: Optional[str] = None
+    birthDate: Optional[str] = None
+    nationality: Optional[str] = None
+    avatar: Optional[str] = None
+    preferences: Optional[dict] = None
+
+class MemberNotification(BaseModel):
+    id: Optional[str] = None
+    memberId: str
+    type: str  # reservation, loyalty, system, promotion
+    title: str
+    message: str
+    isRead: bool = False
+    createdAt: datetime
+    actionUrl: Optional[str] = None
+
+class LoyaltyTransaction(BaseModel):
+    id: Optional[str] = None
+    memberId: str
+    type: str  # earn, spend, bonus
+    amount: int
+    description: str
+    reference: Optional[str] = None  # reservation_id, etc.
+    createdAt: datetime
+
+class MemberWishlist(BaseModel):
+    id: Optional[str] = None
+    memberId: str
+    villaId: str
+    villaName: str
+    addedAt: datetime
+    notes: Optional[str] = None
+
 class Villa(BaseModel):
     id: Optional[str] = None
     name: str
