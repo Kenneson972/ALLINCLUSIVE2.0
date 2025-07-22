@@ -22,6 +22,8 @@ class SecurityAuditTester:
         self.session = requests.Session()
         self.test_results = []
         self.security_issues = []
+        self.security_score = 0
+        self.total_tests = 0
         
     def log_test(self, test_name: str, success: bool, message: str, severity: str = "INFO", details: Any = None):
         """Log test results with security severity"""
@@ -34,6 +36,10 @@ class SecurityAuditTester:
             "details": details
         }
         self.test_results.append(result)
+        self.total_tests += 1
+        
+        if success:
+            self.security_score += 1
         
         if not success and severity in ["CRITICAL", "HIGH"]:
             self.security_issues.append(result)
@@ -42,6 +48,446 @@ class SecurityAuditTester:
         print(f"{status}: {test_name} - {message}")
         if details and not success:
             print(f"   Details: {details}")
+
+    def test_security_headers(self):
+        """Test security headers implementation"""
+        print("\n🛡️ Testing Security Headers")
+        
+        try:
+            response = self.session.get(f"{API_BASE_URL}/health", timeout=10)
+            
+            required_headers = {
+                "X-Content-Type-Options": "nosniff",
+                "X-Frame-Options": "DENY", 
+                "X-XSS-Protection": "1; mode=block",
+                "Strict-Transport-Security": "max-age=31536000"
+            }
+            
+            missing_headers = []
+            
+            for header, expected_value in required_headers.items():
+                actual_value = response.headers.get(header)
+                if actual_value and expected_value.lower() in actual_value.lower():
+                    self.log_test(f"Security Header - {header}", True, f"Header present: {actual_value}")
+                else:
+                    missing_headers.append(header)
+                    self.log_test(f"Security Header - {header}", False, 
+                                f"Missing or incorrect header", "HIGH", 
+                                f"Expected: {expected_value}, Got: {actual_value}")
+            
+            if len(missing_headers) == 0:
+                self.log_test("Security Headers Overall", True, "All security headers properly configured")
+            else:
+                self.log_test("Security Headers Overall", False, 
+                            f"{len(missing_headers)} security headers missing", "HIGH", 
+                            f"Missing: {missing_headers}")
+                
+        except Exception as e:
+            self.log_test("Security Headers", False, f"Error testing headers: {str(e)}", "HIGH")
+
+    def test_rate_limiting(self):
+        """Test rate limiting implementation"""
+        print("\n⏱️ Testing Rate Limiting")
+        
+        try:
+            requests_made = 0
+            rate_limited = False
+            
+            # Make rapid requests to test 60 req/min limit
+            for i in range(65):
+                try:
+                    response = self.session.get(f"{API_BASE_URL}/health", timeout=5)
+                    requests_made += 1
+                    
+                    if response.status_code == 429:
+                        rate_limited = True
+                        self.log_test("Rate Limiting", True, 
+                                    f"Rate limiting active - blocked after {requests_made} requests")
+                        break
+                    elif response.status_code != 200:
+                        break
+                        
+                except Exception:
+                    break
+            
+            if not rate_limited:
+                self.log_test("Rate Limiting", False, 
+                            f"No rate limiting detected after {requests_made} requests", "HIGH")
+                
+        except Exception as e:
+            self.log_test("Rate Limiting", False, f"Error testing rate limiting: {str(e)}", "HIGH")
+
+    def test_enhanced_brute_force_protection(self):
+        """Test enhanced brute force protection with email+IP blocking"""
+        print("\n🔒 Testing Enhanced Brute Force Protection")
+        
+        # Create a test user first
+        test_email = f"bruteforce_test_{int(time.time())}@test.com"
+        
+        try:
+            register_data = {
+                "firstName": "Brute",
+                "lastName": "Test",
+                "email": test_email,
+                "phone": "+596123456789",
+                "password": "SecurePass123!",
+                "birthDate": "1990-01-01",
+                "nationality": "FR",
+                "acceptTerms": True
+            }
+            
+            register_response = self.session.post(
+                f"{API_BASE_URL}/members/register",
+                json=register_data,
+                timeout=10
+            )
+            
+            if register_response.status_code != 200:
+                self.log_test("Brute Force Setup", False, 
+                            "Could not create test user for brute force testing", "HIGH")
+                return
+            
+            # Test brute force protection
+            blocked_after = 0
+            
+            for attempt in range(1, 8):
+                login_data = {
+                    "email": test_email,
+                    "password": "WrongPassword123!"
+                }
+                
+                response = self.session.post(
+                    f"{API_BASE_URL}/members/login",
+                    json=login_data,
+                    timeout=10
+                )
+                
+                if response.status_code == 429:
+                    blocked_after = attempt - 1
+                    self.log_test("Brute Force Protection", True, 
+                                f"Account blocked after {blocked_after} failed attempts")
+                    break
+                elif response.status_code == 401:
+                    print(f"   Attempt {attempt}: Failed login (401)")
+                
+                time.sleep(0.5)
+            
+            if blocked_after == 0:
+                self.log_test("Brute Force Protection", False, 
+                            "No blocking detected after multiple failed attempts", "CRITICAL")
+            elif blocked_after <= 5:
+                self.log_test("Brute Force Threshold", True, 
+                            f"Proper blocking threshold: {blocked_after} attempts")
+            else:
+                self.log_test("Brute Force Threshold", False, 
+                            f"Blocking threshold too high: {blocked_after} attempts", "HIGH")
+                
+        except Exception as e:
+            self.log_test("Brute Force Protection", False, f"Error testing brute force: {str(e)}", "HIGH")
+
+    def test_comprehensive_xss_protection(self):
+        """Test comprehensive XSS protection"""
+        print("\n🛡️ Testing Comprehensive XSS Protection")
+        
+        xss_payloads = [
+            "<script>alert('hack')</script>",
+            "<img src=x onerror=alert('xss')>",
+            "'; DROP TABLE members; --",
+            "+596<img src=x onerror=alert('xss')>",
+            "<svg onload=alert('XSS')>",
+            "javascript:alert('XSS')",
+            "<iframe src='javascript:alert(\"XSS\")'></iframe>",
+            "<body onload=alert('XSS')>"
+        ]
+        
+        xss_vulnerabilities = 0
+        
+        for i, payload in enumerate(xss_payloads):
+            try:
+                test_email = f"xss_test_{i}_{int(time.time())}@test.com"
+                register_data = {
+                    "firstName": payload,
+                    "lastName": "User",
+                    "email": test_email,
+                    "phone": "+596123456789",
+                    "password": "SecurePass123!",
+                    "birthDate": "1990-01-01",
+                    "nationality": "FR",
+                    "acceptTerms": True
+                }
+                
+                response = self.session.post(
+                    f"{API_BASE_URL}/members/register",
+                    json=register_data,
+                    timeout=10
+                )
+                
+                if response.status_code == 200 and payload in response.text:
+                    xss_vulnerabilities += 1
+                    self.log_test(f"XSS Protection - Payload {i+1}", False, 
+                                f"XSS payload reflected: {payload[:30]}...", "CRITICAL")
+                else:
+                    self.log_test(f"XSS Protection - Payload {i+1}", True, 
+                                f"XSS payload sanitized: {payload[:30]}...")
+                    
+            except Exception as e:
+                print(f"   Error testing XSS payload {i+1}: {str(e)}")
+        
+        if xss_vulnerabilities == 0:
+            self.log_test("XSS Protection Overall", True, "All XSS payloads properly sanitized")
+        else:
+            self.log_test("XSS Protection Overall", False, 
+                        f"{xss_vulnerabilities} XSS vulnerabilities found", "CRITICAL")
+
+    def test_enhanced_password_validation(self):
+        """Test enhanced password validation"""
+        print("\n🔑 Testing Enhanced Password Validation")
+        
+        # Test weak passwords from review request
+        weak_passwords = ["password", "123456", "admin"]
+        
+        weak_accepted = 0
+        
+        for password in weak_passwords:
+            try:
+                test_email = f"weak_test_{password}_{int(time.time())}@test.com"
+                register_data = {
+                    "firstName": "Test",
+                    "lastName": "User",
+                    "email": test_email,
+                    "phone": "+596123456789",
+                    "password": password,
+                    "birthDate": "1990-01-01",
+                    "nationality": "FR",
+                    "acceptTerms": True
+                }
+                
+                response = self.session.post(
+                    f"{API_BASE_URL}/members/register",
+                    json=register_data,
+                    timeout=10
+                )
+                
+                if response.status_code == 200:
+                    weak_accepted += 1
+                    self.log_test(f"Weak Password - {password}", False, 
+                                f"Weak password accepted", "CRITICAL")
+                else:
+                    self.log_test(f"Weak Password - {password}", True, 
+                                f"Weak password rejected")
+                    
+            except Exception as e:
+                print(f"   Error testing password '{password}': {str(e)}")
+        
+        # Test password requirements
+        requirements = [
+            ("short", "Pass1!", "< 8 characters"),
+            ("no_upper", "password123!", "no uppercase"),
+            ("no_lower", "PASSWORD123!", "no lowercase"),
+            ("no_digit", "Password!", "no digit"),
+            ("no_special", "Password123", "no special character")
+        ]
+        
+        requirements_enforced = 0
+        
+        for req_name, test_password, description in requirements:
+            try:
+                test_email = f"req_{req_name}_{int(time.time())}@test.com"
+                register_data = {
+                    "firstName": "Test",
+                    "lastName": "User",
+                    "email": test_email,
+                    "phone": "+596123456789",
+                    "password": test_password,
+                    "birthDate": "1990-01-01",
+                    "nationality": "FR",
+                    "acceptTerms": True
+                }
+                
+                response = self.session.post(
+                    f"{API_BASE_URL}/members/register",
+                    json=register_data,
+                    timeout=10
+                )
+                
+                if response.status_code != 200:
+                    requirements_enforced += 1
+                    self.log_test(f"Password Requirement - {description}", True, 
+                                "Requirement properly enforced")
+                else:
+                    self.log_test(f"Password Requirement - {description}", False, 
+                                "Requirement not enforced", "HIGH")
+                    
+            except Exception as e:
+                print(f"   Error testing requirement '{description}': {str(e)}")
+        
+        # Test bcrypt hashing
+        try:
+            # Create a user and check if password is hashed
+            test_email = f"hash_test_{int(time.time())}@test.com"
+            register_data = {
+                "firstName": "Hash",
+                "lastName": "Test",
+                "email": test_email,
+                "phone": "+596123456789",
+                "password": "TestPassword123!",
+                "birthDate": "1990-01-01",
+                "nationality": "FR",
+                "acceptTerms": True
+            }
+            
+            response = self.session.post(
+                f"{API_BASE_URL}/members/register",
+                json=register_data,
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                # Check if plaintext password is not in response
+                if "TestPassword123!" not in response.text:
+                    self.log_test("Password Hashing", True, "Password properly hashed (not in plaintext)")
+                else:
+                    self.log_test("Password Hashing", False, "Password may not be hashed", "CRITICAL")
+            else:
+                self.log_test("Password Hashing", False, "Could not test password hashing", "INFO")
+                
+        except Exception as e:
+            self.log_test("Password Hashing", False, f"Error testing password hashing: {str(e)}", "INFO")
+
+    def test_comprehensive_path_traversal(self):
+        """Test comprehensive path traversal protection"""
+        print("\n📁 Testing Comprehensive Path Traversal Protection")
+        
+        # Path traversal payloads from review request
+        payloads = [
+            "../../../etc/passwd",
+            "....//....//....//etc/passwd",
+            "%2e%2e%2f" * 3 + "etc/passwd"
+        ]
+        
+        vulnerabilities = 0
+        
+        for payload in payloads:
+            try:
+                # Test in API path
+                response = self.session.get(f"{API_BASE_URL}/{payload}", timeout=10)
+                
+                if response.status_code == 200 and ("root:" in response.text or "passwd" in response.text):
+                    vulnerabilities += 1
+                    self.log_test(f"Path Traversal - {payload[:20]}...", False, 
+                                "Path traversal successful", "CRITICAL")
+                elif response.status_code == 400:
+                    self.log_test(f"Path Traversal - {payload[:20]}...", True, 
+                                "Path traversal blocked with HTTP 400")
+                else:
+                    self.log_test(f"Path Traversal - {payload[:20]}...", True, 
+                                f"Path traversal blocked with HTTP {response.status_code}")
+                    
+            except Exception as e:
+                print(f"   Error testing path traversal: {str(e)}")
+        
+        if vulnerabilities == 0:
+            self.log_test("Path Traversal Overall", True, "All path traversal attempts blocked")
+        else:
+            self.log_test("Path Traversal Overall", False, 
+                        f"{vulnerabilities} path traversal vulnerabilities", "CRITICAL")
+
+    def test_form_validation_stricte(self):
+        """Test strict form validation"""
+        print("\n📝 Testing Strict Form Validation")
+        
+        # Test acceptTerms = false
+        try:
+            test_email = f"terms_test_{int(time.time())}@test.com"
+            register_data = {
+                "firstName": "Test",
+                "lastName": "User",
+                "email": test_email,
+                "phone": "+596123456789",
+                "password": "SecurePass123!",
+                "birthDate": "1990-01-01",
+                "nationality": "FR",
+                "acceptTerms": False  # Should be rejected
+            }
+            
+            response = self.session.post(
+                f"{API_BASE_URL}/members/register",
+                json=register_data,
+                timeout=10
+            )
+            
+            if response.status_code != 200:
+                self.log_test("Form Validation - acceptTerms", True, 
+                            "acceptTerms=false properly rejected")
+            else:
+                self.log_test("Form Validation - acceptTerms", False, 
+                            "acceptTerms=false accepted", "HIGH")
+                
+        except Exception as e:
+            self.log_test("Form Validation - acceptTerms", False, f"Error: {str(e)}", "INFO")
+        
+        # Test invalid phone formats
+        invalid_phones = ["abc123", "123"]
+        
+        for phone in invalid_phones:
+            try:
+                test_email = f"phone_test_{phone}_{int(time.time())}@test.com"
+                register_data = {
+                    "firstName": "Test",
+                    "lastName": "User",
+                    "email": test_email,
+                    "phone": phone,
+                    "password": "SecurePass123!",
+                    "birthDate": "1990-01-01",
+                    "nationality": "FR",
+                    "acceptTerms": True
+                }
+                
+                response = self.session.post(
+                    f"{API_BASE_URL}/members/register",
+                    json=register_data,
+                    timeout=10
+                )
+                
+                if response.status_code != 200:
+                    self.log_test(f"Form Validation - Phone {phone}", True, 
+                                "Invalid phone format rejected")
+                else:
+                    self.log_test(f"Form Validation - Phone {phone}", False, 
+                                "Invalid phone format accepted", "HIGH")
+                    
+            except Exception as e:
+                print(f"   Error testing phone '{phone}': {str(e)}")
+        
+        # Test name too long (> 50 characters)
+        try:
+            test_email = f"long_name_test_{int(time.time())}@test.com"
+            register_data = {
+                "firstName": "A" * 60,  # Too long
+                "lastName": "User",
+                "email": test_email,
+                "phone": "+596123456789",
+                "password": "SecurePass123!",
+                "birthDate": "1990-01-01",
+                "nationality": "FR",
+                "acceptTerms": True
+            }
+            
+            response = self.session.post(
+                f"{API_BASE_URL}/members/register",
+                json=register_data,
+                timeout=10
+            )
+            
+            if response.status_code != 200:
+                self.log_test("Form Validation - Name Length", True, 
+                            "Long name (>50 chars) rejected")
+            else:
+                self.log_test("Form Validation - Name Length", False, 
+                            "Long name (>50 chars) accepted", "HIGH")
+                
+        except Exception as e:
+            self.log_test("Form Validation - Name Length", False, f"Error: {str(e)}", "INFO")
     
     def test_sql_injection_registration(self):
         """Test SQL injection vulnerabilities in member registration"""
