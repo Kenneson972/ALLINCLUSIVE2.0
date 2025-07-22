@@ -598,6 +598,14 @@ async def startup_db_client():
         await db.reservations.create_index("villa_id")
         await db.reservations.create_index("customer_email")
         
+        # Index pour les membres
+        await db.members.create_index("email", unique=True)
+        await db.members.create_index("id", unique=True)
+        await db.member_notifications.create_index("memberId")
+        await db.loyalty_transactions.create_index("memberId")
+        await db.member_wishlist.create_index("memberId")
+        await db.member_wishlist.create_index([("memberId", 1), ("villaId", 1)], unique=True)
+        
     except Exception as e:
         print(f"❌ Erreur lors de l'initialisation de la DB: {e}")
 
