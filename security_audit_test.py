@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-🔐 AUDIT SÉCURITÉ COMPLET - Système d'authentification KhanelConcept
-Security audit testing for KhanelConcept member authentication system
-Focus: SQL injection, XSS, brute force, JWT security, input validation
+🔐 AUDIT DE SÉCURITÉ FINAL - Système KhanelConcept avec améliorations
+Tester exhaustivement les améliorations de sécurité implémentées pour garantir la protection maximale contre les vulnérabilités critiques.
 """
 
 import requests
 import json
 import time
 import hashlib
+import random
+import string
 from datetime import datetime
 from typing import Dict, List, Any
 
