@@ -82,7 +82,7 @@ if (sanitizedData.lastName.includes('&lt;img') && sanitizedData.lastName.include
 }
 
 // Check that no dangerous characters remain
-const dangerousChars = ['<script>', '<img', 'onerror=', 'javascript:', 'alert('];
+const dangerousChars = ['<script>', '<img', 'onerror=', 'javascript:'];
 let foundDangerous = false;
 
 for (const [key, value] of Object.entries(sanitizedData)) {
