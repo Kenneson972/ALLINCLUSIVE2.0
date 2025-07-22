@@ -1075,7 +1075,8 @@ async def verify_member_token(token_data: TokenVerify):
         if not member or not member.get("isActive", True):
             raise HTTPException(status_code=401, detail="Membre introuvable ou inactif")
         
-        member.pop("password")
+        member.pop("password", None)
+        member.pop("_id", None)  # Remove MongoDB ObjectId
         return {"valid": True, "member": member}
         
     except HTTPException:
