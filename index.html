@@ -198,6 +198,46 @@
             margin-left: 0.5rem;
         }
         
+        /* Mobile Member Links Styles */
+        @media (max-width: 768px) {
+            .member-links {
+                margin-right: 0 !important;
+                padding-right: 0 !important;
+                justify-content: center !important;
+                width: 100% !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .member-separator {
+                display: none !important;
+            }
+            
+            .member-link {
+                flex: 1 !important;
+                justify-content: center !important;
+                min-width: 120px !important;
+                max-width: 150px !important;
+            }
+            
+            .member-link span {
+                display: inline !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .member-links {
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+                align-items: stretch !important;
+            }
+            
+            .member-link {
+                flex: none !important;
+                width: 100% !important;
+                max-width: none !important;
+            }
+        }
+        
         /* Main Content */
         .main-content {
             position: relative;
