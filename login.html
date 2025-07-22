@@ -812,6 +812,7 @@
                         const userData = JSON.parse(user);
                         if (userData.id === 'demo_user' || token.startsWith('demo_token_')) {
                             // Allow demo user to proceed
+                            sessionStorage.setItem('dashboard_redirect', 'true');
                             window.location.href = 'dashboard.html';
                             return;
                         }
