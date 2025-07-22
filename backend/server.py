@@ -22,6 +22,73 @@ from collections import defaultdict
 
 load_dotenv()
 
+# =============================================================================
+# MIDDLEWARE DE SÉCURITÉ CRITIQUE
+# =============================================================================
+
+# Rate limiting pour protection brute force
+request_counts = defaultdict(lambda: {'count': 0, 'reset_time': time.time()})
+
+class SecurityMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        client_ip = request.client.host if request.client else "unknown"
+        
+        # 1. Protection Path Traversal
+        path = request.url.path
+        if ".." in path or "%2e%2e" in path.lower() or "etc/passwd" in path.lower():
+            raise HTTPException(status_code=400, detail="Invalid path detected")
+        
+        # 2. Rate limiting basique
+        current_time = time.time()
+        if current_time - request_counts[client_ip]['reset_time'] > 60:
+            request_counts[client_ip] = {'count': 0, 'reset_time': current_time}
+        
+        request_counts[client_ip]['count'] += 1
+        
+        # Limiter à 60 requêtes par minute par IP
+        if request_counts[client_ip]['count'] > 60:
+            raise HTTPException(status_code=429, detail="Rate limit exceeded")
+        
+        # 3. Headers de sécurité
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        
+        return response
+
+# Utilitaires de sécurité
+def sanitize_input(text: str) -> str:
+    """Nettoie les entrées utilisateur contre XSS"""
+    if not text:
+        return text
+    # Supprime/échappe les balises HTML et scripts
+    cleaned = bleach.clean(text, tags=[], attributes={}, strip=True)
+    return cleaned.strip()
+
+def hash_password(password: str) -> str:
+    """Hash sécurisé du mot de passe avec bcrypt"""
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Vérifie le mot de passe"""
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+def validate_password_strength(password: str) -> bool:
+    """Valide la force du mot de passe"""
+    if len(password) < 8:
+        return False
+    if not re.search(r"[a-z]", password):
+        return False
+    if not re.search(r"[A-Z]", password):
+        return False
+    if not re.search(r"\d", password):
+        return False
+    if not re.search(r"[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]", password):
+        return False
+    return True
+
 # Configuration sécurité
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here-change-in-production")
 ALGORITHM = "HS256"
