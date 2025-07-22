@@ -934,10 +934,6 @@ def verify_password(plain_password, hashed_password):
     """Vérifier le mot de passe"""
     return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
-def hash_password(password: str):
-    """Hacher un mot de passe"""
-    return hashlib.sha256(password.encode()).hexdigest()
-
 def authenticate_user(username: str, password: str):
     """Authentifier un utilisateur admin"""
     user = ADMIN_USERS.get(username)
