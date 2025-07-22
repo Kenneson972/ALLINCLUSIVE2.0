@@ -1004,8 +1004,9 @@ async def member_register(member_data: MemberRegister):
             # Créer le token
             token = create_member_token(new_member)
             
-            # Retourner les infos (sans le mot de passe)
-            new_member.pop("password")
+            # Retourner les infos (sans le mot de passe et _id MongoDB)
+            new_member.pop("password", None)
+            new_member.pop("_id", None)  # Remove MongoDB ObjectId
             return {
                 "success": True,
                 "message": "Compte créé avec succès",
