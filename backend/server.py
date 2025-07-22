@@ -185,15 +185,6 @@ class MemberRegister(BaseModel):
             raise ValueError('Mot de passe trop commun, choisissez un mot de passe plus sûr')
         return v
     
-    @validator('nationality')
-    def validate_nationality(cls, v):
-        if v:
-            sanitized = sanitize_input(v.strip())
-            if len(sanitized) > 2:
-                raise ValueError('Code nationalité invalide')
-            return sanitized.upper()
-        return v
-    
     @validator('acceptTerms')
     def validate_terms(cls, v):
         if not v:
