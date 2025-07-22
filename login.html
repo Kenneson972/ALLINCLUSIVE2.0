@@ -651,9 +651,27 @@
 
             const form = e.target;
             const formData = new FormData(form);
-            const email = formData.get('email') || document.getElementById('email').value;
-            const password = formData.get('password') || document.getElementById('password').value;
+            let email = formData.get('email') || document.getElementById('email').value;
+            let password = formData.get('password') || document.getElementById('password').value;
             const remember = document.getElementById('remember').checked;
+
+            // 🔒 SANITISATION SÉCURITÉ XSS
+            function sanitizeInput(input) {
+                if (typeof input !== 'string') return input;
+                return input
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#x27;')
+                    .replace(/&/g, '&amp;')
+                    .replace(/javascript:/gi, '')
+                    .replace(/on\w+\s*=/gi, '')
+                    .trim();
+            }
+            
+            email = sanitizeInput(email);
+            password = sanitizeInput(password);
+            console.log('🔒 Email sanitisé:', email);
 
             // Validate fields
             const emailField = document.getElementById('email');
