@@ -673,7 +673,7 @@
 
             try {
                 // Call actual backend API for login
-                const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+                const backendUrl = 'http://localhost:8001'; // URL backend statique pour HTML
                 const response = await fetch(`${backendUrl}/api/members/login`, {
                     method: 'POST',
                     headers: {
