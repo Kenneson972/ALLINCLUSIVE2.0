@@ -1,9 +1,10 @@
-from fastapi import FastAPI, HTTPException, Depends, status, UploadFile, File
+from fastapi import FastAPI, HTTPException, Depends, status, UploadFile, File, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, validator
 from typing import List, Optional
 import os
 from datetime import datetime, timedelta
@@ -13,6 +14,11 @@ from dotenv import load_dotenv
 import hashlib
 import secrets
 from jose import JWTError, jwt
+import bcrypt
+import bleach
+import re
+import time
+from collections import defaultdict
 
 load_dotenv()
 
