@@ -990,8 +990,8 @@
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
                 password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
                 birthDate: document.getElementById('birthDate').value,
-                nationality: document.getElementById('nationality').value,
                 terms: document.getElementById('terms').checked
             };
             
@@ -1000,7 +1000,7 @@
             console.log('🔒 Données sanitisées:', userData);
 
             // Validate all fields
-            const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'password'];
+            const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword'];
             let isValid = true;
 
             requiredFields.forEach(fieldId => {
@@ -1009,6 +1009,18 @@
                     isValid = false;
                 }
             });
+
+            // Validation spéciale : correspondance mots de passe
+            if (userData.password !== userData.confirmPassword) {
+                const confirmField = document.getElementById('confirmPassword');
+                const confirmError = document.getElementById('confirmPassword-error');
+                confirmField.classList.add('error');
+                if (confirmError) {
+                    confirmError.textContent = 'Les mots de passe ne correspondent pas';
+                    confirmError.style.display = 'block';
+                }
+                isValid = false;
+            }
 
             // Check terms
             if (!userData.terms) {
