@@ -9,11 +9,11 @@ function sanitizeInput(input) {
     if (typeof input !== 'string') return input;
     
     return input
+        .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#x27;')
-        .replace(/&/g, '&amp;')
         .replace(/javascript:/gi, '')
         .replace(/on\w+\s*=/gi, '')
         .trim();
