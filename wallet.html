@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portefeuille & Facturation - KhanelConcept Espace Membre</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Gérez votre portefeuille KhanelConcept - Paiements, factures, remboursements et méthodes de règlement sécurisées.">
+    <meta name="keywords" content="portefeuille KhanelConcept, facturation, paiements, méthodes règlement">
+    <meta name="author" content="KhanelConcept">
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --warning-gradient: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --accent-gold: #f6ad55;
+            --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            color: #FFA500;
+        }
+        
+        /* Container */
+        .wallet-container {
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
+        }
+        
+        .wallet-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        /* Header Section */
+        .wallet-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        
+        .wallet-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .wallet-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .wallet-balance {
+            background: var(--success-gradient);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 0 auto;
+            max-width: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wallet-balance::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .balance-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .balance-amount {
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .balance-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .balance-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .balance-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.3rem;
+            color: white;
+        }
+        
+        .stat-icon.spent { background: var(--secondary-gradient); }
+        .stat-icon.pending { background: var(--warning-gradient); }
+        .stat-icon.refunded { background: var(--primary-gradient); }
+        .stat-icon.saved { background: var(--success-gradient); }
+        
+        .stat-value {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+        }
+        
+        /* Sections */
+        .wallet-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
+        }
+        
+        .section-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .payment-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .payment-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+        
+        .payment-card.default {
+            border-color: var(--accent-gold);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .card-brand {
+            width: 50px;
+            height: 32px;
+            background: var(--primary-gradient);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .card-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .card-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-number {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-holder {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        .card-expiry {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+        
+        .default-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 10px;
+        }
+        
+        .add-payment {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 140px;
+        }
+        
+        .add-payment:hover {
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .add-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .add-text {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .add-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Transaction History */
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .filter-select option {
+            background: #2d3748;
+            color: white;
+        }
+        
+        .transactions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .transactions-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .transactions-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        .transactions-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+        
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .transaction-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .transaction-item.payment { border-left-color: #e53e3e; }
+        .transaction-item.refund { border-left-color: #38a169; }
+        .transaction-item.credit { border-left-color: #3182ce; }
+        .transaction-item.fee { border-left-color: #d69e2e; }
+        
+        .transaction-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .transaction-icon.payment { background: var(--secondary-gradient); }
+        .transaction-icon.refund { background: var(--success-gradient); }
+        .transaction-icon.credit { background: var(--primary-gradient); }
+        .transaction-icon.fee { background: var(--warning-gradient); }
+        
+        .transaction-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .transaction-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .transaction-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .transaction-date {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+        
+        .transaction-amount {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        
+        .amount-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .amount-value.positive { color: #68d391; }
+        .amount-value.negative { color: #fc8181; }
+        .amount-value.neutral { color: #f6ad55; }
+        
+        .amount-status {
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        .amount-status.completed {
+            background: rgba(72, 187, 120, 0.2);
+            color: #68d391;
+        }
+        
+        .amount-status.pending {
+            background: rgba(246, 173, 85, 0.2);
+            color: #f6ad55;
+        }
+        
+        .amount-status.failed {
+            background: rgba(245, 101, 101, 0.2);
+            color: #fc8181;
+        }
+        
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+        }
+        
+        .chart-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .chart-canvas {
+            width: 100% !important;
+            height: 250px !important;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(135, 206, 235, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: white;
+        }
+        
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .wallet-container {
+                padding: 1rem;
+            }
+            
+            .wallet-header,
+            .wallet-section {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+            
+            .wallet-title {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .balance-amount {
+                font-size: 2.5rem;
+            }
+            
+            .balance-actions {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .transactions-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+            
+            .transaction-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .transaction-content {
+                order: 1;
+            }
+            
+            .transaction-amount {
+                order: 2;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-palm-tree"></i>
+                    KhanelConcept
+                </a>
+                
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="dashboard.html" class="text-white/80 hover:text-white transition-colors">Dashboard</a>
+                    <a href="profile.html" class="text-white/80 hover:text-white transition-colors">Profil</a>
+                    <a href="index.html" class="text-white/80 hover:text-white transition-colors">Villas</a>
+                    <button onclick="logout()" class="text-white/80 hover:text-white transition-colors">Déconnexion</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Wallet Container -->
+    <div class="wallet-container">
+        <div class="wallet-content">
+            
+            <!-- Header Section -->
+            <section class="wallet-header" data-aos="fade-up">
+                <h1 class="wallet-title">
+                    <i class="fas fa-wallet"></i>
+                    Mon Portefeuille
+                </h1>
+                <p class="wallet-subtitle">
+                    Gérez vos paiements, factures et moyens de règlement en toute sécurité
+                </p>
+                
+                <div class="wallet-balance">
+                    <div class="balance-label">Solde disponible</div>
+                    <div class="balance-amount" id="walletBalance">0,00 €</div>
+                    <div class="balance-actions">
+                        <button class="balance-btn" onclick="addFunds()">
+                            <i class="fas fa-plus"></i>
+                            Ajouter
+                        </button>
+                        <button class="balance-btn" onclick="withdrawFunds()">
+                            <i class="fas fa-minus"></i>
+                            Retirer
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="quick-stats">
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="stat-icon spent">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="stat-value" id="totalSpent">0€</div>
+                        <div class="stat-label">Total Dépensé</div>
+                    </div>
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-value" id="pendingAmount">0€</div>
+                        <div class="stat-label">En Attente</div>
+                    </div>
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-icon refunded">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <div class="stat-value" id="totalRefunded">0€</div>
+                        <div class="stat-label">Remboursé</div>
+                    </div>
+                    <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="stat-icon saved">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="stat-value" id="totalSaved">0€</div>
+                        <div class="stat-label">Économisé</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Methods Section -->
+            <section class="wallet-section" data-aos="fade-up">
+                <h2 class="section-title">
+                    <i class="fas fa-credit-card"></i>
+                    Méthodes de Paiement
+                </h2>
+                
+                <div class="payment-methods">
+                    <div class="payment-card default">
+                        <div class="default-badge">Défaut</div>
+                        <div class="card-header">
+                            <div class="card-brand">VISA</div>
+                            <div class="card-actions">
+                                <button class="card-btn" onclick="editPaymentMethod('card1')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="card-btn" onclick="deletePaymentMethod('card1')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-number">•••• •••• •••• 4532</div>
+                        <div class="card-info">
+                            <div class="card-holder">Marie-Claire Dubois</div>
+                            <div class="card-expiry">12/27</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <div class="card-header">
+                            <div class="card-brand" style="background: var(--secondary-gradient);">MC</div>
+                            <div class="card-actions">
+                                <button class="card-btn" onclick="editPaymentMethod('card2')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="card-btn" onclick="deletePaymentMethod('card2')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-number">•••• •••• •••• 8901</div>
+                        <div class="card-info">
+                            <div class="card-holder">Marie-Claire Dubois</div>
+                            <div class="card-expiry">08/26</div>
+                        </div>
+                    </div>
+                    
+                    <div class="add-payment" onclick="addPaymentMethod()">
+                        <div class="add-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="add-text">Ajouter une carte</div>
+                        <div class="add-desc">Visa, Mastercard, Amex</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-bottom: 1rem;">
+                        Autres méthodes de paiement acceptées
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn btn-secondary" onclick="setupPayPal()">
+                            <i class="fab fa-paypal"></i>
+                            PayPal
+                        </button>
+                        <button class="btn btn-secondary" onclick="setupApplePay()">
+                            <i class="fab fa-apple-pay"></i>
+                            Apple Pay
+                        </button>
+                        <button class="btn btn-secondary" onclick="setupBankTransfer()">
+                            <i class="fas fa-university"></i>
+                            Virement SEPA
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transaction History Section -->
+            <section class="wallet-section" data-aos="fade-up">
+                <div class="transactions-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-history"></i>
+                        Historique des Transactions
+                    </h2>
+                    <select class="filter-select" id="periodFilter" onchange="filterTransactions()">
+                        <option value="all">Toutes les périodes</option>
+                        <option value="month">Ce mois</option>
+                        <option value="3months">3 derniers mois</option>
+                        <option value="year">Cette année</option>
+                    </select>
+                </div>
+                
+                <div class="transactions-list" id="transactionsList">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement de votre historique...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="wallet-section" data-aos="fade-up">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    Analyses Financières
+                </h2>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-title">Dépenses par Mois</div>
+                        <canvas id="monthlyChart" class="chart-canvas"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-title">Répartition des Paiements</div>
+                        <canvas id="categoryChart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Global variables
+        let currentUser = null;
+        let transactionsData = [];
+        let monthlyChart = null;
+        let categoryChart = null;
+        
+        const backendUrl = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8001'
+            : (typeof process !== 'undefined' && process.env && process.env.REACT_APP_BACKEND_URL) 
+                ? process.env.REACT_APP_BACKEND_URL 
+                : 'https://d2f03f55-58bd-492d-b2e7-d222dccd8ffa.preview.emergentagent.com';
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackgroundVideoiOS();
+            AOS.init({ duration: 1000, once: true });
+            checkAuthentication();
+            loadWalletData();
+            initCharts();
+        });
+
+        // iOS Video Background Support
+        function initBackgroundVideoiOS() {
+            const video = document.getElementById('backgroundVideo');
+            if (video) {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                
+                if (isIOS) {
+                    video.setAttribute('webkit-playsinline', '');
+                    video.setAttribute('playsinline', '');
+                    video.muted = true;
+                    video.defaultMuted = true;
+                    video.volume = 0;
+                    
+                    video.play().catch(error => {
+                        function startVideo() {
+                            video.play().then(() => {
+                                console.log('✅ Vidéo background démarrée sur iOS');
+                            }).catch(err => console.log('Erreur vidéo iOS:', err));
+                            document.removeEventListener('touchstart', startVideo);
+                            document.removeEventListener('click', startVideo);
+                        }
+                        
+                        document.addEventListener('touchstart', startVideo, { once: true });
+                        document.addEventListener('click', startVideo, { once: true });
+                    });
+                } else {
+                    video.play().catch(error => {
+                        console.log('Erreur autoplay:', error);
+                    });
+                }
+            }
+        }
+
+        // Check authentication
+        function checkAuthentication() {
+            const userData = localStorage.getItem('khanelconcept_user');
+            const token = localStorage.getItem('khanelconcept_token');
+            
+            if (!userData || !token) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                currentUser = JSON.parse(userData);
+            } catch (error) {
+                console.error('Error parsing user data:', error);
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Load wallet data
+        async function loadWalletData() {
+            // Simulate loading wallet data
+            try {
+                // For demo purposes, generate sample data
+                const walletData = {
+                    balance: 150.00,
+                    totalSpent: 2850,
+                    pendingAmount: 0,
+                    totalRefunded: 200,
+                    totalSaved: 425
+                };
+
+                updateWalletStats(walletData);
+                loadTransactions();
+                
+            } catch (error) {
+                console.error('Error loading wallet data:', error);
+            }
+        }
+
+        // Update wallet stats
+        function updateWalletStats(data) {
+            document.getElementById('walletBalance').textContent = `${data.balance.toFixed(2)} €`;
+            document.getElementById('totalSpent').textContent = `${data.totalSpent}€`;
+            document.getElementById('pendingAmount').textContent = `${data.pendingAmount}€`;
+            document.getElementById('totalRefunded').textContent = `${data.totalRefunded}€`;
+            document.getElementById('totalSaved').textContent = `${data.totalSaved}€`;
+        }
+
+        // Load transactions
+        function loadTransactions() {
+            // Generate demo transactions
+            const now = new Date();
+            transactionsData = [
+                {
+                    id: '1',
+                    type: 'payment',
+                    title: 'Réservation Villa F3 Petit Macabou',
+                    description: '3 nuits - 15-18 Mars 2025',
+                    amount: -850,
+                    date: new Date(now.getTime() - 86400000 * 2),
+                    status: 'completed'
+                },
+                {
+                    id: '2',
+                    type: 'refund',
+                    title: 'Remboursement - Villa F5 Ste-Anne',
+                    description: 'Annulation par le client',
+                    amount: 200,
+                    date: new Date(now.getTime() - 86400000 * 5),
+                    status: 'completed'
+                },
+                {
+                    id: '3',
+                    type: 'credit',
+                    title: 'Rechargement portefeuille',
+                    description: 'Ajout de fonds via Visa •••• 4532',
+                    amount: 500,
+                    date: new Date(now.getTime() - 86400000 * 7),
+                    status: 'completed'
+                },
+                {
+                    id: '4',
+                    type: 'payment',
+                    title: 'Services additionnels',
+                    description: 'Chef privé + Massage spa',
+                    amount: -320,
+                    date: new Date(now.getTime() - 86400000 * 10),
+                    status: 'completed'
+                },
+                {
+                    id: '5',
+                    type: 'fee',
+                    title: 'Frais de service',
+                    description: 'Commission réservation',
+                    amount: -25,
+                    date: new Date(now.getTime() - 86400000 * 12),
+                    status: 'completed'
+                }
+            ];
+
+            renderTransactions(transactionsData);
+        }
+
+        // Render transactions
+        function renderTransactions(transactions) {
+            const container = document.getElementById('transactionsList');
+            
+            if (transactions.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.7);">
+                        <i class="fas fa-receipt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Aucune transaction trouvée</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = transactions.map(transaction => {
+                const icon = getTransactionIcon(transaction.type);
+                const amountClass = transaction.amount > 0 ? 'positive' : transaction.amount < 0 ? 'negative' : 'neutral';
+                const sign = transaction.amount > 0 ? '+' : '';
+                
+                return `
+                    <div class="transaction-item ${transaction.type}" data-aos="fade-up">
+                        <div class="transaction-icon ${transaction.type}">
+                            <i class="fas fa-${icon}"></i>
+                        </div>
+                        
+                        <div class="transaction-content">
+                            <div class="transaction-title">${transaction.title}</div>
+                            <div class="transaction-desc">${transaction.description}</div>
+                            <div class="transaction-date">${formatDate(transaction.date)}</div>
+                        </div>
+                        
+                        <div class="transaction-amount">
+                            <div class="amount-value ${amountClass}">
+                                ${sign}${Math.abs(transaction.amount)}€
+                            </div>
+                            <div class="amount-status ${transaction.status}">
+                                ${getStatusLabel(transaction.status)}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Get transaction icon
+        function getTransactionIcon(type) {
+            const icons = {
+                'payment': 'arrow-down',
+                'refund': 'undo',
+                'credit': 'plus',
+                'fee': 'percentage'
+            };
+            return icons[type] || 'circle';
+        }
+
+        // Get status label
+        function getStatusLabel(status) {
+            const labels = {
+                'completed': 'Terminé',
+                'pending': 'En cours',
+                'failed': 'Échec'
+            };
+            return labels[status] || status;
+        }
+
+        // Format date
+        function formatDate(date) {
+            return date.toLocaleDateString('fr-FR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Filter transactions
+        function filterTransactions() {
+            const period = document.getElementById('periodFilter').value;
+            const now = new Date();
+            let filteredData = [...transactionsData];
+
+            if (period !== 'all') {
+                const periodMap = {
+                    'month': 30,
+                    '3months': 90,
+                    'year': 365
+                };
+                
+                const daysAgo = periodMap[period];
+                const cutoffDate = new Date(now.getTime() - (daysAgo * 24 * 60 * 60 * 1000));
+                
+                filteredData = transactionsData.filter(transaction => 
+                    new Date(transaction.date) >= cutoffDate
+                );
+            }
+
+            renderTransactions(filteredData);
+        }
+
+        // Initialize charts
+        function initCharts() {
+            setTimeout(() => {
+                initMonthlyChart();
+                initCategoryChart();
+            }, 1000);
+        }
+
+        // Initialize monthly spending chart
+        function initMonthlyChart() {
+            const ctx = document.getElementById('monthlyChart');
+            if (!ctx) return;
+
+            monthlyChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Dépenses (€)',
+                        data: [1200, 1900, 850, 2100, 1750, 1450],
+                        borderColor: '#87ceeb',
+                        backgroundColor: 'rgba(135, 206, 235, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: 'rgba(255, 255, 255, 0.8)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: 'rgba(255, 255, 255, 0.8)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: 'rgba(255, 255, 255, 0.8)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize category pie chart
+        function initCategoryChart() {
+            const ctx = document.getElementById('categoryChart');
+            if (!ctx) return;
+
+            categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Réservations', 'Services', 'Frais', 'Autres'],
+                    datasets: [{
+                        data: [75, 15, 5, 5],
+                        backgroundColor: [
+                            '#87ceeb',
+                            '#f6ad55',
+                            '#fc8181',
+                            '#68d391'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { 
+                                color: 'rgba(255, 255, 255, 0.8)',
+                                padding: 20
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Payment method functions
+        function addPaymentMethod() {
+            alert('Fonctionnalité d\'ajout de carte en cours de développement !');
+        }
+
+        function editPaymentMethod(cardId) {
+            alert(`Modification de la carte ${cardId} en cours de développement !`);
+        }
+
+        function deletePaymentMethod(cardId) {
+            if (confirm('Voulez-vous supprimer cette carte ?')) {
+                alert(`Suppression de la carte ${cardId} en cours de développement !`);
+            }
+        }
+
+        function setupPayPal() {
+            alert('Configuration PayPal en cours de développement !');
+        }
+
+        function setupApplePay() {
+            alert('Configuration Apple Pay en cours de développement !');
+        }
+
+        function setupBankTransfer() {
+            alert('Configuration virement SEPA en cours de développement !');
+        }
+
+        // Wallet functions
+        function addFunds() {
+            const amount = prompt('Montant à ajouter (€):');
+            if (amount && !isNaN(amount) && parseFloat(amount) > 0) {
+                alert(`Ajout de ${amount}€ en cours de traitement...`);
+            }
+        }
+
+        function withdrawFunds() {
+            const amount = prompt('Montant à retirer (€):');
+            if (amount && !isNaN(amount) && parseFloat(amount) > 0) {
+                alert(`Retrait de ${amount}€ en cours de traitement...`);
+            }
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                localStorage.removeItem('khanelconcept_user');
+                localStorage.removeItem('khanelconcept_token');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>
