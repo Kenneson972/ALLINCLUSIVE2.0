@@ -1007,12 +1007,64 @@
             registerBtn.classList.add('loading');
 
             try {
-                // Simulate registration process
-                await new Promise(resolve => setTimeout(resolve, 3000));
+                // 🚀 ENVOI AU VRAI BACKEND API
+                const backendUrl = 'http://localhost:8001'; // URL backend
+                const response = await fetch(`${backendUrl}/api/members/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        email: userData.email,
+                        phone: userData.phone,
+                        password: userData.password,
+                        birthDate: userData.birthDate,
+                        nationality: userData.nationality,
+                        acceptTerms: userData.terms
+                    })
+                });
 
-                // Store user data (demo)
+                let responseData = {};
+                try {
+                    responseData = await response.json();
+                } catch (jsonError) {
+                    console.log('❌ Erreur parsing JSON response:', jsonError);
+                }
+
+                if (response.ok && responseData.success) {
+                    // Inscription réussie dans le backend
+                    const newUser = responseData.member;
+                    const token = responseData.token;
+                    
+                    // Stocker les données utilisateur et token
+                    localStorage.setItem('khanelconcept_user', JSON.stringify(newUser));
+                    localStorage.setItem('khanelconcept_token', token);
+
+                    console.log('✅ Inscription backend réussie:', newUser);
+                    showSuccess('Compte créé avec succès dans la base de données ! Redirection vers votre espace...');
+                    
+                    setTimeout(() => {
+                        sessionStorage.setItem('dashboard_redirect', 'true');
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                    
+                } else {
+                    // Erreur backend
+                    const errorMessage = responseData.detail || responseData.message || 'Erreur lors de la création du compte';
+                    console.log('❌ Erreur backend inscription:', errorMessage);
+                    showError(errorMessage);
+                }
+
+            } catch (error) {
+                console.error('❌ Erreur réseau inscription:', error);
+                
+                // Fallback vers système demo en cas d'erreur réseau
+                console.log('🔄 Fallback vers système demo...');
+                
                 const newUser = {
-                    id: Date.now(),
+                    id: `demo_${Date.now()}`,
                     firstName: userData.firstName,
                     lastName: userData.lastName,
                     email: userData.email,
@@ -1020,23 +1072,22 @@
                     birthDate: userData.birthDate,
                     nationality: userData.nationality,
                     level: 'Découvreur',
-                    points: 100, // Welcome bonus
+                    points: 100,
                     joinDate: new Date().toISOString(),
                     isVerified: false
                 };
 
-                // Store in localStorage (in real app, this would be sent to server)
+                // Store in localStorage as fallback
                 localStorage.setItem('khanelconcept_user', JSON.stringify(newUser));
+                localStorage.setItem('khanelconcept_token', `demo_token_${Date.now()}`);
 
-                // Show success and redirect
-                showSuccess('Compte créé avec succès ! Redirection vers votre espace...');
+                showError('Erreur réseau - Utilisez demo@khanelconcept.com / demo123 pour tester la connexion.');
                 
                 setTimeout(() => {
+                    sessionStorage.setItem('dashboard_redirect', 'true');
                     window.location.href = 'dashboard.html';
-                }, 2000);
-
-            } catch (error) {
-                showError('Une erreur est survenue lors de la création du compte. Veuillez réessayer.');
+                }, 3000);
+            }
             } finally {
                 registerBtn.classList.remove('loading');
             }
