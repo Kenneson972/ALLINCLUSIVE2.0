@@ -661,7 +661,17 @@
                 link.addEventListener('click', function(e) {
                     closeMobileMenu();
                     
-                    // Permettre la navigation normale pour tous les liens
+                    // Si c'est un lien avec onclick (scroll interne), empêcher navigation
+                    if (link.getAttribute('onclick')) {
+                        e.preventDefault();
+                        // Exécuter le scroll après fermeture du menu
+                        setTimeout(() => {
+                            eval(link.getAttribute('onclick'));
+                        }, 300);
+                        return;
+                    }
+                    
+                    // Permettre la navigation normale pour les autres liens
                     return true;
                 });
             });
