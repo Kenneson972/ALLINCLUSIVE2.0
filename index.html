@@ -3311,8 +3311,15 @@
             navMenu.classList.add('mobile-open');
             toggle.className = 'fas fa-times';
             
-            // Fermer le menu lors du clic sur un lien
+            // Animation staggered pour les liens
             const menuLinks = navMenu.querySelectorAll('a');
+            menuLinks.forEach((link, index) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(20px)';
+                link.style.animation = `slideInStagger 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.05}s forwards`;
+            });
+            
+            // Fermer le menu lors du clic sur un lien
             menuLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     closeMobileMenu();
