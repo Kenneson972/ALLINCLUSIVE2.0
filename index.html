@@ -3361,8 +3361,25 @@
             const toggle = document.querySelector('.mobile-nav-toggle i');
             
             console.log('❌ Fermeture menu mobile');
-            navMenu.classList.remove('mobile-open');
-            toggle.className = 'fas fa-bars';
+            
+            // Animation de sortie pour les liens
+            const menuLinks = navMenu.querySelectorAll('a');
+            menuLinks.forEach((link, index) => {
+                link.style.animation = `slideOutStagger 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) ${index * 0.03}s forwards`;
+            });
+            
+            // Fermer le menu après l'animation
+            setTimeout(() => {
+                navMenu.classList.remove('mobile-open');
+                toggle.className = 'fas fa-bars';
+                
+                // Reset des styles inline
+                menuLinks.forEach(link => {
+                    link.style.animation = '';
+                    link.style.opacity = '';
+                    link.style.transform = '';
+                });
+            }, 300);
             
             document.removeEventListener('click', handleOutsideClick);
         }
