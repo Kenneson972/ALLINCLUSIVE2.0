@@ -1831,17 +1831,65 @@
                 transition: all 0.1s ease !important;
             }
             
-            /* SOS Link style en mobile */
+            /* SOS Link style en mobile - GLASSMORPHISM AMÉLIORÉ */
             .nav-links.nav-menu.mobile-open .sos-link {
-                background: rgba(255, 68, 68, 0.2) !important;
+                background: linear-gradient(135deg, 
+                    rgba(255, 68, 68, 0.25) 0%, 
+                    rgba(255, 100, 100, 0.15) 100%) !important;
                 border: 1px solid rgba(255, 68, 68, 0.4) !important;
                 color: #FFE4E4 !important;
+                box-shadow: 
+                    0 6px 25px rgba(255, 68, 68, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                    0 0 20px rgba(255, 68, 68, 0.1) !important;
+                position: relative !important;
+            }
+
+            .nav-links.nav-menu.mobile-open .sos-link::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(45deg, transparent 30%, rgba(255, 68, 68, 0.1) 50%, transparent 70%);
+                opacity: 0;
+                transition: opacity 0.6s ease;
+                border-radius: 15px;
+            }
+
+            .nav-links.nav-menu.mobile-open .sos-link:hover::after {
+                opacity: 1;
+                animation: sosGlow 1.5s ease-in-out infinite alternate;
+            }
+
+            @keyframes sosGlow {
+                0% { box-shadow: 0 0 20px rgba(255, 68, 68, 0.3); }
+                100% { box-shadow: 0 0 35px rgba(255, 68, 68, 0.6); }
             }
             
             .nav-links.nav-menu.mobile-open .sos-link:hover {
-                background: rgba(255, 68, 68, 0.4) !important;
+                background: linear-gradient(135deg, 
+                    rgba(255, 68, 68, 0.4) 0%, 
+                    rgba(255, 100, 100, 0.25) 100%) !important;
                 border-color: rgba(255, 68, 68, 0.6) !important;
-                transform: scale(1.05) !important;
+                transform: translateY(-3px) scale(1.03) !important;
+                box-shadow: 
+                    0 12px 40px rgba(255, 68, 68, 0.25),
+                    0 6px 20px rgba(255, 68, 68, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                    0 0 30px rgba(255, 68, 68, 0.2) !important;
+                color: white !important;
+            }
+
+            .nav-links.nav-menu.mobile-open .sos-link i {
+                filter: drop-shadow(0 0 8px rgba(255, 68, 68, 0.5));
+                animation: toolsPulse 2s ease-in-out infinite;
+            }
+
+            @keyframes toolsPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
             }
         }
     </style>
