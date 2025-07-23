@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billetterie - KhanelConcept</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Video Background Identique */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Header Identique */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 120px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Glass Cards Identiques */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .billetterie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+
+        .btn-reserve {
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .btn-reserve:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(68, 160, 141, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            
+            .billetterie-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video Identique -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header Identique -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-palm-tree"></i>
+                KhanelConcept
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">🏠 Accueil</a>
+                <a href="prestataires.html">👥 Prestataires</a>
+                <a href="billetterie.html" class="active">🎫 Billetterie</a>
+                <a href="mobilier.html">🪑 Mobilier</a>
+                <a href="excursions.html">🏝️ Excursions</a>
+                <a href="sos-depannage.html">🆘 SOS Dépannage</a>
+                <a href="pmr.html">♿ PMR</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-title">
+                <h1>🎫 Billetterie Exclusive</h1>
+                <p>Réservez vos activités et spectacles en Martinique</p>
+            </div>
+
+            <div class="billetterie-grid">
+                <div class="glass-card">
+                    <h3><i class="fas fa-ship" style="color: #3498DB; margin-right: 1rem;"></i>Excursions Nautiques</h3>
+                    <p>Découvrez les plus beaux sites marins de la Martinique</p>
+                    <div class="price-tag">À partir de 65€</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🏊 Snorkeling aux Anses d'Arlet</li>
+                        <li>🐠 Observation des dauphins</li>
+                        <li>🏖️ Plage des Salines privée</li>
+                        <li>🍹 Cocktails inclus</li>
+                    </ul>
+                    <a href="#" class="btn-reserve">Réserver maintenant</a>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-mountain" style="color: #27AE60; margin-right: 1rem;"></i>Randonnées Premium</h3>
+                    <p>Explorez la nature sauvage avec un guide expert</p>
+                    <div class="price-tag">À partir de 45€</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🥾 Montagne Pelée au lever du soleil</li>
+                        <li>🌺 Jardin de Balata privatisé</li>
+                        <li>💧 Cascades secrètes du Nord</li>
+                        <li>📸 Photos souvenir incluses</li>
+                    </ul>
+                    <a href="#" class="btn-reserve">Réserver maintenant</a>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-music" style="color: #E74C3C; margin-right: 1rem;"></i>Spectacles Créoles</h3>
+                    <p>Plongez dans la culture martiniquaise authentique</p>
+                    <div class="price-tag">À partir de 35€</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🥁 Soirée tambour traditionnel</li>
+                        <li>💃 Spectacle de danse créole</li>
+                        <li>🎵 Concert de zouk en plein air</li>
+                        <li>🍽️ Dîner créole inclus</li>
+                    </ul>
+                    <a href="#" class="btn-reserve">Réserver maintenant</a>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-cocktail" style="color: #F39C12; margin-right: 1rem;"></i>Dégustations Rhum</h3>
+                    <p>Découvrez les meilleurs rhums de l'île</p>
+                    <div class="price-tag">À partir de 55€</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🥃 Visite distillerie Clément</li>
+                        <li>🌱 Plantation de canne à sucre</li>
+                        <li>👨‍🍳 Atelier cocktails premium</li>
+                        <li>🎁 Bouteille personnalisée</li>
+                    </ul>
+                    <a href="#" class="btn-reserve">Réserver maintenant</a>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-spa" style="color: #9B59B6; margin-right: 1rem;"></i>Wellness & Détente</h3>
+                    <p>Ressourcez-vous dans un cadre paradisiaque</p>
+                    <div class="price-tag">À partir de 85€</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>💆 Massage sous les cocotiers</li>
+                        <li>🧘 Séance yoga face à la mer</li>
+                        <li>🌿 Soins aux produits locaux</li>
+                        <li>🍃 Bain de forêt tropicale</li>
+                    </ul>
+                    <a href="#" class="btn-reserve">Réserver maintenant</a>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-camera" style="color: #E67E22; margin-right: 1rem;"></i>Shooting Photos</h3>
+                    <p>Immortalisez vos vacances avec un photographe pro</p>
+                    <div class="price-tag">À partir de 150€</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>📸 Séance couple en villa</li>
+                        <li>👨‍👩‍👧‍👦 Portrait famille au coucher du soleil</li>
+                        <li>💍 Photos de fiançailles/mariage</li>
+                        <li>📱 100 photos retouchées livrées</li>
+                    </ul>
+                    <a href="#" class="btn-reserve">Réserver maintenant</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
