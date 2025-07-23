@@ -3205,15 +3205,21 @@
             // Fermer le menu lors du clic sur un lien
             const menuLinks = navMenu.querySelectorAll('a');
             menuLinks.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function(e) {
                     closeMobileMenu();
-                    // Petit délai pour voir l'animation avant la navigation
-                    setTimeout(() => {
-                        // Exécuter l'action du lien si nécessaire
-                        if (link.getAttribute('onclick')) {
+                    
+                    // Si c'est un lien href (comme SOS Dépannage), laisser la navigation normale
+                    if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
+                        // Navigation normale vers la page (pas de preventDefault)
+                        return;
+                    }
+                    
+                    // Pour les autres liens avec onclick, petit délai avant exécution
+                    if (link.getAttribute('onclick')) {
+                        setTimeout(() => {
                             eval(link.getAttribute('onclick'));
-                        }
-                    }, 200);
+                        }, 200);
+                    }
                 });
             });
             
