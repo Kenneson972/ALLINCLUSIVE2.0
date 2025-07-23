@@ -720,6 +720,29 @@
         }
 
         // =====================================================
+        // NAVIGATION INTERNE SMOOTH SCROLL
+        // =====================================================
+        
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Effet visuel sur la section ciblée
+                section.style.transform = 'scale(1.02)';
+                section.style.boxShadow = '0 20px 60px rgba(102, 126, 234, 0.3)';
+                
+                setTimeout(() => {
+                    section.style.transform = 'scale(1)';
+                    section.style.boxShadow = '';
+                }, 2000);
+            }
+        }
+
+        // =====================================================
         // SCROLL ANIMATIONS
         // =====================================================
         
