@@ -3188,6 +3188,8 @@
             const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
             const toggle = document.querySelector('.mobile-nav-toggle i');
             
+            console.log('🍔 Toggle menu - Current state:', navMenu.classList.contains('mobile-open'));
+            
             if (navMenu.classList.contains('mobile-open')) {
                 closeMobileMenu();
             } else {
