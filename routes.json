@@ -1,0 +1,12 @@
+{
+  "/api/villas": "/villas",
+  "/api/villas/:id": "/villas/:id",
+  "/api/villas/search": "/villas",
+  "/api/prestataires": "/prestataires",
+  "/api/prestataires/:id": "/prestataires/:id",
+  "/api/events": "/events",
+  "/api/events/:id": "/events/:id",
+  "/api/billetterie": "/events",
+  "/api/health": "/health",
+  "/api/stats": "/stats"
+}
