@@ -2675,13 +2675,10 @@
 
         // ===== FIN FONCTIONS BARRE DE RECHERCHE INTELLIGENTE =====
 
-        // Fonction de recherche
+        // Fonction de recherche simplifiée
         function performSearch() {
             const destination = document.getElementById('location-search').value.toLowerCase();
-            const guestsDisplay = document.querySelector('.voyageurs-display').value;
-            // Extraire le nombre d'adultes du text (ex: "2 adultes" -> 2)
-            const adultsMatch = guestsDisplay.match(/(\d+)\s+adulte/);
-            const guests = adultsMatch ? parseInt(adultsMatch[1]) : 0;
+            const guests = parseInt(document.getElementById('guests').value) || 0;
 
             showStatusMessage('Recherche en cours...', 'loading');
 
