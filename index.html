@@ -978,13 +978,15 @@
                 gap: 15px;
                 padding: 28px;
                 max-width: 100%;
+                overflow: visible;
             }
             
             .search-field {
-                min-width: 220px;
+                min-width: 200px;
                 border-right: none;
                 border-bottom: 2px solid rgba(255, 255, 255, 0.15);
                 margin-bottom: 12px;
+                flex: 1 1 calc(50% - 10px);
             }
             
             .search-field:last-child {
@@ -992,6 +994,7 @@
                 width: 100%;
                 justify-content: center;
                 margin-bottom: 0;
+                flex: 1 1 100%;
             }
         }
 
