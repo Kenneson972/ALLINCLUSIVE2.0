@@ -76,48 +76,73 @@
             z-index: -1;
         }
         
-        /* Header Glassmorphism - Plus transparent */
+        /* Header Glassmorphism - CORRIGÉ POUR PROFESSIONNEL */
         .header {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            position: fixed;
             top: 0;
-            z-index: 50;
-            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
         }
         
         .header-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 1rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
+            height: 70px;
+            position: relative;
         }
         
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.6rem;
+            font-weight: 700;
             color: white;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
         }
         
         .logo i {
             color: #FFA500;
+            font-size: 1.8rem;
         }
         
         .nav-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             list-style: none;
             align-items: center;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1;
+            max-width: 800px;
+        }
             flex-wrap: wrap;
         }
         
