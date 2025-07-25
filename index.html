@@ -1508,14 +1508,101 @@
             color: rgba(239, 68, 68, 1);
         }
         
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ANIMATIONS SMOOTH POUR LE DÉFILEMENT ET LES VILLAS */
+        
+        /* Défilement fluide pour toute la page */
+        html {
+            scroll-behavior: smooth;
         }
         
+        /* Animations pour les villas */
         .villa-card {
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.8s ease-in-out;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .villa-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Animation d'apparition des villas avec délai */
+        .villa-card:nth-child(1) { animation-delay: 0.1s; }
+        .villa-card:nth-child(2) { animation-delay: 0.2s; }
+        .villa-card:nth-child(3) { animation-delay: 0.3s; }
+        .villa-card:nth-child(4) { animation-delay: 0.4s; }
+        .villa-card:nth-child(5) { animation-delay: 0.5s; }
+        .villa-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Animation des boutons dans les villas */
+        .villa-buttons .btn-primary,
+        .villa-buttons .btn-secondary {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .villa-buttons .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 165, 0, 0.4);
+        }
+        
+        .villa-buttons .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Animation pour les images des villas */
+        .villa-image {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .villa-image:hover {
+            transform: scale(1.08);
+            filter: brightness(1.1) contrast(1.1);
+        }
+        
+        /* Animation des filtres */
+        .filter-btn {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 165, 0, 0.3);
+        }
+        
+        /* Animation pour les counters du dropdown */
+        .counter-btn {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .counter-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .counter-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Animation pour les champs de recherche */
+        .search-field {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .search-field:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Animation pour la barre de recherche complète */
+        .villa-search-form {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .villa-search-form:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.3),
+                0 15px 50px rgba(102, 126, 234, 0.25);
         }
         
         /* ===========================================
