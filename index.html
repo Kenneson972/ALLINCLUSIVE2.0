@@ -778,11 +778,11 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
         }
 
-        /* DROPDOWN MENU VOYAGEURS REPOSITIONNÉ */
+        /* DROPDOWN MENU VOYAGEURS REPOSITIONNÉ ET CENTRÉ */
         .guests-dropdown {
             position: absolute;
             top: 100%;
-            right: -50px;
+            right: -100px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(30px) saturate(180%);
             -webkit-backdrop-filter: blur(30px) saturate(180%);
@@ -809,9 +809,17 @@
             overflow: visible;
         }
         
-        /* Repositionner le dropdown si nécessaire */
-        .guests-field:last-child .guests-dropdown {
-            right: 0;
+        /* Repositionner le dropdown si nécessaire pour éviter le débordement */
+        @media (max-width: 1400px) {
+            .guests-dropdown {
+                right: -50px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .guests-dropdown {
+                right: 0;
+            }
         }
         
         .guests-dropdown.active {
