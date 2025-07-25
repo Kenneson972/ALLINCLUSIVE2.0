@@ -468,5 +468,91 @@
             </div>
         </div>
     </main>
+
+    <script>
+        // =====================================================
+        // NAVIGATION MOBILE HAMBURGER - GLASSMORPHISM
+        // =====================================================
+        
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            console.log('🍔 Toggle menu - Current state:', navMenu.classList.contains('mobile-open'));
+            
+            if (navMenu.classList.contains('mobile-open')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+        
+        function openMobileMenu() {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            navMenu.classList.add('mobile-open');
+            toggle.className = 'fas fa-times';
+            
+            // Animation staggered pour les liens
+            const menuLinks = navMenu.querySelectorAll('a');
+            menuLinks.forEach((link, index) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(20px)';
+                link.style.animation = `slideInStagger 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.05}s forwards`;
+            });
+            
+            // Fermer le menu lors du clic sur un lien
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    closeMobileMenu();
+                    // Permettre la navigation normale
+                    return true;
+                });
+            });
+            
+            // Fermer le menu si clic à l'extérieur
+            setTimeout(() => {
+                document.addEventListener('click', handleOutsideClick);
+            }, 100);
+        }
+        
+        function closeMobileMenu() {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            console.log('❌ Fermeture menu mobile');
+            
+            // Animation de sortie pour les liens
+            const menuLinks = navMenu.querySelectorAll('a');
+            menuLinks.forEach((link, index) => {
+                link.style.animation = `slideOutStagger 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) ${index * 0.03}s forwards`;
+            });
+            
+            // Fermer le menu après l'animation
+            setTimeout(() => {
+                navMenu.classList.remove('mobile-open');
+                toggle.className = 'fas fa-bars';
+                
+                // Reset des styles inline
+                menuLinks.forEach(link => {
+                    link.style.animation = '';
+                    link.style.opacity = '';
+                    link.style.transform = '';
+                });
+            }, 300);
+            
+            document.removeEventListener('click', handleOutsideClick);
+        }
+        
+        function handleOutsideClick(event) {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggleBtn = document.querySelector('.mobile-nav-toggle');
+            
+            if (!navMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                closeMobileMenu();
+            }
+        }
+    </script>
 </body>
 </html>
