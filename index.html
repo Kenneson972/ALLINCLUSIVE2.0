@@ -546,47 +546,50 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
-        /* ===== BARRE DE RECHERCHE STYLE BOOKING.COM AMÉLIORÉE ===== */
+        /* ===== BARRE DE RECHERCHE INTÉGRÉE PROFESSIONNELLEMENT ===== */
         
         .search-section {
             width: 100%;
             max-width: none;
-            margin: 2rem 0;
+            margin: 3rem 0;
             padding: 0 2rem;
+            position: relative;
+            z-index: 10;
         }
         
         .search-section h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             text-shadow: 
-                0 2px 4px rgba(0, 0, 0, 0.3),
-                0 4px 8px rgba(0, 0, 0, 0.2),
-                0 8px 16px rgba(0, 0, 0, 0.1);
-            letter-spacing: 0.5px;
+                0 2px 4px rgba(0, 0, 0, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.3),
+                0 8px 16px rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.8px;
         }
         
         .villa-search-form {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-radius: 25px;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(35px) saturate(180%);
+            -webkit-backdrop-filter: blur(35px) saturate(180%);
+            border-radius: 28px;
+            padding: 24px;
             display: flex;
             align-items: stretch;
-            gap: 2px;
+            gap: 3px;
             box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.3),
-                0 8px 32px rgba(102, 126, 234, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 25px 70px rgba(0, 0, 0, 0.25),
+                0 10px 40px rgba(102, 126, 234, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25),
                 inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             max-width: 1400px;
             width: 100%;
             margin: 0 auto;
             position: relative;
+            z-index: 10;
         }
 
         .villa-search-form::before {
@@ -597,10 +600,11 @@
             right: 0;
             bottom: 0;
             background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                rgba(255, 255, 255, 0.05) 50%, 
-                rgba(255, 255, 255, 0.1) 100%);
-            border-radius: 25px;
+                rgba(255, 255, 255, 0.15) 0%, 
+                rgba(255, 255, 255, 0.05) 30%, 
+                rgba(255, 255, 255, 0.1) 70%,
+                rgba(255, 255, 255, 0.15) 100%);
+            border-radius: 28px;
             pointer-events: none;
             z-index: 1;
         }
