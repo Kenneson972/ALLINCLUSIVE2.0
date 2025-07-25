@@ -611,7 +611,7 @@
 
         /* CHAMPS DE RECHERCHE HORIZONTAUX CORRIGÉS */
         .search-field {
-            padding: 20px 24px;
+            padding: 20px 18px;
             border: none;
             background: rgba(255, 255, 255, 0.05);
             border-right: 2px solid rgba(255, 255, 255, 0.1);
@@ -622,10 +622,11 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-width: 180px;
+            min-width: 150px;
             border-radius: 15px;
             margin: 0 1px;
             z-index: 2;
+            flex-shrink: 0;
         }
 
         .search-field:first-child {
@@ -636,7 +637,7 @@
         .search-field:last-child {
             border-right: none;
             flex: 0 0 auto;
-            min-width: 140px;
+            min-width: 120px;
             border-top-right-radius: 20px;
             border-bottom-right-radius: 20px;
         }
