@@ -2634,39 +2634,43 @@
     <script>
         // ===== INTERSECTION OBSERVER POUR ANIMATIONS AU SCROLL =====
         
-        // Observer pour les villas
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
+        // Observer pour les villas (déclaration globale)
+        let observer;
+        let generalObserver;
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        // Observer pour les autres éléments
-        const generalObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
+        // Initialiser les observers
+        function initializeObservers() {
+            // Observer pour les villas
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // On garde l'observation pour l'effet hover
+                    }
+                });
+            }, observerOptions);
+            
+            // Observer pour les autres éléments
+            generalObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+        }
         
         // Initialiser les observers au chargement
         document.addEventListener('DOMContentLoaded', () => {
-            // Observer toutes les villas
-            const villaCards = document.querySelectorAll('.villa-card');
-            villaCards.forEach(card => {
-                observer.observe(card);
-            });
+            // Initialiser les observers
+            initializeObservers();
             
-            // Observer les autres éléments
+            // Observer les autres éléments (pas les villas qui sont créées dynamiquement)
             const animatedElements = document.querySelectorAll('.animate-on-scroll');
             animatedElements.forEach(el => {
                 generalObserver.observe(el);
