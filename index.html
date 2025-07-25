@@ -3538,13 +3538,25 @@
             setTimeout(() => {
                 // Observer toutes les nouvelles villas
                 const newVillaCards = document.querySelectorAll('.villa-card');
-                newVillaCards.forEach(card => {
+                console.log(`🔍 Observing ${newVillaCards.length} villa cards`);
+                newVillaCards.forEach((card, index) => {
                     // Définir l'observer directement ici si pas encore défini
                     if (typeof observer !== 'undefined') {
                         observer.observe(card);
+                        
+                        // Vérifier immédiatement si la villa est déjà visible (pour les premières villas)
+                        const rect = card.getBoundingClientRect();
+                        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                        
+                        // Si la villa est déjà dans le viewport, l'animer immédiatement
+                        if (rect.top < windowHeight && rect.bottom > 0) {
+                            setTimeout(() => {
+                                card.classList.add('visible');
+                            }, index * 100); // Délai progressif pour un effet staggeré
+                        }
                     }
                 });
-            }, 100);
+            }, 200);
         }
 
         // Redirection vers page de réservation moderne
