@@ -519,97 +519,348 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
-        /* ===== BARRE DE RECHERCHE SIMPLIFIÉE ===== */
+        /* ===== BARRE DE RECHERCHE STYLE BOOKING.COM ===== */
         
-        .search-section {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-        
-        .search-box {
+        .villa-search-form {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 1rem;
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 12px;
             display: flex;
-            align-items: end;
-            gap: 1rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            align-items: stretch;
+            gap: 0;
+            box-shadow: 0 8px 32px rgba(30, 64, 175, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        
+
+        /* CHAMPS DE RECHERCHE HORIZONTAUX */
         .search-field {
+            padding: 16px 20px;
+            border: none;
+            background: transparent;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            justify-content: center;
+            min-width: 200px;
+            flex: 1;
         }
-        
+
+        .search-field:last-child {
+            border-right: none;
+            flex: 0 0 auto;
+            min-width: auto;
+        }
+
+        .search-field:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .search-field label {
-            font-size: 0.9rem;
+            font-size: 12px;
             font-weight: 600;
-            color: #374151;
+            color: #6b7280;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            font-family: 'Inter', sans-serif;
         }
-        
-        .search-input {
-            padding: 0.75rem 1rem;
-            border: 2px solid rgba(229, 231, 235, 0.8);
-            border-radius: 8px;
-            font-size: 1rem;
-            background: white;
-            transition: all 0.3s ease;
-            min-width: 160px;
+
+        /* CHAMP LOCALISATION AVEC AUTOCOMPLETE */
+        .location-field {
+            position: relative;
         }
-        
-        .search-input:focus {
+
+        .location-input {
+            border: none;
+            background: transparent;
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            width: 100%;
+            padding: 0;
+        }
+
+        .location-input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        /* DROPDOWN SUGGESTIONS LOCALISATION */
+        .location-suggestions {
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            right: -20px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 12px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 16px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .suggestion-item:hover {
+            background: rgba(59, 130, 246, 0.08);
+            color: #1d4ed8;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* CHAMPS DATES */
+        .search-field input:not(.location-input):not(.voyageurs-display) {
+            border: none;
+            background: transparent;
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            width: 100%;
+            padding: 0;
+        }
+
+        .search-field input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        /* SÉLECTEUR VOYAGEURS AMÉLIORÉ */
+        .guests-field {
+            position: relative;
+            flex: 1.5;
+            flex-shrink: 0;
+            min-width: 200px;
+            overflow: visible;
+        }
+
+        .voyageurs-dropdown {
+            position: relative;
+        }
+
+        .voyageurs-display {
+            border: none !important;
+            background: transparent !important;
+            color: #1f2937 !important;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            font-family: 'Inter', sans-serif !important;
+            outline: none !important;
+            width: 100% !important;
+            padding: 0 !important;
+            cursor: pointer !important;
+        }
+
+        /* DROPDOWN MENU VOYAGEURS AMÉLIORÉ */
+        .guests-dropdown {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            z-index: 999999;
+            display: none;
+            width: 320px;
+            min-width: 320px;
         }
         
+        .guests-dropdown.active {
+            display: block;
+        }
+        
+        .guest-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .guest-row:last-child {
+            border-bottom: none;
+        }
+        
+        .guest-info {
+            flex: 1;
+        }
+        
+        .guest-type {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+        
+        .guest-description {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .guest-counter {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+        
+        .counter-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid #0071c2;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0071c2;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .counter-btn:hover {
+            background: #0071c2;
+            color: white;
+        }
+        
+        .counter-btn:disabled {
+            border-color: #ccc;
+            color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .counter-btn:disabled:hover {
+            background: white;
+            color: #ccc;
+        }
+        
+        .counter-value {
+            font-weight: 600;
+            color: #333;
+            min-width: 24px;
+            text-align: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        /* BOUTON DE RECHERCHE */
         .search-btn {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 0 24px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
+            height: 100%;
             min-height: 48px;
+            white-space: nowrap;
         }
-        
+
         .search-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Bouton de recherche spécifique */
+        .search-field.search-button-field {
+            background: transparent !important;
+            border: none !important;
+            padding: 8px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .search-box {
-                flex-direction: column;
-                align-items: stretch;
+        .search-field.search-button-field:hover {
+            background: transparent !important;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .villa-search-form {
+                flex-wrap: wrap;
+                gap: 8px;
             }
             
             .search-field {
-                width: 100%;
+                min-width: 180px;
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             }
             
-            .search-input {
-                min-width: 100%;
+            .search-field:last-child {
+                border-bottom: none;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .villa-search-form {
+                flex-direction: column;
+                padding: 16px;
+            }
+            
+            .search-field {
+                border: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                min-width: auto;
+                padding: 16px 0;
+            }
+            
+            .search-field:last-child {
+                border-bottom: none;
+                padding-top: 20px;
+            }
+            
+            .voyageurs-menu {
+                left: -20px;
+                right: -20px;
+            }
+            
+            .search-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
         
