@@ -1508,31 +1508,39 @@
             color: rgba(239, 68, 68, 1);
         }
         
-        /* ANIMATIONS SMOOTH POUR LE DÉFILEMENT ET LES VILLAS */
+        /* ANIMATIONS SCROLL-TRIGGERED POUR LES VILLAS */
         
         /* Défilement fluide pour toute la page */
         html {
             scroll-behavior: smooth;
         }
         
-        /* Animations pour les villas */
+        /* Villas invisibles au début */
         .villa-card {
-            animation: fadeIn 0.8s ease-in-out;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
         }
         
-        .villa-card:hover {
+        /* Villas visibles lors du scroll */
+        .villa-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .villa-card.visible:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
         }
         
-        /* Animation d'apparition des villas avec délai */
-        .villa-card:nth-child(1) { animation-delay: 0.1s; }
-        .villa-card:nth-child(2) { animation-delay: 0.2s; }
-        .villa-card:nth-child(3) { animation-delay: 0.3s; }
-        .villa-card:nth-child(4) { animation-delay: 0.4s; }
-        .villa-card:nth-child(5) { animation-delay: 0.5s; }
-        .villa-card:nth-child(6) { animation-delay: 0.6s; }
+        /* Animation progressive avec délais */
+        .villa-card.visible:nth-child(1) { transition-delay: 0.1s; }
+        .villa-card.visible:nth-child(2) { transition-delay: 0.2s; }
+        .villa-card.visible:nth-child(3) { transition-delay: 0.3s; }
+        .villa-card.visible:nth-child(4) { transition-delay: 0.4s; }
+        .villa-card.visible:nth-child(5) { transition-delay: 0.5s; }
+        .villa-card.visible:nth-child(6) { transition-delay: 0.6s; }
         
         /* Animation des boutons dans les villas */
         .villa-buttons .btn-primary,
@@ -1603,6 +1611,18 @@
             box-shadow: 
                 0 30px 80px rgba(0, 0, 0, 0.3),
                 0 15px 50px rgba(102, 126, 234, 0.25);
+        }
+        
+        /* Animation des autres éléments au scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* ===========================================
