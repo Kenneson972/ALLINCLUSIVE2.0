@@ -949,7 +949,21 @@
             transform: none !important;
         }
 
-        /* RESPONSIVE AMÉLIORÉ */
+        /* RESPONSIVE DESIGN PROFESSIONNEL - ZÉRO CASSURE */
+        @media (max-width: 1200px) {
+            .header-content {
+                padding: 1rem 1.5rem;
+            }
+            
+            .search-section {
+                padding: 0 1.5rem;
+            }
+            
+            .villa-search-form {
+                max-width: 100%;
+            }
+        }
+        
         @media (max-width: 1024px) {
             .search-section {
                 padding: 0 1.5rem;
@@ -957,16 +971,16 @@
             
             .villa-search-form {
                 flex-wrap: wrap;
-                gap: 12px;
-                padding: 24px;
+                gap: 15px;
+                padding: 28px;
                 max-width: 100%;
             }
             
             .search-field {
-                min-width: 200px;
+                min-width: 220px;
                 border-right: none;
-                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-                margin-bottom: 8px;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+                margin-bottom: 12px;
             }
             
             .search-field:last-child {
@@ -978,39 +992,55 @@
         }
 
         @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+                height: 60px;
+            }
+            
+            .main-content {
+                padding-top: 60px;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+            }
+            
             .search-section {
                 padding: 0 1rem;
+                margin: 2rem 0;
             }
             
             .search-section h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+                margin-bottom: 2rem;
             }
             
             .villa-search-form {
                 flex-direction: column;
-                padding: 24px;
+                padding: 28px;
                 max-width: 100%;
                 width: calc(100% - 2rem);
+                border-radius: 24px;
             }
             
             .search-field {
                 border: none;
-                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 2px solid rgba(255, 255, 255, 0.15);
                 min-width: auto;
-                padding: 20px 0;
+                padding: 22px 0;
                 margin: 0;
                 border-radius: 0;
                 width: 100%;
             }
             
             .search-field:first-child {
-                border-radius: 15px 15px 0 0;
+                border-radius: 18px 18px 0 0;
             }
             
             .search-field:last-child {
                 border-bottom: none;
-                padding-top: 24px;
-                border-radius: 0 0 15px 15px;
+                padding-top: 28px;
+                border-radius: 0 0 18px 18px;
             }
             
             .guests-dropdown {
@@ -1024,20 +1054,53 @@
             .search-btn {
                 width: 100%;
                 justify-content: center;
-                min-height: 60px;
+                min-height: 64px;
                 font-size: 18px;
             }
         }
         
         @media (max-width: 480px) {
+            .header-content {
+                padding: 0.8rem;
+            }
+            
             .search-section {
-                padding: 0 0.5rem;
+                padding: 0 0.8rem;
+            }
+            
+            .search-section h2 {
+                font-size: 1.8rem;
             }
             
             .villa-search-form {
-                width: calc(100% - 1rem);
-                padding: 20px;
+                width: calc(100% - 1.6rem);
+                padding: 24px;
             }
+            
+            .search-field {
+                padding: 20px 0;
+            }
+        }
+        
+        /* CORRECTIONS Z-INDEX GLOBALES */
+        .header {
+            z-index: 1000;
+        }
+        
+        .mobile-nav-toggle {
+            z-index: 1001;
+        }
+        
+        .nav-links.nav-menu.mobile-open {
+            z-index: 1002;
+        }
+        
+        .location-suggestions {
+            z-index: 1003;
+        }
+        
+        .guests-dropdown {
+            z-index: 1004;
         }
         
         /* Bouton de recherche spécifique */
