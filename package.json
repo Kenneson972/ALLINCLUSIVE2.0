@@ -1,0 +1,23 @@
+{
+  "name": "khanelconcept-jamstack",
+  "version": "1.0.0",
+  "description": "Couche pré-backend Jamstack pour KhanelConcept - Compatible GitHub Pages",
+  "main": "index.html",
+  "scripts": {
+    "dev": "json-server --watch db.json --port 3001 --routes routes.json",
+    "start": "json-server --watch db.json --port 3001 --routes routes.json",
+    "build": "echo 'Build static files'",
+    "serve": "json-server --watch db.json --port 3001 --routes routes.json --host 0.0.0.0"
+  },
+  "keywords": ["jamstack", "json-server", "villa", "martinique", "static"],
+  "author": "KhanelConcept",
+  "license": "MIT",
+  "dependencies": {
+    "json-server": "^0.17.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khanelconcept/villas-martinique"
+  }
+}
