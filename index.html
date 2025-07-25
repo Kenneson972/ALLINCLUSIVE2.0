@@ -3270,19 +3270,47 @@
         // Fonction pour toggle le dropdown voyageurs
         function toggleVoyageursDropdown() {
             const menu = document.getElementById('voyageurs-menu');
-            const trigger = document.querySelector('.voyageurs-display');
+            
+            if (!menu) return;
             
             showVoyageursDropdownFlag = !showVoyageursDropdownFlag;
             
             if (showVoyageursDropdownFlag) {
-                // Positionner le dropdown près du trigger
-                const rect = trigger.getBoundingClientRect();
-                menu.style.top = (rect.bottom + 10) + 'px';
-                menu.style.left = (rect.left) + 'px';
-                menu.style.transform = 'none';
+                // Afficher le dropdown avec animation
+                menu.style.display = 'block';
+                // Force reflow pour s'assurer que display:block est appliqué
+                menu.offsetHeight;
                 menu.classList.add('active');
+                
+                // Fermer le dropdown si on clique ailleurs
+                document.addEventListener('click', closeDropdownOutside);
             } else {
+                // Masquer le dropdown avec animation
                 menu.classList.remove('active');
+                setTimeout(() => {
+                    if (!menu.classList.contains('active')) {
+                        menu.style.display = 'none';
+                    }
+                }, 300);
+                
+                document.removeEventListener('click', closeDropdownOutside);
+            }
+        }
+        
+        // Fonction pour fermer le dropdown si on clique ailleurs
+        function closeDropdownOutside(event) {
+            const menu = document.getElementById('voyageurs-menu');
+            const trigger = document.querySelector('.voyageurs-display');
+            
+            if (menu && trigger && !menu.contains(event.target) && !trigger.contains(event.target)) {
+                showVoyageursDropdownFlag = false;
+                menu.classList.remove('active');
+                setTimeout(() => {
+                    if (!menu.classList.contains('active')) {
+                        menu.style.display = 'none';
+                    }
+                }, 300);
+                document.removeEventListener('click', closeDropdownOutside);
             }
         }
 
