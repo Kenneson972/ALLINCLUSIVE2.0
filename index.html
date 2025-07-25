@@ -3528,6 +3528,19 @@
                     </div>
                 `;
             }).join('');
+            
+            // ===== RÉINITIALISER L'INTERSECTION OBSERVER POUR LES NOUVELLES VILLAS =====
+            // Attendre un petit délai pour que les éléments soient dans le DOM
+            setTimeout(() => {
+                // Observer toutes les nouvelles villas
+                const newVillaCards = document.querySelectorAll('.villa-card');
+                newVillaCards.forEach(card => {
+                    // Définir l'observer directement ici si pas encore défini
+                    if (typeof observer !== 'undefined') {
+                        observer.observe(card);
+                    }
+                });
+            }, 100);
         }
 
         // Redirection vers page de réservation moderne
