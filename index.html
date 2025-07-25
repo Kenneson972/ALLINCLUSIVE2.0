@@ -1680,48 +1680,94 @@
                 <h1>🏝️ Découvrez la Martinique</h1>
                 <p>Villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
                 
-                <!-- Barre de recherche simplifiée et mieux positionnée -->
+                <!-- Recherche Style Booking.com Complète -->
                 <div class="search-section">
-                    <div class="search-container">
-                        <div class="search-box">
-                            <div class="search-field">
-                                <label for="location-search">Destination</label>
+                    <h2>🔍 Rechercher une Villa</h2>
+                    <div class="villa-search-form">
+                        <!-- Destination -->
+                        <div class="search-field location-field">
+                            <label for="location-search">DESTINATION</label>
+                            <input type="text" 
+                                   id="location-search" 
+                                   class="location-input"
+                                   placeholder="Où souhaitez-vous aller ?"
+                                   autocomplete="off"
+                                   oninput="handleLocationInput(this.value)"
+                                   onfocus="showLocationSuggestions(true)">
+                            <div class="location-suggestions" id="suggestions-dropdown"></div>
+                        </div>
+                        
+                        <!-- Arrivée avec calendrier -->
+                        <div class="search-field">
+                            <label for="checkin">ARRIVÉE</label>
+                            <input type="text" id="checkin" placeholder="Ajouter des dates">
+                        </div>
+                        
+                        <!-- Départ avec calendrier -->
+                        <div class="search-field">
+                            <label for="checkout">DÉPART</label>
+                            <input type="text" id="checkout" placeholder="Ajouter des dates">
+                        </div>
+                        
+                        <!-- Voyageurs -->
+                        <div class="search-field guests-field">
+                            <label>VOYAGEURS</label>
+                            <div class="voyageurs-dropdown">
                                 <input type="text" 
-                                       id="location-search" 
-                                       class="search-input"
-                                       placeholder="Où souhaitez-vous aller ?"
-                                       autocomplete="off">
+                                       class="voyageurs-display" 
+                                       value="2 adultes"
+                                       readonly
+                                       onclick="toggleVoyageursDropdown()">
+                                
+                                <div class="dropdown-menu guests-dropdown" id="voyageurs-menu">
+                                    <!-- Adultes -->
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Adultes</div>
+                                            <div class="guest-description">13 ans et plus</div>
+                                        </div>
+                                        <div class="guest-counter">
+                                            <button type="button" class="counter-btn minus" onclick="updateVoyageurs('adultes', -1)">-</button>
+                                            <span class="counter-value" id="adultes-count">2</span>
+                                            <button type="button" class="counter-btn plus" onclick="updateVoyageurs('adultes', 1)">+</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Enfants -->
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Enfants</div>
+                                            <div class="guest-description">De 2 à 12 ans</div>
+                                        </div>
+                                        <div class="guest-counter">
+                                            <button type="button" class="counter-btn minus" onclick="updateVoyageurs('enfants', -1)">-</button>
+                                            <span class="counter-value" id="enfants-count">0</span>
+                                            <button type="button" class="counter-btn plus" onclick="updateVoyageurs('enfants', 1)">+</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Bébés -->
+                                    <div class="guest-row">
+                                        <div class="guest-info">
+                                            <div class="guest-type">Bébés</div>
+                                            <div class="guest-description">Moins de 2 ans</div>
+                                        </div>
+                                        <div class="guest-counter">
+                                            <button type="button" class="counter-btn minus" onclick="updateVoyageurs('bebes', -1)">-</button>
+                                            <span class="counter-value" id="bebes-count">0</span>
+                                            <button type="button" class="counter-btn plus" onclick="updateVoyageurs('bebes', 1)">+</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            
-                            <div class="search-field">
-                                <label for="checkin">Arrivée</label>
-                                <input type="date" id="checkin" class="search-input">
-                            </div>
-                            
-                            <div class="search-field">
-                                <label for="checkout">Départ</label>
-                                <input type="date" id="checkout" class="search-input">
-                            </div>
-                            
-                            <div class="search-field">
-                                <label for="guests">Invités</label>
-                                <select id="guests" class="search-input">
-                                    <option value="">Nombre d'invités</option>
-                                    <option value="2">2 personnes</option>
-                                    <option value="4">4 personnes</option>
-                                    <option value="6">6 personnes</option>
-                                    <option value="8">8 personnes</option>
-                                    <option value="10">10 personnes</option>
-                                    <option value="12">12+ personnes</option>
-                                </select>
-                            </div>
-                            
-                            <div class="search-field search-button-field">
-                                <button class="search-btn" onclick="performSearch()">
-                                    <i class="fas fa-search"></i>
-                                    Rechercher
-                                </button>
-                            </div>
+                        </div>
+                        
+                        <!-- Bouton Rechercher -->
+                        <div class="search-field search-button-field">
+                            <button class="search-btn" onclick="performSearch()">
+                                <i class="fas fa-search"></i>
+                                Rechercher
+                            </button>
                         </div>
                     </div>
                 </div>
