@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 
 # Production URL
-BACKEND_URL = "https://f9688cbe-3b9b-449c-bc6c-4ec719e39048.preview.emergentagent.com"
+BACKEND_URL = "https://b44461c1-5a01-438f-ad66-123e022469a9.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 class ReservationFlowTester:
