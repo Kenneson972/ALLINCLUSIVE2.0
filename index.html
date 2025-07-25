@@ -2632,6 +2632,56 @@
     <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
 
     <script>
+        // ===== INTERSECTION OBSERVER POUR ANIMATIONS AU SCROLL =====
+        
+        // Observer pour les villas
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observer pour les autres éléments
+        const generalObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Initialiser les observers au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observer toutes les villas
+            const villaCards = document.querySelectorAll('.villa-card');
+            villaCards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Observer les autres éléments
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            animatedElements.forEach(el => {
+                generalObserver.observe(el);
+            });
+            
+            // Observer les titres et sections
+            const titles = document.querySelectorAll('h1, h2, h3, .section-title');
+            titles.forEach(title => {
+                title.classList.add('animate-on-scroll');
+                generalObserver.observe(title);
+            });
+        });
+        
+        // ===== FONCTIONS EXISTANTES =====
+        
         // Base de données COMPLÈTE des 21 villas - VERSION GITHUB PAGES STATIQUE
         // ===== DONNÉES STATIQUES DES VILLAS =====
         const villasData = [
