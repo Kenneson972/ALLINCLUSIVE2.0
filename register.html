@@ -669,54 +669,67 @@
 
             <!-- Register Form -->
             <div class="register-card" data-aos="fade-left" data-aos-duration="1000">
-                <h2 class="register-card-title">Créer votre compte</h2>
+                <h2 class="register-card-title" id="form-title">Créer votre compte</h2>
 
-                <!-- Error Message -->
-                <div id="error-message" class="error-message"></div>
+                <!-- PHASE 2 - Error Message avec région live -->
+                <div id="error-message" class="error-message" aria-live="polite" aria-atomic="true" role="status"></div>
 
-                <form id="registerForm">
+                <form id="registerForm" role="form" aria-labelledby="form-title">
                     <!-- Personal Information -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="firstName" class="form-label">
-                                Prénom <span class="required">*</span>
+                                Prénom <span class="required" aria-label="requis">*</span>
                             </label>
-                            <input type="text" id="firstName" class="form-input" placeholder="Votre prénom" required>
-                            <div class="field-error" id="firstName-error"></div>
+                            <input type="text" id="firstName" class="form-input" placeholder="Votre prénom" required
+                                   aria-describedby="firstName-error firstName-help" aria-invalid="false">
+                            <div id="firstName-help" class="sr-only">Votre prénom tel qu'il apparaîtra sur vos réservations</div>
+                            <div class="field-error" id="firstName-error" aria-live="polite" role="alert"></div>
                         </div>
                         <div class="form-group">
                             <label for="lastName" class="form-label">
-                                Nom <span class="required">*</span>
+                                Nom <span class="required" aria-label="requis">*</span>
                             </label>
-                            <input type="text" id="lastName" class="form-input" placeholder="Votre nom" required>
-                            <div class="field-error" id="lastName-error"></div>
+                            <input type="text" id="lastName" class="form-input" placeholder="Votre nom" required
+                                   aria-describedby="lastName-error lastName-help" aria-invalid="false">
+                            <div id="lastName-help" class="sr-only">Votre nom de famille tel qu'il apparaîtra sur vos réservations</div>
+                            <div class="field-error" id="lastName-error" aria-live="polite" role="alert"></div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="email" class="form-label">
-                            Email <span class="required">*</span>
+                            Email <span class="required" aria-label="requis">*</span>
                         </label>
-                        <input type="email" id="email" class="form-input" placeholder="votre@email.com" required>
-                        <div class="field-error" id="email-error"></div>
+                        <input type="email" id="email" class="form-input" placeholder="votre@email.com" required
+                               aria-describedby="email-error email-help" aria-invalid="false">
+                        <div id="email-help" class="sr-only">Votre adresse email sera utilisée pour la connexion et les notifications</div>
+                        <div class="field-error" id="email-error" aria-live="polite" role="alert"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="phone" class="form-label">
-                            Téléphone <span class="required">*</span>
+                            Téléphone <span class="required" aria-label="requis">*</span>
                         </label>
-                        <input type="tel" id="phone" class="form-input" placeholder="+33 6 XX XX XX XX" required>
-                        <div class="field-error" id="phone-error"></div>
+                        <input type="tel" id="phone" class="form-input" placeholder="+33 6 XX XX XX XX" required
+                               aria-describedby="phone-error phone-help" aria-invalid="false">
+                        <div id="phone-help" class="sr-only">Format international recommandé : +33 6 XX XX XX XX</div>
+                        <div class="field-error" id="phone-error" aria-live="polite" role="alert"></div>
                     </div>
 
                     <!-- Password -->
                     <div class="form-group">
                         <label for="password" class="form-label">
-                            Mot de passe <span class="required">*</span>
+                            Mot de passe <span class="required" aria-label="requis">*</span>
                         </label>
-                        <input type="password" id="password" class="form-input" placeholder="Créez un mot de passe sécurisé" required>
-                        <div class="password-strength" id="password-strength">
-                            <div class="strength-bar">
+                        <input type="password" id="password" class="form-input" placeholder="Créez un mot de passe sécurisé" required
+                               aria-describedby="password-strength password-help" aria-invalid="false">
+                        <div id="password-help" class="sr-only">
+                            Minimum 8 caractères avec majuscule, minuscule, chiffre et caractère spécial
+                        </div>
+                        <div class="password-strength" id="password-strength" aria-live="polite">
+                            <div class="strength-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                                 aria-label="Force du mot de passe">
                                 <div class="strength-fill" id="strength-fill"></div>
                             </div>
                             <div id="strength-text">Tapez votre mot de passe</div>
