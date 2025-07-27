@@ -476,43 +476,301 @@ class KhanelConceptAPITester:
             self.log_test("Villa ID Mapping", False, f"Villa ID mapping error: {str(e)}")
             return False
     
+    def test_villa_gallery_integrity(self):
+        """Test villa galleries for information image removal - MAIN FOCUS"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("Villa Gallery Integrity", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Information/catalogue image patterns to check for
+            info_image_patterns = [
+                "informations_catalogue",
+                "tarifs_conditions", 
+                "informations_tarifs",
+                "catalogue",
+                "tarifs",
+                "conditions",
+                "informations",
+                "info_",
+                "pricing",
+                "rates"
+            ]
+            
+            total_villas = len(villas)
+            clean_galleries = 0
+            problematic_villas = []
+            
+            for villa in villas:
+                villa_name = villa.get("name", "Unknown")
+                villa_id = villa.get("id", "Unknown")
+                gallery = villa.get("gallery", [])
+                
+                # Check each image in gallery for information patterns
+                info_images_found = []
+                for image_path in gallery:
+                    image_name = image_path.lower()
+                    for pattern in info_image_patterns:
+                        if pattern in image_name:
+                            info_images_found.append(image_path)
+                            break
+                
+                if info_images_found:
+                    problematic_villas.append({
+                        "id": villa_id,
+                        "name": villa_name,
+                        "info_images": info_images_found
+                    })
+                else:
+                    clean_galleries += 1
+            
+            # Test specific villas mentioned in review
+            villa_f6_found = False
+            villa_f7_found = False
+            
+            for villa in villas:
+                if "F6 Petit Macabou" in villa.get("name", ""):
+                    villa_f6_found = True
+                    gallery = villa.get("gallery", [])
+                    expected_images = ["01_vue_aerienne_nuit.jpg", "10_vue_aerienne_jour.jpg"]
+                    forbidden_images = ["11_informations_catalogue.jpg"]
+                    
+                    has_expected = any(expected in str(gallery) for expected in expected_images)
+                    has_forbidden = any(forbidden in str(gallery) for forbidden in forbidden_images)
+                    
+                    if has_forbidden:
+                        self.log_test("Villa F6 Petit Macabou Gallery", False,
+                                    f"Contains forbidden information images", 
+                                    f"Gallery: {gallery}")
+                    elif has_expected or len(gallery) > 0:
+                        self.log_test("Villa F6 Petit Macabou Gallery", True,
+                                    f"Gallery clean with {len(gallery)} legitimate images",
+                                    f"Sample images: {gallery[:3]}")
+                    else:
+                        self.log_test("Villa F6 Petit Macabou Gallery", False,
+                                    "Gallery is empty")
+                
+                if "F7 Baie des Mulets" in villa.get("name", ""):
+                    villa_f7_found = True
+                    gallery = villa.get("gallery", [])
+                    expected_images = ["salon_canape_angle_gris.jpg", "veranda_salle_a_manger_bambou.jpg"]
+                    forbidden_images = ["tarifs_conditions_F7.jpg"]
+                    
+                    has_expected = any(expected in str(gallery) for expected in expected_images)
+                    has_forbidden = any(forbidden in str(gallery) for forbidden in forbidden_images)
+                    
+                    if has_forbidden:
+                        self.log_test("Villa F7 Baie des Mulets Gallery", False,
+                                    f"Contains forbidden information images",
+                                    f"Gallery: {gallery}")
+                    elif has_expected or len(gallery) > 0:
+                        self.log_test("Villa F7 Baie des Mulets Gallery", True,
+                                    f"Gallery clean with {len(gallery)} legitimate images",
+                                    f"Sample images: {gallery[:3]}")
+                    else:
+                        self.log_test("Villa F7 Baie des Mulets Gallery", False,
+                                    "Gallery is empty")
+            
+            # Overall gallery integrity assessment
+            if len(problematic_villas) == 0:
+                self.log_test("Villa Gallery Integrity - Overall", True,
+                            f"All {total_villas} villa galleries are clean - no information images found",
+                            f"Clean galleries: {clean_galleries}/{total_villas}")
+                success = True
+            else:
+                self.log_test("Villa Gallery Integrity - Overall", False,
+                            f"{len(problematic_villas)} villas still contain information images",
+                            f"Problematic villas: {[v['name'] for v in problematic_villas[:3]]}")
+                success = False
+            
+            # Log specific villa findings
+            if not villa_f6_found:
+                self.log_test("Villa F6 Petit Macabou Search", False,
+                            "Villa F6 Petit Macabou not found in villa list")
+            
+            if not villa_f7_found:
+                self.log_test("Villa F7 Baie des Mulets Search", False,
+                            "Villa F7 Baie des Mulets not found in villa list")
+            
+            return success
+            
+        except Exception as e:
+            self.log_test("Villa Gallery Integrity", False, f"Error testing gallery integrity: {str(e)}")
+            return False
+    
+    def test_villa_data_structure_consistency(self):
+        """Test that all villa data structures are correct and consistent"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("Villa Data Structure", False,
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            required_fields = ["id", "name", "location", "price", "guests", "category", "image", "gallery"]
+            optional_fields = ["guests_detail", "features", "fallback_icon", "amenities", "description"]
+            
+            structure_issues = []
+            gallery_issues = []
+            
+            for villa in villas:
+                villa_name = villa.get("name", f"Villa ID {villa.get('id', 'Unknown')}")
+                
+                # Check required fields
+                missing_fields = [field for field in required_fields if field not in villa]
+                if missing_fields:
+                    structure_issues.append(f"{villa_name}: missing {missing_fields}")
+                
+                # Check gallery structure
+                gallery = villa.get("gallery", [])
+                if not isinstance(gallery, list):
+                    gallery_issues.append(f"{villa_name}: gallery is not a list")
+                elif len(gallery) == 0:
+                    gallery_issues.append(f"{villa_name}: gallery is empty")
+                else:
+                    # Check gallery image paths
+                    for image_path in gallery:
+                        if not isinstance(image_path, str):
+                            gallery_issues.append(f"{villa_name}: non-string image path")
+                        elif not image_path.startswith("/images/"):
+                            gallery_issues.append(f"{villa_name}: invalid image path format")
+            
+            # Assessment
+            total_issues = len(structure_issues) + len(gallery_issues)
+            
+            if total_issues == 0:
+                self.log_test("Villa Data Structure Consistency", True,
+                            f"All {len(villas)} villas have consistent data structure",
+                            f"Required fields present, galleries properly formatted")
+                return True
+            else:
+                issues_summary = []
+                if structure_issues:
+                    issues_summary.extend(structure_issues[:3])
+                if gallery_issues:
+                    issues_summary.extend(gallery_issues[:3])
+                
+                self.log_test("Villa Data Structure Consistency", False,
+                            f"{total_issues} data structure issues found",
+                            f"Sample issues: {issues_summary}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Villa Data Structure Consistency", False, 
+                        f"Error testing data structure: {str(e)}")
+            return False
+    
+    def test_villa_search_with_gallery_verification(self):
+        """Test villa search functionality and verify returned galleries are clean"""
+        try:
+            # Test different search filters
+            search_tests = [
+                {"destination": "Vauclin", "expected_min": 1},
+                {"guests": 6, "expected_min": 1},
+                {"category": "sejour", "expected_min": 1},
+                {"destination": "Lamentin", "guests": 2, "expected_min": 1}
+            ]
+            
+            all_searches_passed = True
+            
+            for search_data in search_tests:
+                expected_min = search_data.pop("expected_min")
+                
+                response = self.session.post(
+                    f"{API_BASE_URL}/villas/search",
+                    json=search_data,
+                    timeout=10
+                )
+                
+                if response.status_code == 200:
+                    results = response.json()
+                    
+                    if len(results) >= expected_min:
+                        # Check galleries in search results
+                        gallery_clean = True
+                        info_patterns = ["informations_", "tarifs_", "catalogue"]
+                        
+                        for villa in results:
+                            gallery = villa.get("gallery", [])
+                            for image_path in gallery:
+                                if any(pattern in image_path.lower() for pattern in info_patterns):
+                                    gallery_clean = False
+                                    break
+                            if not gallery_clean:
+                                break
+                        
+                        if gallery_clean:
+                            self.log_test(f"Villa Search - {search_data}", True,
+                                        f"Found {len(results)} villas with clean galleries",
+                                        f"Search criteria: {search_data}")
+                        else:
+                            self.log_test(f"Villa Search - {search_data}", False,
+                                        f"Search results contain information images",
+                                        f"Found {len(results)} villas but galleries not clean")
+                            all_searches_passed = False
+                    else:
+                        self.log_test(f"Villa Search - {search_data}", False,
+                                    f"Expected at least {expected_min} results, got {len(results)}")
+                        all_searches_passed = False
+                else:
+                    self.log_test(f"Villa Search - {search_data}", False,
+                                f"Search failed with status {response.status_code}")
+                    all_searches_passed = False
+            
+            return all_searches_passed
+            
+        except Exception as e:
+            self.log_test("Villa Search with Gallery Verification", False,
+                        f"Error testing search: {str(e)}")
+            return False
+
     def run_all_tests(self):
-        """Run all backend tests"""
-        print("🚀 Starting KhanelConcept Backend API Tests")
+        """Run all backend tests with focus on villa data integrity"""
+        print("🏖️ Starting KhanelConcept Villa Data Integrity Tests")
+        print("🎯 Focus: Villa Gallery Information Image Removal Verification")
         print(f"Testing against: {API_BASE_URL}")
-        print("=" * 60)
+        print("=" * 70)
         
         # Test basic connectivity
         if not self.test_health_check():
             print("❌ Health check failed - stopping tests")
             return False
         
-        # Test public endpoints first
+        # MAIN FOCUS: Villa data integrity tests
+        print("\n🔍 VILLA DATA INTEGRITY TESTS (PRIMARY FOCUS)")
+        print("-" * 50)
+        self.test_villa_gallery_integrity()
+        self.test_villa_data_structure_consistency()
+        self.test_villa_search_with_gallery_verification()
+        
+        # Test public endpoints
+        print("\n📋 VILLA API ENDPOINT TESTS")
+        print("-" * 30)
         self.test_public_villas_endpoint()
         self.test_villa_search()
         
-        # Test new static file serving functionality
-        self.test_static_villa_pages()
-        self.test_villa_id_mapping()
-        
-        # Test iOS video background support (NEW)
-        print("\n🎬 Testing iOS Video Background Support...")
-        self.test_ios_video_background_support()
-        self.test_javascript_ios_functions()
-        
-        # Test admin authentication
+        # Test admin authentication and endpoints
+        print("\n🔐 ADMIN SYSTEM TESTS")
+        print("-" * 20)
         if not self.test_admin_login():
             print("❌ Admin login failed - skipping admin-only tests")
         else:
-            # Test admin endpoints
             self.test_dashboard_stats()
             self.test_admin_villas()
             self.test_admin_reservations()
         
         # Summary
-        print("\n" + "=" * 60)
-        print("📊 TEST SUMMARY")
-        print("=" * 60)
+        print("\n" + "=" * 70)
+        print("📊 VILLA DATA INTEGRITY TEST SUMMARY")
+        print("=" * 70)
         
         passed = sum(1 for result in self.test_results if result["success"])
         total = len(self.test_results)
@@ -528,6 +786,14 @@ class KhanelConceptAPITester:
             print("\n❌ FAILED TESTS:")
             for test in failed_tests:
                 print(f"  - {test['test']}: {test['message']}")
+        
+        # Special focus on gallery integrity results
+        gallery_tests = [r for r in self.test_results if "Gallery" in r["test"] or "Integrity" in r["test"]]
+        if gallery_tests:
+            print(f"\n🎯 GALLERY INTEGRITY FOCUS RESULTS:")
+            for test in gallery_tests:
+                status = "✅" if test["success"] else "❌"
+                print(f"  {status} {test['test']}: {test['message']}")
         
         return passed == total
 
