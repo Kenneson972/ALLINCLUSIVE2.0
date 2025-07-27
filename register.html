@@ -852,7 +852,168 @@
             }
         }
 
-        // Checkbox behavior
+        // PHASE 2 - Fonctions d'accessibilité pour l'inscription
+        function handleTermsKeydown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                document.getElementById('terms').click();
+            }
+        }
+
+        function setupAccessibility() {
+            // Validation en temps réel avec feedback accessibilité
+            const fields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword'];
+            
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const errorDiv = document.getElementById(`${fieldId}-error`);
+                
+                // Validation à la perte de focus
+                field.addEventListener('blur', function() {
+                    validateFieldAccessibility(fieldId);
+                });
+                
+                // Effacer les erreurs en tapant
+                field.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        this.setAttribute('aria-invalid', 'false');
+                        errorDiv.textContent = '';
+                    }
+                });
+            });
+            
+            // Validation du checkbox des conditions
+            const termsCheck = document.getElementById('termsCheck');
+            const terms = document.getElementById('terms');
+            
+            termsCheck.addEventListener('click', function() {
+                const isChecked = terms.checked;
+                this.setAttribute('aria-checked', isChecked ? 'false' : 'true');
+                
+                if (!isChecked) {
+                    document.getElementById('terms-error').textContent = '';
+                    terms.setAttribute('aria-invalid', 'false');
+                }
+            });
+        }
+
+        function validateFieldAccessibility(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = document.getElementById(`${fieldId}-error`);
+            const value = field.value.trim();
+            
+            let isValid = true;
+            let errorMessage = '';
+            
+            switch (fieldId) {
+                case 'firstName':
+                case 'lastName':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = `${fieldId === 'firstName' ? 'Prénom' : 'Nom'} requis`;
+                    } else if (value.length < 2) {
+                        isValid = false;
+                        errorMessage = 'Minimum 2 caractères';
+                    }
+                    break;
+                    
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Email requis';
+                    } else if (!emailRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Format email invalide';
+                    }
+                    break;
+                    
+                case 'phone':
+                    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Téléphone requis';
+                    } else if (!phoneRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Format téléphone invalide';
+                    }
+                    break;
+                    
+                case 'password':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Mot de passe requis';
+                    } else if (value.length < 8) {
+                        isValid = false;
+                        errorMessage = 'Minimum 8 caractères';
+                    }
+                    break;
+                    
+                case 'confirmPassword':
+                    const password = document.getElementById('password').value;
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Confirmation requise';
+                    } else if (value !== password) {
+                        isValid = false;
+                        errorMessage = 'Mots de passe différents';
+                    }
+                    break;
+            }
+            
+            field.setAttribute('aria-invalid', isValid ? 'false' : 'true');
+            errorDiv.textContent = errorMessage;
+            
+            if (!isValid) {
+                errorDiv.setAttribute('aria-live', 'assertive');
+            }
+            
+            return isValid;
+        }
+
+        function showError(message) {
+            const errorContainer = document.getElementById('error-message');
+            errorContainer.innerHTML = `
+                <div class="alert alert-error" role="alert" aria-live="assertive">
+                    <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                    ${message}
+                </div>
+            `;
+            
+            // Focus sur l'erreur pour les lecteurs d'écran
+            errorContainer.querySelector('.alert').focus();
+            
+            // Annonce vocale
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(`Erreur : ${message}`);
+                utterance.rate = 0.8;
+                utterance.volume = 0.3;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function showSuccess(message) {
+            const errorContainer = document.getElementById('error-message');
+            errorContainer.innerHTML = `
+                <div class="alert alert-success" role="alert" aria-live="polite">
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                    ${message}
+                </div>
+            `;
+            
+            // Focus sur le succès
+            errorContainer.querySelector('.alert').focus();
+            
+            // Annonce vocale
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(`Succès : ${message}`);
+                utterance.rate = 0.8;
+                utterance.volume = 0.3;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Checkbox behavior amélioré pour l'accessibilité
         function setupCheckboxBehavior() {
             const checkbox = document.getElementById('terms');
             const checkboxCustom = document.getElementById('termsCheck');
