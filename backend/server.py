@@ -756,6 +756,10 @@ async def startup_db_client():
         await db.member_wishlist.create_index("memberId")
         await db.member_wishlist.create_index([("memberId", 1), ("villaId", 1)], unique=True)
         
+        # PHASE 1 - Index pour vérification email
+        await db.email_verifications.create_index("email")
+        await db.email_verifications.create_index("expires_at", expireAfterSeconds=0)
+        
     except Exception as e:
         print(f"❌ Erreur lors de l'initialisation de la DB: {e}")
 
