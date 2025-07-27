@@ -649,25 +649,28 @@
 </head>
 
 <body>
+    <!-- PHASE 2 - Skip link pour navigation clavier -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
     <!-- Background Video -->
     <div class="video-background">
-        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline aria-hidden="true">
             <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+            <span class="sr-only">Vidéo d'arrière-plan décorative</span>
         </video>
         <div class="video-overlay"></div>
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-palm-tree"></i>
+                <a href="index.html" class="logo" aria-label="Retour à l'accueil KhanelConcept">
+                    <i class="fas fa-palm-tree" aria-hidden="true"></i>
                     KhanelConcept
                 </a>
                 
-                <div class="nav-menu">
+                <nav class="nav-menu" role="navigation" aria-label="Menu utilisateur">
                     <a href="index.html" class="nav-link">Villas</a>
                     <a href="reservation.html" class="nav-link">Réserver</a>
                     <a href="dashboard.html" class="nav-link active">Dashboard</a>
