@@ -207,6 +207,13 @@ class MemberRegister(BaseModel):
             raise ValueError('L\'acceptation des conditions générales est obligatoire')
         return v
 
+class MemberEmailVerification(BaseModel):
+    email: EmailStr
+    verification_code: str
+
+class MemberResendVerification(BaseModel):
+    email: EmailStr
+
 class MemberLogin(BaseModel):
     email: EmailStr
     password: str
