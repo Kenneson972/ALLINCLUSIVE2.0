@@ -307,6 +307,17 @@ class SearchFilters(BaseModel):
 class AdminLogin(BaseModel):
     username: str
     password: str
+    totp_code: Optional[str] = None  # Code 2FA optionnel
+
+class AdminSetup2FA(BaseModel):
+    password: str  # Mot de passe pour vérifier l'identité
+
+class AdminEnable2FA(BaseModel):
+    totp_code: str  # Code pour valider la 2FA
+
+class AdminDisable2FA(BaseModel):
+    password: str
+    totp_code: str
 
 class Token(BaseModel):
     access_token: str
