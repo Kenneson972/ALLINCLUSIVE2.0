@@ -1020,7 +1020,10 @@
             const checkmark = checkboxCustom.querySelector('.fas');
 
             checkbox.addEventListener('change', function() {
-                if (this.checked) {
+                const isChecked = this.checked;
+                checkboxCustom.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+                
+                if (isChecked) {
                     checkmark.style.opacity = '1';
                     checkboxCustom.classList.add('checked');
                 } else {
@@ -1032,9 +1035,35 @@
             checkboxCustom.addEventListener('click', function() {
                 checkbox.click();
             });
+            
+            // Support clavier pour checkbox custom
+            checkboxCustom.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    checkbox.click();
+                }
+            });
         }
 
-        // Password strength indicator
+        // Password strength indicator avec accessibilité
+        function setupPasswordStrength() {
+            const passwordField = document.getElementById('password');
+            const strengthFill = document.getElementById('strength-fill');
+            const strengthText = document.getElementById('strength-text');
+            const progressBar = document.querySelector('.strength-bar');
+
+            passwordField.addEventListener('input', function() {
+                const password = this.value;
+                const strength = calculatePasswordStrength(password);
+                
+                strengthFill.className = `strength-fill ${strength.class}`;
+                strengthText.textContent = strength.text;
+                
+                // Mise à jour de la barre de progression accessible
+                progressBar.setAttribute('aria-valuenow', strength.score);
+                progressBar.setAttribute('aria-valuetext', strength.text);
+            });
+        }
         function setupPasswordStrength() {
             const passwordField = document.getElementById('password');
             const strengthFill = document.getElementById('strength-fill');
