@@ -1072,17 +1072,13 @@
                     // Inscription réussie dans le backend
                     const newUser = responseData.member;
                     const token = responseData.token;
-                    
-                    // Stocker les données utilisateur et token
-                    localStorage.setItem('khanelconcept_user', JSON.stringify(newUser));
-                    localStorage.setItem('khanelconcept_token', token);
 
                     console.log('✅ Inscription backend réussie:', newUser);
-                    showSuccess('Compte créé avec succès dans la base de données ! Redirection vers votre espace...');
+                    showSuccess('Compte créé avec succès ! Vérifiez votre email.');
                     
+                    // Rediriger vers la page de vérification
                     setTimeout(() => {
-                        sessionStorage.setItem('dashboard_redirect', 'true');
-                        window.location.href = 'dashboard.html';
+                        window.location.href = `email-verification.html?email=${encodeURIComponent(userData.email)}`;
                     }, 2000);
                     
                 } else {
