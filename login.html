@@ -521,14 +521,40 @@
                 .replace(/\//g, '&#x2F;');
         }
 
+        // PHASE 2 - Fonction d'alerte améliorée pour l'accessibilité
         function showAlert(message, type = 'error') {
             const alertContainer = document.getElementById('alertContainer');
             const alertDiv = document.createElement('div');
+            
+            // Classes et attributs ARIA
             alertDiv.className = `alert alert-${type}`;
-            alertDiv.textContent = message;
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+            alertDiv.setAttribute('aria-atomic', 'true');
+            alertDiv.setAttribute('tabindex', '-1');
+            
+            // Icône avec aria-hidden
+            const icon = type === 'error' ? 'exclamation-triangle' : 'check-circle';
+            alertDiv.innerHTML = `
+                <i class="fas fa-${icon}" aria-hidden="true"></i>
+                ${message}
+            `;
             
             alertContainer.innerHTML = '';
             alertContainer.appendChild(alertDiv);
+            
+            // Focus sur l'alerte pour les lecteurs d'écran
+            alertDiv.focus();
+            
+            // Annonce vocale si disponible
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(
+                    `${type === 'error' ? 'Erreur' : 'Succès'} : ${message}`
+                );
+                utterance.rate = 0.8;
+                utterance.volume = 0.3;
+                window.speechSynthesis.speak(utterance);
+            }
             
             // Auto remove after 5 seconds
             setTimeout(() => {
@@ -537,6 +563,102 @@
                 }
             }, 5000);
         }
+
+        // PHASE 2 - Validation en temps réel avec feedback accessibilité
+        function validateField(fieldId, validator, errorMessage) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = document.getElementById(`${fieldId}-error`);
+            
+            if (!validator(field.value)) {
+                field.setAttribute('aria-invalid', 'true');
+                errorDiv.textContent = errorMessage;
+                errorDiv.setAttribute('aria-live', 'assertive');
+                return false;
+            } else {
+                field.setAttribute('aria-invalid', 'false');
+                errorDiv.textContent = '';
+                errorDiv.setAttribute('aria-live', 'polite');
+                return true;
+            }
+        }
+
+        // PHASE 2 - Navigation clavier améliorée
+        function setupKeyboardNavigation() {
+            const form = document.getElementById('loginForm');
+            const inputs = form.querySelectorAll('input, button');
+            
+            inputs.forEach((input, index) => {
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        // Gestion du focus cyclique
+                        if (e.shiftKey && index === 0) {
+                            e.preventDefault();
+                            inputs[inputs.length - 1].focus();
+                        } else if (!e.shiftKey && index === inputs.length - 1) {
+                            e.preventDefault();
+                            inputs[0].focus();
+                        }
+                    }
+                    
+                    if (e.key === 'Enter' && input.type === 'submit') {
+                        e.preventDefault();
+                        form.dispatchEvent(new Event('submit'));
+                    }
+                });
+            });
+        }
+
+        // PHASE 2 - Annonces vocales pour les actions
+        function announceAction(message) {
+            const announcer = document.createElement('div');
+            announcer.setAttribute('aria-live', 'assertive');
+            announcer.setAttribute('aria-atomic', 'true');
+            announcer.className = 'sr-only';
+            announcer.textContent = message;
+            document.body.appendChild(announcer);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcer);
+            }, 1000);
+        }
+
+        // PHASE 2 - Validation en temps réel sur les champs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser la navigation clavier
+            setupKeyboardNavigation();
+            
+            // Validation en temps réel sur l'email
+            document.getElementById('email').addEventListener('blur', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                validateField('email', 
+                    value => emailRegex.test(value), 
+                    'Veuillez entrer une adresse email valide'
+                );
+            });
+            
+            // Validation en temps réel sur le mot de passe
+            document.getElementById('password').addEventListener('blur', function() {
+                validateField('password', 
+                    value => value.length >= 6, 
+                    'Le mot de passe doit contenir au moins 6 caractères'
+                );
+            });
+            
+            // Effacer les erreurs quand l'utilisateur tape
+            document.getElementById('email').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.setAttribute('aria-invalid', 'false');
+                    document.getElementById('email-error').textContent = '';
+                }
+            });
+            
+            document.getElementById('password').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.setAttribute('aria-invalid', 'false');
+                    document.getElementById('password-error').textContent = '';
+                }
+            });
+        });
 
         // Enhanced Login Handler
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
