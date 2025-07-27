@@ -85,6 +85,23 @@
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover .logo-image {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
         }
 
         .nav-links {
@@ -451,8 +468,7 @@
     <header class="header">
         <div class="header-content">
             <a href="index.html" class="logo">
-                <i class="fas fa-palm-tree"></i>
-                KhanelConcept
+                <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image">
             </a>
             
             <nav class="nav-links nav-menu">
