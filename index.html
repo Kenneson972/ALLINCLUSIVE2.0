@@ -221,8 +221,13 @@
         @media (max-width: 480px) {
             .hero-logo {
                 margin-bottom: 2rem;
-                padding: 0 0.5rem;
+                padding: 0;
                 text-align: center;
+                /* Perfect centering on small screens */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
             }
             
             .hero-logo-image {
