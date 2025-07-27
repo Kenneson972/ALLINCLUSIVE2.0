@@ -566,9 +566,9 @@
 
     <!-- Background Video -->
     <div class="video-background">
-        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline aria-hidden="true">
             <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+            <span class="sr-only">Vidéo d'arrière-plan décorative</span>
         </video>
         <div class="video-overlay"></div>
     </div>
