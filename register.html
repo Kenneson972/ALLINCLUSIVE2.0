@@ -574,17 +574,17 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-palm-tree"></i>
+                <a href="index.html" class="logo" aria-label="Retour à l'accueil KhanelConcept">
+                    <i class="fas fa-palm-tree" aria-hidden="true"></i>
                     KhanelConcept
                 </a>
-                <div class="hidden md:flex items-center gap-4">
-                    <a href="login.html" class="text-white/80 hover:text-white transition-colors">Connexion</a>
-                    <a href="index.html" class="text-white/80 hover:text-white transition-colors">Accueil</a>
-                </div>
+                <nav class="hidden md:flex items-center gap-4" role="navigation" aria-label="Navigation principale">
+                    <a href="login.html" class="text-white/80 hover:text-white transition-colors" aria-label="Se connecter à votre compte">Connexion</a>
+                    <a href="index.html" class="text-white/80 hover:text-white transition-colors" aria-label="Retour à l'accueil">Accueil</a>
+                </nav>
             </div>
         </div>
     </header>
