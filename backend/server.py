@@ -91,18 +91,25 @@ def validate_password_strength(password: str) -> bool:
         return False
     return True
 
-# Configuration sécurité
-SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-here-change-in-production")
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+# Configuration sécurité - PHASE 1 SÉCURISÉE
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your-secret-key-here-change-in-production")
+ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("JWT_ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 MEMBER_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 jours pour les membres
 
-# Données admin (à remplacer par une vraie base de données d'utilisateurs)
+# Admin credentials sécurisés - PHASE 1
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "khanelconcept2025")
+ADMIN_SECRET_KEY = os.getenv("ADMIN_SECRET_KEY", "admin-secret-key-change-in-production")
+ADMIN_2FA_SECRET = os.getenv("ADMIN_2FA_SECRET", "your-2fa-secret-key-here")
+
+# Données admin sécurisées
 ADMIN_USERS = {
-    "admin": {
-        "username": "admin",
-        "hashed_password": hashlib.sha256("khanelconcept2025".encode()).hexdigest(),
-        "role": "admin"
+    ADMIN_USERNAME: {
+        "username": ADMIN_USERNAME,
+        "hashed_password": hashlib.sha256(ADMIN_PASSWORD.encode()).hexdigest(),
+        "role": "admin",
+        "2fa_secret": ADMIN_2FA_SECRET
     }
 }
 
