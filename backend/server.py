@@ -1582,7 +1582,7 @@ async def resend_verification_email(resend_data: MemberResendVerification):
 
 @app.post("/api/members/login")
 async def member_login(login_data: MemberLogin, request: Request):
-    """Connexion d'un membre avec protection brute force"""
+    """Connexion d'un membre avec vérification email obligatoire"""
     try:
         client_ip = request.client.host if request.client else "unknown"
         email_key = f"{login_data.email}_{client_ip}"
@@ -1607,6 +1607,13 @@ async def member_login(login_data: MemberLogin, request: Request):
             failed_login_attempts[email_key]['count'] += 1
             raise HTTPException(status_code=401, detail="Email ou mot de passe incorrect")
         
+        # PHASE 1 - Vérifier que l'email est vérifié
+        if not member.get("isVerified", False):
+            raise HTTPException(
+                status_code=401, 
+                detail="Email non vérifié. Veuillez vérifier votre email avant de vous connecter."
+            )
+        
         # Vérifier le mot de passe
         if not verify_password(login_data.password, member["password"]):
             # Incrémenter les tentatives échouées
@@ -1630,7 +1637,13 @@ async def member_login(login_data: MemberLogin, request: Request):
         )
         
         # 📊 LOG DE SÉCURITÉ
-        print(f"🔐 LOGIN SUCCESS: {login_data.email} from {client_ip} at {datetime.utcnow()}")
+        log_security_event(
+            "MEMBER_LOGIN_SUCCESS",
+            member["email"],
+            client_ip,
+            True,
+            f"Membre: {member['firstName']} {member['lastName']}"
+        )
         
         # Retourner les infos (sans le mot de passe et _id MongoDB)
         member.pop("password", None)
@@ -1645,7 +1658,13 @@ async def member_login(login_data: MemberLogin, request: Request):
     except HTTPException:
         # LOG DE SÉCURITÉ pour tentatives échouées
         client_ip = request.client.host if request.client else "unknown"
-        print(f"🚨 LOGIN FAILED: {login_data.email} from {client_ip} at {datetime.utcnow()}")
+        log_security_event(
+            "MEMBER_LOGIN_FAILED",
+            login_data.email,
+            client_ip,
+            False,
+            "Tentative de connexion échouée"
+        )
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
