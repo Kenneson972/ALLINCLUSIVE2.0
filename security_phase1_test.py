@@ -49,7 +49,7 @@ class SecurityPhase1Tester:
     def generate_test_email(self):
         """Generate unique test email"""
         random_suffix = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
-        return f"test.security.{random_suffix}@khanelconcept.test"
+        return f"test.security.{random_suffix}@example.com"
     
     def generate_strong_password(self):
         """Generate a strong password for testing"""
