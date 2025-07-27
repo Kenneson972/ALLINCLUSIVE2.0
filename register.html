@@ -779,19 +779,23 @@
                         <div class="field-error" id="terms-error" aria-live="polite" role="alert"></div>
                     </div>
 
-                    <button type="submit" class="btn-primary" id="registerBtn">
+                    <button type="submit" class="btn-primary" id="registerBtn" 
+                            aria-describedby="register-help">
                         <span class="btn-text">
-                            <i class="fas fa-user-plus mr-2"></i>
+                            <i class="fas fa-user-plus mr-2" aria-hidden="true"></i>
                             Rejoindre le Club
                         </span>
-                        <div class="loading-spinner"></div>
+                        <div class="loading-spinner" aria-hidden="true"></div>
                     </button>
+                    <div id="register-help" class="sr-only">
+                        Cliquez ou appuyez sur Entrée pour créer votre compte membre
+                    </div>
                 </form>
 
                 <!-- Login Link -->
                 <div class="login-link">
                     Déjà membre ? 
-                    <a href="login.html">Se connecter</a>
+                    <a href="login.html" aria-label="Se connecter à votre compte existant">Se connecter</a>
                 </div>
             </div>
         </div>
