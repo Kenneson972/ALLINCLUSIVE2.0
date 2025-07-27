@@ -1239,7 +1239,84 @@
             return date.toLocaleDateString('fr-FR');
         }
 
-        // Navigation
+        // PHASE 2 - Fonctions d'accessibilité pour le dashboard
+        function setupDashboardAccessibility() {
+            // Gérer la navigation clavier dans la sidebar
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            
+            sidebarLinks.forEach((link, index) => {
+                link.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIndex = (index + 1) % sidebarLinks.length;
+                        sidebarLinks[nextIndex].focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIndex = (index - 1 + sidebarLinks.length) % sidebarLinks.length;
+                        sidebarLinks[prevIndex].focus();
+                    }
+                });
+            });
+            
+            // Gérer les notifications avec annonces
+            const originalShowSection = window.showSection;
+            window.showSection = function(sectionName) {
+                originalShowSection(sectionName);
+                
+                // Annoncer le changement de section
+                announcePageChange(sectionName);
+                
+                // Mettre à jour aria-current
+                sidebarLinks.forEach(link => {
+                    link.removeAttribute('aria-current');
+                });
+                
+                const activeLink = document.querySelector(`[href="#${sectionName}"]`);
+                if (activeLink) {
+                    activeLink.setAttribute('aria-current', 'page');
+                }
+            };
+        }
+
+        function announcePageChange(sectionName) {
+            const sectionNames = {
+                'dashboard': 'Tableau de bord',
+                'reservations': 'Mes Réservations',
+                'profile': 'Mon Profil',
+                'loyalty': 'Programme Fidélité',
+                'wishlist': 'Mes Favoris',
+                'notifications': 'Notifications',
+                'wallet': 'Portefeuille',
+                'concierge': 'Conciergerie'
+            };
+            
+            const announcer = document.createElement('div');
+            announcer.setAttribute('aria-live', 'polite');
+            announcer.setAttribute('aria-atomic', 'true');
+            announcer.className = 'sr-only';
+            announcer.textContent = `Section ${sectionNames[sectionName] || sectionName} chargée`;
+            
+            document.body.appendChild(announcer);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcer);
+            }, 1000);
+        }
+
+        function updateNotificationBadge(count) {
+            const badge = document.getElementById('notificationBadge');
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.remove('hidden');
+                badge.setAttribute('aria-label', `${count} nouvelles notifications`);
+            } else {
+                badge.classList.add('hidden');
+                badge.removeAttribute('aria-label');
+            }
+        }
+
+        // Enhanced showSection with accessibility
+        function showSection(sectionName) {
         function showSection(sectionName) {
             // Hide all sections
             document.querySelectorAll('.dashboard-section').forEach(section => {
