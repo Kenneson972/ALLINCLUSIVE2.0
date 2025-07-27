@@ -1153,20 +1153,137 @@ async def add_loyalty_points(member_id: str, amount: int, description: str, refe
         print(f"Erreur ajout points: {e}")
         return {"success": False, "error": str(e)}
 
-# ========== ROUTES D'AUTHENTIFICATION ==========
+# ========== ROUTES D'AUTHENTIFICATION SÉCURISÉES - PHASE 1 ==========
 
 @app.post("/api/admin/login", response_model=Token)
-async def admin_login(login_data: AdminLogin):
-    """Connexion administrateur"""
-    user = authenticate_user(login_data.username, login_data.password)
-    if not user:
+async def admin_login(login_data: AdminLogin, request: Request):
+    """Connexion administrateur avec 2FA"""
+    client_ip = request.client.host if request.client else "unknown"
+    
+    success, result = authenticate_user(
+        login_data.username, 
+        login_data.password, 
+        login_data.totp_code
+    )
+    
+    if not success:
+        # Log échec
+        log_security_event(
+            "LOGIN_FAILED", 
+            login_data.username, 
+            client_ip, 
+            False, 
+            result
+        )
+        
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Identifiants incorrects",
+            detail=result,
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token = create_access_token(data={"sub": user["username"], "role": user["role"]})
+    
+    # Success
+    user = result
+    access_token = create_access_token(
+        data={"sub": user["username"], "role": user["role"]}
+    )
+    
+    # Log succès
+    log_security_event(
+        "LOGIN_SUCCESS", 
+        login_data.username, 
+        client_ip, 
+        True, 
+        f"2FA: {'enabled' if user.get('2fa_enabled', False) else 'disabled'}"
+    )
+    
     return {"access_token": access_token, "token_type": "bearer"}
+
+@app.post("/api/admin/setup-2fa")
+async def setup_2fa(setup_data: AdminSetup2FA, request: Request):
+    """Configurer la 2FA pour l'admin"""
+    client_ip = request.client.host if request.client else "unknown"
+    
+    # Vérifier le mot de passe
+    if not verify_admin_password(setup_data.password, ADMIN_USERS[ADMIN_USERNAME]["hashed_password"]):
+        log_security_event("2FA_SETUP_FAILED", ADMIN_USERNAME, client_ip, False, "Mot de passe incorrect")
+        raise HTTPException(status_code=401, detail="Mot de passe incorrect")
+    
+    # Générer nouveau secret 2FA
+    secret = generate_2fa_secret()
+    qr_code = generate_qr_code(ADMIN_USERNAME, secret)
+    
+    # Stocker temporairement le secret (en production, utiliser une base de données)
+    ADMIN_USERS[ADMIN_USERNAME]["temp_2fa_secret"] = secret
+    
+    log_security_event("2FA_SETUP_STARTED", ADMIN_USERNAME, client_ip, True, "Secret généré")
+    
+    return {
+        "qr_code": qr_code,
+        "secret": secret,
+        "message": "Scannez le QR code avec votre app d'authentification"
+    }
+
+@app.post("/api/admin/enable-2fa")
+async def enable_2fa(enable_data: AdminEnable2FA, request: Request):
+    """Activer la 2FA après validation"""
+    client_ip = request.client.host if request.client else "unknown"
+    
+    temp_secret = ADMIN_USERS[ADMIN_USERNAME].get("temp_2fa_secret")
+    if not temp_secret:
+        raise HTTPException(status_code=400, detail="Setup 2FA non initialisé")
+    
+    # Vérifier le code 2FA
+    if not verify_2fa_code(temp_secret, enable_data.totp_code):
+        log_security_event("2FA_ENABLE_FAILED", ADMIN_USERNAME, client_ip, False, "Code invalide")
+        raise HTTPException(status_code=400, detail="Code 2FA invalide")
+    
+    # Activer la 2FA
+    ADMIN_USERS[ADMIN_USERNAME]["2fa_enabled"] = True
+    ADMIN_USERS[ADMIN_USERNAME]["2fa_secret"] = temp_secret
+    ADMIN_USERS[ADMIN_USERNAME].pop("temp_2fa_secret", None)
+    
+    log_security_event("2FA_ENABLED", ADMIN_USERNAME, client_ip, True, "2FA activée avec succès")
+    
+    # Envoyer alerte de sécurité
+    send_security_alert_email(ADMIN_USERNAME, "2FA Activée", client_ip)
+    
+    return {"success": True, "message": "2FA activée avec succès"}
+
+@app.post("/api/admin/disable-2fa")
+async def disable_2fa(disable_data: AdminDisable2FA, request: Request):
+    """Désactiver la 2FA"""
+    client_ip = request.client.host if request.client else "unknown"
+    
+    # Vérifier le mot de passe
+    if not verify_admin_password(disable_data.password, ADMIN_USERS[ADMIN_USERNAME]["hashed_password"]):
+        log_security_event("2FA_DISABLE_FAILED", ADMIN_USERNAME, client_ip, False, "Mot de passe incorrect")
+        raise HTTPException(status_code=401, detail="Mot de passe incorrect")
+    
+    # Vérifier le code 2FA
+    current_secret = ADMIN_USERS[ADMIN_USERNAME].get("2fa_secret")
+    if not current_secret or not verify_2fa_code(current_secret, disable_data.totp_code):
+        log_security_event("2FA_DISABLE_FAILED", ADMIN_USERNAME, client_ip, False, "Code 2FA invalide")
+        raise HTTPException(status_code=400, detail="Code 2FA invalide")
+    
+    # Désactiver la 2FA
+    ADMIN_USERS[ADMIN_USERNAME]["2fa_enabled"] = False
+    ADMIN_USERS[ADMIN_USERNAME].pop("2fa_secret", None)
+    
+    log_security_event("2FA_DISABLED", ADMIN_USERNAME, client_ip, True, "2FA désactivée")
+    
+    # Envoyer alerte de sécurité
+    send_security_alert_email(ADMIN_USERNAME, "2FA Désactivée", client_ip)
+    
+    return {"success": True, "message": "2FA désactivée"}
+
+@app.get("/api/admin/2fa-status")
+async def get_2fa_status():
+    """Vérifier le statut de la 2FA"""
+    return {
+        "enabled": ADMIN_USERS[ADMIN_USERNAME].get("2fa_enabled", False),
+        "configured": "2fa_secret" in ADMIN_USERS[ADMIN_USERNAME]
+    }
 
 @app.post("/api/admin/verify-token")
 async def verify_admin_token(token_data: TokenVerify):
