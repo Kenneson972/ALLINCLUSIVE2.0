@@ -724,41 +724,52 @@
                         <div id="profile-desc" class="sr-only">Modifier vos informations</div>
                     </li>
                     <li class="sidebar-item" role="none">
-                        <a href="#loyalty" class="sidebar-link" onclick="showSection('loyalty')">
-                            <i class="sidebar-icon fas fa-star"></i>
+                        <a href="#loyalty" class="sidebar-link" onclick="showSection('loyalty')" 
+                           role="menuitem" aria-describedby="loyalty-desc">
+                            <i class="sidebar-icon fas fa-star" aria-hidden="true"></i>
                             <span>Fidélité</span>
                         </a>
+                        <div id="loyalty-desc" class="sr-only">Points de fidélité et récompenses</div>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="#wishlist" class="sidebar-link" onclick="showSection('wishlist')">
-                            <i class="sidebar-icon fas fa-heart"></i>
+                    <li class="sidebar-item" role="none">
+                        <a href="#wishlist" class="sidebar-link" onclick="showSection('wishlist')" 
+                           role="menuitem" aria-describedby="wishlist-desc">
+                            <i class="sidebar-icon fas fa-heart" aria-hidden="true"></i>
                             <span>Mes Favoris</span>
                         </a>
+                        <div id="wishlist-desc" class="sr-only">Vos villas favorites</div>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="#notifications" class="sidebar-link" onclick="showSection('notifications')">
-                            <i class="sidebar-icon fas fa-bell"></i>
+                    <li class="sidebar-item" role="none">
+                        <a href="#notifications" class="sidebar-link" onclick="showSection('notifications')" 
+                           role="menuitem" aria-describedby="notifications-desc">
+                            <i class="sidebar-icon fas fa-bell" aria-hidden="true"></i>
                             <span>Notifications</span>
-                            <span id="notificationBadge" class="ml-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full hidden">0</span>
+                            <span id="notificationBadge" class="notification-badge hidden" 
+                                  aria-label="nouvelles notifications">0</span>
                         </a>
+                        <div id="notifications-desc" class="sr-only">Messages et alertes</div>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="#wallet" class="sidebar-link" onclick="showSection('wallet')">
-                            <i class="sidebar-icon fas fa-wallet"></i>
+                    <li class="sidebar-item" role="none">
+                        <a href="#wallet" class="sidebar-link" onclick="showSection('wallet')" 
+                           role="menuitem" aria-describedby="wallet-desc">
+                            <i class="sidebar-icon fas fa-wallet" aria-hidden="true"></i>
                             <span>Portefeuille</span>
                         </a>
+                        <div id="wallet-desc" class="sr-only">Moyens de paiement</div>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="#concierge" class="sidebar-link" onclick="showSection('concierge')">
-                            <i class="sidebar-icon fas fa-concierge-bell"></i>
+                    <li class="sidebar-item" role="none">
+                        <a href="#concierge" class="sidebar-link" onclick="showSection('concierge')" 
+                           role="menuitem" aria-describedby="concierge-desc">
+                            <i class="sidebar-icon fas fa-concierge-bell" aria-hidden="true"></i>
                             <span>Conciergerie</span>
                         </a>
+                        <div id="concierge-desc" class="sr-only">Services VIP et assistance</div>
                     </li>
                 </nav>
             </aside>
 
             <!-- Main Content -->
-            <main class="main-content">
+            <main id="main-content" class="main-content" role="main">
                 
                 <!-- Dashboard Section -->
                 <section id="dashboard-section" class="dashboard-section">
