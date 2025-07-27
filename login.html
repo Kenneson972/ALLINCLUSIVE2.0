@@ -3,18 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - KhanelConcept Espace Membre</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Connectez-vous à votre espace membre KhanelConcept pour accéder à vos réservations, votre programme fidélité et vos avantages exclusifs.">
-    <meta name="keywords" content="connexion membre KhanelConcept, espace client, compte membre, login">
-    <meta name="author" content="KhanelConcept">
-    
-    <!-- CSS Libraries -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <title>Connexion - KhanelConcept</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -22,28 +12,17 @@
             box-sizing: border-box;
         }
         
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-primary: #2d3748;
-            --text-secondary: #718096;
-            --accent-gold: #f6ad55;
-            --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
             overflow-x: hidden;
-            line-height: 1.6;
-            color: var(--text-primary);
         }
-        
+
         /* Video Background */
         .video-background {
             position: fixed;
@@ -54,7 +33,7 @@
             z-index: -2;
             overflow: hidden;
         }
-        
+
         .video-background video {
             position: absolute;
             top: 50%;
@@ -65,9 +44,8 @@
             height: auto;
             transform: translate(-50%, -50%);
             object-fit: cover;
-            filter: brightness(0.7) contrast(1.1) saturate(1.2);
         }
-        
+
         .video-overlay {
             position: absolute;
             top: 0;
@@ -77,804 +55,545 @@
             background: rgba(0, 0, 0, 0.3);
             z-index: -1;
         }
-        
+
         /* Header */
         .header {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 50;
-            transition: all 0.3s ease;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
         }
-        
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
             color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
+            text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-        
-        .logo i {
-            color: #FFA500;
-        }
-        
-        /* Login Container */
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-        
-        .login-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            padding: 3rem;
-            box-shadow: var(--shadow-soft);
-            width: 100%;
-            max-width: 450px;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .login-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        .logo:hover {
+            transform: scale(1.05);
         }
         
-        .login-title {
+        .logo-image {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
             color: white;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
         
+        .logo:hover .logo-image {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Login Container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 
+                0 25px 45px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 80px rgba(138, 43, 226, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .login-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
         .login-subtitle {
             color: rgba(255, 255, 255, 0.8);
-            text-align: center;
             margin-bottom: 2rem;
             font-size: 1.1rem;
+            line-height: 1.4;
         }
-        
-        /* Form Styles */
+
         .form-group {
             margin-bottom: 1.5rem;
+            text-align: left;
         }
-        
+
         .form-label {
             display: block;
-            color: white;
-            font-weight: 600;
             margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
             font-size: 0.95rem;
         }
-        
+
         .form-input {
             width: 100%;
-            padding: 18px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 1rem;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
-        
+
         .form-input:focus {
             outline: none;
-            border-color: var(--accent-gold);
+            border-color: rgba(255, 255, 255, 0.4);
             background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.02);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-        
+
         .form-input::placeholder {
             color: rgba(255, 255, 255, 0.6);
         }
-        
-        .form-input.error {
-            border-color: #ff6b6b;
-            animation: shake 0.3s ease-in-out;
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
         }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
-        /* Checkbox Remember Me */
+
         .remember-me {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
         }
-        
-        .checkbox-custom {
-            width: 20px;
-            height: 20px;
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
+            background: transparent;
+        }
+
+        .forgot-password {
+            color: #FFA726;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #FFB74D;
+            text-shadow: 0 0 10px rgba(255, 167, 38, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            gap: 0.5rem;
         }
-        
-        .checkbox-custom.checked {
-            background: var(--accent-gold);
-            border-color: var(--accent-gold);
-        }
-        
-        /* Buttons */
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 20px 40px;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary:hover {
+
+        .login-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
         }
-        
-        .btn-primary:active {
+
+        .login-btn:active {
             transform: translateY(-1px);
         }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
+
+        .divider {
             text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            color: white;
-        }
-        
-        /* Social Login */
-        .social-login {
-            margin: 2rem 0;
-        }
-        
-        .social-divider {
-            text-align: center;
-            margin: 1.5rem 0;
             color: rgba(255, 255, 255, 0.6);
-            position: relative;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
         }
-        
-        .social-divider::before,
-        .social-divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 45%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .social-divider::before {
-            left: 0;
-        }
-        
-        .social-divider::after {
-            right: 0;
-        }
-        
-        .social-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 12px;
-            border-radius: 15px;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            text-decoration: none;
-            color: white;
-        }
-        
-        /* Links */
-        .forgot-password {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        
-        .forgot-password a {
-            color: var(--accent-gold);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        .forgot-password a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        
+
         .register-link {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .register-link a {
-            color: var(--accent-gold);
+            color: #FFA726;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
-        
-        .register-link a:hover {
-            color: white;
-            text-decoration: underline;
+
+        .register-link:hover {
+            color: #FFB74D;
+            text-shadow: 0 0 10px rgba(255, 167, 38, 0.3);
         }
-        
-        /* Loading Spinner */
-        .loading-spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading .loading-spinner {
-            display: inline-block;
-        }
-        
-        .loading .btn-text {
-            display: none;
-        }
-        
-        /* Error Messages */
-        .error-message {
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            color: #ff6b6b;
-            padding: 15px 20px;
+
+        /* Alert Styles */
+        .alert {
+            padding: 1rem;
             border-radius: 10px;
             margin-bottom: 1rem;
-            font-size: 0.95rem;
-            display: none;
+            font-size: 0.9rem;
+            text-align: center;
         }
-        
-        .success-message {
-            background: rgba(72, 187, 120, 0.1);
-            border: 1px solid rgba(72, 187, 120, 0.3);
-            color: #48bb78;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            display: none;
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: #FFCDD2;
         }
-        
-        /* Responsive Design */
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #C8E6C9;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .login-card {
-                padding: 2rem 1.5rem;
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .login-container {
+                padding: 2rem;
                 margin: 1rem;
-                border-radius: 20px;
+                margin-top: 100px;
             }
             
             .login-title {
                 font-size: 2rem;
             }
-            
-            .form-input {
-                font-size: 16px;
-                padding: 16px 18px;
-            }
-            
-            .social-buttons {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
-
 <body>
     <!-- Background Video -->
     <div class="video-background">
         <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
             <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
         <div class="video-overlay"></div>
     </div>
 
     <!-- Header -->
     <header class="header">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-palm-tree"></i>
-                    KhanelConcept
-                </a>
-                <div class="hidden md:flex items-center gap-4">
-                    <a href="register.html" class="text-white/80 hover:text-white transition-colors">Inscription</a>
-                    <a href="index.html" class="text-white/80 hover:text-white transition-colors">Accueil</a>
-                </div>
-            </div>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image">
+                <span class="logo-text">KhanelConcept</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="index.html">🏠 Accueil</a>
+                <a href="register.html">👤 Inscription</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Login Container -->
+    <!-- Main Content -->
     <div class="login-container">
-        <div class="login-card" data-aos="fade-up" data-aos-duration="1000">
-            <div class="text-center mb-6">
-                <h1 class="login-title">Bienvenue !</h1>
-                <p class="login-subtitle">Connectez-vous à votre espace membre exclusif</p>
+        <h1 class="login-title">Bienvenue !</h1>
+        <p class="login-subtitle">Connectez-vous à votre espace membre exclusif</p>
+
+        <div id="alertContainer"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="email">📧 Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    class="form-input" 
+                    placeholder="votre@email.com" 
+                    required
+                >
             </div>
 
-            <!-- Error/Success Messages -->
-            <div id="error-message" class="error-message"></div>
-            <div id="success-message" class="success-message"></div>
-
-            <!-- Login Form -->
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="email" class="form-label">
-                        <i class="fas fa-envelope mr-2"></i>Email
-                    </label>
-                    <input type="email" id="email" class="form-input" placeholder="votre@email.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="form-label">
-                        <i class="fas fa-lock mr-2"></i>Mot de passe
-                    </label>
-                    <input type="password" id="password" class="form-input" placeholder="Votre mot de passe" required>
-                </div>
-
-                <div class="remember-me">
-                    <div class="checkbox-custom" id="rememberCheck">
-                        <i class="fas fa-check text-xs opacity-0 transition-opacity"></i>
-                    </div>
-                    <label for="remember" class="text-white text-sm cursor-pointer">Se souvenir de moi</label>
-                    <input type="checkbox" id="remember" class="sr-only">
-                </div>
-
-                <button type="submit" class="btn-primary" id="loginBtn">
-                    <span class="btn-text">
-                        <i class="fas fa-sign-in-alt mr-2"></i>
-                        Se connecter
-                    </span>
-                    <div class="loading-spinner"></div>
-                </button>
-            </form>
-
-            <!-- Forgot Password -->
-            <div class="forgot-password">
-                <a href="reset-password.html">Mot de passe oublié ?</a>
+            <div class="form-group">
+                <label class="form-label" for="password">🔑 Mot de passe</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Votre mot de passe" 
+                    required
+                >
             </div>
 
-            <!-- Social Login -->
-            <div class="social-login">
-                <div class="social-divider">ou</div>
-                <div class="social-buttons">
-                    <a href="#" class="social-btn" onclick="loginWithGoogle()">
-                        <i class="fab fa-google"></i>
-                        Google
-                    </a>
-                    <a href="#" class="social-btn" onclick="loginWithFacebook()">
-                        <i class="fab fa-facebook-f"></i>
-                        Facebook
-                    </a>
-                </div>
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    Se souvenir de moi
+                </label>
+                <a href="reset-password.html" class="forgot-password">Mot de passe oublié ?</a>
             </div>
 
-            <!-- Register Link -->
-            <div class="register-link">
-                Nouveau membre ? 
-                <a href="register.html">Créer un compte</a>
-            </div>
-        </div>
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Se connecter
+            </button>
+        </form>
+
+        <div class="divider">ou</div>
+        
+        <p>Pas encore membre ? <a href="register.html" class="register-link">Créer un compte</a></p>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Initialize page
+        // Initialize video for iOS
         document.addEventListener('DOMContentLoaded', function() {
-            initBackgroundVideoiOS();
-            setupCheckboxBehavior();
-            setupFormValidation();
-            checkExistingLogin();
+            const video = document.getElementById('backgroundVideo');
+            
+            if (video) {
+                video.muted = true;
+                video.playsInline = true;
+                video.setAttribute('webkit-playsinline', '');
+                video.setAttribute('playsinline', '');
+                
+                // Force play on iOS
+                const playVideo = () => {
+                    video.play().catch(e => console.log('Auto-play failed:', e));
+                };
+                
+                playVideo();
+                document.addEventListener('touchstart', playVideo, { once: true });
+            }
         });
 
-        // iOS Video Background Support
-        function initBackgroundVideoiOS() {
-            const video = document.getElementById('backgroundVideo');
-            if (video) {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                
-                if (isIOS) {
-                    video.setAttribute('webkit-playsinline', '');
-                    video.setAttribute('playsinline', '');
-                    video.muted = true;
-                    video.defaultMuted = true;
-                    video.volume = 0;
-                    
-                    video.play().catch(error => {
-                        function startVideo() {
-                            video.play().then(() => {
-                                console.log('✅ Vidéo background démarrée sur iOS');
-                            }).catch(err => console.log('Erreur vidéo iOS:', err));
-                            document.removeEventListener('touchstart', startVideo);
-                            document.removeEventListener('click', startVideo);
-                        }
-                        
-                        document.addEventListener('touchstart', startVideo, { once: true });
-                        document.addEventListener('click', startVideo, { once: true });
-                    });
-                } else {
-                    video.play().catch(error => {
-                        console.log('Erreur autoplay:', error);
-                    });
-                }
-            }
-        }
-
-        // Checkbox behavior
-        function setupCheckboxBehavior() {
-            const checkbox = document.getElementById('remember');
-            const checkboxCustom = document.getElementById('rememberCheck');
-            const checkmark = checkboxCustom.querySelector('.fas');
-
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    checkmark.style.opacity = '1';
-                    checkboxCustom.classList.add('checked');
-                } else {
-                    checkmark.style.opacity = '0';
-                    checkboxCustom.classList.remove('checked');
-                }
-            });
-
-            checkboxCustom.addEventListener('click', function() {
-                checkbox.click();
-            });
-        }
-
-        // Form validation
-        function setupFormValidation() {
-            const form = document.getElementById('loginForm');
-            const inputs = form.querySelectorAll('.form-input');
-
-            inputs.forEach(input => {
-                input.addEventListener('blur', function() {
-                    validateField(this);
-                });
-
-                input.addEventListener('input', function() {
-                    if (this.classList.contains('error')) {
-                        validateField(this);
-                    }
-                });
-            });
-
-            form.addEventListener('submit', handleLogin);
-        }
-
-        function validateField(field) {
-            const value = field.value.trim();
-            let isValid = true;
-
-            if (field.hasAttribute('required') && !value) {
-                isValid = false;
-            }
-
-            if (field.type === 'email' && value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                isValid = emailRegex.test(value);
-            }
-
-            if (isValid) {
-                field.classList.remove('error');
-            } else {
-                field.classList.add('error');
-            }
-
-            return isValid;
-        }
-
-        // Handle login
-        async function handleLogin(e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const formData = new FormData(form);
-            let email = formData.get('email') || document.getElementById('email').value;
-            let password = formData.get('password') || document.getElementById('password').value;
-            const remember = document.getElementById('remember').checked;
-
-            // 🔒 SANITISATION SÉCURITÉ XSS
-            function sanitizeInput(input) {
-                if (typeof input !== 'string') return input;
-                return input
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;')
-                    .replace(/'/g, '&#x27;')
-                    .replace(/&/g, '&amp;')
-                    .replace(/javascript:/gi, '')
-                    .replace(/on\w+\s*=/gi, '')
-                    .trim();
-            }
+        // XSS Protection Function
+        function sanitizeInput(input) {
+            if (typeof input !== 'string') return input;
             
-            email = sanitizeInput(email);
-            password = sanitizeInput(password);
-            console.log('🔒 Email sanitisé:', email);
+            return input
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;')
+                .replace(/\//g, '&#x2F;');
+        }
 
-            // Validate fields
-            const emailField = document.getElementById('email');
-            const passwordField = document.getElementById('password');
+        function showAlert(message, type = 'error') {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alertDiv);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
 
-            let isValid = true;
-            if (!validateField(emailField)) isValid = false;
-            if (!validateField(passwordField)) isValid = false;
-
-            if (!isValid) {
-                showMessage('Veuillez corriger les erreurs dans le formulaire.', 'error');
+        // Enhanced Login Handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Validate inputs
+            if (!email || !password) {
+                showAlert('Veuillez remplir tous les champs obligatoires.', 'error');
                 return;
             }
-
-            // Show loading
-            const loginBtn = document.getElementById('loginBtn');
-            loginBtn.classList.add('loading');
-
+            
+            // Email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showAlert('Veuillez entrer une adresse email valide.', 'error');
+                return;
+            }
+            
+            // Sanitize inputs
+            const sanitizedEmail = sanitizeInput(email);
+            console.log('🔒 Email sanitisé:', sanitizedEmail);
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.login-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+            submitBtn.disabled = true;
+            
             try {
-                // Call actual backend API for login
-                const backendUrl = 'http://localhost:8001'; // URL backend statique pour HTML
-                const response = await fetch(`${backendUrl}/api/members/login`, {
+                // Brute force protection check
+                const attemptKey = 'login_attempts_' + sanitizedEmail;
+                const attempts = JSON.parse(localStorage.getItem(attemptKey) || '{"count": 0, "lastAttempt": 0}');
+                const now = Date.now();
+                
+                // Reset attempts after 15 minutes
+                if (now - attempts.lastAttempt > 15 * 60 * 1000) {
+                    attempts.count = 0;
+                }
+                
+                if (attempts.count >= 5) {
+                    const timeLeft = Math.ceil((15 * 60 * 1000 - (now - attempts.lastAttempt)) / (60 * 1000));
+                    showAlert(`Trop de tentatives échouées. Réessayez dans ${timeLeft} minutes.`, 'error');
+                    return;
+                }
+                
+                // API Call to backend
+                const response = await fetch('/api/members/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        email: email,
+                        email: sanitizedEmail,
                         password: password
                     })
                 });
-
-                let data = {};
-                try {
-                    data = await response.json();
-                } catch (jsonError) {
-                    console.log('❌ Erreur parsing JSON response:', jsonError);
-                }
-
-                if (response.ok && data.token) {
-                    // Store login info with actual user data and JWT token
-                    localStorage.setItem('khanelconcept_user', JSON.stringify({
-                        id: data.member.id,
-                        email: data.member.email,
-                        firstName: data.member.firstName,
-                        lastName: data.member.lastName,
-                        phone: data.member.phone,
-                        level: data.member.level,
-                        points: data.member.points,
-                        loginTime: new Date().toISOString()
-                    }));
+                
+                const data = await response.json();
+                
+                if (response.ok && data.access_token) {
+                    // Reset login attempts on success
+                    localStorage.removeItem(attemptKey);
                     
-                    localStorage.setItem('khanelconcept_token', data.token);
-
-                    showMessage('Connexion réussie ! Redirection vers votre dashboard...', 'success');
+                    // Store authentication data
+                    localStorage.setItem('khanelconcept_token', data.access_token);
+                    localStorage.setItem('khanelconcept_user', JSON.stringify(data.member));
                     
-                    // Redirect to dashboard
+                    // Remember me functionality
+                    if (rememberMe) {
+                        localStorage.setItem('khanelconcept_remember', 'true');
+                    }
+                    
+                    showAlert('Connexion réussie ! Redirection...', 'success');
+                    
+                    // Add session storage flag to prevent redirect loops
+                    sessionStorage.setItem('just_logged_in', 'true');
+                    
+                    // Redirect after short delay
                     setTimeout(() => {
-                        sessionStorage.setItem('dashboard_redirect', 'true');
                         window.location.href = 'dashboard.html';
                     }, 1500);
-                } else {
-                    // Handle error response - try demo fallback
-                    console.log('❌ Erreur API backend, tentative fallback demo');
                     
-                    // Check if it's demo credentials
-                    if (email === 'demo@khanelconcept.com' && password === 'demo123') {
-                        // Use demo fallback
-                        localStorage.setItem('khanelconcept_user', JSON.stringify({
-                            id: 'demo_user',
-                            email: email,
-                            firstName: 'Marie-Claire',
-                            lastName: 'Membre',
-                            phone: '+596 696 12 34 56',
-                            level: 'Explorateur',
-                            points: 1250,
-                            loginTime: new Date().toISOString()
-                        }));
-                        
-                        localStorage.setItem('khanelconcept_token', 'demo_token_' + Date.now());
-
-                        showMessage('Connexion demo réussie ! Redirection...', 'success');
-                        
-                        setTimeout(() => {
-                            sessionStorage.setItem('dashboard_redirect', 'true');
-                            window.location.href = 'dashboard.html';
-                        }, 1500);
-                    } else {
-                        // Show API error or generic error
-                        const errorMessage = data?.detail || data?.message || 'Email ou mot de passe incorrect.';
-                        showMessage(errorMessage, 'error');
-                    }
+                } else {
+                    // Handle login failure
+                    attempts.count++;
+                    attempts.lastAttempt = now;
+                    localStorage.setItem(attemptKey, JSON.stringify(attempts));
+                    
+                    const errorMessage = data.detail || 'Email ou mot de passe incorrect.';
+                    showAlert(errorMessage, 'error');
                 }
-
+                
             } catch (error) {
                 console.error('Erreur de connexion:', error);
-                // Fallback for demo credentials during development
-                if (email === 'demo@khanelconcept.com' && password === 'demo123') {
-                    localStorage.setItem('khanelconcept_user', JSON.stringify({
-                        id: 'demo_user',
-                        email: email,
-                        firstName: 'Marie-Claire',
-                        lastName: 'Membre',
-                        phone: '+596 696 12 34 56',
-                        level: 'Explorateur',
-                        points: 1250,
-                        loginTime: new Date().toISOString()
-                    }));
-                    
-                    localStorage.setItem('khanelconcept_token', 'demo_token_' + Date.now());
-
-                    showMessage('Connexion demo réussie ! Redirection...', 'success');
-                    
-                    setTimeout(() => {
-                        sessionStorage.setItem('dashboard_redirect', 'true');
-                        window.location.href = 'dashboard.html';
-                    }, 1500);
-                } else {
-                    showMessage('Erreur de connexion. Vérifiez votre connexion internet ou utilisez demo@khanelconcept.com / demo123 pour tester.', 'error');
-                }
+                showAlert('Erreur de connexion. Vérifiez votre connexion internet.', 'error');
             } finally {
-                loginBtn.classList.remove('loading');
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
-        }
+        });
 
-        function showMessage(message, type) {
-            const errorMsg = document.getElementById('error-message');
-            const successMsg = document.getElementById('success-message');
-
-            // Hide both messages first
-            errorMsg.style.display = 'none';
-            successMsg.style.display = 'none';
-
-            if (type === 'error') {
-                errorMsg.textContent = message;
-                errorMsg.style.display = 'block';
-            } else {
-                successMsg.textContent = message;
-                successMsg.style.display = 'block';
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            // Skip redirect if just registered
+            if (sessionStorage.getItem('just_registered') === 'true') {
+                sessionStorage.removeItem('just_registered');
+                return;
             }
-
-            // Auto hide after 5 seconds
-            setTimeout(() => {
-                errorMsg.style.display = 'none';
-                successMsg.style.display = 'none';
-            }, 5000);
-        }
-
-        // Social login functions
-        function loginWithGoogle() {
-            showMessage('Connexion Google en cours de développement...', 'error');
-        }
-
-        function loginWithFacebook() {
-            showMessage('Connexion Facebook en cours de développement...', 'error');
-        }
-
-        async function checkExistingLogin() {
-            const user = localStorage.getItem('khanelconcept_user');
-            const token = localStorage.getItem('khanelconcept_token');
             
-            if (user && token) {
-                try {
-                    // Verify token with backend
-                    const backendUrl = 'http://localhost:8001'; // URL backend statique pour HTML
-                    const response = await fetch(`${backendUrl}/api/members/verify-token`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            token: token
-                        })
-                    });
-
-                    if (response.ok) {
+            const token = localStorage.getItem('khanelconcept_token');
+            const user = localStorage.getItem('khanelconcept_user');
+            
+            if (token && user) {
+                // Verify token is still valid
+                fetch('/api/members/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
                         // Token is valid, redirect to dashboard
-                        sessionStorage.setItem('dashboard_redirect', 'true');
                         window.location.href = 'dashboard.html';
-                        return;
-                    } else {
-                        // Token is invalid, clear storage
-                        localStorage.removeItem('khanelconcept_user');
-                        localStorage.removeItem('khanelconcept_token');
                     }
-                } catch (error) {
-                    // Network error or API unavailable - allow demo login to work
-                    console.log('Erreur vérification token:', error);
-                    if (user) {
-                        const userData = JSON.parse(user);
-                        if (userData.id === 'demo_user' || token.startsWith('demo_token_')) {
-                            // Allow demo user to proceed
-                            sessionStorage.setItem('dashboard_redirect', 'true');
-                            window.location.href = 'dashboard.html';
-                            return;
-                        }
-                    }
-                    // Clear invalid data
-                    localStorage.removeItem('khanelconcept_user');
+                })
+                .catch(error => {
+                    console.log('Token verification failed:', error);
+                    // Clear invalid tokens
                     localStorage.removeItem('khanelconcept_token');
-                }
+                    localStorage.removeItem('khanelconcept_user');
+                });
             }
-        }
+        });
     </script>
 </body>
 </html>
