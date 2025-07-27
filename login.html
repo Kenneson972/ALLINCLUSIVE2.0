@@ -401,30 +401,34 @@
     </style>
 </head>
 <body>
+    <!-- PHASE 2 - Skip link pour navigation clavier -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
     <!-- Background Video -->
     <div class="video-background">
-        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline aria-hidden="true">
             <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            <span class="sr-only">Vidéo d'arrière-plan décorative</span>
         </video>
         <div class="video-overlay"></div>
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="header-content">
             <a href="index.html" class="logo">
                 <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image">
             </a>
             
-            <nav class="nav-links">
-                <a href="index.html">🏠 Accueil</a>
-                <a href="register.html">👤 Inscription</a>
+            <nav class="nav-links" role="navigation" aria-label="Navigation principale">
+                <a href="index.html" aria-label="Retour à l'accueil - KhanelConcept">🏠 Accueil</a>
+                <a href="register.html" aria-label="Créer un nouveau compte">👤 Inscription</a>
             </nav>
         </div>
     </header>
 
     <!-- Main Content -->
-    <div class="login-container">
+    <main id="main-content" class="login-container" role="main">
         <h1 class="login-title" id="page-title">Bienvenue !</h1>
         <p class="login-subtitle" id="page-subtitle">Connectez-vous à votre espace membre exclusif</p>
 
