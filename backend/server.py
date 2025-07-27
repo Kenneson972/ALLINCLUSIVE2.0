@@ -945,7 +945,96 @@ async def get_dashboard_stats():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur statistiques: {e}")
 
-# ========== FONCTIONS D'AUTHENTIFICATION ==========
+# ========== FONCTIONS DE SÉCURITÉ PHASE 1 ==========
+
+def generate_2fa_secret():
+    """Générer un secret 2FA"""
+    return pyotp.random_base32()
+
+def generate_qr_code(username: str, secret: str):
+    """Générer un QR code pour la 2FA"""
+    totp_uri = pyotp.totp.TOTP(secret).provisioning_uri(
+        name=username,
+        issuer_name="KhanelConcept Admin"
+    )
+    
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(totp_uri)
+    qr.make(fit=True)
+    
+    img = qr.make_image(fill_color="black", back_color="white")
+    buffered = io.BytesIO()
+    img.save(buffered, format="PNG")
+    img_str = base64.b64encode(buffered.getvalue()).decode()
+    
+    return f"data:image/png;base64,{img_str}"
+
+def verify_2fa_code(secret: str, code: str):
+    """Vérifier un code 2FA"""
+    totp = pyotp.TOTP(secret)
+    return totp.verify(code, valid_window=1)
+
+def send_security_alert_email(admin_username: str, action: str, ip_address: str):
+    """Envoyer une alerte de sécurité par email"""
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = os.getenv("EMAIL_FROM", "security@khanelconcept.com")
+        msg['To'] = f"{admin_username}@khanelconcept.com"
+        msg['Subject'] = f"🔐 Alerte Sécurité KhanelConcept - {action}"
+        
+        body = f"""
+        Alerte de sécurité :
+        
+        Action : {action}
+        Utilisateur : {admin_username}
+        Adresse IP : {ip_address}
+        Heure : {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')} UTC
+        
+        Si ce n'est pas vous, veuillez immédiatement changer votre mot de passe.
+        """
+        
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Configuration SMTP
+        smtp_server = os.getenv("SMTP_HOST", "smtp.gmail.com")
+        smtp_port = int(os.getenv("SMTP_PORT", "587"))
+        
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(msg['From'], os.getenv("EMAIL_PASSWORD", ""))
+        server.send_message(msg)
+        server.quit()
+        
+        print(f"✅ Alerte sécurité envoyée à {admin_username}")
+        
+    except Exception as e:
+        print(f"❌ Erreur envoi email sécurité: {e}")
+
+def log_security_event(event_type: str, username: str, ip_address: str, success: bool, details: str = ""):
+    """Logger les événements de sécurité - PHASE 1"""
+    timestamp = datetime.utcnow().isoformat()
+    log_entry = {
+        "timestamp": timestamp,
+        "event_type": event_type,
+        "username": username,
+        "ip_address": ip_address,
+        "success": success,
+        "details": details
+    }
+    
+    # Log dans le fichier
+    log_file = "/var/log/khanelconcept_security.log"
+    try:
+        with open(log_file, "a") as f:
+            f.write(f"{json.dumps(log_entry)}\n")
+    except:
+        pass
+    
+    # Log dans la console
+    status = "✅" if success else "❌"
+    print(f"{status} SECURITY: {event_type} - {username} from {ip_address} - {details}")
+
+# ========== FONCTIONS D'AUTHENTIFICATION SÉCURISÉES ==========
 
 def verify_admin_password(plain_password, hashed_password):
     """Vérifier le mot de passe admin (SHA256)"""
