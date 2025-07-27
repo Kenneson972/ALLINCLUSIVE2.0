@@ -1040,14 +1040,24 @@ def verify_admin_password(plain_password, hashed_password):
     """Vérifier le mot de passe admin (SHA256)"""
     return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
-def authenticate_user(username: str, password: str):
-    """Authentifier un utilisateur admin"""
+def authenticate_user(username: str, password: str, totp_code: str = None):
+    """Authentifier un utilisateur admin avec 2FA optionnel"""
     user = ADMIN_USERS.get(username)
     if not user:
-        return False
+        return False, "Utilisateur non trouvé"
+    
     if not verify_admin_password(password, user["hashed_password"]):
-        return False
-    return user
+        return False, "Mot de passe incorrect"
+    
+    # Vérifier 2FA si activé
+    if user.get("2fa_enabled", False):
+        if not totp_code:
+            return False, "Code 2FA requis"
+        
+        if not verify_2fa_code(user.get("2fa_secret", ""), totp_code):
+            return False, "Code 2FA invalide"
+    
+    return True, user
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     """Créer un token JWT"""
