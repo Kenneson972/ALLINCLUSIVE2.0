@@ -739,34 +739,44 @@
                     <!-- Confirm Password -->
                     <div class="form-group">
                         <label for="confirmPassword" class="form-label">
-                            Confirmer mot de passe <span class="required">*</span>
+                            Confirmer mot de passe <span class="required" aria-label="requis">*</span>
                         </label>
-                        <input type="password" id="confirmPassword" class="form-input" placeholder="Confirmez votre mot de passe" required>
-                        <div class="field-error" id="confirmPassword-error"></div>
+                        <input type="password" id="confirmPassword" class="form-input" placeholder="Confirmez votre mot de passe" required
+                               aria-describedby="confirmPassword-error confirmPassword-help" aria-invalid="false">
+                        <div id="confirmPassword-help" class="sr-only">Doit être identique au mot de passe saisi ci-dessus</div>
+                        <div class="field-error" id="confirmPassword-error" aria-live="polite" role="alert"></div>
                     </div>
 
                     <!-- Additional Information -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="birthDate" class="form-label">Date de naissance</label>
-                            <input type="date" id="birthDate" class="form-input">
+                            <input type="date" id="birthDate" class="form-input" 
+                                   aria-describedby="birthDate-help">
+                            <div id="birthDate-help" class="sr-only">
+                                Optionnel - pour vous offrir des surprises le jour de votre anniversaire
+                            </div>
                         </div>
                     </div>
 
                     <!-- Terms and Conditions -->
                     <div class="terms-group">
                         <div class="checkbox-group">
-                            <div class="checkbox-custom" id="termsCheck">
-                                <i class="fas fa-check text-xs opacity-0 transition-opacity"></i>
+                            <div class="checkbox-custom" id="termsCheck" role="checkbox" aria-checked="false"
+                                 aria-labelledby="terms-label" aria-describedby="terms-error" 
+                                 tabindex="0" onkeydown="handleTermsKeydown(event)">
+                                <i class="fas fa-check text-xs opacity-0 transition-opacity" aria-hidden="true"></i>
                             </div>
-                            <div class="terms-text">
-                                J'accepte les <a href="#" target="_blank">Conditions Générales d'Utilisation</a> 
-                                et la <a href="#" target="_blank">Politique de Confidentialité</a>. 
+                            <div class="terms-text" id="terms-label">
+                                J'accepte les <a href="#" target="_blank" 
+                                   aria-label="Ouvrir les conditions générales dans un nouvel onglet">Conditions Générales d'Utilisation</a> 
+                                et la <a href="#" target="_blank" 
+                                   aria-label="Ouvrir la politique de confidentialité dans un nouvel onglet">Politique de Confidentialité</a>. 
                                 Je souhaite recevoir les offres exclusives et actualités KhanelConcept.
                             </div>
                         </div>
                         <input type="checkbox" id="terms" class="sr-only" required>
-                        <div class="field-error" id="terms-error"></div>
+                        <div class="field-error" id="terms-error" aria-live="polite" role="alert"></div>
                     </div>
 
                     <button type="submit" class="btn-primary" id="registerBtn">
