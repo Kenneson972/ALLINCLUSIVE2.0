@@ -19,6 +19,15 @@ import bleach
 import re
 import time
 from collections import defaultdict
+# PHASE 1 - SÉCURITÉ CRITIQUE
+import pyotp
+import qrcode
+import io
+import base64
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import smtplib
+from cryptography.fernet import Fernet
 
 load_dotenv()
 
