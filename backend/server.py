@@ -1098,6 +1098,91 @@ def verify_token(token: str):
     except JWTError:
         return None
 
+def generate_verification_code():
+    """Générer un code de vérification à 6 chiffres"""
+    return str(secrets.randbelow(999999)).zfill(6)
+
+async def send_verification_email(email: str, first_name: str, verification_code: str):
+    """Envoyer un email de vérification"""
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = os.getenv("EMAIL_FROM", "contact@khanelconcept.com")
+        msg['To'] = email
+        msg['Subject'] = "🌴 Vérification de votre compte KhanelConcept"
+        
+        body = f"""
+        Bonjour {first_name},
+        
+        Bienvenue chez KhanelConcept ! 
+        
+        Votre code de vérification est : {verification_code}
+        
+        Ce code est valable 10 minutes.
+        
+        Si vous n'avez pas créé de compte, ignorez cet email.
+        
+        Cordialement,
+        L'équipe KhanelConcept
+        """
+        
+        msg.attach(MIMEText(body, 'plain'))
+        
+        # Configuration SMTP
+        smtp_server = os.getenv("SMTP_HOST", "smtp.gmail.com")
+        smtp_port = int(os.getenv("SMTP_PORT", "587"))
+        
+        server = smtplib.SMTP(smtp_server, smtp_port)
+        server.starttls()
+        server.login(msg['From'], os.getenv("EMAIL_PASSWORD", ""))
+        server.send_message(msg)
+        server.quit()
+        
+        print(f"✅ Email de vérification envoyé à {email}")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Erreur envoi email: {e}")
+        return False
+
+async def store_verification_code(email: str, code: str):
+    """Stocker le code de vérification en base"""
+    verification_data = {
+        "email": email,
+        "code": code,
+        "created_at": datetime.utcnow(),
+        "expires_at": datetime.utcnow() + timedelta(minutes=10),
+        "used": False
+    }
+    
+    # Supprimer les anciens codes
+    await db.email_verifications.delete_many({"email": email})
+    
+    # Insérer le nouveau code
+    await db.email_verifications.insert_one(verification_data)
+
+async def verify_email_code(email: str, code: str):
+    """Vérifier le code de vérification"""
+    verification = await db.email_verifications.find_one({
+        "email": email,
+        "code": code,
+        "used": False
+    })
+    
+    if not verification:
+        return False, "Code invalide ou expiré"
+    
+    # Vérifier l'expiration
+    if datetime.utcnow() > verification["expires_at"]:
+        return False, "Code expiré"
+    
+    # Marquer comme utilisé
+    await db.email_verifications.update_one(
+        {"email": email, "code": code},
+        {"$set": {"used": True}}
+    )
+    
+    return True, "Code valide"
+
 def get_member_level(points: int):
     """Déterminer le niveau d'un membre basé sur ses points"""
     for level_name, level_data in MEMBER_LEVELS.items():
