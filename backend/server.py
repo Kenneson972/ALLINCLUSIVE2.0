@@ -1389,14 +1389,17 @@ async def verify_admin_token(token_data: TokenVerify):
 
 @app.post("/api/members/register")
 async def member_register(member_data: MemberRegister):
-    """Inscription d'un nouveau membre"""
+    """Inscription d'un nouveau membre avec vérification email"""
     try:
         # Vérifier si l'email existe déjà
         existing_member = await db.members.find_one({"email": member_data.email})
         if existing_member:
             raise HTTPException(status_code=400, detail="Un compte existe déjà avec cet email")
         
-        # Créer le nouveau membre
+        # Générer code de vérification
+        verification_code = generate_verification_code()
+        
+        # Créer le nouveau membre (non vérifié)
         new_member = {
             "id": str(uuid.uuid4()),
             "firstName": member_data.firstName,
@@ -1406,10 +1409,10 @@ async def member_register(member_data: MemberRegister):
             "password": hash_password(member_data.password),
             "birthDate": member_data.birthDate,
             "level": "Découvreur",
-            "points": 100,  # Bonus d'inscription
+            "points": 0,  # Points ajoutés après vérification
             "joinDate": datetime.utcnow().isoformat(),
-            "isVerified": False,
-            "isActive": True,
+            "isVerified": False,  # PHASE 1 - Pas vérifié initialement
+            "isActive": False,    # PHASE 1 - Pas actif avant vérification
             "avatar": None,
             "preferences": {
                 "notifications": {
@@ -1426,38 +1429,33 @@ async def member_register(member_data: MemberRegister):
         result = await db.members.insert_one(new_member)
         
         if result.inserted_id:
-            # Ajouter la transaction de bonus d'inscription
-            await add_loyalty_points(
-                new_member["id"], 
-                100, 
-                "Bonus d'inscription - Bienvenue chez KhanelConcept !", 
-                "registration"
+            # Stocker le code de vérification
+            await store_verification_code(member_data.email, verification_code)
+            
+            # Envoyer l'email de vérification
+            email_sent = await send_verification_email(
+                member_data.email,
+                member_data.firstName,
+                verification_code
             )
             
-            # Créer notification de bienvenue
-            welcome_notification = {
-                "id": str(uuid.uuid4()),
-                "memberId": new_member["id"],
-                "type": "system",
-                "title": "🌴 Bienvenue chez KhanelConcept !",
-                "message": f"Bonjour {member_data.firstName} ! Votre compte a été créé avec succès. Vous avez reçu 100 points de bienvenue.",
-                "isRead": False,
-                "createdAt": datetime.utcnow(),
-                "actionUrl": "/dashboard"
-            }
-            await db.member_notifications.insert_one(welcome_notification)
-            
-            # Créer le token
-            token = create_member_token(new_member)
+            if not email_sent:
+                # Supprimer le membre si l'email n'a pas pu être envoyé
+                await db.members.delete_one({"id": new_member["id"]})
+                raise HTTPException(
+                    status_code=500, 
+                    detail="Erreur lors de l'envoi de l'email de vérification"
+                )
             
             # Retourner les infos (sans le mot de passe et _id MongoDB)
             new_member.pop("password", None)
-            new_member.pop("_id", None)  # Remove MongoDB ObjectId
+            new_member.pop("_id", None)
+            
             return {
                 "success": True,
-                "message": "Compte créé avec succès",
+                "message": "Compte créé avec succès. Veuillez vérifier votre email.",
                 "member": new_member,
-                "token": token
+                "verification_required": True
             }
         else:
             raise HTTPException(status_code=500, detail="Erreur lors de la création du compte")
@@ -1466,6 +1464,121 @@ async def member_register(member_data: MemberRegister):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
+
+@app.post("/api/members/verify-email")
+async def verify_member_email(verification_data: MemberEmailVerification):
+    """Vérifier l'email d'un membre"""
+    try:
+        # Vérifier le code
+        is_valid, message = await verify_email_code(
+            verification_data.email,
+            verification_data.verification_code
+        )
+        
+        if not is_valid:
+            raise HTTPException(status_code=400, detail=message)
+        
+        # Récupérer le membre
+        member = await db.members.find_one({"email": verification_data.email})
+        if not member:
+            raise HTTPException(status_code=404, detail="Membre introuvable")
+        
+        # Activer le compte
+        await db.members.update_one(
+            {"email": verification_data.email},
+            {
+                "$set": {
+                    "isVerified": True,
+                    "isActive": True,
+                    "points": 100,  # Bonus d'inscription après vérification
+                    "verifiedAt": datetime.utcnow().isoformat()
+                }
+            }
+        )
+        
+        # Ajouter les points de bienvenue
+        await add_loyalty_points(
+            member["id"],
+            100,
+            "Bonus d'inscription - Bienvenue chez KhanelConcept !",
+            "email_verification"
+        )
+        
+        # Créer notification de bienvenue
+        welcome_notification = {
+            "id": str(uuid.uuid4()),
+            "memberId": member["id"],
+            "type": "system",
+            "title": "🌴 Bienvenue chez KhanelConcept !",
+            "message": f"Bonjour {member['firstName']} ! Votre compte a été vérifié avec succès. Vous avez reçu 100 points de bienvenue.",
+            "isRead": False,
+            "createdAt": datetime.utcnow(),
+            "actionUrl": "/dashboard"
+        }
+        await db.member_notifications.insert_one(welcome_notification)
+        
+        # Créer le token
+        updated_member = await db.members.find_one({"email": verification_data.email})
+        token = create_member_token(updated_member)
+        
+        # Nettoyer les données
+        updated_member.pop("password", None)
+        updated_member.pop("_id", None)
+        
+        return {
+            "success": True,
+            "message": "Email vérifié avec succès !",
+            "member": updated_member,
+            "token": token
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
+
+@app.post("/api/members/resend-verification")
+async def resend_verification_email(resend_data: MemberResendVerification):
+    """Renvoyer l'email de vérification"""
+    try:
+        # Vérifier que le membre existe et n'est pas déjà vérifié
+        member = await db.members.find_one({"email": resend_data.email})
+        if not member:
+            raise HTTPException(status_code=404, detail="Membre introuvable")
+        
+        if member.get("isVerified", False):
+            raise HTTPException(status_code=400, detail="Compte déjà vérifié")
+        
+        # Générer nouveau code
+        verification_code = generate_verification_code()
+        
+        # Stocker le code
+        await store_verification_code(resend_data.email, verification_code)
+        
+        # Envoyer l'email
+        email_sent = await send_verification_email(
+            resend_data.email,
+            member["firstName"],
+            verification_code
+        )
+        
+        if not email_sent:
+            raise HTTPException(
+                status_code=500,
+                detail="Erreur lors de l'envoi de l'email"
+            )
+        
+        return {
+            "success": True,
+            "message": "Email de vérification renvoyé avec succès"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur serveur: {e}")
+
+# Routes membres existantes mises à jour pour vérifier l'activation
 
 @app.post("/api/members/login")
 async def member_login(login_data: MemberLogin, request: Request):
