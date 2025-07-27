@@ -924,6 +924,7 @@
             AOS.init({ duration: 1000, once: true });
             checkAuthentication();
             loadDashboardData();
+            setupDashboardAccessibility();
             
             // Check URL parameters
             const urlParams = new URLSearchParams(window.location.search);
