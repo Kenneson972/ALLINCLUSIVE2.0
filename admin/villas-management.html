@@ -645,6 +645,199 @@
             }
         }
         
+        
+        /* New Villa Card Styles */
+        .villa-image-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .villa-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .villa-card:hover .villa-image {
+            transform: scale(1.05);
+        }
+        
+        .villa-status {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-active {
+            background: var(--success-50);
+            color: var(--success-600);
+        }
+        
+        .status-inactive {
+            background: var(--error-50);
+            color: var(--error-500);
+        }
+        
+        .villa-rating {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+        
+        .villa-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .villa-location {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .villa-quick-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .performance-indicators {
+            margin-bottom: 1rem;
+        }
+        
+        .performance-bar {
+            margin-bottom: 0.5rem;
+        }
+        
+        .performance-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .progress {
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--success-500);
+            transition: width 0.3s ease;
+        }
+        
+        .bg-success {
+            background-color: var(--success-500) !important;
+        }
+        
+        .revenue-info {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--success-50);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .fw-bold {
+            font-weight: 700;
+        }
+        
+        .text-success {
+            color: var(--success-600);
+        }
+        
+        .text-muted {
+            color: var(--text-secondary);
+        }
+        
+        .villa-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+        }
+        
+        .me-1 {
+            margin-right: 0.25rem;
+        }
+        
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+        
+        .h-100 {
+            height: 100%;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .p-3 {
+            padding: 1rem;
+        }
+        
+        .col-12 {
+            width: 100%;
+        }
+        
+        .col-lg-4 {
+            width: 33.333333%;
+        }
+        
+        .col-md-6 {
+            width: 50%;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 992px) {
+            .col-lg-4 {
+                width: 50%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .col-lg-4,
+            .col-md-6 {
+                width: 100%;
+            }
+        }
+        
         /* Utilities */
         .text-center { text-align: center; }
         .mb-4 { margin-bottom: 1rem; }
