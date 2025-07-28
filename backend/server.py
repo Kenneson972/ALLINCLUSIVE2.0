@@ -491,6 +491,12 @@ async def create_reservation(reservation: ReservationCreate):
         # Vérifier que la villa existe
         villa = await db.villas.find_one({"id": reservation.villa_id})
         if not villa:
+            # Try with integer ID as fallback
+            try:
+                villa = await db.villas.find_one({"id": int(reservation.villa_id)})
+            except ValueError:
+                pass
+        if not villa:
             raise HTTPException(status_code=404, detail="Villa non trouvée")
         
         # Créer la réservation
