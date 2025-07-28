@@ -1364,9 +1364,11 @@ class KhanelConceptAPITester:
 
 if __name__ == "__main__":
     tester = KhanelConceptAPITester()
-    success = tester.run_all_tests()
+    success = tester.run_villa_data_correction_verification()
     
     if success:
-        print("\n🎉 All tests passed!")
+        print("\n🎉 Villa data correction verification completed successfully!")
+        print("   All requirements have been met.")
     else:
-        print("\n⚠️  Some tests failed - check details above")
+        print("\n⚠️  Villa data correction verification found issues.")
+        print("   Please check the detailed results above.")
