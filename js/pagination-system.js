@@ -1,0 +1,1114 @@
+/**
+ * PHASE 4 - PERFORMANCE & RGPD : Système de Pagination Avancée
+ * Pagination intelligente avec cache et design glassmorphism
+ */
+
+class PaginationSystem {
+    constructor() {
+        this.config = {
+            defaultPageSize: 10,
+            maxPageSize: 100,
+            showInfo: true,
+            showSizeSelector: true,
+            showJumpToPage: true,
+            maxVisiblePages: 5,
+            enableKeyboardNavigation: true,
+            enableURLSync: true,
+            enableCache: true,
+            cacheStrategy: 'user'
+        };
+        
+        this.instances = new Map();
+        this.globalFilters = new Map();
+        
+        this.init();
+    }
+
+    init() {
+        this.injectStyles();
+        this.setupGlobalKeyboardNavigation();
+        this.setupURLSyncListener();
+    }
+
+    injectStyles() {
+        const styles = `
+            <style id="pagination-system-styles">
+                /* PHASE 4 - Pagination avec design glassmorphism */
+                .pagination-container {
+                    background: rgba(255, 255, 255, 0.25);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.18);
+                    border-radius: 16px;
+                    padding: 1.5rem;
+                    margin: 1rem 0;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                    transition: all 0.3s ease;
+                }
+
+                .pagination-container:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+                }
+
+                .pagination-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 1rem;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                }
+
+                .pagination-info {
+                    color: rgba(255, 255, 255, 0.9);
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                }
+
+                .pagination-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                }
+
+                .pagination-size-selector {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                .pagination-size-selector label {
+                    color: rgba(255, 255, 255, 0.9);
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                }
+
+                .pagination-size-selector select {
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 8px;
+                    color: white;
+                    padding: 0.5rem;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+
+                .pagination-size-selector select:focus {
+                    outline: none;
+                    border-color: #f6ad55;
+                    box-shadow: 0 0 0 3px rgba(246, 173, 85, 0.1);
+                }
+
+                .pagination-size-selector select option {
+                    background: #1f2937;
+                    color: white;
+                }
+
+                .pagination-jump {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+
+                .pagination-jump label {
+                    color: rgba(255, 255, 255, 0.9);
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                }
+
+                .pagination-jump input {
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 8px;
+                    color: white;
+                    padding: 0.5rem;
+                    font-size: 0.9rem;
+                    width: 60px;
+                    text-align: center;
+                    transition: all 0.3s ease;
+                }
+
+                .pagination-jump input:focus {
+                    outline: none;
+                    border-color: #f6ad55;
+                    box-shadow: 0 0 0 3px rgba(246, 173, 85, 0.1);
+                }
+
+                .pagination-jump button {
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    border: none;
+                    border-radius: 8px;
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                }
+
+                .pagination-jump button:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+                }
+
+                .pagination-jump button:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba(246, 173, 85, 0.3);
+                }
+
+                .pagination-nav {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin-top: 1rem;
+                }
+
+                .pagination-btn {
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 8px;
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    min-width: 40px;
+                    text-align: center;
+                }
+
+                .pagination-btn:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                    transform: translateY(-1px);
+                }
+
+                .pagination-btn:focus {
+                    outline: none;
+                    border-color: #f6ad55;
+                    box-shadow: 0 0 0 3px rgba(246, 173, 85, 0.1);
+                }
+
+                .pagination-btn.active {
+                    background: linear-gradient(135deg, #f6ad55 0%, #f59e0b 100%);
+                    border-color: #f6ad55;
+                    color: white;
+                    font-weight: 600;
+                }
+
+                .pagination-btn.disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    pointer-events: none;
+                }
+
+                .pagination-btn.ellipsis {
+                    cursor: default;
+                    background: transparent;
+                    border: none;
+                    color: rgba(255, 255, 255, 0.6);
+                }
+
+                .pagination-btn.ellipsis:hover {
+                    transform: none;
+                }
+
+                .pagination-loading {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 2rem;
+                    color: rgba(255, 255, 255, 0.8);
+                }
+
+                .pagination-loading .spinner {
+                    width: 24px;
+                    height: 24px;
+                    border: 3px solid rgba(255, 255, 255, 0.3);
+                    border-top: 3px solid #f6ad55;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    margin-right: 1rem;
+                }
+
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+
+                .pagination-error {
+                    background: rgba(239, 68, 68, 0.1);
+                    border: 1px solid rgba(239, 68, 68, 0.3);
+                    border-radius: 12px;
+                    color: #fecaca;
+                    padding: 1rem;
+                    text-align: center;
+                    margin: 1rem 0;
+                }
+
+                .pagination-empty {
+                    background: rgba(59, 130, 246, 0.1);
+                    border: 1px solid rgba(59, 130, 246, 0.3);
+                    border-radius: 12px;
+                    color: #bfdbfe;
+                    padding: 2rem;
+                    text-align: center;
+                    margin: 1rem 0;
+                }
+
+                .pagination-filters {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+                    padding: 1rem;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 12px;
+                }
+
+                .pagination-filter-group {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+
+                .pagination-filter-group label {
+                    color: rgba(255, 255, 255, 0.9);
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                }
+
+                .pagination-filter-group input,
+                .pagination-filter-group select {
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 8px;
+                    color: white;
+                    padding: 0.5rem;
+                    font-size: 0.9rem;
+                    min-width: 150px;
+                    transition: all 0.3s ease;
+                }
+
+                .pagination-filter-group input:focus,
+                .pagination-filter-group select:focus {
+                    outline: none;
+                    border-color: #f6ad55;
+                    box-shadow: 0 0 0 3px rgba(246, 173, 85, 0.1);
+                }
+
+                .pagination-summary {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 1rem;
+                    padding-top: 1rem;
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    color: rgba(255, 255, 255, 0.8);
+                    font-size: 0.85rem;
+                }
+
+                .pagination-performance {
+                    display: flex;
+                    gap: 1rem;
+                    font-size: 0.8rem;
+                }
+
+                .pagination-performance .metric {
+                    color: rgba(255, 255, 255, 0.6);
+                }
+
+                .pagination-performance .value {
+                    color: #f6ad55;
+                    font-weight: 600;
+                }
+
+                /* Responsive */
+                @media (max-width: 768px) {
+                    .pagination-header {
+                        flex-direction: column;
+                        align-items: stretch;
+                    }
+
+                    .pagination-controls {
+                        justify-content: center;
+                    }
+
+                    .pagination-nav {
+                        flex-wrap: wrap;
+                    }
+
+                    .pagination-btn {
+                        min-width: 35px;
+                        padding: 0.4rem 0.8rem;
+                        font-size: 0.8rem;
+                    }
+
+                    .pagination-filters {
+                        flex-direction: column;
+                    }
+
+                    .pagination-filter-group input,
+                    .pagination-filter-group select {
+                        min-width: 100%;
+                    }
+
+                    .pagination-summary {
+                        flex-direction: column;
+                        gap: 0.5rem;
+                        text-align: center;
+                    }
+                }
+
+                /* Accessibilité */
+                .pagination-btn[aria-current="page"] {
+                    background: linear-gradient(135deg, #f6ad55 0%, #f59e0b 100%);
+                    border-color: #f6ad55;
+                }
+
+                .pagination-btn:focus-visible {
+                    outline: 2px solid #f6ad55;
+                    outline-offset: 2px;
+                }
+
+                /* Animations */
+                .pagination-container.loading {
+                    opacity: 0.7;
+                    pointer-events: none;
+                }
+
+                .pagination-btn.loading {
+                    position: relative;
+                    color: transparent;
+                }
+
+                .pagination-btn.loading::after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 16px;
+                    height: 16px;
+                    margin: -8px 0 0 -8px;
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    border-top: 2px solid white;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                }
+
+                /* Thème sombre */
+                .pagination-container.dark {
+                    background: rgba(31, 41, 55, 0.95);
+                    border: 1px solid rgba(75, 85, 99, 0.3);
+                }
+
+                .pagination-container.dark .pagination-info,
+                .pagination-container.dark .pagination-size-selector label,
+                .pagination-container.dark .pagination-jump label {
+                    color: #d1d5db;
+                }
+
+                .pagination-container.dark .pagination-size-selector select,
+                .pagination-container.dark .pagination-jump input {
+                    background: rgba(55, 65, 81, 0.8);
+                    border-color: rgba(107, 114, 128, 0.5);
+                }
+
+                .pagination-container.dark .pagination-btn {
+                    background: rgba(55, 65, 81, 0.8);
+                    border-color: rgba(107, 114, 128, 0.5);
+                }
+
+                .pagination-container.dark .pagination-btn:hover {
+                    background: rgba(75, 85, 99, 0.8);
+                }
+            </style>
+        `;
+        
+        if (!document.getElementById('pagination-system-styles')) {
+            document.head.insertAdjacentHTML('beforeend', styles);
+        }
+    }
+
+    /**
+     * Créer une instance de pagination
+     * @param {string} containerId - ID du conteneur
+     * @param {Object} options - Options de configuration
+     * @returns {PaginationInstance} - Instance de pagination
+     */
+    create(containerId, options = {}) {
+        const config = { ...this.config, ...options };
+        const instance = new PaginationInstance(containerId, config);
+        
+        this.instances.set(containerId, instance);
+        return instance;
+    }
+
+    /**
+     * Obtenir une instance de pagination
+     * @param {string} containerId - ID du conteneur
+     * @returns {PaginationInstance|null} - Instance ou null
+     */
+    getInstance(containerId) {
+        return this.instances.get(containerId) || null;
+    }
+
+    /**
+     * Supprimer une instance de pagination
+     * @param {string} containerId - ID du conteneur
+     */
+    destroy(containerId) {
+        const instance = this.instances.get(containerId);
+        if (instance) {
+            instance.destroy();
+            this.instances.delete(containerId);
+        }
+    }
+
+    setupGlobalKeyboardNavigation() {
+        document.addEventListener('keydown', (e) => {
+            if (e.target.closest('.pagination-container')) {
+                const container = e.target.closest('.pagination-container');
+                const instanceId = container.dataset.paginationId;
+                const instance = this.instances.get(instanceId);
+                
+                if (instance && instance.config.enableKeyboardNavigation) {
+                    instance.handleKeyboardNavigation(e);
+                }
+            }
+        });
+    }
+
+    setupURLSyncListener() {
+        window.addEventListener('popstate', () => {
+            this.instances.forEach(instance => {
+                if (instance.config.enableURLSync) {
+                    instance.syncFromURL();
+                }
+            });
+        });
+    }
+}
+
+class PaginationInstance {
+    constructor(containerId, config) {
+        this.containerId = containerId;
+        this.config = config;
+        this.container = document.getElementById(containerId);
+        
+        if (!this.container) {
+            throw new Error(`Container with id '${containerId}' not found`);
+        }
+        
+        this.state = {
+            currentPage: 1,
+            pageSize: config.defaultPageSize,
+            totalItems: 0,
+            totalPages: 0,
+            items: [],
+            loading: false,
+            error: null,
+            filters: {},
+            sortBy: null,
+            sortOrder: 'asc',
+            lastRequestTime: null,
+            cacheKey: null
+        };
+        
+        this.callbacks = {
+            onPageChange: null,
+            onPageSizeChange: null,
+            onSort: null,
+            onFilter: null,
+            onDataLoad: null,
+            onError: null
+        };
+        
+        this.init();
+    }
+
+    init() {
+        this.container.classList.add('pagination-container');
+        this.container.dataset.paginationId = this.containerId;
+        
+        this.render();
+        this.setupEventListeners();
+        
+        if (this.config.enableURLSync) {
+            this.syncFromURL();
+        }
+    }
+
+    render() {
+        const {
+            currentPage,
+            pageSize,
+            totalItems,
+            totalPages,
+            loading,
+            error
+        } = this.state;
+
+        let html = '';
+
+        // Header avec informations et contrôles
+        if (this.config.showInfo || this.config.showSizeSelector || this.config.showJumpToPage) {
+            html += '<div class="pagination-header">';
+            
+            if (this.config.showInfo) {
+                const start = Math.max(1, (currentPage - 1) * pageSize + 1);
+                const end = Math.min(totalItems, currentPage * pageSize);
+                
+                html += `
+                    <div class="pagination-info" role="status" aria-live="polite">
+                        Affichage ${start} à ${end} sur ${totalItems} résultats
+                    </div>
+                `;
+            }
+            
+            html += '<div class="pagination-controls">';
+            
+            if (this.config.showSizeSelector) {
+                html += `
+                    <div class="pagination-size-selector">
+                        <label for="${this.containerId}-pagesize">Par page :</label>
+                        <select id="${this.containerId}-pagesize" value="${pageSize}">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                `;
+            }
+            
+            if (this.config.showJumpToPage && totalPages > 1) {
+                html += `
+                    <div class="pagination-jump">
+                        <label for="${this.containerId}-jump">Page :</label>
+                        <input type="number" id="${this.containerId}-jump" 
+                               min="1" max="${totalPages}" value="${currentPage}">
+                        <button type="button" onclick="this.jumpToPage()">Aller</button>
+                    </div>
+                `;
+            }
+            
+            html += '</div></div>';
+        }
+
+        // Filtres si configurés
+        if (this.config.filters && this.config.filters.length > 0) {
+            html += this.renderFilters();
+        }
+
+        // État de chargement
+        if (loading) {
+            html += `
+                <div class="pagination-loading">
+                    <div class="spinner"></div>
+                    Chargement...
+                </div>
+            `;
+        }
+        
+        // Erreur
+        else if (error) {
+            html += `
+                <div class="pagination-error" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    ${error}
+                </div>
+            `;
+        }
+        
+        // Données vides
+        else if (totalItems === 0) {
+            html += `
+                <div class="pagination-empty">
+                    <i class="fas fa-inbox"></i>
+                    <p>Aucun résultat trouvé</p>
+                </div>
+            `;
+        }
+        
+        // Navigation
+        else if (totalPages > 1) {
+            html += this.renderNavigation();
+        }
+
+        // Résumé des performances
+        if (this.config.showPerformance && this.state.lastRequestTime) {
+            html += this.renderPerformanceSummary();
+        }
+
+        this.container.innerHTML = html;
+        
+        // Restaurer les valeurs des selects
+        if (this.config.showSizeSelector) {
+            const select = this.container.querySelector(`#${this.containerId}-pagesize`);
+            if (select) {
+                select.value = pageSize;
+            }
+        }
+    }
+
+    renderNavigation() {
+        const { currentPage, totalPages } = this.state;
+        const maxVisible = this.config.maxVisiblePages;
+        
+        let html = '<nav class="pagination-nav" role="navigation" aria-label="Pagination">';
+        
+        // Bouton précédent
+        html += `
+            <button class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" 
+                    onclick="this.previousPage()" 
+                    ${currentPage === 1 ? 'disabled' : ''}
+                    aria-label="Page précédente">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        `;
+        
+        // Numéros de pages
+        const pages = this.generatePageNumbers(currentPage, totalPages, maxVisible);
+        
+        for (const page of pages) {
+            if (page === '...') {
+                html += `
+                    <button class="pagination-btn ellipsis" disabled>
+                        ...
+                    </button>
+                `;
+            } else {
+                const isActive = page === currentPage;
+                html += `
+                    <button class="pagination-btn ${isActive ? 'active' : ''}" 
+                            onclick="this.goToPage(${page})"
+                            ${isActive ? 'aria-current="page"' : ''}
+                            aria-label="Page ${page}">
+                        ${page}
+                    </button>
+                `;
+            }
+        }
+        
+        // Bouton suivant
+        html += `
+            <button class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" 
+                    onclick="this.nextPage()" 
+                    ${currentPage === totalPages ? 'disabled' : ''}
+                    aria-label="Page suivante">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        `;
+        
+        html += '</nav>';
+        
+        return html;
+    }
+
+    renderFilters() {
+        let html = '<div class="pagination-filters">';
+        
+        for (const filter of this.config.filters) {
+            html += `
+                <div class="pagination-filter-group">
+                    <label for="${this.containerId}-${filter.key}">${filter.label}</label>
+            `;
+            
+            if (filter.type === 'select') {
+                html += `
+                    <select id="${this.containerId}-${filter.key}" data-filter="${filter.key}">
+                        <option value="">Tous</option>
+                        ${filter.options.map(opt => `
+                            <option value="${opt.value}" ${this.state.filters[filter.key] === opt.value ? 'selected' : ''}>
+                                ${opt.label}
+                            </option>
+                        `).join('')}
+                    </select>
+                `;
+            } else if (filter.type === 'search') {
+                html += `
+                    <input type="text" id="${this.containerId}-${filter.key}" 
+                           data-filter="${filter.key}"
+                           placeholder="${filter.placeholder || 'Rechercher...'}"
+                           value="${this.state.filters[filter.key] || ''}">
+                `;
+            } else if (filter.type === 'date') {
+                html += `
+                    <input type="date" id="${this.containerId}-${filter.key}" 
+                           data-filter="${filter.key}"
+                           value="${this.state.filters[filter.key] || ''}">
+                `;
+            }
+            
+            html += '</div>';
+        }
+        
+        html += '</div>';
+        
+        return html;
+    }
+
+    renderPerformanceSummary() {
+        const { lastRequestTime, items } = this.state;
+        const cached = window.CacheSystem ? window.CacheSystem.get(this.state.cacheKey) !== null : false;
+        
+        return `
+            <div class="pagination-summary">
+                <div>
+                    ${items.length} éléments affichés
+                </div>
+                <div class="pagination-performance">
+                    <span class="metric">Temps de réponse:</span>
+                    <span class="value">${lastRequestTime}ms</span>
+                    ${cached ? '<span class="metric">• Cache</span>' : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    generatePageNumbers(current, total, maxVisible) {
+        const pages = [];
+        
+        if (total <= maxVisible) {
+            // Afficher toutes les pages
+            for (let i = 1; i <= total; i++) {
+                pages.push(i);
+            }
+        } else {
+            // Logique de pagination avec ellipses
+            const side = Math.floor(maxVisible / 2);
+            
+            if (current <= side + 1) {
+                // Début de la pagination
+                for (let i = 1; i <= maxVisible - 1; i++) {
+                    pages.push(i);
+                }
+                pages.push('...');
+                pages.push(total);
+            } else if (current >= total - side) {
+                // Fin de la pagination
+                pages.push(1);
+                pages.push('...');
+                for (let i = total - maxVisible + 2; i <= total; i++) {
+                    pages.push(i);
+                }
+            } else {
+                // Milieu de la pagination
+                pages.push(1);
+                pages.push('...');
+                for (let i = current - side + 1; i <= current + side - 1; i++) {
+                    pages.push(i);
+                }
+                pages.push('...');
+                pages.push(total);
+            }
+        }
+        
+        return pages;
+    }
+
+    setupEventListeners() {
+        // Changement de taille de page
+        this.container.addEventListener('change', (e) => {
+            if (e.target.matches(`#${this.containerId}-pagesize`)) {
+                this.setPageSize(parseInt(e.target.value));
+            }
+        });
+
+        // Filtres
+        this.container.addEventListener('input', (e) => {
+            if (e.target.dataset.filter) {
+                this.debounceFilter(e.target.dataset.filter, e.target.value);
+            }
+        });
+
+        this.container.addEventListener('change', (e) => {
+            if (e.target.dataset.filter) {
+                this.setFilter(e.target.dataset.filter, e.target.value);
+            }
+        });
+
+        // Navigation au clavier
+        this.container.addEventListener('keydown', (e) => {
+            if (this.config.enableKeyboardNavigation) {
+                this.handleKeyboardNavigation(e);
+            }
+        });
+    }
+
+    debounceFilter(key, value) {
+        if (this.filterTimeout) {
+            clearTimeout(this.filterTimeout);
+        }
+        
+        this.filterTimeout = setTimeout(() => {
+            this.setFilter(key, value);
+        }, 300);
+    }
+
+    handleKeyboardNavigation(e) {
+        switch (e.key) {
+            case 'ArrowLeft':
+                e.preventDefault();
+                this.previousPage();
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                this.nextPage();
+                break;
+            case 'Home':
+                e.preventDefault();
+                this.goToPage(1);
+                break;
+            case 'End':
+                e.preventDefault();
+                this.goToPage(this.state.totalPages);
+                break;
+        }
+    }
+
+    // Méthodes publiques
+    async loadData(fetchFunction, page = 1, pageSize = this.state.pageSize) {
+        this.state.loading = true;
+        this.state.error = null;
+        this.render();
+        
+        const startTime = performance.now();
+        
+        try {
+            // Générer la clé de cache
+            const cacheKey = this.generateCacheKey(page, pageSize);
+            this.state.cacheKey = cacheKey;
+            
+            let data;
+            
+            if (this.config.enableCache && window.CacheSystem) {
+                data = await window.CacheSystem.getOrSet(
+                    cacheKey,
+                    () => fetchFunction(page, pageSize, this.state.filters, this.state.sortBy, this.state.sortOrder),
+                    this.config.cacheStrategy
+                );
+            } else {
+                data = await fetchFunction(page, pageSize, this.state.filters, this.state.sortBy, this.state.sortOrder);
+            }
+            
+            this.state.currentPage = page;
+            this.state.pageSize = pageSize;
+            this.state.totalItems = data.totalItems || data.total || 0;
+            this.state.totalPages = Math.ceil(this.state.totalItems / pageSize);
+            this.state.items = data.items || data.data || [];
+            this.state.loading = false;
+            this.state.lastRequestTime = Math.round(performance.now() - startTime);
+            
+            if (this.config.enableURLSync) {
+                this.syncToURL();
+            }
+            
+            this.render();
+            
+            if (this.callbacks.onDataLoad) {
+                this.callbacks.onDataLoad(this.state.items, this.state);
+            }
+            
+        } catch (error) {
+            console.error('Pagination data loading failed:', error);
+            this.state.loading = false;
+            this.state.error = error.message || 'Erreur lors du chargement des données';
+            this.render();
+            
+            if (this.callbacks.onError) {
+                this.callbacks.onError(error);
+            }
+        }
+    }
+
+    goToPage(page) {
+        if (page < 1 || page > this.state.totalPages || page === this.state.currentPage) {
+            return;
+        }
+        
+        if (this.callbacks.onPageChange) {
+            this.callbacks.onPageChange(page, this.state.pageSize);
+        }
+    }
+
+    previousPage() {
+        if (this.state.currentPage > 1) {
+            this.goToPage(this.state.currentPage - 1);
+        }
+    }
+
+    nextPage() {
+        if (this.state.currentPage < this.state.totalPages) {
+            this.goToPage(this.state.currentPage + 1);
+        }
+    }
+
+    jumpToPage() {
+        const input = this.container.querySelector(`#${this.containerId}-jump`);
+        if (input) {
+            const page = parseInt(input.value);
+            if (page >= 1 && page <= this.state.totalPages) {
+                this.goToPage(page);
+            }
+        }
+    }
+
+    setPageSize(pageSize) {
+        if (pageSize > 0 && pageSize <= this.config.maxPageSize && pageSize !== this.state.pageSize) {
+            this.state.pageSize = pageSize;
+            this.goToPage(1); // Retourner à la première page
+            
+            if (this.callbacks.onPageSizeChange) {
+                this.callbacks.onPageSizeChange(pageSize);
+            }
+        }
+    }
+
+    setFilter(key, value) {
+        if (value === '') {
+            delete this.state.filters[key];
+        } else {
+            this.state.filters[key] = value;
+        }
+        
+        // Invalider le cache pour ce dataset
+        if (this.config.enableCache && window.CacheSystem) {
+            window.CacheSystem.invalidateTag(this.containerId);
+        }
+        
+        this.goToPage(1); // Retourner à la première page
+        
+        if (this.callbacks.onFilter) {
+            this.callbacks.onFilter(this.state.filters);
+        }
+    }
+
+    setSort(field, order = 'asc') {
+        this.state.sortBy = field;
+        this.state.sortOrder = order;
+        
+        // Invalider le cache pour ce dataset
+        if (this.config.enableCache && window.CacheSystem) {
+            window.CacheSystem.invalidateTag(this.containerId);
+        }
+        
+        this.goToPage(1); // Retourner à la première page
+        
+        if (this.callbacks.onSort) {
+            this.callbacks.onSort(field, order);
+        }
+    }
+
+    generateCacheKey(page, pageSize) {
+        const filters = JSON.stringify(this.state.filters);
+        const sort = `${this.state.sortBy || 'none'}_${this.state.sortOrder}`;
+        return `${this.containerId}:page_${page}_size_${pageSize}_filters_${btoa(filters)}_sort_${sort}`;
+    }
+
+    syncToURL() {
+        const params = new URLSearchParams(window.location.search);
+        
+        params.set(`${this.containerId}_page`, this.state.currentPage);
+        params.set(`${this.containerId}_size`, this.state.pageSize);
+        
+        if (Object.keys(this.state.filters).length > 0) {
+            params.set(`${this.containerId}_filters`, btoa(JSON.stringify(this.state.filters)));
+        }
+        
+        if (this.state.sortBy) {
+            params.set(`${this.containerId}_sort`, `${this.state.sortBy}_${this.state.sortOrder}`);
+        }
+        
+        const newURL = `${window.location.pathname}?${params.toString()}`;
+        window.history.replaceState({}, '', newURL);
+    }
+
+    syncFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        
+        const page = parseInt(params.get(`${this.containerId}_page`)) || 1;
+        const pageSize = parseInt(params.get(`${this.containerId}_size`)) || this.config.defaultPageSize;
+        
+        const filtersParam = params.get(`${this.containerId}_filters`);
+        if (filtersParam) {
+            try {
+                this.state.filters = JSON.parse(atob(filtersParam));
+            } catch (e) {
+                this.state.filters = {};
+            }
+        }
+        
+        const sortParam = params.get(`${this.containerId}_sort`);
+        if (sortParam) {
+            const [field, order] = sortParam.split('_');
+            this.state.sortBy = field;
+            this.state.sortOrder = order || 'asc';
+        }
+        
+        this.state.currentPage = page;
+        this.state.pageSize = pageSize;
+        
+        this.render();
+    }
+
+    // Méthodes de callback
+    onPageChange(callback) {
+        this.callbacks.onPageChange = callback;
+    }
+
+    onPageSizeChange(callback) {
+        this.callbacks.onPageSizeChange = callback;
+    }
+
+    onFilter(callback) {
+        this.callbacks.onFilter = callback;
+    }
+
+    onSort(callback) {
+        this.callbacks.onSort = callback;
+    }
+
+    onDataLoad(callback) {
+        this.callbacks.onDataLoad = callback;
+    }
+
+    onError(callback) {
+        this.callbacks.onError = callback;
+    }
+
+    // Méthodes utilitaires
+    getState() {
+        return { ...this.state };
+    }
+
+    reset() {
+        this.state.currentPage = 1;
+        this.state.pageSize = this.config.defaultPageSize;
+        this.state.filters = {};
+        this.state.sortBy = null;
+        this.state.sortOrder = 'asc';
+        this.render();
+    }
+
+    destroy() {
+        if (this.filterTimeout) {
+            clearTimeout(this.filterTimeout);
+        }
+        
+        this.container.innerHTML = '';
+        this.container.classList.remove('pagination-container');
+        delete this.container.dataset.paginationId;
+    }
+}
+
+// Initialiser le système de pagination
+const paginationSystem = new PaginationSystem();
+
+// Exporter pour utilisation globale
+window.PaginationSystem = paginationSystem;
+window.PaginationInstance = PaginationInstance;
