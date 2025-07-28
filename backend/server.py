@@ -2141,7 +2141,7 @@ async def get_detailed_stats():
 # ========== PHASE 4 - ANALYTICS & METRICS SYSTEM ==========
 
 @app.get("/api/admin/analytics/overview")
-async def get_analytics_overview():
+async def get_analytics_overview(current_admin: dict = Depends(get_current_admin)):
     """Vue d'ensemble des analytics pour le dashboard admin"""
     try:
         now = datetime.utcnow()
