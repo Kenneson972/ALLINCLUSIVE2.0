@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bas de villa F3 sur le Robert - Khanel Concept Martinique</title>
+    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+</head>
+<body>
+    <!-- Video Background (identique index) -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header glassmorphism (identique index) -->
+    <header class="glass-header">
+        <nav>
+            <div class="logo">Khanel Concept</div>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./villas.html">Nos Villas</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="villa-content">
+        <!-- Hero Section -->
+        <section class="hero-villa glass-card">
+            <h1>Bas de villa F3 sur le Robert</h1>
+            <p class="villa-location">Pointe Hyacinthe, Le Robert</p>
+            <div class="villa-specs">
+                <span>F3 (Bas de villa)</span>
+                <span>10 personnes</span>
+                <span>À partir de 900€</span>
+            </div>
+        </section>
+
+        <!-- Galerie Photos -->
+        <section class="gallery glass-card">
+            <h2>Galerie Photos</h2>
+            <div class="photo-slider">
+                <img src="./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg" alt="Bas de villa F3 sur le Robert">
+                <img src="./images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg" alt="Bas de villa F3 sur le Robert">
+                <img src="./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg" alt="Bas de villa F3 sur le Robert">
+                <img src="./images/Villa_F3_Robert_Pointe_Hyacinthe/terrasse_couverte_pergola_kitchenette.jpg" alt="Bas de villa F3 sur le Robert">
+                <img src="./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg" alt="Bas de villa F3 sur le Robert">
+            </div>
+        </section>
+
+        <!-- Détails Villa -->
+        <section class="details glass-card">
+            <h2>Détails de la Villa</h2>
+            <div class="details-grid">
+                <div class="description">
+                    <p>Enceintes JBL autorisées jusqu'à 22h (DJ et gros systèmes sono interdits). Caution: 1500€ pour la villa + caution pour l'espace piscine. Paiement en plusieurs fois sans frais possible (tout doit être soldé avant l'entrée).</p>
+                </div>
+                <div class="amenities">
+                    <h3>Équipements & Services</h3>
+                    <ul>
+                        <li>2 chambres climatisées</li>
+                        <li>Location à la journée possible (lundi-jeudi)</li>
+                        <li>Excursion nautique possible</li>
+                        <li>Cuisine ouverte avec plan de travail</li>
+                        <li>Salon salle à manger avec TV</li>
+                        <li>Terrasse couverte avec pergola</li>
+                        <li>Piscine rectangulaire moderne</li>
+                        <li>Enceintes JBL autorisées</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs (section critique) -->
+        <section class="pricing glass-card">
+            <h2>Tarifs & Disponibilités</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Période</th>
+                            <th>Durée</th>
+                            <th>Tarif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Weekend</td>
+                            <td>2-3 nuits</td>
+                            <td>900€</td>
+                        </tr>
+                        <tr>
+                            <td>Weekend avec fête/invités</td>
+                            <td>2-3 nuits</td>
+                            <td>900€ + 550€</td>
+                        </tr>
+                        <tr>
+                            <td>Semaine (basse saison)</td>
+                            <td>7 jours</td>
+                            <td>1250€</td>
+                        </tr>
+                        <tr>
+                            <td>Semaine (haute saison)</td>
+                            <td>7 jours</td>
+                            <td>1500€</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-notes">
+                <p><strong>Caution:</strong> 1500€ pour la villa + caution pour l'espace piscine</p>
+                <p><strong>Enceintes:</strong> JBL autorisées jusqu'à 22h (DJ et gros systèmes sono interdits)</p>
+                <p><strong>Location journée:</strong> Possible lundi-jeudi</p>
+                <p><strong>Paiement:</strong> Plusieurs fois sans frais possible (tout doit être soldé avant l'entrée)</p>
+            </div>
+        </section>
+
+        <!-- Formulaire Réservation -->
+        <section class="booking glass-card">
+            <h2>Réserver cette Villa</h2>
+            <form class="booking-form" action="./process-booking.php" method="POST">
+                <input type="hidden" name="villa_id" value="bas-villa-robert">
+                <input type="hidden" name="villa_name" value="Bas de villa F3 sur le Robert">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'arrivée</label>
+                        <input type="date" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date de départ</label>
+                        <input type="date" name="checkout" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre de personnes</label>
+                        <select name="guests" required>
+                            <option value="">Choisir...</option>
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5 personnes</option>
+                            <option value="6">6 personnes</option>
+                            <option value="7">7 personnes</option>
+                            <option value="8">8 personnes</option>
+                            <option value="9">9 personnes</option>
+                            <option value="10">10 personnes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type de séjour</label>
+                        <select name="stay_type" required>
+                            <option value="">Choisir...</option>
+                            <option value="weekend">Week-end</option>
+                            <option value="semaine">Semaine</option>
+                            <option value="fete">Avec fête/invités</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message (optionnel)</label>
+                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-book">Demander un Devis</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer identique index -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Khanel Concept</h3>
+                <p>Location de villas de prestige en Martinique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Saint-Joseph, Martinique</p>
+                <p>Tél: +596 696 XX XX XX</p>
+                <p>Email: contact@khanelconcept.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="./assets/js/glassmorphism.js"></script>
+</body>
+</html>
