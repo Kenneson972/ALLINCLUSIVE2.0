@@ -1,26 +1,17 @@
 <analysis>
-The previous AI engineer meticulously refined the KhanelConcept luxury villa rental application from a functional MVP to a polished product. This involved extensive UI/UX fixes, comprehensive data clean-up, image gallery rationalization, information re-integration, pricing corrections, and critical mapping fixes for villa navigation. The current AI engineer then continued this work by performing a detailed security, UX, accessibility, and technical robustness audit, leading to a structured, phased implementation. Phase 1 focused on critical security (2FA, email validation), Phase 2 on WCAG 2.2 accessibility, and Phase 3 on UX/UI enhancements (graphical admin, real-time validation/notifications). Phase 4, currently underway, addresses performance and GDPR, initiating caching, pagination, and consent mechanisms. The trajectory demonstrates a systematic, iterative development process, directly responding to user feedback and progressively maturing the application.
+The AI engineer's work on KhanelConcept initially focused on completing performance and GDPR enhancements, including analytics and caching. A major iterative cycle then ensued to correctly integrate villa data from a CSV, where the AI repeatedly struggled with villa names and counts, introducing fictional entries and failing to display the tarification section accurately. Despite multiple backend successes, user feedback consistently highlighted these errors. The AI finally achieved correct integration of 21 real villas from the CSV, updating individual villa HTML pages with Information et tarifs section. This resolved the data consistency and display issues for villa details. Immediately after this success, the user shifted focus to a comprehensive redesign of the admin dashboard for AllInclusive 2.0, prompting the AI to begin creating new HTML files for admin sections.
 </analysis>
 
 <product_requirements>
-The KhanelConcept application is a luxury villa rental platform featuring 21 villas, a reservation system, search functionalities, and an admin panel. Core initial requirements included Cloudinary video integration, robust security (JWT, bcrypt, XSS), WCAG 2.1 accessibility, site-wide responsive design, and a secure member area with registration, login, profile, reservation history, loyalty program, VIP concierge, and notifications.
-
-The previous AI engineer's immediate focus was on: villa data integrity (tariffs, classification, image/data mapping), gallery cleanup (removing information images), information restoration (re-integrating content as text), price accuracy, correcting villa mapping issues, and centering the hero logo.
-
-Subsequently, the user tasked the current AI engineer with a comprehensive audit and implementation of a structured plan covering:
--   **Security & Compliance**: Authentication, sessions, password policies, anti-attack protections (CSRF/brute force), GDPR conformity.
--   **Ergonomics & UX**: Ease of use, clarity, intuitive navigation, error management, user feedback, responsive design.
--   **Accessibility**: WCAG 2.2 standards (keyboard navigation, contrasts, ARIA, screen reader compatibility).
--   **Technical Robustness**: State management, modularity, maintainability, testing, reusable components.
--   **Performance & RGPD**: Caching, pagination, GDPR consent, detailed analytics.
+The KhanelConcept application is a luxury villa rental platform initially developed for 21 villas, featuring reservation, search, and admin functionalities. Early requirements included Cloudinary video integration, robust security (JWT, Bcrypt, XSS, 2FA, email validation), WCAG 2.1 accessibility, site-wide responsiveness, and a secure member area. The previous engineer also addressed data integrity, image/data mapping, and price accuracy. The current phase involved a multi-faceted improvement plan focusing on: enhanced security (authentication, 2FA, password policies, anti-attack, GDPR); improved ergonomics/UX (navigation, error management, responsive design, graphical admin, real-time validation/notifications); WCAG 2.2 accessibility; technical robustness (state management, modularity, testing); and performance/GDPR (caching, pagination, consent, detailed analytics). The most recent explicit request involved verifying existing villa information against a provided CSV, ensuring data consistency, accurate pricing, and specifically implementing an Information et tarifs section on all villa detail pages, then transitioning to a complete redesign of the admin dashboard with advanced management modules.
 </product_requirements>
 
 <key_technical_concepts>
--   **Frontend**: HTML5, CSS (Glassmorphism, Flexbox), JavaScript (Vanilla JS, Intersection Observer, Swiper.js, AOS.js).
+-   **Frontend**: HTML5, CSS (Glassmorphism), JavaScript (Vanilla JS, Chart.js).
 -   **Backend**: FastAPI (Python), MongoDB (AsyncIOMotorClient).
--   **Authentication**: JWT, , , Bcrypt, PyOTP (for 2FA).
--   **Security**: Bleach (XSS sanitization), HTTP Security Headers, Cryptography.
--   **Data Management**: JSON objects, dynamic HTML generation.
+-   **Security**: JWT, Bcrypt, PyOTP (2FA), Cryptography, Environment Variables.
+-   **Data Handling**: JSON, CSV processing, dynamic HTML generation.
+-   **Architecture**: JAMstack-like pattern.
 </key_technical_concepts>
 
 <code_architecture>
@@ -28,88 +19,44 @@ The application uses a JAMstack-like architecture with a FastAPI backend serving
 
 
 
--   ****:
-    -   **Importance**: Core FastAPI server handling API routes and static file serving.
-    -   **Changes**: Implemented admin 2FA (TOTP generation, verification, status check), member email validation (registration, verification, resend, login block for unverified emails). Admin credentials were migrated to environment variables.
--   ****:
-    -   **Importance**: Stores environment variables for backend configuration.
-    -   **Changes**: Added , , , ,  for secure credential management.
--   ****:
-    -   **Importance**: Lists Python dependencies for the backend.
-    -   **Changes**: Added , , and  to support 2FA and email verification.
--   ****:
-    -   **Importance**: User login interface.
-    -   **Changes**: Received significant accessibility enhancements (WCAG 2.2) including ARIA attributes, keyboard navigation support, and improved error message announcements.
--   ****:
-    -   **Importance**: User registration interface.
-    -   **Changes**: Extensive accessibility improvements with ARIA attributes for form elements and JavaScript functions for dynamic ARIA updates and password strength feedback. Modified to redirect to  after successful registration.
--   ****:
-    -   **Importance**: Member dashboard interface.
-    -   **Changes**: Accessibility improvements added, including ARIA roles/labels for navigation and main content, and JavaScript for dynamic focus management.
--   ** (NEW)**:
-    -   **Importance**: New dedicated page for administrators to set up and manage their 2FA.
-    -   **Changes**: Newly created to provide a dedicated UI for 2FA configuration.
--   ** (NEW)**:
-    -   **Importance**: New, modern graphical dashboard for administrative tasks.
-    -   **Changes**: Newly created to provide a centralized and intuitive admin interface.
--   ** (NEW)**:
-    -   **Importance**: New page for members to complete their email verification after registration.
-    -   **Changes**: Newly created to facilitate the email verification process.
--   ** (NEW)**:
-    -   **Importance**: Centralized JavaScript module for implementing real-time, advanced form validation across the frontend.
-    -   **Changes**: Newly created to manage validation rules and feedback.
--   ** (NEW)**:
-    -   **Importance**: Centralized JavaScript module for displaying real-time, interactive user notifications.
-    -   **Changes**: Newly created to manage and display various types of notifications.
--   ** (NEW)**:
-    -   **Importance**: JavaScript module intended to implement client-side caching for performance optimization.
-    -   **Changes**: Newly created, the initial step for performance enhancements.
--   ** (NEW)**:
-    -   **Importance**: JavaScript module intended to provide advanced pagination functionality for data display.
-    -   **Changes**: Newly created as part of performance and UX improvements.
--   ** (NEW)**:
-    -   **Importance**: JavaScript module intended to manage user consent for GDPR compliance.
-    -   **Changes**: Newly created to ensure regulatory compliance.
--   ** (NEW)**:
-    -   **Importance**: Document detailing the comprehensive audit findings and the proposed multi-phase improvement plan.
-    -   **Changes**: Newly created report of the initial audit.
--   ** (NEW)**:
-    -   **Importance**: Report summarizing the completed Phase 2, detailing accessibility improvements and WCAG 2.2 compliance status.
-    -   **Changes**: Created to document the completion of the accessibility phase.
--   ** (NEW)**:
-    -   **Importance**: Report summarizing the completed Phase 3, detailing UX/UI enhancements and new features.
-    -   **Changes**: Created to document the completion of the UX/UI phase.
+-   ****: Central FastAPI application. Modified to include  in the  Pydantic model to support variable pricing. Also contains various API routes and database interactions.
+-   ****: Stores environment variables. Updated with , , , , .
+-   ****: Manages Python dependencies. Added , , , , , .
+-   ****: Old graphical admin dashboard, now superseded by .
+-   ****: Main public-facing page. Integrated new JavaScript modules (, , ).
+-   ** (e.g., , , )**: New client-side JavaScript modules created for performance and GDPR compliance.
+-   ** scripts (e.g., , )**: Numerous temporary Python scripts for database manipulation.  was used to clean the DB and integrate the 21 correct villas from CSV.  was used to iterate through all villa HTML pages, replace Tarification with Information et tarifs, and inject the correct CSV data, including .
+-   ** files (e.g., , )**: Individual static HTML pages for each villa. These were extensively modified by  to display the Information et tarifs section with dynamically updated content from the CSV.
+-   ** (NEW)**: Intended for the new admin dashboard with responsive layout, key metrics, and design system components.
+-   ** (NEW)**: Intended for the advanced villa management module.
+-   ** (NEW)**: Intended for the reservation management module.
 </code_architecture>
 
 <pending_tasks>
--   Complete the implementation of the detailed analytics and metrics system (final part of Phase 4).
--   Address persistent general UI issues (text display, missing villa images beyond primary).
+-   Complete the new Admin Dashboard (AllInclusive 2.0) with all specified sections (Metrics & KPIs, Design System & Components).
+-   Implement the Advanced Villa Management module, including photo gallery, unified calendar, dynamic pricing, and inventory.
+-   Develop the Reservations Management module with visual pipeline, centralized communication, and automated check-in/out.
+-   Build the Analytics & Reporting module for custom dashboards and predictive analysis.
+-   Address the persistent image server error (502).
 -   Finalize full SEO-friendly URLs and PDF print functionality for villa detail pages.
 -   Implement remaining Phase 4 member space functionalities (e.g., , external integrations).
 </pending_tasks>
 
 <current_work>
-Immediately prior to this summary, the AI engineer was actively engaged in the multi-phase enhancement of the KhanelConcept application, having completed three major phases and started the fourth.
+Immediately prior to this summary, the AI engineer successfully resolved a prolonged issue concerning the correct identification and integration of villa data from the  file. After several iterations where fictional villa names were introduced and the tarification section was not properly updated, the AI managed to:
+1.  Clean the database and correctly integrate exactly 21 real villas from the CSV.
+2.  Update the  Pydantic model in  to correctly handle .
+3.  Develop and execute  to iterate through all 18 existing  pages. This script successfully replaced the Tarification section with Information et tarifs and injected comprehensive data (capacity, location, services, important info, detailed pricing grid) from the CSV into each page, maintaining the existing glassmorphism design.
 
-The work concluded Phase 1 (Critical Security), which robustly implemented:
--   **Credential Migration**: Admin credentials and email settings were moved to environment variables ().
--   **Admin 2FA**: A complete TOTP-based 2FA system for administrators was added to  with a new frontend .
--   **Email Validation**: Member registration now enforces email verification via new backend routes and a new  page, with  updated for redirection. Necessary Python dependencies (, , ) were added.
+Frontend verification via screenshots confirmed the correct display of the updated Information et tarifs section on individual villa pages (e.g., , ) and the correct count of 21 villas on the  page.
 
-Phase 2 (Accessibility) was then completed, meticulously enhancing WCAG 2.2 compliance for , , and . This involved adding extensive ARIA attributes, implementing keyboard navigation, and improving error announcements without altering the existing glassmorphism design.
-
-Following this, Phase 3 (UX/UI) was finalized, introducing:
--   A new graphical admin dashboard at .
--   A centralized real-time validation engine in .
--   A new real-time notification system in .
-
-The current work concluded at the very beginning of **Phase 4 (Performance & RGPD)**, specifically:
--   Creating  for intelligent caching.
--   Creating  for advanced pagination.
--   Creating  for GDPR consent management.
-The immediate next step in this phase is the implementation of the analytics system. The system's admin credentials were provided as /.
+Following this successful data integration and frontend update, the user provided a new, comprehensive mission: a complete refactoring of the admin dashboard for AllInclusive 2.0. The AI has just started this new task by creating the initial HTML files for the new admin sections:
+-   
+-   
+-   
+The immediate next step is to update the admin navigation to include these new modules.
 </current_work>
 
 <optional_next_step>
-Continue with Phase 4, focusing on implementing the analytics and detailed metrics system while respecting RGPD.
+Update the admin navigation to include the newly created , , and  pages.
 </optional_next_step>

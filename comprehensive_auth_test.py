@@ -17,7 +17,7 @@ def test_http_endpoints():
     
     base_urls = [
         "http://localhost:8001",
-        "https://7cd0bdde-be10-42a8-b33e-80dde3786ce4.preview.emergentagent.com"
+        "https://2dc70b52-37ed-4f34-9403-c7388838f79e.preview.emergentagent.com"
     ]
     
     admin_credentials = {
