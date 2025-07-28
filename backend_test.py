@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """
-Backend API Testing for KhanelConcept Admin Routes
-Testing the new admin authentication and management routes
+Backend API Testing for KhanelConcept Villa Data Integrity Analysis
+Focus: Analyzing villa data for duplications, missing villas, and pricing inconsistencies
 """
 
 import requests
 import json
 import os
 from datetime import datetime
+from collections import Counter
 
 # Load environment variables
 BACKEND_URL = "https://2dc70b52-37ed-4f34-9403-c7388838f79e.preview.emergentagent.com"
