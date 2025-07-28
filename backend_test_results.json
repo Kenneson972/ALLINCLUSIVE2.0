@@ -1,85 +1,85 @@
 {
-  "timestamp": "2025-07-28T23:28:31.880583",
-  "success": false,
-  "passed_tests": 5,
-  "failed_tests": 7,
+  "timestamp": "2025-07-28T23:29:41.229373",
+  "success": true,
+  "passed_tests": 10,
+  "failed_tests": 2,
   "test_results": [
     {
       "test": "API Health Check",
       "passed": true,
       "message": "API accessible, status: healthy",
       "details": null,
-      "timestamp": "2025-07-28T23:28:31.694898"
+      "timestamp": "2025-07-28T23:29:41.032172"
     },
     {
       "test": "GET /api/villas - Data Structure",
       "passed": true,
       "message": "All 21 villas have required fields for frontend display",
       "details": null,
-      "timestamp": "2025-07-28T23:28:31.705676"
+      "timestamp": "2025-07-28T23:29:41.049417"
     },
     {
       "test": "GET /api/villas - Pricing Data",
       "passed": true,
       "message": "21/21 villas have pricing data",
       "details": null,
-      "timestamp": "2025-07-28T23:28:31.705706"
+      "timestamp": "2025-07-28T23:29:41.049447"
     },
     {
       "test": "GET /api/villas - Gallery Data",
       "passed": true,
       "message": "21/21 villas have gallery data",
       "details": null,
-      "timestamp": "2025-07-28T23:28:31.705712"
+      "timestamp": "2025-07-28T23:29:41.049454"
     },
     {
       "test": "GET /api/admin/villas",
-      "passed": false,
-      "message": "Admin API error: 500",
+      "passed": true,
+      "message": "Admin villa management API working - 21 villas retrieved",
       "details": null,
-      "timestamp": "2025-07-28T23:28:31.722258"
+      "timestamp": "2025-07-28T23:29:41.065910"
     },
     {
       "test": "Villa Search - Search by Destination",
-      "passed": false,
-      "message": "Search API error: 500",
-      "details": null,
-      "timestamp": "2025-07-28T23:28:31.754880"
+      "passed": true,
+      "message": "Search returned 3 results",
+      "details": "Filters: {'destination': 'Vauclin'}",
+      "timestamp": "2025-07-28T23:29:41.076281"
     },
     {
       "test": "Villa Search - Search by Guests",
-      "passed": false,
-      "message": "Search API error: 500",
-      "details": null,
-      "timestamp": "2025-07-28T23:28:31.767173"
+      "passed": true,
+      "message": "Search returned 20 results",
+      "details": "Filters: {'guests': 6}",
+      "timestamp": "2025-07-28T23:29:41.090852"
     },
     {
       "test": "Villa Search - Search by Category",
-      "passed": false,
-      "message": "Search API error: 500",
-      "details": null,
-      "timestamp": "2025-07-28T23:28:31.780453"
+      "passed": true,
+      "message": "Search returned 15 results",
+      "details": "Filters: {'category': 'sejour'}",
+      "timestamp": "2025-07-28T23:29:41.100541"
     },
     {
       "test": "Villa Search - Combined Search",
-      "passed": false,
-      "message": "Search API error: 500",
-      "details": null,
-      "timestamp": "2025-07-28T23:28:31.792993"
+      "passed": true,
+      "message": "Search returned 3 results",
+      "details": "Filters: {'destination': 'Petit Macabou', 'guests': 4, 'category': 'sejour'}",
+      "timestamp": "2025-07-28T23:29:41.110221"
     },
     {
       "test": "Reservation System",
       "passed": false,
       "message": "Reservation API error: 500",
       "details": "{\"detail\":\"Erreur: \"}",
-      "timestamp": "2025-07-28T23:28:31.863269"
+      "timestamp": "2025-07-28T23:29:41.176110"
     },
     {
       "test": "MongoDB Connection - Data Integrity",
       "passed": true,
       "message": "MongoDB connected with 21 villas, 7 reservations",
       "details": "Monthly revenue: €22150.0",
-      "timestamp": "2025-07-28T23:28:31.880297"
+      "timestamp": "2025-07-28T23:29:41.229074"
     },
     {
       "test": "Villa Data Frontend Compatibility",
@@ -90,7 +90,7 @@
         "Villa F5 sur Ste Anne: Invalid/placeholder image",
         "Villa F3 Baccha Petit Macabou: Invalid/placeholder image"
       ],
-      "timestamp": "2025-07-28T23:28:31.880346"
+      "timestamp": "2025-07-28T23:29:41.229123"
     }
   ]
 }
