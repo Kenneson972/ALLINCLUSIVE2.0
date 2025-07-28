@@ -869,9 +869,9 @@ class KhanelConceptAPITester:
             return False
 
     def run_all_tests(self):
-        """Run all backend tests with focus on villa data integrity"""
-        print("🏖️ Starting KhanelConcept Villa Data Integrity Tests")
-        print("🎯 Focus: Villa Gallery Information Image Removal Verification")
+        """Run comprehensive admin dashboard endpoint tests for AllInclusive 2.0"""
+        print("🏖️ Starting KhanelConcept Admin Dashboard Testing for AllInclusive 2.0")
+        print("🎯 Focus: Admin Authentication & Dashboard Endpoints Verification")
         print(f"Testing against: {API_BASE_URL}")
         print("=" * 70)
         
@@ -880,32 +880,39 @@ class KhanelConceptAPITester:
             print("❌ Health check failed - stopping tests")
             return False
         
-        # MAIN FOCUS: Villa data integrity tests
-        print("\n🔍 VILLA DATA INTEGRITY TESTS (PRIMARY FOCUS)")
+        # MAIN FOCUS: Admin Dashboard Tests
+        print("\n🔐 ADMIN AUTHENTICATION TESTS (PRIMARY FOCUS)")
         print("-" * 50)
-        self.test_villa_gallery_integrity()
-        self.test_villa_data_structure_consistency()
-        self.test_villa_search_with_gallery_verification()
+        admin_login_success = self.test_admin_login()
+        if admin_login_success:
+            self.test_admin_verify_token()
         
-        # Test public endpoints
-        print("\n📋 VILLA API ENDPOINT TESTS")
+        print("\n📊 ADMIN DASHBOARD ENDPOINTS TESTS")
+        print("-" * 40)
+        self.test_dashboard_stats()
+        self.test_admin_villas()
+        self.test_admin_reservations()
+        
+        # Test analytics if available
+        print("\n📈 ADMIN ANALYTICS TESTS")
+        print("-" * 25)
+        if admin_login_success:
+            self.test_admin_analytics_overview()
+        
+        # Test CSV integration as mentioned in review
+        print("\n📋 CSV INTEGRATION VERIFICATION")
         print("-" * 30)
+        self.test_csv_integration_verification()
+        
+        # Test basic villa endpoints to ensure system integrity
+        print("\n🏖️ VILLA SYSTEM INTEGRITY TESTS")
+        print("-" * 35)
         self.test_public_villas_endpoint()
         self.test_villa_search()
         
-        # Test admin authentication and endpoints
-        print("\n🔐 ADMIN SYSTEM TESTS")
-        print("-" * 20)
-        if not self.test_admin_login():
-            print("❌ Admin login failed - skipping admin-only tests")
-        else:
-            self.test_dashboard_stats()
-            self.test_admin_villas()
-            self.test_admin_reservations()
-        
         # Summary
         print("\n" + "=" * 70)
-        print("📊 VILLA DATA INTEGRITY TEST SUMMARY")
+        print("📊 ADMIN DASHBOARD TESTING SUMMARY")
         print("=" * 70)
         
         passed = sum(1 for result in self.test_results if result["success"])
@@ -923,11 +930,11 @@ class KhanelConceptAPITester:
             for test in failed_tests:
                 print(f"  - {test['test']}: {test['message']}")
         
-        # Special focus on gallery integrity results
-        gallery_tests = [r for r in self.test_results if "Gallery" in r["test"] or "Integrity" in r["test"]]
-        if gallery_tests:
-            print(f"\n🎯 GALLERY INTEGRITY FOCUS RESULTS:")
-            for test in gallery_tests:
+        # Special focus on admin dashboard results
+        admin_tests = [r for r in self.test_results if "Admin" in r["test"] or "Dashboard" in r["test"]]
+        if admin_tests:
+            print(f"\n🎯 ADMIN DASHBOARD FOCUS RESULTS:")
+            for test in admin_tests:
                 status = "✅" if test["success"] else "❌"
                 print(f"  {status} {test['test']}: {test['message']}")
         
