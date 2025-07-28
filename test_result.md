@@ -498,6 +498,18 @@ test_plan:
         agent: "testing"
         comment: "✅ COMPREHENSIVE iOS VIDEO BACKGROUND TESTING COMPLETED - iOS background video support system fully implemented and working perfectly across all pages. VERIFIED FEATURES: 1) Video elements with iOS-specific attributes ✅ - All pages have video#backgroundVideo with webkit-playsinline and preload='metadata' attributes 2) JavaScript iOS detection ✅ - initBackgroundVideoiOS() function present with proper iOS User-Agent detection (/iPad|iPhone|iPod/) 3) Automatic startup handling ✅ - Touch/click event listeners for autoplay fallback when blocked 4) Cloudinary video integration ✅ - Background video properly sourced from Cloudinary CDN 5) Cross-browser compatibility ✅ - Non-iOS browsers continue to work with standard autoplay. TESTED PAGES: index.html (6/6 features), reservation.html (6/6 features), villa-f3-petit-macabou.html (6/6 features). All 18 villa pages accessible and serving correctly. JavaScript implementation includes all required iOS-specific functions: User-Agent detection, webkit-playsinline attribute setting, touch event listeners, video.play() promise handling. The iOS video background system is production-ready and provides seamless video background experience across all devices including iOS Safari."
 
+  - task: "Villa Data Integrity Analysis - KhanelConcept System Review"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ VILLA DATA INTEGRITY ISSUES IDENTIFIED (January 29, 2025)! COMPREHENSIVE ANALYSIS COMPLETED: Conducted exhaustive villa data integrity analysis as requested in review focusing on duplication issues, missing villas, and pricing inconsistencies. CRITICAL FINDINGS (4/8 tests failed, 50% success rate): 1) VILLA COUNT ISSUE ❌ - Found 22 villas instead of expected 21 from CSV integration - Extra villa present in system 2) DUPLICATE/SIMILAR NAMES ❌ - Found 2 potentially similar villa names: 'Villa F3 Petit Macabou' vs 'Villa F3 POUR LA BACCHA' (share 'f3', 'villa'), 'Villa F3 Petit Macabou' vs 'Villa F6 Petit Macabou' (share 'petit', 'villa', 'macabou') 3) MISSING ESPACE PISCINE VILLA ❌ - 'Espace Piscine Journée Bungalow' with €350 pricing NOT FOUND in database - Searched all patterns: 'Espace Piscine Journée Bungalow', 'Espace Piscine Journée', 'Espace Piscine', 'Piscine Journée' 4) MISSING PISCINE CATEGORY ❌ - 'piscine' category completely missing from villa categories - Only found: sejour (12), special (6), fete (4) categories. POSITIVE FINDINGS: ✅ No duplicate villa IDs found ✅ All pricing valid and reasonable (€250-€2000 range) ✅ Key CSV villas found: Villa F3 Petit Macabou (€850), Villa F5 Ste Anne (€1300), Villa F6 Petit Macabou (€2000). CRITICAL ISSUE: CSV integration rate is 0.0% (0/22 villas have csv_integrated flag), indicating incomplete CSV integration process. RECOMMENDATION: System requires immediate attention to resolve villa count discrepancy, locate missing 'Espace Piscine Journée' villa, and complete proper CSV integration with correct villa categories."
+
 agent_communication:
   - agent: "testing"
     message: "Starting comprehensive testing of KhanelConcept villa rental website improvements. Focus on image loading, reservation system, gallery, and calendar functionality."
