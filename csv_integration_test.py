@@ -144,7 +144,7 @@ class CSVIntegrationTester:
                         has_variable_pricing = (
                             "pricing" in villa or 
                             "variable_rates" in villa or 
-                            "tarifs_variables" in villa.get("features", "").lower()
+                            "tarifs" in villa.get("features", "").lower()
                         )
                         
                         if has_variable_pricing:
