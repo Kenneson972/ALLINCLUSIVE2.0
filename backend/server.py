@@ -280,7 +280,7 @@ class Villa(BaseModel):
     category: str
     image: str
     gallery: List[str]
-    fallback_icon: str
+    fallback_icon: Optional[str] = "🏖️"  # Made optional with default
     amenities: Optional[List[str]] = []
     description: Optional[str] = ""
     available_dates: Optional[List[str]] = []
@@ -288,6 +288,7 @@ class Villa(BaseModel):
     services_full: Optional[str] = None
     csv_integrated: Optional[bool] = False
     csv_source: Optional[str] = None
+    status: Optional[str] = "active"  # Added status field
 
 class ReservationCreate(BaseModel):
     villa_id: str
