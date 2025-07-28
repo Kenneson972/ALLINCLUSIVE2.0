@@ -679,15 +679,22 @@
                 <div class="filters-grid">
                     <div class="form-group">
                         <label class="form-label">Rechercher</label>
-                        <input type="text" class="form-input" id="searchInput" placeholder="Nom, localisation...">
+                        <input type="text" class="form-input" id="villaSearch" placeholder="Nom, localisation...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Catégorie</label>
+                        <select class="form-input" id="categoryFilter">
+                            <option value="">Toutes les catégories</option>
+                            <option value="sejour">Séjour</option>
+                            <option value="fete">Fête</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Statut</label>
                         <select class="form-input" id="statusFilter">
                             <option value="">Tous les statuts</option>
-                            <option value="available">Disponible</option>
-                            <option value="occupied">Occupée</option>
-                            <option value="maintenance">Maintenance</option>
+                            <option value="active">Actif</option>
+                            <option value="inactive">Inactif</option>
                         </select>
                     </div>
                     <div class="form-group">
