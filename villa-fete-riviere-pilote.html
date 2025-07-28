@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa Fête Journée Rivière-Pilote - Khanel Concept Martinique</title>
+    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+</head>
+<body>
+    <!-- Video Background (identique index) -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header glassmorphism (identique index) -->
+    <header class="glass-header">
+        <nav>
+            <div class="logo">Khanel Concept</div>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./villas.html">Nos Villas</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="villa-content">
+        <!-- Hero Section -->
+        <section class="hero-villa glass-card">
+            <h1>Villa Fête Journée Rivière-Pilote</h1>
+            <p class="villa-location">Rivière-Pilote</p>
+            <div class="villa-specs">
+                <span>Location à la journée</span>
+                <span>Jusqu'à 100 invités</span>
+                <span>À partir de 660€</span>
+            </div>
+        </section>
+
+        <!-- Galerie Photos -->
+        <section class="gallery glass-card">
+            <h2>Galerie Photos</h2>
+            <div class="photo-slider">
+                <img src="./images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg" alt="Villa Fête Journée Rivière-Pilote">
+                <img src="./images/Villa_Fete_Journee_R_Pilote/02_chambre_lit_bois.jpg" alt="Villa Fête Journée Rivière-Pilote">
+                <img src="./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg" alt="Villa Fête Journée Rivière-Pilote">
+                <img src="./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg" alt="Villa Fête Journée Rivière-Pilote">
+                <img src="./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg" alt="Villa Fête Journée Rivière-Pilote">
+                <img src="./images/Villa_Fete_Journee_R_Pilote/06_terrasse_pierre_piscine.jpg" alt="Villa Fête Journée Rivière-Pilote">
+                <img src="./images/Villa_Fete_Journee_R_Pilote/07_salle_de_bain_moderne.jpg" alt="Villa Fête Journée Rivière-Pilote">
+            </div>
+        </section>
+
+        <!-- Détails Villa -->
+        <section class="details glass-card">
+            <h2>Détails de la Villa</h2>
+            <div class="details-grid">
+                <div class="description">
+                    <p>Horaires fête: 13h-20h ou 18h-2h. Caution: 800€.</p>
+                </div>
+                <div class="amenities">
+                    <h3>Équipements & Services</h3>
+                    <ul>
+                        <li>Piscine chauffée</li>
+                        <li>Cuisine extérieure équipée (four, micro-onde, congélateur, bar office)</li>
+                        <li>DJ autorisé</li>
+                        <li>Bungalow 2 personnes (130€/nuit)</li>
+                        <li>Appartement 2 personnes (110€/nuit)</li>
+                        <li>Villa créole avec terrasse</li>
+                        <li>Piscine tropicale vue panoramique</li>
+                        <li>Salle à manger intérieure</li>
+                        <li>Terrasse pierre</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs (section critique) -->
+        <section class="pricing glass-card">
+            <h2>Tarifs & Disponibilités</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Tarif</th>
+                            <th>Détails</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Événement privé</td>
+                            <td>660€</td>
+                            <td>Anniversaire enfant, EVJF</td>
+                        </tr>
+                        <tr>
+                            <td>Bungalow 2 personnes</td>
+                            <td>130€/nuit</td>
+                            <td>Hébergement inclus</td>
+                        </tr>
+                        <tr>
+                            <td>Appartement 2 personnes</td>
+                            <td>110€/nuit</td>
+                            <td>Hébergement inclus</td>
+                        </tr>
+                        <tr>
+                            <td>Mariage, baptême, communion</td>
+                            <td>Sur devis</td>
+                            <td>Devis personnalisé</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-notes">
+                <p><strong>Caution:</strong> 800€</p>
+                <p><strong>Horaires fête:</strong> 13h-20h ou 18h-2h</p>
+                <p><strong>Capacité:</strong> Jusqu'à 100 invités</p>
+                <p><strong>DJ:</strong> Autorisé</p>
+                <p><strong>Hébergement:</strong> Bungalow et appartement disponibles</p>
+            </div>
+        </section>
+
+        <!-- Formulaire Réservation -->
+        <section class="booking glass-card">
+            <h2>Réserver cette Villa</h2>
+            <form class="booking-form" action="./process-booking.php" method="POST">
+                <input type="hidden" name="villa_id" value="villa-fete-riviere-pilote">
+                <input type="hidden" name="villa_name" value="Villa Fête Journée Rivière-Pilote">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'arrivée</label>
+                        <input type="date" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Horaires fête</label>
+                        <select name="party_hours" required>
+                            <option value="">Choisir...</option>
+                            <option value="13h-20h">13h-20h</option>
+                            <option value="18h-2h">18h-2h</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre de personnes</label>
+                        <select name="guests" required>
+                            <option value="">Choisir...</option>
+                            <option value="10">10 personnes</option>
+                            <option value="15">15 personnes</option>
+                            <option value="20">20 personnes</option>
+                            <option value="25">25 personnes</option>
+                            <option value="30">30 personnes</option>
+                            <option value="40">40 personnes</option>
+                            <option value="50">50 personnes</option>
+                            <option value="60">60 personnes</option>
+                            <option value="70">70 personnes</option>
+                            <option value="80">80 personnes</option>
+                            <option value="90">90 personnes</option>
+                            <option value="100">100 personnes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type d'événement</label>
+                        <select name="event_type" required>
+                            <option value="">Choisir...</option>
+                            <option value="anniversaire_enfant">Anniversaire enfant</option>
+                            <option value="evjf">EVJF</option>
+                            <option value="mariage">Mariage</option>
+                            <option value="bapteme">Baptême</option>
+                            <option value="communion">Communion</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Hébergement</label>
+                        <select name="accommodation">
+                            <option value="">Non merci</option>
+                            <option value="bungalow">Bungalow 2 personnes (130€/nuit)</option>
+                            <option value="appartement">Appartement 2 personnes (110€/nuit)</option>
+                            <option value="both">Les deux</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>DJ</label>
+                        <select name="dj">
+                            <option value="">Non</option>
+                            <option value="oui">Oui, DJ autorisé</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message (optionnel)</label>
+                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-book">Demander un Devis</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer identique index -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Khanel Concept</h3>
+                <p>Location de villas de prestige en Martinique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Saint-Joseph, Martinique</p>
+                <p>Tél: +596 696 XX XX XX</p>
+                <p>Email: contact@khanelconcept.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="./assets/js/glassmorphism.js"></script>
+</body>
+</html>
