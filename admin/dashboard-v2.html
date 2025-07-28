@@ -966,49 +966,243 @@
                 // Get backend URL from environment or use default
                 const backendUrl = window.location.origin;
                 
+                // Get admin token for authenticated requests
+                const adminToken = localStorage.getItem('admin_token') || localStorage.getItem('adminToken');
+                
                 // Fetch multiple endpoints
-                const [statsResponse, villasResponse, reservationsResponse] = await Promise.all([
+                const [statsResponse, villasResponse, reservationsResponse, analyticsResponse] = await Promise.all([
                     fetch(`${backendUrl}/api/stats/dashboard`),
-                    fetch(`${backendUrl}/api/villas`),
+                    fetch(`${backendUrl}/api/admin/villas`, {
+                        headers: adminToken ? {
+                            'Authorization': `Bearer ${adminToken}`
+                        } : {}
+                    }),
                     fetch(`${backendUrl}/api/admin/reservations`, {
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('adminToken') || 'dummy-token'}`
-                        }
-                    })
+                        headers: adminToken ? {
+                            'Authorization': `Bearer ${adminToken}`
+                        } : {}
+                    }),
+                    fetch(`${backendUrl}/api/admin/analytics/overview`, {
+                        headers: adminToken ? {
+                            'Authorization': `Bearer ${adminToken}`
+                        } : {}
+                    }).catch(() => null) // Analytics might not be available
                 ]);
                 
                 const stats = await statsResponse.json();
                 const villas = await villasResponse.json();
                 const reservations = reservationsResponse.ok ? await reservationsResponse.json() : [];
+                const analytics = analyticsResponse && analyticsResponse.ok ? await analyticsResponse.json() : null;
                 
-                // Process data
+                // Process data with real backend information
                 dashboardData = {
-                    dailyRevenue: stats.monthly_revenue || 22150,
-                    activeBookings: reservations.length || 7,
-                    occupancyRate: Math.round((stats.confirmed_reservations / stats.total_villas) * 100) || 68,
-                    averageROI: 15.8,
-                    totalVillas: villas.length || 21,
-                    totalReservations: stats.total_reservations || 43,
-                    monthlyRevenue: stats.monthly_revenue || 22150
+                    dailyRevenue: calculateDailyRevenue(reservations),
+                    activeBookings: reservations.filter(r => r.status === 'confirmed' || r.status === 'pending').length,
+                    occupancyRate: calculateOccupancyRate(villas, reservations),
+                    averageROI: analytics ? analytics.performance?.roi_average || 15.8 : 15.8,
+                    totalVillas: villas.length,
+                    totalReservations: reservations.length,
+                    monthlyRevenue: stats.monthly_revenue || calculateMonthlyRevenue(reservations),
+                    revenueHistory: generateRevenueHistory(reservations),
+                    channelDistribution: analytics ? analytics.trends?.channel_distribution : generateChannelData(),
+                    villaPerformance: calculateVillaPerformance(villas, reservations)
                 };
                 
+                console.log('🔄 Dashboard data loaded:', dashboardData);
                 updateKPIs();
                 initializeCharts();
+                updateBookingStatus(reservations);
                 
             } catch (error) {
                 console.error('Error fetching dashboard data:', error);
-                // Use mock data as fallback
+                // Use enhanced mock data as fallback
                 dashboardData = {
-                    dailyRevenue: 1850,
-                    activeBookings: 7,
-                    occupancyRate: 68,
-                    averageROI: 15.8,
+                    dailyRevenue: 2850,
+                    activeBookings: 12,
+                    occupancyRate: 74,
+                    averageROI: 18.5,
                     totalVillas: 21,
-                    totalReservations: 43,
-                    monthlyRevenue: 22150
+                    totalReservations: 47,
+                    monthlyRevenue: 28450,
+                    revenueHistory: generateMockRevenueHistory(),
+                    channelDistribution: generateChannelData(),
+                    villaPerformance: generateMockVillaPerformance()
                 };
+                console.log('📊 Using enhanced mock data for dashboard');
                 updateKPIs();
                 initializeCharts();
+                updateMockBookingStatus();
+            }
+        }
+
+        // Helper functions for data processing
+        function calculateDailyRevenue(reservations) {
+            const today = new Date().toISOString().split('T')[0];
+            return reservations
+                .filter(r => r.created_at && r.created_at.startsWith(today))
+                .reduce((sum, r) => sum + (r.total_price || r.price || 0), 0);
+        }
+
+        function calculateOccupancyRate(villas, reservations) {
+            if (!villas.length) return 0;
+            const bookedVillas = new Set(reservations
+                .filter(r => r.status === 'confirmed')
+                .map(r => r.villa_id || r.villa?.id));
+            return Math.round((bookedVillas.size / villas.length) * 100);
+        }
+
+        function calculateMonthlyRevenue(reservations) {
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            return reservations
+                .filter(r => {
+                    if (!r.created_at) return false;
+                    const resDate = new Date(r.created_at);
+                    return resDate.getMonth() === currentMonth && resDate.getFullYear() === currentYear;
+                })
+                .reduce((sum, r) => sum + (r.total_price || r.price || 0), 0);
+        }
+
+        function calculateVillaPerformance(villas, reservations) {
+            return villas.slice(0, 5).map(villa => {
+                const villaReservations = reservations.filter(r => 
+                    (r.villa_id && r.villa_id === villa.id) || 
+                    (r.villa && r.villa.id === villa.id)
+                );
+                return {
+                    name: villa.name.substring(0, 20) + (villa.name.length > 20 ? '...' : ''),
+                    bookings: villaReservations.length,
+                    revenue: villaReservations.reduce((sum, r) => sum + (r.total_price || r.price || 0), 0)
+                };
+            });
+        }
+
+        function generateRevenueHistory(reservations) {
+            const last30Days = [];
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                const dayRevenue = reservations
+                    .filter(r => r.created_at && r.created_at.startsWith(dateStr))
+                    .reduce((sum, r) => sum + (r.total_price || r.price || 0), 0);
+                    
+                last30Days.push({
+                    date: dateStr,
+                    revenue: dayRevenue
+                });
+            }
+            return last30Days;
+        }
+
+        function generateChannelData() {
+            return [
+                { name: 'Site Direct', value: 45, color: '#4facfe' },
+                { name: 'Airbnb', value: 30, color: '#f5576c' },
+                { name: 'Booking.com', value: 20, color: '#20c997' },
+                { name: 'Autres', value: 5, color: '#ffc107' }
+            ];
+        }
+
+        function updateBookingStatus(reservations) {
+            const statusCounts = reservations.reduce((counts, r) => {
+                counts[r.status] = (counts[r.status] || 0) + 1;
+                return counts;
+            }, {});
+            
+            const container = document.getElementById('bookingStatusContainer');
+            if (container) {
+                container.innerHTML = Object.entries(statusCounts).map(([status, count]) => {
+                    const statusConfig = {
+                        'pending': { icon: 'clock', color: 'warning', label: 'En attente' },
+                        'confirmed': { icon: 'check-circle', color: 'success', label: 'Confirmées' },
+                        'cancelled': { icon: 'times-circle', color: 'danger', label: 'Annulées' },
+                        'completed': { icon: 'flag-checkered', color: 'info', label: 'Terminées' }
+                    };
+                    
+                    const config = statusConfig[status] || { icon: 'question', color: 'secondary', label: status };
+                    
+                    return `
+                        <div class="d-flex align-items-center justify-content-between py-3 border-bottom border-secondary">
+                            <div class="d-flex align-items-center">
+                                <div class="stat-icon ${config.color} me-3">
+                                    <i class="fas fa-${config.icon}"></i>
+                                </div>
+                                <span style="color: var(--text-primary); font-weight: 500;">${config.label}</span>
+                            </div>
+                            <span class="badge bg-${config.color} fs-6">${count}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Mock data generators for fallback
+        function generateMockRevenueHistory() {
+            const data = [];
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                data.push({
+                    date: date.toISOString().split('T')[0],
+                    revenue: Math.floor(Math.random() * 2000) + 500
+                });
+            }
+            return data;
+        }
+
+        function generateMockVillaPerformance() {
+            return [
+                { name: 'Villa F3 Petit Macabou', bookings: 8, revenue: 6800 },
+                { name: 'Villa F5 Ste Anne', bookings: 6, revenue: 7800 },
+                { name: 'Villa F6 Petit Macabou', bookings: 5, revenue: 10000 },
+                { name: 'Villa F7 Baie des Mulets', bookings: 4, revenue: 8800 },
+                { name: 'Villa F3 Trinité', bookings: 7, revenue: 6300 }
+            ];
+        }
+
+        function updateMockBookingStatus() {
+            const container = document.getElementById('bookingStatusContainer');
+            if (container) {
+                container.innerHTML = `
+                    <div class="d-flex align-items-center justify-content-between py-3 border-bottom border-secondary">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon warning me-3">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span style="color: var(--text-primary); font-weight: 500;">En attente</span>
+                        </div>
+                        <span class="badge bg-warning fs-6">5</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between py-3 border-bottom border-secondary">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon success me-3">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span style="color: var(--text-primary); font-weight: 500;">Confirmées</span>
+                        </div>
+                        <span class="badge bg-success fs-6">12</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between py-3 border-bottom border-secondary">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon info me-3">
+                                <i class="fas fa-flag-checkered"></i>
+                            </div>
+                            <span style="color: var(--text-primary); font-weight: 500;">Terminées</span>
+                        </div>
+                        <span class="badge bg-info fs-6">28</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between py-3">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon error me-3">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <span style="color: var(--text-primary); font-weight: 500;">Annulées</span>
+                        </div>
+                        <span class="badge bg-danger fs-6">2</span>
+                    </div>
+                `;
             }
         }
         
