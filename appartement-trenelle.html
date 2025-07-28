@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Villa de luxe en Martinique avec design premium et réservation en ligne sécurisée.">
     <title>Appartement F3 Trenelle (Location Annuelle) - Khanel Concept Martinique</title>
-    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+        <link rel="stylesheet" href="./assets/css/villa-enhanced.css">
+    <link rel="preload" href="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" as="video" type="video/mp4">
 </head>
 <body>
-    <!-- Video Background (identique index) -->
+    <!-- Video Background Premium -->
     <div class="video-background">
-        <video autoplay muted loop>
+        <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
             <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
         </video>
     </div>
+    
+    <!-- Fallback Background -->
+    <div class="video-background-fallback"></div>
 
     <!-- Header glassmorphism (identique index) -->
     <header class="glass-header">
@@ -43,12 +48,30 @@
         <section class="gallery glass-card">
             <h2>Galerie Photos</h2>
             <div class="photo-slider">
-                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg" alt="Appartement F3 Trenelle">
-                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg" alt="Appartement F3 Trenelle">
-                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg" alt="Appartement F3 Trenelle">
-                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg" alt="Appartement F3 Trenelle">
-                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg" alt="Appartement F3 Trenelle">
-                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg" alt="Appartement F3 Trenelle">
+                <div class="photo-item">
+                    <img src="./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg" alt="Appartement F3 Trenelle" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg" alt="Appartement F3 Trenelle" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg" alt="Appartement F3 Trenelle" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg" alt="Appartement F3 Trenelle" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg" alt="Appartement F3 Trenelle" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg" alt="Appartement F3 Trenelle" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
             </div>
         </section>
 
@@ -114,74 +137,22 @@
             </div>
         </section>
 
-        <!-- Formulaire Réservation -->
+        <!-- Réservation Premium -->
         <section class="booking glass-card">
-            <h2>Réserver cet Appartement</h2>
-            <form class="booking-form" action="./process-booking.php" method="POST">
-                <input type="hidden" name="villa_id" value="appartement-trenelle">
-                <input type="hidden" name="villa_name" value="Appartement F3 Trenelle (Location Annuelle)">
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Date d'arrivée</label>
-                        <input type="date" name="checkin" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Durée souhaitée</label>
-                        <select name="stay_type" required>
-                            <option value="">Choisir...</option>
-                            <option value="3mois">3 mois</option>
-                            <option value="6mois">6 mois</option>
-                            <option value="12mois">12 mois</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Profil</label>
-                        <select name="guests" required>
-                            <option value="">Choisir...</option>
-                            <option value="personne_seule">Personne seule</option>
-                            <option value="couple">Couple sans enfant</option>
-                            <option value="colocataires">2 colocataires</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Situation professionnelle</label>
-                        <select name="professional_status" required>
-                            <option value="">Choisir...</option>
-                            <option value="emploi">Emploi stable</option>
-                            <option value="etudiant">Étudiant</option>
-                            <option value="retraite">Retraité</option>
-                            <option value="autre">Autre</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Nom complet</label>
-                    <input type="text" name="name" required>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Téléphone</label>
-                        <input type="tel" name="phone" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Message (optionnel)</label>
-                    <textarea name="message" placeholder="Précisez votre profil et vos besoins..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-book">Demander des Informations</button>
-            </form>
+            <h2>Réservation</h2>
+            <div class="reservation-buttons">
+                <a href="javascript:void(0)" 
+                   class="btn-reserve-primary" 
+                   onclick="ReservationManager.goToReservation('appartement-trenelle', 'Appartement F3 Trenelle')">
+                    🏨 Réserver maintenant
+                </a>
+                <a href="./reservation.html" class="btn-reserve-secondary">
+                    📋 Voir toutes les villas
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
+                Réservation sécurisée • Confirmation immédiate • Assistance 24/7
+            </p>
         </section>
     </main>
 
@@ -204,6 +175,19 @@
         </div>
     </footer>
 
-    <script src="./assets/js/glassmorphism.js"></script>
+    <script src="./assets/js/villa-gallery.js"></script>
+    <script>
+        // Initialisation spécifique à cette villa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données de la villa pour la réservation
+            window.currentVilla = {
+                id: 'appartement-trenelle',
+                name: 'Appartement F3 Trenelle',
+                basePrice: 700,
+                capacity: 3,
+                maxGuests: 3
+            };
+        });
+    </script>
 </body>
 </html>

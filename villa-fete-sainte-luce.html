@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Villa de luxe en Martinique avec design premium et réservation en ligne sécurisée.">
     <title>Villa Fête Journée Sainte-Luce - Khanel Concept Martinique</title>
-    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+        <link rel="stylesheet" href="./assets/css/villa-enhanced.css">
+    <link rel="preload" href="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" as="video" type="video/mp4">
 </head>
 <body>
-    <!-- Video Background (identique index) -->
+    <!-- Video Background Premium -->
     <div class="video-background">
-        <video autoplay muted loop>
+        <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
             <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
         </video>
     </div>
+    
+    <!-- Fallback Background -->
+    <div class="video-background-fallback"></div>
 
     <!-- Header glassmorphism (identique index) -->
     <header class="glass-header">
@@ -43,12 +48,30 @@
         <section class="gallery glass-card">
             <h2>Galerie Photos</h2>
             <div class="photo-slider">
-                <img src="./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg" alt="Villa Fête Journée Sainte-Luce">
-                <img src="./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg" alt="Villa Fête Journée Sainte-Luce">
-                <img src="./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg" alt="Villa Fête Journée Sainte-Luce">
-                <img src="./images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg" alt="Villa Fête Journée Sainte-Luce">
-                <img src="./images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg" alt="Villa Fête Journée Sainte-Luce">
-                <img src="./images/Villa_Fete_Journee_Sainte_Luce/06_toilettes_exterieures.jpg" alt="Villa Fête Journée Sainte-Luce">
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg" alt="Villa Fête Journée Sainte-Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg" alt="Villa Fête Journée Sainte-Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg" alt="Villa Fête Journée Sainte-Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg" alt="Villa Fête Journée Sainte-Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg" alt="Villa Fête Journée Sainte-Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Sainte_Luce/06_toilettes_exterieures.jpg" alt="Villa Fête Journée Sainte-Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
             </div>
         </section>
 
@@ -111,88 +134,22 @@
             </div>
         </section>
 
-        <!-- Formulaire Réservation -->
+        <!-- Réservation Premium -->
         <section class="booking glass-card">
-            <h2>Réserver cette Villa</h2>
-            <form class="booking-form" action="./process-booking.php" method="POST">
-                <input type="hidden" name="villa_id" value="villa-fete-sainte-luce">
-                <input type="hidden" name="villa_name" value="Villa Fête Journée Sainte-Luce">
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Date d'arrivée</label>
-                        <input type="date" name="checkin" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Horaires</label>
-                        <select name="schedule" required>
-                            <option value="">Choisir...</option>
-                            <option value="10h-18h">10h-18h (standard)</option>
-                            <option value="flexible">Horaires flexibles</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nombre de personnes</label>
-                        <select name="guests" required>
-                            <option value="">Choisir...</option>
-                            <option value="5">5 personnes</option>
-                            <option value="6">6 personnes</option>
-                            <option value="7">7 personnes</option>
-                            <option value="8">8 personnes</option>
-                            <option value="9">9 personnes</option>
-                            <option value="10">10 personnes</option>
-                            <option value="11">11 personnes</option>
-                            <option value="12">12 personnes</option>
-                            <option value="13">13 personnes</option>
-                            <option value="14">14 personnes</option>
-                            <option value="15">15 personnes</option>
-                            <option value="16">16 personnes</option>
-                            <option value="17">17 personnes</option>
-                            <option value="18">18 personnes</option>
-                            <option value="19">19 personnes</option>
-                            <option value="20">20 personnes</option>
-                            <option value="21">21-40 personnes</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Type d'événement</label>
-                        <select name="event_type" required>
-                            <option value="">Choisir...</option>
-                            <option value="anniversaire">Anniversaire</option>
-                            <option value="baby_shower">Baby shower</option>
-                            <option value="reunion_famille">Réunion de famille</option>
-                            <option value="fete_privee">Fête privée</option>
-                            <option value="autre">Autre</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Nom complet</label>
-                    <input type="text" name="name" required>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Téléphone</label>
-                        <input type="tel" name="phone" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Message (optionnel)</label>
-                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-book">Demander un Devis</button>
-            </form>
+            <h2>Réservation</h2>
+            <div class="reservation-buttons">
+                <a href="javascript:void(0)" 
+                   class="btn-reserve-primary" 
+                   onclick="ReservationManager.goToReservation('villa-fete-sainte-luce', 'Villa Fête Journée Sainte-Luce')">
+                    🏨 Réserver maintenant
+                </a>
+                <a href="./reservation.html" class="btn-reserve-secondary">
+                    📋 Voir toutes les villas
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
+                Réservation sécurisée • Confirmation immédiate • Assistance 24/7
+            </p>
         </section>
     </main>
 
@@ -215,6 +172,19 @@
         </div>
     </footer>
 
-    <script src="./assets/js/glassmorphism.js"></script>
+    <script src="./assets/js/villa-gallery.js"></script>
+    <script>
+        // Initialisation spécifique à cette villa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données de la villa pour la réservation
+            window.currentVilla = {
+                id: 'villa-fete-sainte-luce',
+                name: 'Villa Fête Journée Sainte-Luce',
+                basePrice: 390,
+                capacity: 40,
+                maxGuests: 40
+            };
+        });
+    </script>
 </body>
 </html>

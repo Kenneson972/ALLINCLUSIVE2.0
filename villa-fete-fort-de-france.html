@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Villa de luxe en Martinique avec design premium et réservation en ligne sécurisée.">
     <title>Villa Fête Journée Fort de France - Khanel Concept Martinique</title>
-    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+        <link rel="stylesheet" href="./assets/css/villa-enhanced.css">
+    <link rel="preload" href="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" as="video" type="video/mp4">
 </head>
 <body>
-    <!-- Video Background (identique index) -->
+    <!-- Video Background Premium -->
     <div class="video-background">
-        <video autoplay muted loop>
+        <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
             <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
         </video>
     </div>
+    
+    <!-- Fallback Background -->
+    <div class="video-background-fallback"></div>
 
     <!-- Header glassmorphism (identique index) -->
     <header class="glass-header">
@@ -43,13 +48,34 @@
         <section class="gallery glass-card">
             <h2>Galerie Photos</h2>
             <div class="photo-slider">
-                <img src="./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg" alt="Villa Fête Journée Fort de France">
-                <img src="./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg" alt="Villa Fête Journée Fort de France">
-                <img src="./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg" alt="Villa Fête Journée Fort de France">
-                <img src="./images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg" alt="Villa Fête Journée Fort de France">
-                <img src="./images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg" alt="Villa Fête Journée Fort de France">
-                <img src="./images/Villa_Fete_Journee_Fort_de_France/06_allee_palmiers_entree.jpg" alt="Villa Fête Journée Fort de France">
-                <img src="./images/Villa_Fete_Journee_Fort_de_France/07_equipements_amenagements.jpg" alt="Villa Fête Journée Fort de France">
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg" alt="Villa Fête Journée Fort de France" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg" alt="Villa Fête Journée Fort de France" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg" alt="Villa Fête Journée Fort de France" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg" alt="Villa Fête Journée Fort de France" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg" alt="Villa Fête Journée Fort de France" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Fort_de_France/06_allee_palmiers_entree.jpg" alt="Villa Fête Journée Fort de France" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Villa_Fete_Journee_Fort_de_France/07_equipements_amenagements.jpg" alt="Villa Fête Journée Fort de France" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
             </div>
         </section>
 
@@ -110,105 +136,22 @@
             </div>
         </section>
 
-        <!-- Formulaire Réservation -->
+        <!-- Réservation Premium -->
         <section class="booking glass-card">
-            <h2>Réserver cette Villa</h2>
-            <form class="booking-form" action="./process-booking.php" method="POST">
-                <input type="hidden" name="villa_id" value="villa-fete-fort-de-france">
-                <input type="hidden" name="villa_name" value="Villa Fête Journée Fort de France">
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Date d'arrivée</label>
-                        <input type="date" name="checkin" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Heure début</label>
-                        <select name="start_time" required>
-                            <option value="">Choisir...</option>
-                            <option value="06:00">06:00</option>
-                            <option value="08:00">08:00</option>
-                            <option value="10:00">10:00</option>
-                            <option value="12:00">12:00</option>
-                            <option value="14:00">14:00</option>
-                            <option value="16:00">16:00</option>
-                            <option value="18:00">18:00</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nombre de personnes</label>
-                        <select name="guests" required>
-                            <option value="">Choisir...</option>
-                            <option value="20">20 personnes</option>
-                            <option value="25">25 personnes</option>
-                            <option value="30">30 personnes</option>
-                            <option value="35">35 personnes</option>
-                            <option value="40">40 personnes</option>
-                            <option value="45">45 personnes</option>
-                            <option value="50">50 personnes</option>
-                            <option value="55">55 personnes</option>
-                            <option value="60">60 personnes</option>
-                            <option value="65">65 personnes</option>
-                            <option value="70">70 personnes</option>
-                            <option value="75">75 personnes</option>
-                            <option value="80">80 personnes</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Durée (heures)</label>
-                        <select name="duration" required>
-                            <option value="">Choisir...</option>
-                            <option value="2">2 heures</option>
-                            <option value="3">3 heures</option>
-                            <option value="4">4 heures</option>
-                            <option value="5">5 heures</option>
-                            <option value="6">6 heures</option>
-                            <option value="8">8 heures</option>
-                            <option value="10">10 heures</option>
-                            <option value="12">12 heures</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Type d'événement</label>
-                    <select name="event_type" required>
-                        <option value="">Choisir...</option>
-                        <option value="mariage">Mariage</option>
-                        <option value="anniversaire">Anniversaire</option>
-                        <option value="bapteme">Baptême</option>
-                        <option value="communion">Communion</option>
-                        <option value="entreprise">Événement d'entreprise</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>Nom complet</label>
-                    <input type="text" name="name" required>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Téléphone</label>
-                        <input type="tel" name="phone" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Message (optionnel)</label>
-                    <textarea name="message" placeholder="Précisez vos besoins particuliers et prestations souhaitées..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-book">Demander un Devis</button>
-            </form>
+            <h2>Réservation</h2>
+            <div class="reservation-buttons">
+                <a href="javascript:void(0)" 
+                   class="btn-reserve-primary" 
+                   onclick="ReservationManager.goToReservation('villa-fete-fort-de-france', 'Villa Fête Journée Fort de France')">
+                    🏨 Réserver maintenant
+                </a>
+                <a href="./reservation.html" class="btn-reserve-secondary">
+                    📋 Voir toutes les villas
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
+                Réservation sécurisée • Confirmation immédiate • Assistance 24/7
+            </p>
         </section>
     </main>
 
@@ -231,6 +174,19 @@
         </div>
     </footer>
 
-    <script src="./assets/js/glassmorphism.js"></script>
+    <script src="./assets/js/villa-gallery.js"></script>
+    <script>
+        // Initialisation spécifique à cette villa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données de la villa pour la réservation
+            window.currentVilla = {
+                id: 'villa-fete-fort-de-france',
+                name: 'Villa Fête Journée Fort de France',
+                basePrice: 100,
+                capacity: 80,
+                maxGuests: 80
+            };
+        });
+    </script>
 </body>
 </html>

@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Villa de luxe en Martinique avec design premium et réservation en ligne sécurisée.">
     <title>Bas de villa F3 sur Ste Luce - Khanel Concept Martinique</title>
-    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+        <link rel="stylesheet" href="./assets/css/villa-enhanced.css">
+    <link rel="preload" href="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" as="video" type="video/mp4">
 </head>
 <body>
-    <!-- Video Background (identique index) -->
+    <!-- Video Background Premium -->
     <div class="video-background">
-        <video autoplay muted loop>
+        <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
             <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
         </video>
     </div>
+    
+    <!-- Fallback Background -->
+    <div class="video-background-fallback"></div>
 
     <!-- Header glassmorphism (identique index) -->
     <header class="glass-header">
@@ -43,20 +48,62 @@
         <section class="gallery glass-card">
             <h2>Galerie Photos</h2>
             <div class="photo-slider">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/07_coin_repas.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/salon_tv_eclairage_moderne.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/chambre_principale.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_2.jpg" alt="Bas de villa F3 sur Ste Luce">
-                <img src="./images/Bas_Villa_F3_Ste_Luce/salle_a_manger_ronde.jpg" alt="Bas de villa F3 sur Ste Luce">
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/07_coin_repas.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/salon_tv_eclairage_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/chambre_principale.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_2.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
+                <div class="photo-item">
+                    <img src="./images/Bas_Villa_F3_Ste_Luce/salle_a_manger_ronde.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
+                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
+                </div>
             </div>
         </section>
 
@@ -127,70 +174,22 @@
             </div>
         </section>
 
-        <!-- Formulaire Réservation -->
+        <!-- Réservation Premium -->
         <section class="booking glass-card">
-            <h2>Réserver cette Villa</h2>
-            <form class="booking-form" action="./process-booking.php" method="POST">
-                <input type="hidden" name="villa_id" value="bas-villa-ste-luce">
-                <input type="hidden" name="villa_name" value="Bas de villa F3 sur Ste Luce">
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Date d'arrivée</label>
-                        <input type="date" name="checkin" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Date de départ</label>
-                        <input type="date" name="checkout" required>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Nombre de personnes</label>
-                        <select name="guests" required>
-                            <option value="">Choisir...</option>
-                            <option value="1">1 personne</option>
-                            <option value="2">2 personnes</option>
-                            <option value="3">3 personnes</option>
-                            <option value="4">4 personnes</option>
-                            <option value="5">5 personnes</option>
-                            <option value="6">6 personnes</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Type de séjour</label>
-                        <select name="stay_type" required>
-                            <option value="">Choisir...</option>
-                            <option value="weekend">Week-end</option>
-                            <option value="semaine">Semaine</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Nom complet</label>
-                    <input type="text" name="name" required>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Téléphone</label>
-                        <input type="tel" name="phone" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Message (optionnel)</label>
-                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn-book">Demander un Devis</button>
-            </form>
+            <h2>Réservation</h2>
+            <div class="reservation-buttons">
+                <a href="javascript:void(0)" 
+                   class="btn-reserve-primary" 
+                   onclick="ReservationManager.goToReservation('bas-villa-ste-luce', 'Bas de villa F3 sur Ste Luce')">
+                    🏨 Réserver maintenant
+                </a>
+                <a href="./reservation.html" class="btn-reserve-secondary">
+                    📋 Voir toutes les villas
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
+                Réservation sécurisée • Confirmation immédiate • Assistance 24/7
+            </p>
         </section>
     </main>
 
@@ -213,6 +212,19 @@
         </div>
     </footer>
 
-    <script src="./assets/js/glassmorphism.js"></script>
+    <script src="./assets/js/villa-gallery.js"></script>
+    <script>
+        // Initialisation spécifique à cette villa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données de la villa pour la réservation
+            window.currentVilla = {
+                id: 'bas-villa-ste-luce',
+                name: 'Bas de villa F3 sur Ste Luce',
+                basePrice: 470,
+                capacity: 6,
+                maxGuests: 6
+            };
+        });
+    </script>
 </body>
 </html>
