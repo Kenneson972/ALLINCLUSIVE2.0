@@ -2800,6 +2800,31 @@
         async function loadVillasFromAPI() {
             try {
                 console.log("🔄 Chargement des villas depuis l'API...");
+                
+                // Afficher un état de chargement
+                const grid = document.getElementById('villasGrid');
+                if (grid) {
+                    grid.innerHTML = `
+                        <div class="glass-card" style="text-align: center; padding: 3rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem; animation: spin 2s linear infinite;">
+                                <i class="fas fa-spinner"></i>
+                            </div>
+                            <h3 style="color: white; margin-bottom: 1rem;">
+                                Chargement des villas...
+                            </h3>
+                            <p style="color: rgba(255,255,255,0.8);">
+                                Connexion au serveur en cours
+                            </p>
+                        </div>
+                        <style>
+                            @keyframes spin {
+                                from { transform: rotate(0deg); }
+                                to { transform: rotate(360deg); }
+                            }
+                        </style>
+                    `;
+                }
+                
                 const backendUrl = window.location.origin;
                 const response = await fetch(`${backendUrl}/api/villas`);
                 
