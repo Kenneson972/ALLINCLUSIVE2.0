@@ -192,7 +192,48 @@
                 capacity: 10,
                 maxGuests: 15
             };
+            
+            // Force le démarrage de la vidéo background
+            initVideoBackground();
         });
+        
+        // Fonction pour forcer la vidéo background
+        function initVideoBackground() {
+            const video = document.querySelector('.video-background video');
+            if (video) {
+                console.log('🎥 Initialisation vidéo background villa');
+                
+                // Configuration vidéo
+                video.muted = true;
+                video.loop = true;
+                video.autoplay = true;
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+                
+                // Tentative de lecture
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('✅ Vidéo background démarrée');
+                        video.style.opacity = '1';
+                    }).catch(error => {
+                        console.log('⚠️ Autoplay bloqué, utilisation du fallback');
+                        video.style.display = 'none';
+                        document.querySelector('.video-background-fallback').style.display = 'block';
+                    });
+                }
+                
+                // Gestion iOS/Mobile
+                if (/iPad|iPhone|iPod|Android/i.test(navigator.userAgent)) {
+                    document.addEventListener('touchstart', function startVideoOnTouch() {
+                        video.play().then(() => {
+                            console.log('✅ Vidéo démarrée sur mobile');
+                            document.removeEventListener('touchstart', startVideoOnTouch);
+                        });
+                    }, { once: true });
+                }
+            }
+        }
     </script>
 </body>
 </html>
