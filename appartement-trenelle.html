@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appartement F3 Trenelle (Location Annuelle) - Khanel Concept Martinique</title>
+    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+</head>
+<body>
+    <!-- Video Background (identique index) -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header glassmorphism (identique index) -->
+    <header class="glass-header">
+        <nav>
+            <div class="logo">Khanel Concept</div>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./villas.html">Nos Villas</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="villa-content">
+        <!-- Hero Section -->
+        <section class="hero-villa glass-card">
+            <h1>Appartement F3 Trenelle (Location Annuelle)</h1>
+            <p class="villa-location">Trenelle, à 2 minutes du PPM</p>
+            <div class="villa-specs">
+                <span>F3 meublé</span>
+                <span>Couple sans enfant, personne seule ou 2 colocataires</span>
+                <span>700€/mois</span>
+            </div>
+        </section>
+
+        <!-- Galerie Photos -->
+        <section class="gallery glass-card">
+            <h2>Galerie Photos</h2>
+            <div class="photo-slider">
+                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg" alt="Appartement F3 Trenelle">
+                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg" alt="Appartement F3 Trenelle">
+                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg" alt="Appartement F3 Trenelle">
+                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg" alt="Appartement F3 Trenelle">
+                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg" alt="Appartement F3 Trenelle">
+                <img src="./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg" alt="Appartement F3 Trenelle">
+            </div>
+        </section>
+
+        <!-- Détails Villa -->
+        <section class="details glass-card">
+            <h2>Détails de l'Appartement</h2>
+            <div class="details-grid">
+                <div class="description">
+                    <p>Location à l'année (bail de 12 mois) avec possibilité de louer pour 3 ou 6 mois. Accès au logement: 1550€ (2 mois de caution + 1 mois de loyer hors charges).</p>
+                </div>
+                <div class="amenities">
+                    <h3>Équipements & Services</h3>
+                    <ul>
+                        <li>Meublé complet</li>
+                        <li>Eau et électricité incluses</li>
+                        <li>Salon salle à manger</li>
+                        <li>Espace détente</li>
+                        <li>Salon avec télévision</li>
+                        <li>Cuisine équipée</li>
+                        <li>À 2 minutes du PPM</li>
+                        <li>Idéal couple, personne seule ou colocataires</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs (section critique) -->
+        <section class="pricing glass-card">
+            <h2>Tarifs & Disponibilités</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Période</th>
+                            <th>Durée</th>
+                            <th>Tarif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Location annuelle</td>
+                            <td>12 mois</td>
+                            <td>700€/mois</td>
+                        </tr>
+                        <tr>
+                            <td>Location courte durée</td>
+                            <td>3 mois</td>
+                            <td>700€/mois</td>
+                        </tr>
+                        <tr>
+                            <td>Location courte durée</td>
+                            <td>6 mois</td>
+                            <td>700€/mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-notes">
+                <p><strong>Loyer:</strong> 700€/mois (eau et EDF inclus)</p>
+                <p><strong>Accès au logement:</strong> 1550€ (2 mois de caution + 1 mois de loyer hors charges)</p>
+                <p><strong>Bail:</strong> 12 mois avec possibilité 3 ou 6 mois</p>
+                <p><strong>Profil:</strong> Couple sans enfant, personne seule ou 2 colocataires</p>
+            </div>
+        </section>
+
+        <!-- Formulaire Réservation -->
+        <section class="booking glass-card">
+            <h2>Réserver cet Appartement</h2>
+            <form class="booking-form" action="./process-booking.php" method="POST">
+                <input type="hidden" name="villa_id" value="appartement-trenelle">
+                <input type="hidden" name="villa_name" value="Appartement F3 Trenelle (Location Annuelle)">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'arrivée</label>
+                        <input type="date" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Durée souhaitée</label>
+                        <select name="stay_type" required>
+                            <option value="">Choisir...</option>
+                            <option value="3mois">3 mois</option>
+                            <option value="6mois">6 mois</option>
+                            <option value="12mois">12 mois</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Profil</label>
+                        <select name="guests" required>
+                            <option value="">Choisir...</option>
+                            <option value="personne_seule">Personne seule</option>
+                            <option value="couple">Couple sans enfant</option>
+                            <option value="colocataires">2 colocataires</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Situation professionnelle</label>
+                        <select name="professional_status" required>
+                            <option value="">Choisir...</option>
+                            <option value="emploi">Emploi stable</option>
+                            <option value="etudiant">Étudiant</option>
+                            <option value="retraite">Retraité</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message (optionnel)</label>
+                    <textarea name="message" placeholder="Précisez votre profil et vos besoins..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-book">Demander des Informations</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer identique index -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Khanel Concept</h3>
+                <p>Location de villas de prestige en Martinique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Saint-Joseph, Martinique</p>
+                <p>Tél: +596 696 XX XX XX</p>
+                <p>Email: contact@khanelconcept.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="./assets/js/glassmorphism.js"></script>
+</body>
+</html>
