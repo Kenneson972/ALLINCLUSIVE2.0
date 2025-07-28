@@ -2217,7 +2217,7 @@ async def get_analytics_overview(current_admin: dict = Depends(get_current_admin
         raise HTTPException(status_code=500, detail=f"Erreur analytics overview: {e}")
 
 @app.get("/api/admin/analytics/performance")
-async def get_performance_analytics():
+async def get_performance_analytics(current_admin: dict = Depends(get_current_admin)):
     """Analytics de performance du système"""
     try:
         now = datetime.utcnow()
