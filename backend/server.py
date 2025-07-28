@@ -434,9 +434,23 @@ async def get_villas():
 @app.get("/api/villas/{villa_id}", response_model=Villa)
 async def get_villa(villa_id: str):
     """Récupérer une villa spécifique"""
-    villa = await db.villas.find_one({"id": villa_id})
+    villa = await db.villas.find_one({"id": villa_id}, {"_id": 0})
+    if not villa:
+        # Try with integer ID as fallback
+        try:
+            villa = await db.villas.find_one({"id": int(villa_id)}, {"_id": 0})
+        except ValueError:
+            pass
     if not villa:
         raise HTTPException(status_code=404, detail="Villa non trouvée")
+    
+    # Convert integer ID to string for consistency
+    if "id" in villa and isinstance(villa["id"], int):
+        villa["id"] = str(villa["id"])
+    # Ensure fallback_icon exists
+    if "fallback_icon" not in villa:
+        villa["fallback_icon"] = "🏖️"
+    
     return villa
 
 @app.post("/api/villas/search", response_model=List[Villa])
