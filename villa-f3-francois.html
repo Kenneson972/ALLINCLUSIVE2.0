@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa F3 sur le François - Khanel Concept Martinique</title>
+    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+</head>
+<body>
+    <!-- Video Background (identique index) -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header glassmorphism (identique index) -->
+    <header class="glass-header">
+        <nav>
+            <div class="logo">Khanel Concept</div>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./villas.html">Nos Villas</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="villa-content">
+        <!-- Hero Section -->
+        <section class="hero-villa glass-card">
+            <h1>Villa F3 sur le François</h1>
+            <p class="villa-location">Hauteurs du Morne Carrière au François</p>
+            <div class="villa-specs">
+                <span>F3</span>
+                <span>4 personnes (maximum 10 invités)</span>
+                <span>À partir de 800€</span>
+            </div>
+        </section>
+
+        <!-- Galerie Photos -->
+        <section class="gallery glass-card">
+            <h2>Galerie Photos</h2>
+            <div class="photo-slider">
+                <img src="./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg" alt="Villa F3 sur le François">
+                <img src="./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg" alt="Villa F3 sur le François">
+                <img src="./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg" alt="Villa F3 sur le François">
+                <img src="./images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg" alt="Villa F3 sur le François">
+                <img src="./images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg" alt="Villa F3 sur le François">
+                <img src="./images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg" alt="Villa F3 sur le François">
+                <img src="./images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg" alt="Villa F3 sur le François">
+                <img src="./images/Villa_F3_Le_Francois/08_chambre_jaune_moderne.jpg" alt="Villa F3 sur le François">
+            </div>
+        </section>
+
+        <!-- Détails Villa -->
+        <section class="details glass-card">
+            <h2>Détails de la Villa</h2>
+            <div class="details-grid">
+                <div class="description">
+                    <p>Caution: 1000€ (850€ par chèque et 150€ en espèces). Check-in: 16h, Check-out: 11h (option late check-out: +80€). Frais de 50€ par 30 minutes de retard pour la remise des clés. Villa à rendre propre et rangée.</p>
+                </div>
+                <div class="amenities">
+                    <h3>Équipements & Services</h3>
+                    <ul>
+                        <li>Stationnement pour 5 véhicules</li>
+                        <li>Enceintes JBL autorisées</li>
+                        <li>Terrasse avec vue panoramique</li>
+                        <li>Piscine privée</li>
+                        <li>Cuisine équipée</li>
+                        <li>Salon extérieur</li>
+                        <li>Chambres climatisées</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs (section critique) -->
+        <section class="pricing glass-card">
+            <h2>Tarifs & Disponibilités</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Période</th>
+                            <th>Durée</th>
+                            <th>Tarif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Weekend</td>
+                            <td>2 nuits</td>
+                            <td>800€</td>
+                        </tr>
+                        <tr>
+                            <td>Semaine</td>
+                            <td>7 jours</td>
+                            <td>1376€</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-notes">
+                <p><strong>Caution:</strong> 1000€ (850€ par chèque et 150€ en espèces)</p>
+                <p><strong>Check-in:</strong> 16h</p>
+                <p><strong>Check-out:</strong> 11h (option late check-out: +80€)</p>
+                <p><strong>Retard:</strong> Frais de 50€ par 30 minutes de retard pour la remise des clés</p>
+                <p><strong>Condition:</strong> Villa à rendre propre et rangée</p>
+            </div>
+        </section>
+
+        <!-- Formulaire Réservation -->
+        <section class="booking glass-card">
+            <h2>Réserver cette Villa</h2>
+            <form class="booking-form" action="./process-booking.php" method="POST">
+                <input type="hidden" name="villa_id" value="villa-f3-francois">
+                <input type="hidden" name="villa_name" value="Villa F3 sur le François">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'arrivée</label>
+                        <input type="date" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date de départ</label>
+                        <input type="date" name="checkout" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre de personnes</label>
+                        <select name="guests" required>
+                            <option value="">Choisir...</option>
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5-10 personnes (avec invités)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type de séjour</label>
+                        <select name="stay_type" required>
+                            <option value="">Choisir...</option>
+                            <option value="weekend">Week-end</option>
+                            <option value="semaine">Semaine</option>
+                            <option value="fete">Avec fête/invités</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message (optionnel)</label>
+                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-book">Demander un Devis</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer identique index -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Khanel Concept</h3>
+                <p>Location de villas de prestige en Martinique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Saint-Joseph, Martinique</p>
+                <p>Tél: +596 696 XX XX XX</p>
+                <p>Email: contact@khanelconcept.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="./assets/js/glassmorphism.js"></script>
+</body>
+</html>
