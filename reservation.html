@@ -745,6 +745,36 @@
                     
                     <form id="reservationForm" class="space-y-6">
                         
+                        <!-- Sélection de Villa -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-home mr-2"></i>Choisir une villa
+                            </label>
+                            <select id="villaSelect" class="form-input" required>
+                                <option value="">Sélectionnez une villa...</option>
+                                <option value="villa-f3-petit-macabou">Villa F3 sur Petit Macabou - Vauclin - À partir de 850€</option>
+                                <option value="villa-f5-ste-anne">Villa F5 sur Ste Anne - Ste Anne - À partir de 1350€</option>
+                                <option value="villa-f3-baccha">Villa F3 Baccha Petit Macabou - Vauclin - À partir de 750€</option>
+                                <option value="villa-f6-lamentin">Villa F6 Lamentin - Lamentin - À partir de 1200€</option>
+                                <option value="villa-f6-ste-luce">Villa F6 Ste Luce Plage - Ste Luce - À partir de 1800€</option>
+                                <option value="villa-f6-petit-macabou-fete">Villa F6 Petit Macabou - Vauclin - À partir de 2000€</option>
+                                <option value="villa-f7-baie-mulets">Villa F7 Baie des Mulets - Vauclin - À partir de 2200€</option>
+                                <option value="villa-f3-francois">Villa F3 Le François - François - À partir de 900€</option>
+                                <option value="villa-f5-la-renee">Villa F5 R.Pilote - Rivière Pilote - À partir de 1100€</option>
+                                <option value="villa-f5-vauclin">Villa F5 Vauclin Ravine Plate - Vauclin - À partir de 1250€</option>
+                                <option value="villa-fete-ducos">Villa Fête Journée Ducos - Ducos - À partir de 20€/pers</option>
+                                <option value="villa-fete-fort-de-france">Villa Fête Journée Fort de France - Fort-de-France - À partir de 25€/pers</option>
+                                <option value="villa-fete-riviere-pilote">Villa Fête Journée Rivière Pilote - Rivière Pilote - À partir de 30€/pers</option>
+                                <option value="villa-fete-riviere-salee">Villa Fête Journée Rivière Salée - Rivière Salée - À partir de 25€/pers</option>
+                                <option value="villa-fete-sainte-luce">Villa Fête Journée Sainte Luce - Sainte Luce - À partir de 28€/pers</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Aperçu Villa (caché par défaut) -->
+                        <div id="villaInfo" class="glass-card bg-white/5 p-4 rounded-xl" style="display: none;">
+                            <!-- Contenu dynamique -->
+                        </div>
+                        
                         <!-- Dates de Séjour -->
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="form-group">
