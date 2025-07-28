@@ -3799,29 +3799,29 @@
 
         // Fonctions d'actions
         function getVillaPageUrl(villaId) {
-            // Correspondance CORRIGÉE entre les IDs des villas et leurs pages HTML détails
+            // Correspondance CORRIGÉE entre les IDs des villas et les NOUVELLES pages HTML créées
             const villaPageMapping = {
                 1: "villa-f3-petit-macabou.html",                    // Villa F3 Petit Macabou
                 2: "villa-f5-ste-anne.html",                         // Villa F5 Ste Anne
-                3: "villa-f3-baccha-petit-macabou.html",             // Villa F3 Baccha Petit Macabou
+                3: "villa-f3-baccha.html",                           // Villa F3 POUR LA BACCHA
                 4: "villa-f6-lamentin.html",                         // Villa F6 Lamentin
-                5: "villa-f6-ste-luce-plage.html",                   // Villa F6 Ste Luce Plage
-                6: "villa-f6-petit-macabou.html",                    // Villa F6 Petit Macabou
-                7: "villa-f7-baie-des-mulets-vauclin.html",          // Villa F7 Baie des Mulets
-                8: "villa-f3-trinite-cosmy.html",                    // Villa F3 Trinité Cosmy
-                9: "villa-f3-robert-pointe-hyacinthe.html",          // Villa F3 Le Robert (corrigé)
-                10: "villa-f5-r-pilote-la-renee.html",               // Villa F5 R.Pilote
-                11: "villa-f3-le-francois.html",                     // Villa F3 Le François
-                12: "villa-f5-vauclin-ravine-plate.html",            // Villa F5 Vauclin Ravine Plate
-                13: "villa-f3-trenelle-location-annuelle.html",      // Bas Villa F3 Ste Luce (corrigé)
-                14: "villa-f3-trenelle-location-annuelle.html",      // Villa F3 Trenelle
-                15: "villa-details.html",                            // Studio Cocooning Lamentin (générique)
-                16: "villa-details.html",                            // Espace Piscine Journée Bungalow (générique)
-                17: "villa-fete-journee-ducos.html",                 // Villa Fête Ducos
-                18: "villa-fete-journee-fort-de-france.html",        // Villa Fête Fort-de-France
-                19: "villa-fete-journee-r-pilote.html",              // Villa Fête Rivière-Pilote
-                20: "villa-fete-journee-sainte-luce.html",           // Villa Fête Sainte-Luce
-                21: "villa-fete-journee-riviere-salee.html"          // Espace Piscine Journée Bungalow (corrigé)
+                5: "villa-f6-ste-luce.html",                         // Villa F6 Ste Luce à 1mn de la plage
+                6: "villa-f6-petit-macabou-fete.html",               // Villa F6 Petit Macabou (séjour + fête)
+                7: "villa-f7-baie-mulets.html",                      // Villa F7 Baie des Mulets
+                8: "bas-villa-trinite-cosmy.html",                   // Bas de villa F3 Trinité Cosmy
+                9: "bas-villa-robert.html",                          // Bas de villa F3 sur le Robert
+                10: "villa-f5-la-renee.html",                        // Villa F5 La Renée
+                11: "villa-f3-francois.html",                        // Villa F3 sur le François
+                12: "villa-f5-vauclin.html",                         // Villa F5 Vauclin Ravine Plate
+                13: "bas-villa-ste-luce.html",                       // Bas de villa F3 sur Ste Luce
+                14: "appartement-trenelle.html",                     // Appartement F3 Trenelle
+                15: "studio-cocooning-lamentin.html",                // Studio Cocooning Lamentin
+                16: "espace-piscine-bungalow.html",                  // Espace Piscine Journée Bungalow
+                17: "villa-fete-ducos.html",                         // Villa Fête Journée Ducos
+                18: "villa-fete-fort-de-france.html",                // Villa Fête Journée Fort de France
+                19: "villa-fete-riviere-pilote.html",                // Villa Fête Journée Rivière-Pilote
+                20: "villa-fete-sainte-luce.html",                   // Villa Fête Journée Sainte-Luce
+                21: "villa-fete-riviere-salee.html"                  // Villa Fête Journée Rivière Salée
             };
             
             return villaPageMapping[villaId] || 'index.html';
