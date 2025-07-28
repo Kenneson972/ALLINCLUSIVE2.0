@@ -223,6 +223,99 @@ VILLA_CSV_DATA = {
         "services": "Bac à punch privé (petite piscine)",
         "description": "Pas d'invités autorisés. Location uniquement à la semaine pendant les vacances scolaires et haute saison touristique. Check-in: 16h, Check-out: 11h (départ tardif possible selon disponibilité). Paiement en plusieurs fois sans frais possible (tout doit être réglé avant entrée).",
         "file": "studio-cocooning-lamentin.html"
+    },
+    "Villa F6 sur Petit Macabou (séjour + fête)": {
+        "name": "Villa F6 sur Petit Macabou (séjour + fête)",
+        "location": "Petit Macabou au Vauclin (972)",
+        "price": 2000,
+        "guests": "10 à 13 personnes (jusqu'à 30 invités pour fêtes)",
+        "pricing": {
+            "base": 2000,
+            "weekend": 2000,
+            "week": 3220,
+            "high_season": 3220,
+            "details": "Weekend: 2000€, Semaine: à partir de 3220€"
+        },
+        "services": "3 chambres climatisées avec salle de bain attenante, 1 mezzanine, 2 studios aux extrémités, possibilité de louer 3 bungalows supplémentaires avec bac à punch",
+        "description": "Villa somptueuse et très spacieuse. Événements ou fêtes autorisés de 9h à 19h. Mariage ou baptême avec hébergements sur demande jusqu'à 150 invités. Covoiturage recommandé. Caution: 2500€ par chèque.",
+        "file": "villa-f6-petit-macabou.html"
+    },
+    "Villa Fête Journée Ducos": {
+        "name": "Villa Fête Journée Ducos",
+        "location": "Ducos", 
+        "price": 375,
+        "guests": "5 à 30 personnes",
+        "pricing": {
+            "base": 375,
+            "person_rate": 30,
+            "package_15": 375,
+            "package_20": 440,
+            "package_30": 510,
+            "details": "Formule 1 (10h-20h): 30€/personne, Package 15 pers: 375€, 20 pers: 440€, 30 pers: 510€"
+        },
+        "services": "Piscine, espace extérieur",
+        "description": "12 places de parking + stationnement supplémentaire possible en bordure de route. Enfants comptés à partir de 6 ans. Paiement possible en plusieurs fois sans frais, mais doit être réglé avant l'entrée.",
+        "file": "villa-fete-journee-ducos.html"
+    },
+    "Villa Fête Journée Fort de France": {
+        "name": "Villa Fête Journée Fort de France", 
+        "location": "Fort de France",
+        "price": 100,
+        "guests": "20 à 80 personnes",
+        "pricing": {
+            "base": 100,
+            "hourly_rate": 100,
+            "details": "À partir de 100€/heure"
+        },
+        "services": "Prestations à la carte",
+        "description": "Disponible de 6h à minuit. Paiement possible en plusieurs fois sans frais (tout doit être réglé avant entrée).",
+        "file": "villa-fete-journee-fort-de-france.html"
+    },
+    "Villa Fête Journée Rivière-Pilote": {
+        "name": "Villa Fête Journée Rivière-Pilote",
+        "location": "Rivière-Pilote",
+        "price": 660,
+        "guests": "Jusqu'à 100 invités",
+        "pricing": {
+            "base": 660,
+            "private_event": 660,
+            "details": "660€ pour événement privé (anniversaire enfant, enterrement vie célibataire). Devis personnalisé pour mariage, baptême, communion."
+        },
+        "services": "Piscine chauffée, cuisine extérieure équipée (four, micro-onde, congélateur, bar office), DJ autorisé, bungalow 2 personnes (130€/nuit), appartement 2 personnes (110€/nuit)",
+        "description": "Horaires fête: 13h-20h ou 18h-2h. Caution: 800€.",
+        "file": "villa-fete-journee-r-pilote.html"
+    },
+    "Villa Fête Journée Rivière Salée": {
+        "name": "Villa Fête Journée Rivière Salée",
+        "location": "Quartier La Laugier, Rivière Salée",
+        "price": 400,
+        "guests": "De 25 à 100 personnes (selon forfait)",
+        "pricing": {
+            "base": 400,
+            "forfait_1": 400,
+            "forfait_2": 550,
+            "forfait_3": 750,
+            "forfait_4": 1000,
+            "details": "Forfait 1 (12h-19h): 400€ (25 pers). Forfait 2 (12h-19h): 550€ (50 pers). Forfait 3 (8h-22h): 750€ (50 pers). Forfait 4 (8h-22h): 1000€ (100 pers)."
+        },
+        "services": "5 tables rectangulaires, chaises plastiques selon forfait",
+        "description": "Pour événements utilisant la piscine: maître-nageur ou pompier obligatoire aux frais de l'organisateur (sinon barrière de sécurité installée). Déchets à enlever après l'événement. Acompte 30% à la réservation, solde 48h avant l'événement.",
+        "file": "villa-fete-journee-riviere-salee.html"
+    },
+    "Villa Fête Journée Sainte-Luce": {
+        "name": "Villa Fête Journée Sainte-Luce",
+        "location": "Sainte-Luce, près de la Forêt Montravail",
+        "price": 390,
+        "guests": "Jusqu'à 40 personnes",
+        "pricing": {
+            "base": 390,
+            "for_20_guests": 390,
+            "for_40_guests": 560,
+            "details": "390€ pour 20 personnes, 560€ pour 40 personnes"
+        },
+        "services": "3 tentes, 3 salons extérieurs, 2 grandes tables, 1 réfrigérateur, évier extérieur, douche, WC, système son JBL",
+        "description": "Horaires: 10h-18h (flexible). Caution: 800€ par chèque. Covoiturage recommandé. Paiement sans frais possible, tout doit être réglé avant entrée.",
+        "file": "villa-fete-journee-sainte-luce.html"
     }
 }
 
