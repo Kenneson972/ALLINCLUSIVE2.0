@@ -1,5 +1,572 @@
 #!/usr/bin/env python3
 """
+KhanelConcept Backend Testing Suite - Villa Data Corrections Verification
+Test complet du backend après corrections des villas (January 29, 2025)
+
+Tests requis selon la review request:
+1. API Villas: Vérifier que GET /api/villas retourne bien les 21 villas avec les bonnes données
+2. Villa spécifique: Vérifier que "Espace Piscine Journée Bungalow" est présente avec prix 350€ et catégorie "fete"
+3. Images: Vérifier que les chemins d'images sont cohérents (pas de placeholder_villa_*.jpg)
+4. Recherche: Tester la recherche par catégorie "fete" pour trouver l'Espace Piscine
+5. Données pricing_details: Vérifier que les villas ont leurs détails de prix
+"""
+
+import requests
+import json
+import sys
+from datetime import datetime
+
+# Configuration
+BASE_URL = "http://localhost:8001"
+API_BASE = f"{BASE_URL}/api"
+
+class KhanelConceptTester:
+    def __init__(self):
+        self.passed_tests = 0
+        self.failed_tests = 0
+        self.test_results = []
+        
+    def log_test(self, test_name, passed, message, details=None):
+        """Log test result"""
+        status = "✅ PASSED" if passed else "❌ FAILED"
+        print(f"{status} - {test_name}: {message}")
+        
+        if details:
+            print(f"   Details: {details}")
+            
+        self.test_results.append({
+            "test": test_name,
+            "passed": passed,
+            "message": message,
+            "details": details,
+            "timestamp": datetime.now().isoformat()
+        })
+        
+        if passed:
+            self.passed_tests += 1
+        else:
+            self.failed_tests += 1
+    
+    def test_api_health(self):
+        """Test 0: Vérifier que l'API est accessible"""
+        try:
+            response = requests.get(f"{API_BASE}/health", timeout=10)
+            if response.status_code == 200:
+                data = response.json()
+                self.log_test(
+                    "API Health Check",
+                    True,
+                    f"API accessible, status: {data.get('status', 'unknown')}"
+                )
+                return True
+            else:
+                self.log_test(
+                    "API Health Check",
+                    False,
+                    f"API non accessible, status code: {response.status_code}"
+                )
+                return False
+        except Exception as e:
+            self.log_test(
+                "API Health Check",
+                False,
+                f"Erreur de connexion: {str(e)}"
+            )
+            return False
+    
+    def test_villas_count_and_data(self):
+        """Test 1: Vérifier que GET /api/villas retourne exactement 21 villas avec bonnes données"""
+        try:
+            response = requests.get(f"{API_BASE}/villas", timeout=10)
+            if response.status_code != 200:
+                self.log_test(
+                    "Villa Count and Data",
+                    False,
+                    f"Erreur API: {response.status_code}"
+                )
+                return False
+            
+            villas = response.json()
+            villa_count = len(villas)
+            
+            # Vérification du nombre exact de villas
+            if villa_count == 21:
+                self.log_test(
+                    "Villa Count Verification",
+                    True,
+                    f"Nombre exact de villas confirmé: {villa_count}"
+                )
+            else:
+                self.log_test(
+                    "Villa Count Verification",
+                    False,
+                    f"Nombre incorrect de villas: {villa_count} (attendu: 21)"
+                )
+                return False
+            
+            # Vérifier la structure des données
+            required_fields = ['id', 'name', 'location', 'price', 'guests', 'category', 'image', 'gallery']
+            missing_fields = []
+            
+            for villa in villas[:3]:  # Vérifier les 3 premières villas
+                for field in required_fields:
+                    if field not in villa:
+                        missing_fields.append(f"{villa.get('name', 'Unknown')}: {field}")
+            
+            if not missing_fields:
+                self.log_test(
+                    "Villa Data Structure",
+                    True,
+                    "Tous les champs requis présents dans les villas"
+                )
+            else:
+                self.log_test(
+                    "Villa Data Structure",
+                    False,
+                    f"Champs manquants: {', '.join(missing_fields)}"
+                )
+            
+            return villas
+            
+        except Exception as e:
+            self.log_test(
+                "Villa Count and Data",
+                False,
+                f"Erreur lors de la récupération des villas: {str(e)}"
+            )
+            return False
+    
+    def test_espace_piscine_villa(self, villas):
+        """Test 2: Vérifier que "Espace Piscine Journée Bungalow" est présente avec prix 350€ et catégorie "fete" """
+        if not villas:
+            self.log_test(
+                "Espace Piscine Villa",
+                False,
+                "Pas de données de villas disponibles"
+            )
+            return False
+        
+        # Rechercher la villa "Espace Piscine Journée Bungalow"
+        espace_piscine = None
+        for villa in villas:
+            if "Espace Piscine Journée Bungalow" in villa.get('name', ''):
+                espace_piscine = villa
+                break
+        
+        if not espace_piscine:
+            # Recherche alternative avec des patterns plus flexibles
+            search_patterns = [
+                "Espace Piscine Journée",
+                "Espace Piscine",
+                "Piscine Journée Bungalow",
+                "Bungalow"
+            ]
+            
+            for pattern in search_patterns:
+                for villa in villas:
+                    if pattern.lower() in villa.get('name', '').lower():
+                        espace_piscine = villa
+                        break
+                if espace_piscine:
+                    break
+        
+        if not espace_piscine:
+            self.log_test(
+                "Espace Piscine Villa - Existence",
+                False,
+                "Villa 'Espace Piscine Journée Bungalow' non trouvée dans la base de données"
+            )
+            return False
+        
+        # Vérifier le prix (350€)
+        villa_price = espace_piscine.get('price', 0)
+        if villa_price == 350 or villa_price == 350.0:
+            self.log_test(
+                "Espace Piscine Villa - Prix",
+                True,
+                f"Prix correct: {villa_price}€"
+            )
+        else:
+            self.log_test(
+                "Espace Piscine Villa - Prix",
+                False,
+                f"Prix incorrect: {villa_price}€ (attendu: 350€)"
+            )
+        
+        # Vérifier la catégorie "fete"
+        villa_category = espace_piscine.get('category', '')
+        if villa_category == 'fete':
+            self.log_test(
+                "Espace Piscine Villa - Catégorie",
+                True,
+                f"Catégorie correcte: {villa_category}"
+            )
+        else:
+            self.log_test(
+                "Espace Piscine Villa - Catégorie",
+                False,
+                f"Catégorie incorrecte: {villa_category} (attendu: fete)"
+            )
+        
+        self.log_test(
+            "Espace Piscine Villa - Trouvée",
+            True,
+            f"Villa trouvée: {espace_piscine.get('name')}",
+            f"Prix: {villa_price}€, Catégorie: {villa_category}"
+        )
+        
+        return espace_piscine
+    
+    def test_image_paths_consistency(self, villas):
+        """Test 3: Vérifier que les chemins d'images sont cohérents (pas de placeholder_villa_*.jpg)"""
+        if not villas:
+            self.log_test(
+                "Image Paths Consistency",
+                False,
+                "Pas de données de villas disponibles"
+            )
+            return False
+        
+        placeholder_images = []
+        inconsistent_paths = []
+        
+        for villa in villas:
+            villa_name = villa.get('name', 'Unknown')
+            
+            # Vérifier l'image principale
+            main_image = villa.get('image', '')
+            if 'placeholder_villa_' in main_image:
+                placeholder_images.append(f"{villa_name}: {main_image}")
+            
+            # Vérifier la galerie
+            gallery = villa.get('gallery', [])
+            for img in gallery:
+                if 'placeholder_villa_' in img:
+                    placeholder_images.append(f"{villa_name} (gallery): {img}")
+        
+        if not placeholder_images:
+            self.log_test(
+                "Image Paths - No Placeholders",
+                True,
+                "Aucune image placeholder trouvée dans les données villa"
+            )
+        else:
+            self.log_test(
+                "Image Paths - No Placeholders",
+                False,
+                f"Images placeholder trouvées: {len(placeholder_images)}",
+                placeholder_images[:5]  # Montrer les 5 premières
+            )
+        
+        # Vérifier la cohérence des chemins
+        valid_paths = 0
+        for villa in villas:
+            main_image = villa.get('image', '')
+            if main_image and (main_image.startswith('./images/') or main_image.startswith('images/') or 'cloudinary' in main_image):
+                valid_paths += 1
+        
+        if valid_paths == len(villas):
+            self.log_test(
+                "Image Paths - Consistency",
+                True,
+                f"Tous les chemins d'images sont cohérents ({valid_paths}/{len(villas)})"
+            )
+        else:
+            self.log_test(
+                "Image Paths - Consistency",
+                False,
+                f"Chemins d'images incohérents: {len(villas) - valid_paths}/{len(villas)} villas"
+            )
+        
+        return len(placeholder_images) == 0
+    
+    def test_search_by_category_fete(self):
+        """Test 4: Tester la recherche par catégorie "fete" pour trouver l'Espace Piscine"""
+        try:
+            search_data = {
+                "category": "fete"
+            }
+            
+            response = requests.post(f"{API_BASE}/villas/search", json=search_data, timeout=10)
+            if response.status_code != 200:
+                self.log_test(
+                    "Search by Category Fete",
+                    False,
+                    f"Erreur API search: {response.status_code}"
+                )
+                return False
+            
+            fete_villas = response.json()
+            fete_count = len(fete_villas)
+            
+            if fete_count > 0:
+                self.log_test(
+                    "Search Category Fete - Results",
+                    True,
+                    f"Recherche catégorie 'fete' retourne {fete_count} villa(s)"
+                )
+            else:
+                self.log_test(
+                    "Search Category Fete - Results",
+                    False,
+                    "Aucune villa trouvée pour la catégorie 'fete'"
+                )
+                return False
+            
+            # Vérifier si l'Espace Piscine est dans les résultats
+            espace_piscine_found = False
+            for villa in fete_villas:
+                villa_name = villa.get('name', '')
+                if 'Espace Piscine' in villa_name or 'Piscine' in villa_name:
+                    espace_piscine_found = True
+                    self.log_test(
+                        "Search Category Fete - Espace Piscine",
+                        True,
+                        f"Espace Piscine trouvée dans les résultats: {villa_name}"
+                    )
+                    break
+            
+            if not espace_piscine_found:
+                villa_names = [v.get('name', 'Unknown') for v in fete_villas]
+                self.log_test(
+                    "Search Category Fete - Espace Piscine",
+                    False,
+                    "Espace Piscine non trouvée dans les résultats de catégorie 'fete'",
+                    f"Villas trouvées: {villa_names}"
+                )
+            
+            return fete_villas
+            
+        except Exception as e:
+            self.log_test(
+                "Search by Category Fete",
+                False,
+                f"Erreur lors de la recherche: {str(e)}"
+            )
+            return False
+    
+    def test_pricing_details(self, villas):
+        """Test 5: Vérifier que les villas ont leurs détails de prix (pricing_details)"""
+        if not villas:
+            self.log_test(
+                "Pricing Details",
+                False,
+                "Pas de données de villas disponibles"
+            )
+            return False
+        
+        villas_with_pricing = 0
+        villas_without_pricing = []
+        
+        for villa in villas:
+            villa_name = villa.get('name', 'Unknown')
+            pricing_details = villa.get('pricing_details')
+            
+            if pricing_details and isinstance(pricing_details, dict) and pricing_details:
+                villas_with_pricing += 1
+            else:
+                villas_without_pricing.append(villa_name)
+        
+        total_villas = len(villas)
+        pricing_percentage = (villas_with_pricing / total_villas) * 100
+        
+        if villas_with_pricing == total_villas:
+            self.log_test(
+                "Pricing Details - Complete",
+                True,
+                f"Toutes les villas ont des pricing_details ({villas_with_pricing}/{total_villas})"
+            )
+        elif villas_with_pricing >= total_villas * 0.8:  # Au moins 80%
+            self.log_test(
+                "Pricing Details - Mostly Complete",
+                True,
+                f"La plupart des villas ont des pricing_details ({villas_with_pricing}/{total_villas} - {pricing_percentage:.1f}%)"
+            )
+        else:
+            self.log_test(
+                "Pricing Details - Incomplete",
+                False,
+                f"Trop peu de villas avec pricing_details ({villas_with_pricing}/{total_villas} - {pricing_percentage:.1f}%)",
+                f"Villas sans pricing_details: {villas_without_pricing[:5]}"
+            )
+        
+        # Vérifier la structure des pricing_details pour quelques villas
+        sample_villas = [v for v in villas if v.get('pricing_details')][:3]
+        for villa in sample_villas:
+            pricing = villa.get('pricing_details', {})
+            villa_name = villa.get('name', 'Unknown')
+            
+            # Vérifier les champs attendus dans pricing_details
+            expected_fields = ['base', 'weekend', 'semaine', 'haute_saison']
+            found_fields = [field for field in expected_fields if field in pricing]
+            
+            if len(found_fields) >= 2:  # Au moins 2 champs de pricing
+                self.log_test(
+                    f"Pricing Details Structure - {villa_name[:30]}",
+                    True,
+                    f"Structure pricing valide: {found_fields}"
+                )
+            else:
+                self.log_test(
+                    f"Pricing Details Structure - {villa_name[:30]}",
+                    False,
+                    f"Structure pricing incomplète: {list(pricing.keys())}"
+                )
+        
+        return villas_with_pricing >= total_villas * 0.8
+    
+    def test_key_villas_verification(self, villas):
+        """Test bonus: Vérifier les villas clés mentionnées dans les tests précédents"""
+        if not villas:
+            return False
+        
+        key_villas = [
+            {"name_pattern": "F3", "location_pattern": "Petit Macabou", "expected_price": 850},
+            {"name_pattern": "F5", "location_pattern": "Ste Anne", "expected_price": 1350},
+            {"name_pattern": "F6", "location_pattern": "Petit Macabou", "expected_price": 2000}
+        ]
+        
+        found_key_villas = 0
+        
+        for key_villa in key_villas:
+            found = False
+            for villa in villas:
+                villa_name = villa.get('name', '')
+                villa_location = villa.get('location', '')
+                villa_price = villa.get('price', 0)
+                
+                if (key_villa["name_pattern"] in villa_name and 
+                    key_villa["location_pattern"] in villa_location):
+                    found = True
+                    found_key_villas += 1
+                    
+                    if villa_price == key_villa["expected_price"]:
+                        self.log_test(
+                            f"Key Villa - {key_villa['name_pattern']} {key_villa['location_pattern']}",
+                            True,
+                            f"Villa trouvée avec prix correct: {villa_price}€"
+                        )
+                    else:
+                        self.log_test(
+                            f"Key Villa - {key_villa['name_pattern']} {key_villa['location_pattern']}",
+                            False,
+                            f"Villa trouvée mais prix incorrect: {villa_price}€ (attendu: {key_villa['expected_price']}€)"
+                        )
+                    break
+            
+            if not found:
+                self.log_test(
+                    f"Key Villa - {key_villa['name_pattern']} {key_villa['location_pattern']}",
+                    False,
+                    "Villa clé non trouvée"
+                )
+        
+        return found_key_villas >= 2
+    
+    def run_comprehensive_tests(self):
+        """Exécuter tous les tests de vérification des corrections villa"""
+        print("🏖️ KHANELCONCEPT BACKEND TESTING - VILLA CORRECTIONS VERIFICATION")
+        print("=" * 80)
+        print(f"Timestamp: {datetime.now().isoformat()}")
+        print(f"Backend URL: {BASE_URL}")
+        print()
+        
+        # Test 0: Health check
+        if not self.test_api_health():
+            print("❌ API non accessible, arrêt des tests")
+            return False
+        
+        print()
+        
+        # Test 1: Récupérer et vérifier les villas
+        villas = self.test_villas_count_and_data()
+        if not villas:
+            print("❌ Impossible de récupérer les données des villas")
+            return False
+        
+        print()
+        
+        # Test 2: Vérifier la villa Espace Piscine
+        espace_piscine = self.test_espace_piscine_villa(villas)
+        
+        print()
+        
+        # Test 3: Vérifier la cohérence des images
+        self.test_image_paths_consistency(villas)
+        
+        print()
+        
+        # Test 4: Tester la recherche par catégorie
+        self.test_search_by_category_fete()
+        
+        print()
+        
+        # Test 5: Vérifier les pricing_details
+        self.test_pricing_details(villas)
+        
+        print()
+        
+        # Test bonus: Vérifier les villas clés
+        self.test_key_villas_verification(villas)
+        
+        print()
+        print("=" * 80)
+        print("📊 RÉSULTATS DES TESTS")
+        print("=" * 80)
+        
+        total_tests = self.passed_tests + self.failed_tests
+        success_rate = (self.passed_tests / total_tests * 100) if total_tests > 0 else 0
+        
+        print(f"✅ Tests réussis: {self.passed_tests}")
+        print(f"❌ Tests échoués: {self.failed_tests}")
+        print(f"📈 Taux de réussite: {success_rate:.1f}%")
+        
+        if success_rate >= 90:
+            print("🎉 EXCELLENT - Corrections des villas parfaitement appliquées!")
+        elif success_rate >= 75:
+            print("✅ BON - La plupart des corrections sont appliquées")
+        elif success_rate >= 50:
+            print("⚠️ MOYEN - Certaines corrections nécessitent attention")
+        else:
+            print("❌ CRITIQUE - Les corrections des villas nécessitent intervention")
+        
+        print()
+        
+        # Résumé des points critiques
+        critical_issues = []
+        for result in self.test_results:
+            if not result["passed"] and any(keyword in result["test"].lower() for keyword in ["count", "espace piscine", "category"]):
+                critical_issues.append(result["test"])
+        
+        if critical_issues:
+            print("🚨 PROBLÈMES CRITIQUES IDENTIFIÉS:")
+            for issue in critical_issues:
+                print(f"   - {issue}")
+        else:
+            print("✅ Aucun problème critique identifié")
+        
+        return success_rate >= 75
+
+def main():
+    """Point d'entrée principal"""
+    tester = KhanelConceptTester()
+    success = tester.run_comprehensive_tests()
+    
+    # Sauvegarder les résultats
+    with open('/app/villa_corrections_test_results.json', 'w', encoding='utf-8') as f:
+        json.dump({
+            "timestamp": datetime.now().isoformat(),
+            "success": success,
+            "passed_tests": tester.passed_tests,
+            "failed_tests": tester.failed_tests,
+            "test_results": tester.test_results
+        }, f, indent=2, ensure_ascii=False)
+    
+    return 0 if success else 1
+
+if __name__ == "__main__":
+    sys.exit(main())
+"""
 Backend API Testing for KhanelConcept Villa Data Correction Verification
 Focus: Verifying villa data correction after CSV integration as requested in review
 Requirements:
