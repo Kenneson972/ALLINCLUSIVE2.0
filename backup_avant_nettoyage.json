@@ -1,0 +1,576 @@
+[
+  {
+    "_id": "6886d72bd7dd53a0629549fa",
+    "id": "1",
+    "name": "Villa F3 Petit Macabou",
+    "location": "Petit Macabou au Vauclin",
+    "price": 850.0,
+    "guests": 6,
+    "guests_detail": "6 personnes + 9 invit\u00e9s",
+    "features": "Sauna, Jacuzzi, 2 douches ext\u00e9rieures",
+    "category": "sejour",
+    "image": "/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+    "gallery": [
+      "/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+      "/images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+      "/images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+      "/images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+      "/images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+      "/images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+      "/images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
+    ],
+    "fallback_icon": "\ud83c\udfca",
+    "amenities": [
+      "Piscine",
+      "Sauna",
+      "Jacuzzi",
+      "Cuisine \u00e9quip\u00e9e",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Magnifique villa F3 avec sauna et jacuzzi, parfaite pour un s\u00e9jour de d\u00e9tente en famille."
+  },
+  {
+    "_id": "6886d72bd7dd53a0629549fb",
+    "id": "2",
+    "name": "Villa F5 Ste Anne",
+    "location": "Quartier Les Anglais, Ste Anne",
+    "price": 1300.0,
+    "guests": 10,
+    "guests_detail": "10 personnes + 15 invit\u00e9s",
+    "features": "Piscine, d\u00e9coration rose distinctive",
+    "category": "sejour",
+    "image": "/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+    "gallery": [
+      "/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+      "/images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+      "/images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+      "/images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+      "/images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+      "/images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
+    ],
+    "fallback_icon": "\ud83c\udf38",
+    "amenities": [
+      "Piscine",
+      "Cuisine moderne",
+      "Grande terrasse",
+      "WiFi",
+      "Climatisation",
+      "Parking"
+    ],
+    "description": "Villa F5 distinctive avec sa d\u00e9coration rose, id\u00e9ale pour grands groupes et f\u00eates."
+  },
+  {
+    "_id": "6886d72bd7dd53a0629549fc",
+    "id": "3",
+    "name": "Villa F3 POUR LA BACCHA",
+    "location": "Petit Macabou",
+    "price": 1350.0,
+    "guests": 6,
+    "guests_detail": "6 personnes + 9 convives",
+    "features": "Piscine, terrasses modernes",
+    "category": "sejour",
+    "image": "/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+    "gallery": [
+      "/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+      "/images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+      "/images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+      "/images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+      "/images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+      "/images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
+    ],
+    "fallback_icon": "\ud83c\udfd6\ufe0f",
+    "amenities": [
+      "Piscine",
+      "Terrasses multiples",
+      "Jardin",
+      "Cuisine \u00e9quip\u00e9e",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Villa moderne avec terrasses magnifiques et espace piscine exceptionnel."
+  },
+  {
+    "_id": "6886d72bd7dd53a0629549fd",
+    "id": "4",
+    "name": "Studio Cocooning Lamentin",
+    "location": "Morne Pitault, Lamentin",
+    "price": 290.0,
+    "guests": 2,
+    "guests_detail": "2 personnes (couple)",
+    "features": "Jacuzzi priv\u00e9, vue panoramique",
+    "category": "special",
+    "image": "/images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+    "gallery": [
+      "/images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+      "/images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg",
+      "/images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg",
+      "/images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg",
+      "/images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg",
+      "/images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
+    ],
+    "fallback_icon": "\ud83d\udc95",
+    "amenities": [
+      "Jacuzzi priv\u00e9",
+      "Vue panoramique",
+      "Cuisine \u00e9quip\u00e9e",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Studio romantique parfait pour couples avec jacuzzi priv\u00e9 et vue imprenable."
+  },
+  {
+    "_id": "6886d72bd7dd53a0629549fe",
+    "id": "5",
+    "name": "Villa Sunset Paradise",
+    "location": "Sainte-Anne",
+    "price": 950.0,
+    "guests": 8,
+    "guests_detail": "8 personnes + 12 invit\u00e9s",
+    "features": "Piscine priv\u00e9e 8x4m, vue mer",
+    "category": "sejour",
+    "image": "/images/villa_sunset_paradise.jpg",
+    "gallery": [
+      "/images/villa_sunset_paradise.jpg"
+    ],
+    "fallback_icon": "\ud83c\udf05",
+    "amenities": [
+      "Piscine priv\u00e9e",
+      "Vue mer",
+      "Cuisine \u00e9quip\u00e9e",
+      "WiFi",
+      "Climatisation",
+      "Terrasse"
+    ],
+    "description": "Villa exceptionnelle avec vue imprenable sur le coucher de soleil et piscine priv\u00e9e."
+  },
+  {
+    "_id": "6886d72bd7dd53a0629549ff",
+    "id": "6",
+    "name": "Villa Oc\u00e9an Bleu",
+    "location": "Les Trois-\u00celets",
+    "price": 1200.0,
+    "guests": 10,
+    "guests_detail": "10 personnes + 15 invit\u00e9s",
+    "features": "Acc\u00e8s direct plage, piscine \u00e0 d\u00e9bordement",
+    "category": "sejour",
+    "image": "/images/villa_ocean_bleu.jpg",
+    "gallery": [
+      "/images/villa_ocean_bleu.jpg"
+    ],
+    "fallback_icon": "\ud83c\udf0a",
+    "amenities": [
+      "Acc\u00e8s plage",
+      "Piscine \u00e0 d\u00e9bordement",
+      "Cuisine moderne",
+      "WiFi",
+      "Climatisation",
+      "Jardin tropical"
+    ],
+    "description": "Villa de prestige avec acc\u00e8s direct \u00e0 la plage et piscine \u00e0 d\u00e9bordement face \u00e0 la mer."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a00",
+    "id": "7",
+    "name": "Villa Tropicale Zen",
+    "location": "Sainte-Luce",
+    "price": 780.0,
+    "guests": 6,
+    "guests_detail": "6 personnes + 8 invit\u00e9s",
+    "features": "Jardin tropical, spa ext\u00e9rieur",
+    "category": "sejour",
+    "image": "/images/villa_tropicale_zen.jpg",
+    "gallery": [
+      "/images/villa_tropicale_zen.jpg"
+    ],
+    "fallback_icon": "\ud83c\udf34",
+    "amenities": [
+      "Jardin tropical",
+      "Spa ext\u00e9rieur",
+      "Piscine",
+      "Cuisine \u00e9quip\u00e9e",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Havre de paix au c\u0153ur d'un jardin tropical luxuriant avec espace spa."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a01",
+    "id": "8",
+    "name": "Villa Carbet Deluxe",
+    "location": "Le Carbet",
+    "price": 1100.0,
+    "guests": 8,
+    "guests_detail": "8 personnes + 12 invit\u00e9s",
+    "features": "Vue montagne Pel\u00e9e, piscine chauff\u00e9e",
+    "category": "sejour",
+    "image": "/images/villa_carbet_deluxe.jpg",
+    "gallery": [
+      "/images/villa_carbet_deluxe.jpg"
+    ],
+    "fallback_icon": "\ud83c\udfd4\ufe0f",
+    "amenities": [
+      "Vue montagne",
+      "Piscine chauff\u00e9e",
+      "Grande terrasse",
+      "Cuisine moderne",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Villa de luxe avec vue spectaculaire sur la montagne Pel\u00e9e et piscine chauff\u00e9e."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a02",
+    "id": "9",
+    "name": "Appartement Marina Fort-de-France",
+    "location": "Fort-de-France Marina",
+    "price": 320.0,
+    "guests": 4,
+    "guests_detail": "4 personnes max",
+    "features": "Vue marina, balcon panoramique",
+    "category": "special",
+    "image": "/images/appartement_marina_fdf.jpg",
+    "gallery": [
+      "/images/appartement_marina_fdf.jpg"
+    ],
+    "fallback_icon": "\u26f5",
+    "amenities": [
+      "Vue marina",
+      "Balcon",
+      "Cuisine \u00e9quip\u00e9e",
+      "WiFi",
+      "Climatisation",
+      "Parking"
+    ],
+    "description": "Appartement moderne avec vue imprenable sur la marina et les bateaux."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a03",
+    "id": "10",
+    "name": "Villa Diamant Prestige",
+    "location": "Le Diamant",
+    "price": 1400.0,
+    "guests": 12,
+    "guests_detail": "12 personnes + 20 invit\u00e9s",
+    "features": "Vue Rocher du Diamant, piscine infinity",
+    "category": "fete",
+    "image": "/images/villa_diamant_prestige.jpg",
+    "gallery": [
+      "/images/villa_diamant_prestige.jpg"
+    ],
+    "fallback_icon": "\ud83d\udc8e",
+    "amenities": [
+      "Vue Rocher du Diamant",
+      "Piscine infinity",
+      "Grande cuisine",
+      "WiFi",
+      "Climatisation",
+      "Barbecue"
+    ],
+    "description": "Villa de prestige avec vue exceptionnelle sur le c\u00e9l\u00e8bre Rocher du Diamant."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a04",
+    "id": "11",
+    "name": "Villa Bord de Mer Tartane",
+    "location": "La Trinit\u00e9 - Tartane",
+    "price": 890.0,
+    "guests": 6,
+    "guests_detail": "6 personnes + 10 invit\u00e9s",
+    "features": "Pieds dans l'eau, piscine naturelle",
+    "category": "sejour",
+    "image": "/images/villa_tartane.jpg",
+    "gallery": [
+      "/images/villa_tartane.jpg"
+    ],
+    "fallback_icon": "\ud83c\udfd6\ufe0f",
+    "amenities": [
+      "Acc\u00e8s direct mer",
+      "Piscine naturelle",
+      "Cuisine cr\u00e9ole",
+      "WiFi",
+      "Climatisation",
+      "Kayaks"
+    ],
+    "description": "Villa authentique les pieds dans l'eau avec acc\u00e8s \u00e0 une piscine naturelle."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a05",
+    "id": "12",
+    "name": "Studio Marin Cosy",
+    "location": "Le Marin",
+    "price": 280.0,
+    "guests": 2,
+    "guests_detail": "2 personnes (couple)",
+    "features": "Port de plaisance, terrasse priv\u00e9e",
+    "category": "special",
+    "image": "/images/studio_marin_cosy.jpg",
+    "gallery": [
+      "/images/studio_marin_cosy.jpg"
+    ],
+    "fallback_icon": "\u2693",
+    "amenities": [
+      "Vue port",
+      "Terrasse priv\u00e9e",
+      "Kitchenette",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Studio douillet avec vue sur le port de plaisance du Marin."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a06",
+    "id": "13",
+    "name": "Villa Anses d'Arlet",
+    "location": "Les Anses d'Arlet",
+    "price": 1050.0,
+    "guests": 8,
+    "guests_detail": "8 personnes + 12 invit\u00e9s",
+    "features": "Proche Grande Anse, piscine avec bar",
+    "category": "sejour",
+    "image": "/images/villa_anses_arlet.jpg",
+    "gallery": [
+      "/images/villa_anses_arlet.jpg"
+    ],
+    "fallback_icon": "\ud83e\udd65",
+    "amenities": [
+      "Proche plage",
+      "Piscine avec bar",
+      "Cuisine tropicale",
+      "WiFi",
+      "Climatisation",
+      "Hamacs"
+    ],
+    "description": "Villa carib\u00e9enne authentique \u00e0 proximit\u00e9 de la magnifique Grande Anse."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a07",
+    "id": "14",
+    "name": "Penthouse Schoelcher Vue Mer",
+    "location": "Schoelcher",
+    "price": 620.0,
+    "guests": 6,
+    "guests_detail": "6 personnes max",
+    "features": "Dernier \u00e9tage, terrasse 360\u00b0",
+    "category": "special",
+    "image": "/images/penthouse_schoelcher.jpg",
+    "gallery": [
+      "/images/penthouse_schoelcher.jpg"
+    ],
+    "fallback_icon": "\ud83c\udfd9\ufe0f",
+    "amenities": [
+      "Vue panoramique",
+      "Terrasse 360\u00b0",
+      "Cuisine moderne",
+      "WiFi",
+      "Climatisation",
+      "Ascenseur"
+    ],
+    "description": "Penthouse moderne avec vue panoramique exceptionnelle sur la baie de Fort-de-France."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a08",
+    "id": "15",
+    "name": "Villa Rivi\u00e8re-Pilote Charme",
+    "location": "Rivi\u00e8re-Pilote",
+    "price": 720.0,
+    "guests": 6,
+    "guests_detail": "6 personnes + 8 invit\u00e9s",
+    "features": "Architecture cr\u00e9ole, jardin centenaire",
+    "category": "sejour",
+    "image": "/images/villa_riviere_pilote.jpg",
+    "gallery": [
+      "/images/villa_riviere_pilote.jpg"
+    ],
+    "fallback_icon": "\ud83c\udfdb\ufe0f",
+    "amenities": [
+      "Architecture cr\u00e9ole",
+      "Jardin centenaire",
+      "Piscine traditionnelle",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Villa de charme \u00e0 l'architecture cr\u00e9ole authentique dans un jardin centenaire."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a09",
+    "id": "16",
+    "name": "Villa Fran\u00e7ois Moderne",
+    "location": "Le Fran\u00e7ois",
+    "price": 980.0,
+    "guests": 8,
+    "guests_detail": "8 personnes + 12 invit\u00e9s",
+    "features": "Fonds blancs, excursions incluses",
+    "category": "sejour",
+    "image": "/images/villa_francois_moderne.jpg",
+    "gallery": [
+      "/images/villa_francois_moderne.jpg"
+    ],
+    "fallback_icon": "\ud83d\udee5\ufe0f",
+    "amenities": [
+      "Acc\u00e8s fonds blancs",
+      "Excursions incluses",
+      "Piscine",
+      "Cuisine \u00e9quip\u00e9e",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Villa moderne avec acc\u00e8s privil\u00e9gi\u00e9 aux fameux fonds blancs du Fran\u00e7ois."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a0a",
+    "id": "17",
+    "name": "Studio Ducos Pratique",
+    "location": "Ducos Centre",
+    "price": 250.0,
+    "guests": 2,
+    "guests_detail": "2 personnes max",
+    "features": "Centre-ville, tous commerces",
+    "category": "special",
+    "image": "/images/studio_ducos.jpg",
+    "gallery": [
+      "/images/studio_ducos.jpg"
+    ],
+    "fallback_icon": "\ud83d\udecd\ufe0f",
+    "amenities": [
+      "Centre-ville",
+      "Commerces proches",
+      "Kitchenette",
+      "WiFi",
+      "Climatisation"
+    ],
+    "description": "Studio pratique en centre-ville avec tous les commerces \u00e0 proximit\u00e9."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a0b",
+    "id": "18",
+    "name": "Villa Sainte-Marie Familiale",
+    "location": "Sainte-Marie",
+    "price": 850.0,
+    "guests": 8,
+    "guests_detail": "8 personnes + 10 invit\u00e9s",
+    "features": "Proche distillerie, piscine familiale",
+    "category": "sejour",
+    "image": "/images/villa_sainte_marie.jpg",
+    "gallery": [
+      "/images/villa_sainte_marie.jpg"
+    ],
+    "fallback_icon": "\ud83e\udd43",
+    "amenities": [
+      "Proche distilleries",
+      "Piscine familiale",
+      "Grand jardin",
+      "WiFi",
+      "Climatisation",
+      "Barbecue"
+    ],
+    "description": "Villa familiale id\u00e9alement situ\u00e9e pr\u00e8s des distilleries de rhum de Sainte-Marie."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a0c",
+    "id": "19",
+    "name": "Villa Marigot Exclusive",
+    "location": "Le Marigot",
+    "price": 1180.0,
+    "guests": 10,
+    "guests_detail": "10 personnes + 15 invit\u00e9s",
+    "features": "Plage priv\u00e9e, piscine olympique",
+    "category": "fete",
+    "image": "/images/villa_marigot_exclusive.jpg",
+    "gallery": [
+      "/images/villa_marigot_exclusive.jpg"
+    ],
+    "fallback_icon": "\ud83c\udfca\u200d\u2640\ufe0f",
+    "amenities": [
+      "Plage priv\u00e9e",
+      "Piscine olympique",
+      "Cuisine professionnelle",
+      "WiFi",
+      "Climatisation",
+      "Staff inclus"
+    ],
+    "description": "Villa exclusive avec plage priv\u00e9e et piscine olympique, staff de service inclus."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a0d",
+    "id": "20",
+    "name": "Bungalow Trenelle Nature",
+    "location": "Trenelle, Trinit\u00e9",
+    "price": 420.0,
+    "guests": 4,
+    "guests_detail": "4 personnes max",
+    "features": "\u00c9cotourisme, randonn\u00e9es",
+    "category": "special",
+    "image": "/images/bungalow_trenelle.jpg",
+    "gallery": [
+      "/images/bungalow_trenelle.jpg"
+    ],
+    "fallback_icon": "\ud83e\udd8b",
+    "amenities": [
+      "Nature pr\u00e9serv\u00e9e",
+      "Randonn\u00e9es",
+      "Petit bassin",
+      "WiFi",
+      "Ventilation naturelle"
+    ],
+    "description": "Bungalow \u00e9cologique en pleine nature pour les amateurs d'\u00e9cotourisme."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a0e",
+    "id": "21",
+    "name": "Villa Grand Luxe Pointe du Bout",
+    "location": "Pointe du Bout, Trois-\u00celets",
+    "price": 1800.0,
+    "guests": 14,
+    "guests_detail": "14 personnes + 25 invit\u00e9s",
+    "features": "Villa de prestige, service conciergerie",
+    "category": "fete",
+    "image": "/images/villa_grand_luxe_pointe.jpg",
+    "gallery": [
+      "/images/villa_grand_luxe_pointe.jpg"
+    ],
+    "fallback_icon": "\ud83d\udc51",
+    "amenities": [
+      "Service conciergerie",
+      "Piscine \u00e0 d\u00e9bordement",
+      "Cuisine chef",
+      "WiFi",
+      "Climatisation",
+      "Spa priv\u00e9"
+    ],
+    "description": "Villa de grand luxe avec service conciergerie et toutes les prestations haut de gamme."
+  },
+  {
+    "_id": "6886d72bd7dd53a062954a0f",
+    "id": "22",
+    "name": "Villa F6 Petit Macabou",
+    "location": "Petit Macabou au Vauclin",
+    "price": 2000.0,
+    "guests": 13,
+    "guests_detail": "10 \u00e0 13 personnes (14 max)",
+    "features": "3 chambres climatis\u00e9es, 1 mezzanine, 2 studios aux extr\u00e9mit\u00e9s",
+    "category": "fete",
+    "image": "/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+    "gallery": [
+      "/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+      "/images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+      "/images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+      "/images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+      "/images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+      "/images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+      "/images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+    ],
+    "fallback_icon": "\ud83c\udf8a",
+    "amenities": [
+      "3 chambres climatis\u00e9es",
+      "1 mezzanine",
+      "2 studios aux extr\u00e9mit\u00e9s",
+      "Piscine",
+      "Terrasse couverte",
+      "WiFi",
+      "Climatisation",
+      "Cuisine moderne"
+    ],
+    "description": "Villa F6 exceptionnelle \u00e0 Petit Macabou avec 3 chambres climatis\u00e9es avec salle d'eau attenante, 1 mezzanine et 2 studios aux extr\u00e9mit\u00e9s. F\u00eate autoris\u00e9e de 09h \u00e0 19h, 30 convives max. Possibilit\u00e9 de louer en suppl\u00e9ment les 3 bungalows avec SDB \u00e0 5 punch chacun situ\u00e9s sur le m\u00eame terrain. Piscine et f\u00eates jusqu'\u00e0 150 convives."
+  }
+]
