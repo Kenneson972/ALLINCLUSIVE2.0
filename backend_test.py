@@ -451,37 +451,386 @@ class KhanelConceptAPITester:
                         f"iOS JavaScript implementation incomplete - {js_functions_found} functions found")
             return False
     
-    def test_villa_id_mapping(self):
-        """Test that villa IDs 1-21 map correctly to data"""
+    def test_villa_count_verification(self):
+        """Test 1: Villa Count Verification - Confirm exactly 21 villas are present"""
         try:
-            # Get all villas from API
             response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
             
-            if response.status_code == 200:
-                villas = response.json()
-                villa_ids = [villa["id"] for villa in villas if "id" in villa]
-                
-                # Check if we have sequential IDs from 1 to at least 21
-                expected_ids = [str(i) for i in range(1, 22)]  # 1-21
-                missing_ids = [id for id in expected_ids if id not in villa_ids]
-                
-                if len(missing_ids) == 0:
-                    self.log_test("Villa ID Mapping", True, 
-                                f"All villa IDs 1-21 present in database", 
-                                f"Total villas: {len(villas)}")
-                    return True
-                else:
-                    self.log_test("Villa ID Mapping", False, 
-                                f"Missing villa IDs: {missing_ids}", 
-                                f"Found IDs: {villa_ids[:10]}...")  # Show first 10
-                    return False
+            if response.status_code != 200:
+                self.log_test("Villa Count Verification", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            villa_count = len(villas)
+            
+            if villa_count == 21:
+                self.log_test("Villa Count Verification", True, 
+                            f"✅ PERFECT! Exactly 21 villas found as required", 
+                            f"Villa count: {villa_count}")
+                return True
             else:
-                self.log_test("Villa ID Mapping", False, 
-                            f"Could not retrieve villas for ID mapping test - status {response.status_code}")
+                self.log_test("Villa Count Verification", False, 
+                            f"❌ Expected exactly 21 villas, found {villa_count}", 
+                            f"Villa count mismatch")
                 return False
                 
         except Exception as e:
-            self.log_test("Villa ID Mapping", False, f"Villa ID mapping error: {str(e)}")
+            self.log_test("Villa Count Verification", False, f"Error: {str(e)}")
+            return False
+    
+    def test_espace_piscine_villa_verification(self):
+        """Test 2: Espace Piscine Villa - Verify 'Espace Piscine Journée Bungalow' with €350 pricing"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("Espace Piscine Villa Verification", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Search for Espace Piscine villa with different name variations
+            espace_piscine_patterns = [
+                "Espace Piscine Journée Bungalow",
+                "Espace Piscine Journée",
+                "Espace Piscine",
+                "Piscine Journée Bungalow",
+                "Piscine Journée"
+            ]
+            
+            found_villa = None
+            for villa in villas:
+                villa_name = villa.get("name", "")
+                for pattern in espace_piscine_patterns:
+                    if pattern.lower() in villa_name.lower():
+                        found_villa = villa
+                        break
+                if found_villa:
+                    break
+            
+            if found_villa:
+                villa_price = found_villa.get("price", 0)
+                if villa_price == 350.0:
+                    self.log_test("Espace Piscine Villa Verification", True, 
+                                f"✅ FOUND! '{found_villa['name']}' with correct €350 pricing", 
+                                f"Villa: {found_villa['name']}, Price: €{villa_price}")
+                    return True
+                else:
+                    self.log_test("Espace Piscine Villa Verification", False, 
+                                f"❌ Found '{found_villa['name']}' but price is €{villa_price}, expected €350", 
+                                f"Price mismatch")
+                    return False
+            else:
+                self.log_test("Espace Piscine Villa Verification", False, 
+                            f"❌ 'Espace Piscine Journée Bungalow' NOT FOUND in database", 
+                            f"Searched patterns: {espace_piscine_patterns}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Espace Piscine Villa Verification", False, f"Error: {str(e)}")
+            return False
+    
+    def test_category_distribution_verification(self):
+        """Test 3: Category Distribution - Check all 3 categories (sejour, fete, piscine) are present"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("Category Distribution Verification", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Count categories
+            categories = {}
+            for villa in villas:
+                category = villa.get("category", "unknown")
+                categories[category] = categories.get(category, 0) + 1
+            
+            # Check for required categories
+            required_categories = ["sejour", "fete", "piscine"]
+            found_categories = list(categories.keys())
+            missing_categories = [cat for cat in required_categories if cat not in found_categories]
+            
+            if len(missing_categories) == 0:
+                self.log_test("Category Distribution Verification", True, 
+                            f"✅ ALL 3 required categories present: {required_categories}", 
+                            f"Category distribution: {categories}")
+                return True
+            else:
+                self.log_test("Category Distribution Verification", False, 
+                            f"❌ Missing categories: {missing_categories}", 
+                            f"Found categories: {found_categories}, Distribution: {categories}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Category Distribution Verification", False, f"Error: {str(e)}")
+            return False
+    
+    def test_csv_integration_flag_verification(self):
+        """Test 4: CSV Integration - Verify all villas have csv_integrated=true flag"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("CSV Integration Flag Verification", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Check csv_integrated flag for all villas
+            csv_integrated_count = 0
+            non_integrated_villas = []
+            
+            for villa in villas:
+                villa_name = villa.get("name", f"Villa ID {villa.get('id', 'Unknown')}")
+                if villa.get("csv_integrated") == True:
+                    csv_integrated_count += 1
+                else:
+                    non_integrated_villas.append(villa_name)
+            
+            total_villas = len(villas)
+            
+            if csv_integrated_count == total_villas:
+                self.log_test("CSV Integration Flag Verification", True, 
+                            f"✅ ALL {total_villas} villas have csv_integrated=true flag", 
+                            f"CSV integration: {csv_integrated_count}/{total_villas} (100%)")
+                return True
+            else:
+                self.log_test("CSV Integration Flag Verification", False, 
+                            f"❌ Only {csv_integrated_count}/{total_villas} villas have csv_integrated=true", 
+                            f"Non-integrated villas: {non_integrated_villas[:5]}")
+                return False
+                
+        except Exception as e:
+            self.log_test("CSV Integration Flag Verification", False, f"Error: {str(e)}")
+            return False
+    
+    def test_key_villas_pricing_verification(self):
+        """Test 5: Key Villas Pricing - Confirm correct pricing for specific villas"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("Key Villas Pricing Verification", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Key villas with expected pricing from review request
+            key_villas_expected = {
+                "Villa F3 sur Petit Macabou": 850.0,
+                "Villa F5 sur Ste Anne": 1350.0,
+                "Villa F6 sur Petit Macabou": 2000.0,
+                "Espace Piscine Journée Bungalow": 350.0
+            }
+            
+            found_villas = {}
+            pricing_issues = []
+            
+            for villa in villas:
+                villa_name = villa.get("name", "")
+                villa_price = villa.get("price", 0)
+                
+                # Check each expected villa
+                for expected_name, expected_price in key_villas_expected.items():
+                    # Flexible matching for villa names
+                    if (expected_name.lower() in villa_name.lower() or 
+                        villa_name.lower() in expected_name.lower() or
+                        self._villa_name_matches(villa_name, expected_name)):
+                        
+                        found_villas[expected_name] = {
+                            "actual_name": villa_name,
+                            "actual_price": villa_price,
+                            "expected_price": expected_price
+                        }
+                        
+                        if villa_price != expected_price:
+                            pricing_issues.append(f"{villa_name}: €{villa_price} (expected €{expected_price})")
+            
+            # Assessment
+            found_count = len(found_villas)
+            expected_count = len(key_villas_expected)
+            
+            if found_count == expected_count and len(pricing_issues) == 0:
+                self.log_test("Key Villas Pricing Verification", True, 
+                            f"✅ ALL {expected_count} key villas found with correct pricing", 
+                            f"Verified villas: {list(found_villas.keys())}")
+                return True
+            else:
+                missing_villas = [name for name in key_villas_expected.keys() if name not in found_villas]
+                error_details = []
+                if missing_villas:
+                    error_details.append(f"Missing villas: {missing_villas}")
+                if pricing_issues:
+                    error_details.append(f"Pricing issues: {pricing_issues}")
+                
+                self.log_test("Key Villas Pricing Verification", False, 
+                            f"❌ Found {found_count}/{expected_count} key villas, {len(pricing_issues)} pricing issues", 
+                            f"Issues: {'; '.join(error_details)}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Key Villas Pricing Verification", False, f"Error: {str(e)}")
+            return False
+    
+    def _villa_name_matches(self, actual_name, expected_name):
+        """Helper method to check if villa names match with flexible criteria"""
+        actual_lower = actual_name.lower()
+        expected_lower = expected_name.lower()
+        
+        # Extract key components
+        actual_parts = actual_lower.replace("villa", "").replace("sur", "").split()
+        expected_parts = expected_lower.replace("villa", "").replace("sur", "").split()
+        
+        # Check if key parts match
+        common_parts = set(actual_parts) & set(expected_parts)
+        return len(common_parts) >= 2  # At least 2 common parts
+    
+    def test_no_duplications_verification(self):
+        """Test 6: No Duplications - Ensure no duplicate villa names or IDs exist"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("No Duplications Verification", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Check for duplicate IDs
+            villa_ids = [villa.get("id") for villa in villas if villa.get("id")]
+            duplicate_ids = [id for id, count in Counter(villa_ids).items() if count > 1]
+            
+            # Check for duplicate names (case-insensitive)
+            villa_names = [villa.get("name", "").lower() for villa in villas if villa.get("name")]
+            duplicate_names = [name for name, count in Counter(villa_names).items() if count > 1]
+            
+            # Check for similar names that might be duplicates
+            similar_names = []
+            for i, name1 in enumerate(villa_names):
+                for j, name2 in enumerate(villa_names[i+1:], i+1):
+                    if self._names_are_similar(name1, name2):
+                        similar_names.append((name1, name2))
+            
+            # Assessment
+            issues = []
+            if duplicate_ids:
+                issues.append(f"Duplicate IDs: {duplicate_ids}")
+            if duplicate_names:
+                issues.append(f"Duplicate names: {duplicate_names}")
+            if similar_names:
+                issues.append(f"Similar names: {similar_names[:3]}")  # Show first 3
+            
+            if len(issues) == 0:
+                self.log_test("No Duplications Verification", True, 
+                            f"✅ NO duplications found - all {len(villas)} villas have unique IDs and names", 
+                            f"Unique IDs: {len(set(villa_ids))}, Unique names: {len(set(villa_names))}")
+                return True
+            else:
+                self.log_test("No Duplications Verification", False, 
+                            f"❌ Duplication issues found: {len(issues)} types of problems", 
+                            f"Issues: {'; '.join(issues)}")
+                return False
+                
+        except Exception as e:
+            self.log_test("No Duplications Verification", False, f"Error: {str(e)}")
+            return False
+    
+    def _names_are_similar(self, name1, name2):
+        """Helper method to detect similar villa names that might be duplicates"""
+        # Split names into words
+        words1 = set(name1.split())
+        words2 = set(name2.split())
+        
+        # Check if they share significant words
+        common_words = words1 & words2
+        significant_words = [w for w in common_words if len(w) > 3 and w not in ['villa', 'pour', 'avec']]
+        
+        return len(significant_words) >= 2
+    
+    def test_comprehensive_villa_data_integrity(self):
+        """Comprehensive test combining all villa data correction requirements"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("Comprehensive Villa Data Integrity", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Comprehensive analysis
+            analysis_results = {
+                "total_villas": len(villas),
+                "categories": {},
+                "csv_integrated_count": 0,
+                "pricing_range": {"min": float('inf'), "max": 0},
+                "key_villas_found": [],
+                "espace_piscine_found": False
+            }
+            
+            for villa in villas:
+                # Category analysis
+                category = villa.get("category", "unknown")
+                analysis_results["categories"][category] = analysis_results["categories"].get(category, 0) + 1
+                
+                # CSV integration
+                if villa.get("csv_integrated"):
+                    analysis_results["csv_integrated_count"] += 1
+                
+                # Pricing analysis
+                price = villa.get("price", 0)
+                if price > 0:
+                    analysis_results["pricing_range"]["min"] = min(analysis_results["pricing_range"]["min"], price)
+                    analysis_results["pricing_range"]["max"] = max(analysis_results["pricing_range"]["max"], price)
+                
+                # Key villas detection
+                villa_name = villa.get("name", "").lower()
+                if "f3" in villa_name and "petit macabou" in villa_name:
+                    analysis_results["key_villas_found"].append(f"F3 Petit Macabou (€{price})")
+                elif "f5" in villa_name and "ste anne" in villa_name:
+                    analysis_results["key_villas_found"].append(f"F5 Ste Anne (€{price})")
+                elif "f6" in villa_name and "petit macabou" in villa_name:
+                    analysis_results["key_villas_found"].append(f"F6 Petit Macabou (€{price})")
+                elif "espace piscine" in villa_name:
+                    analysis_results["espace_piscine_found"] = True
+                    analysis_results["key_villas_found"].append(f"Espace Piscine (€{price})")
+            
+            # Generate comprehensive report
+            success_criteria = [
+                analysis_results["total_villas"] == 21,
+                "sejour" in analysis_results["categories"],
+                "fete" in analysis_results["categories"], 
+                "piscine" in analysis_results["categories"],
+                analysis_results["csv_integrated_count"] == analysis_results["total_villas"],
+                len(analysis_results["key_villas_found"]) >= 3,
+                analysis_results["espace_piscine_found"]
+            ]
+            
+            success_count = sum(success_criteria)
+            total_criteria = len(success_criteria)
+            
+            if success_count == total_criteria:
+                self.log_test("Comprehensive Villa Data Integrity", True, 
+                            f"✅ ALL {total_criteria} data integrity criteria met perfectly", 
+                            f"Analysis: {analysis_results}")
+                return True
+            else:
+                self.log_test("Comprehensive Villa Data Integrity", False, 
+                            f"❌ {success_count}/{total_criteria} criteria met", 
+                            f"Analysis: {analysis_results}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Comprehensive Villa Data Integrity", False, f"Error: {str(e)}")
             return False
     
     def test_villa_gallery_integrity(self):
