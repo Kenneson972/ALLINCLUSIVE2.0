@@ -284,6 +284,10 @@ class Villa(BaseModel):
     amenities: Optional[List[str]] = []
     description: Optional[str] = ""
     available_dates: Optional[List[str]] = []
+    pricing_details: Optional[dict] = None
+    services_full: Optional[str] = None
+    csv_integrated: Optional[bool] = False
+    csv_source: Optional[str] = None
 
 class ReservationCreate(BaseModel):
     villa_id: str
