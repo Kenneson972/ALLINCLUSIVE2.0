@@ -1,85 +1,85 @@
 {
-  "timestamp": "2025-07-28T23:29:41.229373",
+  "timestamp": "2025-07-28T23:31:07.453764",
   "success": true,
-  "passed_tests": 10,
-  "failed_tests": 2,
+  "passed_tests": 11,
+  "failed_tests": 1,
   "test_results": [
     {
       "test": "API Health Check",
       "passed": true,
       "message": "API accessible, status: healthy",
       "details": null,
-      "timestamp": "2025-07-28T23:29:41.032172"
+      "timestamp": "2025-07-28T23:31:07.296287"
     },
     {
       "test": "GET /api/villas - Data Structure",
       "passed": true,
       "message": "All 21 villas have required fields for frontend display",
       "details": null,
-      "timestamp": "2025-07-28T23:29:41.049417"
+      "timestamp": "2025-07-28T23:31:07.310789"
     },
     {
       "test": "GET /api/villas - Pricing Data",
       "passed": true,
       "message": "21/21 villas have pricing data",
       "details": null,
-      "timestamp": "2025-07-28T23:29:41.049447"
+      "timestamp": "2025-07-28T23:31:07.310818"
     },
     {
       "test": "GET /api/villas - Gallery Data",
       "passed": true,
       "message": "21/21 villas have gallery data",
       "details": null,
-      "timestamp": "2025-07-28T23:29:41.049454"
+      "timestamp": "2025-07-28T23:31:07.310824"
     },
     {
       "test": "GET /api/admin/villas",
       "passed": true,
       "message": "Admin villa management API working - 21 villas retrieved",
       "details": null,
-      "timestamp": "2025-07-28T23:29:41.065910"
+      "timestamp": "2025-07-28T23:31:07.325130"
     },
     {
       "test": "Villa Search - Search by Destination",
       "passed": true,
       "message": "Search returned 3 results",
       "details": "Filters: {'destination': 'Vauclin'}",
-      "timestamp": "2025-07-28T23:29:41.076281"
+      "timestamp": "2025-07-28T23:31:07.336028"
     },
     {
       "test": "Villa Search - Search by Guests",
       "passed": true,
       "message": "Search returned 20 results",
       "details": "Filters: {'guests': 6}",
-      "timestamp": "2025-07-28T23:29:41.090852"
+      "timestamp": "2025-07-28T23:31:07.347464"
     },
     {
       "test": "Villa Search - Search by Category",
       "passed": true,
       "message": "Search returned 15 results",
       "details": "Filters: {'category': 'sejour'}",
-      "timestamp": "2025-07-28T23:29:41.100541"
+      "timestamp": "2025-07-28T23:31:07.358472"
     },
     {
       "test": "Villa Search - Combined Search",
       "passed": true,
       "message": "Search returned 3 results",
       "details": "Filters: {'destination': 'Petit Macabou', 'guests': 4, 'category': 'sejour'}",
-      "timestamp": "2025-07-28T23:29:41.110221"
+      "timestamp": "2025-07-28T23:31:07.369840"
     },
     {
       "test": "Reservation System",
-      "passed": false,
-      "message": "Reservation API error: 500",
-      "details": "{\"detail\":\"Erreur: \"}",
-      "timestamp": "2025-07-28T23:29:41.176110"
+      "passed": true,
+      "message": "Reservation created successfully - ID: a1e54a10-8219-4e2e-b44b-5029e5cf121c",
+      "details": "Villa: Villa F3 sur Petit Macabou, Price: €850.0",
+      "timestamp": "2025-07-28T23:31:07.437316"
     },
     {
       "test": "MongoDB Connection - Data Integrity",
       "passed": true,
-      "message": "MongoDB connected with 21 villas, 7 reservations",
-      "details": "Monthly revenue: €22150.0",
-      "timestamp": "2025-07-28T23:29:41.229074"
+      "message": "MongoDB connected with 21 villas, 9 reservations",
+      "details": "Monthly revenue: €23850.0",
+      "timestamp": "2025-07-28T23:31:07.453473"
     },
     {
       "test": "Villa Data Frontend Compatibility",
@@ -90,7 +90,7 @@
         "Villa F5 sur Ste Anne: Invalid/placeholder image",
         "Villa F3 Baccha Petit Macabou: Invalid/placeholder image"
       ],
-      "timestamp": "2025-07-28T23:29:41.229123"
+      "timestamp": "2025-07-28T23:31:07.453544"
     }
   ]
 }
