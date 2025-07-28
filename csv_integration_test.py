@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
 CSV Integration Testing for KhanelConcept Villa Data
-Testing the CSV data integration as requested in the review
+Testing the complete CSV integration for 22 villas with specific focus on:
+1. Verify all 22 villas have been updated with CSV data
+2. Test "Espace Piscine" → "Villa Sunset Paradise" mapping (price 350€)
+3. Verify other important villas (F3 Petit Macabou, F5 Ste Anne, F6 Petit Macabou)
+4. Check complete mapping between existing names and CSV data
+5. Confirm all villas have csv_updated: true
 """
 
 import requests
