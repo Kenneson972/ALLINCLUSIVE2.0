@@ -660,7 +660,7 @@ async def integrate_21_real_villas():
     async for villa in collection.find({}).limit(5):
         print(f"  - {villa['name']} (Prix: {villa['price']}€, Capacité: {villa['guests']} pers)")
     
-    await client.close()
+    client.close()
     return inserted_count
 
 async def main():
