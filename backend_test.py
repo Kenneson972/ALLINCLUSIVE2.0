@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """
-Backend API Testing for KhanelConcept Villa Data Integrity Analysis
-Focus: Analyzing villa data for duplications, missing villas, and pricing inconsistencies
+Backend API Testing for KhanelConcept Villa Data Correction Verification
+Focus: Verifying villa data correction after CSV integration as requested in review
+Requirements:
+1. Villa Count Verification: Confirm exactly 21 villas are now present
+2. Espace Piscine Villa: Verify "Espace Piscine Journée Bungalow" is present with €350 pricing
+3. Category Distribution: Check that all 3 categories are present (sejour, fete, piscine)
+4. CSV Integration: Verify all villas have csv_integrated=true flag
+5. Key Villas Pricing: Confirm correct pricing for specific villas
+6. No Duplications: Ensure no duplicate villa names or IDs exist
 """
 
 import requests
