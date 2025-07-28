@@ -1,0 +1,1112 @@
+{
+  "final_score": 0.9448888888888888,
+  "total_pages": 15,
+  "assets_ok": true,
+  "detailed_results": {
+    "structure": [
+      {
+        "file": "villa-f3-baccha.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f3-francois.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f3-petit-macabou.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f5-la-renee.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f5-ste-anne.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f5-vauclin.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f6-lamentin.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f6-petit-macabou-fete.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f6-ste-luce.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-f7-baie-mulets.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-fete-ducos.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-fete-fort-de-france.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-fete-riviere-pilote.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-fete-riviere-salee.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "file": "villa-fete-sainte-luce.html",
+        "tests": {
+          "video_background": true,
+          "glassmorphism_css": true,
+          "gallery_js": true,
+          "glass_header": true,
+          "photo_slider": true,
+          "lightbox_support": true,
+          "reservation_integration": true,
+          "lazy_loading": true,
+          "responsive_design": true,
+          "villa_specific_data": true
+        },
+        "score": 1.0,
+        "passed": 10,
+        "total": 10
+      }
+    ],
+    "gallery": [
+      {
+        "file": "villa-f3-baccha.html",
+        "image_count": 7,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-f3-francois.html",
+        "image_count": 8,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-f3-petit-macabou.html",
+        "image_count": 8,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-f5-la-renee.html",
+        "image_count": 4,
+        "features": {
+          "multiple_images": false,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.6
+      },
+      {
+        "file": "villa-f5-ste-anne.html",
+        "image_count": 9,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-f5-vauclin.html",
+        "image_count": 10,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-f6-lamentin.html",
+        "image_count": 1,
+        "features": {
+          "multiple_images": false,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.6
+      },
+      {
+        "file": "villa-f6-petit-macabou-fete.html",
+        "image_count": 10,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-f6-ste-luce.html",
+        "image_count": 5,
+        "features": {
+          "multiple_images": false,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.6
+      },
+      {
+        "file": "villa-f7-baie-mulets.html",
+        "image_count": 6,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-fete-ducos.html",
+        "image_count": 8,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-fete-fort-de-france.html",
+        "image_count": 7,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-fete-riviere-pilote.html",
+        "image_count": 7,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      },
+      {
+        "file": "villa-fete-riviere-salee.html",
+        "image_count": 1,
+        "features": {
+          "multiple_images": false,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.6
+      },
+      {
+        "file": "villa-fete-sainte-luce.html",
+        "image_count": 6,
+        "features": {
+          "multiple_images": true,
+          "zoom_overlay": true,
+          "lazy_loading": true,
+          "alt_text": true,
+          "responsive_images": false
+        },
+        "score": 0.8
+      }
+    ],
+    "reservation": [
+      {
+        "file": "villa-f3-baccha.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f3-baccha",
+          "name": "Villa F3 POUR LA BACCHA"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f3-francois.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f3-francois",
+          "name": "Villa F3 sur le François"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f3-petit-macabou.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f3-petit-macabou",
+          "name": "Villa F3 sur Petit Macabou"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-la-renee.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f5-la-renee",
+          "name": "Villa F5 La Renée"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-ste-anne.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f5-ste-anne",
+          "name": "Villa F5 sur Ste Anne"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-vauclin.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f5-vauclin",
+          "name": "Villa F5 Vauclin Ravine Plate"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-lamentin.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f6-lamentin",
+          "name": "Villa F6 au Lamentin"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-petit-macabou-fete.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f6-petit-macabou-fete",
+          "name": "Villa F6 sur Petit Macabou (séjour + fête)"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-ste-luce.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f6-ste-luce",
+          "name": "Villa F6 sur Ste Luce à 1mn de la plage"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f7-baie-mulets.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-f7-baie-mulets",
+          "name": "Villa F7 Baie des Mulets"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-ducos.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-fete-ducos",
+          "name": "Villa Fête Journée Ducos"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-fort-de-france.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-fete-fort-de-france",
+          "name": "Villa Fête Journée Fort de France"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-riviere-pilote.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-fete-riviere-pilote",
+          "name": "Villa Fête Journée Rivière-Pilote"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-riviere-salee.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-fete-riviere-salee",
+          "name": "Villa Fête Journée Rivière Salée"
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-sainte-luce.html",
+        "tests": {
+          "reservation_button": true,
+          "villa_id_present": true,
+          "villa_name_present": true,
+          "current_villa_data": true,
+          "reservation_link": true,
+          "price_data": true
+        },
+        "villa_data": {
+          "id": "villa-fete-sainte-luce",
+          "name": "Villa Fête Journée Sainte-Luce"
+        },
+        "score": 1.0
+      }
+    ],
+    "performance": [
+      {
+        "file": "villa-f3-baccha.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 8.23,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f3-francois.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 8.79,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f3-petit-macabou.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 9.03,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-la-renee.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 7.95,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-ste-anne.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 8.84,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-vauclin.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 9.45,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-lamentin.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": false,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 7.09,
+        "score": 0.8333333333333334
+      },
+      {
+        "file": "villa-f6-petit-macabou-fete.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 10.02,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-ste-luce.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 8.04,
+        "score": 1.0
+      },
+      {
+        "file": "villa-f7-baie-mulets.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 9.34,
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-ducos.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 10.07,
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-fort-de-france.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 8.68,
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-riviere-pilote.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 9.12,
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-riviere-salee.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": false,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 7.51,
+        "score": 0.8333333333333334
+      },
+      {
+        "file": "villa-fete-sainte-luce.html",
+        "features": {
+          "preload_video": true,
+          "lazy_loading_images": true,
+          "optimized_video_format": true,
+          "css_optimization": true,
+          "video_fallback": true,
+          "mobile_optimization": true
+        },
+        "file_size_kb": 8.33,
+        "score": 1.0
+      }
+    ],
+    "design": [
+      {
+        "file": "villa-f3-baccha.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f3-francois.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f3-petit-macabou.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-la-renee.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-ste-anne.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f5-vauclin.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-lamentin.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-petit-macabou-fete.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f6-ste-luce.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-f7-baie-mulets.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-ducos.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-fort-de-france.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-riviere-pilote.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-riviere-salee.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      },
+      {
+        "file": "villa-fete-sainte-luce.html",
+        "elements": {
+          "glass_cards": true,
+          "hero_section": true,
+          "glass_header": true,
+          "glass_footer": true,
+          "villa_enhanced_css": true,
+          "video_background": true,
+          "responsive_meta": true,
+          "proper_title": true
+        },
+        "score": 1.0
+      }
+    ]
+  }
+}
