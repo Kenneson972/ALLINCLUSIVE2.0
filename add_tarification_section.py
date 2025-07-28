@@ -28,7 +28,7 @@ def get_villa_pricing_from_api(villa_name):
     """Récupère les tarifs d'une villa depuis l'API"""
     import requests
     try:
-        response = requests.get("https://2dc70b52-37ed-4f34-9403-c7388838f79e.preview.emergentagent.com/api/villas")
+        response = requests.get("https://f0dc2e11-c7f8-4f89-86b8-00ffc3281185.preview.emergentagent.com/api/villas")
         if response.status_code == 200:
             villas = response.json()
             for villa in villas:
