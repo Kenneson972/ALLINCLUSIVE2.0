@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Piscine Journée Bungalow - Khanel Concept Martinique</title>
+    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+</head>
+<body>
+    <!-- Video Background (identique index) -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header glassmorphism (identique index) -->
+    <header class="glass-header">
+        <nav>
+            <div class="logo">Khanel Concept</div>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./villas.html">Nos Villas</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="villa-content">
+        <!-- Hero Section -->
+        <section class="hero-villa glass-card">
+            <h1>Espace Piscine Journée Bungalow</h1>
+            <p class="villa-location">Non précisé</p>
+            <div class="villa-specs">
+                <span>Location à la journée + Bungalow</span>
+                <span>10 à 150 personnes</span>
+                <span>À partir de 350€</span>
+            </div>
+        </section>
+
+        <!-- Galerie Photos -->
+        <section class="gallery glass-card">
+            <h2>Galerie Photos</h2>
+            <div class="photo-slider">
+                <img src="./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg" alt="Espace Piscine Journée Bungalow">
+                <img src="./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg" alt="Espace Piscine Journée Bungalow">
+            </div>
+        </section>
+
+        <!-- Détails Villa -->
+        <section class="details glass-card">
+            <h2>Détails de la Villa</h2>
+            <div class="details-grid">
+                <div class="description">
+                    <p>Location de 9h à 19h uniquement (pas de possibilité au-delà de 19h). Tarifs uniquement pour anniversaires, baby-showers et enterrements de vie. Caution: 1000€ par chèque + 250€ en espèces. Autres forfaits sur demande selon type d'événement (mariage, baptême, etc.).</p>
+                </div>
+                <div class="amenities">
+                    <h3>Équipements & Services</h3>
+                    <ul>
+                        <li>Cuisine</li>
+                        <li>Salle d'eau</li>
+                        <li>Mobilier (chaises, tables)</li>
+                        <li>Chambre climatisée (+80€ supplémentaire)</li>
+                        <li>Bungalow extérieur véranda créole</li>
+                        <li>Bungalow intérieur studio kitchenette</li>
+                        <li>Espace piscine</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs (section critique) -->
+        <section class="pricing glass-card">
+            <h2>Tarifs & Disponibilités</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Forfait</th>
+                            <th>Horaires</th>
+                            <th>Tarif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jusqu'à 20 invités</td>
+                            <td>9h-19h</td>
+                            <td>350€</td>
+                        </tr>
+                        <tr>
+                            <td>Jusqu'à 40 invités</td>
+                            <td>9h-19h</td>
+                            <td>550€</td>
+                        </tr>
+                        <tr>
+                            <td>Jusqu'à 60 invités</td>
+                            <td>9h-19h</td>
+                            <td>750€</td>
+                        </tr>
+                        <tr>
+                            <td>Bungalow pour 2 personnes</td>
+                            <td>-</td>
+                            <td>+85€/nuit</td>
+                        </tr>
+                        <tr>
+                            <td>Chambre climatisée</td>
+                            <td>-</td>
+                            <td>+80€ supplémentaire</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-notes">
+                <p><strong>Caution:</strong> 1000€ par chèque + 250€ en espèces</p>
+                <p><strong>Horaires:</strong> 9h-19h uniquement (pas de possibilité au-delà de 19h)</p>
+                <p><strong>Événements acceptés:</strong> Anniversaires, baby-showers et enterrements de vie</p>
+                <p><strong>Autres événements:</strong> Forfaits sur demande selon type (mariage, baptême, etc.)</p>
+            </div>
+        </section>
+
+        <!-- Formulaire Réservation -->
+        <section class="booking glass-card">
+            <h2>Réserver cette Villa</h2>
+            <form class="booking-form" action="./process-booking.php" method="POST">
+                <input type="hidden" name="villa_id" value="espace-piscine-bungalow">
+                <input type="hidden" name="villa_name" value="Espace Piscine Journée Bungalow">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'arrivée</label>
+                        <input type="date" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Forfait</label>
+                        <select name="package" required>
+                            <option value="">Choisir...</option>
+                            <option value="20_invites">Jusqu'à 20 invités - 350€</option>
+                            <option value="40_invites">Jusqu'à 40 invités - 550€</option>
+                            <option value="60_invites">Jusqu'à 60 invités - 750€</option>
+                            <option value="sur_demande">Plus de 60 invités - Sur demande</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre exact de personnes</label>
+                        <input type="number" name="guests" min="10" max="150" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Type d'événement</label>
+                        <select name="event_type" required>
+                            <option value="">Choisir...</option>
+                            <option value="anniversaire">Anniversaire</option>
+                            <option value="baby_shower">Baby-shower</option>
+                            <option value="enterrement_vie">Enterrement de vie</option>
+                            <option value="mariage">Mariage (sur demande)</option>
+                            <option value="bapteme">Baptême (sur demande)</option>
+                            <option value="autre">Autre (sur demande)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Bungalow pour 2 personnes</label>
+                        <select name="bungalow">
+                            <option value="">Non merci</option>
+                            <option value="oui">Oui (+85€/nuit)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Chambre climatisée</label>
+                        <select name="air_conditioned_room">
+                            <option value="">Non merci</option>
+                            <option value="oui">Oui (+80€ supplémentaire)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message (optionnel)</label>
+                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-book">Demander un Devis</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer identique index -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Khanel Concept</h3>
+                <p>Location de villas de prestige en Martinique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Saint-Joseph, Martinique</p>
+                <p>Tél: +596 696 XX XX XX</p>
+                <p>Email: contact@khanelconcept.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="./assets/js/glassmorphism.js"></script>
+</body>
+</html>
