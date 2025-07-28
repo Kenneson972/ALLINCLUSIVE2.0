@@ -182,6 +182,19 @@
         </div>
     </footer>
 
-    <script src="./assets/js/glassmorphism.js"></script>
+    <script src="./assets/js/villa-gallery.js"></script>
+    <script>
+        // Initialisation spécifique à cette villa
+        document.addEventListener('DOMContentLoaded', function() {
+            // Données de la villa pour la réservation
+            window.currentVilla = {
+                id: 'villa-f3-petit-macabou',
+                name: 'Villa F3 sur Petit Macabou',
+                basePrice: 850,
+                capacity: 6,
+                maxGuests: 15
+            };
+        });
+    </script>
 </body>
 </html>
