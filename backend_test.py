@@ -1240,77 +1240,127 @@ class KhanelConceptAPITester:
                         f"Error testing search: {str(e)}")
             return False
 
-    def run_all_tests(self):
-        """Run comprehensive admin dashboard endpoint tests for AllInclusive 2.0"""
-        print("🏖️ Starting KhanelConcept Admin Dashboard Testing for AllInclusive 2.0")
-        print("🎯 Focus: Admin Authentication & Dashboard Endpoints Verification")
+    def run_villa_data_correction_verification(self):
+        """Run comprehensive villa data correction verification as requested in review"""
+        print("🏖️ Starting KhanelConcept Villa Data Correction Verification")
+        print("🎯 Focus: Verifying villa data correction after CSV integration")
         print(f"Testing against: {API_BASE_URL}")
         print("=" * 70)
         
-        # Test basic connectivity
+        # Test basic connectivity first
         if not self.test_health_check():
             print("❌ Health check failed - stopping tests")
             return False
         
-        # MAIN FOCUS: Admin Dashboard Tests
-        print("\n🔐 ADMIN AUTHENTICATION TESTS (PRIMARY FOCUS)")
+        # MAIN FOCUS: Villa Data Correction Verification Tests
+        print("\n🔍 VILLA DATA CORRECTION VERIFICATION TESTS")
         print("-" * 50)
-        admin_login_success = self.test_admin_login()
-        if admin_login_success:
-            self.test_admin_verify_token()
         
-        print("\n📊 ADMIN DASHBOARD ENDPOINTS TESTS")
+        # Test 1: Villa Count Verification
+        print("\n1️⃣ VILLA COUNT VERIFICATION")
+        print("   Requirement: Exactly 21 villas should be present")
+        villa_count_success = self.test_villa_count_verification()
+        
+        # Test 2: Espace Piscine Villa Verification
+        print("\n2️⃣ ESPACE PISCINE VILLA VERIFICATION")
+        print("   Requirement: 'Espace Piscine Journée Bungalow' with €350 pricing")
+        espace_piscine_success = self.test_espace_piscine_villa_verification()
+        
+        # Test 3: Category Distribution Verification
+        print("\n3️⃣ CATEGORY DISTRIBUTION VERIFICATION")
+        print("   Requirement: All 3 categories (sejour, fete, piscine) present")
+        category_success = self.test_category_distribution_verification()
+        
+        # Test 4: CSV Integration Flag Verification
+        print("\n4️⃣ CSV INTEGRATION FLAG VERIFICATION")
+        print("   Requirement: All villas have csv_integrated=true flag")
+        csv_flag_success = self.test_csv_integration_flag_verification()
+        
+        # Test 5: Key Villas Pricing Verification
+        print("\n5️⃣ KEY VILLAS PRICING VERIFICATION")
+        print("   Requirement: Specific villas have correct pricing")
+        key_pricing_success = self.test_key_villas_pricing_verification()
+        
+        # Test 6: No Duplications Verification
+        print("\n6️⃣ NO DUPLICATIONS VERIFICATION")
+        print("   Requirement: No duplicate villa names or IDs")
+        no_duplicates_success = self.test_no_duplications_verification()
+        
+        # Test 7: Comprehensive Data Integrity
+        print("\n7️⃣ COMPREHENSIVE DATA INTEGRITY CHECK")
+        print("   Requirement: Overall data integrity after correction")
+        comprehensive_success = self.test_comprehensive_villa_data_integrity()
+        
+        # Additional API functionality tests
+        print("\n🔧 SUPPORTING API FUNCTIONALITY TESTS")
         print("-" * 40)
-        self.test_dashboard_stats()
-        self.test_admin_villas()
-        self.test_admin_reservations()
-        
-        # Test analytics if available
-        print("\n📈 ADMIN ANALYTICS TESTS")
-        print("-" * 25)
-        if admin_login_success:
-            self.test_admin_analytics_overview()
-        
-        # Test CSV integration as mentioned in review
-        print("\n📋 CSV INTEGRATION VERIFICATION")
-        print("-" * 30)
-        self.test_csv_integration_verification()
-        
-        # Test basic villa endpoints to ensure system integrity
-        print("\n🏖️ VILLA SYSTEM INTEGRITY TESTS")
-        print("-" * 35)
         self.test_public_villas_endpoint()
         self.test_villa_search()
         
         # Summary
         print("\n" + "=" * 70)
-        print("📊 ADMIN DASHBOARD TESTING SUMMARY")
+        print("📊 VILLA DATA CORRECTION VERIFICATION SUMMARY")
         print("=" * 70)
+        
+        # Calculate results
+        main_tests = [
+            villa_count_success,
+            espace_piscine_success, 
+            category_success,
+            csv_flag_success,
+            key_pricing_success,
+            no_duplicates_success,
+            comprehensive_success
+        ]
         
         passed = sum(1 for result in self.test_results if result["success"])
         total = len(self.test_results)
+        main_passed = sum(main_tests)
+        main_total = len(main_tests)
         
-        print(f"Total Tests: {total}")
-        print(f"Passed: {passed}")
-        print(f"Failed: {total - passed}")
-        print(f"Success Rate: {(passed/total)*100:.1f}%")
+        print(f"📋 MAIN VERIFICATION TESTS:")
+        print(f"   Passed: {main_passed}/{main_total}")
+        print(f"   Success Rate: {(main_passed/main_total)*100:.1f}%")
+        print(f"\n📊 ALL TESTS:")
+        print(f"   Total Tests: {total}")
+        print(f"   Passed: {passed}")
+        print(f"   Failed: {total - passed}")
+        print(f"   Overall Success Rate: {(passed/total)*100:.1f}%")
         
-        # Show failed tests
+        # Show detailed results for main verification tests
+        main_test_names = [
+            "Villa Count Verification",
+            "Espace Piscine Villa Verification", 
+            "Category Distribution Verification",
+            "CSV Integration Flag Verification",
+            "Key Villas Pricing Verification",
+            "No Duplications Verification",
+            "Comprehensive Villa Data Integrity"
+        ]
+        
+        print(f"\n🎯 DETAILED VERIFICATION RESULTS:")
+        for i, (test_name, success) in enumerate(zip(main_test_names, main_tests)):
+            status = "✅ PASS" if success else "❌ FAIL"
+            print(f"   {i+1}. {status} {test_name}")
+        
+        # Show failed tests details
         failed_tests = [result for result in self.test_results if not result["success"]]
         if failed_tests:
-            print("\n❌ FAILED TESTS:")
+            print("\n❌ FAILED TESTS DETAILS:")
             for test in failed_tests:
-                print(f"  - {test['test']}: {test['message']}")
+                print(f"   - {test['test']}: {test['message']}")
+                if test.get('details'):
+                    print(f"     Details: {test['details']}")
         
-        # Special focus on admin dashboard results
-        admin_tests = [r for r in self.test_results if "Admin" in r["test"] or "Dashboard" in r["test"]]
-        if admin_tests:
-            print(f"\n🎯 ADMIN DASHBOARD FOCUS RESULTS:")
-            for test in admin_tests:
-                status = "✅" if test["success"] else "❌"
-                print(f"  {status} {test['test']}: {test['message']}")
+        # Final assessment
+        if main_passed == main_total:
+            print(f"\n🎉 VILLA DATA CORRECTION VERIFICATION: ✅ SUCCESS!")
+            print("   All villa data correction requirements have been met.")
+        else:
+            print(f"\n⚠️  VILLA DATA CORRECTION VERIFICATION: ❌ ISSUES FOUND")
+            print(f"   {main_total - main_passed} out of {main_total} requirements need attention.")
         
-        return passed == total
+        return main_passed == main_total
 
 if __name__ == "__main__":
     tester = KhanelConceptAPITester()
