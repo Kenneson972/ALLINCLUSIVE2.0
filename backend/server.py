@@ -56,8 +56,8 @@ class SecurityMiddleware(BaseHTTPMiddleware):
         
         request_counts[client_ip]['count'] += 1
         
-        # Limiter à 60 requêtes par minute par IP
-        if request_counts[client_ip]['count'] > 60:
+        # Limiter à 200 requêtes par minute par IP (augmenté temporairement)
+        if request_counts[client_ip]['count'] > 200:
             raise HTTPException(status_code=429, detail="Rate limit exceeded")
         
         # 3. Headers de sécurité
