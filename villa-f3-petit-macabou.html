@@ -9,12 +9,15 @@
     <meta name="description" content="Villa F3 luxueuse à Petit Macabou avec piscine, sauna, jacuzzi et vue panoramique. Réservation en ligne.">
 </head>
 <body>
-    <!-- Video Background (identique index) -->
+    <!-- Video Background Premium -->
     <div class="video-background">
-        <video autoplay muted loop>
+        <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
             <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
         </video>
     </div>
+    
+    <!-- Fallback Background -->
+    <div class="video-background-fallback"></div>
 
     <!-- Header glassmorphism (identique index) -->
     <header class="glass-header">
