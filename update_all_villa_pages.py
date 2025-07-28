@@ -246,13 +246,14 @@ def create_information_tarifs_section(villa_data):
                 </div>""")
     
     # Weekend
+    weekend_price = pricing.get('weekend', pricing['base'])
     tarif_cards.append(f"""
                 <div class="tarif-card" style="background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 1.5rem; text-align: center; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.2);">
                     <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
                         <i class="fas fa-calendar-week" style="color: #00f5ff; margin-right: 0.5rem;"></i>
                         <span style="color: white; font-weight: 600;">Weekend</span>
                     </div>
-                    <div style="font-size: 1.8rem; font-weight: bold; color: #00f5ff; margin-bottom: 0.5rem;">{pricing['weekend']}€</div>
+                    <div style="font-size: 1.8rem; font-weight: bold; color: #00f5ff; margin-bottom: 0.5rem;">{weekend_price}€</div>
                     <div style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">2-3 nuits</div>
                 </div>""")
     
