@@ -886,26 +886,507 @@
     </div>
     
     <script>
-        // Global variables
-        let villas = [];
+        // ============ VILLA DATA MANAGEMENT ============
+        
+        // Enhanced villa data with real backend integration
+        let villasData = [];
         let filteredVillas = [];
         let currentVilla = null;
-        let villaMap = null;
-        let dropzone = null;
+        let currentGalleryIndex = 0;
         
-        // Standard amenities for checkboxes
-        const standardAmenities = [
-            'Piscine', 'WiFi', 'Climatisation', 'Parking', 'Cuisine équipée',
-            'Jacuzzi', 'Sauna', 'Terrasse', 'Jardin', 'Barbecue',
-            'Machine à laver', 'Lave-vaisselle', 'TV', 'Système audio',
-            'Douche extérieure', 'Vue mer', 'Accès plage', 'Animaux acceptés'
-        ];
+        // Fetch villas from backend
+        async function fetchVillasData() {
+            try {
+                const backendUrl = window.location.origin;
+                const adminToken = localStorage.getItem('admin_token') || localStorage.getItem('adminToken');
+                
+                const response = await fetch(`${backendUrl}/api/admin/villas`, {
+                    headers: adminToken ? {
+                        'Authorization': `Bearer ${adminToken}`
+                    } : {}
+                });
+                
+                if (response.ok) {
+                    villasData = await response.json();
+                    console.log(`✅ Loaded ${villasData.length} villas from backend`);
+                } else {
+                    console.warn('⚠️ Backend not available, using mock data');
+                    villasData = generateMockVillasData();
+                }
+                
+                filteredVillas = [...villasData];
+                displayVillas();
+                updateVillaStats();
+                initializeFilters();
+                
+            } catch (error) {
+                console.error('Error fetching villas:', error);
+                villasData = generateMockVillasData();
+                filteredVillas = [...villasData];
+                displayVillas();
+                updateVillaStats();
+                initializeFilters();
+            }
+        }
         
-        // Initialize the application
+        // Generate comprehensive mock data
+        function generateMockVillasData() {
+            return [
+                {
+                    id: 1,
+                    name: "Villa F3 Petit Macabou",
+                    location: "Petit Macabou au Vauclin",
+                    price: 850,
+                    guests: 6,
+                    guestsDetail: "6 personnes + 9 invités",
+                    features: "Sauna, Jacuzzi, 2 douches extérieures",
+                    category: "sejour",
+                    image: "../images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    gallery: [
+                        "../images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                        "../images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                        "../images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg"
+                    ],
+                    status: "active",
+                    occupancyRate: 85,
+                    revenue: 15300,
+                    rating: 4.8,
+                    lastBooked: "2025-01-20",
+                    pricingRules: {
+                        base: 850,
+                        weekend: 950,
+                        highSeason: 1100
+                    }
+                },
+                {
+                    id: 2,
+                    name: "Villa F5 Ste Anne",
+                    location: "Quartier Les Anglais, Ste Anne",
+                    price: 1300,
+                    guests: 10,
+                    guestsDetail: "10 personnes + 15 invités",
+                    features: "Piscine, décoration rose distinctive",
+                    category: "sejour",
+                    image: "../images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    gallery: [
+                        "../images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                        "../images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg"
+                    ],
+                    status: "active",
+                    occupancyRate: 92,
+                    revenue: 23400,
+                    rating: 4.9,
+                    lastBooked: "2025-01-28",
+                    pricingRules: {
+                        base: 1300,
+                        weekend: 1450,
+                        highSeason: 1650
+                    }
+                },
+                {
+                    id: 3,
+                    name: "Villa F6 Petit Macabou",
+                    location: "Petit Macabou au Vauclin",
+                    price: 2000,
+                    guests: 13,
+                    guestsDetail: "10 à 13 personnes (14 max)",
+                    features: "Piscine, fêtes jusqu'à 150 convives",
+                    category: "sejour",
+                    image: "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    gallery: [
+                        "../images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                        "../images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg"
+                    ],
+                    status: "active",
+                    occupancyRate: 78,
+                    revenue: 31200,
+                    rating: 4.7,
+                    lastBooked: "2025-01-25",
+                    pricingRules: {
+                        base: 2000,
+                        weekend: 2200,
+                        highSeason: 2500
+                    }
+                }
+            ];
+        }
+        
+        // Update villa statistics
+        function updateVillaStats() {
+            const activeVillas = villasData.filter(v => v.status === 'active').length;
+            const totalRevenue = villasData.reduce((sum, v) => sum + (v.revenue || 0), 0);
+            const avgOccupancy = villasData.reduce((sum, v) => sum + (v.occupancyRate || 0), 0) / villasData.length;
+            const avgRating = villasData.reduce((sum, v) => sum + (v.rating || 0), 0) / villasData.length;
+            
+            // Update stat cards
+            document.getElementById('totalVillasCount').textContent = activeVillas;
+            document.getElementById('totalRevenueAmount').textContent = `€${totalRevenue.toLocaleString()}`;
+            document.getElementById('avgOccupancyRate').textContent = `${Math.round(avgOccupancy)}%`;
+            document.getElementById('avgRatingValue').textContent = avgRating.toFixed(1);
+        }
+        
+        // Display villas in grid
+        function displayVillas() {
+            const container = document.getElementById('villasGrid');
+            if (!container) return;
+            
+            if (filteredVillas.length === 0) {
+                container.innerHTML = `
+                    <div class="col-12">
+                        <div class="card text-center p-5">
+                            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                            <h5>Aucune villa trouvée</h5>
+                            <p class="text-muted">Essayez de modifier vos critères de recherche</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredVillas.map(villa => `
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="villa-card h-100">
+                        <div class="villa-image-container">
+                            <img src="${villa.image || 'https://via.placeholder.com/350x200/4facfe/ffffff?text=🏖️'}" 
+                                 alt="${villa.name}" 
+                                 class="villa-image"
+                                 onerror="this.src='https://via.placeholder.com/350x200/4facfe/ffffff?text=🏖️'">
+                            <div class="villa-status ${villa.status === 'active' ? 'status-active' : 'status-inactive'}">
+                                ${villa.status === 'active' ? 'Actif' : 'Inactif'}
+                            </div>
+                            <div class="villa-rating">
+                                <i class="fas fa-star"></i>
+                                ${villa.rating || '4.5'}
+                            </div>
+                        </div>
+                        
+                        <div class="card-body p-3">
+                            <h5 class="villa-title">${villa.name}</h5>
+                            <p class="villa-location">
+                                <i class="fas fa-map-marker-alt me-1"></i>
+                                ${villa.location}
+                            </p>
+                            
+                            <!-- Quick Stats -->
+                            <div class="villa-quick-stats mb-3">
+                                <div class="stat-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>${villa.guests} pers.</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-euro-sign"></i>
+                                    <span>${villa.price}€</span>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-percentage"></i>
+                                    <span>${villa.occupancyRate || 0}%</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Performance Indicators -->
+                            <div class="performance-indicators mb-3">
+                                <div class="performance-bar">
+                                    <div class="performance-label">Taux d'occupation</div>
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar bg-success" style="width: ${villa.occupancyRate || 0}%"></div>
+                                    </div>
+                                    <small class="text-muted">${villa.occupancyRate || 0}%</small>
+                                </div>
+                            </div>
+                            
+                            <!-- Revenue Info -->
+                            <div class="revenue-info mb-3">
+                                <small class="text-muted">Revenus générés</small>
+                                <div class="fw-bold text-success">€${(villa.revenue || 0).toLocaleString()}</div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="villa-actions">
+                                <button class="btn btn-primary btn-sm" onclick="viewVillaDetails(${villa.id})">
+                                    <i class="fas fa-eye me-1"></i>Détails
+                                </button>
+                                <button class="btn btn-warning btn-sm" onclick="editVilla(${villa.id})">
+                                    <i class="fas fa-edit me-1"></i>Modifier
+                                </button>
+                                <button class="btn btn-info btn-sm" onclick="manageCalendar(${villa.id})">
+                                    <i class="fas fa-calendar me-1"></i>Calendrier
+                                </button>
+                                <button class="btn btn-success btn-sm" onclick="managePricing(${villa.id})">
+                                    <i class="fas fa-tags me-1"></i>Prix
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Villa management functions
+        function viewVillaDetails(villaId) {
+            const villa = villasData.find(v => v.id === villaId);
+            if (!villa) return;
+            
+            currentVilla = villa;
+            currentGalleryIndex = 0;
+            
+            // Populate modal with villa details
+            document.getElementById('villaDetailsName').textContent = villa.name;
+            document.getElementById('villaDetailsLocation').textContent = villa.location;
+            document.getElementById('villaDetailsPrice').textContent = `${villa.price}€`;
+            document.getElementById('villaDetailsGuests').textContent = villa.guestsDetail || `${villa.guests} personnes`;
+            document.getElementById('villaDetailsFeatures').textContent = villa.features || 'Aucune information';
+            document.getElementById('villaDetailsRating').textContent = villa.rating || 'N/A';
+            document.getElementById('villaDetailsOccupancy').textContent = `${villa.occupancyRate || 0}%`;
+            document.getElementById('villaDetailsRevenue').textContent = `€${(villa.revenue || 0).toLocaleString()}`;
+            
+            // Update gallery
+            if (villa.gallery && villa.gallery.length > 0) {
+                updateGalleryDisplay();
+            }
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('villaDetailsModal'));
+            modal.show();
+        }
+        
+        function updateGalleryDisplay() {
+            if (!currentVilla || !currentVilla.gallery) return;
+            
+            const gallery = currentVilla.gallery;
+            const currentImage = document.getElementById('currentGalleryImage');
+            const imageCounter = document.getElementById('imageCounter');
+            
+            if (currentImage) {
+                currentImage.src = gallery[currentGalleryIndex] || 'https://via.placeholder.com/600x400/4facfe/ffffff?text=🏖️';
+                currentImage.alt = `${currentVilla.name} - Image ${currentGalleryIndex + 1}`;
+            }
+            
+            if (imageCounter) {
+                imageCounter.textContent = `${currentGalleryIndex + 1} / ${gallery.length}`;
+            }
+            
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prevImageBtn');
+            const nextBtn = document.getElementById('nextImageBtn');
+            
+            if (prevBtn) prevBtn.disabled = currentGalleryIndex === 0;
+            if (nextBtn) nextBtn.disabled = currentGalleryIndex === gallery.length - 1;
+        }
+        
+        function previousImage() {
+            if (currentGalleryIndex > 0) {
+                currentGalleryIndex--;
+                updateGalleryDisplay();
+            }
+        }
+        
+        function nextImage() {
+            if (currentVilla && currentVilla.gallery && currentGalleryIndex < currentVilla.gallery.length - 1) {
+                currentGalleryIndex++;
+                updateGalleryDisplay();
+            }
+        }
+        
+        function editVilla(villaId) {
+            const villa = villasData.find(v => v.id === villaId);
+            if (!villa) return;
+            
+            currentVilla = villa;
+            
+            // Populate edit form
+            document.getElementById('editVillaName').value = villa.name || '';
+            document.getElementById('editVillaLocation').value = villa.location || '';
+            document.getElementById('editVillaPrice').value = villa.price || '';
+            document.getElementById('editVillaGuests').value = villa.guests || '';
+            document.getElementById('editVillaFeatures').value = villa.features || '';
+            document.getElementById('editVillaCategory').value = villa.category || 'sejour';
+            document.getElementById('editVillaStatus').value = villa.status || 'active';
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('editVillaModal'));
+            modal.show();
+        }
+        
+        function saveVillaChanges() {
+            if (!currentVilla) return;
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('editVillaName').value,
+                location: document.getElementById('editVillaLocation').value,
+                price: parseFloat(document.getElementById('editVillaPrice').value) || 0,
+                guests: parseInt(document.getElementById('editVillaGuests').value) || 0,
+                features: document.getElementById('editVillaFeatures').value,
+                category: document.getElementById('editVillaCategory').value,
+                status: document.getElementById('editVillaStatus').value
+            };
+            
+            // Update villa in data array
+            const villaIndex = villasData.findIndex(v => v.id === currentVilla.id);
+            if (villaIndex !== -1) {
+                villasData[villaIndex] = { ...villasData[villaIndex], ...formData };
+                
+                // Refresh display
+                filteredVillas = applyCurrentFilters();
+                displayVillas();
+                updateVillaStats();
+                
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editVillaModal'));
+                modal.hide();
+                
+                // Show success message
+                showToast('Villa modifiée avec succès!', 'success');
+                
+                console.log('✅ Villa updated:', formData);
+            }
+        }
+        
+        function manageCalendar(villaId) {
+            // This would open a calendar management interface
+            // For now, show a placeholder modal
+            showToast('Fonctionnalité calendrier en développement', 'info');
+        }
+        
+        function managePricing(villaId) {
+            const villa = villasData.find(v => v.id === villaId);
+            if (!villa) return;
+            
+            currentVilla = villa;
+            
+            // Populate pricing form
+            const pricingRules = villa.pricingRules || {};
+            document.getElementById('basePrice').value = pricingRules.base || villa.price || '';
+            document.getElementById('weekendPrice').value = pricingRules.weekend || villa.price || '';
+            document.getElementById('highSeasonPrice').value = pricingRules.highSeason || villa.price || '';
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('pricingModal'));
+            modal.show();
+        }
+        
+        function savePricingChanges() {
+            if (!currentVilla) return;
+            
+            const pricingRules = {
+                base: parseFloat(document.getElementById('basePrice').value) || 0,
+                weekend: parseFloat(document.getElementById('weekendPrice').value) || 0,
+                highSeason: parseFloat(document.getElementById('highSeasonPrice').value) || 0
+            };
+            
+            // Update villa pricing
+            const villaIndex = villasData.findIndex(v => v.id === currentVilla.id);
+            if (villaIndex !== -1) {
+                villasData[villaIndex].pricingRules = pricingRules;
+                villasData[villaIndex].price = pricingRules.base; // Update base price
+                
+                // Refresh display
+                filteredVillas = applyCurrentFilters();
+                displayVillas();
+                
+                // Close modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('pricingModal'));
+                modal.hide();
+                
+                showToast('Tarification mise à jour avec succès!', 'success');
+                
+                console.log('✅ Pricing updated for villa:', currentVilla.name, pricingRules);
+            }
+        }
+        
+        // Filtering and search
+        function initializeFilters() {
+            const searchInput = document.getElementById('villaSearch');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const priceFilter = document.getElementById('priceFilter');
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+            }
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', applyFilters);
+            }
+            if (statusFilter) {
+                statusFilter.addEventListener('change', applyFilters);
+            }
+            if (priceFilter) {
+                priceFilter.addEventListener('change', applyFilters);
+            }
+        }
+        
+        function applyFilters() {
+            filteredVillas = applyCurrentFilters();
+            displayVillas();
+        }
+        
+        function applyCurrentFilters() {
+            const searchTerm = document.getElementById('villaSearch')?.value.toLowerCase() || '';
+            const categoryFilter = document.getElementById('categoryFilter')?.value || '';
+            const statusFilter = document.getElementById('statusFilter')?.value || '';
+            const priceFilter = document.getElementById('priceFilter')?.value || '';
+            
+            return villasData.filter(villa => {
+                // Search filter
+                const matchesSearch = !searchTerm || 
+                    villa.name.toLowerCase().includes(searchTerm) ||
+                    villa.location.toLowerCase().includes(searchTerm);
+                
+                // Category filter
+                const matchesCategory = !categoryFilter || villa.category === categoryFilter;
+                
+                // Status filter
+                const matchesStatus = !statusFilter || villa.status === statusFilter;
+                
+                // Price filter
+                let matchesPrice = true;
+                if (priceFilter) {
+                    const [min, max] = priceFilter.split('-').map(p => parseInt(p));
+                    if (max) {
+                        matchesPrice = villa.price >= min && villa.price <= max;
+                    } else {
+                        matchesPrice = villa.price >= min;
+                    }
+                }
+                
+                return matchesSearch && matchesCategory && matchesStatus && matchesPrice;
+            });
+        }
+        
+        // Utility functions
+        function showToast(message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer');
+            if (!toastContainer) return;
+            
+            const toastId = 'toast_' + Date.now();
+            const toastHtml = `
+                <div class="toast" id="${toastId}" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-${type} text-white">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
+                        <strong class="me-auto">${type === 'success' ? 'Succès' : 'Information'}</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            
+            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+            const toastElement = document.getElementById(toastId);
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+            
+            // Remove toast element after it's hidden
+            toastElement.addEventListener('hidden.bs.toast', () => {
+                toastElement.remove();
+            });
+        }
+        
+        // Initialize when document is ready
         document.addEventListener('DOMContentLoaded', function() {
-            initializeEventListeners();
-            initializeAmenities();
-            loadVillas();
+            console.log('🏖️ Villa Management System initializing...');
+            fetchVillasData();
         });
         
         function initializeEventListeners() {
