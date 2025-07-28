@@ -1102,6 +1102,35 @@ def verify_token(token: str):
     except JWTError:
         return None
 
+async def get_current_admin(request: Request):
+    """Dependency pour vérifier l'authentification admin"""
+    auth_header = request.headers.get("Authorization")
+    if not auth_header or not auth_header.startswith("Bearer "):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token d'authentification requis",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    token = auth_header.split(" ")[1]
+    payload = verify_token(token)
+    
+    if payload is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token invalide",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    # Vérifier que c'est un token admin (pas membre)
+    if payload.get("type") == "member":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Accès admin requis"
+        )
+    
+    return payload
+
 def generate_verification_code():
     """Générer un code de vérification à 6 chiffres"""
     return str(secrets.randbelow(999999)).zfill(6)
