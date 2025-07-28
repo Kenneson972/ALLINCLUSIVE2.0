@@ -1240,6 +1240,217 @@
             `;
         }
 
+        // Initialize analytics charts
+        function initializeAnalyticsCharts(overview, performance, trends) {
+            // Graphique des revenus mensuels
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: performance.monthly_performance.map(m => `${m._id.month}/${m._id.year}`),
+                    datasets: [{
+                        label: 'Revenus (€)',
+                        data: performance.monthly_performance.map(m => m.revenue),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique des villas populaires
+            const villaCtx = document.getElementById('villaChart').getContext('2d');
+            new Chart(villaCtx, {
+                type: 'bar',
+                data: {
+                    labels: performance.villa_performance.map(v => v.villa_name).slice(0, 5),
+                    datasets: [{
+                        label: 'Réservations',
+                        data: performance.villa_performance.map(v => v.reservations).slice(0, 5),
+                        backgroundColor: [
+                            '#f59e0b',
+                            '#3b82f6',
+                            '#10b981',
+                            '#ef4444',
+                            '#8b5cf6'
+                        ],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: 'rgba(255, 255, 255, 0.7)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique des tendances par jour de la semaine
+            const weekdayCtx = document.getElementById('weekdayChart').getContext('2d');
+            const weekdayLabels = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+            new Chart(weekdayCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: weekdayLabels,
+                    datasets: [{
+                        data: Array.from({length: 7}, (_, i) => {
+                            const found = trends.weekday_trends.find(t => t._id === i + 1);
+                            return found ? found.count : 0;
+                        }),
+                        backgroundColor: [
+                            '#ef4444',
+                            '#f59e0b',
+                            '#10b981',
+                            '#3b82f6',
+                            '#8b5cf6',
+                            '#ec4899',
+                            '#f97316'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'white',
+                                padding: 20
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Graphique de fidélité des membres
+            const loyaltyCtx = document.getElementById('loyaltyChart').getContext('2d');
+            new Chart(loyaltyCtx, {
+                type: 'pie',
+                data: {
+                    labels: performance.member_loyalty.map(l => l._id),
+                    datasets: [{
+                        data: performance.member_loyalty.map(l => l.count),
+                        backgroundColor: [
+                            '#10b981',
+                            '#3b82f6',
+                            '#f59e0b',
+                            '#ef4444'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: 'white',
+                                padding: 20
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Mise à jour temps réel
+        function startRealtimeUpdates() {
+            setInterval(async () => {
+                try {
+                    const token = localStorage.getItem('khanelconcept_admin_token');
+                    const response = await fetch(`${backendUrl}/api/admin/analytics/realtime`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        
+                        // Mettre à jour les métriques temps réel
+                        const activeUsersEl = document.getElementById('activeUsers');
+                        const recentEventsEl = document.getElementById('recentEvents');
+                        const newReservationsEl = document.getElementById('newReservations');
+                        
+                        if (activeUsersEl) {
+                            activeUsersEl.textContent = data.active_users;
+                            // Animation sur changement
+                            activeUsersEl.style.transform = 'scale(1.1)';
+                            setTimeout(() => {
+                                activeUsersEl.style.transform = 'scale(1)';
+                            }, 200);
+                        }
+                        
+                        if (recentEventsEl) {
+                            recentEventsEl.textContent = data.recent_events;
+                        }
+                        
+                        if (newReservationsEl) {
+                            newReservationsEl.textContent = data.new_reservations;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Erreur mise à jour temps réel:', error);
+                }
+            }, 30000); // Mise à jour toutes les 30 secondes
+        }
+
         function loadSettingsContent() {
             // TODO: Implement settings
             document.getElementById('settingsContent').innerHTML = `
