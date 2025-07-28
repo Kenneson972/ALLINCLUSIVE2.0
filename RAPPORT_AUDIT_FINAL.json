@@ -1,0 +1,593 @@
+{
+  "total_pages": 21,
+  "found_pages": 21,
+  "missing_pages": [],
+  "page_analysis": {
+    "villa-f3-petit-macabou.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F3 sur Petit Macabou",
+      "villa_location": "Petit Macabou, Vauclin",
+      "price_found": "850€"
+    },
+    "villa-f3-baccha.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F3 POUR LA BACCHA",
+      "villa_location": "Petit Macabou",
+      "price_found": "1350€"
+    },
+    "villa-f3-francois.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F3 sur le François",
+      "villa_location": "Hauteurs du Morne Carrière au François",
+      "price_found": "800€"
+    },
+    "villa-f5-ste-anne.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F5 sur Ste Anne",
+      "villa_location": "Quartier les Anglais, Ste Anne",
+      "price_found": "1350€"
+    },
+    "villa-f6-lamentin.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F6 au Lamentin",
+      "villa_location": "Quartier Béleme, Lamentin",
+      "price_found": "1200€"
+    },
+    "villa-f6-ste-luce.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F6 sur Ste Luce à 1mn de la plage",
+      "villa_location": "Zac de Pont Café, Ste Luce, à 1mn de la plage Corps de garde",
+      "price_found": "1700€"
+    },
+    "villa-f5-vauclin.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F5 Vauclin Ravine Plate",
+      "villa_location": "Hauteurs de Ravine Plate, Vauclin",
+      "price_found": "1550€"
+    },
+    "villa-f7-baie-mulets.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F7 Baie des Mulets",
+      "villa_location": "Baie des Mulets, Vauclin",
+      "price_found": "2200€"
+    },
+    "villa-f5-la-renee.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F5 La Renée",
+      "villa_location": "Quartier La Renée, Rivière-Pilote",
+      "price_found": "900€"
+    },
+    "bas-villa-trinite-cosmy.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Bas de villa F3 Trinité Cosmy",
+      "villa_location": "Cosmy, Trinité",
+      "price_found": "500€"
+    },
+    "bas-villa-robert.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Bas de villa F3 sur le Robert",
+      "villa_location": "Pointe Hyacinthe, Le Robert",
+      "price_found": "900€"
+    },
+    "bas-villa-ste-luce.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Bas de villa F3 sur Ste Luce",
+      "villa_location": "Sainte-Luce",
+      "price_found": "470€"
+    },
+    "studio-cocooning-lamentin.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Studio Cocooning Lamentin",
+      "villa_location": "Hauteurs de Morne Pitault, Lamentin",
+      "price_found": "290€"
+    },
+    "appartement-trenelle.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Appartement F3 Trenelle (Location Annuelle)",
+      "villa_location": "Trenelle, à 2 minutes du PPM",
+      "price_found": "Non trouvé"
+    },
+    "villa-fete-ducos.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa Fête Journée Ducos",
+      "villa_location": "Ducos",
+      "price_found": "20€"
+    },
+    "villa-fete-fort-de-france.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa Fête Journée Fort de France",
+      "villa_location": "Fort de France",
+      "price_found": "100€"
+    },
+    "villa-fete-riviere-pilote.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa Fête Journée Rivière-Pilote",
+      "villa_location": "Rivière-Pilote",
+      "price_found": "660€"
+    },
+    "villa-fete-riviere-salee.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa Fête Journée Rivière Salée",
+      "villa_location": "Quartier La Laugier, Rivière Salée",
+      "price_found": "400€"
+    },
+    "villa-fete-sainte-luce.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa Fête Journée Sainte-Luce",
+      "villa_location": "Sainte-Luce, près de la Forêt Montravail",
+      "price_found": "390€"
+    },
+    "espace-piscine-bungalow.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Espace Piscine Journée Bungalow",
+      "villa_location": "Non précisé",
+      "price_found": "350€"
+    },
+    "villa-f6-petit-macabou-fete.html": {
+      "has_title": true,
+      "has_hero_section": true,
+      "has_gallery": true,
+      "has_details": true,
+      "has_pricing": true,
+      "has_booking_form": true,
+      "has_footer": true,
+      "has_video_background": true,
+      "has_glassmorphism_css": true,
+      "has_glassmorphism_js": true,
+      "villa_name": "Villa F6 sur Petit Macabou (séjour + fête)",
+      "villa_location": "Petit Macabou au Vauclin (972)",
+      "price_found": "2000€"
+    }
+  },
+  "links_analysis": {
+    "villa-f3-petit-macabou.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+        "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+        "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg"
+      ]
+    },
+    "villa-f3-baccha.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+        "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+        "./images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg"
+      ]
+    },
+    "villa-f3-francois.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+        "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
+        "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg"
+      ]
+    },
+    "villa-f5-ste-anne.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+        "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+        "./images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg"
+      ]
+    },
+    "villa-f6-lamentin.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
+      ]
+    },
+    "villa-f6-ste-luce.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
+        "./images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg",
+        "./images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg"
+      ]
+    },
+    "villa-f5-vauclin.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
+        "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+        "./images/Villa_F5_Vauclin_Ravine_Plate/cuisine_equipee_bois_fonce_granite.jpg"
+      ]
+    },
+    "villa-f7-baie-mulets.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F7_Baie_des_Mulets_Vauclin/salle_a_manger_table_blanche.jpg",
+        "./images/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
+        "./images/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg"
+      ]
+    },
+    "villa-f5-la-renee.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg",
+        "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
+        "./images/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg"
+      ]
+    },
+    "bas-villa-trinite-cosmy.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F3_Trinite_Cosmy/chambre_1_linge_tropical_turquoise.jpg",
+        "./images/Villa_F3_Trinite_Cosmy/terrasse_couverte_salle_a_manger.jpg",
+        "./images/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg"
+      ]
+    },
+    "bas-villa-robert.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg",
+        "./images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
+        "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg"
+      ]
+    },
+    "bas-villa-ste-luce.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
+        "./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg",
+        "./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg"
+      ]
+    },
+    "studio-cocooning-lamentin.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+        "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg",
+        "./images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg"
+      ]
+    },
+    "appartement-trenelle.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+        "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
+        "./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg"
+      ]
+    },
+    "villa-fete-ducos.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+        "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
+        "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg"
+      ]
+    },
+    "villa-fete-fort-de-france.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+        "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
+        "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg"
+      ]
+    },
+    "villa-fete-riviere-pilote.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg",
+        "./images/Villa_Fete_Journee_R_Pilote/02_chambre_lit_bois.jpg",
+        "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg"
+      ]
+    },
+    "villa-fete-riviere-salee.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
+      ]
+    },
+    "villa-fete-sainte-luce.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+        "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
+        "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg"
+      ]
+    },
+    "espace-piscine-bungalow.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+        "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
+      ]
+    },
+    "villa-f6-petit-macabou-fete.html": {
+      "has_index_link": true,
+      "has_reservation_link": true,
+      "has_contact_link": true,
+      "has_villas_link": true,
+      "form_action": "./process-booking.php",
+      "cloudinary_video": true,
+      "image_paths": [
+        "./images/Villa_F6_Petit_Macabou/01_vue_aerienne_nuit.jpg",
+        "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+        "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg"
+      ]
+    }
+  },
+  "errors": []
+}
