@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Villa API</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .villa { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+        .error { color: red; background: #ffe6e6; padding: 10px; }
+        .success { color: green; background: #e6ffe6; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Test API Villas KhanelConcept</h1>
+    <div id="status">Chargement...</div>
+    <div id="results"></div>
+
+    <script>
+        async function testAPI() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+            
+            try {
+                statusDiv.innerHTML = '🔄 Test en cours...';
+                
+                // Test de connexion à l'API
+                const response = await fetch('/api/villas');
+                console.log('Response:', response);
+                
+                if (response.ok) {
+                    const villas = await response.json();
+                    console.log('Villas:', villas);
+                    
+                    statusDiv.innerHTML = `<div class="success">✅ API fonctionnelle - ${villas.length} villas chargées</div>`;
+                    
+                    // Afficher les villas
+                    resultsDiv.innerHTML = villas.map(villa => `
+                        <div class="villa">
+                            <h3>${villa.name}</h3>
+                            <p><strong>Prix:</strong> ${villa.price}€</p>
+                            <p><strong>Localisation:</strong> ${villa.location}</p>
+                            <p><strong>Capacité:</strong> ${villa.guests} personnes</p>
+                            <p><strong>Catégorie:</strong> ${villa.category}</p>
+                        </div>
+                    `).join('');
+                    
+                    // Chercher spécifiquement "Espace Piscine"
+                    const espacePiscine = villas.find(v => v.name.includes('Espace Piscine'));
+                    if (espacePiscine) {
+                        statusDiv.innerHTML += `<div class="success">✅ Villa "Espace Piscine" trouvée: ${espacePiscine.price}€</div>`;
+                    } else {
+                        statusDiv.innerHTML += `<div class="error">❌ Villa "Espace Piscine" non trouvée</div>`;
+                    }
+                    
+                } else {
+                    statusDiv.innerHTML = `<div class="error">❌ Erreur API: ${response.status}</div>`;
+                }
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                statusDiv.innerHTML = `<div class="error">❌ Erreur de connexion: ${error.message}</div>`;
+            }
+        }
+        
+        // Lancer le test au chargement
+        document.addEventListener('DOMContentLoaded', testAPI);
+    </script>
+</body>
+</html>
