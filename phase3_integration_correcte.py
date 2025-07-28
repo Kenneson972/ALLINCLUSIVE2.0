@@ -203,7 +203,7 @@ async def verifier_api():
     
     try:
         import requests
-        response = requests.get("https://60538156-1356-4530-8795-27ab33f42945.preview.emergentagent.com/api/villas")
+        response = requests.get("https://cfc0e6ef-086c-461a-915c-2319466028f1.preview.emergentagent.com/api/villas")
         
         if response.status_code == 200:
             villas = response.json()

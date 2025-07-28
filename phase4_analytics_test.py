@@ -20,7 +20,7 @@ import uuid
 from datetime import datetime
 
 # Backend URL Configuration
-BACKEND_URL = "https://60538156-1356-4530-8795-27ab33f42945.preview.emergentagent.com"
+BACKEND_URL = "https://cfc0e6ef-086c-461a-915c-2319466028f1.preview.emergentagent.com"
 API_BASE = f"{BACKEND_URL}/api"
 
 # Admin credentials
