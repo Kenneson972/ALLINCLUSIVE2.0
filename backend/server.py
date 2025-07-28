@@ -783,7 +783,14 @@ async def health_check():
 async def get_villas():
     """Récupérer toutes les villas"""
     try:
-        villas = await db.villas.find({}).to_list(1000)
+        villas = await db.villas.find({}, {"_id": 0}).to_list(1000)
+        # Convert integer IDs to strings for consistency
+        for villa in villas:
+            if "id" in villa and isinstance(villa["id"], int):
+                villa["id"] = str(villa["id"])
+            # Ensure fallback_icon exists
+            if "fallback_icon" not in villa:
+                villa["fallback_icon"] = "🏖️"
         return villas
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors de la récupération des villas: {e}")
