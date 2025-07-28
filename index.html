@@ -2823,13 +2823,20 @@
                             }
                         </style>
                     `;
+                } else {
+                    console.error("❌ Element villasGrid not found!");
                 }
                 
                 const backendUrl = window.location.origin;
+                console.log("🌐 Backend URL:", backendUrl);
+                
                 const response = await fetch(`${backendUrl}/api/villas`);
+                console.log("📡 Response status:", response.status);
                 
                 if (response.ok) {
                     const villas = await response.json();
+                    console.log("📊 Raw villas from API:", villas.length, villas[0]);
+                    
                     villasData = villas.map(villa => ({
                         id: villa.id,
                         name: villa.name,
@@ -2847,10 +2854,11 @@
                         pricing_details: villa.pricing_details || {}
                     }));
                     
-                    console.log(`✅ ${villasData.length} villas chargées depuis l'API`);
+                    console.log("✅ Villas transformées:", villasData.length, villasData[0]);
                     
                     // Afficher les villas après chargement
                     filteredVillas = [...villasData];
+                    console.log("🎯 Filtered villas:", filteredVillas.length);
                     displayVillas();
                     
                     return true;
