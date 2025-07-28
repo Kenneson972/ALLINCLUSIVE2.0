@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa Fête Journée Rivière Salée - Khanel Concept Martinique</title>
+    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+</head>
+<body>
+    <!-- Video Background (identique index) -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header glassmorphism (identique index) -->
+    <header class="glass-header">
+        <nav>
+            <div class="logo">Khanel Concept</div>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./villas.html">Nos Villas</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="villa-content">
+        <!-- Hero Section -->
+        <section class="hero-villa glass-card">
+            <h1>Villa Fête Journée Rivière Salée</h1>
+            <p class="villa-location">Quartier La Laugier, Rivière Salée</p>
+            <div class="villa-specs">
+                <span>Location à la journée</span>
+                <span>De 25 à 100 personnes (selon forfait)</span>
+                <span>À partir de 400€</span>
+            </div>
+        </section>
+
+        <!-- Galerie Photos -->
+        <section class="gallery glass-card">
+            <h2>Galerie Photos</h2>
+            <div class="photo-slider">
+                <img src="./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg" alt="Villa Fête Journée Rivière Salée">
+            </div>
+        </section>
+
+        <!-- Détails Villa -->
+        <section class="details glass-card">
+            <h2>Détails de la Villa</h2>
+            <div class="details-grid">
+                <div class="description">
+                    <p>Pour événements utilisant la piscine: maître-nageur ou pompier obligatoire aux frais de l'organisateur (sinon barrière de sécurité installée). Déchets à enlever après l'événement. Acompte 30% à la réservation, solde 48h avant l'événement.</p>
+                </div>
+                <div class="amenities">
+                    <h3>Équipements & Services</h3>
+                    <ul>
+                        <li>5 tables rectangulaires</li>
+                        <li>Chaises plastiques selon forfait</li>
+                        <li>Piscine avec tente couverte</li>
+                        <li>Espace événementiel modulable</li>
+                        <li>Possibilité maître-nageur ou pompier</li>
+                        <li>Barrière de sécurité piscine</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs (section critique) -->
+        <section class="pricing glass-card">
+            <h2>Tarifs & Disponibilités</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Forfait</th>
+                            <th>Horaires</th>
+                            <th>Capacité</th>
+                            <th>Tarif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Forfait 1</td>
+                            <td>12h-19h</td>
+                            <td>25 personnes</td>
+                            <td>400€</td>
+                        </tr>
+                        <tr>
+                            <td>Forfait 2</td>
+                            <td>12h-19h</td>
+                            <td>50 personnes</td>
+                            <td>550€</td>
+                        </tr>
+                        <tr>
+                            <td>Forfait 3</td>
+                            <td>8h-22h</td>
+                            <td>50 personnes</td>
+                            <td>750€</td>
+                        </tr>
+                        <tr>
+                            <td>Forfait 4</td>
+                            <td>8h-22h</td>
+                            <td>100 personnes</td>
+                            <td>1000€</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-notes">
+                <p><strong>Acompte:</strong> 30% à la réservation</p>
+                <p><strong>Solde:</strong> 48h avant l'événement</p>
+                <p><strong>Piscine:</strong> Maître-nageur ou pompier obligatoire (aux frais de l'organisateur) sinon barrière de sécurité</p>
+                <p><strong>Déchets:</strong> À enlever après l'événement</p>
+            </div>
+        </section>
+
+        <!-- Formulaire Réservation -->
+        <section class="booking glass-card">
+            <h2>Réserver cette Villa</h2>
+            <form class="booking-form" action="./process-booking.php" method="POST">
+                <input type="hidden" name="villa_id" value="villa-fete-riviere-salee">
+                <input type="hidden" name="villa_name" value="Villa Fête Journée Rivière Salée">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'arrivée</label>
+                        <input type="date" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Forfait</label>
+                        <select name="package" required>
+                            <option value="">Choisir...</option>
+                            <option value="forfait1">Forfait 1 - 25 pers (12h-19h) - 400€</option>
+                            <option value="forfait2">Forfait 2 - 50 pers (12h-19h) - 550€</option>
+                            <option value="forfait3">Forfait 3 - 50 pers (8h-22h) - 750€</option>
+                            <option value="forfait4">Forfait 4 - 100 pers (8h-22h) - 1000€</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre exact de personnes</label>
+                        <input type="number" name="guests" min="1" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Utilisation piscine</label>
+                        <select name="pool_use" required>
+                            <option value="">Choisir...</option>
+                            <option value="non">Non</option>
+                            <option value="avec_maitre_nageur">Oui, avec maître-nageur</option>
+                            <option value="avec_pompier">Oui, avec pompier</option>
+                            <option value="avec_barriere">Oui, avec barrière de sécurité</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Type d'événement</label>
+                    <select name="event_type" required>
+                        <option value="">Choisir...</option>
+                        <option value="anniversaire">Anniversaire</option>
+                        <option value="mariage">Mariage</option>
+                        <option value="bapteme">Baptême</option>
+                        <option value="communion">Communion</option>
+                        <option value="reunion_famille">Réunion de famille</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message (optionnel)</label>
+                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-book">Demander un Devis</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer identique index -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Khanel Concept</h3>
+                <p>Location de villas de prestige en Martinique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Saint-Joseph, Martinique</p>
+                <p>Tél: +596 696 XX XX XX</p>
+                <p>Email: contact@khanelconcept.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="./assets/js/glassmorphism.js"></script>
+</body>
+</html>
