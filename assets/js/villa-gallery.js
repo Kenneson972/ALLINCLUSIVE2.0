@@ -1,0 +1,463 @@
+// VILLA GALLERY JS - Interactions Premium Ultra-Smooth
+// Galerie interactive, lightbox, lazy loading, animations smooth
+
+class VillaGallery {
+    constructor() {
+        this.currentImageIndex = 0;
+        this.images = [];
+        this.lightbox = null;
+        this.isLoading = false;
+        this.init();
+    }
+
+    init() {
+        this.createLightbox();
+        this.initializeGallery();
+        this.initializeLazyLoading();
+        this.initializeScrollAnimations();
+        this.initializeVideoBackground();
+        this.initializeSmoothScrolling();
+        this.initializeHeaderEffects();
+    }
+
+    // CRÉATION DU LIGHTBOX PREMIUM
+    createLightbox() {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <button class="lightbox-close" aria-label="Fermer">&times;</button>
+                <img src="" alt="" class="lightbox-image">
+                <div class="lightbox-nav">
+                    <button class="lightbox-prev" aria-label="Précédent">‹</button>
+                    <button class="lightbox-next" aria-label="Suivant">›</button>
+                </div>
+                <div class="lightbox-counter">
+                    <span class="current">1</span> / <span class="total">1</span>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(lightbox);
+        this.lightbox = lightbox;
+        
+        // Styles additionnels pour la navigation
+        const style = document.createElement('style');
+        style.textContent = `
+            .lightbox-nav {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 20px;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+            
+            .lightbox-prev, .lightbox-next {
+                background: rgba(0, 0, 0, 0.7);
+                border: none;
+                color: white;
+                font-size: 30px;
+                padding: 15px 20px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+                pointer-events: all;
+            }
+            
+            .lightbox-prev:hover, .lightbox-next:hover {
+                background: rgba(0, 0, 0, 0.9);
+                transform: scale(1.1);
+            }
+            
+            .lightbox-counter {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                padding: 10px 20px;
+                border-radius: 20px;
+                font-size: 14px;
+                backdrop-filter: blur(10px);
+            }
+        `;
+        document.head.appendChild(style);
+        
+        this.setupLightboxEvents();
+    }
+
+    // CONFIGURATION DES ÉVÉNEMENTS LIGHTBOX
+    setupLightboxEvents() {
+        const closeBtn = this.lightbox.querySelector('.lightbox-close');
+        const prevBtn = this.lightbox.querySelector('.lightbox-prev');
+        const nextBtn = this.lightbox.querySelector('.lightbox-next');
+        
+        closeBtn.addEventListener('click', () => this.closeLightbox());
+        prevBtn.addEventListener('click', () => this.prevImage());
+        nextBtn.addEventListener('click', () => this.nextImage());
+        
+        // Fermeture avec échap et clic extérieur
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') this.closeLightbox();
+            if (e.key === 'ArrowLeft') this.prevImage();
+            if (e.key === 'ArrowRight') this.nextImage();
+        });
+        
+        this.lightbox.addEventListener('click', (e) => {
+            if (e.target === this.lightbox) this.closeLightbox();
+        });
+        
+        // Support des gestes tactiles
+        this.initializeTouchGestures();
+    }
+
+    // INITIALISATION DE LA GALERIE
+    initializeGallery() {
+        const photoSlider = document.querySelector('.photo-slider');
+        if (!photoSlider) return;
+        
+        // Transformation des images en éléments interactifs
+        const images = photoSlider.querySelectorAll('img');
+        this.images = Array.from(images);
+        
+        images.forEach((img, index) => {
+            // Wrap image dans un conteneur
+            const container = document.createElement('div');
+            container.className = 'photo-item';
+            img.parentNode.insertBefore(container, img);
+            container.appendChild(img);
+            
+            // Ajout de l'overlay de zoom
+            const overlay = document.createElement('div');
+            overlay.className = 'photo-zoom-overlay';
+            overlay.textContent = '🔍 Cliquer pour agrandir';
+            container.appendChild(overlay);
+            
+            // Événement de clic
+            container.addEventListener('click', () => this.openLightbox(index));
+            
+            // Animation au survol
+            container.addEventListener('mouseenter', () => {
+                this.animateImageHover(container, true);
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                this.animateImageHover(container, false);
+            });
+        });
+    }
+
+    // ANIMATION HOVER DES IMAGES
+    animateImageHover(container, isHover) {
+        const img = container.querySelector('img');
+        const overlay = container.querySelector('.photo-zoom-overlay');
+        
+        if (isHover) {
+            img.style.transform = 'scale(1.1)';
+            img.style.filter = 'brightness(1) saturate(1.3)';
+            overlay.style.opacity = '1';
+            overlay.style.transform = 'translate(-50%, -50%) scale(1.05)';
+        } else {
+            img.style.transform = 'scale(1)';
+            img.style.filter = 'brightness(0.9) saturate(1.1)';
+            overlay.style.opacity = '0';
+            overlay.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+    }
+
+    // OUVERTURE DU LIGHTBOX
+    openLightbox(index) {
+        this.currentImageIndex = index;
+        const img = this.images[index];
+        
+        const lightboxImg = this.lightbox.querySelector('.lightbox-image');
+        const currentSpan = this.lightbox.querySelector('.current');
+        const totalSpan = this.lightbox.querySelector('.total');
+        
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        currentSpan.textContent = index + 1;
+        totalSpan.textContent = this.images.length;
+        
+        this.lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Animation d'entrée
+        setTimeout(() => {
+            lightboxImg.style.animation = 'scaleIn 0.4s ease';
+        }, 50);
+    }
+
+    // FERMETURE DU LIGHTBOX
+    closeLightbox() {
+        this.lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // NAVIGATION ENTRE IMAGES
+    prevImage() {
+        if (this.images.length === 0) return;
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+        this.updateLightboxImage();
+    }
+
+    nextImage() {
+        if (this.images.length === 0) return;
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+        this.updateLightboxImage();
+    }
+
+    updateLightboxImage() {
+        const img = this.images[this.currentImageIndex];
+        const lightboxImg = this.lightbox.querySelector('.lightbox-image');
+        const currentSpan = this.lightbox.querySelector('.current');
+        
+        // Animation de transition
+        lightboxImg.style.opacity = '0.5';
+        lightboxImg.style.transform = 'scale(0.9)';
+        
+        setTimeout(() => {
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            currentSpan.textContent = this.currentImageIndex + 1;
+            
+            lightboxImg.style.opacity = '1';
+            lightboxImg.style.transform = 'scale(1)';
+        }, 150);
+    }
+
+    // GESTES TACTILES
+    initializeTouchGestures() {
+        let startX = 0;
+        let startY = 0;
+        
+        this.lightbox.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+        
+        this.lightbox.addEventListener('touchend', (e) => {
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const diffX = startX - endX;
+            const diffY = startY - endY;
+            
+            // Swipe horizontal
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                if (diffX > 0) {
+                    this.nextImage();
+                } else {
+                    this.prevImage();
+                }
+            }
+            
+            // Swipe vertical pour fermer
+            if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 100) {
+                this.closeLightbox();
+            }
+        });
+    }
+
+    // LAZY LOADING OPTIMISÉ
+    initializeLazyLoading() {
+        const images = document.querySelectorAll('img[data-src]');
+        
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    this.loadImage(img);
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px'
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
+
+    loadImage(img) {
+        img.classList.add('loading');
+        
+        const tempImg = new Image();
+        tempImg.onload = () => {
+            img.src = img.dataset.src;
+            img.classList.remove('loading');
+            img.style.animation = 'fadeInUp 0.6s ease';
+        };
+        tempImg.src = img.dataset.src;
+    }
+
+    // ANIMATIONS DE SCROLL
+    initializeScrollAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.glass-card').forEach(card => {
+            observer.observe(card);
+        });
+    }
+
+    // VIDÉO BACKGROUND PREMIUM
+    initializeVideoBackground() {
+        const video = document.querySelector('.video-background video');
+        if (!video) return;
+        
+        // Configuration pour tous les navigateurs
+        video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+        video.setAttribute('playsinline', 'playsinline');
+        video.muted = true;
+        video.loop = true;
+        video.preload = 'metadata';
+        
+        // Détection de type d'appareil
+        const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isLowPower = navigator.hardwareConcurrency < 4;
+        
+        if (isMobile || isLowPower) {
+            // Fallback pour appareils faibles
+            video.style.display = 'none';
+            document.querySelector('.video-background').style.background = 'var(--primary-gradient)';
+        } else {
+            // Lecture optimisée pour desktop
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Autoplay vidéo échoué:', error);
+                    video.style.display = 'none';
+                });
+            }
+        }
+        
+        // Effet parallax léger
+        window.addEventListener('scroll', () => {
+            if (!isMobile) {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.1;
+                video.style.transform = `translate(-50%, calc(-50% + ${rate}px))`;
+            }
+        });
+    }
+
+    // SCROLL FLUIDE
+    initializeSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+
+    // EFFETS HEADER AU SCROLL
+    initializeHeaderEffects() {
+        const header = document.querySelector('.glass-header');
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Masquer/afficher header selon direction de scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+    }
+}
+
+// FONCTIONS UTILITAIRES POUR RÉSERVATION
+class ReservationManager {
+    static goToReservation(villaId, villaName) {
+        const params = new URLSearchParams({
+            villa: villaId,
+            name: encodeURIComponent(villaName)
+        });
+        
+        window.location.href = `./reservation.html?${params.toString()}`;
+    }
+    
+    static addReservationButtons() {
+        // Supprimer anciens formulaires et remplacer par boutons
+        const bookingSections = document.querySelectorAll('.booking');
+        
+        bookingSections.forEach(section => {
+            const villaId = document.querySelector('input[name="villa_id"]')?.value || 'unknown';
+            const villaName = document.querySelector('input[name="villa_name"]')?.value || 'Villa';
+            
+            section.innerHTML = `
+                <h2>Réservation</h2>
+                <div class="reservation-buttons">
+                    <a href="javascript:void(0)" 
+                       class="btn-reserve-primary" 
+                       onclick="ReservationManager.goToReservation('${villaId}', '${villaName}')">
+                        🏨 Réserver maintenant
+                    </a>
+                    <a href="./reservation.html" class="btn-reserve-secondary">
+                        📋 Voir toutes les villas
+                    </a>
+                </div>
+                <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
+                    Réservation sécurisée • Confirmation immédiate • Assistance 24/7
+                </p>
+            `;
+        });
+    }
+}
+
+// INITIALISATION AU CHARGEMENT
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser la galerie premium
+    const gallery = new VillaGallery();
+    
+    // Remplacer formulaires par boutons réservation
+    ReservationManager.addReservationButtons();
+    
+    // Animations d'entrée séquentielles
+    const cards = document.querySelectorAll('.glass-card');
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Préchargement des images critiques
+    const criticalImages = document.querySelectorAll('img[data-critical]');
+    criticalImages.forEach(img => {
+        const tempImg = new Image();
+        tempImg.src = img.src;
+    });
+    
+    console.log('✨ Villa Premium Gallery initialisé avec succès');
+});
+
+// EXPORT POUR UTILISATION EXTERNE
+window.VillaGallery = VillaGallery;
+window.ReservationManager = ReservationManager;
