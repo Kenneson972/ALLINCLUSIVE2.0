@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllInclusive 2.0 - Gestion des Villas</title>
+    
+    <!-- External CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Dropzone for file uploads -->
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    
+    <style>
+        :root {
+            /* Light Theme Colors */
+            --primary-50: #f0f9ff;
+            --primary-100: #e0f2fe;
+            --primary-500: #0ea5e9;
+            --primary-600: #0284c7;
+            --primary-700: #0369a1;
+            
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            
+            --success-50: #f0fdf4;
+            --success-500: #22c55e;
+            --success-600: #16a34a;
+            --warning-50: #fffbeb;
+            --warning-500: #f59e0b;
+            --error-50: #fef2f2;
+            --error-500: #ef4444;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-primary: #e2e8f0;
+            
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        
+        [data-theme="dark"] {
+            --primary-50: #0c1220;
+            --primary-100: #1e293b;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            
+            --gray-50: #0f172a;
+            --gray-100: #1e293b;
+            --gray-200: #334155;
+            --gray-300: #475569;
+            --gray-400: #64748b;
+            --gray-500: #94a3b8;
+            --gray-600: #cbd5e1;
+            --gray-700: #e2e8f0;
+            --gray-800: #f1f5f9;
+            --gray-900: #f8fafc;
+            
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-primary: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* Layout */
+        .villa-management-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            max-width: 100%;
+        }
+        
+        /* Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-600);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+        
+        .btn-success {
+            background: var(--success-500);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: var(--success-600);
+        }
+        
+        /* Search and Filters */
+        .filters-section {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-primary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+        
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px var(--primary-50);
+        }
+        
+        /* Villa Cards Grid */
+        .villas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .villa-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-primary);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .villa-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        
+        .villa-card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .villa-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .villa-card:hover .villa-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .villa-status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-available {
+            background: var(--success-50);
+            color: var(--success-600);
+        }
+        
+        .status-occupied {
+            background: var(--error-50);
+            color: var(--error-500);
+        }
+        
+        .status-maintenance {
+            background: var(--warning-50);
+            color: var(--warning-500);
+        }
+        
+        .villa-card-content {
+            padding: 1.5rem;
+        }
+        
+        .villa-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .villa-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .villa-location {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .villa-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-600);
+        }
+        
+        .villa-price-unit {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .villa-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 8px;
+        }
+        
+        .villa-stat {
+            text-align: center;
+        }
+        
+        .villa-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .villa-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .villa-amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .amenity-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--gray-100);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .villa-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .action-btn:hover {
+            background: var(--gray-50);
+            color: var(--text-primary);
+        }
+        
+        .action-btn.primary {
+            background: var(--primary-50);
+            color: var(--primary-600);
+            border-color: var(--primary-200);
+        }
+        
+        .action-btn.primary:hover {
+            background: var(--primary-100);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-200);
+            color: var(--text-primary);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        /* Villa Form */
+        .villa-form {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .form-section {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-500);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .textarea-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--gray-100);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item-actions {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .gallery-action-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+        }
+        
+        .gallery-action-btn.delete {
+            background: var(--error-500);
+            color: white;
+        }
+        
+        .gallery-action-btn.delete:hover {
+            background: var(--error-600);
+        }
+        
+        /* Map Container */
+        .map-container {
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-primary);
+        }
+        
+        /* Dropzone Styles */
+        .dropzone {
+            border: 2px dashed var(--border-primary) !important;
+            border-radius: 8px !important;
+            background: var(--gray-50) !important;
+            min-height: 200px !important;
+        }
+        
+        .dropzone .dz-message {
+            color: var(--text-secondary) !important;
+        }
+        
+        /* Loading States */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+        
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gray-200);
+            border-top: 2px solid var(--primary-500);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-area {
+                padding: 1rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .page-actions {
+                justify-content: stretch;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+            
+            .villas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .villa-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal {
+                padding: 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="villa-management-layout">
+        <main class="content-area">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Gestion des Villas</h1>
+                    <p style="color: var(--text-secondary); margin-top: 0.5rem;">Gérez vos propriétés, tarifs et disponibilités</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <i class="fas fa-download"></i>
+                        Exporter
+                    </button>
+                    <button class="btn btn-primary" id="addVillaBtn">
+                        <i class="fas fa-plus"></i>
+                        Nouvelle Villa
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="filters-grid">
+                    <div class="form-group">
+                        <label class="form-label">Rechercher</label>
+                        <input type="text" class="form-input" id="searchInput" placeholder="Nom, localisation...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Statut</label>
+                        <select class="form-input" id="statusFilter">
+                            <option value="">Tous les statuts</option>
+                            <option value="available">Disponible</option>
+                            <option value="occupied">Occupée</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Type</label>
+                        <select class="form-input" id="typeFilter">
+                            <option value="">Tous les types</option>
+                            <option value="F3">F3</option>
+                            <option value="F5">F5</option>
+                            <option value="F6">F6</option>
+                            <option value="F7">F7</option>
+                            <option value="Studio">Studio</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Prix</label>
+                        <select class="form-input" id="priceFilter">
+                            <option value="">Tous les prix</option>
+                            <option value="0-500">0€ - 500€</option>
+                            <option value="500-1000">500€ - 1000€</option>
+                            <option value="1000-2000">1000€ - 2000€</option>
+                            <option value="2000+">2000€+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-secondary" id="resetFiltersBtn">
+                            <i class="fas fa-times"></i>
+                            Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="loadingState" class="loading">
+                <div class="spinner"></div>
+                Chargement des villas...
+            </div>
+            
+            <!-- Villas Grid -->
+            <div class="villas-grid" id="villasGrid">
+                <!-- Villa cards will be populated here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="emptyState" class="text-center" style="padding: 4rem 2rem; display: none;">
+                <i class="fas fa-home" style="font-size: 4rem; color: var(--gray-400); margin-bottom: 1rem;"></i>
+                <h3 style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 1rem;">Aucune villa trouvée</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Aucune villa ne correspond à vos critères de recherche.</p>
+                <button class="btn btn-primary" id="addFirstVillaBtn">
+                    <i class="fas fa-plus"></i>
+                    Ajouter une villa
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Villa Modal -->
+    <div class="modal" id="villaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Nouvelle Villa</h2>
+                <button class="modal-close" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="villa-form" id="villaForm">
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h3 class="section-title">Informations de base</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Nom de la villa *</label>
+                                <input type="text" class="form-input" id="villaName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Type *</label>
+                                <select class="form-input" id="villaType" required>
+                                    <option value="">Sélectionner un type</option>
+                                    <option value="F3">F3</option>
+                                    <option value="F5">F5</option>
+                                    <option value="F6">F6</option>
+                                    <option value="F7">F7</option>
+                                    <option value="Studio">Studio</option>
+                                    <option value="Location journée">Location journée</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Localisation *</label>
+                                <input type="text" class="form-input" id="villaLocation" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Capacité (personnes) *</label>
+                                <input type="number" class="form-input" id="villaGuests" min="1" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-input textarea-input" id="villaDescription" rows="4"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Pricing -->
+                    <div class="form-section">
+                        <h3 class="section-title">Tarification</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Prix de base (€) *</label>
+                                <input type="number" class="form-input" id="villaBasePrice" min="0" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Prix weekend (€)</label>
+                                <input type="number" class="form-input" id="villaWeekendPrice" min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Prix semaine (€)</label>
+                                <input type="number" class="form-input" id="villaWeekPrice" min="0" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Prix haute saison (€)</label>
+                                <input type="number" class="form-input" id="villaHighSeasonPrice" min="0" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Services & Amenities -->
+                    <div class="form-section">
+                        <h3 class="section-title">Services et équipements</h3>
+                        <div class="form-group">
+                            <label class="form-label">Services inclus</label>
+                            <textarea class="form-input textarea-input" id="villaServices" rows="3" placeholder="Ex: Piscine, WiFi, Climatisation, Parking..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Équipements détaillés</label>
+                            <div id="amenitiesContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 0.5rem;">
+                                <!-- Amenities checkboxes will be generated here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Images -->
+                    <div class="form-section">
+                        <h3 class="section-title">Galerie photos</h3>
+                        <div class="form-group">
+                            <label class="form-label">Images de la villa</label>
+                            <div id="imageDropzone" class="dropzone">
+                                <div class="dz-message">
+                                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; margin-bottom: 1rem; display: block;"></i>
+                                    Glissez-déposez vos images ici ou cliquez pour sélectionner
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-gallery" id="imageGallery">
+                            <!-- Uploaded images will appear here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Location Map -->
+                    <div class="form-section">
+                        <h3 class="section-title">Géolocalisation</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Latitude</label>
+                                <input type="number" class="form-input" id="villaLatitude" step="any">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Longitude</label>
+                                <input type="number" class="form-input" id="villaLongitude" step="any">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Carte interactive</label>
+                            <div class="map-container" id="villaMap"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="form-section">
+                        <div style="display: flex; gap: 1rem; justify-content: flex-end; padding-top: 1rem; border-top: 1px solid var(--border-primary);">
+                            <button type="button" class="btn btn-secondary" id="cancelBtn">
+                                Annuler
+                            </button>
+                            <button type="submit" class="btn btn-success" id="saveBtn">
+                                <i class="fas fa-save"></i>
+                                Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let villas = [];
+        let filteredVillas = [];
+        let currentVilla = null;
+        let villaMap = null;
+        let dropzone = null;
+        
+        // Standard amenities for checkboxes
+        const standardAmenities = [
+            'Piscine', 'WiFi', 'Climatisation', 'Parking', 'Cuisine équipée',
+            'Jacuzzi', 'Sauna', 'Terrasse', 'Jardin', 'Barbecue',
+            'Machine à laver', 'Lave-vaisselle', 'TV', 'Système audio',
+            'Douche extérieure', 'Vue mer', 'Accès plage', 'Animaux acceptés'
+        ];
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            initializeAmenities();
+            loadVillas();
+        });
+        
+        function initializeEventListeners() {
+            // Modal controls
+            document.getElementById('addVillaBtn').addEventListener('click', () => openVillaModal());
+            document.getElementById('addFirstVillaBtn').addEventListener('click', () => openVillaModal());
+            document.getElementById('closeModalBtn').addEventListener('click', closeVillaModal);
+            document.getElementById('cancelBtn').addEventListener('click', closeVillaModal);
+            
+            // Form submission
+            document.getElementById('villaForm').addEventListener('submit', handleVillaSubmit);
+            
+            // Filters
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('statusFilter').addEventListener('change', applyFilters);
+            document.getElementById('typeFilter').addEventListener('change', applyFilters);
+            document.getElementById('priceFilter').addEventListener('change', applyFilters);
+            document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+            
+            // Export
+            document.getElementById('exportBtn').addEventListener('click', exportVillas);
+            
+            // Modal backdrop click
+            document.getElementById('villaModal').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    closeVillaModal();
+                }
+            });
+        }
+        
+        function initializeAmenities() {
+            const container = document.getElementById('amenitiesContainer');
+            container.innerHTML = standardAmenities.map(amenity => `
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <input type="checkbox" value="${amenity}" style="margin: 0;">
+                    <span style="font-size: 0.875rem;">${amenity}</span>
+                </label>
+            `).join('');
+        }
+        
+        async function loadVillas() {
+            try {
+                showLoading(true);
+                
+                const response = await fetch('/api/villas');
+                if (!response.ok) throw new Error('Failed to fetch villas');
+                
+                villas = await response.json();
+                filteredVillas = [...villas];
+                
+                showLoading(false);
+                renderVillas();
+                
+            } catch (error) {
+                console.error('Error loading villas:', error);
+                showError('Erreur lors du chargement des villas');
+                showLoading(false);
+            }
+        }
+        
+        function showLoading(show) {
+            document.getElementById('loadingState').style.display = show ? 'block' : 'none';
+            document.getElementById('villasGrid').style.display = show ? 'none' : 'grid';
+        }
+        
+        function renderVillas() {
+            const grid = document.getElementById('villasGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (filteredVillas.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            emptyState.style.display = 'none';
+            
+            grid.innerHTML = filteredVillas.map(villa => createVillaCard(villa)).join('');
+            
+            // Add event listeners to action buttons
+            grid.querySelectorAll('[data-action]').forEach(btn => {
+                btn.addEventListener('click', handleVillaAction);
+            });
+        }
+        
+        function createVillaCard(villa) {
+            const status = getVillaStatus(villa);
+            const amenities = villa.amenities || [];
+            const occupancyRate = Math.floor(Math.random() * 100); // Mock data
+            const monthlyRevenue = Math.floor(Math.random() * 5000) + 1000; // Mock data
+            
+            return `
+                <div class="villa-card">
+                    <div class="villa-card-image">
+                        <img src="${villa.image || '/images/default-villa.jpg'}" 
+                             alt="${villa.name}" 
+                             onerror="this.src='/images/default-villa.jpg'">
+                        <div class="villa-status-badge status-${status.class}">
+                            ${status.label}
+                        </div>
+                    </div>
+                    <div class="villa-card-content">
+                        <div class="villa-card-header">
+                            <div>
+                                <h3 class="villa-name">${villa.name}</h3>
+                                <div class="villa-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    ${villa.location}
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="villa-price">€${villa.price}</div>
+                                <div class="villa-price-unit">par nuit</div>
+                            </div>
+                        </div>
+                        
+                        <div class="villa-stats">
+                            <div class="villa-stat">
+                                <div class="villa-stat-value">${villa.guests}</div>
+                                <div class="villa-stat-label">Personnes</div>
+                            </div>
+                            <div class="villa-stat">
+                                <div class="villa-stat-value">${occupancyRate}%</div>
+                                <div class="villa-stat-label">Occupation</div>
+                            </div>
+                            <div class="villa-stat">
+                                <div class="villa-stat-value">€${monthlyRevenue}</div>
+                                <div class="villa-stat-label">Ce mois</div>
+                            </div>
+                        </div>
+                        
+                        <div class="villa-amenities">
+                            ${amenities.slice(0, 4).map(amenity => `
+                                <span class="amenity-tag">
+                                    <i class="fas fa-check"></i>
+                                    ${amenity}
+                                </span>
+                            `).join('')}
+                            ${amenities.length > 4 ? `
+                                <span class="amenity-tag">
+                                    +${amenities.length - 4} autres
+                                </span>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="villa-actions">
+                            <button class="action-btn primary" data-action="edit" data-villa-id="${villa.id}">
+                                <i class="fas fa-edit"></i>
+                                Modifier
+                            </button>
+                            <button class="action-btn" data-action="calendar" data-villa-id="${villa.id}">
+                                <i class="fas fa-calendar"></i>
+                                Calendrier
+                            </button>
+                            <button class="action-btn" data-action="analytics" data-villa-id="${villa.id}">
+                                <i class="fas fa-chart-bar"></i>
+                                Analytics
+                            </button>
+                            <button class="action-btn" data-action="duplicate" data-villa-id="${villa.id}">
+                                <i class="fas fa-copy"></i>
+                                Dupliquer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function getVillaStatus(villa) {
+            // Mock status logic - in real app, this would check actual reservations
+            const statuses = [
+                { class: 'available', label: 'Disponible' },
+                { class: 'occupied', label: 'Occupée' },
+                { class: 'maintenance', label: 'Maintenance' }
+            ];
+            
+            return statuses[Math.floor(Math.random() * statuses.length)];
+        }
+        
+        function handleVillaAction(e) {
+            const action = e.currentTarget.dataset.action;
+            const villaId = e.currentTarget.dataset.villaId;
+            const villa = villas.find(v => v.id === villaId);
+            
+            switch (action) {
+                case 'edit':
+                    openVillaModal(villa);
+                    break;
+                case 'calendar':
+                    openCalendarModal(villa);
+                    break;
+                case 'analytics':
+                    openAnalyticsModal(villa);
+                    break;
+                case 'duplicate':
+                    duplicateVilla(villa);
+                    break;
+            }
+        }
+        
+        function openVillaModal(villa = null) {
+            currentVilla = villa;
+            const modal = document.getElementById('villaModal');
+            const title = document.getElementById('modalTitle');
+            
+            title.textContent = villa ? 'Modifier la villa' : 'Nouvelle villa';
+            
+            if (villa) {
+                populateVillaForm(villa);
+            } else {
+                resetVillaForm();
+            }
+            
+            modal.classList.add('active');
+            
+            // Initialize map and dropzone after modal is visible
+            setTimeout(() => {
+                initializeMap();
+                initializeDropzone();
+            }, 300);
+        }
+        
+        function closeVillaModal() {
+            const modal = document.getElementById('villaModal');
+            modal.classList.remove('active');
+            
+            // Clean up map and dropzone
+            if (villaMap) {
+                villaMap.remove();
+                villaMap = null;
+            }
+            if (dropzone) {
+                dropzone.destroy();
+                dropzone = null;
+            }
+            
+            resetVillaForm();
+        }
+        
+        function populateVillaForm(villa) {
+            document.getElementById('villaName').value = villa.name || '';
+            document.getElementById('villaType').value = extractVillaType(villa.name) || '';
+            document.getElementById('villaLocation').value = villa.location || '';
+            document.getElementById('villaGuests').value = villa.guests || '';
+            document.getElementById('villaDescription').value = villa.description || '';
+            document.getElementById('villaBasePrice').value = villa.price || '';
+            document.getElementById('villaServices').value = villa.features || '';
+            
+            // Set pricing details if available
+            const pricing = villa.pricing_details || {};
+            document.getElementById('villaWeekendPrice').value = pricing.weekend || '';
+            document.getElementById('villaWeekPrice').value = pricing.week || '';
+            document.getElementById('villaHighSeasonPrice').value = pricing.high_season || '';
+            
+            // Set amenities checkboxes
+            const amenities = villa.amenities || [];
+            document.querySelectorAll('#amenitiesContainer input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = amenities.includes(checkbox.value);
+            });
+        }
+        
+        function resetVillaForm() {
+            document.getElementById('villaForm').reset();
+            document.querySelectorAll('#amenitiesContainer input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.getElementById('imageGallery').innerHTML = '';
+        }
+        
+        function extractVillaType(name) {
+            if (name.includes('F3')) return 'F3';
+            if (name.includes('F5')) return 'F5';
+            if (name.includes('F6')) return 'F6';
+            if (name.includes('F7')) return 'F7';
+            if (name.includes('Studio')) return 'Studio';
+            if (name.includes('Fête') || name.includes('Journée')) return 'Location journée';
+            return '';
+        }
+        
+        async function handleVillaSubmit(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            
+            // Collect form data
+            const villaData = {
+                name: document.getElementById('villaName').value,
+                location: document.getElementById('villaLocation').value,
+                guests: parseInt(document.getElementById('villaGuests').value),
+                description: document.getElementById('villaDescription').value,
+                price: parseFloat(document.getElementById('villaBasePrice').value),
+                features: document.getElementById('villaServices').value,
+                pricing_details: {
+                    base_price: parseFloat(document.getElementById('villaBasePrice').value),
+                    weekend: parseFloat(document.getElementById('villaWeekendPrice').value) || null,
+                    week: parseFloat(document.getElementById('villaWeekPrice').value) || null,
+                    high_season: parseFloat(document.getElementById('villaHighSeasonPrice').value) || null
+                },
+                amenities: Array.from(document.querySelectorAll('#amenitiesContainer input[type="checkbox"]:checked'))
+                    .map(cb => cb.value),
+                latitude: parseFloat(document.getElementById('villaLatitude').value) || null,
+                longitude: parseFloat(document.getElementById('villaLongitude').value) || null
+            };
+            
+            try {
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enregistrement...';
+                
+                if (currentVilla) {
+                    // Update existing villa
+                    await updateVilla(currentVilla.id, villaData);
+                } else {
+                    // Create new villa
+                    await createVilla(villaData);
+                }
+                
+                closeVillaModal();
+                await loadVillas();
+                showSuccess(currentVilla ? 'Villa mise à jour avec succès' : 'Villa créée avec succès');
+                
+            } catch (error) {
+                console.error('Error saving villa:', error);
+                showError('Erreur lors de l\'enregistrement de la villa');
+            } finally {
+                const saveBtn = document.getElementById('saveBtn');
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fas fa-save"></i> Enregistrer';
+            }
+        }
+        
+        async function createVilla(villaData) {
+            // In a real app, this would make an API call
+            const newVilla = {
+                id: Date.now().toString(),
+                ...villaData,
+                category: villaData.name.includes('Fête') ? 'fete' : 'sejour',
+                image: '/images/default-villa.jpg',
+                gallery: []
+            };
+            
+            villas.push(newVilla);
+        }
+        
+        async function updateVilla(id, villaData) {
+            // In a real app, this would make an API call
+            const index = villas.findIndex(v => v.id === id);
+            if (index !== -1) {
+                villas[index] = { ...villas[index], ...villaData };
+            }
+        }
+        
+        function initializeMap() {
+            const mapContainer = document.getElementById('villaMap');
+            
+            // Default to Martinique coordinates
+            const defaultLat = 14.6415;
+            const defaultLng = -61.0242;
+            
+            villaMap = L.map(mapContainer).setView([defaultLat, defaultLng], 10);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(villaMap);
+            
+            let marker = null;
+            
+            // Add click handler to set coordinates
+            villaMap.on('click', function(e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+                
+                document.getElementById('villaLatitude').value = lat.toFixed(6);
+                document.getElementById('villaLongitude').value = lng.toFixed(6);
+                
+                if (marker) {
+                    marker.setLatLng([lat, lng]);
+                } else {
+                    marker = L.marker([lat, lng]).addTo(villaMap);
+                }
+            });
+            
+            // Set existing marker if editing
+            if (currentVilla && currentVilla.latitude && currentVilla.longitude) {
+                marker = L.marker([currentVilla.latitude, currentVilla.longitude]).addTo(villaMap);
+                villaMap.setView([currentVilla.latitude, currentVilla.longitude], 15);
+            }
+        }
+        
+        function initializeDropzone() {
+            const dropzoneElement = document.getElementById('imageDropzone');
+            
+            dropzone = new Dropzone(dropzoneElement, {
+                url: '/api/upload', // This would be your upload endpoint
+                maxFilesize: 5, // MB
+                acceptedFiles: 'image/*',
+                addRemoveLinks: true,
+                dictDefaultMessage: 'Glissez-déposez vos images ici ou cliquez pour sélectionner',
+                dictRemoveFile: 'Supprimer',
+                
+                success: function(file, response) {
+                    // Handle successful upload
+                    console.log('File uploaded:', response);
+                },
+                
+                error: function(file, errorMessage) {
+                    console.error('Upload error:', errorMessage);
+                }
+            });
+        }
+        
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value;
+            const type = document.getElementById('typeFilter').value;
+            const price = document.getElementById('priceFilter').value;
+            
+            filteredVillas = villas.filter(villa => {
+                // Search filter
+                if (search && !villa.name.toLowerCase().includes(search) && 
+                    !villa.location.toLowerCase().includes(search)) {
+                    return false;
+                }
+                
+                // Type filter
+                if (type && !villa.name.includes(type)) {
+                    return false;
+                }
+                
+                // Price filter
+                if (price) {
+                    const villaPrice = villa.price || 0;
+                    switch (price) {
+                        case '0-500':
+                            if (villaPrice > 500) return false;
+                            break;
+                        case '500-1000':
+                            if (villaPrice < 500 || villaPrice > 1000) return false;
+                            break;
+                        case '1000-2000':
+                            if (villaPrice < 1000 || villaPrice > 2000) return false;
+                            break;
+                        case '2000+':
+                            if (villaPrice < 2000) return false;
+                            break;
+                    }
+                }
+                
+                return true;
+            });
+            
+            renderVillas();
+        }
+        
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('typeFilter').value = '';
+            document.getElementById('priceFilter').value = '';
+            
+            filteredVillas = [...villas];
+            renderVillas();
+        }
+        
+        function exportVillas() {
+            // Create CSV content
+            const headers = ['Nom', 'Type', 'Localisation', 'Capacité', 'Prix de base', 'Statut'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredVillas.map(villa => [
+                    `"${villa.name}"`,
+                    `"${extractVillaType(villa.name)}"`,
+                    `"${villa.location}"`,
+                    villa.guests,
+                    villa.price,
+                    'Disponible' // Mock status
+                ].join(','))
+            ].join('\n');
+            
+            // Download CSV
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'villas-export.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function duplicateVilla(villa) {
+            const duplicate = {
+                ...villa,
+                id: Date.now().toString(),
+                name: villa.name + ' (Copie)'
+            };
+            
+            openVillaModal(duplicate);
+        }
+        
+        function openCalendarModal(villa) {
+            alert(`Calendrier pour ${villa.name} - À implémenter`);
+        }
+        
+        function openAnalyticsModal(villa) {
+            alert(`Analytics pour ${villa.name} - À implémenter`);
+        }
+        
+        function showSuccess(message) {
+            // Simple success notification - in a real app, use a proper notification system
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--success-500);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        function showError(message) {
+            // Simple error notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--error-500);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
