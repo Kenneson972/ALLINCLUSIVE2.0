@@ -2161,6 +2161,7 @@ async def get_analytics_overview():
             {"$limit": 5},
             {
                 "$project": {
+                    "_id": 0,  # Exclude MongoDB ObjectId
                     "villa_name": 1,
                     "member_name": 1,
                     "total_price": 1,
