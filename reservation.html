@@ -977,6 +977,64 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+    <script src="./assets/js/reservation-enhanced.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion du sélecteur de villa
+            const villaSelect = document.getElementById('villaSelect');
+            const villaInfo = document.getElementById('villaInfo');
+            const summaryVilla = document.getElementById('summaryVilla');
+            
+            if (villaSelect) {
+                villaSelect.addEventListener('change', function() {
+                    const selectedVilla = this.value;
+                    
+                    if (selectedVilla) {
+                        // Afficher les informations de la villa
+                        const villaText = this.options[this.selectedIndex].text;
+                        villaInfo.style.display = 'block';
+                        villaInfo.innerHTML = `
+                            <div class="flex items-center space-x-4">
+                                <i class="fas fa-home text-2xl text-gold-500"></i>
+                                <div>
+                                    <h3 class="font-bold text-white">${villaText}</h3>
+                                    <p class="text-white/70">Villa sélectionnée pour votre réservation</p>
+                                    <a href="./${selectedVilla}.html" class="text-gold-400 hover:text-gold-300 transition-colors text-sm">
+                                        → Voir les détails de cette villa
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        
+                        // Mettre à jour le récapitulatif
+                        if (summaryVilla) {
+                            summaryVilla.textContent = villaText.split(' - ')[0];
+                        }
+                        
+                        // Calculer le prix
+                        calculateTotalPrice();
+                    } else {
+                        villaInfo.style.display = 'none';
+                        if (summaryVilla) {
+                            summaryVilla.textContent = 'Aucune villa sélectionnée';
+                        }
+                    }
+                });
+            }
+            
+            // Vérifier les paramètres URL pour pré-sélectionner une villa
+            const urlParams = new URLSearchParams(window.location.search);
+            const preselectedVilla = urlParams.get('villa');
+            
+            if (preselectedVilla && villaSelect) {
+                const option = villaSelect.querySelector(`option[value="${preselectedVilla}"]`);
+                if (option) {
+                    villaSelect.value = preselectedVilla;
+                    villaSelect.dispatchEvent(new Event('change'));
+                }
+            }
+        });
+    </script>
     
     <script>
         // Initialize AOS
