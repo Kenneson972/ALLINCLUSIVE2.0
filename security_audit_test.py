@@ -14,7 +14,7 @@ from datetime import datetime
 from typing import Dict, List, Any
 
 # Backend URL from existing tests
-BACKEND_URL = "https://e5227d94-e7e6-4819-995a-5fee1af82def.preview.emergentagent.com"
+BACKEND_URL = "https://e00d5887-18f1-4aff-95ac-fd968ef3913b.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 class SecurityAuditTester:
