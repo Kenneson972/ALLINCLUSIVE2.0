@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa F6 sur Ste Luce à 1mn de la plage - Khanel Concept Martinique</title>
+    <link rel="stylesheet" href="./assets/css/glassmorphism.css">
+</head>
+<body>
+    <!-- Video Background (identique index) -->
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Header glassmorphism (identique index) -->
+    <header class="glass-header">
+        <nav>
+            <div class="logo">Khanel Concept</div>
+            <ul class="nav-menu">
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./villas.html">Nos Villas</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="villa-content">
+        <!-- Hero Section -->
+        <section class="hero-villa glass-card">
+            <h1>Villa F6 sur Ste Luce à 1mn de la plage</h1>
+            <p class="villa-location">Zac de Pont Café, Ste Luce, à 1mn de la plage Corps de garde</p>
+            <div class="villa-specs">
+                <span>F6</span>
+                <span>10 à 14 personnes</span>
+                <span>À partir de 1700€</span>
+            </div>
+        </section>
+
+        <!-- Galerie Photos -->
+        <section class="gallery glass-card">
+            <h2>Galerie Photos</h2>
+            <div class="photo-slider">
+                <img src="./images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg" alt="Villa F6 sur Ste Luce">
+                <img src="./images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg" alt="Villa F6 sur Ste Luce">
+                <img src="./images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg" alt="Villa F6 sur Ste Luce">
+                <img src="./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg" alt="Villa F6 sur Ste Luce">
+                <img src="./images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg" alt="Villa F6 sur Ste Luce">
+            </div>
+        </section>
+
+        <!-- Détails Villa -->
+        <section class="details glass-card">
+            <h2>Détails de la Villa</h2>
+            <div class="details-grid">
+                <div class="description">
+                    <p>Check-in: 17h, Check-out: 11h. Caution: 1500€ par chèque + 500€ en espèces (remboursables). Location uniquement à la semaine pendant les vacances scolaires. Facilités de paiement sans frais supplémentaires (tout doit être payé avant l'entrée).</p>
+                </div>
+                <div class="amenities">
+                    <h3>Équipements & Services</h3>
+                    <ul>
+                        <li>5 appartements (2 F2 duplex et 3 F2)</li>
+                        <li>Dont un appartement en sous-sol</li>
+                        <li>Piscine</li>
+                        <li>À 1mn de la plage Corps de garde</li>
+                        <li>Cuisines équipées</li>
+                        <li>Salon avec piscine</li>
+                        <li>Salle à manger</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs (section critique) -->
+        <section class="pricing glass-card">
+            <h2>Tarifs & Disponibilités</h2>
+            <div class="pricing-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Période</th>
+                            <th>Durée</th>
+                            <th>Tarif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Weekend</td>
+                            <td>2-3 nuits</td>
+                            <td>1700€</td>
+                        </tr>
+                        <tr>
+                            <td>Semaine</td>
+                            <td>8 jours</td>
+                            <td>2200€ à 2850€</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="pricing-notes">
+                <p><strong>Caution:</strong> 1500€ par chèque + 500€ en espèces (remboursables)</p>
+                <p><strong>Check-in:</strong> 17h</p>
+                <p><strong>Check-out:</strong> 11h</p>
+                <p><strong>Vacances scolaires:</strong> Location uniquement à la semaine</p>
+                <p><strong>Paiement:</strong> Facilités de paiement sans frais supplémentaires (tout doit être payé avant l'entrée)</p>
+            </div>
+        </section>
+
+        <!-- Formulaire Réservation -->
+        <section class="booking glass-card">
+            <h2>Réserver cette Villa</h2>
+            <form class="booking-form" action="./process-booking.php" method="POST">
+                <input type="hidden" name="villa_id" value="villa-f6-ste-luce">
+                <input type="hidden" name="villa_name" value="Villa F6 sur Ste Luce à 1mn de la plage">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date d'arrivée</label>
+                        <input type="date" name="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date de départ</label>
+                        <input type="date" name="checkout" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre de personnes</label>
+                        <select name="guests" required>
+                            <option value="">Choisir...</option>
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3">3 personnes</option>
+                            <option value="4">4 personnes</option>
+                            <option value="5">5 personnes</option>
+                            <option value="6">6 personnes</option>
+                            <option value="7">7 personnes</option>
+                            <option value="8">8 personnes</option>
+                            <option value="9">9 personnes</option>
+                            <option value="10">10 personnes</option>
+                            <option value="11">11 personnes</option>
+                            <option value="12">12 personnes</option>
+                            <option value="13">13 personnes</option>
+                            <option value="14">14 personnes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type de séjour</label>
+                        <select name="stay_type" required>
+                            <option value="">Choisir...</option>
+                            <option value="weekend">Week-end</option>
+                            <option value="semaine">Semaine</option>
+                            <option value="fete">Avec fête/invités</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Message (optionnel)</label>
+                    <textarea name="message" placeholder="Précisez vos besoins particuliers..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn-book">Demander un Devis</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer identique index -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Khanel Concept</h3>
+                <p>Location de villas de prestige en Martinique</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Saint-Joseph, Martinique</p>
+                <p>Tél: +596 696 XX XX XX</p>
+                <p>Email: contact@khanelconcept.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="./assets/js/glassmorphism.js"></script>
+</body>
+</html>
