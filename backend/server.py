@@ -2409,7 +2409,7 @@ async def track_analytics_event(request: Request):
         raise HTTPException(status_code=500, detail=f"Erreur tracking analytics: {e}")
 
 @app.get("/api/admin/analytics/realtime")
-async def get_realtime_analytics():
+async def get_realtime_analytics(current_admin: dict = Depends(get_current_admin)):
     """Analytics en temps réel"""
     try:
         now = datetime.utcnow()
