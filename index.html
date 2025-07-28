@@ -2789,87 +2789,389 @@
         
         // ===== FONCTIONS EXISTANTES =====
         
-        // ===== DONNÉES DYNAMIQUES DES VILLAS DEPUIS L'API =====
-        let villasData = [];
-        let filteredVillas = [];
+        // ===== DONNÉES STATIQUES DES VILLAS POUR GITHUB PAGES =====
+        const villasData = [
+            // VILLAS DE SÉJOUR - DONNÉES RÉELLES CORRIGÉES
+            {
+                id: 1,
+                name: "Villa F3 sur Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 850,
+                priceUnit: "€/nuit",
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                gallery: [
+                    "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg"
+                ],
+                fallbackIcon: "🏊",
+                description: "Belle villa Villa F3 sur Petit Macabou située à Petit Macabou au Vauclin. Capacité 6 personnes.",
+                pricing_details: { base_price: 850.0, price_type: "per_night" }
+            },
+            {
+                id: 2,
+                name: "Villa F5 sur Ste Anne",
+                location: "Quartier Les Anglais, Ste Anne",
+                price: 1350,
+                priceUnit: "€/nuit",
+                guests: 10,
+                guestsDetail: "10 personnes",
+                features: "Piscine, décoration distinctive",
+                category: "sejour",
+                image: "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                gallery: [
+                    "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg"
+                ],
+                fallbackIcon: "🌸",
+                description: "Belle villa Villa F5 sur Ste Anne située à Quartier Les Anglais, Ste Anne. Capacité 10 personnes.",
+                pricing_details: { base_price: 1350.0, price_type: "per_night" }
+            },
+            {
+                id: 3,
+                name: "Villa F3 Baccha Petit Macabou",
+                location: "Petit Macabou",
+                price: 1350,
+                priceUnit: "€/nuit",
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, terrasses modernes",
+                category: "sejour",
+                image: "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                gallery: [
+                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg"
+                ],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F3 Baccha Petit Macabou située à Petit Macabou. Capacité 6 personnes.",
+                pricing_details: { base_price: 1350.0, price_type: "per_night" }
+            },
+            {
+                id: 4,
+                name: "Villa F6 Lamentin",
+                location: "Quartier Bélème au Lamentin",
+                price: 1500,
+                priceUnit: "€/nuit",
+                guests: 10,
+                guestsDetail: "10 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_4.jpg",
+                gallery: ["./images/placeholder_villa_4.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F6 Lamentin située à Quartier Bélème au Lamentin. Capacité 10 personnes.",
+                pricing_details: { base_price: 1500.0, price_type: "per_night" }
+            },
+            {
+                id: 5,
+                name: "Villa F6 Ste Luce Plage",
+                location: "Zac de Pont Café, Ste Luce",
+                price: 1700,
+                priceUnit: "€/nuit",
+                guests: 14,
+                guestsDetail: "14 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_5.jpg",
+                gallery: ["./images/placeholder_villa_5.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F6 Ste Luce Plage située à Zac de Pont Café, Ste Luce. Capacité 14 personnes.",
+                pricing_details: { base_price: 1700.0, price_type: "per_night" }
+            },
+            {
+                id: 6,
+                name: "Villa F6 sur Petit Macabou",
+                location: "Petit Macabou au Vauclin",
+                price: 2000,
+                priceUnit: "€/nuit",
+                guests: 13,
+                guestsDetail: "13 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                gallery: [
+                    "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg"
+                ],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F6 sur Petit Macabou située à Petit Macabou au Vauclin. Capacité 13 personnes.",
+                pricing_details: { base_price: 2000.0, price_type: "per_night" }
+            },
+            {
+                id: 7,
+                name: "Villa F7 Baie des Mulets",
+                location: "Baie des Mulets, Trinité",
+                price: 2200,
+                priceUnit: "€/nuit",
+                guests: 15,
+                guestsDetail: "15 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_7.jpg",
+                gallery: ["./images/placeholder_villa_7.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F7 Baie des Mulets située à Baie des Mulets, Trinité. Capacité 15 personnes.",
+                pricing_details: { base_price: 2200.0, price_type: "per_night" }
+            },
+            {
+                id: 8,
+                name: "Villa F3 Trinité (Cosmy)",
+                location: "Cosmy, Trinité",
+                price: 900,
+                priceUnit: "€/nuit",
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_8.jpg",
+                gallery: ["./images/placeholder_villa_8.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F3 Trinité (Cosmy) située à Cosmy, Trinité. Capacité 6 personnes.",
+                pricing_details: { base_price: 900.0, price_type: "per_night" }
+            },
+            {
+                id: 9,
+                name: "Villa F3 Le Robert",
+                location: "Le Robert",
+                price: 1000,
+                priceUnit: "€/nuit",
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_9.jpg",
+                gallery: ["./images/placeholder_villa_9.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F3 Le Robert située à Le Robert. Capacité 6 personnes.",
+                pricing_details: { base_price: 1000.0, price_type: "per_night" }
+            },
+            {
+                id: 10,
+                name: "Villa F5 R.Pilote",
+                location: "Rivière-Pilote",
+                price: 1200,
+                priceUnit: "€/nuit",
+                guests: 8,
+                guestsDetail: "8 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_10.jpg",
+                gallery: ["./images/placeholder_villa_10.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F5 R.Pilote située à Rivière-Pilote. Capacité 8 personnes.",
+                pricing_details: { base_price: 1200.0, price_type: "per_night" }
+            },
+            {
+                id: 11,
+                name: "Villa F3 Le François",
+                location: "Le François",
+                price: 1100,
+                priceUnit: "€/nuit",
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_11.jpg",
+                gallery: ["./images/placeholder_villa_11.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F3 Le François située à Le François. Capacité 6 personnes.",
+                pricing_details: { base_price: 1100.0, price_type: "per_night" }
+            },
+            {
+                id: 12,
+                name: "Villa F5 Vauclin Ravine Plate",
+                location: "Ravine Plate, Le Vauclin",
+                price: 1400,
+                priceUnit: "€/nuit",
+                guests: 10,
+                guestsDetail: "10 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_12.jpg",
+                gallery: ["./images/placeholder_villa_12.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F5 Vauclin Ravine Plate située à Ravine Plate, Le Vauclin. Capacité 10 personnes.",
+                pricing_details: { base_price: 1400.0, price_type: "per_night" }
+            },
+            {
+                id: 13,
+                name: "Bas Villa F3 Ste Luce",
+                location: "Ste Luce",
+                price: 1300,
+                priceUnit: "€/nuit",
+                guests: 8,
+                guestsDetail: "8 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_13.jpg",
+                gallery: ["./images/placeholder_villa_13.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Bas Villa F3 Ste Luce située à Ste Luce. Capacité 8 personnes.",
+                pricing_details: { base_price: 1300.0, price_type: "per_night" }
+            },
+            {
+                id: 14,
+                name: "Villa F3 Trenelle",
+                location: "Trenelle",
+                price: 1600,
+                priceUnit: "€/nuit",
+                guests: 6,
+                guestsDetail: "6 personnes",
+                features: "Piscine, équipements modernes",
+                category: "sejour",
+                image: "./images/placeholder_villa_14.jpg",
+                gallery: ["./images/placeholder_villa_14.jpg"],
+                fallbackIcon: "🏖️",
+                description: "Belle villa Villa F3 Trenelle située à Trenelle. Capacité 6 personnes.",
+                pricing_details: { base_price: 1600.0, price_type: "per_night" }
+            },
+            {
+                id: 15,
+                name: "Studio Cocooning Lamentin",
+                location: "Lamentin",
+                price: 600,
+                priceUnit: "€/nuit",
+                guests: 2,
+                guestsDetail: "2 personnes",
+                features: "Jacuzzi privé, vue panoramique",
+                category: "sejour",
+                image: "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                gallery: [
+                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                    "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg"
+                ],
+                fallbackIcon: "💕",
+                description: "Studio romantique parfait pour couples.",
+                pricing_details: { base_price: 600.0, price_type: "per_night" }
+            },
+
+            // VILLAS POUR FÊTES - DONNÉES RÉELLES CORRIGÉES
+            {
+                id: 16,
+                name: "Espace Piscine Journée Bungalow",
+                location: "Bungalow",
+                price: 350,
+                priceUnit: "€/jour",
+                guests: 10,
+                guestsDetail: "10 à 150 personnes",
+                features: "Cuisine, salle d'eau, mobilier (chaises, tables), chambre climatisée",
+                category: "fete",
+                image: "./images/Espace_Piscine_Journee_Bungalow/01_piscine_detente.jpg",
+                gallery: [
+                    "./images/Espace_Piscine_Journee_Bungalow/01_piscine_detente.jpg",
+                    "./images/Espace_Piscine_Journee_Bungalow/02_espace_detente.jpg"
+                ],
+                fallbackIcon: "🏊",
+                description: "Espace piscine pour la journée avec bungalow. Idéal pour se détendre et profiter de la piscine. Capacité jusqu'à 150 personnes pour des événements.",
+                pricing_details: { base_price: 350.0, price_type: "per_day" }
+            },
+            {
+                id: 17,
+                name: "Villa Fête Journée Ducos",
+                location: "Ducos",
+                price: 200,
+                priceUnit: "€/jour",
+                guests: 25,
+                guestsDetail: "25 personnes",
+                features: "Piscine, espace fête",
+                category: "fete",
+                image: "./images/Villa_Fete_Journee_Ducos/01_piscine_fete.jpg",
+                gallery: ["./images/Villa_Fete_Journee_Ducos/01_piscine_fete.jpg"],
+                fallbackIcon: "🎉",
+                description: "Villa parfaite pour organiser des fêtes et événements.",
+                pricing_details: { base_price: 200.0, price_type: "per_day" }
+            },
+            {
+                id: 18,
+                name: "Villa Fête Journée Fort de France",
+                location: "Fort-de-France",
+                price: 180,
+                priceUnit: "€/jour",
+                guests: 20,
+                guestsDetail: "20 personnes",
+                features: "Piscine, terrasse couverte",
+                category: "fete",
+                image: "./images/placeholder_villa_18.jpg",
+                gallery: ["./images/placeholder_villa_18.jpg"],
+                fallbackIcon: "🏛️",
+                description: "Villa pour fêtes à Fort-de-France.",
+                pricing_details: { base_price: 180.0, price_type: "per_day" }
+            },
+            {
+                id: 19,
+                name: "Villa Fête Journée Rivière Pilote",
+                location: "Rivière-Pilote",
+                price: 250,
+                priceUnit: "€/jour",
+                guests: 35,
+                guestsDetail: "35 personnes",
+                features: "Grande piscine, espace barbecue",
+                category: "fete",
+                image: "./images/placeholder_villa_19.jpg",
+                gallery: ["./images/placeholder_villa_19.jpg"],
+                fallbackIcon: "🔥",
+                description: "Villa spacieuse pour grandes fêtes.",
+                pricing_details: { base_price: 250.0, price_type: "per_day" }
+            },
+            {
+                id: 20,
+                name: "Villa Fête Journée Sainte-Luce",
+                location: "Sainte-Luce",
+                price: 160,
+                priceUnit: "€/jour",
+                guests: 15,
+                guestsDetail: "15 personnes",
+                features: "Piscine, jardins tropicaux",
+                category: "fete",
+                image: "./images/placeholder_villa_20.jpg",
+                gallery: ["./images/placeholder_villa_20.jpg"],
+                fallbackIcon: "🌺",
+                description: "Villa pour fêtes avec jardins tropicaux.",
+                pricing_details: { base_price: 160.0, price_type: "per_day" }
+            },
+            {
+                id: 21,
+                name: "Villa Fête Journée Rivière-Salée",
+                location: "Rivière-Salée",
+                price: 160,
+                priceUnit: "€/jour",
+                guests: 15,
+                guestsDetail: "15 personnes",
+                features: "Piscine, tente couverte",
+                category: "fete",
+                image: "./images/placeholder_villa_21.jpg",
+                gallery: ["./images/placeholder_villa_21.jpg"],
+                fallbackIcon: "⛺",
+                description: "Villa pour fêtes avec espace couvert.",
+                pricing_details: { base_price: 160.0, price_type: "per_day" }
+            }
+        ];
+
+        let filteredVillas = [...villasData];
         let currentVilla = null;
         let currentGalleryIndex = 0;
         let currentGallery = [];
 
-        // Chargement des villas depuis l'API
+        // Pour GitHub Pages - Pas besoin d'API
         async function loadVillasFromAPI() {
-            try {
-                console.log("🔄 Chargement des villas depuis l'API...");
-                
-                // Afficher un état de chargement
-                const grid = document.getElementById('villasGrid');
-                if (grid) {
-                    grid.innerHTML = `
-                        <div class="glass-card" style="text-align: center; padding: 3rem;">
-                            <div style="font-size: 3rem; margin-bottom: 1rem; animation: spin 2s linear infinite;">
-                                <i class="fas fa-spinner"></i>
-                            </div>
-                            <h3 style="color: white; margin-bottom: 1rem;">
-                                Chargement des villas...
-                            </h3>
-                            <p style="color: rgba(255,255,255,0.8);">
-                                Connexion au serveur en cours
-                            </p>
-                        </div>
-                        <style>
-                            @keyframes spin {
-                                from { transform: rotate(0deg); }
-                                to { transform: rotate(360deg); }
-                            }
-                        </style>
-                    `;
-                } else {
-                    console.error("❌ Element villasGrid not found!");
-                }
-                
-                const backendUrl = window.location.origin;
-                console.log("🌐 Backend URL:", backendUrl);
-                
-                const response = await fetch(`${backendUrl}/api/villas`);
-                console.log("📡 Response status:", response.status);
-                
-                if (response.ok) {
-                    const villas = await response.json();
-                    console.log("📊 Raw villas from API:", villas.length, villas[0]);
-                    
-                    villasData = villas.map(villa => ({
-                        id: villa.id,
-                        name: villa.name,
-                        location: villa.location,
-                        price: villa.price,
-                        priceUnit: villa.pricing_details?.price_type === 'per_day' ? '€/jour' : '€/nuit',
-                        guests: villa.guests,
-                        guestsDetail: villa.guests_detail || `${villa.guests} personnes`,
-                        features: villa.features || 'Villa de qualité',
-                        category: villa.category,
-                        image: villa.image || `./images/placeholder_villa_${villa.id}.jpg`,
-                        gallery: villa.gallery || [`./images/placeholder_villa_${villa.id}.jpg`],
-                        fallbackIcon: villa.fallback_icon || "🏖️",
-                        description: villa.description || `Belle villa ${villa.name}`,
-                        pricing_details: villa.pricing_details || {}
-                    }));
-                    
-                    console.log("✅ Villas transformées:", villasData.length, villasData[0]);
-                    
-                    // Afficher les villas après chargement
-                    filteredVillas = [...villasData];
-                    console.log("🎯 Filtered villas:", filteredVillas.length);
-                    displayVillas();
-                    
-                    return true;
-                } else {
-                    console.error("❌ Erreur lors du chargement des villas:", response.status);
-                    return false;
-                }
-            } catch (error) {
-                console.error("❌ Erreur de connexion à l'API:", error);
-                return false;
+            console.log("🏖️ GitHub Pages détecté - utilisation des données statiques");
+            console.log(`✅ ${villasData.length} villas chargées (données intégrées)`);
+            
+            // Vérifier si Espace Piscine est présent
+            const espacePiscine = villasData.find(v => v.name.includes('Espace Piscine'));
+            if (espacePiscine) {
+                console.log(`✅ "Espace Piscine" trouvé: ${espacePiscine.name} - ${espacePiscine.price}€`);
             }
+            
+            // Afficher les villas
+            filteredVillas = [...villasData];
+            displayVillas();
+            
+            return true;
         }
 
         // Initialisation des calendriers
