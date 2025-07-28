@@ -4349,5 +4349,264 @@
             ⚙️
         </a>
     </div>
+
+    <!-- PHASE 4 - PERFORMANCE & RGPD Scripts -->
+    <script src="js/cache-system.js"></script>
+    <script src="js/pagination-system.js"></script>
+    <script src="js/gdpr-consent.js"></script>
+    
+    <!-- PHASE 4 - Integration and Initialization -->
+    <script>
+        // Initialize Phase 4 systems
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize GDPR consent system
+            if (window.gdprConsent) {
+                // Check for consent and show banner if needed
+                if (window.gdprConsent.shouldShowBanner()) {
+                    window.gdprConsent.showBanner();
+                }
+                
+                // Apply existing consent
+                window.gdprConsent.applyConsent();
+            }
+            
+            // Initialize cache system with Villa data
+            if (window.CacheSystem && window.ApiClient) {
+                // Pre-cache villa data for better performance
+                cacheVillaData();
+                
+                // Show cache stats in console for debugging
+                console.log('📊 Cache Stats:', window.CacheSystem.getStats());
+            }
+            
+            // Initialize pagination for villa grid
+            if (window.PaginationSystem && document.getElementById('villas-grid')) {
+                initializeVillaPagination();
+            }
+            
+            // Track page view for analytics (with consent check)
+            if (window.gdprConsent && window.gdprConsent.hasConsent('analytics')) {
+                trackPageView('index');
+            }
+        });
+        
+        // Cache villa data for better performance
+        async function cacheVillaData() {
+            try {
+                // Cache villa list
+                await window.ApiClient.get('/api/villas', { cache: 'static' });
+                
+                // Pre-cache popular villas
+                const popularVillas = [1, 2, 3, 4, 5]; // Top 5 villa IDs
+                for (const id of popularVillas) {
+                    await window.ApiClient.get(`/api/villas/${id}`, { cache: 'static' });
+                }
+                
+                console.log('✅ Villa data cached successfully');
+            } catch (error) {
+                console.warn('⚠️ Could not pre-cache villa data:', error);
+            }
+        }
+        
+        // Initialize pagination for villa grid
+        function initializeVillaPagination() {
+            const paginationSystem = new PaginationSystem();
+            const villaGrid = document.getElementById('villas-grid');
+            
+            // Create pagination instance
+            const pagination = paginationSystem.create('villa-pagination', {
+                defaultPageSize: 12,
+                showInfo: true,
+                showSizeSelector: true,
+                enableCache: true,
+                cacheStrategy: 'user'
+            });
+            
+            // Configure pagination for villas
+            pagination.configure({
+                fetchData: async (page, pageSize, filters) => {
+                    const response = await window.ApiClient.post('/api/villas/search', {
+                        page: page,
+                        pageSize: pageSize,
+                        filters: filters
+                    }, { cache: 'user' });
+                    
+                    return {
+                        items: response.villas || [],
+                        total: response.total || 0
+                    };
+                },
+                renderItem: (villa) => {
+                    return createVillaCard(villa);
+                },
+                onPageChange: (page, data) => {
+                    // Update URL without reload
+                    const url = new URL(window.location);
+                    url.searchParams.set('page', page);
+                    window.history.pushState({}, '', url);
+                    
+                    // Track page change
+                    if (window.gdprConsent && window.gdprConsent.hasConsent('analytics')) {
+                        trackEvent('villa_page_change', { page: page });
+                    }
+                }
+            });
+            
+            // Insert pagination container
+            const paginationContainer = document.createElement('div');
+            paginationContainer.id = 'villa-pagination';
+            villaGrid.parentNode.insertBefore(paginationContainer, villaGrid.nextSibling);
+            
+            // Initialize with current villa data
+            pagination.loadData();
+        }
+        
+        // Create villa card HTML
+        function createVillaCard(villa) {
+            return `
+                <div class="villa-card" data-category="${villa.category}">
+                    <div class="villa-image">
+                        <img src="${villa.image}" alt="${villa.name}" loading="lazy">
+                    </div>
+                    <div class="villa-info">
+                        <h3>${villa.name}</h3>
+                        <p class="location">${villa.location}</p>
+                        <div class="price">${villa.price}€/nuit</div>
+                        <div class="guests">${villa.guests} personnes</div>
+                        <div class="features">${villa.features}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Analytics tracking functions
+        function trackPageView(page) {
+            trackEvent('page_view', { page: page });
+        }
+        
+        function trackEvent(eventType, metadata = {}) {
+            if (!window.gdprConsent || !window.gdprConsent.hasConsent('analytics')) {
+                return;
+            }
+            
+            const sessionId = getSessionId();
+            const memberId = localStorage.getItem('khanelconcept_member_id');
+            
+            fetch(`${getBackendUrl()}/api/analytics/track`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    event_type: eventType,
+                    page: window.location.pathname,
+                    session_id: sessionId,
+                    member_id: memberId,
+                    metadata: metadata,
+                    consent: window.gdprConsent.getConsentData()
+                })
+            }).catch(error => {
+                console.warn('Analytics tracking failed:', error);
+            });
+        }
+        
+        // Get or create session ID
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('khanelconcept_session_id');
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('khanelconcept_session_id', sessionId);
+            }
+            return sessionId;
+        }
+        
+        // Get backend URL
+        function getBackendUrl() {
+            return window.location.hostname === 'localhost' 
+                ? 'http://localhost:8001'
+                : 'https://e00d5887-18f1-4aff-95ac-fd968ef3913b.preview.emergentagent.com';
+        }
+        
+        // Enhanced search function with cache and analytics
+        window.searchVillas = async function(destination, guests, category) {
+            // Track search event
+            if (window.gdprConsent && window.gdprConsent.hasConsent('analytics')) {
+                trackEvent('villa_search', { 
+                    destination: destination, 
+                    guests: guests, 
+                    category: category 
+                });
+            }
+            
+            try {
+                // Use cached API client
+                const response = await window.ApiClient.post('/api/villas/search', {
+                    destination: destination,
+                    guests: guests,
+                    category: category
+                }, { cache: 'user' });
+                
+                // Display results
+                displayVillas(response.villas);
+                
+                // Update search status
+                const statusElement = document.getElementById('search-status');
+                if (statusElement) {
+                    statusElement.textContent = `${response.villas.length} villa(s) trouvée(s) !`;
+                }
+                
+            } catch (error) {
+                console.error('Search failed:', error);
+                // Show error message
+                const statusElement = document.getElementById('search-status');
+                if (statusElement) {
+                    statusElement.textContent = 'Erreur lors de la recherche';
+                }
+            }
+        };
+        
+        // GDPR consent event listeners
+        window.addEventListener('gdpr:acceptedAll', function() {
+            console.log('✅ GDPR: All consent given');
+            // Initialize analytics tracking
+            trackPageView('index');
+        });
+        
+        window.addEventListener('gdpr:rejectedAll', function() {
+            console.log('❌ GDPR: All consent rejected');
+            // Disable analytics features
+            if (window.CacheSystem) {
+                window.CacheSystem.configure({ enablePersistence: false });
+            }
+        });
+        
+        window.addEventListener('gdpr:categoryToggled', function(event) {
+            console.log('🔄 GDPR: Category toggled', event.detail);
+            if (event.detail.category === 'analytics' && event.detail.enabled) {
+                trackPageView('index');
+            }
+        });
+        
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            // Track page load time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            
+            if (window.gdprConsent && window.gdprConsent.hasConsent('analytics')) {
+                trackEvent('page_load_time', { 
+                    load_time: loadTime,
+                    page: 'index'
+                });
+            }
+            
+            // Cache performance metrics
+            setTimeout(() => {
+                if (window.CacheSystem) {
+                    const stats = window.CacheSystem.getStats();
+                    console.log('📊 Cache Performance:', stats);
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
