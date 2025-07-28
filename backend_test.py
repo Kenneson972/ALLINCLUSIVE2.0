@@ -668,7 +668,143 @@ class KhanelConceptAPITester:
                         f"Error testing data structure: {str(e)}")
             return False
     
-    def test_villa_search_with_gallery_verification(self):
+    def test_admin_analytics_overview(self):
+        """Test admin analytics overview endpoint"""
+        if not self.admin_token:
+            self.log_test("Admin Analytics Overview", False, "No admin token available")
+            return False
+            
+        try:
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            response = self.session.get(
+                f"{API_BASE_URL}/admin/analytics/overview", 
+                headers=headers,
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ["total_villas", "total_members", "total_reservations", 
+                                 "monthly_revenue", "conversion_rate", "recent_activity"]
+                
+                missing_fields = [field for field in required_fields if field not in data]
+                if missing_fields:
+                    self.log_test("Admin Analytics Overview", False, 
+                                f"Missing required analytics fields: {missing_fields}", data)
+                    return False
+                
+                self.log_test("Admin Analytics Overview", True, 
+                            f"Analytics overview retrieved successfully", 
+                            f"Revenue: €{data.get('monthly_revenue', 0)}, Conversion: {data.get('conversion_rate', 0)}%")
+                return True
+            elif response.status_code == 401:
+                self.log_test("Admin Analytics Overview", False, 
+                            "Analytics endpoint requires admin authentication", 
+                            "Unauthorized access properly blocked")
+                return False
+            else:
+                self.log_test("Admin Analytics Overview", False, 
+                            f"Analytics request failed with status {response.status_code}", 
+                            response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Admin Analytics Overview", False, f"Analytics error: {str(e)}")
+            return False
+
+    def test_admin_verify_token(self):
+        """Test admin token verification endpoint"""
+        if not self.admin_token:
+            self.log_test("Admin Token Verification", False, "No admin token available")
+            return False
+            
+        try:
+            token_data = {"token": self.admin_token}
+            response = self.session.post(
+                f"{API_BASE_URL}/admin/verify-token",
+                json=token_data,
+                timeout=10
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("valid") and data.get("username"):
+                    self.log_test("Admin Token Verification", True, 
+                                f"Token verification successful for user: {data['username']}")
+                    return True
+                else:
+                    self.log_test("Admin Token Verification", False, 
+                                "Token verification response invalid", data)
+                    return False
+            else:
+                self.log_test("Admin Token Verification", False, 
+                            f"Token verification failed with status {response.status_code}", 
+                            response.text)
+                return False
+                
+        except Exception as e:
+            self.log_test("Admin Token Verification", False, f"Token verification error: {str(e)}")
+            return False
+
+    def test_csv_integration_verification(self):
+        """Test that 21 villas CSV integration is working correctly"""
+        try:
+            response = self.session.get(f"{API_BASE_URL}/villas", timeout=10)
+            
+            if response.status_code != 200:
+                self.log_test("CSV Integration Verification", False, 
+                            f"Could not retrieve villas - status {response.status_code}")
+                return False
+            
+            villas = response.json()
+            
+            # Check for exactly 21 villas as mentioned in review
+            if len(villas) != 21:
+                self.log_test("CSV Integration Verification", False, 
+                            f"Expected exactly 21 villas from CSV, found {len(villas)}")
+                return False
+            
+            # Check for CSV integration flags and data
+            csv_integrated_count = 0
+            pricing_details_count = 0
+            
+            for villa in villas:
+                if villa.get("csv_integrated"):
+                    csv_integrated_count += 1
+                if villa.get("pricing_details"):
+                    pricing_details_count += 1
+            
+            # Verify specific villas mentioned in review
+            key_villas = {
+                "Villa F3 Petit Macabou": 850.0,
+                "Villa F5 Ste Anne": 1350.0, 
+                "Villa F6 Petit Macabou": 2200.0
+            }
+            
+            found_key_villas = 0
+            for villa in villas:
+                villa_name = villa.get("name", "")
+                for key_name, expected_price in key_villas.items():
+                    if key_name in villa_name:
+                        found_key_villas += 1
+                        if villa.get("price") != expected_price:
+                            self.log_test("CSV Integration - Key Villa Pricing", False,
+                                        f"{key_name} has price {villa.get('price')}, expected {expected_price}")
+                            return False
+            
+            if found_key_villas == len(key_villas):
+                self.log_test("CSV Integration Verification", True,
+                            f"21 villas CSV integration verified successfully",
+                            f"CSV integrated: {csv_integrated_count}, Pricing details: {pricing_details_count}")
+                return True
+            else:
+                self.log_test("CSV Integration Verification", False,
+                            f"Only found {found_key_villas}/{len(key_villas)} key villas from CSV")
+                return False
+                
+        except Exception as e:
+            self.log_test("CSV Integration Verification", False, f"CSV integration test error: {str(e)}")
+            return False
         """Test villa search functionality and verify returned galleries are clean"""
         try:
             # Test different search filters
