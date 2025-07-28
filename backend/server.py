@@ -2293,7 +2293,7 @@ async def get_performance_analytics(current_admin: dict = Depends(get_current_ad
         raise HTTPException(status_code=500, detail=f"Erreur performance analytics: {e}")
 
 @app.get("/api/admin/analytics/trends")
-async def get_trends_analytics():
+async def get_trends_analytics(current_admin: dict = Depends(get_current_admin)):
     """Analyse des tendances et insights"""
     try:
         now = datetime.utcnow()
