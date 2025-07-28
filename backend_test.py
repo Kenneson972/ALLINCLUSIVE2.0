@@ -684,19 +684,34 @@ class KhanelConceptAPITester:
             
             if response.status_code == 200:
                 data = response.json()
-                required_fields = ["total_villas", "total_members", "total_reservations", 
-                                 "monthly_revenue", "conversion_rate", "recent_activity"]
                 
-                missing_fields = [field for field in required_fields if field not in data]
-                if missing_fields:
+                # Check if response has overview section
+                if "overview" in data:
+                    overview = data["overview"]
+                    required_fields = ["total_villas", "total_members", "total_reservations", 
+                                     "monthly_revenue", "conversion_rate"]
+                    
+                    missing_fields = [field for field in required_fields if field not in overview]
+                    if missing_fields:
+                        self.log_test("Admin Analytics Overview", False, 
+                                    f"Missing required analytics fields in overview: {missing_fields}", overview)
+                        return False
+                    
+                    # Check for recent_activity
+                    if "recent_activity" not in data:
+                        self.log_test("Admin Analytics Overview", False, 
+                                    "Missing recent_activity in analytics response", data)
+                        return False
+                    
+                    self.log_test("Admin Analytics Overview", True, 
+                                f"Analytics overview retrieved successfully", 
+                                f"Revenue: €{overview.get('monthly_revenue', 0)}, Conversion: {overview.get('conversion_rate', 0)}%")
+                    return True
+                else:
                     self.log_test("Admin Analytics Overview", False, 
-                                f"Missing required analytics fields: {missing_fields}", data)
+                                "Analytics response missing overview section", data)
                     return False
-                
-                self.log_test("Admin Analytics Overview", True, 
-                            f"Analytics overview retrieved successfully", 
-                            f"Revenue: €{data.get('monthly_revenue', 0)}, Conversion: {data.get('conversion_rate', 0)}%")
-                return True
+                    
             elif response.status_code == 401:
                 self.log_test("Admin Analytics Overview", False, 
                             "Analytics endpoint requires admin authentication", 
