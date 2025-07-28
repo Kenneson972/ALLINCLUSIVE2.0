@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 """
-KhanelConcept Backend Testing Suite - Villa Data Corrections Verification
-Test complet du backend après corrections des villas (January 29, 2025)
+KhanelConcept Backend Testing Suite - Premium Frontend Support Verification
+Comprehensive backend testing for the KhanelConcept villa rental application
+Focus: Testing API endpoints that support premium frontend features
 
-Tests requis selon la review request:
-1. API Villas: Vérifier que GET /api/villas retourne bien les 21 villas avec les bonnes données
-2. Villa spécifique: Vérifier que "Espace Piscine Journée Bungalow" est présente avec prix 350€ et catégorie "fete"
-3. Images: Vérifier que les chemins d'images sont cohérents (pas de placeholder_villa_*.jpg)
-4. Recherche: Tester la recherche par catégorie "fete" pour trouver l'Espace Piscine
-5. Données pricing_details: Vérifier que les villas ont leurs détails de prix
+CRITICAL ENDPOINTS TO TEST:
+1. GET /api/villas - Should return all villa data for frontend display
+2. GET /api/admin/villas - Admin villa management API
+3. POST /api/villas/search - Villa search functionality for search form
+4. GET /api/health - Basic health check
+5. POST /api/reservations - Reservation system backend
+
+VERIFICATION REQUIREMENTS:
+- Villa data matches what's displayed on 15 villa pages tested
+- Villa search filters work correctly (destination, guests, category)
+- Villa data includes proper pricing, images, and gallery information
+- MongoDB connection and data integrity
+- Reservation creation works for premium reservation system
 """
 
 import requests
@@ -16,8 +24,8 @@ import json
 import sys
 from datetime import datetime
 
-# Configuration
-BASE_URL = "http://localhost:8001"
+# Configuration - Use external URL for production testing
+BASE_URL = "https://cfc0e6ef-086c-461a-915c-2319466028f1.preview.emergentagent.com"
 API_BASE = f"{BASE_URL}/api"
 
 class KhanelConceptTester:
