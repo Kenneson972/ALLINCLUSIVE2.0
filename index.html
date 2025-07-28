@@ -2789,441 +2789,55 @@
         
         // ===== FONCTIONS EXISTANTES =====
         
-        // Base de données COMPLÈTE des 21 villas - VERSION GITHUB PAGES STATIQUE
-        // ===== DONNÉES STATIQUES DES VILLAS =====
-        const villasData = [
-            // === VILLAS DE SÉJOUR ===
-            {
-                id: 1,
-                name: "Villa F3 Petit Macabou",
-                location: "Petit Macabou au Vauclin",
-                price: 850,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes + 9 invités",
-                features: "Sauna, Jacuzzi, 2 douches extérieures",
-                category: "sejour",
-                image: "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                gallery: [
-                    "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
-                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
-                    "./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
-                    "./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
-                    "./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
-                ],
-                fallbackIcon: "🏊"
-            },
-            {
-                id: 2,
-                name: "Villa F5 Ste Anne",
-                location: "Quartier Les Anglais, Ste Anne",
-                price: 1300,
-                priceUnit: "€/nuit",
-                guests: 10,
-                guestsDetail: "10 personnes + 15 invités",
-                features: "Piscine, décoration rose distinctive",
-                category: "sejour",
-                image: "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                gallery: [
-                    "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
-                    "./images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
-                    "./images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
-                    "./images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
-                    "./images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
-                ],
-                fallbackIcon: "🌸"
-            },
-            {
-                id: 3,
-                name: "Villa F3 Baccha Petit Macabou",
-                location: "Petit Macabou",
-                price: 1350,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes + 9 convives",
-                features: "Piscine, terrasses modernes",
-                category: "sejour",
-                image: "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                gallery: [
-                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
-                ],
-                fallbackIcon: "🏖️"
-            },
-            {
-                id: 4,
-                name: "Villa F6 Lamentin",
-                location: "Quartier Bélème au Lamentin",
-                price: 1500,
-                priceUnit: "€/nuit",
-                guests: 10,
-                guestsDetail: "10 personnes + 20 invités max",
-                features: "Piscine, Jacuzzi, douche extérieure",
-                category: "sejour",
-                image: "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
-                gallery: [
-                    "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
-                ],
-                fallbackIcon: "🛁"
-            },
-            {
-                id: 5,
-                name: "Villa F6 Ste Luce Plage",
-                location: "Sainte-Luce face à la plage",
-                price: 1200,
-                priceUnit: "€/nuit",
-                guests: 12,
-                guestsDetail: "12 personnes",
-                features: "Face à la plage, piscine, terrasse vue mer",
-                category: "sejour",
-                image: "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
-                gallery: [
-                    "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg"
-                ],
-                fallbackIcon: "🏖️"
-            },
-            {
-                id: 6,
-                name: "Villa F6 Petit Macabou",
-                location: "Petit Macabou, Vauclin",
-                price: 2000,
-                priceUnit: "€/nuit",
-                guests: 12,
-                guestsDetail: "12 personnes + 20 invités",
-                features: "Vue mer, villa moderne, studio mezzanine",
-                category: "sejour",
-                image: "./images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
-                gallery: [
-                    "./images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
-                    "./images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
-                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
-                    "./images/Villa_F6_Petit_Macabou/08_terrasse_repas.jpg",
-                    "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
-                    "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg"
-                ],
-                fallbackIcon: "🌅"
-            },
-            {
-                id: 7,
-                name: "Villa F7 Baie des Mulets",
-                location: "Baie des Mulets, Vauclin",
-                price: 2500,
-                priceUnit: "€/nuit",
-                guests: 14,
-                guestsDetail: "14 personnes",
-                features: "Grande villa, vue mer, véranda bambou",
-                category: "sejour",
-                image: "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
-                gallery: [
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/veranda_salle_a_manger_bambou.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/salle_a_manger_table_blanche.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/coin_detente_fauteuils_suspendus.jpg"
-                ],
-                fallbackIcon: "🏄"
-            },
-            {
-                id: 8,
-                name: "Villa F3 Trinité Cosmy",
-                location: "Trinité - Cosmy",
-                price: 900,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine chauffée, vue collines et océan",
-                category: "sejour",
-                image: "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
-                gallery: [
-                    "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/piscine_vue_panoramique_ocean.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/cuisine_americaine_jaune_bois.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/chambre_1_linge_tropical_turquoise.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/chambre_2_bleu_blanc_tapis_moelleux.jpg"
-                ],
-                fallbackIcon: "🏔️"
-            },
-            {
-                id: 9,
-                name: "Villa F5 Rivière-Pilote La Renée",
-                location: "Rivière-Pilote - La Renée",
-                price: 1400,
-                priceUnit: "€/nuit",
-                guests: 10,
-                guestsDetail: "10 personnes",
-                features: "Terrasse bois, hamacs, salon extérieur",
-                category: "sejour",
-                image: "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
-                gallery: [
-                    "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
-                    "./images/Villa_F5_R_Pilote_La_Renee/terrasse_hamacs_salon_exterieur.jpg",
-                    "./images/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg",
-                    "./images/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg"
-                ],
-                fallbackIcon: "🌴"
-            },
-            {
-                id: 10,
-                name: "Villa F3 Le François",
-                location: "Le François, Martinique",
-                price: 800,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Vue mer, terrasses panoramiques",
-                category: "sejour",
-                image: "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
-                gallery: [
-                    "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
-                    "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
-                    "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg",
-                    "./images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg",
-                    "./images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg",
-                    "./images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg",
-                    "./images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg"
-                ],
-                fallbackIcon: "🌊"
-            },
-            {
-                id: 11,
-                name: "Villa F5 Vauclin Ravine Plate",
-                location: "Vauclin - Ravine Plate",
-                price: 1550,
-                priceUnit: "€/nuit",
-                guests: 10,
-                guestsDetail: "10 personnes max",
-                features: "Piscine à débordement, gazebo, vue collines",
-                category: "sejour",
-                image: "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
-                gallery: [
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/cuisine_equipee_bois_fonce_granite.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_1_poutres_apparentes_orange.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_2_suite_parentale_sdb_attenante.jpg"
-                ],
-                fallbackIcon: "🏔️"
-            },
-            {
-                id: 12,
-                name: "Bas Villa F3 Ste Luce",
-                location: "Sainte-Luce",
-                price: 470,
-                priceUnit: "€/nuit",
-                guests: 4,
-                guestsDetail: "4 personnes",
-                features: "Terrasse couverte, éclairage LED",
-                category: "sejour",
-                image: "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
-                gallery: [
-                    "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg"
-                ],
-                fallbackIcon: "💡"
-            },
-            {
-                id: 13,
-                name: "Villa F3 Trenelle",
-                location: "Trenelle, Location Annuelle",
-                price: 800,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Location longue durée, entièrement équipée",
-                category: "sejour",
-                image: "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
-                gallery: [
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg"
-                ],
-                fallbackIcon: "🏠"
-            },
-            // ANCIEN "SPÉCIAL" -> MAINTENANT DANS VILLAS NORMALES
-            {
-                id: 14,
-                name: "Studio Cocooning Lamentin",
-                location: "Morne Pitault, Lamentin",
-                price: 290,
-                priceUnit: "€/nuit",
-                guests: 2,
-                guestsDetail: "2 personnes (couple)",
-                features: "Jacuzzi privé, vue panoramique",
-                category: "sejour", // CHANGÉ de "special" à "sejour"
-                image: "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
-                gallery: [
-                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
-                    "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg",
-                    "./images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg",
-                    "./images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg",
-                    "./images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg",
-                    "./images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
-                ],
-                fallbackIcon: "💕"
-            },
+        // ===== DONNÉES DYNAMIQUES DES VILLAS DEPUIS L'API =====
+        let villasData = [];
+        let filteredVillas = [];
+        let currentVilla = null;
+        let currentGalleryIndex = 0;
+        let currentGallery = [];
 
-            // === VILLAS À LA JOURNÉE/FÊTE ===
-            // ANCIEN "SPÉCIAL" -> MAINTENANT À LA JOURNÉE  
-            {
-                id: 15,
-                name: "Villa F3 Le Robert",
-                location: "Robert - Pointe Hyacinthe", 
-                price: 630,
-                priceUnit: "€/nuit", // C'est une villa de séjour, pas journée
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine rectangulaire, pergola, kitchenette",
-                category: "sejour", // CORRIGÉ : c'est une villa de séjour
-                image: "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
-                gallery: [
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/terrasse_couverte_pergola_kitchenette.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg"
-                ],
-                fallbackIcon: "🏊"
-            },
-            {
-                id: 16,
-                name: "Espace Piscine Journée Bungalow",
-                location: "Martinique",
-                price: 150,
-                priceUnit: "€/journée", // PRIX À LA JOURNÉE
-                guests: 8,
-                guestsDetail: "8 personnes en journée",
-                features: "Bungalow créole, piscine, véranda",
-                category: "fete", // CHANGÉ de "special" à "fete"
-                image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                gallery: [
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
-                ],
-                fallbackIcon: "🏕️"
-            },
-
-            // === VILLAS FÊTE/JOURNÉE ===
-            {
-                id: 17,
-                name: "Villa Fête Ducos",
-                location: "Ducos, Martinique",
-                price: 200,
-                priceUnit: "€/journée", // PRIX À LA JOURNÉE
-                guests: 25,
-                guestsDetail: "Jusqu'à 25 personnes",
-                features: "Piscine, bar extérieur, gazebo",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg"
-                ],
-                fallbackIcon: "🎉"
-            },
-            {
-                id: 18,
-                name: "Villa Fête Fort-de-France",
-                location: "Fort-de-France, Martinique",
-                price: 250,
-                priceUnit: "€/journée", // PRIX À LA JOURNÉE
-                guests: 30,
-                guestsDetail: "Jusqu'à 30 personnes",
-                features: "Piscine, véranda coloniale, vue panoramique",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg"
-                ],
-                fallbackIcon: "🏛️"
-            },
-            {
-                id: 19,
-                name: "Villa Fête Rivière-Pilote",
-                location: "Rivière-Pilote, Martinique",
-                price: 180,
-                priceUnit: "€/journée", // PRIX À LA JOURNÉE
-                guests: 20,
-                guestsDetail: "Jusqu'à 20 personnes",
-                features: "Villa créole, piscine tropicale",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/06_terrasse_pierre_piscine.jpg"
-                ],
-                fallbackIcon: "🌴"
-            },
-            {
-                id: 20,
-                name: "Villa Fête Sainte-Luce",
-                location: "Sainte-Luce, Martinique",
-                price: 220,
-                priceUnit: "€/journée", // PRIX À LA JOURNÉE
-                guests: 35,
-                guestsDetail: "Jusqu'à 35 personnes",
-                features: "Villa moderne, tentes, mobilier événementiel",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg"
-                ],
-                fallbackIcon: "🎪"
-            },
-            {
-                id: 21,
-                name: "Villa Fête Rivière-Salée",
-                location: "Rivière-Salée, Martinique",
-                price: 160,
-                priceUnit: "€/journée", // PRIX À LA JOURNÉE
-                guests: 15,
-                guestsDetail: "Jusqu'à 15 personnes",
-                features: "Piscine, tente couverte",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
-                ],
-                fallbackIcon: "⛺"
+        // Chargement des villas depuis l'API
+        async function loadVillasFromAPI() {
+            try {
+                console.log("🔄 Chargement des villas depuis l'API...");
+                const backendUrl = window.location.origin;
+                const response = await fetch(`${backendUrl}/api/villas`);
+                
+                if (response.ok) {
+                    const villas = await response.json();
+                    villasData = villas.map(villa => ({
+                        id: villa.id,
+                        name: villa.name,
+                        location: villa.location,
+                        price: villa.price,
+                        priceUnit: villa.pricing_details?.price_type === 'per_day' ? '€/jour' : '€/nuit',
+                        guests: villa.guests,
+                        guestsDetail: villa.guests_detail || `${villa.guests} personnes`,
+                        features: villa.features || 'Villa de qualité',
+                        category: villa.category,
+                        image: villa.image || `./images/placeholder_villa_${villa.id}.jpg`,
+                        gallery: villa.gallery || [`./images/placeholder_villa_${villa.id}.jpg`],
+                        fallbackIcon: villa.fallback_icon || "🏖️",
+                        description: villa.description || `Belle villa ${villa.name}`,
+                        pricing_details: villa.pricing_details || {}
+                    }));
+                    
+                    console.log(`✅ ${villasData.length} villas chargées depuis l'API`);
+                    
+                    // Afficher les villas après chargement
+                    filteredVillas = [...villasData];
+                    displayVillas();
+                    
+                    return true;
+                } else {
+                    console.error("❌ Erreur lors du chargement des villas:", response.status);
+                    return false;
+                }
+            } catch (error) {
+                console.error("❌ Erreur de connexion à l'API:", error);
+                return false;
             }
-        ];
-
-        let filteredVillas = [...villasData];
+        }
         let currentVilla = null;
         let currentGalleryIndex = 0;
         let currentGallery = [];
