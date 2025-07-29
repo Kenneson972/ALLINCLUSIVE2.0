@@ -195,6 +195,25 @@
             max-height: 100%;
             border-radius: 10px;
         }
+    
+        /* Force visibility of main content */
+        main.container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .info-card {
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        .villa-gallery {
+            display: block !important;
+        }
     </style>
 </head>
 
@@ -211,7 +230,12 @@
     <!-- Navigation & Breadcrumb -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-20 backdrop-blur-lg border-b border-white/10 p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="./index.html" class="text-2xl font-bold text-yellow-400">🏝️ KhanelConcept</a>
+            <a href="./index.html" class="flex items-center space-x-3 text-yellow-400">
+                    <img src="https://customer-assets.emergentagent.com/job_villa-dash/artifacts/vg7ukqf7_logo-khanel-concept-original.png" 
+                         alt="Khanel Concept Logo" 
+                         class="h-10 w-auto">
+                    <span class="text-2xl font-bold">KhanelConcept</span>
+                </a>
             <div class="flex space-x-6">
                 <a href="./index.html" class="text-white hover:text-yellow-400 transition-colors">Nos Villas</a>
                 <a href="./reservation.html" class="text-white hover:text-yellow-400 transition-colors">Réserver</a>
@@ -434,17 +458,61 @@
         AOS.init({
             duration: 1000,
             once: true
-        });
+                }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
 
         // Initialize video background
+        
+        // Optimisation vidéo background
         function initVideoBackground() {
             const video = document.getElementById('backgroundVideo');
             if (video) {
-                console.log('🎥 Démarrage vidéo background');
+                console.log('🎥 Démarrage optimisé vidéo background');
                 video.muted = true;
                 video.loop = true;
-                video.play().catch(e => console.log('Vidéo autoplay bloqué:', e));
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+                video.setAttribute('preload', 'metadata');
+                
+                // Démarrage immédiat
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('✅ Vidéo démarrée instantanément');
+                        video.style.opacity = '1';
+                    }).catch(() => {
+                        console.log('⚠️ Fallback vidéo');
+                        document.querySelector('.video-overlay').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    });
+                }
+                
+                // Support mobile optimisé
+                if (/iPad|iPhone|iPod|Android/i.test(navigator.userAgent)) {
+                    video.setAttribute('muted', 'muted');
+                    video.muted = true;
+                    const touchHandler = () => {
+                        video.play().catch(console.log);
+                        document.removeEventListener('touchstart', touchHandler);
+                    };
+                    document.addEventListener('touchstart', touchHandler);
+                }
             }
+        }
         }
 
         // Swiper Gallery
@@ -466,7 +534,23 @@
             fadeEffect: {
                 crossFade: true
             }
-        });
+                }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
 
         // Thumbnail click handlers
         const thumbnails = document.querySelectorAll('.gallery-thumbnails img');
@@ -475,8 +559,40 @@
                 swiper.slideToLoop(index);
                 thumbnails.forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
+                    }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
             });
-        });
+        }
+        
+        preloadCriticalImages();
+                }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
 
         // Update active thumbnail on slide change
         swiper.on('slideChange', () => {
@@ -485,7 +601,23 @@
             if (thumbnails[realIndex]) {
                 thumbnails[realIndex].classList.add('active');
             }
-        });
+                }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
 
         // Back to Top
         const backToTop = document.getElementById('backToTop');
@@ -497,11 +629,59 @@
                 backToTop.style.opacity = '0';
                 setTimeout(() => backToTop.style.display = 'none', 300);
             }
-        });
+                }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
 
         backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+            window.scrollTo({ top: 0, behavior: 'smooth'         }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
+                }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
 
         // Modal Gallery
         let currentImageIndex = 0;
@@ -530,7 +710,14 @@
         }
 
         // Initialize on load
-        document.addEventListener('DOMContentLoaded', () => {
+        // Chargement optimisé
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePage);
+        } else {
+            initializePage();
+        }
+        
+        function initializePage() {
             initVideoBackground();
             
             // Add click events to thumbnails for modal
@@ -539,9 +726,57 @@
                     if (e.detail === 2) { // Double click
                         openModal(img.src, index);
                     }
-                });
+                        }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
             });
-        });
+        }
+        
+        preloadCriticalImages();
+                    }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
+                }
+        
+        // Preload des images critiques
+        function preloadCriticalImages() {
+            const criticalImages = document.querySelectorAll('.villa-gallery img');
+            criticalImages.forEach((img, index) => {
+                if (index < 3) { // Preload les 3 premières images
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'image';
+                    link.href = img.src;
+                    document.head.appendChild(link);
+                }
+            });
+        }
+        
+        preloadCriticalImages();
 
         // Villa data for reservation
         window.currentVilla = {
