@@ -286,20 +286,20 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="username" class="form-label">
+                    <label for="email" class="form-label">
                         <i class="fas fa-user me-2" aria-hidden="true"></i>
                         Nom d'utilisateur
                     </label>
                     <input 
-                        type="text" 
+                        type="email" 
                         class="form-control" 
-                        id="username" 
-                        name="username"
+                        id="email" 
+                        name="email"
                         placeholder="Saisissez votre nom d'utilisateur"
                         required 
-                        autocomplete="username"
-                        aria-describedby="username-help">
-                    <div id="username-help" class="visually-hidden">
+                        autocomplete="email"
+                        aria-describedby="email-help">
+                    <div id="email-help" class="visually-hidden">
                         Entrez votre nom d'utilisateur administrateur
                     </div>
                 </div>
@@ -384,7 +384,7 @@
         
         // Éléments DOM
         const loginForm = document.getElementById('loginForm');
-        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const submitButton = loginForm.querySelector('button[type="submit"]');
         const buttonText = submitButton.querySelector('.button-text');
@@ -420,11 +420,11 @@
         
         // Validation côté client améliorée
         function validateForm() {
-            const username = usernameInput.value.trim();
+            const email = emailInput.value.trim();
             const password = passwordInput.value;
             
-            if (!username) {
-                showError('Le nom d\'utilisateur est requis.', usernameInput);
+            if (!email) {
+                showError('Le nom d\'utilisateur est requis.', emailInput);
                 return false;
             }
             
@@ -433,8 +433,8 @@
                 return false;
             }
             
-            if (username.length < 2) {
-                showError('Le nom d\'utilisateur doit contenir au moins 2 caractères.', usernameInput);
+            if (email.length < 2) {
+                showError('Le nom d\'utilisateur doit contenir au moins 2 caractères.', emailInput);
                 return false;
             }
             
@@ -469,13 +469,13 @@
         }
         
         // Fonction de connexion adaptée à l'environnement
-        async function handleLogin(username, password) {
+        async function handleLogin(email, password) {
             try {
                 if (IS_GITHUB_PAGES) {
                     // Authentification côté client pour GitHub Pages
                     console.log('🔐 Authentification GitHub Pages');
                     
-                    if (username.trim() === 'admin') {
+                    if (email.trim() === 'admin') {
                         const passwordHash = await simpleHash(password);
                         const expectedHash = 'cd85c06b2d8c0f85a1f6db51e8c5f20b7e8c8a3cf5a4a8e6c4c8a6e5b4c3d2e1';
                         
@@ -485,13 +485,13 @@
                         if (passwordHash === realHash || password === 'khanelconcept2025') {
                             // Simulation d'un token pour GitHub Pages
                             const fakeToken = btoa(JSON.stringify({
-                                username: 'admin',
+                                email: 'admin',
                                 timestamp: Date.now(),
                                 env: 'github-pages'
                             }));
                             
                             localStorage.setItem('admin_token', fakeToken);
-                            localStorage.setItem('admin_username', 'admin');
+                            localStorage.setItem('admin_email', 'admin');
                             localStorage.setItem('admin_login_time', Date.now().toString());
                             localStorage.setItem('auth_env', 'github-pages');
                             
@@ -514,7 +514,7 @@
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            username: username.trim(),
+                            email: email.trim(),
                             password: password
                         })
                     });
@@ -523,7 +523,7 @@
                     
                     if (response.ok && data.access_token) {
                         localStorage.setItem('admin_token', data.access_token);
-                        localStorage.setItem('admin_username', username.trim());
+                        localStorage.setItem('admin_email', email.trim());
                         localStorage.setItem('admin_login_time', Date.now().toString());
                         localStorage.setItem('auth_env', 'backend');
                         
@@ -566,11 +566,11 @@
         // Gestionnaire d'événements principal
         document.addEventListener('DOMContentLoaded', function() {
             // Focus initial sur le champ utilisateur
-            usernameInput.focus();
+            emailInput.focus();
             
             // Nettoyage des tokens existants
             localStorage.removeItem('admin_token');
-            localStorage.removeItem('admin_username');
+            localStorage.removeItem('admin_email');
             localStorage.removeItem('admin_login_time');
             
             // Gestion de la soumission du formulaire
@@ -586,14 +586,14 @@
                     // Validation
                     if (!validateForm()) return;
                     
-                    const username = usernameInput.value.trim();
+                    const email = emailInput.value.trim();
                     const password = passwordInput.value;
                     
                     isSubmitting = true;
                     setSubmittingState(true);
                     
                     try {
-                        const success = await handleLogin(username, password);
+                        const success = await handleLogin(email, password);
                         if (success) {
                             // État de succès avec feedback accessibilité
                             submitButton.className = 'btn btn-success';
@@ -632,7 +632,7 @@
             }
             
             // Masquer les erreurs lors de la saisie
-            [usernameInput, passwordInput].forEach(input => {
+            [emailInput, passwordInput].forEach(input => {
                 if (input) {
                     input.addEventListener('input', hideError);
                     input.addEventListener('focus', hideError);

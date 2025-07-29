@@ -2154,6 +2154,46 @@ app.mount("/admin", StaticFiles(directory="../admin", html=True), name="admin")
 # Servir les fichiers statiques du site principal
 app.mount("/", StaticFiles(directory="../", html=True), name="main_site")
 
+
+@app.post("/api/auth/login")
+async def login_member(request: dict):
+    """Connexion membre"""
+    try:
+        email = request.get('email')
+        password = request.get('password')
+        
+        # TODO: Implémenter authentification réelle
+        if email and password:
+            return {
+                "success": True,
+                "message": "Connexion réussie",
+                "user": {"email": email, "role": "member"}
+            }
+        else:
+            return {"success": False, "message": "Email et mot de passe requis"}
+    except Exception as e:
+        return {"success": False, "message": f"Erreur connexion: {str(e)}"}
+
+@app.post("/api/auth/register")
+async def register_member(request: dict):
+    """Inscription membre"""
+    try:
+        email = request.get('email')
+        password = request.get('password')
+        name = request.get('name', '')
+        
+        # TODO: Implémenter inscription réelle
+        if email and password:
+            return {
+                "success": True,
+                "message": "Inscription réussie",
+                "user": {"email": email, "name": name, "role": "member"}
+            }
+        else:
+            return {"success": False, "message": "Email et mot de passe requis"}
+    except Exception as e:
+        return {"success": False, "message": f"Erreur inscription: {str(e)}"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)

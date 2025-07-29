@@ -2402,7 +2402,7 @@
         function updateThumbnails() {
             const thumbnailsContainer = document.getElementById('galleryThumbnails');
             thumbnailsContainer.innerHTML = currentGallery.map((image, index) => 
-                `<img src="${image}" class="thumbnail ${index === currentGalleryIndex ? 'active' : ''}" onclick="goToImage(${index})">`
+                `<img src="${image}" alt="Image KhanelConcept" class="thumbnail ${index === currentGalleryIndex ? 'active' : ''}" onclick="goToImage(${index})">`
             ).join('');
         }
 
