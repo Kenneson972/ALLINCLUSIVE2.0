@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     
     <!-- Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
     <style>
         /* Design glassmorphism */
@@ -325,14 +325,66 @@
                 display: none !important;
             }
         }
-</style>
+
+        
+        /* FIXES RESPONSIVE CRITIQUES */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .villa-title, h1 {
+                font-size: 2rem !important;
+                text-align: center;
+            }
+            
+            .info-card {
+                margin: 10px !important;
+                padding: 15px !important;
+            }
+            
+            .swiper {
+                height: 300px !important;
+            }
+            
+            /* Force affichage du hamburger */
+            .hamburger {
+                display: flex !important;
+                position: fixed !important;
+                top: 20px !important;
+                right: 20px !important;
+                z-index: 9999 !important;
+                background: rgba(0, 0, 0, 0.7) !important;
+                border-radius: 8px !important;
+                padding: 10px !important;
+            }
+            
+            /* Cache navigation desktop */
+            .desktop-nav, nav:not(.mobile-menu) {
+                display: none !important;
+            }
+        }
+        
+        /* Force visibilité éléments */
+        .mobile-menu, .hamburger {
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        </style>
 </head>
 
 <body data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="0">
     <!-- Background Video Cloudinary avec support iOS -->
     <div class="video-background">
         <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
-            <source src="https://res.cloudinary.com/dld9eojbt/video/upload/q_auto,f_mp4/v1716830959/villa-background-video_hqhq2s.mp4" type="video/mp4">
+            
+            <source src="https://cdn.pixabay.com/vimeo/540634326/beach-106157.mp4?api_key=default" type="video/mp4">
+            <!-- Fallback image si vidéo échoue -->
+            <div class="video-fallback" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                 background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%), 
+                 url('https://images.unsplash.com/photo-1520637836862-4d197d17c80a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover; 
+                 z-index: -1;"></div>
+            
             Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
         <div class="video-overlay"></div>
