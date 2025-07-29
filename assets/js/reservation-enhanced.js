@@ -316,7 +316,7 @@ class ReservationEnhanced {
         console.log('🚫 Mode debug désactivé');
     }
 
-    // 🔍 CORRECTION PRIORITÉ 1 : Fonction améliorée de recherche villa
+    // 🔄 CORRECTION PRIORITÉ 1 : Fonction améliorée de recherche villa
     getVillaFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const villaId = urlParams.get('villa');
@@ -328,23 +328,37 @@ class ReservationEnhanced {
             return villaData[villaId];
         }
 
-        // Recherche avec variations pour compatibilité
+        // Recherche avec variations pour compatibilité COMPLÈTE
         const variations = [
             villaId.replace(/-/g, '_'),
             villaId.replace(/_/g, '-'),
             'villa-' + villaId,
             villaId.replace('villa-', ''),
-            // Corrections spécifiques pour les erreurs courantes
+            // Corrections spécifiques pour TOUTES les villas
             villaId.replace('bas-de-f3-sur-le-robert', 'bas-de-f3-sur-le-robert'),
-            villaId.replace('sur-le-robert', 'sur-le-robert')
+            villaId.replace('sur-le-robert', 'sur-le-robert'),
+            // Nouvelles variations pour les villas ajoutées
+            villaId.replace('fete-journee', 'fte-journee'),
+            villaId.replace('fte-journee', 'fete-journee'),
+            villaId.replace('appartement-f3-trenelle', 'villa-appartement-f3-trenelle-location-annuelle'),
+            villaId.replace('espace-piscine-bungalow', 'villa-espace-piscine-journee-bungalow'),
+            // Variations supplémentaires pour couverture totale
+            'villa-' + villaId.replace('villa-villa-', 'villa-'),
+            villaId.replace('villa-villa-', 'villa-'),
+            villaId.replace('--', '-')
         ];
 
         for (const variation of variations) {
             if (villaData[variation]) {
+                console.log(`✅ Villa trouvée avec variation: ${villaId} → ${variation}`);
                 return villaData[variation];
             }
         }
 
+        // Log détaillé pour debug
+        console.log(`❌ Villa non trouvée: ${villaId}`);
+        console.log('Villas disponibles:', Object.keys(villaData));
+        
         return null;
     }
 
