@@ -14,8 +14,9 @@ const villaData = {
         description: 'Villa moderne avec terrasses panoramiques au Robert',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg'
     },
-    'villa-f3-petit-macabou': {
-        id: 'villa-f3-petit-macabou',
+    // ✅ MAPPING COMPLET SELON NOMS FICHIERS RÉELS 
+    'villa-villa-f3-sur-petit-macabou': {
+        id: 'villa-villa-f3-sur-petit-macabou',
         nom: 'Villa F3 sur Petit Macabou',
         localisation: 'Petit Macabou, Vauclin',
         prix: 1550,
@@ -26,8 +27,8 @@ const villaData = {
         description: 'Villa F3 moderne au Petit Macabou avec possibilité journée',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg'
     },
-    'villa-f3-pour-la-baccha': {
-        id: 'villa-f3-pour-la-baccha',
+    'villa-villa-f3-pour-la-baccha': {
+        id: 'villa-villa-f3-pour-la-baccha',
         nom: 'Villa F3 POUR LA BACCHA',
         localisation: 'Petit Macabou',
         prix: 750,
@@ -38,8 +39,8 @@ const villaData = {
         description: 'Villa F3 à la Baccha avec invités journée',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg'
     },
-    'villa-f3-sur-le-francois': {
-        id: 'villa-f3-sur-le-francois',
+    'villa-villa-f3-sur-le-franois': {
+        id: 'villa-villa-f3-sur-le-franois',
         nom: 'Villa F3 sur le François',
         localisation: 'Hauteurs du Morne Carrière au François',
         prix: 800,
@@ -50,8 +51,8 @@ const villaData = {
         description: 'Villa F3 panoramique au François',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/01_terrasse_panoramique_vue_mer.jpg'
     },
-    'villa-f5-sur-ste-anne': {
-        id: 'villa-f5-sur-ste-anne',
+    'villa-villa-f5-sur-ste-anne': {
+        id: 'villa-villa-f5-sur-ste-anne',
         nom: 'Villa F5 sur Ste Anne',
         localisation: 'Quartier les Anglais, Ste Anne',
         prix: 1350,
@@ -62,8 +63,8 @@ const villaData = {
         description: 'Villa F5 spacieuse à Ste Anne avec invités journée',
         image: '/ALLINCLUSIVE2.0/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg'
     },
-    'villa-f6-au-lamentin': {
-        id: 'villa-f6-au-lamentin',
+    'villa-villa-f6-au-lamentin': {
+        id: 'villa-villa-f6-au-lamentin',
         nom: 'Villa F6 au Lamentin',
         localisation: 'Quartier Béleme, Lamentin',
         prix: 1200,
@@ -74,8 +75,8 @@ const villaData = {
         description: 'Villa F6 avec piscine et jacuzzi au Lamentin',
         image: '/ALLINCLUSIVE2.0/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg'
     },
-    'villa-f6-sur-ste-luce-a-1mn-de-la-plage': {
-        id: 'villa-f6-sur-ste-luce-a-1mn-de-la-plage',
+    'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage': {
+        id: 'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage',
         nom: 'Villa F6 sur Ste Luce à 1mn de la plage',
         localisation: 'Zac de Pont Café, Ste Luce',
         prix: 1800,
@@ -86,8 +87,8 @@ const villaData = {
         description: 'Villa F6 complexe près de la plage Corps de garde',
         image: '/ALLINCLUSIVE2.0/images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg'
     },
-    'villa-f7-baie-des-mulets': {
-        id: 'villa-f7-baie-des-mulets',
+    'villa-villa-f7-baie-des-mulets': {
+        id: 'villa-villa-f7-baie-des-mulets',
         nom: 'Villa F7 Baie des Mulets',
         localisation: 'Baie des Mulets, Vauclin',
         prix: 2200,
@@ -98,8 +99,8 @@ const villaData = {
         description: 'Villa F7 exceptionnelle (F5+F3) à Baie des Mulets',
         image: '/ALLINCLUSIVE2.0/images/Villa_F7_Baie_des_Mulets_Vauclin/01_chambre_climatisee.jpg'
     },
-    'villa-f3-bas-de-villa-trinite-cosmy': {
-        id: 'villa-f3-bas-de-villa-trinite-cosmy',
+    'villa-villa-f3-bas-de-villa-trinite-cosmy': {
+        id: 'villa-villa-f3-bas-de-villa-trinite-cosmy',
         nom: 'Villa F3 Bas de villa Trinité Cosmy',
         localisation: 'Cosmy, Trinité',
         prix: 500,
@@ -110,8 +111,20 @@ const villaData = {
         description: 'Bas de villa charmant avec piscine chauffée',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trinite_Cosmy/01_piscine_chauffee_vue_collines.jpg'
     },
-    'villa-f5-vauclin-ravine-plate': {
-        id: 'villa-f5-vauclin-ravine-plate',
+    'villa-bas-de-villa-f3-sur-le-robert': {
+        id: 'villa-bas-de-villa-f3-sur-le-robert',
+        nom: 'Bas de villa F3 sur le Robert',
+        localisation: 'Pointe Hyacinthe, Le Robert',
+        prix: 900,
+        capacite: 10,
+        chambres: 2,
+        sallesDeBain: 1,
+        surface: 120,
+        description: 'Villa moderne avec terrasses panoramiques au Robert',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg'
+    },
+    'villa-villa-f5-vauclin-ravine-plate': {
+        id: 'villa-villa-f5-vauclin-ravine-plate',
         nom: 'Villa F5 Vauclin Ravine Plate',
         localisation: 'Hauteurs de Ravine Plate, Vauclin',
         prix: 1550,
@@ -122,8 +135,8 @@ const villaData = {
         description: 'Villa F5 avec piscine à débordement panoramique',
         image: '/ALLINCLUSIVE2.0/images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_debordement_vue_panoramique.jpg'
     },
-    'villa-f5-la-renee': {
-        id: 'villa-f5-la-renee',
+    'villa-villa-f5-la-renee': {
+        id: 'villa-villa-f5-la-renee',
         nom: 'Villa F5 La Renée',
         localisation: 'Quartier La Renée, Rivière-Pilote',
         prix: 900,
@@ -134,8 +147,8 @@ const villaData = {
         description: 'Villa F5 avec jacuzzi et grande terrasse',
         image: '/ALLINCLUSIVE2.0/images/Villa_F5_R_Pilote_La_Renee/01_terrasse_bois_piscine_palmiers.jpg'
     },
-    'bas-villa-f3-sur-ste-luce': {
-        id: 'bas-villa-f3-sur-ste-luce',
+    'villa-bas-de-villa-f3-sur-ste-luce': {
+        id: 'villa-bas-de-villa-f3-sur-ste-luce',
         nom: 'Bas de villa F3 sur Ste Luce',
         localisation: 'Sainte-Luce',
         prix: 570,
@@ -146,8 +159,8 @@ const villaData = {
         description: 'Bas de villa cosy à Sainte-Luce',
         image: '/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/01_eclairage_led_terrasse_lounge.jpg'
     },
-    'studio-cocooning-lamentin': {
-        id: 'studio-cocooning-lamentin',
+    'villa-studio-cocooning-lamentin': {
+        id: 'villa-studio-cocooning-lamentin',
         nom: 'Studio Cocooning Lamentin',
         localisation: 'Hauteurs de Morne Pitault, Lamentin',
         prix: 290,
@@ -158,8 +171,8 @@ const villaData = {
         description: 'Studio cocooning avec bac à punch privé',
         image: '/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/01_jacuzzi_terrasse_privee.jpg'
     },
-    'villa-f6-sur-petit-macabou': {
-        id: 'villa-f6-sur-petit-macabou',
+    'villa-villa-f6-sur-petit-macabou-sejour--fte': {
+        id: 'villa-villa-f6-sur-petit-macabou-sejour--fte',
         nom: 'Villa F6 sur Petit Macabou (séjour + fête)',
         localisation: 'Petit Macabou au Vauclin',
         prix: 2000,
@@ -170,8 +183,8 @@ const villaData = {
         description: 'Villa F6 somptueuse avec possibilité événements',
         image: '/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg'
     },
-    'appartement-f3-trenelle': {
-        id: 'appartement-f3-trenelle',
+    'villa-appartement-f3-trenelle-location-annuelle': {
+        id: 'villa-appartement-f3-trenelle-location-annuelle',
         nom: 'Appartement F3 Trenelle (Location Annuelle)',
         localisation: 'Trenelle, à 2 minutes du PPM',
         prix: 700,
@@ -182,9 +195,9 @@ const villaData = {
         description: 'Appartement F3 meublé pour location annuelle',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
     },
-    // ⚠️ AJOUT DES 7 VILLAS MANQUANTES AVEC LES BONS IDS
-    'villa-fte-journee-ducos': {
-        id: 'villa-fte-journee-ducos',
+    // Nouvelles villas fête/journée avec noms corrects
+    'villa-villa-fte-journee-ducos': {
+        id: 'villa-villa-fte-journee-ducos',
         nom: 'Villa Fête Journée Ducos',
         localisation: 'Ducos',
         prix: 375,
@@ -195,8 +208,8 @@ const villaData = {
         description: 'Villa location à la journée avec piscine et espace extérieur',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Ducos/01_piscine_espace_exterieur.jpg'
     },
-    'villa-fte-journee-fort-de-france': {
-        id: 'villa-fte-journee-fort-de-france',
+    'villa-villa-fte-journee-fort-de-france': {
+        id: 'villa-villa-fte-journee-fort-de-france',
         nom: 'Villa Fête Journée Fort de France',
         localisation: 'Fort de France',
         prix: 100,
@@ -207,8 +220,8 @@ const villaData = {
         description: 'Villa événementielle disponible de 6h à minuit',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Fort_de_France/01_espace_reception.jpg'
     },
-    'villa-fte-journee-riviere-pilote': {
-        id: 'villa-fte-journee-riviere-pilote',
+    'villa-villa-fte-journee-riviere-pilote': {
+        id: 'villa-villa-fte-journee-riviere-pilote',
         nom: 'Villa Fête Journée Rivière-Pilote',
         localisation: 'Rivière-Pilote',
         prix: 660,
@@ -219,8 +232,8 @@ const villaData = {
         description: 'Villa avec piscine chauffée et cuisine extérieure équipée',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_R_Pilote/01_piscine_chauffee_cuisine_ext.jpg'
     },
-    'villa-fte-journee-riviere-salee': {
-        id: 'villa-fte-journee-riviere-salee',
+    'villa-villa-fte-journee-riviere-salee': {
+        id: 'villa-villa-fte-journee-riviere-salee',
         nom: 'Villa Fête Journée Rivière Salée',
         localisation: 'Quartier La Laugier, Rivière Salée',
         prix: 400,
@@ -231,8 +244,8 @@ const villaData = {
         description: 'Villa journée avec 5 tables rectangulaires et chaises',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Riviere_Salee/01_espace_tables_reception.jpg'
     },
-    'villa-fte-journee-sainte-luce': {
-        id: 'villa-fte-journee-sainte-luce',
+    'villa-villa-fte-journee-sainte-luce': {
+        id: 'villa-villa-fte-journee-sainte-luce',
         nom: 'Villa Fête Journée Sainte-Luce',
         localisation: 'Sainte-Luce, près de la Forêt Montravail',
         prix: 390,
@@ -254,18 +267,6 @@ const villaData = {
         surface: 100,
         description: 'Espace piscine journée avec bungalow climatisé',
         image: '/ALLINCLUSIVE2.0/images/Espace_Piscine_Journee_Bungalow/01_piscine_bungalow.jpg'
-    },
-    'villa-appartement-f3-trenelle-location-annuelle': {
-        id: 'villa-appartement-f3-trenelle-location-annuelle',
-        nom: 'Appartement F3 Trenelle (Location Annuelle)',
-        localisation: 'Trenelle, à 2 minutes du PPM',
-        prix: 700,
-        capacite: 2,
-        chambres: 2,
-        sallesDeBain: 1,
-        surface: 80,
-        description: 'Appartement F3 meublé pour location annuelle',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
     }
 };
 
