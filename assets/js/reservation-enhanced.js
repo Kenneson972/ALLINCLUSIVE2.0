@@ -337,22 +337,39 @@ class ReservationEnhanced {
         console.log('⚠️ Villa non trouvée:', villaId);
     }
 
-    // PRÉ-SÉLECTION DE LA VILLA
-    preSelectVilla(villaId, villaName) {
-        const villaSelect = document.getElementById('villaSelect');
-        
-        if (villaSelect) {
-            // Chercher l'option correspondante
-            const options = Array.from(villaSelect.options);
-            const matchingOption = options.find(option => 
-                option.value.includes(villaId) || option.textContent.includes(villaName)
-            );
-            
-            if (matchingOption) {
-                villaSelect.value = matchingOption.value;
-                villaSelect.dispatchEvent(new Event('change'));
-            }
+    // 🔄 CORRECTION PRIORITÉ 1 : Gestion des paramètres URL améliorée
+    handleURLParameters() {
+        const villa = this.getVillaFromUrl();
+        if (villa) {
+            this.updateVillaDisplay(villa);
+            this.updateRecapitulation(villa);
+            this.initializePriceCalculation(villa.prix);
+            this.showPreSelectedNotification(villa.nom);
+        } else {
+            this.showVillaError();
         }
+    }
+
+    // 📊 CORRECTION PRIORITÉ 1 : Mise à jour récapitulatif harmonisée
+    updateRecapitulation(villa) {
+        const recapElements = {
+            '.recap-villa': villa.nom,
+            '.recap-location': villa.localisation,
+            '.recap-price-per-night': `${villa.prix}€`,
+            '#summaryVilla': villa.nom,
+            '#summaryPricePerNight': `${villa.prix}€`
+        };
+
+        Object.entries(recapElements).forEach(([selector, content]) => {
+            const element = document.querySelector(selector);
+            if (element) element.textContent = content;
+        });
+    }
+
+    // 💰 CORRECTION PRIORITÉ 1 : Initialisation calcul prix
+    initializePriceCalculation(basePrice) {
+        window.selectedVilla = { basePrice: basePrice };
+        console.log('💰 Prix de base configuré:', basePrice);
     }
 
     // NOTIFICATION DE PRÉ-SÉLECTION
