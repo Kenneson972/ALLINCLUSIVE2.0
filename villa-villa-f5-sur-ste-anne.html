@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F5 Sur Ste Anne - KhanelConcept | Villa de Luxe Martinique</title>
+    <title>Villa F5 sur Ste Anne - KhanelConcept | Villa de Luxe Martinique</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Découvrez F5 Sur Ste Anne - Villa de luxe en Martinique. Réservation en ligne avec interface glassmorphism moderne.">
-    <meta name="keywords" content="villa martinique, F5 Sur Ste Anne, location villa luxe, villa piscine">
+    <meta name="description" content="Découvrez Villa F5 sur Ste Anne - Possibilité d’accueillir jusqu’à 15 invités de 9h à 19h. Caution: 500€ en espèces + 1500€ en empreinte CB. Facilités de paiement sans frais supplément...">
+    <meta name="keywords" content="villa martinique, Villa F5 sur Ste Anne, Quartier les Anglais, Ste Anne, location villa luxe">
     <meta name="author" content="KhanelConcept">
     <link rel="icon" type="image/png" href="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png">
     
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     
-    <!-- CSS EXACT de index.html -->
+    <!-- CSS EXACT de index.html + Adaptations villa -->
     <style>
 
         * {
@@ -2372,7 +2372,7 @@
         }
     
 
-        /* Adaptations spécifiques villa */
+        /* Adaptations spécifiques villa avec vraies données */
         .villa-detail-container {
             position: relative;
             z-index: 10;
@@ -2388,7 +2388,7 @@
             padding: 30px;
             text-align: center;
             margin: 20px auto;
-            max-width: 800px;
+            max-width: 900px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
         
@@ -2398,6 +2398,12 @@
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             margin: 0;
+        }
+        
+        .villa-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-top: 10px;
         }
         
         .villa-info-grid {
@@ -2435,6 +2441,21 @@
             color: rgba(255, 255, 255, 0.9);
             line-height: 1.6;
             font-size: 14px;
+            margin: 8px 0;
+        }
+        
+        .villa-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .villa-card ul li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .villa-card ul li:last-child {
+            border-bottom: none;
         }
         
         .villa-gallery-container {
@@ -2483,7 +2504,17 @@
             filter: brightness(1.1);
         }
         
-        /* MOBILE RESPONSIVE EXACT comme index.html */
+        .price-highlight {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #1f2937;
+            padding: 8px 15px;
+            border-radius: 15px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .villa-title-hero h1 {
                 font-size: 1.8rem;
@@ -2559,35 +2590,48 @@
         </div>
     </header>
 
-    <!-- CONTENU VILLA avec glassmorphism EXACT -->
+    <!-- CONTENU VILLA avec VRAIES DONNÉES CSV -->
     <main class="villa-detail-container">
-        <!-- Titre Villa Hero -->
+        <!-- Titre Villa Hero avec vraies données -->
         <div class="villa-title-hero" data-aos="fade-up">
-            <h1>F5 Sur Ste Anne</h1>
-            <p style="color: rgba(255,255,255,0.9); margin-top: 10px; font-size: 1.1rem;">
-                📍 Martinique
-            </p>
+            <h1>Villa F5 sur Ste Anne</h1>
+            <div class="villa-subtitle">
+                <p><i class="fas fa-map-marker-alt"></i> Quartier les Anglais, Ste Anne</p>
+                <p><i class="fas fa-home"></i> F5 • <i class="fas fa-users"></i> 10 personnes ( jusqu’à 15 personnes en journée )</p>
+            </div>
         </div>
 
-        <!-- Galerie Photos -->
+        <!-- Galerie Photos VRAIES IMAGES -->
         <div class="villa-gallery-container" data-aos="fade-up" data-aos-delay="200">
             <div class="swiper villa-swiper">
                 <div class="swiper-wrapper">
                     
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="F5 Sur Ste Anne - Photo 1" loading="lazy">
+                        <img src="/images/Villa_F5_Ste_Anne/05_salon_principal.jpg" alt="Villa F5 sur Ste Anne - Photo 1" loading="lazy">
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="F5 Sur Ste Anne - Photo 2" loading="lazy">
+                        <img src="/images/Villa_F5_Ste_Anne/07_chambre_enfants.jpg" alt="Villa F5 sur Ste Anne - Photo 2" loading="lazy">
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1520637736862-4d197d17c80a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="F5 Sur Ste Anne - Photo 3" loading="lazy">
+                        <img src="/images/Villa_F5_Ste_Anne/08_terrasse_couverte.jpg" alt="Villa F5 sur Ste Anne - Photo 3" loading="lazy">
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="F5 Sur Ste Anne - Photo 4" loading="lazy">
+                        <img src="/images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg" alt="Villa F5 sur Ste Anne - Photo 4" loading="lazy">
                     </div>
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="F5 Sur Ste Anne - Photo 5" loading="lazy">
+                        <img src="/images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg" alt="Villa F5 sur Ste Anne - Photo 5" loading="lazy">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg" alt="Villa F5 sur Ste Anne - Photo 6" loading="lazy">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/images/Villa_F5_Ste_Anne/09_terrasse_vue_jardin.jpg" alt="Villa F5 sur Ste Anne - Photo 7" loading="lazy">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg" alt="Villa F5 sur Ste Anne - Photo 8" loading="lazy">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="/images/Villa_F5_Ste_Anne/06_chambre_principale.jpg" alt="Villa F5 sur Ste Anne - Photo 9" loading="lazy">
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -2596,41 +2640,32 @@
             </div>
         </div>
 
-        <!-- Informations Villa Grid -->
+        <!-- Informations Villa Grid avec VRAIES DONNÉES -->
         <div class="villa-info-grid">
             <div class="villa-card" data-aos="fade-up" data-aos-delay="300">
                 <h3><i class="fas fa-info-circle"></i> Informations</h3>
-                <p><strong>Type:</strong> Villa de Luxe</p>
-                <p><strong>Capacité:</strong> 6-8 personnes</p>
-                <p><strong>Superficie:</strong> 150m²</p>
-                <p><strong>Équipements:</strong> Piscine, WiFi, Climatisation</p>
+                <p><strong>Type:</strong> F5</p>
+                <p><strong>Capacité:</strong> 10 personnes ( jusqu’à 15 personnes en journée )</p>
+                <p><strong>Localisation:</strong> Quartier les Anglais, Ste Anne</p>
             </div>
 
             <div class="villa-card" data-aos="fade-up" data-aos-delay="400">
                 <h3><i class="fas fa-euro-sign"></i> Tarification</h3>
-                <p><strong>Basse saison:</strong> 150€/nuit</p>
-                <p><strong>Haute saison:</strong> 250€/nuit</p>
-                <p><strong>Séjour minimum:</strong> 3 nuits</p>
-                <p><strong>Arrhes:</strong> 30%</p>
+                <p><strong>Weekend:</strong> <span class="price-highlight">1350€ (2 nuits</span></p><p><strong>Semaine:</strong> <span class="price-highlight">2251€ (7 jours)</span></p>
             </div>
 
             <div class="villa-card" data-aos="fade-up" data-aos-delay="500">
                 <h3><i class="fas fa-list-ul"></i> Équipements</h3>
-                <ul style="list-style-type: none; padding: 0;">
-                    <li><i class="fas fa-swimming-pool"></i> Piscine privée</li>
-                    <li><i class="fas fa-wifi"></i> WiFi haut débit</li>
-                    <li><i class="fas fa-snowflake"></i> Climatisation</li>
-                    <li><i class="fas fa-tv"></i> TV écran plat</li>
-                    <li><i class="fas fa-car"></i> Parking privé</li>
-                    <li><i class="fas fa-leaf"></i> Jardin tropical</li>
+                <ul>
+                    <li><i class="fas fa-utensils"></i> Cuisine équipée</li><li><i class="fas fa-swimming-pool"></i> Piscine privée</li><li><i class="fas fa-wifi"></i> WiFi</li>
                 </ul>
             </div>
 
             <div class="villa-card" data-aos="fade-up" data-aos-delay="600">
                 <h3><i class="fas fa-map-marker-alt"></i> Description</h3>
-                <p>Magnifique villa f5 sur ste anne située en Martinique, offrant tout le confort moderne avec vue imprenable sur la mer des Caraïbes.</p>
+                <p>Possibilité d’accueillir jusqu’à 15 invités de 9h à 19h. Caution: 500€ en espèces + 1500€ en empreinte CB. Facilités de paiement sans frais supplémentaires avec paiement total avant entrée.</p>
                 
-                <div style="text-align: center; margin-top: 20px;">
+                <div style="text-align: center; margin-top: 25px;">
                     <a href="reservation.html?villa=f5-sur-ste-anne" class="reservation-button">
                         <i class="fas fa-calendar-check"></i> Réserver maintenant
                     </a>
@@ -2643,7 +2678,6 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     
-    <!-- JavaScript EXACT de index.html -->
     <script>
         // Init AOS
         AOS.init({
@@ -2652,7 +2686,7 @@
             offset: 100
         });
 
-        // Init Swiper
+        // Init Swiper avec vraies images
         const swiper = new Swiper('.villa-swiper', {
             slidesPerView: 1,
             spaceBetween: 10,
@@ -2697,7 +2731,6 @@
                     console.log('❌ Erreur vidéo:', e);
                 });
                 
-                // Force play sur mobile
                 video.play().catch(function(error) {
                     console.log('⚠️ Autoplay bloqué');
                 });
@@ -2714,1670 +2747,6 @@
                 hamburgerMenu.classList.toggle('active');
             });
         }
-        
-        
-        // ===== INTERSECTION OBSERVER POUR ANIMATIONS AU SCROLL =====
-        
-        // Observer pour les villas (déclaration globale)
-        let observer;
-        let generalObserver;
-        
-        // Initialiser les observers
-        function initializeObservers() {
-            // Observer pour les villas
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        // On garde l'observation pour l'effet hover
-                    }
-                });
-            }, observerOptions);
-            
-            // Observer pour les autres éléments
-            generalObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-        }
-        
-        // Initialiser les observers au chargement
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialiser les observers
-            initializeObservers();
-            
-            // Observer les autres éléments (pas les villas qui sont créées dynamiquement)
-            const animatedElements = document.querySelectorAll('.animate-on-scroll');
-            animatedElements.forEach(el => {
-                generalObserver.observe(el);
-            });
-            
-            // Observer les titres et sections
-            const titles = document.querySelectorAll('h1, h2, h3, .section-title');
-            titles.forEach(title => {
-                title.classList.add('animate-on-scroll');
-                generalObserver.observe(title);
-            });
-        });
-        
-        // ===== FONCTIONS EXISTANTES =====
-        
-        // ===== DONNÉES STATIQUES DES VILLAS POUR GITHUB PAGES =====
-        const villasData = [
-            // VILLAS DE SÉJOUR - DONNÉES RÉELLES CORRIGÉES
-            {
-                id: 1,
-                name: "Villa F3 sur Petit Macabou",
-                location: "Petit Macabou au Vauclin",
-                price: 850,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                gallery: [
-                    "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
-                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg"
-                ],
-                fallbackIcon: "🏊",
-                description: "Belle villa Villa F3 sur Petit Macabou située à Petit Macabou au Vauclin. Capacité 6 personnes.",
-                pricing_details: { base_price: 850.0, price_type: "per_night" }
-            },
-            {
-                id: 2,
-                name: "Villa F5 sur Ste Anne",
-                location: "Quartier Les Anglais, Ste Anne",
-                price: 1350,
-                priceUnit: "€/nuit",
-                guests: 10,
-                guestsDetail: "10 personnes",
-                features: "Piscine, décoration distinctive",
-                category: "sejour",
-                image: "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                gallery: [
-                    "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg"
-                ],
-                fallbackIcon: "🌸",
-                description: "Belle villa Villa F5 sur Ste Anne située à Quartier Les Anglais, Ste Anne. Capacité 10 personnes.",
-                pricing_details: { base_price: 1350.0, price_type: "per_night" }
-            },
-            {
-                id: 3,
-                name: "Villa F3 Baccha Petit Macabou",
-                location: "Petit Macabou",
-                price: 1350,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine, terrasses modernes",
-                category: "sejour",
-                image: "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                gallery: [
-                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F3 Baccha Petit Macabou située à Petit Macabou. Capacité 6 personnes.",
-                pricing_details: { base_price: 1350.0, price_type: "per_night" }
-            },
-            {
-                id: 4,
-                name: "Villa F6 Lamentin",
-                location: "Quartier Bélème au Lamentin",
-                price: 1500,
-                priceUnit: "€/nuit",
-                guests: 10,
-                guestsDetail: "10 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
-                gallery: [
-                    "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F6 Lamentin située à Quartier Bélème au Lamentin. Capacité 10 personnes.",
-                pricing_details: { base_price: 1500.0, price_type: "per_night" }
-            },
-            {
-                id: 5,
-                name: "Villa F6 Ste Luce Plage",
-                location: "Zac de Pont Café, Ste Luce",
-                price: 1700,
-                priceUnit: "€/nuit",
-                guests: 14,
-                guestsDetail: "14 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
-                gallery: [
-                    "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F6 Ste Luce Plage située à Zac de Pont Café, Ste Luce. Capacité 14 personnes.",
-                pricing_details: { base_price: 1700.0, price_type: "per_night" }
-            },
-            {
-                id: 6,
-                name: "Villa F6 sur Petit Macabou",
-                location: "Petit Macabou au Vauclin",
-                price: 2000,
-                priceUnit: "€/nuit",
-                guests: 13,
-                guestsDetail: "13 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
-                gallery: [
-                    "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
-                    "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F6 sur Petit Macabou située à Petit Macabou au Vauclin. Capacité 13 personnes.",
-                pricing_details: { base_price: 2000.0, price_type: "per_night" }
-            },
-            {
-                id: 7,
-                name: "Villa F7 Baie des Mulets",
-                location: "Baie des Mulets, Trinité",
-                price: 2200,
-                priceUnit: "€/nuit",
-                guests: 15,
-                guestsDetail: "15 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
-                gallery: [
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F7 Baie des Mulets située à Baie des Mulets, Trinité. Capacité 15 personnes.",
-                pricing_details: { base_price: 2200.0, price_type: "per_night" }
-            },
-            {
-                id: 8,
-                name: "Villa F3 Trinité (Cosmy)",
-                location: "Cosmy, Trinité",
-                price: 900,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
-                gallery: [
-                    "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/cuisine_americaine_jaune_bois.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F3 Trinité (Cosmy) située à Cosmy, Trinité. Capacité 6 personnes.",
-                pricing_details: { base_price: 900.0, price_type: "per_night" }
-            },
-            {
-                id: 9,
-                name: "Villa F3 Le Robert",
-                location: "Le Robert",
-                price: 1000,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
-                gallery: [
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F3 Le Robert située à Le Robert. Capacité 6 personnes.",
-                pricing_details: { base_price: 1000.0, price_type: "per_night" }
-            },
-            {
-                id: 10,
-                name: "Villa F5 R.Pilote",
-                location: "Rivière-Pilote",
-                price: 1200,
-                priceUnit: "€/nuit",
-                guests: 8,
-                guestsDetail: "8 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
-                gallery: [
-                    "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
-                    "./images/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg",
-                    "./images/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F5 R.Pilote située à Rivière-Pilote. Capacité 8 personnes.",
-                pricing_details: { base_price: 1200.0, price_type: "per_night" }
-            },
-            {
-                id: 11,
-                name: "Villa F3 Le François",
-                location: "Le François",
-                price: 1100,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
-                gallery: [
-                    "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
-                    "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
-                    "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F3 Le François située à Le François. Capacité 6 personnes.",
-                pricing_details: { base_price: 1100.0, price_type: "per_night" }
-            },
-            {
-                id: 12,
-                name: "Villa F5 Vauclin Ravine Plate",
-                location: "Ravine Plate, Le Vauclin",
-                price: 1400,
-                priceUnit: "€/nuit",
-                guests: 10,
-                guestsDetail: "10 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
-                gallery: [
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F5 Vauclin Ravine Plate située à Ravine Plate, Le Vauclin. Capacité 10 personnes.",
-                pricing_details: { base_price: 1400.0, price_type: "per_night" }
-            },
-            {
-                id: 13,
-                name: "Bas Villa F3 Ste Luce",
-                location: "Ste Luce",
-                price: 1300,
-                priceUnit: "€/nuit",
-                guests: 8,
-                guestsDetail: "8 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
-                gallery: [
-                    "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Bas Villa F3 Ste Luce située à Ste Luce. Capacité 8 personnes.",
-                pricing_details: { base_price: 1300.0, price_type: "per_night" }
-            },
-            {
-                id: 14,
-                name: "Villa F3 Trenelle",
-                location: "Trenelle",
-                price: 1600,
-                priceUnit: "€/nuit",
-                guests: 6,
-                guestsDetail: "6 personnes",
-                features: "Piscine, équipements modernes",
-                category: "sejour",
-                image: "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
-                gallery: [
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg"
-                ],
-                fallbackIcon: "🏖️",
-                description: "Belle villa Villa F3 Trenelle située à Trenelle. Capacité 6 personnes.",
-                pricing_details: { base_price: 1600.0, price_type: "per_night" }
-            },
-            {
-                id: 15,
-                name: "Studio Cocooning Lamentin",
-                location: "Lamentin",
-                price: 600,
-                priceUnit: "€/nuit",
-                guests: 2,
-                guestsDetail: "2 personnes",
-                features: "Jacuzzi privé, vue panoramique",
-                category: "sejour",
-                image: "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
-                gallery: [
-                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
-                    "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg"
-                ],
-                fallbackIcon: "💕",
-                description: "Studio romantique parfait pour couples.",
-                pricing_details: { base_price: 600.0, price_type: "per_night" }
-            },
-
-            // VILLAS POUR FÊTES - DONNÉES RÉELLES CORRIGÉES
-            {
-                id: 16,
-                name: "Espace Piscine Journée Bungalow",
-                location: "Bungalow",
-                price: 350,
-                priceUnit: "€/jour",
-                guests: 10,
-                guestsDetail: "10 à 150 personnes",
-                features: "Cuisine, salle d'eau, mobilier (chaises, tables), chambre climatisée",
-                category: "fete",
-                image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                gallery: [
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
-                ],
-                fallbackIcon: "🏊",
-                description: "Espace piscine pour la journée avec bungalow. Idéal pour se détendre et profiter de la piscine. Capacité jusqu'à 150 personnes pour des événements.",
-                pricing_details: { base_price: 350.0, price_type: "per_day" }
-            },
-            {
-                id: 17,
-                name: "Villa Fête Journée Ducos",
-                location: "Ducos",
-                price: 200,
-                priceUnit: "€/jour",
-                guests: 25,
-                guestsDetail: "25 personnes",
-                features: "Piscine, espace fête",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg"
-                ],
-                fallbackIcon: "🎉",
-                description: "Villa parfaite pour organiser des fêtes et événements.",
-                pricing_details: { base_price: 200.0, price_type: "per_day" }
-            },
-            {
-                id: 18,
-                name: "Villa Fête Journée Fort de France",
-                location: "Fort-de-France",
-                price: 180,
-                priceUnit: "€/jour",
-                guests: 20,
-                guestsDetail: "20 personnes",
-                features: "Piscine, terrasse couverte",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg"
-                ],
-                fallbackIcon: "🏛️",
-                description: "Villa pour fêtes à Fort-de-France.",
-                pricing_details: { base_price: 180.0, price_type: "per_day" }
-            },
-            {
-                id: 19,
-                name: "Villa Fête Journée Rivière Pilote",
-                location: "Rivière-Pilote",
-                price: 250,
-                priceUnit: "€/jour",
-                guests: 35,
-                guestsDetail: "35 personnes",
-                features: "Grande piscine, espace barbecue",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg"
-                ],
-                fallbackIcon: "🔥",
-                description: "Villa spacieuse pour grandes fêtes.",
-                pricing_details: { base_price: 250.0, price_type: "per_day" }
-            },
-            {
-                id: 20,
-                name: "Villa Fête Journée Sainte-Luce",
-                location: "Sainte-Luce",
-                price: 160,
-                priceUnit: "€/jour",
-                guests: 15,
-                guestsDetail: "15 personnes",
-                features: "Piscine, jardins tropicaux",
-                category: "fete",
-                image: "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
-                gallery: [
-                    "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg"
-                ],
-                fallbackIcon: "🌺",
-                description: "Villa pour fêtes avec jardins tropicaux.",
-                pricing_details: { base_price: 160.0, price_type: "per_day" }
-            },
-            {
-                id: 21,
-                name: "Espace Piscine Journée Bungalow",
-                location: "Location spéciale",
-                price: 350,
-                priceUnit: "€/jour",
-                guests: 150,
-                guestsDetail: "10 à 150 personnes",
-                features: "Piscine, espace couvert, bungalow",
-                category: "fete",
-                image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                gallery: [
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
-                ],
-                fallbackIcon: "🏊",
-                description: "Espace piscine avec bungalow pour journée détente ou fêtes. Capacité de 10 à 150 personnes.",
-                pricing_details: { base_price: 350.0, price_type: "per_day" }
-            }
-        ];
-
-        let filteredVillas = [...villasData];
-        let currentVilla = null;
-        let currentGalleryIndex = 0;
-        let currentGallery = [];
-
-        // Pour GitHub Pages - Pas besoin d'API
-        async function loadVillasFromAPI() {
-            console.log("🏖️ GitHub Pages détecté - utilisation des données statiques");
-            console.log(`✅ ${villasData.length} villas chargées (données intégrées)`);
-            
-            // Vérifier si Espace Piscine est présent
-            const espacePiscine = villasData.find(v => v.name.includes('Espace Piscine'));
-            if (espacePiscine) {
-                console.log(`✅ "Espace Piscine" trouvé: ${espacePiscine.name} - ${espacePiscine.price}€`);
-            }
-            
-            // Afficher les villas
-            filteredVillas = [...villasData];
-            displayVillas();
-            
-            return true;
-        }
-
-        // Initialisation des calendriers
-        let checkinCalendar, checkoutCalendar, modalCheckinCalendar, modalCheckoutCalendar;
-
-        document.addEventListener('DOMContentLoaded', async function() {
-            console.log("🚀 DOM Content Loaded - Initialisation...");
-            
-            // CHARGEMENT DYNAMIQUE DES VILLAS DEPUIS L'API
-            const apiLoaded = await loadVillasFromAPI();
-            
-            if (!apiLoaded) {
-                console.warn("⚠️ Impossible de charger les villas depuis l'API");
-                // Afficher un message d'erreur à l'utilisateur
-                const grid = document.getElementById('villasGrid');
-                if (grid) {
-                    grid.innerHTML = `
-                        <div class="glass-card" style="text-align: center; padding: 2rem;">
-                            <h3 style="color: #ff6b6b; margin-bottom: 1rem;">
-                                <i class="fas fa-exclamation-triangle"></i> Erreur de connexion
-                            </h3>
-                            <p style="color: white; margin-bottom: 1rem;">
-                                Impossible de charger les villas depuis le serveur.
-                            </p>
-                            <button onclick="location.reload()" class="btn-primary" style="margin-top: 1rem;">
-                                <i class="fas fa-refresh"></i> Réessayer
-                            </button>
-                        </div>
-                    `;
-                }
-            }
-            
-            // CORRECTION 2 : Initialisation des calendriers avec vérification complète
-            setTimeout(function() {
-                console.log("📅 Initialisation des calendriers...");
-                
-                // Vérifier que Flatpickr est disponible
-                if (typeof flatpickr === 'undefined') {
-                    console.error("❌ Flatpickr n'est pas chargé !");
-                    return;
-                }
-                
-                // Vérifier que les éléments existent
-                const checkinElement = document.getElementById('checkin');
-                const checkoutElement = document.getElementById('checkout');
-                
-                if (!checkinElement || !checkoutElement) {
-                    console.error("❌ Éléments calendrier non trouvés !");
-                    return;
-                }
-                
-                console.log("✅ Flatpickr disponible, éléments trouvés");
-                
-                // Initialiser les calendriers
-                const today = new Date();
-                const tomorrow = new Date(today);
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                try {
-                    // Calendrier arrivée
-                    checkinCalendar = flatpickr(checkinElement, {
-                        locale: "fr",
-                        minDate: today,
-                        dateFormat: "d/m/Y",
-                        allowInput: true,
-                        clickOpens: true,
-                        disableMobile: false,
-                        onChange: function(selectedDates) {
-                            console.log("📅 Date arrivée sélectionnée:", selectedDates[0]);
-                            if (selectedDates[0] && checkoutCalendar) {
-                                const nextDay = new Date(selectedDates[0]);
-                                nextDay.setDate(nextDay.getDate() + 1);
-                                checkoutCalendar.set('minDate', nextDay);
-                            }
-                        }
-                    });
-                    
-                    // Calendrier départ
-                    checkoutCalendar = flatpickr(checkoutElement, {
-                        locale: "fr",
-                        minDate: tomorrow,
-                        dateFormat: "d/m/Y",
-                        allowInput: true,
-                        clickOpens: true,
-                        disableMobile: false,
-                        onChange: function(selectedDates) {
-                            console.log("📅 Date départ sélectionnée:", selectedDates[0]);
-                        }
-                    });
-                    
-                    console.log("✅ Calendriers initialisés avec succès !");
-                    
-                    // CORRECTION MOBILE : Ajouter événements tactiles
-                    setupMobileDateFieldsIndex();
-                    
-                    // Test d'ouverture forcée au clic
-                    checkinElement.addEventListener('click', function(e) {
-                        console.log("🖱️ Clic sur arrivée");
-                        e.preventDefault();
-                        if (checkinCalendar) {
-                            checkinCalendar.open();
-                        }
-                    });
-                    
-                    checkoutElement.addEventListener('click', function(e) {
-                        console.log("🖱️ Clic sur départ");
-                        e.preventDefault();
-                        if (checkoutCalendar) {
-                            checkoutCalendar.open();
-                        }
-                    });
-                    
-                } catch (error) {
-                    console.error("❌ Erreur initialisation calendriers:", error);
-                }
-                
-            }, 500); // Délai plus long pour être sûr
-
-            // Forcer l'ouverture des calendriers au clic
-            document.getElementById('checkin').addEventListener('click', function() {
-                if (checkinCalendar) {
-                    checkinCalendar.open();
-                }
-            });
-
-            document.getElementById('checkout').addEventListener('click', function() {
-                if (checkoutCalendar) {
-                    checkoutCalendar.open();
-                }
-            });
-
-            // Calendriers de la modale
-            modalCheckinCalendar = flatpickr("#modalCheckin", {
-                locale: "fr",
-                minDate: today,
-                dateFormat: "d/m/Y",
-                placeholder: "Date d'arrivée",
-                onChange: function(selectedDates) {
-                    if (selectedDates[0]) {
-                        const nextDay = new Date(selectedDates[0]);
-                        nextDay.setDate(nextDay.getDate() + 1);
-                        modalCheckoutCalendar.set('minDate', nextDay);
-                        calculatePrice();
-                    }
-                }
-            });
-
-            modalCheckoutCalendar = flatpickr("#modalCheckout", {
-                locale: "fr",
-                minDate: tomorrow,
-                dateFormat: "d/m/Y",
-                placeholder: "Date de départ",
-                onChange: function() {
-                    calculatePrice();
-                }
-            });
-
-            // S'assurer que les villas s'affichent au chargement
-            console.log(`📊 Nombre de villas chargées: ${villasData.length}`);
-            console.log(`📊 Nombre de villas filtrées: ${filteredVillas.length}`);
-            
-            // Message de bienvenue
-            showStatusMessage(`✅ Bienvenue sur KhanelConcept ! ${villasData.length} villas de luxe chargées automatiquement.`, 'success');
-        });
-
-        // Fonctions de gestion des sections
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            document.getElementById(sectionId).classList.add('active');
-            document.getElementById('nav-' + sectionId).classList.add('active');
-        }
-
-        // Fonctions de filtrage
-        function filterVillas(category) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            if (category === 'all') {
-                filteredVillas = [...villasData];
-            } else if (category === 'pmr') {
-                filteredVillas = villasData.filter(villa => 
-                    villa.features.toLowerCase().includes('accessible') || 
-                    villa.location.toLowerCase().includes('ste-luce') ||
-                    villa.guests <= 4
-                );
-            } else {
-                filteredVillas = villasData.filter(villa => villa.category === category);
-            }
-            
-            displayVillas();
-        }
-
-        // ===== FONCTIONS BARRE DE RECHERCHE INTELLIGENTE =====
-        
-        // Liste des communes de Martinique pour l'autocomplete
-        const communesMartinique = [
-            'Sainte-Anne', 'Vauclin', 'Lamentin', 'Macabou', 'Petit Macabou', 'Sainte-Luce', 
-            'Trinité', 'Le Robert', 'Rivière-Pilote', 'Ducos', 'Fort-de-France', 
-            'Trenelle', 'Le Marin', 'Rivière-Salée', 'Les Trois-Îlets', 
-            'Le Diamant', 'Les Anses-d\'Arlet', 'Le Carbet', 'Bellefontaine',
-            'Case-Pilote', 'Schoelcher', 'Saint-Joseph', 'Le Lorrain',
-            'Marigot', 'Sainte-Marie', 'Le Prêcheur', 'Grand\'Rivière',
-            'L\'Ajoupa-Bouillon', 'Basse-Pointe', 'Macouba', 'Le Morne-Rouge',
-            'Saint-Pierre', 'Le Morne-Vert', 'Fonds-Saint-Denis'
-        ];
-
-        // État des voyageurs
-        let voyageursCount = {
-            adultes: 2,
-            enfants: 0,
-            bebes: 0
-        };
-
-        let showLocationSuggestionsFlag = false;
-        let showVoyageursDropdownFlag = false;
-
-        // Fonction pour gérer l'input de localisation
-        function handleLocationInput(value) {
-            const suggestionsDiv = document.getElementById('suggestions-dropdown');
-            
-            if (value.length > 0) {
-                const filtered = communesMartinique.filter(commune =>
-                    commune.toLowerCase().includes(value.toLowerCase())
-                );
-                
-                if (filtered.length > 0) {
-                    suggestionsDiv.innerHTML = filtered.slice(0, 5).map(commune => 
-                        `<div class="suggestion-item" onclick="selectLocation('${commune}')">📍 ${commune}</div>`
-                    ).join('');
-                    suggestionsDiv.style.display = 'block';
-                } else {
-                    suggestionsDiv.style.display = 'none';
-                }
-            } else {
-                suggestionsDiv.style.display = 'none';
-            }
-        }
-
-        // Fonction pour sélectionner une localisation
-        function selectLocation(commune) {
-            document.getElementById('location-search').value = commune;
-            document.getElementById('suggestions-dropdown').style.display = 'none';
-        }
-
-        // Fonction pour montrer/cacher les suggestions
-        function showLocationSuggestions(show) {
-            showLocationSuggestionsFlag = show;
-        }
-
-        // Fonction pour toggle le dropdown voyageurs
-        function toggleVoyageursDropdown() {
-            const menu = document.getElementById('voyageurs-menu');
-            
-            if (!menu) return;
-            
-            showVoyageursDropdownFlag = !showVoyageursDropdownFlag;
-            
-            if (showVoyageursDropdownFlag) {
-                // Afficher le dropdown avec animation
-                menu.style.display = 'block';
-                // Force reflow pour s'assurer que display:block est appliqué
-                menu.offsetHeight;
-                menu.classList.add('active');
-                
-                // Fermer le dropdown si on clique ailleurs
-                document.addEventListener('click', closeDropdownOutside);
-            } else {
-                // Masquer le dropdown avec animation
-                menu.classList.remove('active');
-                setTimeout(() => {
-                    if (!menu.classList.contains('active')) {
-                        menu.style.display = 'none';
-                    }
-                }, 300);
-                
-                document.removeEventListener('click', closeDropdownOutside);
-            }
-        }
-        
-        // Fonction pour fermer le dropdown si on clique ailleurs
-        function closeDropdownOutside(event) {
-            const menu = document.getElementById('voyageurs-menu');
-            const trigger = document.querySelector('.voyageurs-display');
-            
-            if (menu && trigger && !menu.contains(event.target) && !trigger.contains(event.target)) {
-                showVoyageursDropdownFlag = false;
-                menu.classList.remove('active');
-                setTimeout(() => {
-                    if (!menu.classList.contains('active')) {
-                        menu.style.display = 'none';
-                    }
-                }, 300);
-                document.removeEventListener('click', closeDropdownOutside);
-            }
-        }
-
-        // Fonction pour mettre à jour le nombre de voyageurs
-        function updateVoyageurs(type, increment) {
-            if (type === 'adultes' && voyageursCount.adultes + increment < 1) return;
-            if (voyageursCount[type] + increment < 0) return;
-            
-            voyageursCount[type] += increment;
-            
-            // Mettre à jour l'affichage
-            document.getElementById(type + '-count').textContent = voyageursCount[type];
-            updateVoyageursDisplay();
-            
-            // Désactiver/activer les boutons
-            updateCounterButtons();
-        }
-
-        // Fonction pour afficher le texte des voyageurs
-        function updateVoyageursDisplay() {
-            let display = `${voyageursCount.adultes} adulte${voyageursCount.adultes > 1 ? 's' : ''}`;
-            if (voyageursCount.enfants > 0) {
-                display += `, ${voyageursCount.enfants} enfant${voyageursCount.enfants > 1 ? 's' : ''}`;
-            }
-            if (voyageursCount.bebes > 0) {
-                display += `, ${voyageursCount.bebes} bébé${voyageursCount.bebes > 1 ? 's' : ''}`;
-            }
-            
-            document.querySelector('.voyageurs-display').value = display;
-        }
-
-        // Fonction pour mettre à jour l'état des boutons
-        function updateCounterButtons() {
-            // Bouton minus adultes
-            const adultesMinusBtn = document.querySelector('button[onclick="updateVoyageurs(\'adultes\', -1)"]');
-            if (adultesMinusBtn) {
-                adultesMinusBtn.disabled = voyageursCount.adultes <= 1;
-            }
-            
-            // Boutons minus enfants et bébés
-            const enfantsMinusBtn = document.querySelector('button[onclick="updateVoyageurs(\'enfants\', -1)"]');
-            if (enfantsMinusBtn) {
-                enfantsMinusBtn.disabled = voyageursCount.enfants <= 0;
-            }
-            
-            const bebesMinusBtn = document.querySelector('button[onclick="updateVoyageurs(\'bebes\', -1)"]');
-            if (bebesMinusBtn) {
-                bebesMinusBtn.disabled = voyageursCount.bebes <= 0;
-            }
-        }
-
-        // Gestion des clics en dehors des dropdowns
-        document.addEventListener('click', function(event) {
-            // Fermer suggestions localisation
-            if (!event.target.closest('.location-field')) {
-                document.getElementById('suggestions-dropdown').style.display = 'none';
-            }
-            
-            // Fermer dropdown voyageurs
-            if (!event.target.closest('.guests-field')) {
-                document.getElementById('voyageurs-menu').classList.remove('active');
-                showVoyageursDropdownFlag = false;
-            }
-        });
-
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCounterButtons();
-        });
-
-        // ===== FIN FONCTIONS BARRE DE RECHERCHE INTELLIGENTE =====
-
-        // Fonction de recherche avec sélecteur voyageurs
-        function performSearch() {
-            const destination = document.getElementById('location-search').value.toLowerCase();
-            const guestsDisplay = document.querySelector('.voyageurs-display').value;
-            // Extraire le nombre d'adultes du text (ex: "2 adultes" -> 2)
-            const adultsMatch = guestsDisplay.match(/(\d+)\s+adulte/);
-            const guests = adultsMatch ? parseInt(adultsMatch[1]) : 0;
-
-            showStatusMessage('Recherche en cours...', 'loading');
-
-            setTimeout(() => {
-                let results = [...villasData];
-
-                if (destination) {
-                    results = results.filter(villa => 
-                        villa.location.toLowerCase().includes(destination) ||
-                        villa.name.toLowerCase().includes(destination)
-                    );
-                }
-
-                if (guests > 0) {
-                    results = results.filter(villa => villa.guests >= guests);
-                }
-
-                filteredVillas = results;
-                displayVillas();
-                
-                if (results.length === 0) {
-                    showStatusMessage('Aucune villa trouvée pour ces critères. Essayez avec d\'autres paramètres.', 'error');
-                } else {
-                    showStatusMessage(`${results.length} villa(s) trouvée(s) !`, 'success');
-                }
-            }, 1000);
-        }
-
-        // Affichage des villas
-        function displayVillas() {
-            const grid = document.getElementById('villasGrid');
-            
-            if (filteredVillas.length === 0) {
-                grid.innerHTML = '<div class="glass-card"><h3>Aucune villa trouvée</h3><p>Essayez de modifier vos critères de recherche.</p></div>';
-                return;
-            }
-
-            grid.innerHTML = filteredVillas.map(villa => {
-                const priceUnit = villa.priceUnit || '€/nuit';
-                return `
-                    <div class="villa-card">
-                        <div class="villa-image-container" style="height: 200px; overflow: hidden;">
-                            <img 
-                                src="${villa.image}" 
-                                alt="${villa.name}"
-                                class="villa-image"
-                                onclick="openImageGallery(${villa.id}, 0)"
-                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                                onload="this.nextElementSibling.style.display='none';"
-                            >
-                            <div class="image-placeholder" style="display: none;" onclick="openImageGallery(${villa.id}, 0)">
-                                ${villa.fallbackIcon}
-                            </div>
-                        </div>
-                        <div class="villa-content">
-                            <h3>${villa.name}</h3>
-                            <p><i class="fas fa-map-marker-alt"></i> ${villa.location}</p>
-                            <p><i class="fas fa-users"></i> ${villa.guestsDetail}</p>
-                            <p><i class="fas fa-swimming-pool"></i> ${villa.features}</p>
-                            <div class="price">${villa.price} ${priceUnit}</div>
-                            <div class="villa-buttons">
-                                <button class="btn-primary" onclick="openReservationModal(${villa.id})">Réserver</button>
-                                <button class="btn-secondary" onclick="viewDetails(${villa.id})">Détails</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            // ===== RÉINITIALISER L'INTERSECTION OBSERVER POUR LES NOUVELLES VILLAS =====
-            // Attendre un petit délai pour que les éléments soient dans le DOM
-            setTimeout(() => {
-                // Observer toutes les nouvelles villas
-                const newVillaCards = document.querySelectorAll('.villa-card');
-                console.log(`🔍 Observing ${newVillaCards.length} villa cards`);
-                newVillaCards.forEach((card, index) => {
-                    // Définir l'observer directement ici si pas encore défini
-                    if (typeof observer !== 'undefined') {
-                        observer.observe(card);
-                        
-                        // Vérifier immédiatement si la villa est déjà visible (pour les premières villas)
-                        const rect = card.getBoundingClientRect();
-                        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                        
-                        // Si la villa est déjà dans le viewport, l'animer immédiatement
-                        if (rect.top < windowHeight && rect.bottom > 0) {
-                            setTimeout(() => {
-                                card.classList.add('visible');
-                            }, index * 100); // Délai progressif pour un effet staggeré
-                        }
-                    }
-                });
-            }, 200);
-        }
-
-        // Redirection vers page de réservation moderne
-        function openReservationModal(villaId) {
-            const villa = villasData.find(v => v.id === villaId);
-            if (villa) {
-                // Construire l'URL avec les paramètres de la villa
-                const params = new URLSearchParams({
-                    villa: villa.name,
-                    price: villa.price,
-                    location: villa.location
-                });
-                
-                // Rediriger vers la page de réservation
-                window.location.href = `reservation.html?${params.toString()}`;
-            }
-        }
-
-        function closeReservationModal() {
-            document.getElementById('reservationModal').classList.remove('active');
-            document.getElementById('reservationForm').reset();
-            document.getElementById('priceCalculation').style.display = 'none';
-        }
-
-        function calculatePrice() {
-            if (!currentVilla) return;
-            
-            const checkinDate = modalCheckinCalendar.selectedDates[0];
-            const checkoutDate = modalCheckoutCalendar.selectedDates[0];
-            
-            if (checkinDate && checkoutDate && checkinDate < checkoutDate) {
-                const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
-                const totalPrice = nights * currentVilla.price;
-                
-                document.getElementById('summaryVillaName').textContent = currentVilla.name;
-                document.getElementById('summaryDates').textContent = 
-                    `${checkinDate.toLocaleDateString('fr-FR')} - ${checkoutDate.toLocaleDateString('fr-FR')}`;
-                document.getElementById('summaryNights').textContent = `${nights} nuit${nights > 1 ? 's' : ''}`;
-                document.getElementById('summaryPricePerNight').textContent = `${currentVilla.price}€`;
-                document.getElementById('summaryTotal').textContent = `${totalPrice}€`;
-                
-                document.getElementById('priceCalculation').style.display = 'block';
-            } else {
-                document.getElementById('priceCalculation').style.display = 'none';
-            }
-        }
-
-        // Galerie d'images
-        function openImageGallery(villaId, imageIndex = 0) {
-            const villa = villasData.find(v => v.id === villaId);
-            if (!villa || !villa.gallery) return;
-            
-            currentGallery = villa.gallery;
-            currentGalleryIndex = imageIndex;
-            
-            updateGalleryImage();
-            updateThumbnails();
-            
-            document.getElementById('imageGalleryModal').classList.add('active');
-        }
-
-        function closeImageGallery() {
-            document.getElementById('imageGalleryModal').classList.remove('active');
-        }
-
-        function previousImage() {
-            currentGalleryIndex = (currentGalleryIndex - 1 + currentGallery.length) % currentGallery.length;
-            updateGalleryImage();
-            updateThumbnails();
-        }
-
-        function nextImage() {
-            currentGalleryIndex = (currentGalleryIndex + 1) % currentGallery.length;
-            updateGalleryImage();
-            updateThumbnails();
-        }
-
-        function goToImage(index) {
-            currentGalleryIndex = index;
-            updateGalleryImage();
-            updateThumbnails();
-        }
-
-        function updateGalleryImage() {
-            document.getElementById('galleryImage').src = currentGallery[currentGalleryIndex];
-        }
-
-        function updateThumbnails() {
-            const thumbnailsContainer = document.getElementById('galleryThumbnails');
-            thumbnailsContainer.innerHTML = currentGallery.map((image, index) => 
-                `<img src="${image}" alt="Image KhanelConcept" class="thumbnail ${index === currentGalleryIndex ? 'active' : ''}" onclick="goToImage(${index})">`
-            ).join('');
-        }
-
-        // Fonctions d'actions
-        function getVillaPageUrl(villaId) {
-            // Correspondance CORRIGÉE entre les IDs des villas et les NOUVELLES pages HTML créées
-            const villaPageMapping = {
-                1: "villa-villa-f3-sur-petit-macabou.html",                    // Villa F3 Petit Macabou
-                2: "villa-villa-f5-sur-ste-anne.html",                         // Villa F5 Ste Anne
-                3: "villa-villa-f3-pour-la-baccha.html",                       // Villa F3 POUR LA BACCHA
-                4: "villa-villa-f6-au-lamentin.html",                          // Villa F6 Lamentin
-                5: "villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html",      // Villa F6 Ste Luce à 1mn de la plage
-                6: "villa-villa-f6-sur-petit-macabou-sejour--fte.html",       // Villa F6 Petit Macabou (séjour + fête)
-                7: "villa-villa-f7-baie-des-mulets.html",                     // Villa F7 Baie des Mulets
-                8: "villa-villa-f3-bas-de-villa-trinite-cosmy.html",          // Bas de villa F3 Trinité Cosmy
-                9: "villa-bas-de-villa-f3-sur-le-robert.html",                // Bas de villa F3 sur le Robert
-                10: "villa-villa-f5-la-renee.html",                           // Villa F5 La Renée
-                11: "villa-villa-f3-sur-le-franois.html",                     // Villa F3 sur le François
-                12: "villa-villa-f5-vauclin-ravine-plate.html",               // Villa F5 Vauclin Ravine Plate
-                13: "villa-bas-de-villa-f3-sur-ste-luce.html",                // Bas de villa F3 sur Ste Luce
-                14: "villa-appartement-f3-trenelle-location-annuelle.html",   // Appartement F3 Trenelle
-                15: "villa-studio-cocooning-lamentin.html",                   // Studio Cocooning Lamentin
-                16: "villa-espace-piscine-journee-bungalow.html",             // Espace Piscine Journée Bungalow
-                17: "villa-villa-fte-journee-ducos.html",                     // Villa Fête Journée Ducos
-                18: "villa-villa-fte-journee-fort-de-france.html",            // Villa Fête Journée Fort de France
-                19: "villa-villa-fte-journee-riviere-pilote.html",            // Villa Fête Journée Rivière-Pilote
-                20: "villa-villa-fte-journee-sainte-luce.html",               // Villa Fête Journée Sainte-Luce
-                21: "villa-villa-fte-journee-riviere-salee.html"              // Villa Fête Journée Rivière Salée
-            };
-            
-            return villaPageMapping[villaId] || 'index.html';
-        }
-
-        function viewDetails(villaId) {
-            console.log('🏠 Navigation vers villa:', villaId);
-            
-            // Afficher un loader immédiatement
-            const clickedBtn = event.target;
-            if (clickedBtn) {
-                clickedBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Chargement...';
-                clickedBtn.disabled = true;
-            }
-            
-            // Correspondance corrigée - utilise getVillaPageUrl pour les IDs numériques
-            if (typeof villaId === 'number' || !isNaN(villaId)) {
-                const targetPage = getVillaPageUrl(parseInt(villaId));
-                console.log('✅ Redirection immédiate vers:', targetPage);
-                
-                // Navigation immédiate sans délai
-                setTimeout(() => {
-                    window.location.href = './' + targetPage;
-                }, 100); // Délai minimal pour l'effet visuel
-                return;
-            }
-            
-            // Pour les anciens IDs string (fallback)
-            const villaPages = {
-                'villa-f3-petit-macabou': 'villa-villa-f3-sur-petit-macabou.html',
-                'villa-f3-baccha': 'villa-villa-f3-pour-la-baccha.html', 
-                'villa-f3-francois': 'villa-villa-f3-sur-le-franois.html',
-                'villa-f5-ste-anne': 'villa-villa-f5-sur-ste-anne.html',
-                'villa-f6-lamentin': 'villa-villa-f6-au-lamentin.html',
-                'villa-f6-ste-luce': 'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html',
-                'villa-f3-trinite': 'villa-villa-f3-bas-de-villa-trinite-cosmy.html',
-                'villa-f3-robert': 'villa-bas-de-villa-f3-sur-le-robert.html',
-                'villa-f3-trenelle': 'villa-appartement-f3-trenelle-location-annuelle.html',
-                'villa-f5-vauclin': 'villa-villa-f5-vauclin-ravine-plate.html',
-                'villa-f5-la-renee': 'villa-villa-f5-la-renee.html',
-                'villa-f7-baie-mulets': 'villa-villa-f7-baie-des-mulets.html',
-                'villa-f3-ste-luce': 'villa-bas-de-villa-f3-sur-ste-luce.html',
-                'villa-studio-lamentin': 'villa-studio-cocooning-lamentin.html',
-                'villa-fete-ducos': 'villa-villa-fte-journee-ducos.html',
-                'villa-fete-fort-de-france': 'villa-villa-fte-journee-fort-de-france.html',
-                'villa-fete-riviere-pilote': 'villa-villa-fte-journee-riviere-pilote.html',
-                'villa-fete-riviere-salee': 'villa-villa-fte-journee-riviere-salee.html',
-                'villa-fete-sainte-luce': 'villa-villa-fte-journee-sainte-luce.html',
-                'villa-espace-piscine': 'villa-espace-piscine-journee-bungalow.html',
-                'villa-f6-petit-macabou-fete': 'villa-villa-f6-sur-petit-macabou-sejour--fte.html'
-            };
-            
-            const targetPage = villaPages[villaId];
-            if (targetPage) {
-                console.log('✅ Redirection rapide vers:', targetPage);
-                setTimeout(() => {
-                    window.location.href = './' + targetPage;
-                }, 100);
-            } else {
-                console.log('❌ Villa non trouvée:', villaId);
-                if (clickedBtn) {
-                    clickedBtn.innerHTML = '❌ Erreur';
-                    setTimeout(() => window.location.reload(), 1000);
-                }
-            }
-        }
-
-        function contactPrestataire(service) {
-            showStatusMessage(`Redirection vers ${service}...`, 'loading');
-            
-            setTimeout(() => {
-                alert(`Service ${service}\n\nContactez-nous pour plus d'informations :\n📞 +596 696 XX XX XX\n📧 contact@khanelconcept.com`);
-                showStatusMessage(`Contact ${service} - Formulaire affiché`, 'success');
-            }, 1000);
-        }
-
-        function showComingSoon() {
-            showStatusMessage('Fonctionnalité en cours de développement...', 'loading');
-            
-            setTimeout(() => {
-                alert('Cette fonctionnalité sera bientôt disponible !\n\nRestez connecté pour les nouveautés.');
-                showStatusMessage('Fonctionnalité à venir - Notification envoyée', 'success');
-            }, 1000);
-        }
-
-        // Messages de statut
-        function showStatusMessage(message, type) {
-            const statusEl = document.getElementById('status-message');
-            statusEl.textContent = message;
-            statusEl.className = 'status-message ' + type;
-            statusEl.style.display = 'block';
-            
-            if (type !== 'loading') {
-                setTimeout(() => {
-                    statusEl.style.display = 'none';
-                }, 3000);
-            }
-        }
-
-        // Gestion du formulaire de réservation
-        document.getElementById('reservationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                villa: currentVilla.name,
-                villaId: currentVilla.id,
-                customerName: document.getElementById('customerName').value,
-                customerEmail: document.getElementById('customerEmail').value,
-                customerPhone: document.getElementById('customerPhone').value,
-                checkin: modalCheckinCalendar.selectedDates[0]?.toLocaleDateString('fr-FR'),
-                checkout: modalCheckoutCalendar.selectedDates[0]?.toLocaleDateString('fr-FR'),
-                guests: document.getElementById('modalGuests').value,
-                message: document.getElementById('customerMessage').value,
-                total: document.getElementById('summaryTotal')?.textContent || 'N/A'
-            };
-            
-            showStatusMessage('Traitement de votre réservation...', 'loading');
-            
-            // Simuler l'envoi de la réservation
-            setTimeout(() => {
-                showStatusMessage('Réservation confirmée ! Un email de confirmation va vous être envoyé.', 'success');
-                
-                // Afficher un résumé détaillé
-                alert(`✅ Réservation confirmée !\n\n🏖️ Villa: ${formData.villa}\n👤 Client: ${formData.customerName}\n📧 Email: ${formData.customerEmail}\n📞 Téléphone: ${formData.customerPhone}\n📅 Du ${formData.checkin} au ${formData.checkout}\n👥 ${formData.guests} voyageurs\n💰 Total: ${formData.total}\n\n📧 Un email de confirmation va vous être envoyé avec tous les détails.\n📞 Notre équipe vous contactera dans les plus brefs délais.`);
-                
-                closeReservationModal();
-            }, 2000);
-        });
-
-        // Gestion des événements clavier pour la galerie
-        document.addEventListener('keydown', function(e) {
-            if (document.getElementById('imageGalleryModal').classList.contains('active')) {
-                if (e.key === 'ArrowLeft') previousImage();
-                if (e.key === 'ArrowRight') nextImage();
-                if (e.key === 'Escape') closeImageGallery();
-            }
-            
-            if (document.getElementById('reservationModal').classList.contains('active')) {
-                if (e.key === 'Escape') closeReservationModal();
-            }
-        });
-
-        // Fermer les modales en cliquant à l'extérieur
-        window.onclick = function(event) {
-            const reservationModal = document.getElementById('reservationModal');
-            const galleryModal = document.getElementById('imageGalleryModal');
-            
-            if (event.target === reservationModal) {
-                closeReservationModal();
-            }
-            
-            if (event.target === galleryModal) {
-                closeImageGallery();
-            }
-        }
-        
-        // =====================================================
-        // HEADER SCROLL EFFECT PROFESSIONNEL
-        // =====================================================
-        
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // =====================================================
-        // NAVIGATION MOBILE HAMBURGER
-        // =====================================================
-        
-        // Navigation mobile intelligente - CORRIGÉE
-        function toggleMobileMenu() {
-            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
-            const toggle = document.querySelector('.mobile-nav-toggle i');
-            
-            console.log('🍔 Toggle menu - Current state:', navMenu.classList.contains('mobile-open'));
-            
-            if (navMenu.classList.contains('mobile-open')) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        }
-        
-        function openMobileMenu() {
-            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
-            const toggle = document.querySelector('.mobile-nav-toggle i');
-            
-            navMenu.classList.add('mobile-open');
-            toggle.className = 'fas fa-times';
-            
-            // Animation staggered pour les liens
-            const menuLinks = navMenu.querySelectorAll('a');
-            menuLinks.forEach((link, index) => {
-                link.style.opacity = '0';
-                link.style.transform = 'translateY(20px)';
-                link.style.animation = `slideInStagger 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.05}s forwards`;
-            });
-            
-            // Fermer le menu lors du clic sur un lien
-            menuLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    closeMobileMenu();
-                    
-                    // Si c'est un lien href (comme SOS Dépannage), laisser la navigation normale
-                    if (link.getAttribute('href') && link.getAttribute('href') !== '#') {
-                        // Navigation normale vers la page (pas de preventDefault)
-                        return;
-                    }
-                    
-                    // Pour les autres liens avec onclick, petit délai avant exécution
-                    if (link.getAttribute('onclick')) {
-                        setTimeout(() => {
-                            eval(link.getAttribute('onclick'));
-                        }, 200);
-                    }
-                });
-            });
-            
-            // Fermer le menu si clic à l'extérieur
-            setTimeout(() => {
-                document.addEventListener('click', handleOutsideClick);
-            }, 100);
-        }
-        
-        function closeMobileMenu() {
-            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
-            const toggle = document.querySelector('.mobile-nav-toggle i');
-            
-            console.log('❌ Fermeture menu mobile');
-            
-            // Animation de sortie pour les liens
-            const menuLinks = navMenu.querySelectorAll('a');
-            menuLinks.forEach((link, index) => {
-                link.style.animation = `slideOutStagger 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) ${index * 0.03}s forwards`;
-            });
-            
-            // Fermer le menu après l'animation
-            setTimeout(() => {
-                navMenu.classList.remove('mobile-open');
-                toggle.className = 'fas fa-bars';
-                
-                // Reset des styles inline
-                menuLinks.forEach(link => {
-                    link.style.animation = '';
-                    link.style.opacity = '';
-                    link.style.transform = '';
-                });
-            }, 300);
-            
-            document.removeEventListener('click', handleOutsideClick);
-        }
-        
-        function handleOutsideClick(event) {
-            const navMenu = document.querySelector('.nav-links.nav-menu'); // Double classe
-            const toggleBtn = document.querySelector('.mobile-nav-toggle');
-            
-            if (!navMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
-                closeMobileMenu();
-            }
-        }
-        
-        // Optimisations tactiles pour mobile
-        function optimizeForTouch() {
-            // Améliorer feedback tactile sur tous les boutons
-            const buttons = document.querySelectorAll('button, .btn, [onclick]');
-            
-            buttons.forEach(btn => {
-                // Ajouter des états tactiles
-                btn.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.95)';
-                    this.style.transition = 'transform 0.1s ease';
-                });
-                
-                btn.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
-                });
-                
-                // S'assurer que les boutons ont une taille minimale sur mobile
-                if (window.innerWidth <= 768) {
-                    btn.style.minHeight = '44px';
-                    btn.style.minWidth = '44px';
-                }
-            });
-        }
-        
-        // Prévenir le zoom sur les inputs iOS
-        function preventIOSZoom() {
-            const inputs = document.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                if (window.innerWidth <= 768) {
-                    input.style.fontSize = '16px';
-                }
-            });
-        }
-        
-        // Initialisation des optimisations mobiles
-        document.addEventListener('DOMContentLoaded', function() {
-            optimizeForTouch();
-            preventIOSZoom();
-            initBackgroundVideoiOS();
-            forceMobileNavigation(); // CRITIQUE : Force masquage nav mobile
-            
-            // Réinitialiser le menu mobile lors du redimensionnement
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    const navMenu = document.querySelector('.nav-menu');
-                    navMenu.style.display = '';
-                    navMenu.style.position = '';
-                    navMenu.style.background = '';
-                    navMenu.style.padding = '';
-                } else {
-                    forceMobileNavigation();
-                }
-            });
-        });
-        
-        // SOLUTION RADICALE : Force navigation mobile via JavaScript
-        function forceMobileNavigation() {
-            if (window.innerWidth <= 768) {
-                console.log("🔧 FORCE NAVIGATION MOBILE");
-                
-                // Masquer tous les éléments de navigation desktop
-                const navElements = [
-                    '.nav-links',
-                    '.nav-menu', 
-                    'nav.nav-links',
-                    'nav.nav-menu',
-                    '.header-content .nav-links',
-                    '.header-content nav'
-                ];
-                
-                navElements.forEach(selector => {
-                    const elements = document.querySelectorAll(selector);
-                    elements.forEach(el => {
-                        el.style.display = 'none';
-                        el.style.visibility = 'hidden';
-                        el.style.opacity = '0';
-                        el.style.position = 'absolute';
-                        el.style.left = '-9999px';
-                    });
-                });
-                
-                // Forcer l'affichage du bouton hamburger
-                const hamburgerBtn = document.querySelector('.mobile-nav-toggle');
-                if (hamburgerBtn) {
-                    hamburgerBtn.style.display = 'block';
-                    hamburgerBtn.style.visibility = 'visible';
-                    hamburgerBtn.style.opacity = '1';
-                    hamburgerBtn.style.position = 'relative';
-                    hamburgerBtn.style.left = 'auto';
-                    console.log("✅ Bouton hamburger affiché");
-                } else {
-                    console.log("❌ Bouton hamburger non trouvé");
-                }
-                
-                // Forcer layout header mobile
-                const headerContent = document.querySelector('.header-content');
-                if (headerContent) {
-                    headerContent.style.display = 'flex';
-                    headerContent.style.flexDirection = 'row';
-                    headerContent.style.justifyContent = 'space-between';
-                    headerContent.style.alignItems = 'center';
-                    headerContent.style.textAlign = 'left';
-                    console.log("✅ Header layout mobile forcé");
-                }
-                
-                console.log("🎯 Navigation mobile forcée via JavaScript");
-            }
-        }
-        
-        // Correction vidéo background pour iOS
-        function initBackgroundVideoiOS() {
-            const video = document.getElementById('backgroundVideo');
-            if (video) {
-                // Détecter iOS
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                
-                if (isIOS) {
-                    console.log('iOS détecté - Initialisation vidéo background');
-                    
-                    // Forcer les attributs iOS
-                    video.setAttribute('webkit-playsinline', '');
-                    video.setAttribute('playsinline', '');
-                    video.muted = true;
-                    video.defaultMuted = true;
-                    video.volume = 0;
-                    
-                    // Essayer de démarrer immédiatement
-                    video.play().then(() => {
-                        console.log('✅ Autoplay vidéo réussi sur iOS');
-                    }).catch(error => {
-                        console.log('⚠️ Autoplay bloqué - Démarrage au premier touch');
-                        
-                        // Démarrer au premier touch/click automatiquement
-                        function startVideo() {
-                            video.play().then(() => {
-                                console.log('✅ Vidéo background démarrée sur iOS');
-                            }).catch(err => console.log('Erreur vidéo iOS:', err));
-                            document.removeEventListener('touchstart', startVideo);
-                            document.removeEventListener('click', startVideo);
-                        }
-                        
-                        document.addEventListener('touchstart', startVideo, { once: true });
-                        document.addEventListener('click', startVideo, { once: true });
-                    });
-                } else {
-                    // Non-iOS : démarrage normal
-                    video.play().catch(error => {
-                        console.log('Erreur autoplay:', error);
-                    });
-                }
-            }
-        }
-        
-        // Configuration tactile spéciale mobile pour INDEX
-        function setupMobileDateFieldsIndex() {
-            const isMobile = window.innerWidth <= 768;
-            if (!isMobile) return;
-            
-            console.log("🔧 Configuration tactile mobile INDEX");
-            
-            const checkinField = document.getElementById('checkin');
-            const checkoutField = document.getElementById('checkout');
-            
-            [checkinField, checkoutField].forEach(field => {
-                if (field) {
-                    console.log("📱 Configuration tactile pour:", field.id);
-                    
-                    // Supprimer readonly pour permettre le focus
-                    field.removeAttribute('readonly');
-                    
-                    // Événement touchstart pour iOS
-                    field.addEventListener('touchstart', function(e) {
-                        console.log("👆 Touch détecté sur", this.id);
-                        e.preventDefault();
-                        
-                        // Force l'ouverture du calendrier
-                        setTimeout(() => {
-                            if (this.id === 'checkin' && checkinCalendar) {
-                                console.log("📅 Ouverture calendrier arrivée");
-                                checkinCalendar.open();
-                            } else if (this.id === 'checkout' && checkoutCalendar) {
-                                console.log("📅 Ouverture calendrier départ");
-                                checkoutCalendar.open();
-                            }
-                        }, 100);
-                    }, { passive: false });
-                    
-                    // Événement click pour compatibilité
-                    field.addEventListener('click', function(e) {
-                        console.log("🖱️ Clic détecté sur", this.id);
-                        e.preventDefault();
-                        
-                        if (this.id === 'checkin' && checkinCalendar) {
-                            checkinCalendar.open();
-                        } else if (this.id === 'checkout' && checkoutCalendar) {
-                            checkoutCalendar.open();
-                        }
-                    });
-                    
-                    // Événement focus
-                    field.addEventListener('focus', function() {
-                        console.log("🎯 Focus sur", this.id);
-                        
-                        setTimeout(() => {
-                            if (this.id === 'checkin' && checkinCalendar) {
-                                checkinCalendar.open();
-                            } else if (this.id === 'checkout' && checkoutCalendar) {
-                                checkoutCalendar.open();
-                            }
-                        }, 50);
-                    });
-                }
-            });
-        }
-        function smoothScrollMobile(elementId, offset = 100) {
-            const element = document.getElementById(elementId);
-            if (element && window.innerWidth <= 768) {
-                const elementPosition = element.offsetTop - offset;
-                window.scrollTo({
-                    top: elementPosition,
-                    behavior: 'smooth'
-                });
-            }
-        }
-        
-        // ==========================================
-        // Gestion de l'espace membre dans la navigation
-        // ==========================================
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            checkMemberStatus();
-        });
-        
-        function checkMemberStatus() {
-            const userData = localStorage.getItem('khanelconcept_user');
-            const token = localStorage.getItem('khanelconcept_token');
-            const memberLinksContainer = document.querySelector('.member-links');
-            
-            if (userData && token) {
-                try {
-                    const user = JSON.parse(userData);
-                    displayMemberDashboard(user);
-                } catch (error) {
-                    console.error('Error parsing user data:', error);
-                    displayGuestLinks();
-                }
-            } else {
-                displayGuestLinks();
-            }
-        }
-        
-        function displayMemberDashboard(user) {
-            const memberLinksContainer = document.querySelector('.member-links');
-            const firstName = user.firstName || 'Membre';
-            const level = user.level || 'Découvreur';
-            const points = user.points || 0;
-            
-            memberLinksContainer.innerHTML = `
-                <a href="dashboard.html" class="member-link dashboard-link">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-                <div class="member-profile-preview">
-                    <div class="member-avatar">${firstName.charAt(0).toUpperCase()}</div>
-                    <div class="member-info">
-                        <div class="member-name">${firstName}</div>
-                        <div class="member-level">${level} • ${points}pts</div>
-                    </div>
-                </div>
-                <button class="member-link logout-link" onclick="logoutMember()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Déconnexion</span>
-                </button>
-                <div class="member-separator"></div>
-            `;
-        }
-        
-        function displayGuestLinks() {
-            const memberLinksContainer = document.querySelector('.member-links');
-            memberLinksContainer.innerHTML = `
-                <a href="login.html" class="member-link login-link">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Connexion</span>
-                </a>
-                <a href="register.html" class="member-link register-link">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Inscription</span>
-                </a>
-                <div class="member-separator"></div>
-            `;
-        }
-        
-        function logoutMember() {
-            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-                localStorage.removeItem('khanelconcept_user');
-                localStorage.removeItem('khanelconcept_token');
-                displayGuestLinks();
-                // Optionnel: afficher un message de confirmation
-                setTimeout(() => {
-                    alert('Vous avez été déconnecté avec succès.');
-                }, 100);
-            }
-        }
-        
-        // ==========================================
-        
-        
-
     </script>
 </body>
 </html>
