@@ -3830,7 +3830,15 @@
         function viewDetails(villaId) {
             console.log('🏠 Navigation vers villa:', villaId);
             
-            // Mapping des IDs vers les nouvelles pages
+            // Correspondance corrigée - utilise getVillaPageUrl pour les IDs numériques
+            if (typeof villaId === 'number' || !isNaN(villaId)) {
+                const targetPage = getVillaPageUrl(parseInt(villaId));
+                console.log('✅ Redirection vers:', targetPage);
+                window.location.href = './' + targetPage;
+                return;
+            }
+            
+            // Pour les anciens IDs string (fallback)
             const villaPages = {
                 'villa-f3-petit-macabou': 'villa-villa-f3-sur-petit-macabou.html',
                 'villa-f3-baccha': 'villa-villa-f3-pour-la-baccha.html', 
@@ -3861,7 +3869,8 @@
                 window.location.href = './' + targetPage;
             } else {
                 console.log('❌ Villa non trouvée:', villaId);
-                alert('Villa non trouvée: ' + villaId);
+                alert('Erreur de navigation. Rechargement de la page...');
+                window.location.reload();
             }
         }
 
