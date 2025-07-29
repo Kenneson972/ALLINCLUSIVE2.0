@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
 """
-KhanelConcept Backend Testing Suite - Premium Frontend Support Verification
+KhanelConcept Backend Testing Suite - Villa Data Integration Verification
 Comprehensive backend testing for the KhanelConcept villa rental application
-Focus: Testing API endpoints that support premium frontend features
+Focus: Villa data integration testing as requested in review
 
-CRITICAL ENDPOINTS TO TEST:
-1. GET /api/villas - Should return all villa data for frontend display
-2. GET /api/admin/villas - Admin villa management API
-3. POST /api/villas/search - Villa search functionality for search form
-4. GET /api/health - Basic health check
-5. POST /api/reservations - Reservation system backend
+CRITICAL TESTING AREAS:
+1. Villa API Endpoints - Test that all villa endpoints return correct integrated data
+2. CSV Data Integration - Verify villa data from CSV has been properly integrated
+3. Image Serving - Test villa images are served correctly from /app/images/
+4. Villa Detail Consistency - Check villa detail pages have accurate data
+5. Database Integrity - Verify villa database contains correct integrated data
 
-VERIFICATION REQUIREMENTS:
-- Villa data matches what's displayed on 15 villa pages tested
-- Villa search filters work correctly (destination, guests, category)
-- Villa data includes proper pricing, images, and gallery information
-- MongoDB connection and data integrity
-- Reservation creation works for premium reservation system
+SPECIFIC ENDPOINTS TO TEST:
+- GET /api/villas (should return all 21+ villas with integrated data)
+- GET /api/admin/villas (admin villa management)
+- Villa search functionality
+- Villa-specific data retrieval
 """
 
 import requests
 import json
 import sys
+import os
 from datetime import datetime
 
 # Configuration - Use external URL for production testing
