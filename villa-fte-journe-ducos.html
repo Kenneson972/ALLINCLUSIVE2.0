@@ -3,216 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Villa Fête Journée Ducos - Ducos | KhanelConcept Martinique</title>
-    <meta name="description" content="Villa Fête Journée Ducos à Ducos - Villa de luxe 5 à 30 personnes. Prix à partir de 30€. Réservation en ligne sécurisée.">
+    <title>Villa Fête Journée Ducos - Ducos | KhanelConcept</title>
     
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- AOS Animation -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        :root {
-            --primary-blue: #1e40af;
-            --primary-gold: #d97706;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            min-height: 100vh;
-            color: white;
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); 
+            color: white; 
             position: relative;
         }
         
-        /* Video Background */
-        .video-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
+        .video-background { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; 
+        }
+        .video-background video { 
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.8; 
+        }
+        .video-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(30, 41, 59, 0.7) 100%); 
         }
         
-        .video-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.8;
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px; 
         }
         
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(30, 41, 59, 0.7) 100%);
+        .info-card { 
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; 
+            padding: 2rem; margin-bottom: 1.5rem; transition: all 0.3s ease; 
         }
         
-        /* Glassmorphism Components */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        .glass-header { 
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); position: fixed; 
+            top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 2rem; 
         }
         
-        .info-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+        .villa-gallery { border-radius: 20px; overflow: hidden; height: 500px; }
+        .villa-gallery .swiper-slide img { width: 100%; height: 500px; object-fit: cover; }
+        
+        .gallery-thumbnails { 
+            background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 0 0 20px 20px; 
+            display: flex; gap: 1rem; overflow-x: auto; 
         }
         
-        .info-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
+        .btn-primary { 
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; 
+            padding: 1rem 2rem; border-radius: 12px; font-weight: 600; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.5rem; 
         }
         
-        /* Header */
-        .glass-header {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
+        .btn-secondary { 
+            background: rgba(255, 255, 255, 0.1); color: white; padding: 1rem 1.5rem; 
+            border-radius: 12px; text-decoration: none; display: inline-flex; 
+            align-items: center; gap: 0.5rem; border: 1px solid rgba(255, 255, 255, 0.2); 
         }
         
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-gold);
-            text-decoration: none;
-        }
-        
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: var(--primary-gold);
-        }
-        
-        /* Gallery */
-        .villa-gallery {
-            border-radius: 20px;
-            overflow: hidden;
-            height: 500px;
-        }
-        
-        .villa-gallery .swiper-slide img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-        }
-        
-        .gallery-thumbnails {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 0 0 20px 20px;
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-        }
-        
-        .gallery-thumbnails img {
-            min-width: 80px;
-            height: 60px;
-            opacity: 0.6;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-thumbnails img.active {
-            opacity: 1;
-            border-color: var(--primary-gold);
-        }
-        
-        /* Buttons */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #3b82f6 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        @media (max-width: 768px) {
-            .villa-gallery {
-                height: 300px;
-            }
-            
-            .villa-gallery .swiper-slide img {
-                height: 300px;
-            }
+        @media (max-width: 768px) { 
+            .villa-gallery { height: 300px; }
+            .villa-gallery .swiper-slide img { height: 300px; }
         }
     </style>
 </head>
 
-<body data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="0">
+<body>
     <!-- Background Video -->
     <div class="video-background">
         <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
             <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -220,20 +84,18 @@
     <!-- Navigation -->
     <header class="glass-header">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
-            <a href="./index.html" class="nav-brand">🏝️ KhanelConcept</a>
-            <div class="flex space-x-8">
-                <a href="./index.html" class="nav-link">Nos Villas</a>
-                <a href="./reservation.html" class="nav-link">Réserver</a>
-                <a href="./login.html" class="nav-link">Connexion</a>
+            <a href="./index.html" class="text-xl font-bold text-yellow-600">🏝️ KhanelConcept</a>
+            <div class="flex space-x-6">
+                <a href="./index.html" class="text-white hover:text-yellow-400">Nos Villas</a>
+                <a href="./reservation.html" class="text-white hover:text-yellow-400">Réserver</a>
+                <a href="./login.html" class="text-white hover:text-yellow-400">Connexion</a>
             </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main class="container mx-auto px-6 py-12 mt-20">
-        
-        <!-- Villa Title -->
-        <section class="text-center mb-12" data-aos="fade-up">
+        <!-- Title -->
+        <section class="text-center mb-12">
             <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-yellow-400 bg-clip-text text-transparent">
                 Villa Fête Journée Ducos
             </h1>
@@ -253,201 +115,83 @@
             </div>
         </section>
         
-        <!-- Gallery Section -->
-        <section class="mb-16" data-aos="fade-up">
+        <!-- Gallery -->
+        <section class="mb-16">
             <div class="max-w-6xl mx-auto">
-                <!-- Main Swiper Gallery -->
                 <div class="swiper villa-gallery mb-0">
-                    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg" alt="Villa Fête Journée Ducos - Image 1" loading="lazy">
-        </div>
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg" alt="Villa Fête Journée Ducos - Image 2" loading="lazy">
-        </div>
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg" alt="Villa Fête Journée Ducos - Image 3" loading="lazy">
-        </div>
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg" alt="Villa Fête Journée Ducos - Image 4" loading="lazy">
-        </div>
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg" alt="Villa Fête Journée Ducos - Image 5" loading="lazy">
-        </div>
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg" alt="Villa Fête Journée Ducos - Image 6" loading="lazy">
-        </div>
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/07_entree_decoration_tonneaux.jpg" alt="Villa Fête Journée Ducos - Image 7" loading="lazy">
-        </div>
-        <div class="swiper-slide">
-            <img src="./images/Villa_Fete_Journee_Ducos/08_salon_rotin_terrasse.jpg" alt="Villa Fête Journée Ducos - Image 8" loading="lazy">
-        </div>
-                    </div>
+                    <div class="swiper-wrapper"><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg" alt="Villa Fête Journée Ducos - Image 1" loading="lazy"></div><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg" alt="Villa Fête Journée Ducos - Image 2" loading="lazy"></div><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg" alt="Villa Fête Journée Ducos - Image 3" loading="lazy"></div><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg" alt="Villa Fête Journée Ducos - Image 4" loading="lazy"></div><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg" alt="Villa Fête Journée Ducos - Image 5" loading="lazy"></div><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg" alt="Villa Fête Journée Ducos - Image 6" loading="lazy"></div><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/07_entree_decoration_tonneaux.jpg" alt="Villa Fête Journée Ducos - Image 7" loading="lazy"></div><div class="swiper-slide"><img src="./images/Villa_Fete_Journee_Ducos/08_salon_rotin_terrasse.jpg" alt="Villa Fête Journée Ducos - Image 8" loading="lazy"></div></div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
-                
-                <!-- Thumbnails -->
-                <div class="gallery-thumbnails">
-        <img src="./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg" alt="Thumbnail 1" class="w-20 h-15 object-cover rounded cursor-pointer active" onclick="swiper.slideToLoop(0); updateActiveThumbnail(0)">
-        <img src="./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg" alt="Thumbnail 2" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(1); updateActiveThumbnail(1)">
-        <img src="./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg" alt="Thumbnail 3" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(2); updateActiveThumbnail(2)">
-        <img src="./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg" alt="Thumbnail 4" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(3); updateActiveThumbnail(3)">
-        <img src="./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg" alt="Thumbnail 5" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(4); updateActiveThumbnail(4)">
-        <img src="./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg" alt="Thumbnail 6" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(5); updateActiveThumbnail(5)">
-        <img src="./images/Villa_Fete_Journee_Ducos/07_entree_decoration_tonneaux.jpg" alt="Thumbnail 7" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(6); updateActiveThumbnail(6)">
-        <img src="./images/Villa_Fete_Journee_Ducos/08_salon_rotin_terrasse.jpg" alt="Thumbnail 8" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(7); updateActiveThumbnail(7)">
-                </div>
+                <div class="gallery-thumbnails"><img src="./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg" alt="Thumbnail 1" class="w-20 h-15 object-cover rounded cursor-pointer active" onclick="swiper.slideToLoop(0)"><img src="./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg" alt="Thumbnail 2" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(1)"><img src="./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg" alt="Thumbnail 3" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(2)"><img src="./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg" alt="Thumbnail 4" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(3)"><img src="./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg" alt="Thumbnail 5" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(4)"><img src="./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg" alt="Thumbnail 6" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(5)"><img src="./images/Villa_Fete_Journee_Ducos/07_entree_decoration_tonneaux.jpg" alt="Thumbnail 7" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(6)"><img src="./images/Villa_Fete_Journee_Ducos/08_salon_rotin_terrasse.jpg" alt="Thumbnail 8" class="w-20 h-15 object-cover rounded cursor-pointer " onclick="swiper.slideToLoop(7)"></div>
             </div>
         </section>
 
-        <!-- Description & Details -->
-        <div class="grid lg:grid-cols-3 gap-12 mb-16">
-            <!-- Description -->
-            <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="300">
+        <!-- Content -->
+        <div class="grid lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-2">
                 <div class="info-card">
-                    <h2 class="text-3xl font-bold mb-6 flex items-center">
-                        <i class="fas fa-info-circle text-blue-600 mr-3"></i>
-                        Description de la villa
+                    <h2 class="text-3xl font-bold mb-6 text-blue-400">
+                        <i class="fas fa-info-circle mr-3"></i>Description
                     </h2>
-                    <div class="prose prose-lg max-w-none text-gray-200 mb-6">
-                        12 places de parking + stationnement supplémentaire possible en bordure de route. Enfants comptés à partir de 6 ans. Paiement possible en plusieurs fois sans frais, mais doit être réglé avant l’entrée .
-                    </div>
+                    <div class="text-gray-200 mb-6">12 places de parking + stationnement supplémentaire possible en bordure de route. Enfants comptés à partir de 6 ans. Paiement possible en plusieurs fois sans frais, mais doit être réglé avant l’entrée .</div>
                     
-                    <!-- Pricing Info -->
-                    <div class="mt-8 p-6 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl border border-blue-400/30">
+                    <div class="mt-8 p-6 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl">
                         <h3 class="text-2xl font-bold mb-4 text-yellow-400">
                             <i class="fas fa-euro-sign mr-2"></i>Tarification
                         </h3>
-                        <div class="text-gray-200 whitespace-pre-line">
-                            Formule 1 (10h-20h): 30€/personne, Package 15 pers: 375€, 20 pers: 440€, 30 pers: 510€. Formule 2 (13h-18h): 20€/personne, Package 15 pers: 260€, 20 pers: 300€, 30 pers: 375€.
-                        </div>
+                        <div class="text-gray-200 whitespace-pre-line">Formule 1 (10h-20h): 30€/personne, Package 15 pers: 375€, 20 pers: 440€, 30 pers: 510€. Formule 2 (13h-18h): 20€/personne, Package 15 pers: 260€, 20 pers: 300€, 30 pers: 375€.</div>
                     </div>
                     
-                    <!-- Action Buttons -->
                     <div class="mt-8 flex flex-wrap gap-4">
                         <a href="./reservation.html?villa=villa-fte-journe-ducos" class="btn-primary">
-                            <i class="fas fa-calendar-check"></i>
-                            Réserver maintenant
+                            <i class="fas fa-calendar-check"></i>Réserver
                         </a>
                         <a href="./index.html" class="btn-secondary">
-                            <i class="fas fa-arrow-left"></i>
-                            Voir toutes les villas
+                            <i class="fas fa-arrow-left"></i>Retour
                         </a>
-                        <button class="btn-secondary" onclick="window.print()">
-                            <i class="fas fa-print"></i>
-                            Imprimer
-                        </button>
                     </div>
                 </div>
             </div>
             
-            <!-- Amenities -->
-            <div data-aos="fade-up" data-aos-delay="400">
+            <div>
                 <div class="info-card">
-                    <h3 class="text-2xl font-bold mb-6 flex items-center">
-                        <i class="fas fa-star text-yellow-500 mr-3"></i>
-                        Équipements & Services
+                    <h3 class="text-2xl font-bold mb-6 text-yellow-500">
+                        <i class="fas fa-star mr-3"></i>Services & Équipements
                     </h3>
-                    <div class="text-gray-200 whitespace-pre-line">
-                        Piscine, espace extérieur
-                    </div>
+                    <div class="text-gray-200 whitespace-pre-line">Piscine, espace extérieur</div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Initialize video background
+        // Video background
         function initVideoBackground() {
             const video = document.getElementById('backgroundVideo');
             if (video) {
-                console.log('🎥 Initialisation vidéo background');
-                video.muted = true;
-                video.loop = true;
-                video.autoplay = true;
-                video.setAttribute('playsinline', '');
-                video.setAttribute('webkit-playsinline', '');
-                
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        console.log('✅ Vidéo background démarrée');
-                        video.style.opacity = '1';
-                    }).catch(error => {
-                        console.log('⚠️ Autoplay bloqué:', error);
-                    });
-                }
-                
-                // Support mobile
-                if (/iPad|iPhone|iPod|Android/i.test(navigator.userAgent)) {
-                    document.addEventListener('touchstart', function() {
-                        video.play().catch(console.log);
-                    }, { once: true });
-                }
+                console.log('🎥 Démarrage vidéo background');
+                video.play().catch(e => console.log('Vidéo autoplay bloqué'));
             }
         }
 
-        // Swiper Gallery
+        // Swiper
         const swiper = new Swiper('.villa-gallery', {
             loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            effect: 'fade',
-            fadeEffect: {
-                crossFade: true
-            }
+            autoplay: { delay: 5000 },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            effect: 'fade'
         });
 
-        // Update active thumbnail
-        function updateActiveThumbnail(index) {
-            const thumbnails = document.querySelectorAll('.gallery-thumbnails img');
-            thumbnails.forEach(t => t.classList.remove('active'));
-            if (thumbnails[index]) {
-                thumbnails[index].classList.add('active');
-            }
-        }
-
-        // Swiper slide change event
-        swiper.on('slideChange', () => {
-            const realIndex = swiper.realIndex;
-            updateActiveThumbnail(realIndex);
-        });
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            initVideoBackground();
-        });
-
-        // Villa data for reservation
+        document.addEventListener('DOMContentLoaded', initVideoBackground);
+        
         window.currentVilla = {
             id: 'villa-fte-journe-ducos',
             name: 'Villa Fête Journée Ducos',
-            basePrice: 30,
-            capacity: '5 à 30 personnes',
-            location: 'Ducos'
+            basePrice: 30
         };
     </script>
 </body>
