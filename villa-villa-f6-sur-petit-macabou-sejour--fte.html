@@ -506,7 +506,7 @@
         function initVideoBackground() {
             const video = document.getElementById('backgroundVideo');
             if (video) {
-                console.log('🎥 Démarrage optimisé vidéo background');
+                
                 video.muted = true;
                 video.loop = true;
                 video.setAttribute('playsinline', '');
@@ -515,12 +515,12 @@
                 
                 // Démarrage immédiat
                 const playPromise = video.play();
-                if (playPromise !== undefined) {
+                if (playPromise !== null && typeof variable !== 'undefined') {
                     playPromise.then(() => {
-                        console.log('✅ Vidéo démarrée instantanément');
+                        
                         video.style.opacity = '1';
                     }).catch(() => {
-                        console.log('⚠️ Fallback vidéo');
+                        
                         document.querySelector('.video-overlay').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                     });
                 }
@@ -530,7 +530,7 @@
                     video.setAttribute('muted', 'muted');
                     video.muted = true;
                     const touchHandler = () => {
-                        video.play().catch(console.log);
+                        video.play().catch(function(e) { /* video error ignored */ });
                         document.removeEventListener('touchstart', touchHandler);
                     };
                     document.addEventListener('touchstart', touchHandler);
