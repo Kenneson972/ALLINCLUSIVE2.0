@@ -1,0 +1,305 @@
+{
+  "pages": {
+    "core": {
+      "index.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie",
+          "1 image(s) sans attribut alt"
+        ],
+        "file_size_kb": 179.0,
+        "css_count": 3,
+        "js_count": 5,
+        "form_count": 1,
+        "image_count": 0
+      },
+      "reservation.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie"
+        ],
+        "file_size_kb": 68.4,
+        "css_count": 4,
+        "js_count": 4,
+        "form_count": 1,
+        "image_count": 1
+      }
+    },
+    "auth": {
+      "login.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie"
+        ],
+        "file_size_kb": 27.2,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 1,
+        "image_count": 0
+      },
+      "register.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie",
+          "Possible champ mot de passe non sécurisé"
+        ],
+        "file_size_kb": 53.5,
+        "css_count": 3,
+        "js_count": 1,
+        "form_count": 1,
+        "image_count": 0
+      },
+      "dashboard.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 56.6,
+        "css_count": 4,
+        "js_count": 2,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "profile.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie",
+          "Formulaire sans action définie",
+          "Formulaire sans action définie",
+          "Formulaire sans action définie",
+          "Possible champ mot de passe non sécurisé"
+        ],
+        "file_size_kb": 59.9,
+        "css_count": 3,
+        "js_count": 1,
+        "form_count": 4,
+        "image_count": 0
+      },
+      "reset-password.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie",
+          "Formulaire sans action définie",
+          "Formulaire sans action définie",
+          "Possible champ mot de passe non sécurisé"
+        ],
+        "file_size_kb": 32.7,
+        "css_count": 3,
+        "js_count": 1,
+        "form_count": 3,
+        "image_count": 0
+      },
+      "email-verification.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie"
+        ],
+        "file_size_kb": 13.9,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 1,
+        "image_count": 0
+      }
+    },
+    "member": {
+      "loyalty.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 51.2,
+        "css_count": 4,
+        "js_count": 2,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "wishlist.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 46.2,
+        "css_count": 4,
+        "js_count": 2,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "notifications.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 36.1,
+        "css_count": 3,
+        "js_count": 1,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "wallet.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 44.8,
+        "css_count": 4,
+        "js_count": 2,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "concierge.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie"
+        ],
+        "file_size_kb": 55.8,
+        "css_count": 3,
+        "js_count": 1,
+        "form_count": 1,
+        "image_count": 0
+      },
+      "sos-depannage.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 29.7,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 0,
+        "image_count": 0
+      }
+    },
+    "services": {
+      "prestataires.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 20.9,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "billetterie.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 22.5,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "mobilier.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 20.4,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "excursions.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 20.5,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "pmr.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 23.3,
+        "css_count": 1,
+        "js_count": 0,
+        "form_count": 0,
+        "image_count": 0
+      }
+    },
+    "admin": {
+      "admin/admin.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie"
+        ],
+        "file_size_kb": 89.3,
+        "css_count": 0,
+        "js_count": 1,
+        "form_count": 1,
+        "image_count": 0
+      },
+      "admin/login.html": {
+        "exists": true,
+        "errors": [
+          "Champs email manquant"
+        ],
+        "warnings": [
+          "Formulaire sans action définie",
+          "Possible champ mot de passe non sécurisé"
+        ],
+        "file_size_kb": 26.7,
+        "css_count": 2,
+        "js_count": 2,
+        "form_count": 1,
+        "image_count": 0
+      },
+      "admin/dashboard.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Éléments dashboard manquants"
+        ],
+        "file_size_kb": 61.0,
+        "css_count": 3,
+        "js_count": 2,
+        "form_count": 0,
+        "image_count": 0
+      },
+      "admin/villas-management.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [
+          "Formulaire sans action définie",
+          "Formulaire sans action définie",
+          "Formulaire sans action définie"
+        ],
+        "file_size_kb": 67.0,
+        "css_count": 4,
+        "js_count": 3,
+        "form_count": 3,
+        "image_count": 0
+      },
+      "admin/reservations-management.html": {
+        "exists": true,
+        "errors": [],
+        "warnings": [],
+        "file_size_kb": 55.8,
+        "css_count": 1,
+        "js_count": 1,
+        "form_count": 0,
+        "image_count": 0
+      }
+    }
+  },
+  "backend_issues": [
+    "Endpoint manquant: /api/auth/login",
+    "Endpoint manquant: /api/auth/register"
+  ],
+  "assets_issues": [
+    "Logo principal manquant"
+  ],
+  "summary": {
+    "pages_audited": 24,
+    "total_errors": 1,
+    "total_warnings": 24,
+    "villa_pages": 22
+  }
+}
