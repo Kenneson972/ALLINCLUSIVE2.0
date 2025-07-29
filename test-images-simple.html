@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Images Villa - Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .image-test {
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .image-test img {
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+        }
+        .test-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 TEST SIMPLE DES IMAGES VILLA</h1>
+        <p>Test basique sans JavaScript, sans Swiper, juste HTML + CSS</p>
+        
+        <div class="image-test">
+            <h3>Image 1: Piscine Extérieur</h3>
+            <img src="/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Test Piscine">
+            <div class="test-info">Path: /images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg</div>
+        </div>
+        
+        <div class="image-test">
+            <h3>Image 2: Cuisine Équipée</h3>
+            <img src="/images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg" alt="Test Cuisine">
+            <div class="test-info">Path: /images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg</div>
+        </div>
+        
+        <div class="image-test">
+            <h3>Image 3: Terrasse Salon</h3>
+            <img src="/images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg" alt="Test Terrasse">
+            <div class="test-info">Path: /images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg</div>
+        </div>
+        
+        <div class="image-test">
+            <h3>Image 4: Salle de Bain</h3>
+            <img src="/images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg" alt="Test Salle de Bain">
+            <div class="test-info">Path: /images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg</div>
+        </div>
+        
+        <hr>
+        <h2>🔍 DIAGNOSTIC</h2>
+        <div id="diagnostic">
+            <p>JavaScript désactivé pour ce test - juste HTML/CSS basique</p>
+        </div>
+        
+        <script>
+            document.getElementById('diagnostic').innerHTML += '<p><strong>JavaScript activé:</strong> OUI</p>';
+            
+            // Vérifier le chargement des images
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                img.onload = function() {
+                    console.log(`✅ Image ${index + 1} chargée: ${this.src}`);
+                    document.getElementById('diagnostic').innerHTML += 
+                        `<p style="color: green;">✅ Image ${index + 1} CHARGÉE (${this.naturalWidth}x${this.naturalHeight})</p>`;
+                };
+                
+                img.onerror = function() {
+                    console.log(`❌ Image ${index + 1} ERREUR: ${this.src}`);
+                    document.getElementById('diagnostic').innerHTML += 
+                        `<p style="color: red;">❌ Image ${index + 1} ERREUR: ${this.src}</p>`;
+                };
+            });
+        </script>
+    </div>
+</body>
+</html>
