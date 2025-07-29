@@ -988,119 +988,82 @@
     <script src="./assets/js/reservation-enhanced.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Vérifier les paramètres URL pour pré-sélectionner une villa
+            // 🏠 CORRECTION PRIORITÉ 1 : Utiliser villaData pour reconnaissance villa
             const urlParams = new URLSearchParams(window.location.search);
             const villaParam = urlParams.get('villa');
             
             if (villaParam) {
                 console.log('🏠 Villa pré-sélectionnée depuis URL:', villaParam);
                 
-                // Mapping des IDs vers les informations des villas
-                const villaMapping = {
-                    'villa-villa-f3-sur-petit-macabou': {
-                        name: 'Villa F3 sur Petit Macabou',
-                        location: 'Petit Macabou, Vauclin',
-                        price: '1550€',
-                        capacity: '6 personnes (jusqu\'à 15 en journée)',
-                        type: 'F3'
-                    },
-                    'villa-villa-f3-pour-la-baccha': {
-                        name: 'Villa F3 POUR LA BACCHA',
-                        location: 'Petit Macabou',
-                        price: '750€',
-                        capacity: '6 personnes',
-                        type: 'F3'
-                    },
-                    'villa-villa-f3-sur-le-franois': {
-                        name: 'Villa F3 sur le François',
-                        location: 'François',
-                        price: '800€',
-                        capacity: '6 personnes',
-                        type: 'F3'
-                    },
-                    'villa-villa-f5-sur-ste-anne': {
-                        name: 'Villa F5 sur Ste Anne',
-                        location: 'Ste Anne',
-                        price: '1350€',
-                        capacity: '10 personnes (jusqu\'à 15 en journée)',
-                        type: 'F5'
-                    },
-                    'villa-villa-f6-au-lamentin': {
-                        name: 'Villa F6 au Lamentin',
-                        location: 'Lamentin',
-                        price: '1200€',
-                        capacity: '12 personnes',
-                        type: 'F6'
-                    },
-                    'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage': {
-                        name: 'Villa F6 sur Ste Luce à 1mn de la plage',
-                        location: 'Ste Luce',
-                        price: '1800€',
-                        capacity: '12 personnes',
-                        type: 'F6'
-                    },
-                    'villa-villa-f7-baie-des-mulets': {
-                        name: 'Villa F7 Baie des Mulets',
-                        location: 'Vauclin',
-                        price: '2200€',
-                        capacity: '14 personnes',
-                        type: 'F7'
-                    },
-                    'villa-bas-de-villa-f3-sur-ste-luce': {
-                        name: 'Bas de villa F3 sur Ste Luce',
-                        location: 'Sainte-Luce',
-                        price: '750€',
-                        capacity: '6 personnes',
-                        type: 'F3'
-                    },
-                    'villa-studio-cocooning-lamentin': {
-                        name: 'Studio Cocooning Lamentin',
-                        location: 'Lamentin',
-                        price: '650€',
-                        capacity: '2 personnes',
-                        type: 'Studio'
-                    }
-                    // Ajouter les autres villas si nécessaire
-                };
-                
-                const villaData = villaMapping[villaParam];
-                if (villaData) {
-                    // Mettre à jour l'affichage de la villa sélectionnée
-                    document.getElementById('villaName').textContent = villaData.name;
-                    document.getElementById('villaInfo').textContent = `${villaData.location} - ${villaData.capacity} - À partir de ${villaData.price}/nuit`;
+                // Utiliser la base de données villaData du fichier reservation-enhanced.js
+                if (window.villaData && window.villaData[villaParam]) {
+                    const villaData = window.villaData[villaParam];
                     
-                    // Mettre à jour le récapitulatif
-                    const summaryVilla = document.getElementById('summaryVilla');
-                    if (summaryVilla) {
-                        summaryVilla.textContent = villaData.name;
+                    // ✅ CORRECTION : Mise à jour harmonisée de tous les éléments
+                    const villaNameElement = document.getElementById('villaName');
+                    const villaLocationElement = document.getElementById('villaLocation');
+                    const villaPriceElement = document.getElementById('villaPrice');
+                    const summaryVillaElement = document.getElementById('summaryVilla');
+                    const summaryPriceElement = document.getElementById('summaryPricePerNight');
+                    
+                    if (villaNameElement) villaNameElement.textContent = villaData.nom;
+                    if (villaLocationElement) villaLocationElement.innerHTML = `<i class="fas fa-map-marker-alt mr-2"></i>${villaData.localisation}, Martinique`;
+                    if (villaPriceElement) villaPriceElement.innerHTML = `${villaData.prix}€<span class="text-lg text-white/70">/nuit</span>`;
+                    if (summaryVillaElement) summaryVillaElement.textContent = villaData.nom;
+                    if (summaryPriceElement) summaryPriceElement.textContent = `${villaData.prix}€`;
+                    
+                    // Mettre à jour l'image si disponible
+                    const villaImageElement = document.getElementById('villaImage');
+                    if (villaImageElement && villaData.image) {
+                        villaImageElement.src = villaData.image;
+                        villaImageElement.alt = villaData.nom;
                     }
                     
-                    // Stocker les données de la villa pour le calcul des prix
+                    // Stocker les données pour calculs de prix
                     window.selectedVilla = {
                         id: villaParam,
-                        name: villaData.name,
-                        basePrice: parseInt(villaData.price.replace(/[^0-9]/g, '')),
-                        location: villaData.location,
-                        capacity: villaData.capacity
+                        name: villaData.nom,
+                        basePrice: villaData.prix,
+                        location: villaData.localisation,
+                        capacity: villaData.capacite
                     };
                     
-                    console.log('✅ Villa configurée:', window.selectedVilla);
-                    
-                    // Calculer le prix initial
+                    console.log('✅ Villa configurée avec succès:', villaData.nom);
                     calculateTotalPrice();
+                    
                 } else {
+                    // ❌ CORRECTION PRIORITÉ 3 : Gestion d'erreur améliorée
                     console.log('⚠️ Villa non reconnue:', villaParam);
-                    document.getElementById('villaName').textContent = 'Villa inconnue';
-                    document.getElementById('villaInfo').innerHTML = `
-                        <p class="text-red-400">Villa non trouvée: ${villaParam}</p>
-                        <a href="./index.html" class="text-blue-400 hover:text-blue-300">← Retour à l'accueil pour sélectionner une villa</a>
-                    `;
+                    const villaNameElement = document.getElementById('villaName');
+                    const summaryVillaElement = document.getElementById('summaryVilla');
+                    
+                    if (villaNameElement) villaNameElement.textContent = 'Villa non disponible';
+                    if (summaryVillaElement) summaryVillaElement.textContent = 'Villa non disponible';
+                    
+                    // Afficher message d'erreur complet
+                    const villaInfoSection = document.querySelector('.villa-header-card .grid');
+                    if (villaInfoSection) {
+                        villaInfoSection.innerHTML = `
+                            <div class="col-span-2 text-center p-6">
+                                <div class="glass-card bg-red-500/20 border-red-400/30 p-6 rounded-xl">
+                                    <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
+                                    <h3 class="text-xl font-bold text-white mb-2">Villa non disponible</h3>
+                                    <p class="text-white/80 mb-4">La villa "${villaParam}" n'est pas disponible pour le moment.</p>
+                                    <a href="/ALLINCLUSIVE2.0/" class="btn-primary inline-flex items-center gap-2">
+                                        <i class="fas fa-arrow-left"></i>
+                                        Voir toutes nos villas
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    }
                 }
             } else {
                 // Aucune villa spécifiée
                 console.log('⚠️ Aucune villa spécifiée dans l\'URL');
-                document.getElementById('villaInfo').innerHTML = `
-                    <a href="./index.html" class="text-blue-400 hover:text-blue-300">
+                const villaNameElement = document.getElementById('villaName');
+                if (villaNameElement) villaNameElement.innerHTML = `
+                    <a href="/ALLINCLUSIVE2.0/" class="text-blue-400 hover:text-blue-300">
                         <i class="fas fa-arrow-left mr-2"></i>Sélectionner une villa depuis l'accueil
                     </a>
                 `;
