@@ -109,7 +109,7 @@ class IntegrationCompleteCSVImages:
         elif villa_id.startswith('villa-'):
             villa_id = villa_id.replace('villa-', '', 1)
         
-        # Correspondances fichier -> nom CSV (basé sur les IDs nettoyés)
+        # Correspondances fichier -> nom CSV (basé sur les IDs nettoyés) - COMPLET ET CORRIGÉ
         correspondances = {
             'f3-sur-petit-macabou': 'Villa F3 sur Petit Macabou',
             'f3-pour-la-baccha': 'Villa F3 POUR LA BACCHA', 
