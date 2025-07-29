@@ -231,16 +231,110 @@ class ReservationEnhanced {
         console.log('🚫 Mode debug désactivé');
     }
 
-    // GESTION DES PARAMÈTRES URL
-    handleURLParameters() {
+    // 🔍 CORRECTION PRIORITÉ 1 : Fonction améliorée de recherche villa
+    getVillaFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const villaId = urlParams.get('villa');
-        const villaName = urlParams.get('name');
         
-        if (villaId && villaName) {
-            this.preSelectVilla(villaId, decodeURIComponent(villaName));
-            this.showPreSelectedNotification(decodeURIComponent(villaName));
+        if (!villaId) return null;
+
+        // Recherche directe
+        if (villaData[villaId]) {
+            return villaData[villaId];
         }
+
+        // Recherche avec variations pour compatibilité
+        const variations = [
+            villaId.replace(/-/g, '_'),
+            villaId.replace(/_/g, '-'),
+            'villa-' + villaId,
+            villaId.replace('villa-', ''),
+            // Corrections spécifiques pour les erreurs courantes
+            villaId.replace('bas-de-f3-sur-le-robert', 'bas-de-f3-sur-le-robert'),
+            villaId.replace('sur-le-robert', 'sur-le-robert')
+        ];
+
+        for (const variation of variations) {
+            if (villaData[variation]) {
+                return villaData[variation];
+            }
+        }
+
+        return null;
+    }
+
+    // 🏠 CORRECTION PRIORITÉ 1 : Mise à jour complète de l'affichage villa
+    updateVillaDisplay(villa) {
+        if (!villa) {
+            this.showVillaError();
+            return;
+        }
+
+        // Mettre à jour tous les éléments - HARMONISATION PRIORITÉ 3
+        const elementsToUpdate = {
+            '.villa-title': villa.nom,
+            'h1': villa.nom,
+            '#villaName': villa.nom,
+            '.villa-location': villa.localisation,
+            '#villaLocation': `📍 ${villa.localisation}, Martinique`,
+            '.recap-villa-name': villa.nom,
+            '#summaryVilla': villa.nom,
+            '.villa-price': `${villa.prix}€/nuit`,
+            '#villaPrice': `${villa.prix}€<span class="text-lg text-white/70">/nuit</span>`,
+            '#summaryPricePerNight': `${villa.prix}€`
+        };
+
+        // Appliquer les mises à jour de manière systématique
+        Object.entries(elementsToUpdate).forEach(([selector, content]) => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(element => {
+                if (element) {
+                    if (selector.includes('innerHTML') || selector.includes('Price')) {
+                        element.innerHTML = content;
+                    } else {
+                        element.textContent = content;
+                    }
+                }
+            });
+        });
+
+        // Mettre à jour l'image si disponible
+        const villaImage = document.getElementById('villaImage');
+        if (villaImage && villa.image) {
+            villaImage.src = villa.image;
+            villaImage.alt = villa.nom;
+        }
+
+        console.log('✅ Villa affichée:', villa.nom);
+    }
+
+    // ❌ CORRECTION PRIORITÉ 3 : Gestion d'erreur améliorée
+    showVillaError() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const villaId = urlParams.get('villa');
+        
+        const errorHtml = `
+            <div class="villa-error-message glass-card bg-red-500/20 border-red-400/30 p-6 rounded-xl">
+                <div class="text-center">
+                    <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Villa non disponible</h3>
+                    <p class="text-white/80 mb-4">
+                        La villa "${villaId}" n'est pas disponible pour le moment.
+                    </p>
+                    <a href="/ALLINCLUSIVE2.0/" class="btn-primary inline-flex items-center gap-2">
+                        <i class="fas fa-arrow-left"></i>
+                        Voir toutes nos villas
+                    </a>
+                </div>
+            </div>
+        `;
+        
+        const container = document.querySelector('.villa-header-card, .villa-info-container');
+        if (container) {
+            container.innerHTML = errorHtml;
+        }
+
+        console.log('⚠️ Villa non trouvée:', villaId);
     }
 
     // PRÉ-SÉLECTION DE LA VILLA
