@@ -506,6 +506,126 @@ main, section, .container, .villa-title, .info-card {
     }
 }
 
+
+
+/* CSS MOBILE OPTIMISÉ AVEC VIDÉO CLOUDINARY */
+@media (max-width: 768px) {
+    /* Vidéo background mobile */
+    .video-background {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: -2 !important;
+        overflow: hidden !important;
+    }
+    
+    #backgroundVideo {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: -1 !important;
+    }
+    
+    .video-overlay {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: rgba(15, 25, 50, 0.6) !important;
+        z-index: -1 !important;
+    }
+    
+    /* Contenu principal au-dessus de la vidéo */
+    body {
+        position: relative !important;
+        z-index: 1 !important;
+        min-height: 100vh !important;
+        overflow-x: hidden !important;
+    }
+    
+    main {
+        position: relative !important;
+        z-index: 10 !important;
+        background: transparent !important;
+        padding: 20px 10px !important;
+    }
+    
+    /* Villa title mobile */
+    .villa-title, h1 {
+        color: white !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+        font-size: 1.8rem !important;
+        text-align: center !important;
+        margin: 20px 0 !important;
+        font-weight: bold !important;
+    }
+    
+    /* Cards glassmorphism sur vidéo */
+    .info-card {
+        background: rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+        margin: 15px 0 !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+        color: white !important;
+    }
+    
+    /* Galerie sur vidéo */
+    .swiper {
+        background: rgba(0, 0, 0, 0.2) !important;
+        backdrop-filter: blur(10px) !important;
+        border-radius: 15px !important;
+        padding: 10px !important;
+        margin: 20px 0 !important;
+    }
+    
+    .swiper-slide img {
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    /* Menu hamburger sur vidéo */
+    .hamburger {
+        background: rgba(0, 0, 0, 0.9) !important;
+        backdrop-filter: blur(15px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    .mobile-menu {
+        background: rgba(15, 25, 50, 0.95) !important;
+        backdrop-filter: blur(25px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+/* Desktop - Optimisation vidéo */
+@media (min-width: 769px) {
+    .video-background {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: -2 !important;
+    }
+    
+    #backgroundVideo {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+}
+
 </style>
 </head>
 
@@ -530,26 +650,32 @@ main, section, .container, .villa-title, .info-card {
     <!-- Background Video Cloudinary avec support iOS -->
     
     <!-- Background statique optimisé mobile -->
+    
+    <!-- Vidéo Background Cloudinary Restaurée -->
     <div class="video-background">
-        <div class="static-background" style="
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline style="
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                rgba(15, 25, 50, 0.9) 0%, 
-                rgba(30, 41, 59, 0.9) 50%, 
-                rgba(51, 65, 85, 0.9) 100%
-            ),
-            linear-gradient(45deg, 
-                rgba(59, 130, 246, 0.1) 0%, 
-                rgba(147, 51, 234, 0.1) 50%, 
-                rgba(236, 72, 153, 0.1) 100%
-            );
+            object-fit: cover;
             z-index: -1;
-            animation: backgroundPulse 15s ease-in-out infinite;
+        ">
+            <source src="https://res.cloudinary.com/dld9eojbt/video/upload/q_auto,f_mp4/v1716830959/villa-background-video_hqhq2s.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
+        <div class="video-overlay" style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 25, 50, 0.4);
+            z-index: -1;
         "></div>
+    </div>
+
         <style>
             @keyframes backgroundPulse {
                 0%, 100% { 
@@ -687,6 +813,126 @@ main, section, .container, .villa-title, .info-card {
     
     .mobile-menu {
         display: none !important;
+    }
+}
+
+
+
+/* CSS MOBILE OPTIMISÉ AVEC VIDÉO CLOUDINARY */
+@media (max-width: 768px) {
+    /* Vidéo background mobile */
+    .video-background {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: -2 !important;
+        overflow: hidden !important;
+    }
+    
+    #backgroundVideo {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: -1 !important;
+    }
+    
+    .video-overlay {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: rgba(15, 25, 50, 0.6) !important;
+        z-index: -1 !important;
+    }
+    
+    /* Contenu principal au-dessus de la vidéo */
+    body {
+        position: relative !important;
+        z-index: 1 !important;
+        min-height: 100vh !important;
+        overflow-x: hidden !important;
+    }
+    
+    main {
+        position: relative !important;
+        z-index: 10 !important;
+        background: transparent !important;
+        padding: 20px 10px !important;
+    }
+    
+    /* Villa title mobile */
+    .villa-title, h1 {
+        color: white !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+        font-size: 1.8rem !important;
+        text-align: center !important;
+        margin: 20px 0 !important;
+        font-weight: bold !important;
+    }
+    
+    /* Cards glassmorphism sur vidéo */
+    .info-card {
+        background: rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+        margin: 15px 0 !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+        color: white !important;
+    }
+    
+    /* Galerie sur vidéo */
+    .swiper {
+        background: rgba(0, 0, 0, 0.2) !important;
+        backdrop-filter: blur(10px) !important;
+        border-radius: 15px !important;
+        padding: 10px !important;
+        margin: 20px 0 !important;
+    }
+    
+    .swiper-slide img {
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    /* Menu hamburger sur vidéo */
+    .hamburger {
+        background: rgba(0, 0, 0, 0.9) !important;
+        backdrop-filter: blur(15px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    .mobile-menu {
+        background: rgba(15, 25, 50, 0.95) !important;
+        backdrop-filter: blur(25px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+}
+
+/* Desktop - Optimisation vidéo */
+@media (min-width: 769px) {
+    .video-background {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: -2 !important;
+    }
+    
+    #backgroundVideo {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
     }
 }
 
@@ -1119,6 +1365,63 @@ document.addEventListener('DOMContentLoaded', function() {
         images.forEach(img => {
             img.loading = 'lazy';
         });
+    }
+});
+
+</script><script>
+
+// JavaScript Vidéo Cloudinary Mobile Optimisé
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('backgroundVideo');
+    
+    if (video) {
+        console.log('🎥 Vidéo Cloudinary détectée');
+        
+        // Optimisation mobile
+        if (window.innerWidth <= 768) {
+            console.log('📱 Optimisation vidéo mobile');
+            
+            // Attributs spécifiques mobile
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            video.muted = true;
+            video.autoplay = true;
+            
+            // Gestion des erreurs vidéo
+            video.addEventListener('error', function(e) {
+                console.log('❌ Erreur vidéo mobile, fallback CSS');
+                video.style.display = 'none';
+                
+                // Fallback gradient si vidéo échoue
+                const videoBackground = document.querySelector('.video-background');
+                if (videoBackground) {
+                    videoBackground.style.background = `
+                        linear-gradient(135deg, 
+                            rgba(15, 25, 50, 0.9) 0%, 
+                            rgba(30, 41, 59, 0.9) 50%, 
+                            rgba(51, 65, 85, 0.9) 100%
+                        )
+                    `;
+                }
+            });
+            
+            // Tentative de lecture forcée sur mobile
+            video.addEventListener('canplay', function() {
+                console.log('✅ Vidéo prête, lecture mobile');
+                video.play().catch(function(error) {
+                    console.log('⚠️ Autoplay bloqué, mode silencieux');
+                });
+            });
+        }
+        
+        // Desktop - lecture normale
+        if (window.innerWidth > 768) {
+            video.play().catch(function(error) {
+                console.log('⚠️ Autoplay desktop bloqué');
+            });
+        }
+    } else {
+        console.error('❌ Vidéo backgroundVideo non trouvée');
     }
 });
 
