@@ -745,40 +745,20 @@
                     
                     <form id="reservationForm" class="space-y-6">
                         
-                        <!-- Sélection de Villa -->
+                        <!-- Villa Pré-sélectionnée (sera remplie automatiquement) -->
                         <div class="form-group">
                             <label class="form-label">
-                                <i class="fas fa-home mr-2"></i>Choisir une villa
+                                <i class="fas fa-home mr-2"></i>Villa sélectionnée
                             </label>
-                            <select id="villaSelect" class="form-input" required>
-                                <option value="">Sélectionnez une villa...</option>
-                                <option value="villa-villa-f3-sur-petit-macabou">Villa F3 sur Petit Macabou - Petit Macabou, Vauclin - À partir de 1550€</option>
-                                <option value="villa-villa-f3-pour-la-baccha">Villa F3 POUR LA BACCHA - Petit Macabou - À partir de 750€</option>
-                                <option value="villa-villa-f3-sur-le-franois">Villa F3 sur le François - François - À partir de 800€</option>
-                                <option value="villa-villa-f5-sur-ste-anne">Villa F5 sur Ste Anne - Ste Anne - À partir de 1350€</option>
-                                <option value="villa-villa-f6-au-lamentin">Villa F6 au Lamentin - Lamentin - À partir de 1200€</option>
-                                <option value="villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage">Villa F6 sur Ste Luce à 1mn de la plage - Ste Luce - À partir de 1800€</option>
-                                <option value="villa-villa-f3-bas-de-villa-trinite-cosmy">Villa F3 Bas de villa Trinité Cosmy - Trinité - À partir de 950€</option>
-                                <option value="villa-bas-de-villa-f3-sur-le-robert">Bas de villa F3 sur le Robert - Robert - À partir de 850€</option>
-                                <option value="villa-appartement-f3-trenelle-location-annuelle">Appartement F3 Trenelle (Location Annuelle) - Trenelle - Location Annuelle</option>
-                                <option value="villa-villa-f5-vauclin-ravine-plate">Villa F5 Vauclin Ravine Plate - Vauclin - À partir de 1250€</option>
-                                <option value="villa-villa-f5-la-renee">Villa F5 La Renée - Rivière Pilote - À partir de 1100€</option>
-                                <option value="villa-villa-f7-baie-des-mulets">Villa F7 Baie des Mulets - Vauclin - À partir de 2200€</option>
-                                <option value="villa-bas-de-villa-f3-sur-ste-luce">Bas de villa F3 sur Ste Luce - Sainte-Luce - À partir de 750€</option>
-                                <option value="villa-studio-cocooning-lamentin">Studio Cocooning Lamentin - Lamentin - À partir de 650€</option>
-                                <option value="villa-villa-fte-journee-ducos">Villa Fête Journée Ducos - Ducos - À partir de 20€/pers</option>
-                                <option value="villa-villa-fte-journee-fort-de-france">Villa Fête Journée Fort de France - Fort-de-France - À partir de 25€/pers</option>
-                                <option value="villa-villa-fte-journee-riviere-pilote">Villa Fête Journée Rivière-Pilote - Rivière-Pilote - À partir de 30€/pers</option>
-                                <option value="villa-villa-fte-journee-riviere-salee">Villa Fête Journée Rivière Salée - Rivière Salée - À partir de 25€/pers</option>
-                                <option value="villa-villa-fte-journee-sainte-luce">Villa Fête Journée Sainte-Luce - Sainte-Luce - À partir de 28€/pers</option>
-                                <option value="villa-espace-piscine-journee-bungalow">Espace Piscine Journée Bungalow - À partir de 15€/pers</option>
-                                <option value="villa-villa-f6-sur-petit-macabou-sejour--fte">Villa F6 sur Petit Macabou (séjour + fête) - Vauclin - À partir de 2000€</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Aperçu Villa (caché par défaut) -->
-                        <div id="villaInfo" class="glass-card bg-white/5 p-4 rounded-xl" style="display: none;">
-                            <!-- Contenu dynamique -->
+                            <div id="selectedVilla" class="glass-card bg-white/10 p-4 rounded-xl">
+                                <div class="flex items-center space-x-4">
+                                    <i class="fas fa-home text-2xl text-gold-500"></i>
+                                    <div>
+                                        <h3 id="villaName" class="font-bold text-white">Aucune villa sélectionnée</h3>
+                                        <p id="villaInfo" class="text-white/70">Veuillez sélectionner une villa depuis la page d'accueil</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Dates de Séjour -->
