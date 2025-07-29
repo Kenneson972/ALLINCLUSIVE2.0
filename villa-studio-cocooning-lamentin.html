@@ -325,14 +325,83 @@
                 display: none !important;
             }
         }
+
+
+/* CORRECTION AFFICHAGE - Forcer visibilité */
+main, section, .container, .villa-title, .info-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Hamburger mobile responsive */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex !important;
+        position: fixed !important;
+        top: 20px !important;
+        right: 20px !important;
+        z-index: 9999 !important;
+        background: rgba(0, 0, 0, 0.8) !important;
+        padding: 12px !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+    }
+    
+    .mobile-menu {
+        position: fixed !important;
+        top: 70px !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: rgba(15, 25, 50, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        padding: 20px !important;
+        z-index: 9998 !important;
+        display: none !important;
+    }
+    
+    .mobile-menu.active {
+        display: block !important;
+    }
+    
+    .mobile-menu a {
+        display: block !important;
+        color: white !important;
+        text-decoration: none !important;
+        padding: 15px 0 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    nav .flex.space-x-6 {
+        display: none !important;
+    }
+}
+
 </style>
 </head>
+
+
+    <!-- Menu Hamburger Mobile -->
+    <div class="hamburger" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <!-- Menu Mobile -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/index.html">🏠 Accueil</a>
+        <a href="/reservation.html?villa=studio-cocooning-lamentin">📅 Réserver cette villa</a>
+        <a href="/prestataires.html">🛎️ Prestataires</a>
+        <a href="/billetterie.html">🎟️ Billetterie</a>
+        <a href="/login.html">👤 Connexion</a>
+    </div>
 
 <body data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="0">
     <!-- Background Video Cloudinary avec support iOS -->
     <div class="video-background">
         <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
-            <source src="https://res.cloudinary.com/dld9eojbt/video/upload/q_auto,f_mp4/v1716830959/villa-background-video_hqhq2s.mp4" type="video/mp4">
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
         <div class="video-overlay"></div>
