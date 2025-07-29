@@ -3830,11 +3830,22 @@
         function viewDetails(villaId) {
             console.log('🏠 Navigation vers villa:', villaId);
             
+            // Afficher un loader immédiatement
+            const clickedBtn = event.target;
+            if (clickedBtn) {
+                clickedBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Chargement...';
+                clickedBtn.disabled = true;
+            }
+            
             // Correspondance corrigée - utilise getVillaPageUrl pour les IDs numériques
             if (typeof villaId === 'number' || !isNaN(villaId)) {
                 const targetPage = getVillaPageUrl(parseInt(villaId));
-                console.log('✅ Redirection vers:', targetPage);
-                window.location.href = './' + targetPage;
+                console.log('✅ Redirection immédiate vers:', targetPage);
+                
+                // Navigation immédiate sans délai
+                setTimeout(() => {
+                    window.location.href = './' + targetPage;
+                }, 100); // Délai minimal pour l'effet visuel
                 return;
             }
             
@@ -3865,12 +3876,16 @@
             
             const targetPage = villaPages[villaId];
             if (targetPage) {
-                console.log('✅ Redirection vers:', targetPage);
-                window.location.href = './' + targetPage;
+                console.log('✅ Redirection rapide vers:', targetPage);
+                setTimeout(() => {
+                    window.location.href = './' + targetPage;
+                }, 100);
             } else {
                 console.log('❌ Villa non trouvée:', villaId);
-                alert('Erreur de navigation. Rechargement de la page...');
-                window.location.reload();
+                if (clickedBtn) {
+                    clickedBtn.innerHTML = '❌ Erreur';
+                    setTimeout(() => window.location.reload(), 1000);
+                }
             }
         }
 
