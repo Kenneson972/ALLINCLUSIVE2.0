@@ -182,9 +182,9 @@ const villaData = {
         description: 'Appartement F3 meublé pour location annuelle',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
     },
-    // ⚠️ AJOUT DES 7 VILLAS MANQUANTES
-    'villa-fete-journee-ducos': {
-        id: 'villa-fete-journee-ducos',
+    // ⚠️ AJOUT DES 7 VILLAS MANQUANTES AVEC LES BONS IDS
+    'villa-fte-journee-ducos': {
+        id: 'villa-fte-journee-ducos',
         nom: 'Villa Fête Journée Ducos',
         localisation: 'Ducos',
         prix: 375,
@@ -195,8 +195,8 @@ const villaData = {
         description: 'Villa location à la journée avec piscine et espace extérieur',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Ducos/01_piscine_espace_exterieur.jpg'
     },
-    'villa-fete-journee-fort-de-france': {
-        id: 'villa-fete-journee-fort-de-france',
+    'villa-fte-journee-fort-de-france': {
+        id: 'villa-fte-journee-fort-de-france',
         nom: 'Villa Fête Journée Fort de France',
         localisation: 'Fort de France',
         prix: 100,
@@ -207,8 +207,8 @@ const villaData = {
         description: 'Villa événementielle disponible de 6h à minuit',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Fort_de_France/01_espace_reception.jpg'
     },
-    'villa-fete-journee-riviere-pilote': {
-        id: 'villa-fete-journee-riviere-pilote',
+    'villa-fte-journee-riviere-pilote': {
+        id: 'villa-fte-journee-riviere-pilote',
         nom: 'Villa Fête Journée Rivière-Pilote',
         localisation: 'Rivière-Pilote',
         prix: 660,
@@ -219,8 +219,8 @@ const villaData = {
         description: 'Villa avec piscine chauffée et cuisine extérieure équipée',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_R_Pilote/01_piscine_chauffee_cuisine_ext.jpg'
     },
-    'villa-fete-journee-riviere-salee': {
-        id: 'villa-fete-journee-riviere-salee',
+    'villa-fte-journee-riviere-salee': {
+        id: 'villa-fte-journee-riviere-salee',
         nom: 'Villa Fête Journée Rivière Salée',
         localisation: 'Quartier La Laugier, Rivière Salée',
         prix: 400,
@@ -231,8 +231,8 @@ const villaData = {
         description: 'Villa journée avec 5 tables rectangulaires et chaises',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Riviere_Salee/01_espace_tables_reception.jpg'
     },
-    'villa-fete-journee-sainte-luce': {
-        id: 'villa-fete-journee-sainte-luce',
+    'villa-fte-journee-sainte-luce': {
+        id: 'villa-fte-journee-sainte-luce',
         nom: 'Villa Fête Journée Sainte-Luce',
         localisation: 'Sainte-Luce, près de la Forêt Montravail',
         prix: 390,
@@ -243,8 +243,8 @@ const villaData = {
         description: 'Villa journée avec 3 tentes, 3 salons extérieurs et système son JBL',
         image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Sainte_Luce/01_tentes_salons_ext.jpg'
     },
-    'espace-piscine-journee-bungalow': {
-        id: 'espace-piscine-journee-bungalow',
+    'villa-espace-piscine-journee-bungalow': {
+        id: 'villa-espace-piscine-journee-bungalow',
         nom: 'Espace Piscine Journée Bungalow',
         localisation: 'Martinique',
         prix: 350,
@@ -254,6 +254,18 @@ const villaData = {
         surface: 100,
         description: 'Espace piscine journée avec bungalow climatisé',
         image: '/ALLINCLUSIVE2.0/images/Espace_Piscine_Journee_Bungalow/01_piscine_bungalow.jpg'
+    },
+    'villa-appartement-f3-trenelle-location-annuelle': {
+        id: 'villa-appartement-f3-trenelle-location-annuelle',
+        nom: 'Appartement F3 Trenelle (Location Annuelle)',
+        localisation: 'Trenelle, à 2 minutes du PPM',
+        prix: 700,
+        capacite: 2,
+        chambres: 2,
+        sallesDeBain: 1,
+        surface: 80,
+        description: 'Appartement F3 meublé pour location annuelle',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
     }
 };
 
