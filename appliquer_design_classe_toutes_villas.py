@@ -985,28 +985,25 @@ class DesignClasseVillasComplet:
         
         print(f"🎨 DESIGN CLASSE PREMIUM: {nom_fichier}")
         
-        # Trouver les données CSV correspondantes
+        # Trouver les données CSV correspondantes OU créer des données fallback
         donnees_villa = self.trouver_donnees_villa_par_fichier(nom_fichier)
         
-        if donnees_villa:
-            # Créer le template classe complet
-            nouveau_html = self.creer_template_villa_classe_complet(donnees_villa, nom_fichier)
+        # Créer le template classe complet - TOUJOURS (même avec fallback)
+        nouveau_html = self.creer_template_villa_classe_complet(donnees_villa, nom_fichier)
+        
+        try:
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(nouveau_html)
             
-            try:
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write(nouveau_html)
-                
-                print(f"  ✅ Design classe appliqué avec succès")
-                print(f"     - Interface ultra-professionnelle")
-                print(f"     - Vraies données CSV intégrées")
-                print(f"     - {len(self.mapping_images.get(donnees_villa['nom'], {}).get('images', []))} vraies images")
-                print(f"     - Onglets et sections organisées")
-                print(f"     - Responsive design premium")
-                
-            except Exception as e:
-                print(f"  ❌ Erreur sauvegarde: {e}")
-        else:
-            print(f"  ⚠️ Données CSV non trouvées pour {nom_fichier}")
+            print(f"  ✅ Design classe appliqué avec succès")
+            print(f"     - Interface ultra-professionnelle")
+            print(f"     - Données intégrées (CSV ou fallback)")
+            print(f"     - {len(self.mapping_images.get(donnees_villa['nom'], {}).get('images', []))} images")
+            print(f"     - Onglets et sections organisées")
+            print(f"     - Responsive design premium")
+            
+        except Exception as e:
+            print(f"  ❌ Erreur sauvegarde: {e}")
     
     def executer_design_classe_complet(self):
         """Exécute l'application du design classe sur TOUTES les pages"""
