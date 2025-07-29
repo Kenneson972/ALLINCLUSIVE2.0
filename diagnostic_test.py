@@ -7,7 +7,7 @@ import requests
 import json
 from collections import Counter
 
-BACKEND_URL = "https://cfc0e6ef-086c-461a-915c-2319466028f1.preview.emergentagent.com"
+BACKEND_URL = "https://34d42641-f91e-4f6d-9f2c-608b166de7b9.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 def diagnostic_check():
