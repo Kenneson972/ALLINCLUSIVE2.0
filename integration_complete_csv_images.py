@@ -102,39 +102,44 @@ class IntegrationCompleteCSVImages:
     
     def trouver_donnees_villa_par_fichier(self, nom_fichier):
         """Trouve les données CSV correspondant à un fichier villa"""
-        villa_id = nom_fichier.replace('villa-', '').replace('.html', '')
+        # Nettoyer le nom de fichier et enlever tous les préfixes possibles
+        villa_id = nom_fichier.replace('.html', '')
+        if villa_id.startswith('villa-villa-'):
+            villa_id = villa_id.replace('villa-villa-', '', 1)
+        elif villa_id.startswith('villa-'):
+            villa_id = villa_id.replace('villa-', '', 1)
         
-        # Correspondances fichier -> nom CSV
+        # Correspondances fichier -> nom CSV (basé sur les IDs nettoyés)
         correspondances = {
-            'villa-f3-sur-petit-macabou': 'Villa F3 sur Petit Macabou',
-            'villa-f3-pour-la-baccha': 'Villa F3 POUR LA BACCHA', 
-            'villa-f3-sur-le-franois': 'Villa F3 sur le François',
-            'villa-f5-sur-ste-anne': 'Villa F5 sur Ste Anne',
-            'villa-f7-baie-des-mulets': 'Villa F7 Baie des Mulets',
-            'villa-fte-journee-ducos': 'Villa Fête Journée Ducos',
+            'f3-sur-petit-macabou': 'Villa F3 sur Petit Macabou',
+            'f3-pour-la-baccha': 'Villa F3 POUR LA BACCHA', 
+            'f3-sur-le-franois': 'Villa F3 sur le François',
+            'f5-sur-ste-anne': 'Villa F5 sur Ste Anne',
+            'f7-baie-des-mulets': 'Villa F7 Baie des Mulets',
+            'fte-journee-ducos': 'Villa Fête Journée Ducos',
             'bas-de-villa-f3-sur-ste-luce': 'Bas de Villa F3 sur Ste-Luce',
-            'villa-fte-journee-riviere-pilote': 'Villa Fête Journée Rivière-Pilote',
+            'fte-journee-riviere-pilote': 'Villa Fête Journée Rivière-Pilote',
             'studio-cocooning-lamentin': 'Studio Cocooning Lamentin',
-            'villa-f5-la-renee': 'Villa F5 La Renée',
-            'villa-fte-journee-riviere-salee': 'Villa Fête Journée Rivière-Salée',
-            'villa-f6-sur-ste-luce-a-1mn-de-la-plage': 'Villa F6 sur Ste-Luce à 1mn de la plage',
+            'f5-la-renee': 'Villa F5 La Renée',
+            'fte-journee-riviere-salee': 'Villa Fête Journée Rivière-Salée',
+            'f6-sur-ste-luce-a-1mn-de-la-plage': 'Villa F6 sur Ste-Luce à 1mn de la plage',
             'espace-piscine-journee-bungalow': 'Espace Piscine Journée Bungalow',
-            'villa-f6-sur-petit-macabou-sejour--fte': 'Villa F6 sur Petit Macabou Séjour / Fête',
-            'villa-f6-au-lamentin': 'Villa F6 au Lamentin',
-            'villa-f5-vauclin-ravine-plate': 'Villa F5 Vauclin Ravine-Plate',
-            'villa-fte-journee-fort-de-france': 'Villa Fête Journée Fort-de-France',
+            'f6-sur-petit-macabou-sejour--fte': 'Villa F6 sur Petit Macabou Séjour / Fête',
+            'f6-au-lamentin': 'Villa F6 au Lamentin',
+            'f5-vauclin-ravine-plate': 'Villa F5 Vauclin Ravine-Plate',
+            'fte-journee-fort-de-france': 'Villa Fête Journée Fort-de-France',
             'bas-de-villa-f3-sur-le-robert': 'Bas de Villa F3 sur le Robert',
-            'villa-f3-bas-de-villa-trinite-cosmy': 'Villa F3 Bas de Villa Trinité Cosmy',
-            'villa-fte-journee-sainte-luce': 'Villa Fête Journée Sainte-Luce',
+            'f3-bas-de-villa-trinite-cosmy': 'Villa F3 Bas de Villa Trinité Cosmy',
+            'fte-journee-sainte-luce': 'Villa Fête Journée Sainte-Luce',
             'appartement-f3-trenelle-location-annuelle': 'Appartement F3 Trenelle Location Annuelle'
         }
         
-        nom_csv = correspondances.get(nom_fichier.replace('.html', ''))
+        nom_csv = correspondances.get(villa_id)
         
         if nom_csv and nom_csv in self.donnees_csv:
             return self.donnees_csv[nom_csv]
         else:
-            print(f"⚠️ Données non trouvées pour {nom_fichier}")
+            print(f"⚠️ Données non trouvées pour {nom_fichier} (ID: {villa_id})")
             return None
     
     def generer_galerie_vraies_images(self, donnees_villa):
