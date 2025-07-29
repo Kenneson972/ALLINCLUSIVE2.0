@@ -966,60 +966,159 @@
     <script src="./assets/js/reservation-enhanced.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Gestion du sélecteur de villa
-            const villaSelect = document.getElementById('villaSelect');
-            const villaInfo = document.getElementById('villaInfo');
-            const summaryVilla = document.getElementById('summaryVilla');
-            
-            if (villaSelect) {
-                villaSelect.addEventListener('change', function() {
-                    const selectedVilla = this.value;
-                    
-                    if (selectedVilla) {
-                        // Afficher les informations de la villa
-                        const villaText = this.options[this.selectedIndex].text;
-                        villaInfo.style.display = 'block';
-                        villaInfo.innerHTML = `
-                            <div class="flex items-center space-x-4">
-                                <i class="fas fa-home text-2xl text-gold-500"></i>
-                                <div>
-                                    <h3 class="font-bold text-white">${villaText}</h3>
-                                    <p class="text-white/70">Villa sélectionnée pour votre réservation</p>
-                                    <a href="./${selectedVilla}.html" class="text-gold-400 hover:text-gold-300 transition-colors text-sm">
-                                        → Voir les détails de cette villa
-                                    </a>
-                                </div>
-                            </div>
-                        `;
-                        
-                        // Mettre à jour le récapitulatif
-                        if (summaryVilla) {
-                            summaryVilla.textContent = villaText.split(' - ')[0];
-                        }
-                        
-                        // Calculer le prix
-                        calculateTotalPrice();
-                    } else {
-                        villaInfo.style.display = 'none';
-                        if (summaryVilla) {
-                            summaryVilla.textContent = 'Aucune villa sélectionnée';
-                        }
-                    }
-                });
-            }
-            
             // Vérifier les paramètres URL pour pré-sélectionner une villa
             const urlParams = new URLSearchParams(window.location.search);
-            const preselectedVilla = urlParams.get('villa');
+            const villaParam = urlParams.get('villa');
             
-            if (preselectedVilla && villaSelect) {
-                const option = villaSelect.querySelector(`option[value="${preselectedVilla}"]`);
-                if (option) {
-                    villaSelect.value = preselectedVilla;
-                    villaSelect.dispatchEvent(new Event('change'));
+            if (villaParam) {
+                console.log('🏠 Villa pré-sélectionnée depuis URL:', villaParam);
+                
+                // Mapping des IDs vers les informations des villas
+                const villaMapping = {
+                    'villa-villa-f3-sur-petit-macabou': {
+                        name: 'Villa F3 sur Petit Macabou',
+                        location: 'Petit Macabou, Vauclin',
+                        price: '1550€',
+                        capacity: '6 personnes (jusqu\'à 15 en journée)',
+                        type: 'F3'
+                    },
+                    'villa-villa-f3-pour-la-baccha': {
+                        name: 'Villa F3 POUR LA BACCHA',
+                        location: 'Petit Macabou',
+                        price: '750€',
+                        capacity: '6 personnes',
+                        type: 'F3'
+                    },
+                    'villa-villa-f3-sur-le-franois': {
+                        name: 'Villa F3 sur le François',
+                        location: 'François',
+                        price: '800€',
+                        capacity: '6 personnes',
+                        type: 'F3'
+                    },
+                    'villa-villa-f5-sur-ste-anne': {
+                        name: 'Villa F5 sur Ste Anne',
+                        location: 'Ste Anne',
+                        price: '1350€',
+                        capacity: '10 personnes (jusqu\'à 15 en journée)',
+                        type: 'F5'
+                    },
+                    'villa-villa-f6-au-lamentin': {
+                        name: 'Villa F6 au Lamentin',
+                        location: 'Lamentin',
+                        price: '1200€',
+                        capacity: '12 personnes',
+                        type: 'F6'
+                    },
+                    'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage': {
+                        name: 'Villa F6 sur Ste Luce à 1mn de la plage',
+                        location: 'Ste Luce',
+                        price: '1800€',
+                        capacity: '12 personnes',
+                        type: 'F6'
+                    },
+                    'villa-villa-f7-baie-des-mulets': {
+                        name: 'Villa F7 Baie des Mulets',
+                        location: 'Vauclin',
+                        price: '2200€',
+                        capacity: '14 personnes',
+                        type: 'F7'
+                    },
+                    'villa-bas-de-villa-f3-sur-ste-luce': {
+                        name: 'Bas de villa F3 sur Ste Luce',
+                        location: 'Sainte-Luce',
+                        price: '750€',
+                        capacity: '6 personnes',
+                        type: 'F3'
+                    },
+                    'villa-studio-cocooning-lamentin': {
+                        name: 'Studio Cocooning Lamentin',
+                        location: 'Lamentin',
+                        price: '650€',
+                        capacity: '2 personnes',
+                        type: 'Studio'
+                    }
+                    // Ajouter les autres villas si nécessaire
+                };
+                
+                const villaData = villaMapping[villaParam];
+                if (villaData) {
+                    // Mettre à jour l'affichage de la villa sélectionnée
+                    document.getElementById('villaName').textContent = villaData.name;
+                    document.getElementById('villaInfo').textContent = `${villaData.location} - ${villaData.capacity} - À partir de ${villaData.price}/nuit`;
+                    
+                    // Mettre à jour le récapitulatif
+                    const summaryVilla = document.getElementById('summaryVilla');
+                    if (summaryVilla) {
+                        summaryVilla.textContent = villaData.name;
+                    }
+                    
+                    // Stocker les données de la villa pour le calcul des prix
+                    window.selectedVilla = {
+                        id: villaParam,
+                        name: villaData.name,
+                        basePrice: parseInt(villaData.price.replace(/[^0-9]/g, '')),
+                        location: villaData.location,
+                        capacity: villaData.capacity
+                    };
+                    
+                    console.log('✅ Villa configurée:', window.selectedVilla);
+                    
+                    // Calculer le prix initial
+                    calculateTotalPrice();
+                } else {
+                    console.log('⚠️ Villa non reconnue:', villaParam);
+                    document.getElementById('villaName').textContent = 'Villa inconnue';
+                    document.getElementById('villaInfo').innerHTML = `
+                        <p class="text-red-400">Villa non trouvée: ${villaParam}</p>
+                        <a href="./index.html" class="text-blue-400 hover:text-blue-300">← Retour à l'accueil pour sélectionner une villa</a>
+                    `;
                 }
+            } else {
+                // Aucune villa spécifiée
+                console.log('⚠️ Aucune villa spécifiée dans l\'URL');
+                document.getElementById('villaInfo').innerHTML = `
+                    <a href="./index.html" class="text-blue-400 hover:text-blue-300">
+                        <i class="fas fa-arrow-left mr-2"></i>Sélectionner une villa depuis l'accueil
+                    </a>
+                `;
             }
         });
+        
+        // Fonction de calcul des prix (mise à jour)
+        function calculateTotalPrice() {
+            if (!window.selectedVilla) {
+                console.log('⚠️ Aucune villa sélectionnée pour le calcul');
+                return;
+            }
+            
+            const basePrice = window.selectedVilla.basePrice || 500;
+            console.log('💰 Calcul prix base:', basePrice);
+            
+            // Récupérer les dates
+            const checkinInput = document.getElementById('checkin');
+            const checkoutInput = document.getElementById('checkout');
+            
+            if (checkinInput && checkoutInput && checkinInput.value && checkoutInput.value) {
+                const checkin = new Date(checkinInput.value);
+                const checkout = new Date(checkoutInput.value);
+                const nights = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+                
+                if (nights > 0) {
+                    const subtotal = basePrice * nights;
+                    const serviceFee = Math.round(subtotal * 0.1);
+                    const total = subtotal + serviceFee;
+                    
+                    // Mettre à jour l'affichage
+                    const priceElement = document.getElementById('summaryPricePerNight');
+                    if (priceElement) {
+                        priceElement.textContent = `${basePrice}€ x ${nights} nuit${nights > 1 ? 's' : ''}`;
+                    }
+                    
+                    console.log('💰 Prix calculé:', { subtotal, serviceFee, total, nights });
+                }
+            }
+        }
     </script>
     
     <script>
