@@ -43,9 +43,9 @@ failed_login_attempts = defaultdict(lambda: {'count': 0, 'reset_time': time.time
 class SecurityMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         client_ip = request.client.host if request.client else "unknown"
+        path = request.url.path
         
         # 1. Protection Path Traversal
-        path = request.url.path
         if ".." in path or "%2e%2e" in path.lower() or "etc/passwd" in path.lower():
             raise HTTPException(status_code=400, detail="Invalid path detected")
         
@@ -60,12 +60,17 @@ class SecurityMiddleware(BaseHTTPMiddleware):
         if request_counts[client_ip]['count'] > 200:
             raise HTTPException(status_code=429, detail="Rate limit exceeded")
         
-        # 3. Headers de sécurité
+        # 3. Headers de sécurité - EXCLURE LES FICHIERS STATIQUES (IMAGES, CSS, JS)
         response = await call_next(request)
-        response.headers["X-Content-Type-Options"] = "nosniff"
-        response.headers["X-Frame-Options"] = "DENY"
-        response.headers["X-XSS-Protection"] = "1; mode=block"
-        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        
+        # Ne pas appliquer les headers de sécurité restrictifs aux fichiers statiques
+        if not (path.startswith('/images/') or path.startswith('/css/') or path.startswith('/js/') or 
+                path.endswith('.jpg') or path.endswith('.jpeg') or path.endswith('.png') or 
+                path.endswith('.gif') or path.endswith('.css') or path.endswith('.js')):
+            response.headers["X-Content-Type-Options"] = "nosniff"
+            response.headers["X-Frame-Options"] = "DENY"
+            response.headers["X-XSS-Protection"] = "1; mode=block"
+            response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
         
         return response
 
