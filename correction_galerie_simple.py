@@ -9,7 +9,7 @@ import glob
 
 class CorrectionGalerieSimple:
     def __init__(self):
-        self.pages_villa = glob.glob('/app/villa-*.html')[:5]  # Test sur 5 pages d'abord
+        self.pages_villa = glob.glob('/app/villa-*.html')  # TOUTES les pages
         
     def corriger_javascript_seulement(self, file_path):
         """Corrige seulement le JavaScript pour éviter le décalage"""
