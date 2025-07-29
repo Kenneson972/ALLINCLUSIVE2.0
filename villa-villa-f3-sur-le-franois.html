@@ -324,28 +324,28 @@
                 <div class="swiper villa-gallery mb-6">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg" alt="Villa F3 sur le François - Image 1" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg" alt="Image 1" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg" alt="Villa F3 sur le François - Image 2" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg" alt="Image 2" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg" alt="Villa F3 sur le François - Image 3" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg" alt="Image 3" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg" alt="Villa F3 sur le François - Image 4" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg" alt="Image 4" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg" alt="Villa F3 sur le François - Image 5" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg" alt="Image 5" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/08_chambre_jaune_moderne.jpg" alt="Villa F3 sur le François - Image 6" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/08_chambre_jaune_moderne.jpg" alt="Image 6" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg" alt="Villa F3 sur le François - Image 7" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg" alt="Image 7" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg" alt="Villa F3 sur le François - Image 8" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg" alt="Image 8" loading="lazy">
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
@@ -569,11 +569,11 @@
             offset: 100
         });
 
-        // Initialize Swiper
+        // Initialize Swiper - CORRIGÉ POUR ÉVITER DÉCALAGE
         const swiper = new Swiper('.villa-gallery', {
             slidesPerView: 1,
             spaceBetween: 10,
-            loop: true,
+            loop: false,  // DÉSACTIVÉ pour éviter le décalage
             autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
@@ -588,13 +588,36 @@
             },
         });
 
-        // Thumbnail navigation
+        // Thumbnail navigation - CORRIGÉ pour synchronisation parfaite
         document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                swiper.slideTo(index);
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Aller directement à la slide correspondante
+                swiper.slideTo(index, 300);
+                
+                // Mettre à jour les classes active
                 document.querySelectorAll('.gallery-thumbnails img').forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
+                
+                console.log(`✅ Thumbnail ${index + 1} -> Slide ${index + 1}`);
             });
+        });
+
+        // Synchroniser les thumbnails quand on change de slide avec les flèches
+        swiper.on('slideChange', function() {
+            const activeIndex = swiper.activeIndex;
+            
+            // Mettre à jour la thumbnail active correspondante
+            document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
+                if (index === activeIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+            
+            console.log(`✅ Slide changed to ${activeIndex + 1}`);
         });
 
         // Video Background

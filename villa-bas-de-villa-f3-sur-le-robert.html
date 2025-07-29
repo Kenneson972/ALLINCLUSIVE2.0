@@ -324,22 +324,22 @@
                 <div class="swiper villa-gallery mb-6">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg" alt="Bas de villa F3 sur le Robert - Image 1" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg" alt="Image 1" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg" alt="Bas de villa F3 sur le Robert - Image 2" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg" alt="Image 2" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg" alt="Bas de villa F3 sur le Robert - Image 3" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg" alt="Image 3" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/terrasse_couverte_pergola_kitchenette.jpg" alt="Bas de villa F3 sur le Robert - Image 4" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/terrasse_couverte_pergola_kitchenette.jpg" alt="Image 4" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg" alt="Bas de villa F3 sur le Robert - Image 5" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg" alt="Image 5" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/description_villa_robert.jpg" alt="Bas de villa F3 sur le Robert - Image 6" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/description_villa_robert.jpg" alt="Image 6" loading="lazy">
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
@@ -561,11 +561,11 @@
             offset: 100
         });
 
-        // Initialize Swiper
+        // Initialize Swiper - CORRIGÉ POUR ÉVITER DÉCALAGE
         const swiper = new Swiper('.villa-gallery', {
             slidesPerView: 1,
             spaceBetween: 10,
-            loop: true,
+            loop: false,  // DÉSACTIVÉ pour éviter le décalage
             autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
@@ -580,13 +580,36 @@
             },
         });
 
-        // Thumbnail navigation
+        // Thumbnail navigation - CORRIGÉ pour synchronisation parfaite
         document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                swiper.slideTo(index);
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Aller directement à la slide correspondante
+                swiper.slideTo(index, 300);
+                
+                // Mettre à jour les classes active
                 document.querySelectorAll('.gallery-thumbnails img').forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
+                
+                console.log(`✅ Thumbnail ${index + 1} -> Slide ${index + 1}`);
             });
+        });
+
+        // Synchroniser les thumbnails quand on change de slide avec les flèches
+        swiper.on('slideChange', function() {
+            const activeIndex = swiper.activeIndex;
+            
+            // Mettre à jour la thumbnail active correspondante
+            document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
+                if (index === activeIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+            
+            console.log(`✅ Slide changed to ${activeIndex + 1}`);
         });
 
         // Video Background

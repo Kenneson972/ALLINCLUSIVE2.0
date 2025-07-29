@@ -545,11 +545,11 @@
             offset: 100
         });
 
-        // Initialize Swiper
+        // Initialize Swiper - CORRIGÉ POUR ÉVITER DÉCALAGE
         const swiper = new Swiper('.villa-gallery', {
             slidesPerView: 1,
             spaceBetween: 10,
-            loop: true,
+            loop: false,  // DÉSACTIVÉ pour éviter le décalage
             autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
@@ -564,13 +564,36 @@
             },
         });
 
-        // Thumbnail navigation
+        // Thumbnail navigation - CORRIGÉ pour synchronisation parfaite
         document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                swiper.slideTo(index);
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Aller directement à la slide correspondante
+                swiper.slideTo(index, 300);
+                
+                // Mettre à jour les classes active
                 document.querySelectorAll('.gallery-thumbnails img').forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
+                
+                console.log(`✅ Thumbnail ${index + 1} -> Slide ${index + 1}`);
             });
+        });
+
+        // Synchroniser les thumbnails quand on change de slide avec les flèches
+        swiper.on('slideChange', function() {
+            const activeIndex = swiper.activeIndex;
+            
+            // Mettre à jour la thumbnail active correspondante
+            document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
+                if (index === activeIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+            
+            console.log(`✅ Slide changed to ${activeIndex + 1}`);
         });
 
         // Video Background

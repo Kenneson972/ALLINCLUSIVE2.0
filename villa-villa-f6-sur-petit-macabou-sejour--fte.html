@@ -324,28 +324,28 @@
                 <div class="swiper villa-gallery mb-6">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 1" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg" alt="Image 1" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/09_jardin_piscine.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 2" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/09_jardin_piscine.jpg" alt="Image 2" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/01_vue_aerienne_nuit.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 3" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/01_vue_aerienne_nuit.jpg" alt="Image 3" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 4" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg" alt="Image 4" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 5" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg" alt="Image 5" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 6" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg" alt="Image 6" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 7" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg" alt="Image 7" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 8" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg" alt="Image 8" loading="lazy">
                         </div>
                         <div class="swiper-slide">
                             <img src="/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/08_terrasse_repas.jpg" alt="Villa F6 sur Petit Macabou (séjour + fête) - Image 9" loading="lazy">
@@ -581,11 +581,11 @@
             offset: 100
         });
 
-        // Initialize Swiper
+        // Initialize Swiper - CORRIGÉ POUR ÉVITER DÉCALAGE
         const swiper = new Swiper('.villa-gallery', {
             slidesPerView: 1,
             spaceBetween: 10,
-            loop: true,
+            loop: false,  // DÉSACTIVÉ pour éviter le décalage
             autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
@@ -600,13 +600,36 @@
             },
         });
 
-        // Thumbnail navigation
+        // Thumbnail navigation - CORRIGÉ pour synchronisation parfaite
         document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                swiper.slideTo(index);
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Aller directement à la slide correspondante
+                swiper.slideTo(index, 300);
+                
+                // Mettre à jour les classes active
                 document.querySelectorAll('.gallery-thumbnails img').forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
+                
+                console.log(`✅ Thumbnail ${index + 1} -> Slide ${index + 1}`);
             });
+        });
+
+        // Synchroniser les thumbnails quand on change de slide avec les flèches
+        swiper.on('slideChange', function() {
+            const activeIndex = swiper.activeIndex;
+            
+            // Mettre à jour la thumbnail active correspondante
+            document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
+                if (index === activeIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+            
+            console.log(`✅ Slide changed to ${activeIndex + 1}`);
         });
 
         // Video Background

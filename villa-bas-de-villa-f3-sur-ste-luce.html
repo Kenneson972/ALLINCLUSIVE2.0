@@ -324,28 +324,28 @@
                 <div class="swiper villa-gallery mb-6">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce - Image 1" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salle_de_bain_moderne.jpg" alt="Image 1" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg" alt="Bas de villa F3 sur Ste Luce - Image 2" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg" alt="Image 2" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salle_a_manger_ronde.jpg" alt="Bas de villa F3 sur Ste Luce - Image 3" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salle_a_manger_ronde.jpg" alt="Image 3" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg" alt="Bas de villa F3 sur Ste Luce - Image 4" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg" alt="Image 4" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salon_tv_eclairage_moderne.jpg" alt="Bas de villa F3 sur Ste Luce - Image 5" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salon_tv_eclairage_moderne.jpg" alt="Image 5" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg" alt="Bas de villa F3 sur Ste Luce - Image 6" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg" alt="Image 6" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg" alt="Bas de villa F3 sur Ste Luce - Image 7" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg" alt="Image 7" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger(1).jpg" alt="Bas de villa F3 sur Ste Luce - Image 8" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger(1).jpg" alt="Image 8" loading="lazy">
                         </div>
                         <div class="swiper-slide">
                             <img src="/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/chambre_principale.jpg" alt="Bas de villa F3 sur Ste Luce - Image 9" loading="lazy">
@@ -589,11 +589,11 @@
             offset: 100
         });
 
-        // Initialize Swiper
+        // Initialize Swiper - CORRIGÉ POUR ÉVITER DÉCALAGE
         const swiper = new Swiper('.villa-gallery', {
             slidesPerView: 1,
             spaceBetween: 10,
-            loop: true,
+            loop: false,  // DÉSACTIVÉ pour éviter le décalage
             autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
@@ -608,13 +608,36 @@
             },
         });
 
-        // Thumbnail navigation
+        // Thumbnail navigation - CORRIGÉ pour synchronisation parfaite
         document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                swiper.slideTo(index);
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Aller directement à la slide correspondante
+                swiper.slideTo(index, 300);
+                
+                // Mettre à jour les classes active
                 document.querySelectorAll('.gallery-thumbnails img').forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
+                
+                console.log(`✅ Thumbnail ${index + 1} -> Slide ${index + 1}`);
             });
+        });
+
+        // Synchroniser les thumbnails quand on change de slide avec les flèches
+        swiper.on('slideChange', function() {
+            const activeIndex = swiper.activeIndex;
+            
+            // Mettre à jour la thumbnail active correspondante
+            document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
+                if (index === activeIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+            
+            console.log(`✅ Slide changed to ${activeIndex + 1}`);
         });
 
         // Video Background

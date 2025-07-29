@@ -324,28 +324,28 @@
                 <div class="swiper villa-gallery mb-6">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg" alt="Studio Cocooning Lamentin - Image 1" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg" alt="Image 1" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg" alt="Studio Cocooning Lamentin - Image 2" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg" alt="Image 2" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg" alt="Studio Cocooning Lamentin - Image 3" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg" alt="Image 3" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg" alt="Studio Cocooning Lamentin - Image 4" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg" alt="Image 4" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg" alt="Studio Cocooning Lamentin - Image 5" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg" alt="Image 5" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/08_salle_de_bain.jpg" alt="Studio Cocooning Lamentin - Image 6" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/08_salle_de_bain.jpg" alt="Image 6" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg" alt="Studio Cocooning Lamentin - Image 7" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg" alt="Image 7" loading="lazy">
                         </div>
                         <div class="swiper-slide">
-                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/09_vue_integree.jpg" alt="Studio Cocooning Lamentin - Image 8" loading="lazy">
+                            <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/09_vue_integree.jpg" alt="Image 8" loading="lazy">
                         </div>
                         <div class="swiper-slide">
                             <img src="/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/06_cuisine_vue_panoramique.jpg" alt="Studio Cocooning Lamentin - Image 9" loading="lazy">
@@ -569,11 +569,11 @@
             offset: 100
         });
 
-        // Initialize Swiper
+        // Initialize Swiper - CORRIGÉ POUR ÉVITER DÉCALAGE
         const swiper = new Swiper('.villa-gallery', {
             slidesPerView: 1,
             spaceBetween: 10,
-            loop: true,
+            loop: false,  // DÉSACTIVÉ pour éviter le décalage
             autoplay: {
                 delay: 4000,
                 disableOnInteraction: false,
@@ -588,13 +588,36 @@
             },
         });
 
-        // Thumbnail navigation
+        // Thumbnail navigation - CORRIGÉ pour synchronisation parfaite
         document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                swiper.slideTo(index);
+            thumb.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Aller directement à la slide correspondante
+                swiper.slideTo(index, 300);
+                
+                // Mettre à jour les classes active
                 document.querySelectorAll('.gallery-thumbnails img').forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
+                
+                console.log(`✅ Thumbnail ${index + 1} -> Slide ${index + 1}`);
             });
+        });
+
+        // Synchroniser les thumbnails quand on change de slide avec les flèches
+        swiper.on('slideChange', function() {
+            const activeIndex = swiper.activeIndex;
+            
+            // Mettre à jour la thumbnail active correspondante
+            document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, index) => {
+                if (index === activeIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+            
+            console.log(`✅ Slide changed to ${activeIndex + 1}`);
         });
 
         // Video Background
