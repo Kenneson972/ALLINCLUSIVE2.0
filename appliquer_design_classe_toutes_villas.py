@@ -102,7 +102,7 @@ class DesignClasseVillasComplet:
         elif villa_id.startswith('villa-'):
             villa_id = villa_id.replace('villa-', '', 1)
         
-        # Correspondances fichier -> nom CSV (basé sur les IDs nettoyés) - COMPLET ET CORRIGÉ
+        # Correspondances fichier -> nom CSV (basé sur les IDs nettoyés) - COMPLET CORRIGÉ POUR TOUTES LES VILLAS
         correspondances = {
             'f3-sur-petit-macabou': 'Villa F3 sur Petit Macabou',
             'f3-pour-la-baccha': 'Villa F3 POUR LA BACCHA', 
