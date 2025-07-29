@@ -41,3 +41,33 @@ Date: Tue Jul 29 00:59:03 UTC 2025
 
 ## TOUTES LES PAGES HTML
 Total: 61 pages
+## FICHIERS CRITIQUES GLASSMORPHISM
+
+### CSS Critiques:
+/app/villa-martinique/css/glassmorphism.css
+/app/assets/css/glassmorphism.css
+/app/assets/css/villa-enhanced.css
+
+### JavaScript Critiques:
+/app/assets/js/glassmorphism.js
+/app/assets/js/villa-gallery.js
+/app/assets/js/reservation-enhanced.js
+
+### Assets Directory:
+total 44
+drwxr-xr-x 2 root root  4096 Jul 29 00:51 .
+drwxr-xr-x 6 root root  4096 Jul 29 00:51 ..
+-rw-r--r-- 1 root root  9182 Jul 28 22:30 glassmorphism.css
+-rw-r--r-- 1 root root   783 Jul 29 00:51 main.css
+-rw-r--r-- 1 root root 18625 Jul 28 23:42 villa-enhanced.css
+total 64
+drwxr-xr-x 2 root root  4096 Jul 29 00:51 .
+drwxr-xr-x 6 root root  4096 Jul 29 00:51 ..
+-rw-r--r-- 1 root root 11395 Jul 28 22:31 glassmorphism.js
+-rw-r--r-- 1 root root 15027 Jul 28 23:15 reservation-enhanced.js
+-rw-r--r-- 1 root root   973 Jul 29 00:51 utils.js
+-rw-r--r-- 1 root root 16316 Jul 28 23:10 villa-gallery.js
+-rw-r--r-- 1 root root  4958 Jul 19 15:02 villas-database.js
+
+### Vidéos Background:
+
