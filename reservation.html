@@ -320,6 +320,28 @@
            OPTIMISATIONS MOBILE RESPONSIVE  
            ========================================= */
            
+        /* 🚫 CORRECTION PRIORITÉ 2 : Suppression numéros debug parasites */
+        .debug-number,
+        .element-index,
+        [data-debug],
+        [class*="debug"],
+        [class*="number-overlay"],
+        [class*="debug-element"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+        
+        /* Masquer potentiels overlays de debug numérotés */
+        div[style*="position: absolute"][style*="z-index"] {
+            opacity: 1 !important;
+        }
+        
+        div[style*="position: absolute"][style*="z-index"]:has([class*="debug"]),
+        div[style*="position: absolute"][style*="z-index"]:has([class*="number"]) {
+            display: none !important;
+        }
+           
         /* Header mobile responsive */
         @media (max-width: 768px) {
             .header {
