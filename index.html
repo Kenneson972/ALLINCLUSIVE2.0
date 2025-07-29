@@ -3828,14 +3828,41 @@
         }
 
         function viewDetails(villaId) {
-            // Rediriger vers la page détail spécifique de la villa
-            const villaPageUrl = getVillaPageUrl(villaId);
+            console.log('🏠 Navigation vers villa:', villaId);
             
-            // Store villa ID pour compatibilité future
-            localStorage.setItem('selectedVillaId', villaId);
+            // Mapping des IDs vers les nouvelles pages
+            const villaPages = {
+                'villa-f3-petit-macabou': 'villa-villa-f3-sur-petit-macabou.html',
+                'villa-f3-baccha': 'villa-villa-f3-pour-la-baccha.html', 
+                'villa-f3-francois': 'villa-villa-f3-sur-le-franois.html',
+                'villa-f5-ste-anne': 'villa-villa-f5-sur-ste-anne.html',
+                'villa-f6-lamentin': 'villa-villa-f6-au-lamentin.html',
+                'villa-f6-ste-luce': 'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html',
+                'villa-f3-trinite': 'villa-villa-f3-bas-de-villa-trinite-cosmy.html',
+                'villa-f3-robert': 'villa-bas-de-villa-f3-sur-le-robert.html',
+                'villa-f3-trenelle': 'villa-appartement-f3-trenelle-location-annuelle.html',
+                'villa-f5-vauclin': 'villa-villa-f5-vauclin-ravine-plate.html',
+                'villa-f5-la-renee': 'villa-villa-f5-la-renee.html',
+                'villa-f7-baie-mulets': 'villa-villa-f7-baie-des-mulets.html',
+                'villa-f3-ste-luce': 'villa-bas-de-villa-f3-sur-ste-luce.html',
+                'villa-studio-lamentin': 'villa-studio-cocooning-lamentin.html',
+                'villa-fete-ducos': 'villa-villa-fte-journee-ducos.html',
+                'villa-fete-fort-de-france': 'villa-villa-fte-journee-fort-de-france.html',
+                'villa-fete-riviere-pilote': 'villa-villa-fte-journee-riviere-pilote.html',
+                'villa-fete-riviere-salee': 'villa-villa-fte-journee-riviere-salee.html',
+                'villa-fete-sainte-luce': 'villa-villa-fte-journee-sainte-luce.html',
+                'villa-espace-piscine': 'villa-espace-piscine-journee-bungalow.html',
+                'villa-f6-petit-macabou-fete': 'villa-villa-f6-sur-petit-macabou-sejour--fte.html'
+            };
             
-            // Navigation vers la page détail spécifique
-            window.location.href = villaPageUrl;
+            const targetPage = villaPages[villaId];
+            if (targetPage) {
+                console.log('✅ Redirection vers:', targetPage);
+                window.location.href = './' + targetPage;
+            } else {
+                console.log('❌ Villa non trouvée:', villaId);
+                alert('Villa non trouvée: ' + villaId);
+            }
         }
 
         function contactPrestataire(service) {
