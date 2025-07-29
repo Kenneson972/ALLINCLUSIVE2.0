@@ -181,6 +181,79 @@ const villaData = {
         surface: 80,
         description: 'Appartement F3 meublé pour location annuelle',
         image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
+    },
+    // ⚠️ AJOUT DES 7 VILLAS MANQUANTES
+    'villa-fete-journee-ducos': {
+        id: 'villa-fete-journee-ducos',
+        nom: 'Villa Fête Journée Ducos',
+        localisation: 'Ducos',
+        prix: 375,
+        capacite: 30,
+        chambres: 0,
+        sallesDeBain: 1,
+        surface: 200,
+        description: 'Villa location à la journée avec piscine et espace extérieur',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Ducos/01_piscine_espace_exterieur.jpg'
+    },
+    'villa-fete-journee-fort-de-france': {
+        id: 'villa-fete-journee-fort-de-france',
+        nom: 'Villa Fête Journée Fort de France',
+        localisation: 'Fort de France',
+        prix: 100,
+        capacite: 80,
+        chambres: 0,
+        sallesDeBain: 2,
+        surface: 300,
+        description: 'Villa événementielle disponible de 6h à minuit',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Fort_de_France/01_espace_reception.jpg'
+    },
+    'villa-fete-journee-riviere-pilote': {
+        id: 'villa-fete-journee-riviere-pilote',
+        nom: 'Villa Fête Journée Rivière-Pilote',
+        localisation: 'Rivière-Pilote',
+        prix: 660,
+        capacite: 100,
+        chambres: 1,
+        sallesDeBain: 2,
+        surface: 250,
+        description: 'Villa avec piscine chauffée et cuisine extérieure équipée',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_R_Pilote/01_piscine_chauffee_cuisine_ext.jpg'
+    },
+    'villa-fete-journee-riviere-salee': {
+        id: 'villa-fete-journee-riviere-salee',
+        nom: 'Villa Fête Journée Rivière Salée',
+        localisation: 'Quartier La Laugier, Rivière Salée',
+        prix: 400,
+        capacite: 100,
+        chambres: 0,
+        sallesDeBain: 1,
+        surface: 200,
+        description: 'Villa journée avec 5 tables rectangulaires et chaises',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Riviere_Salee/01_espace_tables_reception.jpg'
+    },
+    'villa-fete-journee-sainte-luce': {
+        id: 'villa-fete-journee-sainte-luce',
+        nom: 'Villa Fête Journée Sainte-Luce',
+        localisation: 'Sainte-Luce, près de la Forêt Montravail',
+        prix: 390,
+        capacite: 40,
+        chambres: 0,
+        sallesDeBain: 1,
+        surface: 150,
+        description: 'Villa journée avec 3 tentes, 3 salons extérieurs et système son JBL',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Sainte_Luce/01_tentes_salons_ext.jpg'
+    },
+    'espace-piscine-journee-bungalow': {
+        id: 'espace-piscine-journee-bungalow',
+        nom: 'Espace Piscine Journée Bungalow',
+        localisation: 'Martinique',
+        prix: 350,
+        capacite: 150,
+        chambres: 1,
+        sallesDeBain: 1,
+        surface: 100,
+        description: 'Espace piscine journée avec bungalow climatisé',
+        image: '/ALLINCLUSIVE2.0/images/Espace_Piscine_Journee_Bungalow/01_piscine_bungalow.jpg'
     }
 };
 
