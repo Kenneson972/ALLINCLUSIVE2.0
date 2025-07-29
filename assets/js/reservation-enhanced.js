@@ -372,7 +372,7 @@ class ReservationEnhanced {
         console.log('💰 Prix de base configuré:', basePrice);
     }
 
-    // NOTIFICATION DE PRÉ-SÉLECTION
+    // 🔔 NOTIFICATION DE PRÉ-SÉLECTION
     showPreSelectedNotification(villaName) {
         const notification = document.createElement('div');
         notification.className = 'preselected-notification';
@@ -384,7 +384,7 @@ class ReservationEnhanced {
             </div>
         `;
         
-        // Styles pour la notification
+        // Styles pour la notification (sans debug)
         const style = document.createElement('style');
         style.textContent = `
             .preselected-notification {
@@ -427,14 +427,8 @@ class ReservationEnhanced {
             }
             
             @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
             }
         `;
         
@@ -445,14 +439,14 @@ class ReservationEnhanced {
         setTimeout(() => {
             notification.style.animation = 'slideInRight 0.5s ease reverse';
             setTimeout(() => {
-                notification.remove();
+                if (notification.parentNode) notification.remove();
             }, 500);
         }, 5000);
         
         // Fermeture manuelle
         const closeBtn = notification.querySelector('.notification-close');
         closeBtn.addEventListener('click', () => {
-            notification.remove();
+            if (notification.parentNode) notification.remove();
         });
     }
 
