@@ -177,8 +177,8 @@ class CorrectionGalerieSimple:
     
     def executer_correction_test(self):
         """Test de correction sur quelques pages"""
-        print("🧪 TEST CORRECTION GALERIES - 5 PAGES")
-        print("=" * 50)
+        print("🚨 CORRECTION GALERIES - TOUTES LES 21 PAGES VILLA")
+        print("=" * 60)
         
         for file_path in self.pages_villa:
             nom_fichier = os.path.basename(file_path)
