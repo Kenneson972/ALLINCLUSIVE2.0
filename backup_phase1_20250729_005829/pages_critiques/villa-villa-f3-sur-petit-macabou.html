@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villa F3 sur Petit Macabou - Petit Macabou, Vauclin | KhanelConcept Villas Luxe Martinique</title>
+    <meta name="description" content="Villa F3 sur Petit Macabou à Petit Macabou, Vauclin - Villa de luxe 6 personnes ( jusqu'à 15 personnes en journée ) avec équipements modernes. Prix à partir de 1550€/nuit. Réservation en ligne sécurisée.">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Design glassmorphism */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .villa-gallery {
+            border-radius: 20px 20px 0 0;
+            overflow: hidden;
+            height: 500px;
+        }
+        
+        .villa-gallery .swiper-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+        
+        .gallery-thumbnails {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .gallery-thumbnails img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-thumbnails img.active {
+            opacity: 1;
+            border: 2px solid #f59e0b;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .social-share {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn.facebook { background: #1877f2; }
+        .social-btn.instagram { background: linear-gradient(45deg, #405de6, #833ab4, #e1306c); }
+        .social-btn.whatsapp { background: #25d366; }
+        
+        .modal-gallery {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+    
+        /* Force visibility of main content */
+        main.container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .info-card {
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        .villa-gallery {
+            display: block !important;
+        }
+    
+        /* FORCE DISPLAY - Correction urgente */
+        main.container {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: relative !important;
+            z-index: 100 !important;
+        }
+        
+        .gallery-container,
+        .villa-gallery,
+        .swiper,
+        .swiper-wrapper,
+        .swiper-slide,
+        .info-card,
+        section {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .swiper-slide {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        /* S'assurer que AOS n'interfère pas */
+        [data-aos] {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+    </style>
+</head>
+
+<body data-aos-easing="ease" data-aos-duration="1000" data-aos-delay="0">
+    <!-- Background Video Cloudinary avec support iOS -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <!-- Navigation & Breadcrumb -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-20 backdrop-blur-lg border-b border-white/10 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="./index.html" class="flex items-center space-x-3 text-yellow-400">
+                    <img src="https://customer-assets.emergentagent.com/job_villa-dash/artifacts/vg7ukqf7_logo-khanel-concept-original.png" 
+                         alt="Khanel Concept Logo" 
+                         class="h-10 w-auto">
+                    <span class="text-2xl font-bold">KhanelConcept</span>
+                </a>
+            <div class="flex space-x-6">
+                <a href="./index.html" class="text-white hover:text-yellow-400 transition-colors">Nos Villas</a>
+                <a href="./reservation.html" class="text-white hover:text-yellow-400 transition-colors">Réserver</a>
+                <a href="./login.html" class="text-white hover:text-yellow-400 transition-colors">Connexion</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12" style="margin-top: 120px; position: relative; z-index: 100;">
+        
+        <!-- Villa Title -->
+        <section class="text-center mb-16"  style="opacity: 1 !important; visibility: visible !important;">
+            <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-yellow-400 bg-clip-text text-transparent">
+                Villa F3 sur Petit Macabou
+            </h1>
+            <p class="text-xl text-gray-300 mb-6">
+                <i class="fas fa-map-marker-alt text-red-400 mr-2"></i>Petit Macabou, Vauclin
+            </p>
+        </section>
+        
+        <!-- Gallery Section -->
+        <section class="mb-16" >
+            <div class="gallery-container">
+                <!-- Main Swiper Gallery -->
+                <div class="swiper villa-gallery mb-6">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" data-swiper-slide-index="0">
+                            <img src="./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Villa F3 sur Petit Macabou - 01_piscine_exterieur.jpg" loading="lazy">
+                        </div>
+                        <div class="swiper-slide" data-swiper-slide-index="1">
+                            <img src="./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg" alt="Villa F3 sur Petit Macabou - 02_terrasse_salon_exterieur.jpg" loading="lazy">
+                        </div>
+                        <div class="swiper-slide" data-swiper-slide-index="2">
+                            <img src="./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg" alt="Villa F3 sur Petit Macabou - 03_salle_de_bain_moderne.jpg" loading="lazy">
+                        </div>
+                        <div class="swiper-slide" data-swiper-slide-index="3">
+                            <img src="./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg" alt="Villa F3 sur Petit Macabou - 04_chambre_principale.jpg" loading="lazy">
+                        </div>
+                        <div class="swiper-slide" data-swiper-slide-index="4">
+                            <img src="./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg" alt="Villa F3 sur Petit Macabou - 05_cuisine_equipee.jpg" loading="lazy">
+                        </div>
+                        <div class="swiper-slide" data-swiper-slide-index="5">
+                            <img src="./images/Villa_F3_Petit_Macabou/06_toilettes_independantes.jpg" alt="Villa F3 sur Petit Macabou - 06_toilettes_independantes.jpg" loading="lazy">
+                        </div>
+                        <div class="swiper-slide" data-swiper-slide-index="6">
+                            <img src="./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg" alt="Villa F3 sur Petit Macabou - 07_sauna_detente.jpg" loading="lazy">
+                        </div>
+                        <div class="swiper-slide" data-swiper-slide-index="7">
+                            <img src="./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg" alt="Villa F3 sur Petit Macabou - 08_douche_exterieure.jpg" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                
+                <!-- Thumbnails -->
+                <div class="gallery-thumbnails flex gap-3 overflow-x-auto p-4 bg-gray-100 rounded-b-xl">
+                    <img src="./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Thumbnail 1" class="active">
+                    <img src="./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg" alt="Thumbnail 2" class="">
+                    <img src="./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg" alt="Thumbnail 3" class="">
+                    <img src="./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg" alt="Thumbnail 4" class="">
+                    <img src="./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg" alt="Thumbnail 5" class="">
+                    <img src="./images/Villa_F3_Petit_Macabou/06_toilettes_independantes.jpg" alt="Thumbnail 6" class="">
+                    <img src="./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg" alt="Thumbnail 7" class="">
+                    <img src="./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg" alt="Thumbnail 8" class="">
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Info Cards -->
+        <section class="mb-16"  data-aos-delay="200">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="info-card text-center">
+                    <div class="text-3xl text-blue-600 mb-3"><i class="fas fa-users"></i></div>
+                    <div class="text-lg font-semibold">6 personnes ( jusqu'à 15 personnes en journée )</div>
+                    <div class="text-sm text-gray-400">Voyageurs</div>
+                </div>
+                <div class="info-card text-center">
+                    <div class="text-3xl text-green-600 mb-3"><i class="fas fa-bed"></i></div>
+                    <div class="text-lg font-semibold">3</div>
+                    <div class="text-sm text-gray-400">Chambres</div>
+                </div>
+                <div class="info-card text-center">
+                    <div class="text-3xl text-purple-600 mb-3"><i class="fas fa-bath"></i></div>
+                    <div class="text-lg font-semibold">2</div>
+                    <div class="text-sm text-gray-400">Salles de bain</div>
+                </div>
+                <div class="info-card text-center">
+                    <div class="text-3xl text-orange-600 mb-3"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <div class="text-lg font-semibold">110m²</div>
+                    <div class="text-sm text-gray-400">Surface</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Description & Amenities -->
+        <div class="grid lg:grid-cols-3 gap-12 mb-16">
+            <!-- Description -->
+            <div class="lg:col-span-2"  >
+                <div class="info-card">
+                    <h2 class="text-3xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-info-circle text-blue-600 mr-3"></i>
+                        Description de la villa
+                    </h2>
+                    <div class="prose prose-lg max-w-none text-gray-200 mb-8">
+                        <p><strong>Villa F3 sur Petit Macabou - Villa de prestige en Martinique.</strong></p>
+                        <p>Villa avec possibilité d'accueillir 9 invités supplémentaires en journée (9h-20h). Caution: 1500€. Check-in: 16h, Check-out: 11h (possibilité extension jusqu'à 16h selon disponibilité).</p>
+                        
+                        <div class="mt-8 p-6 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl border border-blue-400/30">
+                            <h3 class="text-2xl font-bold mb-4 text-yellow-400">
+                                <i class="fas fa-euro-sign mr-2"></i>Tarification
+                            </h3>
+                            <div class="text-gray-200 whitespace-pre-line">Grandes Vacances: 1550€/semaine, Weekend: 850€ (2 nuits), Noël/Nouvel An: 1690€/semaine</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="./reservation.html?villa=villa-villa-f3-sur-petit-macabou" class="btn-primary">
+                            <i class="fas fa-calendar-check"></i>
+                            Réserver maintenant
+                        </a>
+                        <a href="./index.html" class="btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Voir toutes les villas
+                        </a>
+                        <button class="btn-secondary" onclick="window.print()">
+                            <i class="fas fa-print"></i>
+                            Imprimer
+                        </button>
+                    </div>
+                    
+                    <!-- Social Share -->
+                    <div class="social-share">
+                        <a href="#" class="social-btn facebook" title="Partager sur Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn instagram" title="Partager sur Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-btn whatsapp" title="Partager sur WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Amenities -->
+            <div  >
+                <div class="info-card">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-3"></i>
+                        Équipements principaux
+                    </h3>
+                    <div class="space-y-3 text-gray-200 whitespace-pre-line">
+                        Chambres climatisées, 1 salle de bain avec WC, WC indépendant, salon climatisé avec canapé-lit, sauna, jacuzzi, 2 douches extérieures
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location -->
+        <section class="mb-16"  >
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="info-card">
+                    <h2 class="text-3xl font-bold mb-6 flex items-center">
+                        <i class="fas fa-map-marker-alt text-red-600 mr-3"></i>
+                        Localisation
+                    </h2>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-lg mb-2">Adresse</h4>
+                        <p class="text-gray-400 mb-4">Petit Macabou, Vauclin, Martinique</p>
+                        
+                        <h4 class="font-semibold text-lg mb-2">Points d'intérêt à proximité</h4>
+                        <div class="space-y-2 text-gray-300">
+                            <div class="flex items-center"><i class="fas fa-umbrella-beach text-blue-500 mr-2"></i> Plages les plus proches - 2-5 km</div>
+                            <div class="flex items-center"><i class="fas fa-store text-green-500 mr-2"></i> Commerces et supermarchés - 1-3 km</div>
+                            <div class="flex items-center"><i class="fas fa-utensils text-orange-500 mr-2"></i> Restaurants locaux - 1-2 km</div>
+                            <div class="flex items-center"><i class="fas fa-gas-pump text-red-500 mr-2"></i> Stations service - 2-3 km</div>
+                        </div>
+                        
+                        <h4 class="font-semibold text-lg mt-6 mb-2">Temps de trajet</h4>
+                        <div class="space-y-2 text-gray-300">
+                            <div class="flex items-center"><i class="fas fa-plane text-blue-500 mr-2"></i> Aéroport Martinique - 30-50 min</div>
+                            <div class="flex items-center"><i class="fas fa-city text-gray-500 mr-2"></i> Fort-de-France - 35-60 min</div>
+                            <div class="flex items-center"><i class="fas fa-mountain text-green-500 mr-2"></i> Montagne Pelée - 1h-1h30</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3 class="text-2xl font-bold mb-6">Carte de localisation</h3>
+                    <div class="bg-gray-800 rounded-xl h-96 flex items-center justify-center">
+                        <div class="text-center text-gray-400">
+                            <i class="fas fa-map text-6xl mb-4"></i>
+                            <p class="text-lg font-semibold text-white">Villa F3 sur Petit Macabou</p>
+                            <p>Petit Macabou, Vauclin, Martinique</p>
+                            <p class="text-sm mt-2">Carte interactive disponible lors de la réservation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg opacity-0 transition-all duration-300 hover:bg-blue-700" style="display: none;">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Modal Gallery -->
+    <div id="modalGallery" class="modal-gallery">
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Villa Image">
+            <button class="absolute top-4 right-4 text-white text-3xl bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center" onclick="prevImage()">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center" onclick="nextImage()">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // CORRECTION URGENTE - Affichage forcé
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("🔧 Correction affichage démarrée");
+            
+            // Forcer l'affichage de tous les éléments
+            const elementsToShow = [
+                'main', '.gallery-container', '.villa-gallery', 
+                '.info-card', '.swiper', '.swiper-wrapper', '.swiper-slide'
+            ];
+            
+            elementsToShow.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    el.style.display = 'block';
+                    el.style.visibility = 'visible';
+                    el.style.opacity = '1';
+                });
+            });
+            
+            // Initialiser Swiper avec configuration simple
+            setTimeout(() => {
+                if (typeof Swiper !== 'undefined') {
+                    new Swiper('.villa-gallery', {
+                        loop: true,
+                        autoplay: { delay: 5000 },
+                        pagination: { el: '.swiper-pagination', clickable: true },
+                        navigation: { 
+                            nextEl: '.swiper-button-next', 
+                            prevEl: '.swiper-button-prev' 
+                        }
+                    });
+                    console.log("✅ Swiper initialisé");
+                }
+            }, 500);
+            
+            // Video background simple
+            const video = document.getElementById('backgroundVideo');
+            if (video) {
+                video.play().catch(() => console.log("Video autoplay bloqué"));
+            }
+            
+            console.log("✅ Correction affichage terminée");
+        });</script>
+</body>
+</html>
