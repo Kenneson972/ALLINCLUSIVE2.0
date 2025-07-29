@@ -18,31 +18,31 @@ import asyncio
 import aiohttp
 from datetime import datetime
 
-# 🎯 LISTE COMPLÈTE DES 22 VILLAS À TESTER
+# 🎯 LISTE COMPLÈTE DES 22 VILLAS À TESTER (NOMS FICHIERS RÉELS)
 VILLAS_TO_TEST = [
-    # Villas résidentielles principales
-    ('villa-f3-petit-macabou', 'Villa F3 sur Petit Macabou'),
-    ('villa-f3-pour-la-baccha', 'Villa F3 POUR LA BACCHA'),
-    ('villa-f3-sur-le-francois', 'Villa F3 sur le François'),
-    ('villa-f5-sur-ste-anne', 'Villa F5 sur Ste Anne'),
-    ('villa-f6-au-lamentin', 'Villa F6 au Lamentin'),
-    ('villa-f6-sur-ste-luce-a-1mn-de-la-plage', 'Villa F6 sur Ste Luce à 1mn de la plage'),
-    ('villa-f7-baie-des-mulets', 'Villa F7 Baie des Mulets'),
-    ('villa-f3-bas-de-villa-trinite-cosmy', 'Villa F3 Bas de villa Trinité Cosmy'),
-    ('bas-de-f3-sur-le-robert', 'Bas de villa F3 sur le Robert'),  # Villa problématique originale
-    ('villa-f5-vauclin-ravine-plate', 'Villa F5 Vauclin Ravine Plate'),
-    ('villa-f5-la-renee', 'Villa F5 La Renée'),
-    ('bas-villa-f3-sur-ste-luce', 'Bas de villa F3 sur Ste Luce'),
-    ('studio-cocooning-lamentin', 'Studio Cocooning Lamentin'),
-    ('villa-f6-sur-petit-macabou', 'Villa F6 sur Petit Macabou (séjour + fête)'),
+    # Villas résidentielles principales (selon noms fichiers réels)
+    ('villa-villa-f3-sur-petit-macabou', 'Villa F3 sur Petit Macabou'),
+    ('villa-villa-f3-pour-la-baccha', 'Villa F3 POUR LA BACCHA'),
+    ('villa-villa-f3-sur-le-franois', 'Villa F3 sur le François'),
+    ('villa-villa-f5-sur-ste-anne', 'Villa F5 sur Ste Anne'),
+    ('villa-villa-f6-au-lamentin', 'Villa F6 au Lamentin'),
+    ('villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage', 'Villa F6 sur Ste Luce à 1mn de la plage'),
+    ('villa-villa-f7-baie-des-mulets', 'Villa F7 Baie des Mulets'),
+    ('villa-villa-f3-bas-de-villa-trinite-cosmy', 'Villa F3 Bas de villa Trinité Cosmy'),
+    ('villa-bas-de-villa-f3-sur-le-robert', 'Bas de villa F3 sur le Robert'),  # Villa problématique originale
+    ('villa-villa-f5-vauclin-ravine-plate', 'Villa F5 Vauclin Ravine Plate'),
+    ('villa-villa-f5-la-renee', 'Villa F5 La Renée'),
+    ('villa-bas-de-villa-f3-sur-ste-luce', 'Bas de villa F3 sur Ste Luce'),
+    ('villa-studio-cocooning-lamentin', 'Studio Cocooning Lamentin'),
+    ('villa-villa-f6-sur-petit-macabou-sejour--fte', 'Villa F6 sur Petit Macabou (séjour + fête)'),
     ('villa-appartement-f3-trenelle-location-annuelle', 'Appartement F3 Trenelle (Location Annuelle)'),
     
-    # Villas fête/journée (nouvellement ajoutées)
-    ('villa-fte-journee-ducos', 'Villa Fête Journée Ducos'),
-    ('villa-fte-journee-fort-de-france', 'Villa Fête Journée Fort de France'),
-    ('villa-fte-journee-riviere-pilote', 'Villa Fête Journée Rivière-Pilote'),
-    ('villa-fte-journee-riviere-salee', 'Villa Fête Journée Rivière Salée'),
-    ('villa-fte-journee-sainte-luce', 'Villa Fête Journée Sainte-Luce'),
+    # Villas fête/journée (selon noms fichiers réels)
+    ('villa-villa-fte-journee-ducos', 'Villa Fête Journée Ducos'),
+    ('villa-villa-fte-journee-fort-de-france', 'Villa Fête Journée Fort de France'),
+    ('villa-villa-fte-journee-riviere-pilote', 'Villa Fête Journée Rivière-Pilote'),
+    ('villa-villa-fte-journee-riviere-salee', 'Villa Fête Journée Rivière Salée'),
+    ('villa-villa-fte-journee-sainte-luce', 'Villa Fête Journée Sainte-Luce'),
     ('villa-espace-piscine-journee-bungalow', 'Espace Piscine Journée Bungalow'),
 ]
 
