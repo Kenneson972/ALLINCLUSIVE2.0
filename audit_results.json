@@ -1,0 +1,315 @@
+{
+  "villa_audits": {
+    "villa-villa-f7-baie-des-mulets.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f7-baie-des-mulets"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.6,
+      "script_count": 4,
+      "image_count": 12
+    },
+    "villa-villa-fte-journee-ducos.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-fte-journee-ducos"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 34.0,
+      "script_count": 4,
+      "image_count": 16
+    },
+    "villa-villa-f3-bas-de-villa-trinite-cosmy.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f3-bas-de-villa-trinite-cosmy"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 34.9,
+      "script_count": 4,
+      "image_count": 18
+    },
+    "villa-villa-f3-pour-la-baccha.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f3-pour-la-baccha"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.3,
+      "script_count": 4,
+      "image_count": 14
+    },
+    "villa-villa-fte-journee-sainte-luce.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-fte-journee-sainte-luce"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.5,
+      "script_count": 4,
+      "image_count": 12
+    },
+    "villa-bas-de-villa-f3-sur-ste-luce.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-bas-de-villa-f3-sur-ste-luce"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 36.5,
+      "script_count": 4,
+      "image_count": 30
+    },
+    "villa-villa-fte-journee-riviere-pilote.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-fte-journee-riviere-pilote"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.8,
+      "script_count": 4,
+      "image_count": 14
+    },
+    "villa-studio-cocooning-lamentin.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-studio-cocooning-lamentin"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 34.3,
+      "script_count": 4,
+      "image_count": 18
+    },
+    "villa-villa-f5-la-renee.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f5-la-renee"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 32.5,
+      "script_count": 4,
+      "image_count": 8
+    },
+    "villa-villa-fte-journee-riviere-salee.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-fte-journee-riviere-salee"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 31.5,
+      "script_count": 4,
+      "image_count": 2
+    },
+    "villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.1,
+      "script_count": 4,
+      "image_count": 10
+    },
+    "villa-espace-piscine-journee-bungalow.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-espace-piscine-journee-bungalow"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 31.8,
+      "script_count": 4,
+      "image_count": 4
+    },
+    "villa-villa-f6-sur-petit-macabou-sejour--fte.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f6-sur-petit-macabou-sejour--fte"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 35.1,
+      "script_count": 4,
+      "image_count": 20
+    },
+    "villa-villa-f3-sur-le-franois.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f3-sur-le-franois"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 34.0,
+      "script_count": 4,
+      "image_count": 16
+    },
+    "villa-villa-f6-au-lamentin.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f6-au-lamentin"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 31.2,
+      "script_count": 4,
+      "image_count": 2
+    },
+    "villa-villa-f5-vauclin-ravine-plate.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f5-vauclin-ravine-plate"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 35.3,
+      "script_count": 4,
+      "image_count": 20
+    },
+    "villa-villa-fte-journee-fort-de-france.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-fte-journee-fort-de-france"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.6,
+      "script_count": 4,
+      "image_count": 14
+    },
+    "villa-bas-de-villa-f3-sur-le-robert.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-bas-de-villa-f3-sur-le-robert"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.5,
+      "script_count": 4,
+      "image_count": 12
+    },
+    "villa-villa-f3-sur-petit-macabou.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f3-sur-petit-macabou"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 34.1,
+      "script_count": 4,
+      "image_count": 16
+    },
+    "villa-appartement-f3-trenelle-location-annuelle.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-appartement-f3-trenelle-location-annuelle"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 33.9,
+      "script_count": 4,
+      "image_count": 14
+    },
+    "villa-villa-f5-sur-ste-anne.html": {
+      "errors": [
+        "Accolades CSS non équilibrées",
+        "Lien cassé: ./reservation.html?villa=villa-villa-f5-sur-ste-anne"
+      ],
+      "warnings": [
+        "Console.log présents (debug)",
+        "Variables 'undefined' potentielles"
+      ],
+      "file_size_kb": 34.2,
+      "script_count": 4,
+      "image_count": 18
+    }
+  },
+  "redundant_files": [
+    "/app/test-api.html",
+    "/app/test-villa.html",
+    "/app/test-villa-debug.html",
+    "/app/json-server.log",
+    "/app/server.log",
+    "/app/villa_data_correction_test.py",
+    "/app/category_correction_test.py",
+    "/app/nettoyage_ultra_radical.py",
+    "/app/audit_et_correction_complete.py",
+    "/app/nettoyage_radical_final.py",
+    "/app/nettoyage_prix_parasites.py",
+    "/app/correction_complete_finale.py",
+    "/app/nettoyage_final_sections.py",
+    "/app/advanced_fix_duplicates.py",
+    "/app/fix_duplicate_info_tarifs.py",
+    "/app/fix_category.py",
+    "/app/correction_villa_data.py",
+    "/app/nettoyage_complet_base.py",
+    "/app/fix_guests_detail.py",
+    "/app/phase1_correction_fixe.py",
+    "/app/phase1_correction_fixe.py",
+    "/app/phase1_correction_base.py",
+    "/app/correction_complete_csv.py",
+    "/app/correction_integration_csv.py",
+    "/app/RAPPORT_CORRECTION_FINAL.md",
+    "/app/RAPPORT_CORRECTIONS_FINAL.md",
+    "/app/RAPPORT_FINAL_VRAI.md",
+    "/app/RAPPORT_REFONTE_COMPLETE.md",
+    "/app/RAPPORT_INTEGRATION_FINAL.md",
+    "/app/RAPPORT_SYNCHRONISATION_INDEX.md"
+  ],
+  "inconsistencies": [],
+  "summary": {
+    "total_errors": 42,
+    "total_warnings": 42,
+    "files_audited": 21
+  }
+}
