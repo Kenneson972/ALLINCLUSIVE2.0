@@ -85,7 +85,7 @@ class DesignClasseVillasComplet:
                 images = glob.glob(f'{chemin_complet}/*.jpg')
                 mapping[nom_villa] = {
                     'dossier': dossier,
-                    'images': [img.replace('/app', '') for img in images]  # URLs relatives
+                    'images': [img.replace('/app', '') for img in images]  # URLs relatives depuis la racine
                 }
                 print(f"✅ {nom_villa}: {len(images)} images trouvées")
             else:
