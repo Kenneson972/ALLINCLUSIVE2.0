@@ -753,11 +753,54 @@ class ReservationEnhanced {
     }
 }
 
-// INITIALISATION
+// INITIALISATION AVEC GESTION D'ERREUR AMÉLIORÉE
 document.addEventListener('DOMContentLoaded', function() {
-    new ReservationEnhanced();
-    console.log('✨ Reservation Enhanced initialisé');
+    try {
+        new ReservationEnhanced();
+        console.log('✨ Reservation Enhanced initialisé avec succès');
+    } catch (error) {
+        console.error('❌ Erreur initialisation:', error);
+        // Fallback gracieux
+        const urlParams = new URLSearchParams(window.location.search);
+        const villaId = urlParams.get('villa');
+        if (villaId && villaData && villaData[villaId]) {
+            console.log('🔄 Fallback: Villa trouvée -', villaData[villaId].nom);
+        }
+    }
 });
+
+// 🛠️ FONCTIONS UTILITAIRES GLOBALES
+window.handleReservationError = function(error) {
+    console.error('Erreur de réservation:', error);
+    
+    // Afficher un message utilisateur convivial
+    const errorContainer = document.querySelector('.error-container');
+    if (errorContainer) {
+        errorContainer.innerHTML = `
+            <div class="glass-card bg-red-500/20 border-red-400/30 p-4 rounded-xl">
+                <i class="fas fa-exclamation-triangle text-red-400 mr-2"></i>
+                Un problème est survenu. Veuillez réessayer ou nous contacter.
+            </div>
+        `;
+    }
+};
+
+// 🔧 FONCTION DE DIAGNOSTIC (aide au debugging)
+window.diagnosticReservation = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const villaId = urlParams.get('villa');
+    
+    console.log('🔍 DIAGNOSTIC RÉSERVATION');
+    console.log('Villa ID URL:', villaId);
+    console.log('Villa trouvée:', villaData[villaId] ? '✅' : '❌');
+    console.log('VillaData disponible:', Object.keys(villaData).length, 'villas');
+    
+    if (villaData[villaId]) {
+        console.log('Données villa:', villaData[villaId]);
+    } else {
+        console.log('Villas disponibles:', Object.keys(villaData));
+    }
+};
 
 // EXPORT POUR UTILISATION EXTERNE
 window.ReservationEnhanced = ReservationEnhanced;
