@@ -71,3 +71,37 @@ drwxr-xr-x 6 root root  4096 Jul 29 00:51 ..
 
 ### Vidéos Background:
 
+## DOCUMENTATION DES FICHIERS CRITIQUES SAUVEGARDÉS
+Date sauvegarde: Tue Jul 29 00:59:50 UTC 2025
+
+### CSS Glassmorphism sauvegardés:
+total 44
+drwxr-xr-x 2 root root  4096 Jul 29 00:59 .
+drwxr-xr-x 5 root root  4096 Jul 29 00:59 ..
+-rw-r--r-- 1 root root  9182 Jul 29 00:59 glassmorphism.css
+-rw-r--r-- 1 root root   783 Jul 29 00:59 main.css
+-rw-r--r-- 1 root root 18625 Jul 29 00:59 villa-enhanced.css
+
+### JavaScript Glassmorphism sauvegardés:
+total 56
+drwxr-xr-x 2 root root  4096 Jul 29 00:59 .
+drwxr-xr-x 5 root root  4096 Jul 29 00:59 ..
+-rw-r--r-- 1 root root 11395 Jul 29 00:59 glassmorphism.js
+-rw-r--r-- 1 root root 15027 Jul 29 00:59 reservation-enhanced.js
+-rw-r--r-- 1 root root   973 Jul 29 00:59 utils.js
+-rw-r--r-- 1 root root 16316 Jul 29 00:59 villa-gallery.js
+
+### Pages critiques sauvegardées:
+total 344
+drwxr-xr-x 2 root root   4096 Jul 29 00:59 .
+drwxr-xr-x 4 root root   4096 Jul 29 00:59 ..
+-rw-r--r-- 1 root root 183327 Jul 29 00:59 index.html
+-rw-r--r-- 1 root root  70016 Jul 29 00:59 reservation.html
+-rw-r--r-- 1 root root  27332 Jul 29 00:59 villa-bas-de-villa-f3-sur-ste-luce.html
+-rw-r--r-- 1 root root  24814 Jul 29 00:59 villa-villa-f3-sur-petit-macabou.html
+-rw-r--r-- 1 root root  24849 Jul 29 00:59 villa-villa-f5-sur-ste-anne.html
+
+### Informations sur les vidéos background:
+Les vidéos background sont hébergées sur Cloudinary CDN:
+URL: https://res.cloudinary.com/dld9eojbt/video/upload/q_auto,f_mp4/v1716830959/villa-background-video_hqhq2s.mp4
+
