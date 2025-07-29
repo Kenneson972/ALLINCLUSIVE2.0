@@ -1,0 +1,120 @@
+{
+  "timestamp": "2025-07-29T02:16:46.266974",
+  "success": true,
+  "passed_tests": 16,
+  "failed_tests": 0,
+  "test_results": [
+    {
+      "test": "API Health Check",
+      "passed": true,
+      "message": "API accessible, status: healthy",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.091022"
+    },
+    {
+      "test": "Admin Authentication",
+      "passed": true,
+      "message": "Admin login successful, token obtained",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.120213"
+    },
+    {
+      "test": "Villa API Endpoints - Count",
+      "passed": true,
+      "message": "Found 21 villas (expected 21+)",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.146898"
+    },
+    {
+      "test": "Villa API Endpoints - Data Structure",
+      "passed": true,
+      "message": "All required fields present in villa data",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.146922"
+    },
+    {
+      "test": "CSV Data Integration - Flags",
+      "passed": true,
+      "message": "21/21 villas have csv_integrated flag",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.147216"
+    },
+    {
+      "test": "CSV Data Integration - Pricing Details",
+      "passed": true,
+      "message": "21/21 villas have pricing_details",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.147231"
+    },
+    {
+      "test": "Admin Villa Management",
+      "passed": true,
+      "message": "Admin endpoint returns 21 villas with proper structure",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.167021"
+    },
+    {
+      "test": "Villa Search - Destination",
+      "passed": true,
+      "message": "Destination search working: found 3 villas in Vauclin",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.188547"
+    },
+    {
+      "test": "Villa Search - Guests",
+      "passed": true,
+      "message": "Guest search working: found 20 villas for 6+ guests",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.214004"
+    },
+    {
+      "test": "Villa Search - Category",
+      "passed": true,
+      "message": "Category search working: found 15 'sejour' villas",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.239162"
+    },
+    {
+      "test": "Villa Detail - F3",
+      "passed": true,
+      "message": "Found with correct price: €850.0",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.239456"
+    },
+    {
+      "test": "Villa Detail - F5",
+      "passed": true,
+      "message": "Found with correct price: €1350.0",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.239472"
+    },
+    {
+      "test": "Villa Detail - F6",
+      "passed": true,
+      "message": "Found with correct price: €2000.0",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.239515"
+    },
+    {
+      "test": "Villa Detail - Espace Piscine",
+      "passed": true,
+      "message": "Found with correct price: €350.0",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.239536"
+    },
+    {
+      "test": "Villa Detail Consistency - Overall",
+      "passed": true,
+      "message": "Found 4/4 key villas, 4 with correct pricing",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.239543"
+    },
+    {
+      "test": "Database Integrity - Stats",
+      "passed": true,
+      "message": "Dashboard stats show 21 villas",
+      "details": null,
+      "timestamp": "2025-07-29T02:16:46.266464"
+    }
+  ]
+}
