@@ -191,10 +191,12 @@ class DesignClasseVillasComplet:
             
             return slides_html, thumbnails_html
         else:
-            # Images par défaut si pas d'images trouvées
+            # Images par défaut si pas d'images trouvées - AVEC CHEMINS ABSOLUS CORRECTS
             images_defaut = [
                 "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-                "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
             ]
             
             slides_html = ""
