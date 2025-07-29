@@ -1,0 +1,116 @@
+{
+  "summary": {
+    "total_tests": 15,
+    "passed_tests": 13,
+    "failed_tests": 2,
+    "success_rate": 86.66666666666667,
+    "timestamp": "2025-07-29T13:48:20.183012"
+  },
+  "test_results": [
+    {
+      "test": "Backend Server Connectivity",
+      "success": true,
+      "details": "Server responding on http://localhost:8001 with status 200",
+      "timestamp": "2025-07-29T13:48:19.981098",
+      "data": null
+    },
+    {
+      "test": "FastAPI Documentation Endpoint",
+      "success": true,
+      "details": "FastAPI docs accessible - server is running FastAPI",
+      "timestamp": "2025-07-29T13:48:19.983826",
+      "data": null
+    },
+    {
+      "test": "Reservation HTML File Serving",
+      "success": true,
+      "details": "reservation.html served correctly (69819 bytes)",
+      "timestamp": "2025-07-29T13:48:19.988196",
+      "data": null
+    },
+    {
+      "test": "Reservation HTML Content Validation",
+      "success": true,
+      "details": "All key reservation elements found in HTML",
+      "timestamp": "2025-07-29T13:48:19.990552",
+      "data": null
+    },
+    {
+      "test": "Reservation Enhanced JS File Serving",
+      "success": true,
+      "details": "reservation-enhanced.js served correctly (28940 bytes)",
+      "timestamp": "2025-07-29T13:48:20.032993",
+      "data": null
+    },
+    {
+      "test": "Reservation JS Content Validation",
+      "success": true,
+      "details": "All key JavaScript functions found",
+      "timestamp": "2025-07-29T13:48:20.033048",
+      "data": null
+    },
+    {
+      "test": "Villa Database in JS",
+      "success": true,
+      "details": "Villa database contains 15 villa entries",
+      "timestamp": "2025-07-29T13:48:20.033077",
+      "data": null
+    },
+    {
+      "test": "Villa API Endpoint",
+      "success": true,
+      "details": "Villa API returned 21 villas",
+      "timestamp": "2025-07-29T13:48:20.078108",
+      "data": null
+    },
+    {
+      "test": "Villa Data Structure",
+      "success": true,
+      "details": "All required villa fields present",
+      "timestamp": "2025-07-29T13:48:20.078160",
+      "data": null
+    },
+    {
+      "test": "Key Villa Availability",
+      "success": false,
+      "details": "Only found 1 key villas: ['villa-f5-sur-ste-anne']",
+      "timestamp": "2025-07-29T13:48:20.078211",
+      "data": null
+    },
+    {
+      "test": "Villa Search Functionality",
+      "success": true,
+      "details": "Villa search returned 3 results for Vauclin",
+      "timestamp": "2025-07-29T13:48:20.122922",
+      "data": null
+    },
+    {
+      "test": "Villa Image Serving",
+      "success": false,
+      "details": "Villa image returned status 404",
+      "timestamp": "2025-07-29T13:48:20.169342",
+      "data": null
+    },
+    {
+      "test": "API Health Endpoint",
+      "success": true,
+      "details": "API health check passed: {'status': 'healthy', 'timestamp': '2025-07-29T13:48:20.170838'}",
+      "timestamp": "2025-07-29T13:48:20.171509",
+      "data": null
+    },
+    {
+      "test": "Reservation Endpoint Validation",
+      "success": true,
+      "details": "Reservation endpoint exists and validates input (status 422)",
+      "timestamp": "2025-07-29T13:48:20.173726",
+      "data": null
+    },
+    {
+      "test": "Dashboard Stats Endpoint",
+      "success": true,
+      "details": "Dashboard stats available: {'total_villas': 21, 'total_reservations': 10, 'pending_reservations': 10, 'confirmed_reservations': 0, 'monthly_revenue': 24700.0, 'monthly_reservations': 10}",
+      "timestamp": "2025-07-29T13:48:20.182481",
+      "data": null
+    }
+  ]
+}
