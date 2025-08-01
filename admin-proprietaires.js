@@ -133,8 +133,12 @@ class AdminProprietaires {
         submitBtn.disabled = true;
 
         const code = document.getElementById('accessCode').value.trim().toUpperCase();
+        console.log('🔍 Tentative de connexion avec code:', code);
+        console.log('🔗 URL API:', this.API_BASE);
 
         try {
+            console.log('📡 Envoi requête vers:', `${this.API_BASE}/auth/validate-code`);
+            
             const response = await fetch(`${this.API_BASE}/auth/validate-code`, {
                 method: 'POST',
                 headers: {
@@ -143,21 +147,26 @@ class AdminProprietaires {
                 body: JSON.stringify({ code })
             });
 
+            console.log('📨 Réponse reçue, status:', response.status);
+            
             const data = await response.json();
+            console.log('📄 Données réponse:', data);
 
             if (response.ok) {
                 this.token = data.token;
                 this.currentVilla = data.villa;
                 localStorage.setItem('villa_token', this.token);
                 
+                console.log('✅ Connexion réussie, villa:', data.villa.name);
                 this.showNotification('Connexion réussie !', 'success');
                 this.showDashboard();
             } else {
+                console.log('❌ Erreur API:', data.message);
                 this.showNotification(data.message || 'Code invalide', 'error');
             }
         } catch (error) {
-            console.error('Erreur connexion:', error);
-            this.showNotification('Erreur de connexion. Vérifiez votre connection.', 'error');
+            console.error('💥 Erreur fetch:', error);
+            this.showNotification('Erreur de connexion. Vérifiez que le serveur backend est démarré sur le port 3002.', 'error');
         } finally {
             // Restaurer le bouton
             btnText.classList.remove('hidden');
