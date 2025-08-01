@@ -263,10 +263,82 @@ class DatabaseInitializer {
                     reject(err);
                 } else {
                     console.log('✅ Connexion SQLite établie pour initialisation');
-                    resolve();
+                    this.createTables().then(resolve).catch(reject);
                 }
             });
         });
+    }
+
+    async createTables() {
+        const queries = [
+            // Table des villas
+            `CREATE TABLE IF NOT EXISTS villas (
+                id TEXT PRIMARY KEY,
+                code TEXT UNIQUE NOT NULL,
+                name TEXT NOT NULL,
+                location TEXT NOT NULL,
+                capacity INTEGER,
+                bedrooms INTEGER,
+                bathrooms INTEGER,
+                surface INTEGER,
+                default_price REAL,
+                description TEXT,
+                image TEXT,
+                owner_email TEXT,
+                owner_password TEXT,
+                is_active BOOLEAN DEFAULT 1,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )`,
+            
+            // Table des codes d'accès  
+            `CREATE TABLE IF NOT EXISTS access_codes (
+                id TEXT PRIMARY KEY,
+                code TEXT UNIQUE NOT NULL,
+                villa_id TEXT NOT NULL,
+                expires_at DATETIME NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                used_at DATETIME,
+                is_active BOOLEAN DEFAULT 1,
+                FOREIGN KEY (villa_id) REFERENCES villas (id)
+            )`,
+            
+            // Table des disponibilités/calendrier
+            `CREATE TABLE IF NOT EXISTS availabilities (
+                id TEXT PRIMARY KEY,
+                villa_id TEXT NOT NULL,
+                start_date DATE NOT NULL,
+                end_date DATE NOT NULL,
+                type TEXT NOT NULL CHECK (type IN ('available', 'booked', 'blocked')),
+                price_per_night REAL,
+                reason TEXT,
+                notes TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (villa_id) REFERENCES villas (id)
+            )`,
+            
+            // Table des réservations (simulées)
+            `CREATE TABLE IF NOT EXISTS reservations (
+                id TEXT PRIMARY KEY,
+                villa_id TEXT NOT NULL,
+                client_name TEXT,
+                client_email TEXT,
+                client_phone TEXT,
+                checkin_date DATE NOT NULL,
+                checkout_date DATE NOT NULL,
+                total_amount REAL,
+                status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled')),
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (villa_id) REFERENCES villas (id)
+            )`
+        ];
+
+        for (const query of queries) {
+            await this.run(query);
+        }
+        
+        console.log('✅ Tables créées/vérifiées');
     }
 
     run(query, params = []) {
