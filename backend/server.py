@@ -28,6 +28,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
 from cryptography.fernet import Fernet
+import requests  # Pour le proxy admin
 
 load_dotenv()
 
