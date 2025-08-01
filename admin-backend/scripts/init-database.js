@@ -1,0 +1,526 @@
+/**
+ * SCRIPT D'INITIALISATION BASE DE DONNÉES
+ * =====================================
+ * 
+ * Initialise la base SQLite avec les 22 villas du CSV
+ * Génère des codes d'accès uniques pour chaque villa
+ */
+
+const sqlite3 = require('sqlite3').verbose();
+const bcrypt = require('bcryptjs');
+const path = require('path');
+const fs = require('fs').promises;
+const { v4: uuidv4 } = require('uuid');
+
+const DB_PATH = path.join(__dirname, '../admin_proprietaires.db');
+const CSV_PATH = path.join(__dirname, '../../Catalogue_Villas_Khanel_Concept_Complet_Final.csv');
+
+// Données des 22 villas depuis le CSV
+const VILLAS_DATA = [
+    {
+        name: 'Villa F3 sur Petit Macabou',
+        location: 'Petit Macabou, Vauclin',
+        capacity: 6,
+        bedrooms: 3,
+        bathrooms: 2,
+        surface: 140,
+        default_price: 1550,
+        description: 'Villa F3 moderne au Petit Macabou avec possibilité journée',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg'
+    },
+    {
+        name: 'Villa F3 POUR LA BACCHA',
+        location: 'Petit Macabou',
+        capacity: 6,
+        bedrooms: 2,
+        bathrooms: 1,
+        surface: 120,
+        default_price: 750,
+        description: 'Villa F3 à la Baccha avec invités journée',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg'
+    },
+    {
+        name: 'Villa F3 sur le François',
+        location: 'Hauteurs du Morne Carrière au François',
+        capacity: 4,
+        bedrooms: 2,
+        bathrooms: 1,
+        surface: 110,
+        default_price: 800,
+        description: 'Villa F3 panoramique au François',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/01_terrasse_panoramique_vue_mer.jpg'
+    },
+    {
+        name: 'Villa F5 sur Ste Anne',
+        location: 'Quartier les Anglais, Ste Anne',
+        capacity: 10,
+        bedrooms: 4,
+        bathrooms: 4,
+        surface: 200,
+        default_price: 1350,
+        description: 'Villa F5 spacieuse à Ste Anne avec invités journée',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg'
+    },
+    {
+        name: 'Villa F6 au Lamentin',
+        location: 'Quartier Béleme, Lamentin',
+        capacity: 12,
+        bedrooms: 5,
+        bathrooms: 4,
+        surface: 250,
+        default_price: 1200,
+        description: 'Villa F6 avec piscine et jacuzzi au Lamentin',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg'
+    },
+    {
+        name: 'Villa F6 sur Ste Luce à 1mn de la plage',
+        location: 'Zac de Pont Café, Ste Luce',
+        capacity: 14,
+        bedrooms: 5,
+        bathrooms: 5,
+        surface: 280,
+        default_price: 1800,
+        description: 'Villa F6 complexe près de la plage Corps de garde',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg'
+    },
+    {
+        name: 'Villa F7 Baie des Mulets',
+        location: 'Baie des Mulets, Vauclin',
+        capacity: 16,
+        bedrooms: 7,
+        bathrooms: 6,
+        surface: 350,
+        default_price: 2200,
+        description: 'Villa F7 exceptionnelle (F5+F3) à Baie des Mulets',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F7_Baie_des_Mulets_Vauclin/01_chambre_climatisee.jpg'
+    },
+    {
+        name: 'Villa F3 Bas de villa Trinité Cosmy',
+        location: 'Cosmy, Trinité',
+        capacity: 5,
+        bedrooms: 2,
+        bathrooms: 1,
+        surface: 100,
+        default_price: 500,
+        description: 'Bas de villa charmant avec piscine chauffée',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trinite_Cosmy/01_piscine_chauffee_vue_collines.jpg'
+    },
+    {
+        name: 'Bas de villa F3 sur le Robert',
+        location: 'Pointe Hyacinthe, Le Robert',
+        capacity: 10,
+        bedrooms: 2,
+        bathrooms: 1,
+        surface: 120,
+        default_price: 900,
+        description: 'Villa moderne avec terrasses panoramiques au Robert',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg'
+    },
+    {
+        name: 'Villa F5 Vauclin Ravine Plate',
+        location: 'Hauteurs de Ravine Plate, Vauclin',
+        capacity: 8,
+        bedrooms: 4,
+        bathrooms: 4,
+        surface: 180,
+        default_price: 1550,
+        description: 'Villa F5 avec piscine à débordement panoramique',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_debordement_vue_panoramique.jpg'
+    },
+    {
+        name: 'Villa F5 La Renée',
+        location: 'Quartier La Renée, Rivière-Pilote',
+        capacity: 10,
+        bedrooms: 4,
+        bathrooms: 2,
+        surface: 170,
+        default_price: 900,
+        description: 'Villa F5 avec jacuzzi et grande terrasse',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F5_R_Pilote_La_Renee/01_terrasse_bois_piscine_palmiers.jpg'
+    },
+    {
+        name: 'Bas de villa F3 sur Ste Luce',
+        location: 'Sainte-Luce',
+        capacity: 6,
+        bedrooms: 2,
+        bathrooms: 1,
+        surface: 90,
+        default_price: 570,
+        description: 'Bas de villa cosy à Sainte-Luce',
+        image: '/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/01_eclairage_led_terrasse_lounge.jpg'
+    },
+    {
+        name: 'Studio Cocooning Lamentin',
+        location: 'Hauteurs de Morne Pitault, Lamentin',
+        capacity: 2,
+        bedrooms: 1,
+        bathrooms: 1,
+        surface: 45,
+        default_price: 290,
+        description: 'Studio cocooning avec bac à punch privé',
+        image: '/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/01_jacuzzi_terrasse_privee.jpg'
+    },
+    {
+        name: 'Villa F6 sur Petit Macabou (séjour + fête)',
+        location: 'Petit Macabou au Vauclin',
+        capacity: 13,
+        bedrooms: 6,
+        bathrooms: 6,
+        surface: 320,
+        default_price: 2000,
+        description: 'Villa F6 somptueuse avec possibilité événements',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg'
+    },
+    {
+        name: 'Appartement F3 Trenelle (Location Annuelle)',
+        location: 'Trenelle, à 2 minutes du PPM',
+        capacity: 2,
+        bedrooms: 2,
+        bathrooms: 1,
+        surface: 80,
+        default_price: 700,
+        description: 'Appartement F3 meublé pour location annuelle',
+        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
+    },
+    {
+        name: 'Villa Fête Journée Ducos',
+        location: 'Ducos',
+        capacity: 30,
+        bedrooms: 0,
+        bathrooms: 1,
+        surface: 200,
+        default_price: 375,
+        description: 'Villa location à la journée avec piscine et espace extérieur',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Ducos/01_piscine_espace_exterieur.jpg'
+    },
+    {
+        name: 'Villa Fête Journée Fort de France',
+        location: 'Fort de France',
+        capacity: 80,
+        bedrooms: 0,
+        bathrooms: 2,
+        surface: 300,
+        default_price: 100,
+        description: 'Villa événementielle disponible de 6h à minuit',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Fort_de_France/01_espace_reception.jpg'
+    },
+    {
+        name: 'Villa Fête Journée Rivière-Pilote',
+        location: 'Rivière-Pilote',
+        capacity: 100,
+        bedrooms: 1,
+        bathrooms: 2,
+        surface: 250,
+        default_price: 660,
+        description: 'Villa avec piscine chauffée et cuisine extérieure équipée',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_R_Pilote/01_piscine_chauffee_cuisine_ext.jpg'
+    },
+    {
+        name: 'Villa Fête Journée Rivière Salée',
+        location: 'Quartier La Laugier, Rivière Salée',
+        capacity: 100,
+        bedrooms: 0,
+        bathrooms: 1,
+        surface: 200,
+        default_price: 400,
+        description: 'Villa journée avec 5 tables rectangulaires et chaises',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Riviere_Salee/01_espace_tables_reception.jpg'
+    },
+    {
+        name: 'Villa Fête Journée Sainte-Luce',
+        location: 'Sainte-Luce, près de la Forêt Montravail',
+        capacity: 40,
+        bedrooms: 0,
+        bathrooms: 1,
+        surface: 150,
+        default_price: 390,
+        description: 'Villa journée avec 3 tentes, 3 salons extérieurs et système son JBL',
+        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Sainte_Luce/01_tentes_salons_ext.jpg'
+    },
+    {
+        name: 'Espace Piscine Journée Bungalow',
+        location: 'Martinique',
+        capacity: 150,
+        bedrooms: 1,
+        bathrooms: 1,
+        surface: 100,
+        default_price: 350,
+        description: 'Espace piscine journée avec bungalow climatisé',
+        image: '/ALLINCLUSIVE2.0/images/Espace_Piscine_Journee_Bungalow/01_piscine_bungalow.jpg'
+    }
+];
+
+class DatabaseInitializer {
+    constructor() {
+        this.db = null;
+    }
+
+    async init() {
+        return new Promise((resolve, reject) => {
+            this.db = new sqlite3.Database(DB_PATH, (err) => {
+                if (err) {
+                    console.error('Erreur connexion SQLite:', err);
+                    reject(err);
+                } else {
+                    console.log('✅ Connexion SQLite établie pour initialisation');
+                    resolve();
+                }
+            });
+        });
+    }
+
+    run(query, params = []) {
+        return new Promise((resolve, reject) => {
+            this.db.run(query, params, function(err) {
+                if (err) reject(err);
+                else resolve({ id: this.lastID, changes: this.changes });
+            });
+        });
+    }
+
+    get(query, params = []) {
+        return new Promise((resolve, reject) => {
+            this.db.get(query, params, (err, row) => {
+                if (err) reject(err);
+                else resolve(row);
+            });
+        });
+    }
+
+    generateVillaCode(villaName) {
+        // Génération intelligente de codes basés sur le nom
+        const words = villaName.split(' ').filter(word => word.length > 2);
+        let code = '';
+        
+        // Prendre les initiales des mots principaux
+        words.slice(0, 2).forEach(word => {
+            code += word.substring(0, 2).toUpperCase();
+        });
+        
+        // Ajouter chiffres pour compléter
+        while (code.length < 6) {
+            code += Math.floor(Math.random() * 10);
+        }
+        
+        return code.substring(0, 6).replace(/[^A-Z0-9]/g, '');
+    }
+
+    async insertVillas() {
+        console.log('📝 Insertion des villas...');
+        
+        for (let i = 0; i < VILLAS_DATA.length; i++) {
+            const villa = VILLAS_DATA[i];
+            const villaId = uuidv4();
+            const villaCode = this.generateVillaCode(villa.name);
+            
+            // Vérifier unicité du code
+            let finalCode = villaCode;
+            let attempts = 0;
+            while (attempts < 10) {
+                const existing = await this.get('SELECT id FROM villas WHERE code = ?', [finalCode]);
+                if (!existing) break;
+                
+                finalCode = villaCode.substring(0, 4) + String(Math.floor(Math.random() * 100)).padStart(2, '0');
+                attempts++;
+            }
+            
+            // Insérer villa
+            await this.run(`
+                INSERT INTO villas (
+                    id, code, name, location, capacity, bedrooms, bathrooms, 
+                    surface, default_price, description, image, is_active
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+            `, [
+                villaId, finalCode, villa.name, villa.location, villa.capacity,
+                villa.bedrooms, villa.bathrooms, villa.surface, villa.default_price,
+                villa.description, villa.image
+            ]);
+            
+            // Créer code d'accès (valide 1 an)
+            const accessCodeId = uuidv4();
+            const expiresAt = new Date();
+            expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+            
+            await this.run(`
+                INSERT INTO access_codes (id, code, villa_id, expires_at, is_active)
+                VALUES (?, ?, ?, ?, 1)
+            `, [accessCodeId, finalCode, villaId, expiresAt.toISOString()]);
+            
+            console.log(`✅ Villa "${villa.name}" ajoutée avec code: ${finalCode}`);
+        }
+    }
+
+    async insertSampleReservations() {
+        console.log('📝 Insertion de réservations d\'exemple...');
+        
+        // Récupérer quelques villas
+        const villas = await this.db ? 
+            new Promise((resolve, reject) => {
+                this.db.all('SELECT id, name FROM villas LIMIT 5', [], (err, rows) => {
+                    if (err) reject(err);
+                    else resolve(rows);
+                });
+            }) : [];
+        
+        const sampleReservations = [
+            {
+                client_name: 'Marie Dubois',
+                client_email: 'marie.dubois@email.com',
+                checkin_date: '2024-08-15',
+                checkout_date: '2024-08-22',
+                total_amount: 1500,
+                status: 'confirmed'
+            },
+            {
+                client_name: 'Pierre Martin',
+                client_email: 'pierre.martin@email.com',
+                checkin_date: '2024-09-01',
+                checkout_date: '2024-09-08',
+                total_amount: 2800,
+                status: 'pending'
+            },
+            {
+                client_name: 'Sophie Laurent',
+                client_email: 'sophie.laurent@email.com',
+                checkin_date: '2024-07-20',
+                checkout_date: '2024-07-27',
+                total_amount: 1200,
+                status: 'confirmed'
+            }
+        ];
+        
+        for (const villa of villas.slice(0, 3)) {
+            const reservation = sampleReservations[villas.indexOf(villa)];
+            if (reservation) {
+                await this.run(`
+                    INSERT INTO reservations (
+                        id, villa_id, client_name, client_email, 
+                        checkin_date, checkout_date, total_amount, status
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                `, [
+                    uuidv4(), villa.id, reservation.client_name, reservation.client_email,
+                    reservation.checkin_date, reservation.checkout_date, 
+                    reservation.total_amount, reservation.status
+                ]);
+                
+                console.log(`✅ Réservation ajoutée pour ${villa.name}`);
+            }
+        }
+    }
+
+    async insertSampleAvailabilities() {
+        console.log('📝 Insertion de disponibilités d\'exemple...');
+        
+        // Récupérer toutes les villas
+        const villas = await this.db ? 
+            new Promise((resolve, reject) => {
+                this.db.all('SELECT id, name, default_price FROM villas', [], (err, rows) => {
+                    if (err) reject(err);
+                    else resolve(rows);
+                });
+            }) : [];
+        
+        for (const villa of villas.slice(0, 5)) {
+            // Ajouter quelques disponibilités futures
+            const availabilities = [
+                {
+                    start_date: '2024-08-01',
+                    end_date: '2024-08-07',
+                    type: 'available',
+                    price_per_night: villa.default_price
+                },
+                {
+                    start_date: '2024-08-15',
+                    end_date: '2024-08-22',
+                    type: 'booked',
+                    price_per_night: villa.default_price
+                },
+                {
+                    start_date: '2024-09-01',
+                    end_date: '2024-09-03',
+                    type: 'blocked',
+                    reason: 'maintenance',
+                    notes: 'Maintenance piscine'
+                }
+            ];
+            
+            for (const avail of availabilities) {
+                await this.run(`
+                    INSERT INTO availabilities (
+                        id, villa_id, start_date, end_date, type, 
+                        price_per_night, reason, notes
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                `, [
+                    uuidv4(), villa.id, avail.start_date, avail.end_date,
+                    avail.type, avail.price_per_night, avail.reason, avail.notes
+                ]);
+            }
+            
+            console.log(`✅ Disponibilités ajoutées pour ${villa.name}`);
+        }
+    }
+
+    async close() {
+        if (this.db) {
+            this.db.close();
+        }
+    }
+}
+
+async function main() {
+    console.log('🚀 ==========================================');
+    console.log('🏠 INITIALISATION BASE DE DONNÉES ADMIN');
+    console.log('🚀 ==========================================');
+    
+    const initializer = new DatabaseInitializer();
+    
+    try {
+        await initializer.init();
+        
+        console.log('📝 Insertion des données...');
+        await initializer.insertVillas();
+        await initializer.insertSampleReservations();
+        await initializer.insertSampleAvailabilities();
+        
+        console.log('🎉 ==========================================');
+        console.log('✅ INITIALISATION TERMINÉE AVEC SUCCÈS !');
+        console.log('🎉 ==========================================');
+        console.log('📊 Statistiques:');
+        console.log(`   • ${VILLAS_DATA.length} villas ajoutées`);
+        console.log(`   • ${VILLAS_DATA.length} codes d'accès générés`);
+        console.log('   • 3 réservations d\'exemple');
+        console.log('   • 15 disponibilités d\'exemple');
+        console.log('');
+        console.log('🔑 CODES D\'ACCÈS GÉNÉRÉS:');
+        
+        // Afficher tous les codes générés
+        const villas = await new Promise((resolve, reject) => {
+            initializer.db.all(`
+                SELECT v.name, ac.code 
+                FROM villas v 
+                JOIN access_codes ac ON v.id = ac.villa_id 
+                ORDER BY v.name
+            `, [], (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows);
+            });
+        });
+        
+        villas.forEach(villa => {
+            console.log(`   • ${villa.name}: ${villa.code}`);
+        });
+        
+        console.log('');
+        console.log('🚀 Vous pouvez maintenant démarrer le serveur avec:');
+        console.log('   cd admin-backend && npm start');
+        
+    } catch (error) {
+        console.error('❌ Erreur lors de l\'initialisation:', error);
+        process.exit(1);
+    } finally {
+        await initializer.close();
+    }
+}
+
+// Démarrer l'initialisation
+main();
