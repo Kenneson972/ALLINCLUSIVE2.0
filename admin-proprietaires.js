@@ -8,7 +8,7 @@
 
 class AdminProprietaires {
     constructor() {
-        this.API_BASE = 'http://localhost:3001/api';
+        this.API_BASE = 'http://localhost:3002/api';
         this.currentVilla = null;
         this.calendar = null;
         this.token = localStorage.getItem('villa_token');
