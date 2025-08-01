@@ -426,13 +426,17 @@ class DatabaseInitializer {
         console.log('📝 Insertion de réservations d\'exemple...');
         
         // Récupérer quelques villas
-        const villas = await this.db ? 
-            new Promise((resolve, reject) => {
-                this.db.all('SELECT id, name FROM villas LIMIT 5', [], (err, rows) => {
-                    if (err) reject(err);
-                    else resolve(rows);
-                });
-            }) : [];
+        const villas = await new Promise((resolve, reject) => {
+            this.db.all('SELECT id, name FROM villas LIMIT 5', [], (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows || []);
+            });
+        });
+        
+        if (!villas || villas.length === 0) {
+            console.log('⚠️ Aucune villa trouvée pour les réservations');
+            return;
+        }
         
         const sampleReservations = [
             {
@@ -461,22 +465,22 @@ class DatabaseInitializer {
             }
         ];
         
-        for (const villa of villas.slice(0, 3)) {
-            const reservation = sampleReservations[villas.indexOf(villa)];
-            if (reservation) {
-                await this.run(`
-                    INSERT INTO reservations (
-                        id, villa_id, client_name, client_email, 
-                        checkin_date, checkout_date, total_amount, status
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                `, [
-                    uuidv4(), villa.id, reservation.client_name, reservation.client_email,
-                    reservation.checkin_date, reservation.checkout_date, 
-                    reservation.total_amount, reservation.status
-                ]);
-                
-                console.log(`✅ Réservation ajoutée pour ${villa.name}`);
-            }
+        for (let i = 0; i < Math.min(villas.length, 3); i++) {
+            const villa = villas[i];
+            const reservation = sampleReservations[i];
+            
+            await this.run(`
+                INSERT INTO reservations (
+                    id, villa_id, client_name, client_email, 
+                    checkin_date, checkout_date, total_amount, status
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            `, [
+                uuidv4(), villa.id, reservation.client_name, reservation.client_email,
+                reservation.checkin_date, reservation.checkout_date, 
+                reservation.total_amount, reservation.status
+            ]);
+            
+            console.log(`✅ Réservation ajoutée pour ${villa.name}`);
         }
     }
 
@@ -484,15 +488,21 @@ class DatabaseInitializer {
         console.log('📝 Insertion de disponibilités d\'exemple...');
         
         // Récupérer toutes les villas
-        const villas = await this.db ? 
-            new Promise((resolve, reject) => {
-                this.db.all('SELECT id, name, default_price FROM villas', [], (err, rows) => {
-                    if (err) reject(err);
-                    else resolve(rows);
-                });
-            }) : [];
+        const villas = await new Promise((resolve, reject) => {
+            this.db.all('SELECT id, name, default_price FROM villas', [], (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows || []);
+            });
+        });
         
-        for (const villa of villas.slice(0, 5)) {
+        if (!villas || villas.length === 0) {
+            console.log('⚠️ Aucune villa trouvée pour les disponibilités');
+            return;
+        }
+        
+        for (let i = 0; i < Math.min(villas.length, 5); i++) {
+            const villa = villas[i];
+            
             // Ajouter quelques disponibilités futures
             const availabilities = [
                 {
