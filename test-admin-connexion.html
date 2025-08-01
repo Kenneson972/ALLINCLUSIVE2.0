@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Connexion Admin - KhanelConcept</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .test-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+        }
+        
+        .error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-card">
+        <h2 style="text-align: center; margin-bottom: 2rem;">🧪 Test Connexion Admin</h2>
+        
+        <input type="text" id="testCode" class="form-input" placeholder="Entrez votre code (ex: VISU42)" maxlength="6">
+        
+        <button onclick="testConnection()" class="btn">
+            🔍 Tester la Connexion
+        </button>
+        
+        <button onclick="listCodes()" class="btn" style="background: #10b981;">
+            📋 Voir Tous les Codes
+        </button>
+        
+        <div id="result"></div>
+        
+        <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; opacity: 0.8;">
+            <p>🔧 <strong>Debug Info:</strong></p>
+            <p>API URL: <span id="apiUrl">http://localhost:3002/api</span></p>
+            <p>Status: <span id="apiStatus">Vérification...</span></p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3002/api';
+        
+        // Vérifier le statut de l'API au chargement
+        async function checkApiStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                document.getElementById('apiStatus').textContent = '✅ API Opérationnelle';
+                document.getElementById('apiStatus').style.color = '#10b981';
+            } catch (error) {
+                document.getElementById('apiStatus').textContent = '❌ API Indisponible';
+                document.getElementById('apiStatus').style.color = '#ef4444';
+            }
+        }
+        
+        async function testConnection() {
+            const code = document.getElementById('testCode').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('result');
+            
+            if (!code) {
+                showResult('⚠️ Veuillez entrer un code', 'error');
+                return;
+            }
+            
+            if (!/^[A-Z0-9]{6}$/.test(code)) {
+                showResult('⚠️ Le code doit contenir 6 caractères alphanumériques', 'error');
+                return;
+            }
+            
+            showResult('🔄 Test en cours...', '');
+            
+            try {
+                console.log('🔍 Test du code:', code);
+                console.log('🔗 URL API:', API_BASE);
+                
+                const response = await fetch(`${API_BASE}/auth/validate-code`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ code })
+                });
+                
+                console.log('📨 Statut réponse:', response.status);
+                
+                const data = await response.json();
+                console.log('📄 Données:', data);
+                
+                if (response.ok) {
+                    showResult(`✅ CONNEXION RÉUSSIE !<br><br>
+                        🏠 <strong>Villa:</strong> ${data.villa.name}<br>
+                        📍 <strong>Localisation:</strong> ${data.villa.location}<br>
+                        💰 <strong>Prix:</strong> ${data.villa.default_price}€/nuit<br>
+                        👥 <strong>Capacité:</strong> ${data.villa.capacity} personnes<br><br>
+                        🔑 <strong>Token JWT généré avec succès</strong>`, 'success');
+                } else {
+                    showResult(`❌ ERREUR: ${data.message || 'Code invalide'}`, 'error');
+                }
+                
+            } catch (error) {
+                console.error('💥 Erreur:', error);
+                showResult(`❌ ERREUR DE CONNEXION<br><br>
+                    Détails: ${error.message}<br><br>
+                    💡 <strong>Solutions à vérifier:</strong><br>
+                    • Le serveur backend est-il démarré sur le port 3002 ?<br>
+                    • Y a-t-il un problème de CORS ?<br>
+                    • La base de données est-elle accessible ?`, 'error');
+            }
+        }
+        
+        async function listCodes() {
+            showResult('🔄 Récupération des codes...', '');
+            
+            try {
+                // Simuler la récupération des codes depuis la base
+                const codes = [
+                    { code: 'VISU42', villa: 'Villa F3 sur Petit Macabou' },
+                    { code: 'VIPO66', villa: 'Villa F3 POUR LA BACCHA' },
+                    { code: 'VILA45', villa: 'Villa F6 au Lamentin' },
+                    { code: 'VIBA42', villa: 'Villa F7 Baie des Mulets' },
+                    { code: 'BAVI52', villa: 'Bas de villa F3 sur le Robert' }
+                ];
+                
+                let html = '📋 <strong>CODES DE TEST DISPONIBLES:</strong><br><br>';
+                codes.forEach(item => {
+                    html += `🔑 <strong>${item.code}</strong> → ${item.villa}<br>`;
+                });
+                
+                html += '<br>💡 <em>Cliquez sur un code pour le copier dans le champ</em>';
+                
+                showResult(html, 'success');
+                
+                // Ajouter des liens cliquables
+                setTimeout(() => {
+                    codes.forEach(item => {
+                        const codeElements = document.querySelectorAll('strong');
+                        codeElements.forEach(el => {
+                            if (el.textContent === item.code) {
+                                el.style.cursor = 'pointer';
+                                el.style.textDecoration = 'underline';
+                                el.onclick = () => {
+                                    document.getElementById('testCode').value = item.code;
+                                    showResult(`✅ Code ${item.code} copié !`, 'success');
+                                };
+                            }
+                        });
+                    });
+                }, 100);
+                
+            } catch (error) {
+                showResult(`❌ Erreur lors de la récupération des codes: ${error.message}`, 'error');
+            }
+        }
+        
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${type}`;
+            
+            if (type === '') {
+                resultDiv.style.background = 'rgba(255, 255, 255, 0.1)';
+                resultDiv.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+            }
+        }
+        
+        // Vérifier l'API au chargement
+        checkApiStatus();
+        
+        // Permettre de tester avec Enter
+        document.getElementById('testCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testConnection();
+            }
+        });
+        
+        // Auto-format du code
+        document.getElementById('testCode').addEventListener('input', function(e) {
+            let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>
