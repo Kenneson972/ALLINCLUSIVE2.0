@@ -469,12 +469,12 @@ app.get('/api/villa/calendar', authenticateToken, async (req, res) => {
         // Format pour FullCalendar
         const events = availabilities.map(avail => ({
             id: avail.id,
-            title: this.getEventTitle(avail.type, avail.price_per_night),
+            title: getEventTitle(avail.type, avail.price_per_night),
             start: avail.start_date,
             end: avail.end_date,
             className: avail.type,
-            backgroundColor: this.getEventColor(avail.type),
-            borderColor: this.getEventColor(avail.type),
+            backgroundColor: getEventColor(avail.type),
+            borderColor: getEventColor(avail.type),
             extendedProps: {
                 type: avail.type,
                 price: avail.price_per_night,
