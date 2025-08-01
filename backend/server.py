@@ -2148,6 +2148,65 @@ async def get_realtime_analytics(current_admin: dict = Depends(get_current_admin
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur realtime analytics: {e}")
 
+# ========== ROUTES ADMIN PROXY POUR PROPRIÉTAIRES ==========
+
+BACKEND_ADMIN_BASE = "http://localhost:3002/api"
+
+@app.get("/api/admin/health")
+async def admin_proxy_health():
+    """Proxy: Vérifier la santé de l'API admin propriétaires"""
+    try:
+        response = requests.get(f"{BACKEND_ADMIN_BASE}/health", timeout=5)
+        return JSONResponse(content=response.json(), status_code=response.status_code)
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+@app.post("/api/admin/validate-code")
+async def admin_proxy_validate_code(request: Request):
+    """Proxy: Valider un code d'accès propriétaire"""
+    try:
+        body = await request.json()
+        response = requests.post(
+            f"{BACKEND_ADMIN_BASE}/auth/validate-code",
+            json=body,
+            headers={'Content-Type': 'application/json'},
+            timeout=10
+        )
+        return JSONResponse(content=response.json(), status_code=response.status_code)
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+@app.post("/api/admin/login") 
+async def admin_proxy_login(request: Request):
+    """Proxy: Connexion email/password propriétaire"""
+    try:
+        body = await request.json()
+        response = requests.post(
+            f"{BACKEND_ADMIN_BASE}/auth/login",
+            json=body,
+            headers={'Content-Type': 'application/json'},
+            timeout=10
+        )
+        return JSONResponse(content=response.json(), status_code=response.status_code)
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
+@app.get("/api/admin/validate-token")
+async def admin_proxy_validate_token(request: Request):
+    """Proxy: Valider un token propriétaire"""
+    try:
+        auth_header = request.headers.get('Authorization')
+        headers = {'Authorization': auth_header} if auth_header else {}
+        
+        response = requests.get(
+            f"{BACKEND_ADMIN_BASE}/auth/validate-token",
+            headers=headers,
+            timeout=10
+        )
+        return JSONResponse(content=response.json(), status_code=response.status_code)
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)
+
 # ========== STATIC FILE SERVING ==========
 # IMPORTANT: Static file mounts MUST be after all API routes to prevent routing conflicts
 
