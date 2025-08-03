@@ -1118,6 +1118,21 @@
             
             let isPlaying = false;
             
+            // Autoplay handling - Masquer overlay au démarrage auto
+            video.addEventListener('loadeddata', function() {
+                if (video.autoplay && !video.paused) {
+                    isPlaying = true;
+                    overlay.style.opacity = '0';
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    
+                    // Afficher les contrôles brièvement puis les masquer
+                    controls.style.opacity = '1';
+                    setTimeout(() => {
+                        if (isPlaying) controls.style.opacity = '0';
+                    }, 3000);
+                }
+            });
+            
             // Show controls on hover
             video.parentElement.addEventListener('mouseenter', () => {
                 if (isPlaying) {
@@ -1180,6 +1195,8 @@
             
             // Reset when video ends
             video.addEventListener('ended', () => {
+                // Avec loop activé, cette fonction ne sera pas appelée
+                // mais on la garde pour compatibilité
                 isPlaying = false;
                 overlay.style.opacity = '1';
                 playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
@@ -1187,7 +1204,7 @@
                 progressBar.style.width = '0%';
             });
             
-            console.log('🎥 Villa video player initialized');
+            console.log('🎥 Villa video player initialized with autoplay');
         });
 
         // Video Background
