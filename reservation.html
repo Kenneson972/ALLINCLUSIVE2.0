@@ -1256,6 +1256,16 @@
             if (villaParam) {
                 console.log('🏠 Villa pré-sélectionnée depuis URL:', villaParam);
                 
+                // Afficher le calendrier uniquement pour la Villa F3 Petit Macabou
+                if (villaParam === 'f3-sur-petit-macabou') {
+                    const calendarSection = document.getElementById('f3CalendarSection');
+                    if (calendarSection) {
+                        calendarSection.style.display = 'block';
+                        initializeF3Calendar();
+                        console.log('📅 Calendrier F3 activé');
+                    }
+                }
+                
                 // Utiliser la base de données villaData du fichier reservation-enhanced.js
                 if (window.villaData && window.villaData[villaParam]) {
                     const villaData = window.villaData[villaParam];
