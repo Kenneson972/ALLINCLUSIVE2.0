@@ -583,6 +583,212 @@
             }
         }
         
+        /* Styles pour le calendrier de disponibilités */
+        .planning-calendar-container {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+        
+        .calendar-legend .color-box {
+            border-radius: 2px;
+        }
+        
+        .color-box.libre { 
+            background-color: #FFFFFF; 
+            border: 1px solid #ccc;
+        }
+        
+        .color-box.occupe { 
+            background-color: #2ECCFA; 
+            border: 1px solid #2ECCFA;
+        }
+        
+        .color-box.attente { 
+            background-color: #737373; 
+            border: 1px solid #737373;
+        }
+        
+        .calendar-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .calendar-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .month-calendar {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            min-width: 200px;
+            flex: 1;
+            max-width: 250px;
+        }
+        
+        .month-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .calendar-table th,
+        .calendar-table td {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 11px;
+            position: relative;
+        }
+        
+        .calendar-table th {
+            background-color: rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+            color: white;
+            font-size: 10px;
+        }
+        
+        .date-cell {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .date-cell:hover {
+            border: 2px solid #fff;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .date-cell.libre {
+            background-color: #FFFFFF;
+            color: #333;
+        }
+        
+        .date-cell.occupe {
+            background-color: #2ECCFA;
+            color: #000;
+        }
+        
+        .date-cell.attente {
+            background-color: #737373;
+            color: #fff;
+        }
+        
+        .date-cell.selected {
+            border: 2px solid #ff6600 !important;
+            box-shadow: 0 0 10px rgba(255, 102, 0, 0.8) !important;
+            transform: scale(1.15) !important;
+            z-index: 20 !important;
+        }
+        
+        .date-cell.range-start,
+        .date-cell.range-end {
+            border: 2px solid #4CAF50 !important;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.8) !important;
+        }
+        
+        .date-cell.range-middle {
+            background-color: rgba(76, 175, 80, 0.3) !important;
+            border: 1px solid #4CAF50 !important;
+        }
+        
+        .date-cell.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .date-cell.unavailable:hover {
+            transform: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+        }
+        
+        .calendar-navigation .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-navigation .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* Responsive pour calendrier */
+        @media (max-width: 768px) {
+            .calendar-row {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .month-calendar {
+                width: 100%;
+                max-width: 300px;
+                min-width: 280px;
+            }
+            
+            .calendar-legend {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .calendar-legend .flex {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .calendar-table th,
+            .calendar-table td {
+                width: 24px;
+                height: 24px;
+                font-size: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .calendar-table th,
+            .calendar-table td {
+                width: 20px;
+                height: 20px;
+                font-size: 9px;
+            }
+            
+            .month-calendar {
+                min-width: 240px;
+                padding: 8px;
+            }
+        }
+        
         /* Flatpickr mobile customization - CORRECTION */
         @media (max-width: 768px) {
             /* S'assurer que Flatpickr s'affiche au-dessus */
