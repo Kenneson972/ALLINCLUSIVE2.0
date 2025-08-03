@@ -301,6 +301,66 @@
             z-index: 1;
         }
         
+        /* Video Presentation Styles */
+        .video-presentation-container {
+            background: var(--glass-bg) !important;
+            backdrop-filter: var(--backdrop-blur) !important;
+            -webkit-backdrop-filter: var(--backdrop-blur) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 25px !important;
+            padding: 20px !important;
+            box-shadow: var(--glass-shadow) !important;
+        }
+        
+        .play-button {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        #videoControls button {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #videoControls button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* Responsive video */
+        .aspect-video {
+            aspect-ratio: 16 / 9;
+        }
+        
+        @media (max-width: 768px) {
+            .video-presentation-container {
+                padding: 15px !important;
+                border-radius: 20px !important;
+            }
+            
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .play-button i {
+                font-size: 1.5rem;
+            }
+        }
+        
         /* Optimisation des textes sur glassmorphism */
         .info-card .text-gray-800 {
             color: rgba(255, 255, 255, 0.95) !important;
