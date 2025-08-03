@@ -1042,6 +1042,90 @@
             
             console.log(`✅ Slide changed to ${activeIndex + 1}`);
         });
+        
+        // Villa Video Player functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('villaVideo');
+            const overlay = document.getElementById('videoOverlay');
+            const controls = document.getElementById('videoControls');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const progressBar = document.getElementById('progressBar');
+            const muteBtn = document.getElementById('muteBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            
+            let isPlaying = false;
+            
+            // Show controls on hover
+            video.parentElement.addEventListener('mouseenter', () => {
+                if (isPlaying) {
+                    controls.style.opacity = '1';
+                }
+            });
+            
+            video.parentElement.addEventListener('mouseleave', () => {
+                controls.style.opacity = '0';
+            });
+            
+            // Play/Pause functionality
+            function togglePlayPause() {
+                if (video.paused) {
+                    video.play();
+                    isPlaying = true;
+                    overlay.style.opacity = '0';
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    controls.style.opacity = '1';
+                    setTimeout(() => {
+                        if (isPlaying) controls.style.opacity = '0';
+                    }, 3000);
+                } else {
+                    video.pause();
+                    isPlaying = false;
+                    overlay.style.opacity = '1';
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    controls.style.opacity = '0';
+                }
+            }
+            
+            // Event listeners
+            overlay.addEventListener('click', togglePlayPause);
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            
+            // Progress bar
+            video.addEventListener('timeupdate', () => {
+                if (video.duration) {
+                    const progress = (video.currentTime / video.duration) * 100;
+                    progressBar.style.width = progress + '%';
+                }
+            });
+            
+            // Mute/Unmute
+            muteBtn.addEventListener('click', () => {
+                video.muted = !video.muted;
+                muteBtn.innerHTML = video.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+            });
+            
+            // Fullscreen
+            fullscreenBtn.addEventListener('click', () => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) {
+                    video.msRequestFullscreen();
+                }
+            });
+            
+            // Reset when video ends
+            video.addEventListener('ended', () => {
+                isPlaying = false;
+                overlay.style.opacity = '1';
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                controls.style.opacity = '0';
+                progressBar.style.width = '0%';
+            });
+            
+            console.log('🎥 Villa video player initialized');
+        });
 
         // Video Background
         document.addEventListener('DOMContentLoaded', function() {
