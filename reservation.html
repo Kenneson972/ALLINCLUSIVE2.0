@@ -760,11 +760,66 @@
             <!-- Formulaire de Réservation -->
             <div class="lg:col-span-2">
                 <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
-                    <h2 class="text-2xl font-bold text-white mb-6">
-                        <i class="fas fa-calendar-alt mr-3 text-yellow-400"></i>
-                        Détails de votre séjour
-                    </h2>
-                    
+                        <h2 class="text-2xl font-bold text-white mb-6">
+                            <i class="fas fa-calendar-alt mr-3 text-yellow-400"></i>
+                            Détails de votre séjour
+                        </h2>
+                        
+                        <!-- Calendrier de Disponibilités - Villa F3 uniquement -->
+                        <div id="f3CalendarSection" class="mb-8" style="display: none;">
+                            <h3 class="text-xl font-bold text-white mb-6 text-center">
+                                <i class="fas fa-calendar-check mr-2 text-yellow-400"></i>
+                                📅 Calendrier de Disponibilités - Villa F3 Petit Macabou
+                            </h3>
+                            
+                            <!-- Légende des couleurs -->
+                            <div class="calendar-legend mb-6">
+                                <div class="flex justify-center gap-6 text-sm text-white">
+                                    <div class="legend-item flex items-center gap-2">
+                                        <span class="color-box libre w-4 h-4 border border-white/30"></span>
+                                        <span>Libre</span>
+                                    </div>
+                                    <div class="legend-item flex items-center gap-2">
+                                        <span class="color-box occupe w-4 h-4"></span>
+                                        <span>Occupé</span>
+                                    </div>
+                                    <div class="legend-item flex items-center gap-2">
+                                        <span class="color-box attente w-4 h-4"></span>
+                                        <span>En attente</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Navigation du calendrier -->
+                            <div class="calendar-navigation flex justify-between items-center mb-4">
+                                <button id="prevMonths" class="nav-btn">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <div class="current-period text-white font-semibold text-lg" id="currentPeriod">
+                                    Janvier - Mars 2025
+                                </div>
+                                <button id="nextMonths" class="nav-btn">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Calendriers multi-mois -->
+                            <div class="planning-calendar-container glass-card bg-white/5 p-4">
+                                <div class="calendar-grid" id="calendarGrid">
+                                    <!-- Les calendriers seront générés dynamiquement ici -->
+                                </div>
+                            </div>
+                            
+                            <!-- Informations sélection -->
+                            <div class="calendar-selection-info mt-4 p-4 bg-white/10 rounded-xl" id="selectionInfo" style="display: none;">
+                                <div class="text-white text-center">
+                                    <p class="font-semibold mb-2">📅 Période sélectionnée :</p>
+                                    <p id="selectedPeriod">Aucune période sélectionnée</p>
+                                    <p class="text-sm text-white/70 mt-2">Cliquez sur les dates pour modifier votre sélection</p>
+                                </div>
+                            </div>
+                        </div>
+                        
                     <form id="reservationForm" class="space-y-6">
                         
                         <!-- Villa Pré-sélectionnée (sera remplie automatiquement) -->
