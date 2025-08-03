@@ -1936,5 +1936,256 @@
         // ==========================================
         
     </script>
+    
+    <!-- Calendrier F3 JavaScript -->
+    <script>
+        // Données de disponibilité pour la Villa F3 (simulation - à remplacer par API)
+        const f3AvailabilityData = {
+            '2025-02-01': 'libre', '2025-02-02': 'libre', '2025-02-03': 'occupe',
+            '2025-02-04': 'occupe', '2025-02-05': 'libre', '2025-02-06': 'libre',
+            '2025-02-07': 'libre', '2025-02-08': 'attente', '2025-02-09': 'attente',
+            '2025-02-10': 'libre', '2025-02-11': 'libre', '2025-02-12': 'libre',
+            '2025-02-13': 'libre', '2025-02-14': 'occupe', '2025-02-15': 'occupe',
+            '2025-02-16': 'libre', '2025-02-17': 'libre', '2025-02-18': 'libre',
+            '2025-02-19': 'libre', '2025-02-20': 'libre', '2025-02-21': 'attente',
+            '2025-02-22': 'libre', '2025-02-23': 'libre', '2025-02-24': 'libre',
+            '2025-02-25': 'libre', '2025-02-26': 'libre', '2025-02-27': 'libre',
+            '2025-02-28': 'libre',
+            
+            '2025-03-01': 'libre', '2025-03-02': 'libre', '2025-03-03': 'libre',
+            '2025-03-04': 'libre', '2025-03-05': 'libre', '2025-03-06': 'libre',
+            '2025-03-07': 'occupe', '2025-03-08': 'occupe', '2025-03-09': 'occupe',
+            '2025-03-10': 'libre', '2025-03-11': 'libre', '2025-03-12': 'libre',
+            '2025-03-13': 'libre', '2025-03-14': 'attente', '2025-03-15': 'libre',
+            '2025-03-16': 'libre', '2025-03-17': 'libre', '2025-03-18': 'libre',
+            '2025-03-19': 'libre', '2025-03-20': 'libre', '2025-03-21': 'libre',
+            '2025-03-22': 'libre', '2025-03-23': 'libre', '2025-03-24': 'libre',
+            '2025-03-25': 'libre', '2025-03-26': 'libre', '2025-03-27': 'libre',
+            '2025-03-28': 'occupe', '2025-03-29': 'occupe', '2025-03-30': 'libre',
+            '2025-03-31': 'libre',
+            
+            '2025-04-01': 'libre', '2025-04-02': 'libre', '2025-04-03': 'libre',
+            '2025-04-04': 'libre', '2025-04-05': 'libre', '2025-04-06': 'libre',
+            '2025-04-07': 'libre', '2025-04-08': 'libre', '2025-04-09': 'libre',
+            '2025-04-10': 'libre', '2025-04-11': 'attente', '2025-04-12': 'attente',
+            '2025-04-13': 'libre', '2025-04-14': 'libre', '2025-04-15': 'libre',
+            '2025-04-16': 'libre', '2025-04-17': 'libre', '2025-04-18': 'occupe',
+            '2025-04-19': 'occupe', '2025-04-20': 'occupe', '2025-04-21': 'libre',
+            '2025-04-22': 'libre', '2025-04-23': 'libre', '2025-04-24': 'libre',
+            '2025-04-25': 'libre', '2025-04-26': 'libre', '2025-04-27': 'libre',
+            '2025-04-28': 'libre', '2025-04-29': 'libre', '2025-04-30': 'libre'
+        };
+        
+        let currentStartMonth = new Date(2025, 1, 1); // Février 2025 (mois 1 = février)
+        let selectedStartDate = null;
+        let selectedEndDate = null;
+        
+        function initializeF3Calendar() {
+            generateCalendar();
+            
+            // Navigation
+            document.getElementById('prevMonths').addEventListener('click', () => {
+                currentStartMonth.setMonth(currentStartMonth.getMonth() - 3);
+                generateCalendar();
+            });
+            
+            document.getElementById('nextMonths').addEventListener('click', () => {
+                currentStartMonth.setMonth(currentStartMonth.getMonth() + 3);
+                generateCalendar();
+            });
+            
+            console.log('📅 Calendrier F3 initialisé');
+        }
+        
+        function generateCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const currentPeriod = document.getElementById('currentPeriod');
+            
+            // Mettre à jour le titre de la période
+            const startMonth = new Date(currentStartMonth);
+            const endMonth = new Date(currentStartMonth);
+            endMonth.setMonth(endMonth.getMonth() + 2);
+            
+            const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                              'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+            
+            currentPeriod.textContent = `${monthNames[startMonth.getMonth()]} - ${monthNames[endMonth.getMonth()]} ${startMonth.getFullYear()}`;
+            
+            // Générer les 3 mois
+            let html = '<div class="calendar-row">';
+            
+            for (let i = 0; i < 3; i++) {
+                const monthDate = new Date(currentStartMonth);
+                monthDate.setMonth(monthDate.getMonth() + i);
+                html += generateMonthCalendar(monthDate);
+            }
+            
+            html += '</div>';
+            calendarGrid.innerHTML = html;
+            
+            // Ajouter les événements de clic
+            attachDateClickEvents();
+        }
+        
+        function generateMonthCalendar(monthDate) {
+            const year = monthDate.getFullYear();
+            const month = monthDate.getMonth();
+            
+            const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                              'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+            
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDayOfWeek = new Date(year, month, 1).getDay();
+            const adjusteddFirstDay = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Lundi = 0
+            
+            let html = `
+                <div class="month-calendar">
+                    <div class="month-title">${monthNames[month]} ${year}</div>
+                    <table class="calendar-table">
+                        <thead>
+                            <tr>
+                                <th>Lu</th><th>Ma</th><th>Me</th><th>Je</th><th>Ve</th><th>Sa</th><th>Di</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            let dayCount = 1;
+            for (let week = 0; week < 6; week++) {
+                html += '<tr>';
+                for (let day = 0; day < 7; day++) {
+                    if (week === 0 && day < adjusteddFirstDay) {
+                        html += '<td></td>';
+                    } else if (dayCount <= daysInMonth) {
+                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayCount).padStart(2, '0')}`;
+                        const status = f3AvailabilityData[dateStr] || 'libre';
+                        
+                        html += `<td class="date-cell ${status}" data-date="${dateStr}">${dayCount}</td>`;
+                        dayCount++;
+                    } else {
+                        html += '<td></td>';
+                    }
+                }
+                html += '</tr>';
+                
+                if (dayCount > daysInMonth) break;
+            }
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            return html;
+        }
+        
+        function attachDateClickEvents() {
+            document.querySelectorAll('.date-cell').forEach(cell => {
+                cell.addEventListener('click', function() {
+                    const dateStr = this.dataset.date;
+                    const status = this.classList.contains('libre') ? 'libre' : 
+                                  this.classList.contains('occupe') ? 'occupe' : 'attente';
+                    
+                    if (status !== 'libre') {
+                        return; // Ne permet pas de sélectionner les dates occupées/en attente
+                    }
+                    
+                    selectDate(dateStr, this);
+                });
+            });
+        }
+        
+        function selectDate(dateStr, element) {
+            const clickedDate = new Date(dateStr);
+            
+            if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+                // Nouvelle sélection ou remplacement
+                clearSelection();
+                selectedStartDate = clickedDate;
+                selectedEndDate = null;
+                element.classList.add('selected', 'range-start');
+                updateSelectionInfo();
+            } else if (selectedStartDate && !selectedEndDate) {
+                // Sélection de la date de fin
+                if (clickedDate > selectedStartDate) {
+                    selectedEndDate = clickedDate;
+                    element.classList.add('selected', 'range-end');
+                    highlightRange();
+                    updateSelectionInfo();
+                    updateFormDates();
+                } else {
+                    // Date antérieure -> nouvelle date de début
+                    clearSelection();
+                    selectedStartDate = clickedDate;
+                    element.classList.add('selected', 'range-start');
+                    updateSelectionInfo();
+                }
+            }
+        }
+        
+        function clearSelection() {
+            document.querySelectorAll('.date-cell').forEach(cell => {
+                cell.classList.remove('selected', 'range-start', 'range-end', 'range-middle');
+            });
+        }
+        
+        function highlightRange() {
+            if (!selectedStartDate || !selectedEndDate) return;
+            
+            const startTime = selectedStartDate.getTime();
+            const endTime = selectedEndDate.getTime();
+            
+            document.querySelectorAll('.date-cell').forEach(cell => {
+                const cellDate = new Date(cell.dataset.date);
+                const cellTime = cellDate.getTime();
+                
+                if (cellTime > startTime && cellTime < endTime) {
+                    cell.classList.add('range-middle');
+                }
+            });
+        }
+        
+        function updateSelectionInfo() {
+            const selectionInfo = document.getElementById('selectionInfo');
+            const selectedPeriod = document.getElementById('selectedPeriod');
+            
+            if (selectedStartDate && selectedEndDate) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const startStr = selectedStartDate.toLocaleDateString('fr-FR', options);
+                const endStr = selectedEndDate.toLocaleDateString('fr-FR', options);
+                const nights = Math.ceil((selectedEndDate - selectedStartDate) / (1000 * 60 * 60 * 24));
+                
+                selectedPeriod.innerHTML = `Du ${startStr} au ${endStr}<br><small>(${nights} nuit${nights > 1 ? 's' : ''})</small>`;
+                selectionInfo.style.display = 'block';
+            } else if (selectedStartDate) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const startStr = selectedStartDate.toLocaleDateString('fr-FR', options);
+                selectedPeriod.innerHTML = `Date d'arrivée : ${startStr}<br><small>Sélectionnez la date de départ</small>`;
+                selectionInfo.style.display = 'block';
+            } else {
+                selectionInfo.style.display = 'none';
+            }
+        }
+        
+        function updateFormDates() {
+            if (selectedStartDate && selectedEndDate) {
+                const checkinInput = document.getElementById('checkinDate');
+                const checkoutInput = document.getElementById('checkoutDate');
+                
+                if (checkinInput && checkoutInput) {
+                    checkinInput.value = selectedStartDate.toISOString().split('T')[0];
+                    checkoutInput.value = selectedEndDate.toISOString().split('T')[0];
+                    
+                    // Déclencher les événements de changement pour mettre à jour le prix
+                    checkinInput.dispatchEvent(new Event('change'));
+                    checkoutInput.dispatchEvent(new Event('change'));
+                    
+                    console.log('📅 Dates mises à jour dans le formulaire');
+                }
+            }
+        }
+    </script>
+
 </body>
 </html>
