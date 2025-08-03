@@ -340,11 +340,7 @@
             transform: scale(1.1);
         }
         
-        /* Responsive video */
-        .aspect-video {
-            aspect-ratio: 16 / 9;
-        }
-        
+        /* Mobile Video Optimization */
         @media (max-width: 768px) {
             .video-presentation-container {
                 padding: 15px !important;
@@ -358,6 +354,31 @@
             
             .play-button i {
                 font-size: 1.5rem;
+            }
+            
+            /* Contrôles vidéo tactiles pour mobile */
+            #videoControls button {
+                width: 44px !important;
+                height: 44px !important;
+                font-size: 1.2rem !important;
+            }
+            
+            #videoControls {
+                padding: 8px !important;
+                background: rgba(0, 0, 0, 0.7) !important;
+            }
+            
+            /* Overlay tactile pour mobile */
+            #videoOverlay {
+                -webkit-tap-highlight-color: transparent;
+            }
+        }
+        
+        /* iOS Safari spécifique pour autoplay */
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            video {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
             }
         }
         
