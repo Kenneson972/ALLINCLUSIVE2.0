@@ -2030,10 +2030,10 @@
             const calendarGrid = document.getElementById('calendarGrid');
             const currentPeriod = document.getElementById('currentPeriod');
             
-            // Mettre à jour le titre de la période
+            // Mettre à jour le titre de la période (4 mois)
             const startMonth = new Date(currentStartMonth);
             const endMonth = new Date(currentStartMonth);
-            endMonth.setMonth(endMonth.getMonth() + 2);
+            endMonth.setMonth(endMonth.getMonth() + 3);
             
             const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
                               'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
