@@ -1256,14 +1256,44 @@
             if (villaParam) {
                 console.log('🏠 Villa pré-sélectionnée depuis URL:', villaParam);
                 
-                // Afficher le calendrier uniquement pour la Villa F3 Petit Macabou
-                if (villaParam === 'f3-sur-petit-macabou') {
-                    const calendarSection = document.getElementById('f3CalendarSection');
-                    if (calendarSection) {
-                        calendarSection.style.display = 'block';
-                        initializeF3Calendar();
-                        console.log('📅 Calendrier F3 activé');
+                // Afficher le calendrier pour TOUTES les villas maintenant
+                const calendarSection = document.getElementById('f3CalendarSection');
+                if (calendarSection) {
+                    calendarSection.style.display = 'block';
+                    
+                    // Mettre à jour le titre pour la villa spécifique
+                    const titleElement = calendarSection.querySelector('h3');
+                    if (titleElement) {
+                        const villaNames = {
+                            'f3-sur-petit-macabou': 'Villa F3 Petit Macabou',
+                            'f5-sur-ste-anne': 'Villa F5 Ste Anne',
+                            'f6-sur-petit-macabou-sejour--fte': 'Villa F6 Petit Macabou',
+                            'f6-au-lamentin': 'Villa F6 Lamentin',
+                            'f5-vauclin-ravine-plate': 'Villa F5 Vauclin Ravine Plate',
+                            'f3-sur-le-franois': 'Villa F3 Le François',
+                            'studio-cocooning-lamentin': 'Studio Cocooning Lamentin',
+                            'espace-piscine-journee-bungalow': 'Espace Piscine Journée Bungalow',
+                            'f5-la-renee': 'Villa F5 La Renée',
+                            'f6-sur-ste-luce-a-1mn-de-la-plage': 'Villa F6 Ste Luce',
+                            'f7-baie-des-mulets': 'Villa F7 Baie des Mulets',
+                            'fte-journee-ducos': 'Villa Fête Journée Ducos',
+                            'fte-journee-sainte-luce': 'Villa Fête Journée Sainte Luce',
+                            'fte-journee-riviere-pilote': 'Villa Fête Journée Rivière Pilote',
+                            'fte-journee-riviere-salee': 'Villa Fête Journée Rivière Salée',
+                            'fte-journee-fort-de-france': 'Villa Fête Journée Fort de France',
+                            'f3-bas-de-villa-trinite-cosmy': 'Villa F3 Trinité Cosmy',
+                            'f3-pour-la-baccha': 'Villa F3 Pour la Baccha',
+                            'bas-de-villa-f3-sur-ste-luce': 'Bas Villa F3 Ste Luce',
+                            'bas-de-villa-f3-sur-le-robert': 'Bas Villa F3 Le Robert',
+                            'appartement-f3-trenelle-location-annuelle': 'Appartement F3 Trenelle'
+                        };
+                        
+                        const villaName = villaNames[villaParam] || 'Villa Sélectionnée';
+                        titleElement.innerHTML = `<i class="fas fa-calendar-check mr-2 text-yellow-400"></i>📅 Calendrier de Disponibilités - ${villaName}`;
                     }
+                    
+                    initializeF3Calendar();
+                    console.log('📅 Calendrier activé pour:', villaParam);
                 }
                 
                 // Utiliser la base de données villaData du fichier reservation-enhanced.js
