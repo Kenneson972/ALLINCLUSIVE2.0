@@ -2040,10 +2040,18 @@
             
             currentPeriod.textContent = `${monthNames[startMonth.getMonth()]} - ${monthNames[endMonth.getMonth()]} ${startMonth.getFullYear()}`;
             
-            // Générer les 3 mois
+            // Générer les 4 mois (2x2 pour meilleur rendu)
             let html = '<div class="calendar-row">';
             
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < 2; i++) {
+                const monthDate = new Date(currentStartMonth);
+                monthDate.setMonth(monthDate.getMonth() + i);
+                html += generateMonthCalendar(monthDate);
+            }
+            
+            html += '</div><div class="calendar-row">';
+            
+            for (let i = 2; i < 4; i++) {
                 const monthDate = new Date(currentStartMonth);
                 monthDate.setMonth(monthDate.getMonth() + i);
                 html += generateMonthCalendar(monthDate);
