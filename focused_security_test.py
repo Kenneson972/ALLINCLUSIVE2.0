@@ -11,7 +11,7 @@ import time
 from datetime import datetime
 
 # Load backend URL from environment or use default
-BACKEND_URL = "https://3714b0a1-5489-44ad-9d9b-c64237bb68df.preview.emergentagent.com"
+BACKEND_URL = "https://cf05e97d-d78f-41a3-a1e6-9c988c796fc9.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 # Admin credentials from environment variables (Phase 1 security improvement)
