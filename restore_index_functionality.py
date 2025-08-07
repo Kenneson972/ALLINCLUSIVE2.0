@@ -106,13 +106,16 @@ def apply_javascript_corrections(content, corrected_js):
 def fix_asset_paths(content):
     """Corriger les chemins d'assets pour GitHub Pages"""
     
-    # 1. Corriger les chemins avec slash initial (sauf URLs externes)
-    # Remplacer /images/ par images/ (sauf dans URLs complètes)
-    content = re.sub(r'(?<!https?://[^\s]*)/images/', 'images/', content)
-    content = re.sub(r'(?<!https?://[^\s]*)/videos/', 'videos/', content)
-    content = re.sub(r'(?<!https?://[^\s]*)/assets/', 'assets/', content)
+    # 1. Corriger les chemins avec slash initial - méthode plus simple
+    # Remplacer src="/images/ par src="images/ (mais pas dans URLs https)
+    content = re.sub(r'src="/images/', 'src="images/', content)
+    content = re.sub(r'href="/images/', 'href="images/', content)
+    content = re.sub(r'src="/videos/', 'src="videos/', content)
+    content = re.sub(r'href="/videos/', 'href="videos/', content)
+    content = re.sub(r'src="/assets/', 'src="assets/', content)
+    content = re.sub(r'href="/assets/', 'href="assets/', content)
     
-    # 2. Corriger les favicon et icons
+    # 2. Corriger les favicon et icons Cloudinary
     content = re.sub(
         r'href="https://res\.cloudinary\.com/khanelconcept/',
         'href="https://res.cloudinary.com/demo/',
