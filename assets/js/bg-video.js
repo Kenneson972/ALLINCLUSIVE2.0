@@ -1,8 +1,8 @@
 (function(){
   if(document.querySelector('.video-background')) return;
   var poster='images/hero-poster.jpg';
-  var webm='https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.webm';
-  var mp4 ='https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4';
+  var webm='https://res.cloudinary.com/demo/video/upload/q_70,f_webm/v1/samples/sea-turtle.webm';
+  var mp4 ='https://res.cloudinary.com/demo/video/upload/q_70,f_mp4/v1/samples/sea-turtle.mp4';
   var wrap=document.createElement('div');wrap.className='video-background';
   var v=document.createElement('video');
   v.autoplay=true;v.loop=true;v.muted=true;v.playsInline=true;v.setAttribute('poster',poster);
