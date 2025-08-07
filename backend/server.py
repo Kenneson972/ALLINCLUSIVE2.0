@@ -729,8 +729,8 @@ def log_security_event(event_type: str, username: str, ip_address: str, success:
 # ========== FONCTIONS D'AUTHENTIFICATION SÉCURISÉES ==========
 
 def verify_admin_password(plain_password, hashed_password):
-    """Vérifier le mot de passe admin (SHA256)"""
-    return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
+    """Vérifier le mot de passe admin (bcrypt) - CORRECTION pour cohérence"""
+    return verify_password(plain_password, hashed_password)  # Utiliser la même fonction bcrypt
 
 def authenticate_user(username: str, password: str, totp_code: str = None):
     """Authentifier un utilisateur admin avec 2FA optionnel"""
