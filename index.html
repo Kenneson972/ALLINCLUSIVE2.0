@@ -1,6 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+\1
+    <!-- SEO Meta Tags Optimisées -->
+    <meta name="description" content="Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.">
+    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
+    <meta name="author" content="KhanelConcept">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon et Icons -->
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/khanelconcept/image/upload/c_scale,w_32/v1/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/khanelconcept/image/upload/c_scale,w_16/v1/favicon.png">
+    
+    <!-- OpenGraph pour Réseaux Sociaux -->
+    <meta property="og:title" content="KhanelConcept - Plateforme Connectée | Villas de Luxe Martinique">
+    <meta property="og:description" content="Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.">
+    <meta property="og:image" content="https://res.cloudinary.com/khanelconcept/image/upload/v1/og-image.jpg">
+    <meta property="og:url" content="https://khanelconcept.com/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="KhanelConcept">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KhanelConcept - Plateforme Connectée | Villas de Luxe Martinique">
+    <meta name="twitter:description" content="Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/khanelconcept/image/upload/v1/og-image.jpg">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "KhanelConcept",
+        "description": "Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.",
+        "url": "https://khanelconcept.com/index.html",
+        "logo": "https://res.cloudinary.com/khanelconcept/image/upload/v1/apple-touch-icon.png",
+        "image": "https://res.cloudinary.com/khanelconcept/image/upload/v1/og-image.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "MQ",
+            "addressRegion": "Martinique"
+        },
+        "priceRange": "€€€",
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
+            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
+            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
+        ]
+    }
+    </script>
+    
+    <!-- Performance et Sécurité -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <link rel="canonical" href="https://khanelconcept.com/index.html">
+                
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KhanelConcept - Plateforme Connectée | Villas de Luxe Martinique</title>
@@ -2376,19 +2435,188 @@
 </head>
 <body>
     <!-- Background Video Cloudinary avec support iOS -->
-    <div class="video-background">
-        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
-            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
-        </video>
-        <div class="video-overlay"></div>
+    <!-- Vidéo Background Optimisée avec Fallback -->
+        <div class="video-background">
+            <!-- Fallback Background Image -->
+            <div class="video-fallback" style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)),
+                           url('https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_1920,h_1080,q_80/v1/hero-fallback.jpg');
+                background-size: cover;
+                background-position: center;
+                z-index: -3;
+            "></div>
+            
+            <!-- Vidéo Optimisée avec Support Moderne -->
+            <video id="heroVideo" 
+                   autoplay 
+                   muted 
+                   loop 
+                   playsinline 
+                   webkit-playsinline
+                   preload="metadata"
+                   poster="https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_1920,h_1080,q_80/v1/hero-poster.jpg"
+                   style="
+                       position: absolute;
+                       top: 50%;
+                       left: 50%;
+                       min-width: 100%;
+                       min-height: 100%;
+                       width: auto;
+                       height: auto;
+                       transform: translate(-50%, -50%);
+                       object-fit: cover;
+                       z-index: -2;
+                   ">
+                
+                <!-- Sources Multiples pour Compatibilité -->
+                <source src="https://res.cloudinary.com/khanelconcept/video/upload/f_webm,q_60,w_1920,h_1080/v1/martinique-villa-hero.webm" type="video/webm">
+                <source src="https://res.cloudinary.com/khanelconcept/video/upload/f_mp4,q_70,w_1920,h_1080/v1/martinique-villa-hero.mp4" type="video/mp4">
+                
+                <!-- Message de fallback -->
+                <p style="color: white; text-align: center; padding: 20px;">
+                    Votre navigateur ne supporte pas les vidéos HTML5. 
+                    <a href="https://res.cloudinary.com/khanelconcept/image/upload/v1/hero-fallback.jpg" style="color: #f6ad55;">Voir l'image</a>
+                </p>
+            </video>
+            
+            <!-- Overlay de Style -->
+            <div class="video-overlay" style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.2);
+                z-index: -1;
+            "></div>
+        </div>
+        
+        <script>
+        // Script d'Optimisation Vidéo Avancé
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('heroVideo');
+            const fallback = document.querySelector('.video-fallback');
+            
+            if (video && fallback) {
+                // Détection des capacités de l'appareil
+                const isLowPowerDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+                const isSlowConnection = navigator.connection && (navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
+                const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                // Désactiver vidéo si conditions défavorables
+                if (isLowPowerDevice || isSlowConnection || (isMobile && window.innerWidth < 768)) {
+                    video.style.display = 'none';
+                    fallback.style.zIndex = '-2';
+                    console.log('📱 Vidéo désactivée pour optimisation mobile');
+                    return;
+                }
+                
+                // Gestion intelligente de l'autoplay
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('🎬 Vidéo lancée automatiquement');
+                        fallback.style.display = 'none';
+                    }).catch(error => {
+                        console.log('🔇 Autoplay bloqué, activation au premier clic');
+                        
+                        // Fallback sur image de fond
+                        video.style.display = 'none';
+                        fallback.style.zIndex = '-2';
+                        
+                        // Activer vidéo au premier clic utilisateur
+                        document.addEventListener('click', function startVideo() {
+                            video.style.display = 'block';
+                            video.play();
+                            fallback.style.display = 'none';
+                            document.removeEventListener('click', startVideo);
+                        }, { once: true });
+                    });
+                }
+                
+                // Performance monitoring
+                video.addEventListener('loadstart', () => console.log('⏳ Chargement vidéo...'));
+                video.addEventListener('canplaythrough', () => console.log('✅ Vidéo prête'));
+                video.addEventListener('error', (e) => {
+                    console.error('❌ Erreur vidéo:', e);
+                    video.style.display = 'none';
+                    fallback.style.zIndex = '-2';
+                });
+            }
+        });
+        </script>
     </div>
 
     <!-- Header -->
-    <header class="header">
+    \1
+    <!-- SEO Meta Tags Optimisées -->
+    <meta name="description" content="Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.">
+    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
+    <meta name="author" content="KhanelConcept">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon et Icons -->
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/khanelconcept/image/upload/c_scale,w_32/v1/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/khanelconcept/image/upload/c_scale,w_16/v1/favicon.png">
+    
+    <!-- OpenGraph pour Réseaux Sociaux -->
+    <meta property="og:title" content="KhanelConcept - Plateforme Connectée | Villas de Luxe Martinique">
+    <meta property="og:description" content="Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.">
+    <meta property="og:image" content="https://res.cloudinary.com/khanelconcept/image/upload/v1/og-image.jpg">
+    <meta property="og:url" content="https://khanelconcept.com/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="KhanelConcept">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KhanelConcept - Plateforme Connectée | Villas de Luxe Martinique">
+    <meta name="twitter:description" content="Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.">
+    <meta name="twitter:image" content="https://res.cloudinary.com/khanelconcept/image/upload/v1/og-image.jpg">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "KhanelConcept",
+        "description": "Découvrez nos villas de luxe en Martinique avec KhanelConcept. Réservation en ligne sécurisée, galeries HD, calendriers en temps réel. Villas avec piscine, vue mer, climatisation. Séjours d'exception aux Antilles.",
+        "url": "https://khanelconcept.com/index.html",
+        "logo": "https://res.cloudinary.com/khanelconcept/image/upload/v1/apple-touch-icon.png",
+        "image": "https://res.cloudinary.com/khanelconcept/image/upload/v1/og-image.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "MQ",
+            "addressRegion": "Martinique"
+        },
+        "priceRange": "€€€",
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
+            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
+            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
+        ]
+    }
+    </script>
+    
+    <!-- Performance et Sécurité -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <link rel="canonical" href="https://khanelconcept.com/index.html">
+                
         <div class="header-content">
             <div class="logo" onclick="showSection('home')">
-                <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image">
+                <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image" loading="lazy">
             </div>
             
             <nav class="nav-links nav-menu">
@@ -2431,7 +2659,7 @@
         <section id="home" class="section active">
             <div class="container">
                 <div class="hero-logo">
-                    <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept - Villas de Luxe Martinique" class="hero-logo-image">
+                    <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept - Villas de Luxe Martinique" class="hero-logo-image" loading="lazy">
                 </div>
                 <p>Villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
                 
@@ -2718,7 +2946,7 @@
         <div class="gallery-content">
             <span class="gallery-close" onclick="closeImageGallery()">&times;</span>
             <button class="gallery-nav gallery-prev" onclick="previousImage()">❮</button>
-            <img id="galleryImage" class="gallery-image" src="" alt="">
+            <img id="galleryImage" class="gallery-image" src="" alt="" loading="lazy">
             <button class="gallery-nav gallery-next" onclick="nextImage()">❯</button>
             
             <div class="gallery-thumbnails" id="galleryThumbnails">
@@ -2802,11 +3030,11 @@
                 guestsDetail: "6 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
                 gallery: [
-                    "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
-                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg"
                 ],
                 fallbackIcon: "🏊",
                 description: "Belle villa Villa F3 sur Petit Macabou située à Petit Macabou au Vauclin. Capacité 6 personnes.",
@@ -2822,10 +3050,10 @@
                 guestsDetail: "10 personnes",
                 features: "Piscine, décoration distinctive",
                 category: "sejour",
-                image: "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
                 gallery: [
-                    "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg"
                 ],
                 fallbackIcon: "🌸",
                 description: "Belle villa Villa F5 sur Ste Anne située à Quartier Les Anglais, Ste Anne. Capacité 10 personnes.",
@@ -2841,10 +3069,10 @@
                 guestsDetail: "6 personnes",
                 features: "Piscine, terrasses modernes",
                 category: "sejour",
-                image: "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
                 gallery: [
-                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F3 Baccha Petit Macabou située à Petit Macabou. Capacité 6 personnes.",
@@ -2860,9 +3088,9 @@
                 guestsDetail: "10 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
                 gallery: [
-                    "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F6 Lamentin située à Quartier Bélème au Lamentin. Capacité 10 personnes.",
@@ -2878,11 +3106,11 @@
                 guestsDetail: "14 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
                 gallery: [
-                    "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg",
-                    "./images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F6 Ste Luce Plage située à Zac de Pont Café, Ste Luce. Capacité 14 personnes.",
@@ -2898,10 +3126,10 @@
                 guestsDetail: "13 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
                 gallery: [
-                    "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
-                    "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F6_Petit_Macabou/03_chambre_studio.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F6 sur Petit Macabou située à Petit Macabou au Vauclin. Capacité 13 personnes.",
@@ -2917,11 +3145,11 @@
                 guestsDetail: "15 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
                 gallery: [
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
-                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F7 Baie des Mulets située à Baie des Mulets, Trinité. Capacité 15 personnes.",
@@ -2937,11 +3165,11 @@
                 guestsDetail: "6 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
                 gallery: [
-                    "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg",
-                    "./images/Villa_F3_Trinite_Cosmy/cuisine_americaine_jaune_bois.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trinite_Cosmy/cuisine_americaine_jaune_bois.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F3 Trinité (Cosmy) située à Cosmy, Trinité. Capacité 6 personnes.",
@@ -2957,11 +3185,11 @@
                 guestsDetail: "6 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
                 gallery: [
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
-                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F3 Le Robert située à Le Robert. Capacité 6 personnes.",
@@ -2977,11 +3205,11 @@
                 guestsDetail: "8 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
                 gallery: [
-                    "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
-                    "./images/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg",
-                    "./images/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F5 R.Pilote située à Rivière-Pilote. Capacité 8 personnes.",
@@ -2997,11 +3225,11 @@
                 guestsDetail: "6 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
                 gallery: [
-                    "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
-                    "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
-                    "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F3 Le François située à Le François. Capacité 6 personnes.",
@@ -3017,11 +3245,11 @@
                 guestsDetail: "10 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
                 gallery: [
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
-                    "./images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F5 Vauclin Ravine Plate située à Ravine Plate, Le Vauclin. Capacité 10 personnes.",
@@ -3037,11 +3265,11 @@
                 guestsDetail: "8 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
                 gallery: [
-                    "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg",
-                    "./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Bas Villa F3 Ste Luce située à Ste Luce. Capacité 8 personnes.",
@@ -3057,11 +3285,11 @@
                 guestsDetail: "6 personnes",
                 features: "Piscine, équipements modernes",
                 category: "sejour",
-                image: "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
                 gallery: [
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
-                    "./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg"
                 ],
                 fallbackIcon: "🏖️",
                 description: "Belle villa Villa F3 Trenelle située à Trenelle. Capacité 6 personnes.",
@@ -3077,10 +3305,10 @@
                 guestsDetail: "2 personnes",
                 features: "Jacuzzi privé, vue panoramique",
                 category: "sejour",
-                image: "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
                 gallery: [
-                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
-                    "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg"
                 ],
                 fallbackIcon: "💕",
                 description: "Studio romantique parfait pour couples.",
@@ -3098,10 +3326,10 @@
                 guestsDetail: "10 à 150 personnes",
                 features: "Cuisine, salle d'eau, mobilier (chaises, tables), chambre climatisée",
                 category: "fete",
-                image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
                 gallery: [
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
                 ],
                 fallbackIcon: "🏊",
                 description: "Espace piscine pour la journée avec bungalow. Idéal pour se détendre et profiter de la piscine. Capacité jusqu'à 150 personnes pour des événements.",
@@ -3117,11 +3345,11 @@
                 guestsDetail: "25 personnes",
                 features: "Piscine, espace fête",
                 category: "fete",
-                image: "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
                 gallery: [
-                    "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
-                    "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg"
                 ],
                 fallbackIcon: "🎉",
                 description: "Villa parfaite pour organiser des fêtes et événements.",
@@ -3137,11 +3365,11 @@
                 guestsDetail: "20 personnes",
                 features: "Piscine, terrasse couverte",
                 category: "fete",
-                image: "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
                 gallery: [
-                    "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
-                    "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg"
                 ],
                 fallbackIcon: "🏛️",
                 description: "Villa pour fêtes à Fort-de-France.",
@@ -3157,11 +3385,11 @@
                 guestsDetail: "35 personnes",
                 features: "Grande piscine, espace barbecue",
                 category: "fete",
-                image: "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
                 gallery: [
-                    "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
-                    "./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg"
                 ],
                 fallbackIcon: "🔥",
                 description: "Villa spacieuse pour grandes fêtes.",
@@ -3177,11 +3405,11 @@
                 guestsDetail: "15 personnes",
                 features: "Piscine, jardins tropicaux",
                 category: "fete",
-                image: "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
                 gallery: [
-                    "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
-                    "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg"
                 ],
                 fallbackIcon: "🌺",
                 description: "Villa pour fêtes avec jardins tropicaux.",
@@ -3197,10 +3425,10 @@
                 guestsDetail: "10 à 150 personnes",
                 features: "Piscine, espace couvert, bungalow",
                 category: "fete",
-                image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                image: "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
                 gallery: [
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                    "https://res.cloudinary.com/khanelconcept/image/upload/c_fill,w_800,h_600,q_auto,f_auto/v1/villas/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
                 ],
                 fallbackIcon: "🏊",
                 description: "Espace piscine avec bungalow pour journée détente ou fêtes. Capacité de 10 à 150 personnes.",
@@ -3659,7 +3887,7 @@
                                 onclick="openImageGallery(${villa.id}, 0)"
                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                                 onload="this.nextElementSibling.style.display='none';"
-                            >
+                             loading="lazy">
                             <div class="image-placeholder" style="display: none;" onclick="openImageGallery(${villa.id}, 0)">
                                 ${villa.fallbackIcon}
                             </div>
@@ -3793,7 +4021,7 @@
         function updateThumbnails() {
             const thumbnailsContainer = document.getElementById('galleryThumbnails');
             thumbnailsContainer.innerHTML = currentGallery.map((image, index) => 
-                `<img src="${image}" alt="Image KhanelConcept" class="thumbnail ${index === currentGalleryIndex ? 'active' : ''}" onclick="goToImage(${index})">`
+                `<img src="${image}" alt="Image KhanelConcept" class="thumbnail ${index === currentGalleryIndex ? 'active' : ''}" onclick="goToImage(${index})" loading="lazy">`
             ).join('');
         }
 
