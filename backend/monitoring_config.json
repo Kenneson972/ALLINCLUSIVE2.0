@@ -1,0 +1,59 @@
+{
+  "logging": {
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+      "detailed": {
+        "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+      },
+      "security": {
+        "format": "%(asctime)s - SECURITY - %(levelname)s - %(message)s"
+      }
+    },
+    "handlers": {
+      "console": {
+        "class": "logging.StreamHandler",
+        "level": "INFO",
+        "formatter": "detailed"
+      },
+      "file": {
+        "class": "logging.FileHandler",
+        "filename": "/var/log/khanelconcept/app.log",
+        "level": "INFO",
+        "formatter": "detailed"
+      },
+      "security": {
+        "class": "logging.FileHandler",
+        "filename": "/var/log/khanelconcept/security.log",
+        "level": "WARNING",
+        "formatter": "security"
+      }
+    },
+    "loggers": {
+      "": {
+        "handlers": [
+          "console",
+          "file"
+        ],
+        "level": "INFO"
+      },
+      "security": {
+        "handlers": [
+          "security"
+        ],
+        "level": "WARNING",
+        "propagate": false
+      }
+    }
+  },
+  "metrics": {
+    "enabled": true,
+    "endpoint": "/metrics",
+    "collect_interval": 60
+  },
+  "alerts": {
+    "failed_logins_threshold": 10,
+    "error_rate_threshold": 0.05,
+    "response_time_threshold": 2.0
+  }
+}
