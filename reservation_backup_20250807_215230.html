@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Favicon et Icons -->
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/demo/image/upload/v1/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
@@ -955,7 +955,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Favicon et Icons -->
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/demo/image/upload/v1/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
@@ -2374,55 +2374,5 @@
 
 
     <script src="https://cdn.jsdelivr.net/gh/khanelconcept/assets@main/js/universal-button-fixer.js"></script>
-
-    <script>
-        // Protection DOM - empêcher l'écrasement d'éléments critiques
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ Protection DOM activée');
-            
-            // Protéger les éléments critiques contre les modifications
-            const criticalSelectors = ['#heroVideo', '.villa-thumbnail', '.header', 'nav', '.search-form'];
-            
-            criticalSelectors.forEach(selector => {
-                const elements = document.querySelectorAll(selector);
-                elements.forEach(element => {
-                    if (element) {
-                        element.setAttribute('data-protected', 'true');
-                        // Empêcher les modifications non autorisées
-                        element.style.setProperty('pointer-events', 'auto', 'important');
-                        element.style.setProperty('visibility', 'visible', 'important');
-                        element.style.setProperty('display', 'initial', 'important');
-                    }
-                });
-            });
-            
-            // Gestion d'erreur globale pour les images
-            document.querySelectorAll('img').forEach(img => {
-                if (!img.hasAttribute('data-error-handled')) {
-                    img.setAttribute('data-error-handled', 'true');
-                    
-                    img.addEventListener('error', function() {
-                        console.warn('⚠️ Erreur chargement image:', this.src);
-                        
-                        // Ne pas masquer l'image, juste la marquer comme en erreur
-                        this.style.opacity = '0.7';
-                        this.style.filter = 'grayscale(50%)';
-                        
-                        // Réessayer après 3 secondes
-                        setTimeout(() => {
-                            this.src = this.src + '?retry=' + Date.now();
-                        }, 3000);
-                    });
-                }
-            });
-            
-            console.log('✅ Protection DOM et gestion d\'erreurs activées');
-        });
-        
-        // Protection contre les erreurs JavaScript
-        window.addEventListener('error', function(e) {
-            console.warn('Erreur JavaScript capturée:', e.message);
-        });
-    </script>
 </body>
 </html>
