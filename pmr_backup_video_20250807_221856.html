@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="fr">
+\1
+    <!-- SEO Meta Tags Optimisées -->
+    <meta name="description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
+    <meta name="author" content="KhanelConcept">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon et Icons -->
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    
+    <!-- OpenGraph pour Réseaux Sociaux -->
+    <meta property="og:title" content="Accessibilité PMR - KhanelConcept">
+    <meta property="og:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="og:url" content="https://khanelconcept.com/pmr.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="KhanelConcept">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Accessibilité PMR - KhanelConcept">
+    <meta name="twitter:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="twitter:image" content="images/og-image.jpg">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "KhanelConcept",
+        "description": "KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.",
+        "url": "https://khanelconcept.com/pmr.html",
+        "logo": "images/apple-touch-icon.png",
+        "image": "images/og-image.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "MQ",
+            "addressRegion": "Martinique"
+        },
+        "priceRange": "€€€",
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
+            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
+            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
+        ]
+    }
+    </script>
+    
+    <!-- Performance et Sécurité -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <link rel="canonical" href="https://khanelconcept.com/pmr.html">
+                
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibilité PMR - KhanelConcept</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Video Background Identique */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Header Identique */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover .logo-image {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 120px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .page-title h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Glass Cards Identiques */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .pmr-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .certification-badge {
+            background: linear-gradient(135deg, #27AE60, #2ECC71);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Hamburger Menu */
+        .mobile-nav-toggle {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                visibility: hidden;
+                opacity: 0;
+            }
+            
+            .mobile-nav-toggle {
+                display: block !important;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 8px;
+                color: white;
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0.5rem;
+                transition: all 0.3s ease;
+            }
+            
+            .mobile-nav-toggle:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.05);
+            }
+            
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            /* Show mobile menu when active - GLASSMORPHISM AMÉLIORÉ */
+            .nav-links.nav-menu.mobile-open {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                background: rgba(15, 25, 50, 0.85) !important;
+                backdrop-filter: blur(40px) saturate(180%) !important;
+                -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+                padding: 2.5rem 1.5rem !important;
+                border-radius: 0 0 25px 25px !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+                z-index: 1000 !important;
+                box-shadow: 
+                    0 20px 60px rgba(0, 0, 0, 0.6),
+                    0 8px 32px rgba(102, 126, 234, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                animation: slideDownGlass 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+            }
+
+            @keyframes slideDownGlass {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-20px) scale(0.95);
+                    backdrop-filter: blur(0px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                    backdrop-filter: blur(40px) saturate(180%);
+                }
+            }
+
+            @keyframes slideInStagger {
+                0% {
+                    opacity: 0;
+                    transform: translateY(20px) scale(0.9);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+
+            @keyframes slideOutStagger {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-15px) scale(0.9);
+                }
+            }
+            
+            .nav-links.nav-menu.mobile-open a {
+                color: white !important;
+                font-size: 1.15rem !important;
+                font-weight: 600 !important;
+                padding: 16px 24px !important;
+                border-radius: 16px !important;
+                background: rgba(255, 255, 255, 0.08) !important;
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+                transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+                text-decoration: none !important;
+                text-align: center !important;
+                display: block !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                box-shadow: 
+                    0 4px 20px rgba(0, 0, 0, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+                position: relative !important;
+                overflow: hidden !important;
+            }
+
+            /* Effet de brillance sur hover */
+            .nav-links.nav-menu.mobile-open a::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transition: left 0.6s ease;
+            }
+
+            .nav-links.nav-menu.mobile-open a:hover::before {
+                left: 100%;
+            }
+
+            .nav-links.nav-menu.mobile-open a:hover {
+                background: rgba(255, 255, 255, 0.15) !important;
+                backdrop-filter: blur(25px) saturate(150%) !important;
+                transform: translateY(-2px) scale(1.02) !important;
+                box-shadow: 
+                    0 8px 30px rgba(102, 126, 234, 0.2),
+                    0 4px 15px rgba(255, 255, 255, 0.1),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+                border-color: rgba(255, 255, 255, 0.2) !important;
+                color: #E3F2FD !important;
+            }
+
+            .nav-links.nav-menu.mobile-open a:active {
+                transform: translateY(0) scale(0.98) !important;
+                transition: all 0.1s ease !important;
+            }
+
+            /* SOS Link style en mobile - GLASSMORPHISM AMÉLIORÉ */
+            .nav-links.nav-menu.mobile-open .sos-link {
+                background: linear-gradient(135deg, 
+                    rgba(255, 68, 68, 0.25) 0%, 
+                    rgba(255, 100, 100, 0.15) 100%) !important;
+                border: 1px solid rgba(255, 68, 68, 0.4) !important;
+                color: #FFE4E4 !important;
+                box-shadow: 
+                    0 6px 25px rgba(255, 68, 68, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                    0 0 20px rgba(255, 68, 68, 0.1) !important;
+                position: relative !important;
+            }
+
+            .nav-links.nav-menu.mobile-open .sos-link:hover {
+                background: linear-gradient(135deg, 
+                    rgba(255, 68, 68, 0.4) 0%, 
+                    rgba(255, 100, 100, 0.25) 100%) !important;
+                border-color: rgba(255, 68, 68, 0.6) !important;
+                transform: translateY(-3px) scale(1.03) !important;
+                box-shadow: 
+                    0 12px 40px rgba(255, 68, 68, 0.25),
+                    0 6px 20px rgba(255, 68, 68, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                    0 0 30px rgba(255, 68, 68, 0.2) !important;
+                color: white !important;
+            }
+        }
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            
+            .pmr-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video Identique -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="videos/background-video.mp4_qoofsz.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header Identique -->
+    \1
+    <!-- SEO Meta Tags Optimisées -->
+    <meta name="description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
+    <meta name="author" content="KhanelConcept">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon et Icons -->
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    
+    <!-- OpenGraph pour Réseaux Sociaux -->
+    <meta property="og:title" content="Accessibilité PMR - KhanelConcept">
+    <meta property="og:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="og:url" content="https://khanelconcept.com/pmr.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="KhanelConcept">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Accessibilité PMR - KhanelConcept">
+    <meta name="twitter:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="twitter:image" content="images/og-image.jpg">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "KhanelConcept",
+        "description": "KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.",
+        "url": "https://khanelconcept.com/pmr.html",
+        "logo": "images/apple-touch-icon.png",
+        "image": "images/og-image.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "MQ",
+            "addressRegion": "Martinique"
+        },
+        "priceRange": "€€€",
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
+            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
+            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
+        ]
+    }
+    </script>
+    
+    <!-- Performance et Sécurité -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <link rel="canonical" href="https://khanelconcept.com/pmr.html">
+                
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image" loading="lazy">
+            </a>
+            
+            <nav class="nav-links nav-menu">
+                <a href="index.html">🏠 Accueil</a>
+                <a href="prestataires.html">👥 Prestataires</a>
+                <a href="billetterie.html">🎫 Billetterie</a>
+                <a href="mobilier.html">🪑 Mobilier</a>
+                <a href="excursions.html">🏝️ Excursions</a>
+                <a href="sos-depannage.html" class="sos-link">🆘 SOS Dépannage</a>
+                <a href="pmr.html" class="active">♿ PMR</a>
+            </nav>
+            
+            <!-- Bouton hamburger mobile -->
+            <button class="mobile-nav-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-title">
+                <h1>♿ Accessibilité PMR</h1>
+                <p>Des séjours adaptés pour tous, sans compromis sur le luxe</p>
+            </div>
+
+            <div class="pmr-grid">
+                <div class="glass-card">
+                    <h3><i class="fas fa-home" style="color: #3498DB; margin-right: 1rem;"></i>Villas Adaptées</h3>
+                    <div class="certification-badge">✓ Norme ERP accessible</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>♿ Rampes d'accès sécurisées</li>
+                        <li>🚪 Portes élargies (90cm minimum)</li>
+                        <li>🛏️ Chambres de plain-pied</li>
+                        <li>🚿 Salles de bain PMR équipées</li>
+                        <li>🏊 Accès piscine sécurisé avec élévateur</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-wheelchair" style="color: #27AE60; margin-right: 1rem;"></i>Équipements Spécialisés</h3>
+                    <div class="certification-badge">✓ Matériel certifié CE</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🦽 Fauteuils roulants tout-terrain</li>
+                        <li>🛁 Siège de douche rabattable</li>
+                        <li>🚽 WC rehaussés avec barres d'appui</li>
+                        <li>🛏️ Lits médicalisés électriques</li>
+                        <li>📱 Système d'alerte d'urgence</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-car" style="color: #E74C3C; margin-right: 1rem;"></i>Transport Adapté</h3>
+                    <div class="certification-badge">✓ Véhicules homologués</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🚐 Minibus avec rampe hydraulique</li>
+                        <li>🚗 Voitures à commandes au volant</li>
+                        <li>✈️ Assistance aéroport personnalisée</li>
+                        <li>🏥 Transferts médicaux d'urgence</li>
+                        <li>👨‍⚕️ Accompagnateur médical si besoin</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-beach" style="color: #F39C12; margin-right: 1rem;"></i>Accès Plages</h3>
+                    <div class="certification-badge">✓ Handiplage partenaire</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🏖️ Chemins d'accès caillebotis</li>
+                        <li>🏊 Fauteuils de mise à l'eau</li>
+                        <li>☂️ Zones ombragées réservées</li>
+                        <li>🚻 Sanitaires PMR sur site</li>
+                        <li>🆘 Postes de secours équipés</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-utensils" style="color: #9B59B6; margin-right: 1rem;"></i>Restauration Adaptée</h3>
+                    <div class="certification-badge">✓ Tables ergonomiques</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>🍽️ Restaurants accessibles partenaires</li>
+                        <li>🥄 Couverts ergonomiques disponibles</li>
+                        <li>👨‍🍳 Menus adaptés (textures modifiées)</li>
+                        <li>🏠 Service à domicile en villa</li>
+                        <li>💊 Respect régimes médicaux stricts</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card">
+                    <h3><i class="fas fa-user-md" style="color: #E67E22; margin-right: 1rem;"></i>Accompagnement Médical</h3>
+                    <div class="certification-badge">✓ Réseau médecins agréés</div>
+                    <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+                        <li>👩‍⚕️ Infirmier à domicile sur demande</li>
+                        <li>💊 Pharmacie de proximité partenaire</li>
+                        <li>🏥 Contacts médecins spécialisés</li>
+                        <li>🚑 Ligne d'urgence médicale 24/7</li>
+                        <li>📋 Dossier médical sécurisé</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contact PMR spécialisé -->
+            <div class="glass-card" style="text-align: center; background: rgba(39, 174, 96, 0.15);">
+                <h3><i class="fas fa-phone" style="color: #27AE60; margin-right: 1rem;"></i>Contact Spécialisé PMR</h3>
+                <p style="margin: 1rem 0;">Notre équipe dédiée vous accompagne dans la préparation de votre séjour</p>
+                <div style="font-size: 1.5rem; font-weight: bold; color: #27AE60; margin: 1rem 0;">
+                    📞 +596 696 PMR-HELP
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 10px;">
+                        <i class="fas fa-clock" style="color: #3498DB; font-size: 1.5rem;"></i>
+                        <p><strong>Horaires</strong><br>Lun-Dim: 8h-20h</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 10px;">
+                        <i class="fas fa-envelope" style="color: #E74C3C; font-size: 1.5rem;"></i>
+                        <p><strong>Email</strong><br>pmr@khanelconcept.com</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 10px;">
+                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 1.5rem;"></i>
+                        <p><strong>WhatsApp</strong><br>Assistance immédiate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // =====================================================
+        // NAVIGATION MOBILE HAMBURGER - GLASSMORPHISM
+        // =====================================================
+        
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            console.log('🍔 Toggle menu - Current state:', navMenu.classList.contains('mobile-open'));
+            
+            if (navMenu.classList.contains('mobile-open')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        }
+        
+        function openMobileMenu() {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            navMenu.classList.add('mobile-open');
+            toggle.className = 'fas fa-times';
+            
+            // Animation staggered pour les liens
+            const menuLinks = navMenu.querySelectorAll('a');
+            menuLinks.forEach((link, index) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(20px)';
+                link.style.animation = `slideInStagger 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.05}s forwards`;
+            });
+            
+            // Fermer le menu lors du clic sur un lien
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    closeMobileMenu();
+                    // Permettre la navigation normale
+                    return true;
+                });
+            });
+            
+            // Fermer le menu si clic à l'extérieur
+            setTimeout(() => {
+                document.addEventListener('click', handleOutsideClick);
+            }, 100);
+        }
+        
+        function closeMobileMenu() {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggle = document.querySelector('.mobile-nav-toggle i');
+            
+            console.log('❌ Fermeture menu mobile');
+            
+            // Animation de sortie pour les liens
+            const menuLinks = navMenu.querySelectorAll('a');
+            menuLinks.forEach((link, index) => {
+                link.style.animation = `slideOutStagger 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) ${index * 0.03}s forwards`;
+            });
+            
+            // Fermer le menu après l'animation
+            setTimeout(() => {
+                navMenu.classList.remove('mobile-open');
+                toggle.className = 'fas fa-bars';
+                
+                // Reset des styles inline
+                menuLinks.forEach(link => {
+                    link.style.animation = '';
+                    link.style.opacity = '';
+                    link.style.transform = '';
+                });
+            }, 300);
+            
+            document.removeEventListener('click', handleOutsideClick);
+        }
+        
+        function handleOutsideClick(event) {
+            const navMenu = document.querySelector('.nav-links.nav-menu');
+            const toggleBtn = document.querySelector('.mobile-nav-toggle');
+            
+            if (!navMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
+                closeMobileMenu();
+            }
+        }
+    </script>
+</body>
+</html>

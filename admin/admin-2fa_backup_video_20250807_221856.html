@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanelConcept - Configuration 2FA Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
+        }
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .security-enabled {
+            background: rgba(34, 197, 94, 0.1);
+            color: #059669;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        .security-disabled {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-white mb-2">
+                    <i class="fas fa-shield-alt mr-3"></i>
+                    Configuration 2FA
+                </h1>
+                <p class="text-white opacity-90">
+                    Sécurisez votre compte administrateur avec l'authentification à deux facteurs
+                </p>
+            </div>
+
+            <!-- Status Card -->
+            <div class="glass-card p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-semibold text-white">
+                        <i class="fas fa-mobile-alt mr-2"></i>
+                        Statut 2FA
+                    </h2>
+                    <span id="statusBadge" class="security-badge security-disabled">
+                        <i class="fas fa-times-circle"></i>
+                        Désactivée
+                    </span>
+                </div>
+                <div id="statusMessage" class="text-white opacity-90">
+                    L'authentification à deux facteurs n'est pas configurée pour votre compte.
+                </div>
+            </div>
+
+            <!-- Configuration Card -->
+            <div class="glass-card p-6 mb-6">
+                <div id="setupSection" class="hidden">
+                    <h3 class="text-xl font-semibold text-white mb-4">
+                        <i class="fas fa-cog mr-2"></i>
+                        Configuration 2FA
+                    </h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-white text-sm font-medium mb-2">
+                            Mot de passe administrateur
+                        </label>
+                        <input type="password" id="adminPassword" 
+                               class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                               placeholder="Entrez votre mot de passe">
+                    </div>
+                    
+                    <button onclick="setupTwoFactor()" class="btn-primary w-full">
+                        <i class="fas fa-qrcode mr-2"></i>
+                        Générer QR Code
+                    </button>
+                </div>
+
+                <div id="qrSection" class="hidden">
+                    <h3 class="text-xl font-semibold text-white mb-4">
+                        <i class="fas fa-qrcode mr-2"></i>
+                        Scanner le QR Code
+                    </h3>
+                    
+                    <div class="text-center">
+                        <div class="qr-container">
+                            <img id="qrCodeImage" src="" alt="QR Code 2FA" class="max-w-full h-auto">
+                        </div>
+                        <p class="text-white text-sm mb-4">
+                            Scannez ce QR code avec votre application d'authentification
+                            (Google Authenticator, Authy, etc.)
+                        </p>
+                        <div class="mb-4">
+                            <label class="block text-white text-sm font-medium mb-2">
+                                Code de vérification
+                            </label>
+                            <input type="text" id="verificationCode" 
+                                   class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                                   placeholder="Entrez le code à 6 chiffres"
+                                   maxlength="6">
+                        </div>
+                        <button onclick="enableTwoFactor()" class="btn-primary w-full">
+                            <i class="fas fa-check mr-2"></i>
+                            Activer 2FA
+                        </button>
+                    </div>
+                </div>
+
+                <div id="disableSection" class="hidden">
+                    <h3 class="text-xl font-semibold text-white mb-4">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        Désactiver 2FA
+                    </h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-white text-sm font-medium mb-2">
+                            Mot de passe administrateur
+                        </label>
+                        <input type="password" id="disablePassword" 
+                               class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                               placeholder="Entrez votre mot de passe">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-white text-sm font-medium mb-2">
+                            Code 2FA
+                        </label>
+                        <input type="text" id="disableCode" 
+                               class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 text-white placeholder-white placeholder-opacity-60 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+                               placeholder="Code à 6 chiffres"
+                               maxlength="6">
+                    </div>
+                    
+                    <button onclick="disableTwoFactor()" class="btn-danger w-full">
+                        <i class="fas fa-times mr-2"></i>
+                        Désactiver 2FA
+                    </button>
+                </div>
+
+                <div id="enableSection" class="hidden">
+                    <button onclick="showSetup()" class="btn-primary w-full">
+                        <i class="fas fa-plus mr-2"></i>
+                        Configurer 2FA
+                    </button>
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-semibold text-white mb-4">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Instructions
+                </h3>
+                <div class="text-white opacity-90 space-y-3">
+                    <p><strong>1.</strong> Téléchargez une application d'authentification sur votre smartphone</p>
+                    <p><strong>2.</strong> Applications recommandées : Google Authenticator, Authy, Microsoft Authenticator</p>
+                    <p><strong>3.</strong> Scannez le QR code avec l'application</p>
+                    <p><strong>4.</strong> Entrez le code généré pour activer la 2FA</p>
+                    <p><strong>5.</strong> Conservez précieusement vos codes de récupération</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const backendUrl = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8001'
+            : 'https://0bc94448-66d9-4bda-95fc-b769dc763bd7.preview.emergentagent.com';
+
+        // Charger le statut 2FA au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            checkTwoFactorStatus();
+        });
+
+        async function checkTwoFactorStatus() {
+            try {
+                const response = await fetch(`${backendUrl}/api/admin/2fa-status`);
+                const data = await response.json();
+                
+                updateStatusDisplay(data.enabled);
+                
+                if (data.enabled) {
+                    document.getElementById('disableSection').classList.remove('hidden');
+                    document.getElementById('enableSection').classList.add('hidden');
+                } else {
+                    document.getElementById('enableSection').classList.remove('hidden');
+                    document.getElementById('disableSection').classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la vérification du statut 2FA:', error);
+                showNotification('Erreur lors de la vérification du statut 2FA', 'error');
+            }
+        }
+
+        function updateStatusDisplay(enabled) {
+            const statusBadge = document.getElementById('statusBadge');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            if (enabled) {
+                statusBadge.className = 'security-badge security-enabled';
+                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> Activée';
+                statusMessage.textContent = 'L\'authentification à deux facteurs est activée et protège votre compte.';
+            } else {
+                statusBadge.className = 'security-badge security-disabled';
+                statusBadge.innerHTML = '<i class="fas fa-times-circle"></i> Désactivée';
+                statusMessage.textContent = 'L\'authentification à deux facteurs n\'est pas configurée pour votre compte.';
+            }
+        }
+
+        function showSetup() {
+            document.getElementById('enableSection').classList.add('hidden');
+            document.getElementById('setupSection').classList.remove('hidden');
+        }
+
+        async function setupTwoFactor() {
+            const password = document.getElementById('adminPassword').value;
+            
+            if (!password) {
+                showNotification('Veuillez entrer votre mot de passe', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${backendUrl}/api/admin/setup-2fa`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ password: password })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    document.getElementById('qrCodeImage').src = data.qr_code;
+                    document.getElementById('setupSection').classList.add('hidden');
+                    document.getElementById('qrSection').classList.remove('hidden');
+                    showNotification('QR Code généré avec succès', 'success');
+                } else {
+                    showNotification(data.detail || 'Erreur lors de la configuration', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur setup 2FA:', error);
+                showNotification('Erreur lors de la configuration 2FA', 'error');
+            }
+        }
+
+        async function enableTwoFactor() {
+            const code = document.getElementById('verificationCode').value;
+            
+            if (!code || code.length !== 6) {
+                showNotification('Veuillez entrer un code à 6 chiffres', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${backendUrl}/api/admin/enable-2fa`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ totp_code: code })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showNotification('2FA activée avec succès !', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    showNotification(data.detail || 'Code invalide', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur activation 2FA:', error);
+                showNotification('Erreur lors de l\'activation 2FA', 'error');
+            }
+        }
+
+        async function disableTwoFactor() {
+            const password = document.getElementById('disablePassword').value;
+            const code = document.getElementById('disableCode').value;
+            
+            if (!password || !code) {
+                showNotification('Veuillez remplir tous les champs', 'error');
+                return;
+            }
+
+            if (code.length !== 6) {
+                showNotification('Code 2FA invalide', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${backendUrl}/api/admin/disable-2fa`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        password: password,
+                        totp_code: code 
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showNotification('2FA désactivée avec succès', 'success');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    showNotification(data.detail || 'Erreur lors de la désactivation', 'error');
+                }
+            } catch (error) {
+                console.error('Erreur désactivation 2FA:', error);
+                showNotification('Erreur lors de la désactivation 2FA', 'error');
+            }
+        }
+
+        function showNotification(message, type) {
+            // Créer la notification
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            } text-white`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} mr-2"></i>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Supprimer après 5 secondes
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

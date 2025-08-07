@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="fr">
+\1
+    <!-- SEO Meta Tags Optimisées -->
+    <meta name="description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
+    <meta name="author" content="KhanelConcept">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon et Icons -->
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    
+    <!-- OpenGraph pour Réseaux Sociaux -->
+    <meta property="og:title" content="Inscription - KhanelConcept Club Exclusif">
+    <meta property="og:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="og:url" content="https://khanelconcept.com/register.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="KhanelConcept">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Inscription - KhanelConcept Club Exclusif">
+    <meta name="twitter:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="twitter:image" content="images/og-image.jpg">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "KhanelConcept",
+        "description": "KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.",
+        "url": "https://khanelconcept.com/register.html",
+        "logo": "images/apple-touch-icon.png",
+        "image": "images/og-image.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "MQ",
+            "addressRegion": "Martinique"
+        },
+        "priceRange": "€€€",
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
+            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
+            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
+        ]
+    }
+    </script>
+    
+    <!-- Performance et Sécurité -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <link rel="canonical" href="https://khanelconcept.com/register.html">
+                
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - KhanelConcept Club Exclusif</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Rejoignez le Club Exclusif KhanelConcept et bénéficiez d'avantages premium : réservations prioritaires, programme fidélité, conciergerie VIP.">
+    <meta name="keywords" content="inscription KhanelConcept, club exclusif, membre VIP, programme fidélité">
+    <meta name="author" content="KhanelConcept">
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --accent-gold: #f6ad55;
+            --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* PHASE 2 - Accessibilité : Classes pour lecteurs d'écran */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            min-height: 1.25rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        /* Focus visible pour la navigation clavier */
+        .form-input:focus,
+        .form-checkbox:focus,
+        .submit-btn:focus,
+        .nav-link:focus {
+            outline: 3px solid #f6ad55;
+            outline-offset: 2px;
+        }
+
+        /* Skip link pour navigation clavier */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            color: #FFA500;
+        }
+        
+        /* Main Container */
+        .register-container {
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px);
+        }
+        
+        .register-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 3rem;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            padding: 2rem 0;
+        }
+        
+        .hero-title {
+            color: white;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .benefit-icon {
+            background: var(--accent-gold);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        /* Member Levels */
+        .levels-preview {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .levels-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .level-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .level-badge {
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .level-badge.discoverer { background: #e53e3e; }
+        .level-badge.explorer { background: #3182ce; }
+        .level-badge.adventurer { background: #38a169; }
+        .level-badge.legend { background: #d69e2e; }
+        
+        /* Register Card */
+        .register-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-soft);
+            position: sticky;
+            top: 100px;
+        }
+        
+        .register-card-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .required {
+            color: #ff6b6b;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 15px 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-input.error {
+            border-color: #ff6b6b;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 15px 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-select option {
+            background: #2d3748;
+            color: white;
+        }
+        
+        /* Password Strength */
+        .password-strength {
+            margin-top: 0.5rem;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+        
+        .strength-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            transition: all 0.3s ease;
+            width: 0%;
+        }
+        
+        .strength-fill.weak { background: #e53e3e; width: 25%; }
+        .strength-fill.fair { background: #dd6b20; width: 50%; }
+        .strength-fill.good { background: #3182ce; width: 75%; }
+        .strength-fill.strong { background: #38a169; width: 100%; }
+        
+        /* Terms Checkbox */
+        .terms-group {
+            margin: 1.5rem 0;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .checkbox-custom.checked {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+        
+        .terms-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .terms-text a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .terms-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 18px 35px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Error Messages */
+        .error-message {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .field-error {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading .loading-spinner {
+            display: inline-block;
+        }
+        
+        .loading .btn-text {
+            display: none;
+        }
+        
+        /* Login Link */
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .login-link a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .register-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .register-card {
+                position: relative;
+                top: 0;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .register-container {
+                padding: 1rem;
+            }
+            
+            .register-grid {
+                padding: 0;
+            }
+            
+            .register-card {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+            
+            .hero-section {
+                padding: 1rem 0;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .form-input, .form-select {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PHASE 2 - Skip link pour navigation clavier -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Background Video -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline aria-hidden="true">
+            <source src="videos/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            <span class="sr-only">Vidéo d'arrière-plan décorative</span>
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header -->
+    \1
+    <!-- SEO Meta Tags Optimisées -->
+    <meta name="description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
+    <meta name="author" content="KhanelConcept">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon et Icons -->
+    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/khanelconcept/image/upload/v1/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    
+    <!-- OpenGraph pour Réseaux Sociaux -->
+    <meta property="og:title" content="Inscription - KhanelConcept Club Exclusif">
+    <meta property="og:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta property="og:image" content="images/og-image.jpg">
+    <meta property="og:url" content="https://khanelconcept.com/register.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="KhanelConcept">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Inscription - KhanelConcept Club Exclusif">
+    <meta name="twitter:description" content="KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.">
+    <meta name="twitter:image" content="images/og-image.jpg">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LodgingBusiness",
+        "name": "KhanelConcept",
+        "description": "KhanelConcept - Plateforme de réservation de villas de luxe en Martinique. Interface moderne, réservation sécurisée, conciergerie premium. Vivez l'exception martiniquaise.",
+        "url": "https://khanelconcept.com/register.html",
+        "logo": "images/apple-touch-icon.png",
+        "image": "images/og-image.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "MQ",
+            "addressRegion": "Martinique"
+        },
+        "priceRange": "€€€",
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
+            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
+            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
+        ]
+    }
+    </script>
+    
+    <!-- Performance et Sécurité -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <link rel="canonical" href="https://khanelconcept.com/register.html">
+                
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="logo" aria-label="Retour à l'accueil KhanelConcept">
+                    <i class="fas fa-palm-tree" aria-hidden="true"></i>
+                    KhanelConcept
+                </a>
+                <nav class="hidden md:flex items-center gap-4" role="navigation" aria-label="Navigation principale">
+                    <a href="login.html" class="text-white/80 hover:text-white transition-colors" aria-label="Se connecter à votre compte">Connexion</a>
+                    <a href="index.html" class="text-white/80 hover:text-white transition-colors" aria-label="Retour à l'accueil">Accueil</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="register-container" role="main">
+        <div class="register-grid">
+            
+            <!-- Hero Section -->
+            <div class="hero-section" data-aos="fade-right" data-aos-duration="1000">
+                <h1 class="hero-title">
+                    Rejoignez le Club Exclusif 
+                    <span style="background: var(--accent-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                        KhanelConcept
+                    </span>
+                </h1>
+                <p class="hero-subtitle">
+                    Découvrez un monde d'avantages premium et d'expériences inoubliables dans nos villas de luxe en Martinique.
+                </p>
+
+                <!-- Benefits List -->
+                <ul class="benefits-list">
+                    <li class="benefit-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="benefit-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <strong>Réservations Prioritaires</strong><br>
+                            <small>Accès exclusif 24h avant l'ouverture générale</small>
+                        </div>
+                    </li>
+                    <li class="benefit-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="benefit-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div>
+                            <strong>Programme Fidélité</strong><br>
+                            <small>Gagnez des points à chaque réservation</small>
+                        </div>
+                    </li>
+                    <li class="benefit-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="benefit-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <div>
+                            <strong>Conciergerie VIP</strong><br>
+                            <small>Service personnalisé pour vos séjours</small>
+                        </div>
+                    </li>
+                    <li class="benefit-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="benefit-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            <strong>Modifications Gratuites</strong><br>
+                            <small>Flexibilité totale jusqu'à 48h avant</small>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Member Levels Preview -->
+                <div class="levels-preview" data-aos="fade-up" data-aos-delay="600">
+                    <h3 class="levels-title">🏆 Niveaux de Membres</h3>
+                    <div class="level-item">
+                        <span class="level-badge discoverer">Découvreur</span>
+                        <span>0-499 pts • Avantages de base</span>
+                    </div>
+                    <div class="level-item">
+                        <span class="level-badge explorer">Explorateur</span>
+                        <span>500-1499 pts • Check-in prioritaire</span>
+                    </div>
+                    <div class="level-item">
+                        <span class="level-badge adventurer">Aventurier</span>
+                        <span>1500-2999 pts • Surclassement gratuit</span>
+                    </div>
+                    <div class="level-item">
+                        <span class="level-badge legend">Légende</span>
+                        <span>3000+ pts • Conciergerie 24/7</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="register-card" data-aos="fade-left" data-aos-duration="1000">
+                <h2 class="register-card-title" id="form-title">Créer votre compte</h2>
+
+                <!-- PHASE 2 - Error Message avec région live -->
+                <div id="error-message" class="error-message" aria-live="polite" aria-atomic="true" role="status"></div>
+
+                <form id="registerForm" role="form" aria-labelledby="form-title">
+                    <!-- Personal Information -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">
+                                Prénom <span class="required" aria-label="requis">*</span>
+                            </label>
+                            <input type="text" id="firstName" class="form-input" placeholder="Votre prénom" required
+                                   aria-describedby="firstName-error firstName-help" aria-invalid="false">
+                            <div id="firstName-help" class="sr-only">Votre prénom tel qu'il apparaîtra sur vos réservations</div>
+                            <div class="field-error" id="firstName-error" aria-live="polite" role="alert"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">
+                                Nom <span class="required" aria-label="requis">*</span>
+                            </label>
+                            <input type="text" id="lastName" class="form-input" placeholder="Votre nom" required
+                                   aria-describedby="lastName-error lastName-help" aria-invalid="false">
+                            <div id="lastName-help" class="sr-only">Votre nom de famille tel qu'il apparaîtra sur vos réservations</div>
+                            <div class="field-error" id="lastName-error" aria-live="polite" role="alert"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            Email <span class="required" aria-label="requis">*</span>
+                        </label>
+                        <input type="email" id="email" class="form-input" placeholder="votre@email.com" required
+                               aria-describedby="email-error email-help" aria-invalid="false">
+                        <div id="email-help" class="sr-only">Votre adresse email sera utilisée pour la connexion et les notifications</div>
+                        <div class="field-error" id="email-error" aria-live="polite" role="alert"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            Téléphone <span class="required" aria-label="requis">*</span>
+                        </label>
+                        <input type="tel" id="phone" class="form-input" placeholder="+33 6 XX XX XX XX" required
+                               aria-describedby="phone-error phone-help" aria-invalid="false">
+                        <div id="phone-help" class="sr-only">Format international recommandé : +33 6 XX XX XX XX</div>
+                        <div class="field-error" id="phone-error" aria-live="polite" role="alert"></div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">
+                            Mot de passe <span class="required" aria-label="requis">*</span>
+                        </label>
+                        <input type="password" id="password" class="form-input" placeholder="Créez un mot de passe sécurisé" required
+                               aria-describedby="password-strength password-help" aria-invalid="false">
+                        <div id="password-help" class="sr-only">
+                            Minimum 8 caractères avec majuscule, minuscule, chiffre et caractère spécial
+                        </div>
+                        <div class="password-strength" id="password-strength" aria-live="polite">
+                            <div class="strength-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                                 aria-label="Force du mot de passe">
+                                <div class="strength-fill" id="strength-fill"></div>
+                            </div>
+                            <div id="strength-text">Tapez votre mot de passe</div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">
+                            Confirmer mot de passe <span class="required" aria-label="requis">*</span>
+                        </label>
+                        <input type="password" id="confirmPassword" class="form-input" placeholder="Confirmez votre mot de passe" required
+                               aria-describedby="confirmPassword-error confirmPassword-help" aria-invalid="false">
+                        <div id="confirmPassword-help" class="sr-only">Doit être identique au mot de passe saisi ci-dessus</div>
+                        <div class="field-error" id="confirmPassword-error" aria-live="polite" role="alert"></div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="birthDate" class="form-label">Date de naissance</label>
+                            <input type="date" id="birthDate" class="form-input" 
+                                   aria-describedby="birthDate-help">
+                            <div id="birthDate-help" class="sr-only">
+                                Optionnel - pour vous offrir des surprises le jour de votre anniversaire
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="terms-group">
+                        <div class="checkbox-group">
+                            <div class="checkbox-custom" id="termsCheck" role="checkbox" aria-checked="false"
+                                 aria-labelledby="terms-label" aria-describedby="terms-error" 
+                                 tabindex="0" onkeydown="handleTermsKeydown(event)">
+                                <i class="fas fa-check text-xs opacity-0 transition-opacity" aria-hidden="true"></i>
+                            </div>
+                            <div class="terms-text" id="terms-label">
+                                J'accepte les <a href="#" target="_blank" 
+                                   aria-label="Ouvrir les conditions générales dans un nouvel onglet">Conditions Générales d'Utilisation</a> 
+                                et la <a href="#" target="_blank" 
+                                   aria-label="Ouvrir la politique de confidentialité dans un nouvel onglet">Politique de Confidentialité</a>. 
+                                Je souhaite recevoir les offres exclusives et actualités KhanelConcept.
+                            </div>
+                        </div>
+                        <input type="checkbox" id="terms" class="sr-only" required>
+                        <div class="field-error" id="terms-error" aria-live="polite" role="alert"></div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="registerBtn" 
+                            aria-describedby="register-help">
+                        <span class="btn-text">
+                            <i class="fas fa-user-plus mr-2" aria-hidden="true"></i>
+                            Rejoindre le Club
+                        </span>
+                        <div class="loading-spinner" aria-hidden="true"></div>
+                    </button>
+                    <div id="register-help" class="sr-only">
+                        Cliquez ou appuyez sur Entrée pour créer votre compte membre
+                    </div>
+                </form>
+
+                <!-- Login Link -->
+                <div class="login-link">
+                    Déjà membre ? 
+                    <a href="login.html" aria-label="Se connecter à votre compte existant">Se connecter</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackgroundVideoiOS();
+            setupCheckboxBehavior();
+            setupFormValidation();
+            setupPasswordStrength();
+            setupAccessibility(); // PHASE 2 - Nouvelle fonction d'accessibilité
+        });
+
+        // iOS Video Background Support
+        function initBackgroundVideoiOS() {
+            const video = document.getElementById('backgroundVideo');
+            if (video) {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                
+                if (isIOS) {
+                    video.setAttribute('webkit-playsinline', '');
+                    video.setAttribute('playsinline', '');
+                    video.muted = true;
+                    video.defaultMuted = true;
+                    video.volume = 0;
+                    
+                    video.play().catch(error => {
+                        function startVideo() {
+                            video.play().then(() => {
+                                console.log('✅ Vidéo background démarrée sur iOS');
+                            }).catch(err => console.log('Erreur vidéo iOS:', err));
+                            document.removeEventListener('touchstart', startVideo);
+                            document.removeEventListener('click', startVideo);
+                        }
+                        
+                        document.addEventListener('touchstart', startVideo, { once: true });
+                        document.addEventListener('click', startVideo, { once: true });
+                    });
+                } else {
+                    video.play().catch(error => {
+                        console.log('Erreur autoplay:', error);
+                    });
+                }
+            }
+        }
+
+        // PHASE 2 - Fonctions d'accessibilité pour l'inscription
+        function handleTermsKeydown(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                document.getElementById('terms').click();
+            }
+        }
+
+        function setupAccessibility() {
+            // Validation en temps réel avec feedback accessibilité
+            const fields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword'];
+            
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const errorDiv = document.getElementById(`${fieldId}-error`);
+                
+                // Validation à la perte de focus
+                field.addEventListener('blur', function() {
+                    validateFieldAccessibility(fieldId);
+                });
+                
+                // Effacer les erreurs en tapant
+                field.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        this.setAttribute('aria-invalid', 'false');
+                        errorDiv.textContent = '';
+                    }
+                });
+            });
+            
+            // Validation du checkbox des conditions
+            const termsCheck = document.getElementById('termsCheck');
+            const terms = document.getElementById('terms');
+            
+            termsCheck.addEventListener('click', function() {
+                const isChecked = terms.checked;
+                this.setAttribute('aria-checked', isChecked ? 'false' : 'true');
+                
+                if (!isChecked) {
+                    document.getElementById('terms-error').textContent = '';
+                    terms.setAttribute('aria-invalid', 'false');
+                }
+            });
+        }
+
+        function validateFieldAccessibility(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = document.getElementById(`${fieldId}-error`);
+            const value = field.value.trim();
+            
+            let isValid = true;
+            let errorMessage = '';
+            
+            switch (fieldId) {
+                case 'firstName':
+                case 'lastName':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = `${fieldId === 'firstName' ? 'Prénom' : 'Nom'} requis`;
+                    } else if (value.length < 2) {
+                        isValid = false;
+                        errorMessage = 'Minimum 2 caractères';
+                    }
+                    break;
+                    
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Email requis';
+                    } else if (!emailRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Format email invalide';
+                    }
+                    break;
+                    
+                case 'phone':
+                    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Téléphone requis';
+                    } else if (!phoneRegex.test(value)) {
+                        isValid = false;
+                        errorMessage = 'Format téléphone invalide';
+                    }
+                    break;
+                    
+                case 'password':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Mot de passe requis';
+                    } else if (value.length < 8) {
+                        isValid = false;
+                        errorMessage = 'Minimum 8 caractères';
+                    }
+                    break;
+                    
+                case 'confirmPassword':
+                    const password = document.getElementById('password').value;
+                    if (!value) {
+                        isValid = false;
+                        errorMessage = 'Confirmation requise';
+                    } else if (value !== password) {
+                        isValid = false;
+                        errorMessage = 'Mots de passe différents';
+                    }
+                    break;
+            }
+            
+            field.setAttribute('aria-invalid', isValid ? 'false' : 'true');
+            errorDiv.textContent = errorMessage;
+            
+            if (!isValid) {
+                errorDiv.setAttribute('aria-live', 'assertive');
+            }
+            
+            return isValid;
+        }
+
+        function showError(message) {
+            const errorContainer = document.getElementById('error-message');
+            errorContainer.innerHTML = `
+                <div class="alert alert-error" role="alert" aria-live="assertive">
+                    <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                    ${message}
+                </div>
+            `;
+            
+            // Focus sur l'erreur pour les lecteurs d'écran
+            errorContainer.querySelector('.alert').focus();
+            
+            // Annonce vocale
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(`Erreur : ${message}`);
+                utterance.rate = 0.8;
+                utterance.volume = 0.3;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function showSuccess(message) {
+            const errorContainer = document.getElementById('error-message');
+            errorContainer.innerHTML = `
+                <div class="alert alert-success" role="alert" aria-live="polite">
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                    ${message}
+                </div>
+            `;
+            
+            // Focus sur le succès
+            errorContainer.querySelector('.alert').focus();
+            
+            // Annonce vocale
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(`Succès : ${message}`);
+                utterance.rate = 0.8;
+                utterance.volume = 0.3;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Checkbox behavior amélioré pour l'accessibilité
+        function setupCheckboxBehavior() {
+            const checkbox = document.getElementById('terms');
+            const checkboxCustom = document.getElementById('termsCheck');
+            const checkmark = checkboxCustom.querySelector('.fas');
+
+            checkbox.addEventListener('change', function() {
+                const isChecked = this.checked;
+                checkboxCustom.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+                
+                if (isChecked) {
+                    checkmark.style.opacity = '1';
+                    checkboxCustom.classList.add('checked');
+                } else {
+                    checkmark.style.opacity = '0';
+                    checkboxCustom.classList.remove('checked');
+                }
+            });
+
+            checkboxCustom.addEventListener('click', function() {
+                checkbox.click();
+            });
+            
+            // Support clavier pour checkbox custom
+            checkboxCustom.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    checkbox.click();
+                }
+            });
+        }
+
+        // Password strength indicator avec accessibilité
+        function setupPasswordStrength() {
+            const passwordField = document.getElementById('password');
+            const strengthFill = document.getElementById('strength-fill');
+            const strengthText = document.getElementById('strength-text');
+            const progressBar = document.querySelector('.strength-bar');
+
+            passwordField.addEventListener('input', function() {
+                const password = this.value;
+                const strength = calculatePasswordStrength(password);
+                
+                strengthFill.className = `strength-fill ${strength.class}`;
+                strengthText.textContent = strength.text;
+                
+                // Mise à jour de la barre de progression accessible
+                progressBar.setAttribute('aria-valuenow', strength.score);
+                progressBar.setAttribute('aria-valuetext', strength.text);
+            });
+        }
+        function setupPasswordStrength() {
+            const passwordField = document.getElementById('password');
+            const strengthFill = document.getElementById('strength-fill');
+            const strengthText = document.getElementById('strength-text');
+
+            passwordField.addEventListener('input', function() {
+                const password = this.value;
+                const strength = calculatePasswordStrength(password);
+                
+                strengthFill.className = `strength-fill ${strength.class}`;
+                strengthText.textContent = strength.text;
+            });
+        }
+
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            let feedback = [];
+
+            if (password.length >= 8) score++;
+            else feedback.push('8 caractères minimum');
+
+            if (/[a-z]/.test(password)) score++;
+            else feedback.push('minuscules');
+
+            if (/[A-Z]/.test(password)) score++;
+            else feedback.push('majuscules');
+
+            if (/[0-9]/.test(password)) score++;
+            else feedback.push('chiffres');
+
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            else feedback.push('caractères spéciaux');
+
+            const levels = [
+                { class: 'weak', text: `Faible - Manque: ${feedback.join(', ')}` },
+                { class: 'fair', text: `Moyen - Manque: ${feedback.join(', ')}` },
+                { class: 'good', text: 'Bon mot de passe' },
+                { class: 'strong', text: 'Excellent mot de passe!' }
+            ];
+
+            return levels[Math.min(score - 1, 3)] || { class: '', text: 'Tapez votre mot de passe' };
+        }
+
+        // =============================================================================
+        // 🔒 FONCTIONS DE SÉCURITÉ FRONTEND GLOBALES
+        // =============================================================================
+        
+        function sanitizeInput(input) {
+            // Nettoie les entrées utilisateur contre XSS côté frontend
+            if (typeof input !== 'string') return input;
+            
+            return input
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;')
+                .replace(/javascript:/gi, '')
+                .replace(/on\w+\s*=/gi, '')
+                .trim();
+        }
+        
+        function sanitizeFormData(data) {
+            // Nettoie toutes les données du formulaire
+            const cleaned = {};
+            for (const [key, value] of Object.entries(data)) {
+                if (typeof value === 'string') {
+                    cleaned[key] = sanitizeInput(value);
+                } else {
+                    cleaned[key] = value;
+                }
+            }
+            return cleaned;
+        }
+
+        // Form validation
+        function setupFormValidation() {
+            const form = document.getElementById('registerForm');
+            const inputs = form.querySelectorAll('.form-input[required]');
+
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        validateField(this);
+                    }
+                });
+            });
+
+            form.addEventListener('submit', handleRegister);
+        }
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const fieldError = document.getElementById(field.id + '-error');
+            let isValid = true;
+            let errorMessage = '';
+
+            // Required field check
+            if (field.hasAttribute('required') && !value) {
+                isValid = false;
+                errorMessage = 'Ce champ est requis';
+            }
+
+            // Email validation
+            if (field.type === 'email' && value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Format email invalide';
+                }
+            }
+
+            // Phone validation
+            if (field.type === 'tel' && value) {
+                const phoneRegex = /^[+]?[\d\s\-\(\)]{10,}$/;
+                if (!phoneRegex.test(value)) {
+                    isValid = false;
+                    errorMessage = 'Format téléphone invalide';
+                }
+            }
+
+            // Password validation
+            if (field.id === 'password' && value) {
+                if (value.length < 8) {
+                    isValid = false;
+                    errorMessage = 'Minimum 8 caractères requis';
+                } else {
+                    // Si confirm password existe, vérifier correspondance
+                    const confirmPassword = document.getElementById('confirmPassword');
+                    if (confirmPassword && confirmPassword.value && confirmPassword.value !== value) {
+                        // Marquer le champ confirmation comme invalide
+                        const confirmError = document.getElementById('confirmPassword-error');
+                        if (confirmError) {
+                            confirmError.textContent = 'Les mots de passe ne correspondent pas';
+                            confirmError.style.display = 'block';
+                        }
+                        confirmPassword.classList.add('error');
+                    }
+                }
+            }
+
+            // Confirm Password validation
+            if (field.id === 'confirmPassword' && value) {
+                const password = document.getElementById('password').value;
+                if (password !== value) {
+                    isValid = false;
+                    errorMessage = 'Les mots de passe ne correspondent pas';
+                } else {
+                    // Si les mots de passe correspondent, enlever l'erreur du champ password aussi
+                    const passwordField = document.getElementById('password');
+                    const passwordError = document.getElementById('password-error');
+                    if (passwordField) {
+                        passwordField.classList.remove('error');
+                    }
+                    if (passwordError) {
+                        passwordError.style.display = 'none';
+                    }
+                }
+            }
+
+            // Update field appearance
+            if (isValid) {
+                field.classList.remove('error');
+                if (fieldError) {
+                    fieldError.style.display = 'none';
+                }
+            } else {
+                field.classList.add('error');
+                if (fieldError) {
+                    fieldError.textContent = errorMessage;
+                    fieldError.style.display = 'block';
+                }
+            }
+
+            return isValid;
+        }
+
+        // Handle registration
+        async function handleRegister(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+            
+            // Get form values
+            let userData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
+                birthDate: document.getElementById('birthDate').value,
+                terms: document.getElementById('terms').checked
+            };
+            
+            // 🔒 SANITISATION SÉCURITÉ XSS
+            userData = sanitizeFormData(userData);
+            console.log('🔒 Données sanitisées:', userData);
+
+            // Validate all fields
+            const requiredFields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword'];
+            let isValid = true;
+
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            });
+
+            // Validation spéciale : correspondance mots de passe
+            if (userData.password !== userData.confirmPassword) {
+                const confirmField = document.getElementById('confirmPassword');
+                const confirmError = document.getElementById('confirmPassword-error');
+                confirmField.classList.add('error');
+                if (confirmError) {
+                    confirmError.textContent = 'Les mots de passe ne correspondent pas';
+                    confirmError.style.display = 'block';
+                }
+                isValid = false;
+            }
+
+            // Check terms
+            if (!userData.terms) {
+                const termsError = document.getElementById('terms-error');
+                termsError.textContent = 'Vous devez accepter les conditions';
+                termsError.style.display = 'block';
+                isValid = false;
+            } else {
+                const termsError = document.getElementById('terms-error');
+                termsError.style.display = 'none';
+            }
+
+            if (!isValid) {
+                showError('Veuillez corriger les erreurs dans le formulaire.');
+                return;
+            }
+
+            // Show loading
+            const registerBtn = document.getElementById('registerBtn');
+            registerBtn.classList.add('loading');
+
+            try {
+                // 🚀 ENVOI AU VRAI BACKEND API
+                const backendUrl = 'http://localhost:8001'; // URL backend
+                const response = await fetch(`${backendUrl}/api/members/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        email: userData.email,
+                        phone: userData.phone,
+                        password: userData.password,
+                        birthDate: userData.birthDate,
+                        acceptTerms: userData.terms
+                    })
+                });
+
+                let responseData = {};
+                try {
+                    responseData = await response.json();
+                } catch (jsonError) {
+                    console.log('❌ Erreur parsing JSON response:', jsonError);
+                }
+
+                if (response.ok && responseData.success) {
+                    // Inscription réussie dans le backend
+                    const newUser = responseData.member;
+                    const token = responseData.token;
+
+                    console.log('✅ Inscription backend réussie:', newUser);
+                    showSuccess('Compte créé avec succès ! Vérifiez votre email.');
+                    
+                    // Rediriger vers la page de vérification
+                    setTimeout(() => {
+                        window.location.href = `email-verification.html?email=${encodeURIComponent(userData.email)}`;
+                    }, 2000);
+                    
+                } else {
+                    // Erreur backend
+                    const errorMessage = responseData.detail || responseData.message || 'Erreur lors de la création du compte';
+                    console.log('❌ Erreur backend inscription:', errorMessage);
+                    showError(errorMessage);
+                }
+
+            } catch (error) {
+                console.error('❌ Erreur réseau inscription:', error);
+                
+                // Fallback vers système demo en cas d'erreur réseau
+                console.log('🔄 Fallback vers système demo...');
+                
+                const newUser = {
+                    id: `demo_${Date.now()}`,
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    phone: userData.phone,
+                    birthDate: userData.birthDate,
+                    level: 'Découvreur',
+                    points: 100,
+                    joinDate: new Date().toISOString(),
+                    isVerified: false
+                };
+
+                // Store in localStorage as fallback
+                localStorage.setItem('khanelconcept_user', JSON.stringify(newUser));
+                localStorage.setItem('khanelconcept_token', `demo_token_${Date.now()}`);
+
+                showError('Erreur réseau - Utilisez demo@khanelconcept.com / demo123 pour tester la connexion.');
+                
+                setTimeout(() => {
+                    sessionStorage.setItem('dashboard_redirect', 'true');
+                    window.location.href = 'dashboard.html';
+                }, 3000);
+            } finally {
+                registerBtn.classList.remove('loading');
+            }
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById('error-message');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
+            }, 5000);
+        }
+
+        function showSuccess(message) {
+            const errorMsg = document.getElementById('error-message');
+            errorMsg.style.background = 'rgba(72, 187, 120, 0.1)';
+            errorMsg.style.borderColor = 'rgba(72, 187, 120, 0.3)';
+            errorMsg.style.color = '#48bb78';
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

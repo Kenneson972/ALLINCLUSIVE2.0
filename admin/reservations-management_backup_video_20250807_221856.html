@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllInclusive 2.0 - Gestion des Réservations</title>
+    
+    <!-- External CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SortableJS for drag & drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    
+    <style>
+        :root {
+            /* Light Theme Colors */
+            --primary-50: #f0f9ff;
+            --primary-100: #e0f2fe;
+            --primary-500: #0ea5e9;
+            --primary-600: #0284c7;
+            --primary-700: #0369a1;
+            
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            
+            --success-50: #f0fdf4;
+            --success-500: #22c55e;
+            --success-600: #16a34a;
+            --warning-50: #fffbeb;
+            --warning-500: #f59e0b;
+            --warning-600: #d97706;
+            --error-50: #fef2f2;
+            --error-500: #ef4444;
+            --error-600: #dc2626;
+            --purple-50: #faf5ff;
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-primary: #e2e8f0;
+            
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        
+        [data-theme="dark"] {
+            --primary-50: #0c1220;
+            --primary-100: #1e293b;
+            --primary-500: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            
+            --gray-50: #0f172a;
+            --gray-100: #1e293b;
+            --gray-200: #334155;
+            --gray-300: #475569;
+            --gray-400: #64748b;
+            --gray-500: #94a3b8;
+            --gray-600: #cbd5e1;
+            --gray-700: #e2e8f0;
+            --gray-800: #f1f5f9;
+            --gray-900: #f8fafc;
+            
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --border-primary: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* Layout */
+        .reservations-layout {
+            padding: 2rem;
+            max-width: 100%;
+        }
+        
+        /* Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary-500);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-600);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+        
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-primary);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .stat-icon.pending {
+            background: var(--warning-50);
+            color: var(--warning-500);
+        }
+        
+        .stat-icon.confirmed {
+            background: var(--success-50);
+            color: var(--success-500);
+        }
+        
+        .stat-icon.checkin {
+            background: var(--purple-50);
+            color: var(--purple-500);
+        }
+        
+        .stat-icon.completed {
+            background: var(--primary-50);
+            color: var(--primary-500);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--success-500);
+        }
+        
+        /* Filters */
+        .filters-section {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-primary);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+        }
+        
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: border-color 0.2s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px var(--primary-50);
+        }
+        
+        /* Kanban Board */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+        
+        .kanban-column {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-primary);
+            min-height: 600px;
+        }
+        
+        .column-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .column-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .column-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+        
+        .column-icon.pending {
+            background: var(--warning-50);
+            color: var(--warning-500);
+        }
+        
+        .column-icon.confirmed {
+            background: var(--success-50);
+            color: var(--success-500);
+        }
+        
+        .column-icon.checkin {
+            background: var(--purple-50);
+            color: var(--purple-500);
+        }
+        
+        .column-icon.completed {
+            background: var(--primary-50);
+            color: var(--primary-500);
+        }
+        
+        .column-count {
+            background: var(--gray-100);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .column-body {
+            padding: 1rem;
+            min-height: 500px;
+        }
+        
+        /* Booking Cards */
+        .booking-card {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-primary);
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            cursor: grab;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .booking-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        .booking-card.dragging {
+            cursor: grabbing;
+            opacity: 0.8;
+            transform: rotate(2deg);
+        }
+        
+        .booking-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .booking-id {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-600);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .booking-amount {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .booking-villa {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .booking-guest {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .booking-dates {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: var(--gray-50);
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+        
+        .booking-date {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--text-secondary);
+        }
+        
+        .booking-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-primary);
+            border-radius: 6px;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn:hover {
+            background: var(--gray-50);
+            color: var(--text-primary);
+        }
+        
+        .action-btn.primary {
+            background: var(--primary-50);
+            color: var(--primary-600);
+            border-color: var(--primary-200);
+        }
+        
+        .action-btn.primary:hover {
+            background: var(--primary-100);
+        }
+        
+        .action-btn.success {
+            background: var(--success-50);
+            color: var(--success-600);
+            border-color: var(--success-200);
+        }
+        
+        .action-btn.success:hover {
+            background: var(--success-100);
+        }
+        
+        /* Priority Indicators */
+        .priority-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .priority-high {
+            background: var(--error-500);
+        }
+        
+        .priority-medium {
+            background: var(--warning-500);
+        }
+        
+        .priority-low {
+            background: var(--success-500);
+        }
+        
+        /* Channel Badges */
+        .channel-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .channel-airbnb {
+            background: #ff5a5f;
+            color: white;
+        }
+        
+        .channel-booking {
+            background: #003580;
+            color: white;
+        }
+        
+        .channel-direct {
+            background: var(--primary-500);
+            color: white;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-primary);
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--gray-100);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-200);
+            color: var(--text-primary);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-primary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.375rem;
+            top: 0.25rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: var(--primary-500);
+            border: 2px solid var(--bg-primary);
+        }
+        
+        .timeline-content {
+            background: var(--gray-50);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .timeline-time {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .timeline-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .reservations-layout {
+                padding: 1rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .page-actions {
+                justify-content: stretch;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal {
+                padding: 1rem;
+            }
+        }
+        
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+        .hidden { display: none; }
+        
+        /* Animations */
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <div class="reservations-layout">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Gestion des Réservations</h1>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem;">Pipeline visuel et suivi complet des réservations</p>
+            </div>
+            <div class="page-actions">
+                <button class="btn btn-secondary" id="exportBtn">
+                    <i class="fas fa-download"></i>
+                    Exporter
+                </button>
+                <button class="btn btn-secondary" id="calendarViewBtn">
+                    <i class="fas fa-calendar"></i>
+                    Vue Calendrier
+                </button>
+                <button class="btn btn-primary" id="addBookingBtn">
+                    <i class="fas fa-plus"></i>
+                    Nouvelle Réservation
+                </button>
+            </div>
+        </div>
+        
+        <!-- Stats Cards -->
+        <div class="stats-container" id="statsContainer">
+            <div class="stat-card animate-fade-in">
+                <div class="stat-header">
+                    <div class="stat-title">En Attente</div>
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="pendingCount">0</div>
+                <div class="stat-change">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+12% cette semaine</span>
+                </div>
+            </div>
+            
+            <div class="stat-card animate-fade-in">
+                <div class="stat-header">
+                    <div class="stat-title">Confirmées</div>
+                    <div class="stat-icon confirmed">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="confirmedCount">0</div>
+                <div class="stat-change">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+8% cette semaine</span>
+                </div>
+            </div>
+            
+            <div class="stat-card animate-fade-in">
+                <div class="stat-header">
+                    <div class="stat-title">Check-in Aujourd'hui</div>
+                    <div class="stat-icon checkin">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="checkinCount">0</div>
+                <div class="stat-change">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+5% cette semaine</span>
+                </div>
+            </div>
+            
+            <div class="stat-card animate-fade-in">
+                <div class="stat-header">
+                    <div class="stat-title">Terminées</div>
+                    <div class="stat-icon completed">
+                        <i class="fas fa-flag-checkered"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="completedCount">0</div>
+                <div class="stat-change">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+15% ce mois</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filters -->
+        <div class="filters-section">
+            <div class="filters-grid">
+                <div class="form-group">
+                    <label class="form-label">Rechercher</label>
+                    <input type="text" class="form-input" id="searchInput" placeholder="Nom, villa, email...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Canal</label>
+                    <select class="form-input" id="channelFilter">
+                        <option value="">Tous les canaux</option>
+                        <option value="direct">Site Direct</option>
+                        <option value="airbnb">Airbnb</option>
+                        <option value="booking">Booking.com</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Villa</label>
+                    <select class="form-input" id="villaFilter">
+                        <option value="">Toutes les villas</option>
+                        <!-- Villa options will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date d'arrivée</label>
+                    <input type="date" class="form-input" id="dateFilter">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary" id="resetFiltersBtn">
+                        <i class="fas fa-times"></i>
+                        Réinitialiser
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Kanban Board -->
+        <div class="kanban-board" id="kanbanBoard">
+            <!-- Pending Column -->
+            <div class="kanban-column">
+                <div class="column-header">
+                    <div class="column-title">
+                        <div class="column-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        En Attente
+                    </div>
+                    <div class="column-count" id="pendingColumnCount">0</div>
+                </div>
+                <div class="column-body" id="pendingColumn" data-status="pending">
+                    <!-- Booking cards will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Confirmed Column -->
+            <div class="kanban-column">
+                <div class="column-header">
+                    <div class="column-title">
+                        <div class="column-icon confirmed">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        Confirmées
+                    </div>
+                    <div class="column-count" id="confirmedColumnCount">0</div>
+                </div>
+                <div class="column-body" id="confirmedColumn" data-status="confirmed">
+                    <!-- Booking cards will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Check-in Column -->
+            <div class="kanban-column">
+                <div class="column-header">
+                    <div class="column-title">
+                        <div class="column-icon checkin">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        Check-in
+                    </div>
+                    <div class="column-count" id="checkinColumnCount">0</div>
+                </div>
+                <div class="column-body" id="checkinColumn" data-status="checkin">
+                    <!-- Booking cards will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Completed Column -->
+            <div class="kanban-column">
+                <div class="column-header">
+                    <div class="column-title">
+                        <div class="column-icon completed">
+                            <i class="fas fa-flag-checkered"></i>
+                        </div>
+                        Terminées
+                    </div>
+                    <div class="column-count" id="completedColumnCount">0</div>
+                </div>
+                <div class="column-body" id="completedColumn" data-status="completed">
+                    <!-- Booking cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Booking Detail Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Détails de la Réservation</h2>
+                <button class="modal-close" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="bookingDetails">
+                    <!-- Booking details will be populated here -->
+                </div>
+                
+                <!-- Timeline -->
+                <div style="margin-top: 2rem;">
+                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-primary);">
+                        Historique de la réservation
+                    </h3>
+                    <div class="timeline" id="bookingTimeline">
+                        <!-- Timeline items will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Global variables
+        let bookings = [];
+        let filteredBookings = [];
+        let villas = [];
+        
+        // Sample booking data
+        const sampleBookings = [
+            {
+                id: 'BK001',
+                status: 'pending',
+                villa: 'Villa F6 Petit Macabou',
+                guest: 'Marie Dubois',
+                email: 'marie.dubois@email.com',
+                phone: '+596 696 12 34 56',
+                guests: 8,
+                checkin: '2025-02-15',
+                checkout: '2025-02-22',
+                amount: 2000,
+                channel: 'direct',
+                priority: 'high',
+                created: '2025-01-20T10:30:00Z',
+                timeline: [
+                    { action: 'Réservation créée', time: '2025-01-20T10:30:00Z', user: 'System' },
+                    { action: 'Email de confirmation envoyé', time: '2025-01-20T10:31:00Z', user: 'System' }
+                ]
+            },
+            {
+                id: 'BK002',
+                status: 'confirmed',
+                villa: 'Villa F5 Ste Anne',
+                guest: 'Jean Martin',
+                email: 'jean.martin@email.com',
+                phone: '+596 696 98 76 54',
+                guests: 6,
+                checkin: '2025-02-10',
+                checkout: '2025-02-17',
+                amount: 1350,
+                channel: 'airbnb',
+                priority: 'medium',
+                created: '2025-01-18T14:20:00Z',
+                timeline: [
+                    { action: 'Réservation créée', time: '2025-01-18T14:20:00Z', user: 'System' },
+                    { action: 'Paiement reçu', time: '2025-01-18T14:25:00Z', user: 'System' },
+                    { action: 'Réservation confirmée', time: '2025-01-18T14:26:00Z', user: 'Admin' }
+                ]
+            },
+            {
+                id: 'BK003',
+                status: 'checkin',
+                villa: 'Villa F7 Baie des Mulets',
+                guest: 'Sophie Laurent',
+                email: 'sophie.laurent@email.com',
+                phone: '+596 696 11 22 33',
+                guests: 12,
+                checkin: '2025-01-29',
+                checkout: '2025-02-05',
+                amount: 2200,
+                channel: 'booking',
+                priority: 'low',
+                created: '2025-01-15T09:15:00Z',
+                timeline: [
+                    { action: 'Réservation créée', time: '2025-01-15T09:15:00Z', user: 'System' },
+                    { action: 'Paiement reçu', time: '2025-01-15T09:20:00Z', user: 'System' },
+                    { action: 'Codes d\'accès envoyés', time: '2025-01-28T16:00:00Z', user: 'System' },
+                    { action: 'Check-in effectué', time: '2025-01-29T15:30:00Z', user: 'Guest' }
+                ]
+            },
+            {
+                id: 'BK004',
+                status: 'completed',
+                villa: 'Studio Cocooning Lamentin',
+                guest: 'Pierre Leblanc',
+                email: 'pierre.leblanc@email.com',
+                phone: '+596 696 44 55 66',
+                guests: 2,
+                checkin: '2025-01-10',
+                checkout: '2025-01-17',
+                amount: 290,
+                channel: 'direct',
+                priority: 'low',
+                created: '2025-01-05T11:45:00Z',
+                timeline: [
+                    { action: 'Réservation créée', time: '2025-01-05T11:45:00Z', user: 'System' },
+                    { action: 'Paiement reçu', time: '2025-01-05T11:50:00Z', user: 'System' },
+                    { action: 'Check-in effectué', time: '2025-01-10T16:00:00Z', user: 'Guest' },
+                    { action: 'Check-out effectué', time: '2025-01-17T11:00:00Z', user: 'Guest' },
+                    { action: 'État des lieux validé', time: '2025-01-17T12:00:00Z', user: 'Admin' }
+                ]
+            },
+            {
+                id: 'BK005',
+                status: 'pending',
+                villa: 'Villa F3 Petit Macabou',
+                guest: 'Anna Moreau',
+                email: 'anna.moreau@email.com',
+                phone: '+596 696 77 88 99',
+                guests: 4,
+                checkin: '2025-03-01',
+                checkout: '2025-03-08',
+                amount: 850,
+                channel: 'airbnb',
+                priority: 'medium',
+                created: '2025-01-25T16:00:00Z',
+                timeline: [
+                    { action: 'Réservation créée', time: '2025-01-25T16:00:00Z', user: 'System' }
+                ]
+            },
+            {
+                id: 'BK006',
+                status: 'confirmed',
+                villa: 'Villa F5 La Renée',
+                guest: 'Michel Bernard',
+                email: 'michel.bernard@email.com',
+                phone: '+596 696 33 44 55',
+                guests: 10,
+                checkin: '2025-02-20',
+                checkout: '2025-02-27',
+                amount: 900,
+                channel: 'booking',
+                priority: 'high',
+                created: '2025-01-22T13:30:00Z',
+                timeline: [
+                    { action: 'Réservation créée', time: '2025-01-22T13:30:00Z', user: 'System' },
+                    { action: 'Paiement reçu', time: '2025-01-22T13:35:00Z', user: 'System' },
+                    { action: 'Réservation confirmée', time: '2025-01-22T13:36:00Z', user: 'Admin' }
+                ]
+            }
+        ];
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            loadBookings();
+            initializeDragAndDrop();
+        });
+        
+        function initializeEventListeners() {
+            // Modal controls
+            document.getElementById('closeModalBtn').addEventListener('click', closeBookingModal);
+            
+            // Filters
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('channelFilter').addEventListener('change', applyFilters);
+            document.getElementById('villaFilter').addEventListener('change', applyFilters);
+            document.getElementById('dateFilter').addEventListener('change', applyFilters);
+            document.getElementById('resetFiltersBtn').addEventListener('click', resetFilters);
+            
+            // Actions
+            document.getElementById('exportBtn').addEventListener('click', exportBookings);
+            document.getElementById('calendarViewBtn').addEventListener('click', openCalendarView);
+            document.getElementById('addBookingBtn').addEventListener('click', openNewBookingModal);
+            
+            // Modal backdrop click
+            document.getElementById('bookingModal').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    closeBookingModal();
+                }
+            });
+        }
+        
+        function loadBookings() {
+            // In a real app, this would fetch from an API
+            bookings = [...sampleBookings];
+            filteredBookings = [...bookings];
+            
+            populateVillaFilter();
+            updateStats();
+            renderBookings();
+        }
+        
+        function populateVillaFilter() {
+            const villaFilter = document.getElementById('villaFilter');
+            const uniqueVillas = [...new Set(bookings.map(b => b.villa))];
+            
+            // Clear existing options except the first one
+            while (villaFilter.children.length > 1) {
+                villaFilter.removeChild(villaFilter.lastChild);
+            }
+            
+            uniqueVillas.forEach(villa => {
+                const option = document.createElement('option');
+                option.value = villa;
+                option.textContent = villa;
+                villaFilter.appendChild(option);
+            });
+        }
+        
+        function updateStats() {
+            const stats = {
+                pending: bookings.filter(b => b.status === 'pending').length,
+                confirmed: bookings.filter(b => b.status === 'confirmed').length,
+                checkin: bookings.filter(b => b.status === 'checkin').length,
+                completed: bookings.filter(b => b.status === 'completed').length
+            };
+            
+            // Animate counts
+            animateValue('pendingCount', 0, stats.pending, 1000);
+            animateValue('confirmedCount', 0, stats.confirmed, 1200);
+            animateValue('checkinCount', 0, stats.checkin, 1400);
+            animateValue('completedCount', 0, stats.completed, 1600);
+        }
+        
+        function animateValue(elementId, start, end, duration) {
+            const element = document.getElementById(elementId);
+            const range = end - start;
+            const startTime = performance.now();
+            
+            function updateValue(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + (range * easeOutCubic));
+                
+                element.textContent = current;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateValue);
+                }
+            }
+            
+            requestAnimationFrame(updateValue);
+        }
+        
+        function renderBookings() {
+            const columns = {
+                pending: document.getElementById('pendingColumn'),
+                confirmed: document.getElementById('confirmedColumn'),
+                checkin: document.getElementById('checkinColumn'),
+                completed: document.getElementById('completedColumn')
+            };
+            
+            // Clear all columns
+            Object.values(columns).forEach(column => {
+                column.innerHTML = '';
+            });
+            
+            // Group bookings by status
+            const groupedBookings = {
+                pending: [],
+                confirmed: [],
+                checkin: [],
+                completed: []
+            };
+            
+            filteredBookings.forEach(booking => {
+                if (groupedBookings[booking.status]) {
+                    groupedBookings[booking.status].push(booking);
+                }
+            });
+            
+            // Render bookings in each column
+            Object.entries(groupedBookings).forEach(([status, bookingList]) => {
+                const column = columns[status];
+                bookingList.forEach(booking => {
+                    column.appendChild(createBookingCard(booking));
+                });
+            });
+            
+            // Update column counts
+            document.getElementById('pendingColumnCount').textContent = groupedBookings.pending.length;
+            document.getElementById('confirmedColumnCount').textContent = groupedBookings.confirmed.length;
+            document.getElementById('checkinColumnCount').textContent = groupedBookings.checkin.length;
+            document.getElementById('completedColumnCount').textContent = groupedBookings.completed.length;
+        }
+        
+        function createBookingCard(booking) {
+            const card = document.createElement('div');
+            card.className = 'booking-card';
+            card.draggable = true;
+            card.dataset.bookingId = booking.id;
+            
+            const checkinDate = new Date(booking.checkin).toLocaleDateString('fr-FR');
+            const checkoutDate = new Date(booking.checkout).toLocaleDateString('fr-FR');
+            
+            card.innerHTML = `
+                <div class="priority-indicator priority-${booking.priority}"></div>
+                <div class="channel-badge channel-${booking.channel}">
+                    ${getChannelLabel(booking.channel)}
+                </div>
+                
+                <div class="booking-header">
+                    <div class="booking-id">${booking.id}</div>
+                    <div class="booking-amount">€${booking.amount.toLocaleString()}</div>
+                </div>
+                
+                <div class="booking-villa">${booking.villa}</div>
+                <div class="booking-guest">
+                    <i class="fas fa-user"></i>
+                    ${booking.guest} (${booking.guests} pers.)
+                </div>
+                
+                <div class="booking-dates">
+                    <div class="booking-date">
+                        <i class="fas fa-calendar-plus"></i>
+                        ${checkinDate}
+                    </div>
+                    <i class="fas fa-arrow-right" style="color: var(--gray-400);"></i>
+                    <div class="booking-date">
+                        <i class="fas fa-calendar-minus"></i>
+                        ${checkoutDate}
+                    </div>
+                </div>
+                
+                <div class="booking-actions">
+                    ${getStatusActions(booking)}
+                </div>
+            `;
+            
+            // Add click event to open details modal
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.booking-actions')) {
+                    openBookingDetails(booking);
+                }
+            });
+            
+            // Add action button events
+            card.querySelectorAll('[data-action]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleBookingAction(booking, btn.dataset.action);
+                });
+            });
+            
+            return card;
+        }
+        
+        function getChannelLabel(channel) {
+            const labels = {
+                direct: 'DIRECT',
+                airbnb: 'AIRBNB',
+                booking: 'BOOKING'
+            };
+            return labels[channel] || channel.toUpperCase();
+        }
+        
+        function getStatusActions(booking) {
+            const actions = {
+                pending: `
+                    <button class="action-btn success" data-action="confirm">
+                        <i class="fas fa-check"></i>
+                        Confirmer
+                    </button>
+                    <button class="action-btn" data-action="contact">
+                        <i class="fas fa-envelope"></i>
+                        Contacter
+                    </button>
+                `,
+                confirmed: `
+                    <button class="action-btn primary" data-action="checkin">
+                        <i class="fas fa-key"></i>
+                        Check-in
+                    </button>
+                    <button class="action-btn" data-action="invoice">
+                        <i class="fas fa-file-invoice"></i>
+                        Facture
+                    </button>
+                `,
+                checkin: `
+                    <button class="action-btn success" data-action="checkout">
+                        <i class="fas fa-door-open"></i>
+                        Check-out
+                    </button>
+                    <button class="action-btn" data-action="support">
+                        <i class="fas fa-headset"></i>
+                        Support
+                    </button>
+                `,
+                completed: `
+                    <button class="action-btn" data-action="review">
+                        <i class="fas fa-star"></i>
+                        Avis
+                    </button>
+                    <button class="action-btn" data-action="archive">
+                        <i class="fas fa-archive"></i>
+                        Archiver
+                    </button>
+                `
+            };
+            
+            return actions[booking.status] || '';
+        }
+        
+        function handleBookingAction(booking, action) {
+            switch (action) {
+                case 'confirm':
+                    confirmBooking(booking);
+                    break;
+                case 'contact':
+                    contactGuest(booking);
+                    break;
+                case 'checkin':
+                    performCheckin(booking);
+                    break;
+                case 'checkout':
+                    performCheckout(booking);
+                    break;
+                case 'invoice':
+                    generateInvoice(booking);
+                    break;
+                case 'support':
+                    openSupport(booking);
+                    break;
+                case 'review':
+                    openReview(booking);
+                    break;
+                case 'archive':
+                    archiveBooking(booking);
+                    break;
+            }
+        }
+        
+        function confirmBooking(booking) {
+            booking.status = 'confirmed';
+            booking.timeline.push({
+                action: 'Réservation confirmée',
+                time: new Date().toISOString(),
+                user: 'Admin'
+            });
+            updateBookingInData(booking);
+            renderBookings();
+            updateStats();
+            showNotification('Réservation confirmée avec succès', 'success');
+        }
+        
+        function performCheckin(booking) {
+            booking.status = 'checkin';
+            booking.timeline.push({
+                action: 'Check-in effectué',
+                time: new Date().toISOString(),
+                user: 'Admin'
+            });
+            updateBookingInData(booking);
+            renderBookings();
+            updateStats();
+            showNotification('Check-in enregistré', 'success');
+        }
+        
+        function performCheckout(booking) {
+            booking.status = 'completed';
+            booking.timeline.push({
+                action: 'Check-out effectué',
+                time: new Date().toISOString(),
+                user: 'Admin'
+            });
+            updateBookingInData(booking);
+            renderBookings();
+            updateStats();
+            showNotification('Check-out enregistré', 'success');
+        }
+        
+        function updateBookingInData(updatedBooking) {
+            const index = bookings.findIndex(b => b.id === updatedBooking.id);
+            if (index !== -1) {
+                bookings[index] = updatedBooking;
+                applyFilters(); // Refresh filtered bookings
+            }
+        }
+        
+        function contactGuest(booking) {
+            // Open email client or messaging interface
+            window.location.href = `mailto:${booking.email}?subject=Votre réservation ${booking.id}`;
+        }
+        
+        function generateInvoice(booking) {
+            showNotification('Facture générée et envoyée', 'success');
+        }
+        
+        function openSupport(booking) {
+            showNotification('Interface de support ouverte', 'info');
+        }
+        
+        function openReview(booking) {
+            showNotification('Demande d\'avis envoyée', 'success');
+        }
+        
+        function archiveBooking(booking) {
+            showNotification('Réservation archivée', 'success');
+        }
+        
+        function initializeDragAndDrop() {
+            const columns = document.querySelectorAll('.column-body');
+            
+            columns.forEach(column => {
+                new Sortable(column, {
+                    group: 'bookings',
+                    animation: 150,
+                    ghostClass: 'dragging',
+                    onEnd: function(evt) {
+                        const bookingId = evt.item.dataset.bookingId;
+                        const newStatus = evt.to.dataset.status;
+                        
+                        updateBookingStatus(bookingId, newStatus);
+                    }
+                });
+            });
+        }
+        
+        function updateBookingStatus(bookingId, newStatus) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (booking && booking.status !== newStatus) {
+                booking.status = newStatus;
+                booking.timeline.push({
+                    action: `Statut changé vers ${getStatusLabel(newStatus)}`,
+                    time: new Date().toISOString(),
+                    user: 'Admin'
+                });
+                
+                updateBookingInData(booking);
+                updateStats();
+                showNotification(`Réservation ${bookingId} déplacée vers ${getStatusLabel(newStatus)}`, 'success');
+            }
+        }
+        
+        function getStatusLabel(status) {
+            const labels = {
+                pending: 'En Attente',
+                confirmed: 'Confirmée',
+                checkin: 'Check-in',
+                completed: 'Terminée'
+            };
+            return labels[status] || status;
+        }
+        
+        function openBookingDetails(booking) {
+            const modal = document.getElementById('bookingModal');
+            const details = document.getElementById('bookingDetails');
+            const timeline = document.getElementById('bookingTimeline');
+            
+            // Populate booking details
+            details.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem;">Informations Client</h4>
+                        <div style="space-y: 0.5rem;">
+                            <div><strong>Nom:</strong> ${booking.guest}</div>
+                            <div><strong>Email:</strong> ${booking.email}</div>
+                            <div><strong>Téléphone:</strong> ${booking.phone}</div>
+                            <div><strong>Personnes:</strong> ${booking.guests}</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem;">Détails Réservation</h4>
+                        <div>
+                            <div><strong>ID:</strong> ${booking.id}</div>
+                            <div><strong>Villa:</strong> ${booking.villa}</div>
+                            <div><strong>Check-in:</strong> ${new Date(booking.checkin).toLocaleDateString('fr-FR')}</div>
+                            <div><strong>Check-out:</strong> ${new Date(booking.checkout).toLocaleDateString('fr-FR')}</div>
+                            <div><strong>Montant:</strong> €${booking.amount.toLocaleString()}</div>
+                            <div><strong>Canal:</strong> ${getChannelLabel(booking.channel)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Populate timeline
+            timeline.innerHTML = booking.timeline.map(item => `
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-title">${item.action}</div>
+                            <div class="timeline-time">${new Date(item.time).toLocaleString('fr-FR')}</div>
+                        </div>
+                        <div class="timeline-description">Par ${item.user}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            modal.classList.add('active');
+        }
+        
+        function closeBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('active');
+        }
+        
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const channel = document.getElementById('channelFilter').value;
+            const villa = document.getElementById('villaFilter').value;
+            const date = document.getElementById('dateFilter').value;
+            
+            filteredBookings = bookings.filter(booking => {
+                // Search filter
+                if (search && !booking.guest.toLowerCase().includes(search) && 
+                    !booking.villa.toLowerCase().includes(search) &&
+                    !booking.email.toLowerCase().includes(search)) {
+                    return false;
+                }
+                
+                // Channel filter
+                if (channel && booking.channel !== channel) {
+                    return false;
+                }
+                
+                // Villa filter
+                if (villa && booking.villa !== villa) {
+                    return false;
+                }
+                
+                // Date filter
+                if (date && booking.checkin !== date) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            renderBookings();
+        }
+        
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('channelFilter').value = '';
+            document.getElementById('villaFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            
+            filteredBookings = [...bookings];
+            renderBookings();
+        }
+        
+        function exportBookings() {
+            const headers = ['ID', 'Statut', 'Villa', 'Client', 'Email', 'Check-in', 'Check-out', 'Montant', 'Canal'];
+            const csvContent = [
+                headers.join(','),
+                ...filteredBookings.map(booking => [
+                    booking.id,
+                    getStatusLabel(booking.status),
+                    `"${booking.villa}"`,
+                    `"${booking.guest}"`,
+                    booking.email,
+                    booking.checkin,
+                    booking.checkout,
+                    booking.amount,
+                    getChannelLabel(booking.channel)
+                ].join(','))
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'reservations-export.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+        
+        function openCalendarView() {
+            showNotification('Vue calendrier en développement', 'info');
+        }
+        
+        function openNewBookingModal() {
+            showNotification('Interface de création de réservation en développement', 'info');
+        }
+        
+        function showNotification(message, type = 'info') {
+            const colors = {
+                success: 'var(--success-500)',
+                error: 'var(--error-500)',
+                warning: 'var(--warning-500)',
+                info: 'var(--primary-500)'
+            };
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors[type]};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease-out;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
