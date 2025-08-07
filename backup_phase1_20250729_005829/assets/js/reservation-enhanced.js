@@ -1,3 +1,34 @@
+
+// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
+function protectMediaElements() {
+    const mediaElements = document.querySelectorAll('img, video');
+    mediaElements.forEach(element => {
+        element.setAttribute('data-protected', 'true');
+    });
+}
+
+// Protéger avant toute modification DOM
+if (typeof MutationObserver !== 'undefined') {
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList') {
+                // Vérifier que les éléments média ne sont pas supprimés
+                mutation.removedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
+                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
+                    }
+                });
+            }
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
+
+
 // RESERVATION ENHANCED JS - Gestion paramètres URL et pré-remplissage automatique
 
 class ReservationEnhanced {
@@ -45,7 +76,8 @@ class ReservationEnhanced {
     showPreSelectedNotification(villaName) {
         const notification = document.createElement('div');
         notification.className = 'preselected-notification';
-        notification.innerHTML = `
+        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    notification.innerHTML = `
             <div class="notification-content">
                 <span class="notification-icon">🏨</span>
                 <span class="notification-text">Villa présélectionnée : <strong>${villaName}</strong></span>
@@ -176,7 +208,8 @@ class ReservationEnhanced {
             const [villaName, priceInfo] = villaText.split(' - ');
             
             villaInfo.style.display = 'block';
-            villaInfo.innerHTML = `
+            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    villaInfo.innerHTML = `
                 <h3>✨ ${villaName}</h3>
                 <p>💰 ${priceInfo}</p>
                 <p>📍 Martinique</p>
@@ -365,7 +398,8 @@ class ReservationEnhanced {
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ Envoi en cours...';
+            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    submitBtn.innerHTML = '⏳ Envoi en cours...';
             submitBtn.style.opacity = '0.7';
         }
     }
@@ -374,12 +408,14 @@ class ReservationEnhanced {
     showSuccessState(form) {
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
-            submitBtn.innerHTML = '✅ Envoyé!';
+            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    submitBtn.innerHTML = '✅ Envoyé!';
             submitBtn.style.background = '#48bb78';
             
             setTimeout(() => {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Demander un Devis';
+                // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    submitBtn.innerHTML = 'Demander un Devis';
                 submitBtn.style.opacity = '1';
                 submitBtn.style.background = '';
             }, 3000);

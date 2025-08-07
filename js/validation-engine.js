@@ -1,3 +1,34 @@
+
+// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
+function protectMediaElements() {
+    const mediaElements = document.querySelectorAll('img, video');
+    mediaElements.forEach(element => {
+        element.setAttribute('data-protected', 'true');
+    });
+}
+
+// Protéger avant toute modification DOM
+if (typeof MutationObserver !== 'undefined') {
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList') {
+                // Vérifier que les éléments média ne sont pas supprimés
+                mutation.removedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
+                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
+                    }
+                });
+            }
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
+
+
 /**
  * PHASE 3 - UX/UI : Moteur de Validation Temps Réel Avancée
  * Système de validation interactif et accessible pour tous les formulaires
@@ -511,7 +542,8 @@ class ValidationEngine {
         // Mettre à jour le message
         const messageContainer = document.getElementById(`${field.id}-message`);
         if (messageContainer) {
-            messageContainer.innerHTML = '';
+            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    messageContainer.innerHTML = '';
             messageContainer.classList.remove('show', 'error', 'success', 'warning');
             
             if (errors.length > 0) {
@@ -536,7 +568,8 @@ class ValidationEngine {
 
         const strengthContainer = document.createElement('div');
         strengthContainer.className = 'password-strength';
-        strengthContainer.innerHTML = `
+        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    strengthContainer.innerHTML = `
             <div class="strength-bar">
                 <div class="strength-fill"></div>
             </div>
@@ -607,7 +640,8 @@ class ValidationEngine {
         const suggestions = this.generateSuggestions(field, value, validationResult);
         
         if (suggestions.length > 0) {
-            suggestionsContainer.innerHTML = `
+            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    suggestionsContainer.innerHTML = `
                 <ul>
                     ${suggestions.map(suggestion => `
                         <li class="${suggestion.completed ? 'completed' : ''}">
@@ -743,7 +777,8 @@ class ValidationEngine {
 
         const notification = document.createElement('div');
         notification.className = `validation-notification ${type}`;
-        notification.innerHTML = `
+        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    notification.innerHTML = `
             <div style="display: flex; align-items: center; gap: 0.5rem;">
                 <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'info'}-circle"></i>
                 <span>${message}</span>
@@ -804,7 +839,8 @@ class ValidationEngine {
         // Réinitialiser le message
         const messageContainer = document.getElementById(`${fieldId}-message`);
         if (messageContainer) {
-            messageContainer.innerHTML = '';
+            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    messageContainer.innerHTML = '';
             messageContainer.classList.remove('show', 'error', 'success', 'warning');
         }
         

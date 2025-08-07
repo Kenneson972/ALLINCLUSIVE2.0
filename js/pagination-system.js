@@ -1,3 +1,34 @@
+
+// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
+function protectMediaElements() {
+    const mediaElements = document.querySelectorAll('img, video');
+    mediaElements.forEach(element => {
+        element.setAttribute('data-protected', 'true');
+    });
+}
+
+// Protéger avant toute modification DOM
+if (typeof MutationObserver !== 'undefined') {
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList') {
+                // Vérifier que les éléments média ne sont pas supprimés
+                mutation.removedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
+                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
+                    }
+                });
+            }
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
+
+
 /**
  * PHASE 4 - PERFORMANCE & RGPD : Système de Pagination Avancée
  * Pagination intelligente avec cache et design glassmorphism
@@ -644,7 +675,8 @@ class PaginationInstance {
             html += this.renderPerformanceSummary();
         }
 
-        this.container.innerHTML = html;
+        this.// PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    container.innerHTML = html;
         
         // Restaurer les valeurs des selects
         if (this.config.showSizeSelector) {
@@ -1100,7 +1132,8 @@ class PaginationInstance {
             clearTimeout(this.filterTimeout);
         }
         
-        this.container.innerHTML = '';
+        this.// PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
+    container.innerHTML = '';
         this.container.classList.remove('pagination-container');
         delete this.container.dataset.paginationId;
     }

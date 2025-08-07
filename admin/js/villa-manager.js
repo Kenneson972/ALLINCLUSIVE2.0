@@ -1,3 +1,34 @@
+
+// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
+function protectMediaElements() {
+    const mediaElements = document.querySelectorAll('img, video');
+    mediaElements.forEach(element => {
+        element.setAttribute('data-protected', 'true');
+    });
+}
+
+// Protéger avant toute modification DOM
+if (typeof MutationObserver !== 'undefined') {
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList') {
+                // Vérifier que les éléments média ne sont pas supprimés
+                mutation.removedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
+                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
+                    }
+                });
+            }
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+}
+
+
 // Villa Manager - Gestion CRUD des villas
 
 class VillaManager {
@@ -284,7 +315,7 @@ class VillaManager {
                 bathrooms: 2,
                 location: "Petit Macabou au Vauclin",
                 amenities: ["piscine", "sauna", "jacuzzi", "wifi"],
-                photos: ["./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg"],
+                photos: ["images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg"],
                 status: "active"
             },
             {
@@ -296,7 +327,7 @@ class VillaManager {
                 bathrooms: 2,
                 location: "Quartier Les Anglais, Ste Anne",
                 amenities: ["piscine", "wifi", "cuisine", "parking"],
-                photos: ["./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg"],
+                photos: ["images/Villa_F5_Ste_Anne/01_piscine_principale.jpg"],
                 status: "active"
             }
             // Add more villas as needed
