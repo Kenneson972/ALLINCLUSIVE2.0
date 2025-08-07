@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanelConcept Admin - Guide d'utilisation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .hero { background: linear-gradient(135deg, #2563eb, #1e293b); color: white; padding: 4rem 0; }
+        .feature-card { border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-radius: 15px; margin-bottom: 2rem; }
+        .feature-card:hover { transform: translateY(-5px); transition: all 0.3s; }
+        .step-number { background: #2563eb; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container text-center">
+            <h1><i class="fas fa-villa me-3"></i>KhanelConcept Admin</h1>
+            <p class="lead">Guide d'utilisation de l'interface d'administration</p>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <!-- Accès Rapide -->
+        <section class="mb-5">
+            <h2><i class="fas fa-rocket text-primary me-2"></i>Accès Rapide</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card feature-card p-4">
+                        <h4><i class="fas fa-sign-in-alt text-success me-2"></i>Première Connexion</h4>
+                        <ol>
+                            <li>Aller sur <code>/admin/login.html</code></li>
+                            <li>Mot de passe: <strong>khanel-admin-2025</strong></li>
+                            <li>Dashboard s'ouvre automatiquement</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card feature-card p-4">
+                        <h4><i class="fas fa-shield-alt text-warning me-2"></i>Sécurité</h4>
+                        <ul>
+                            <li>3 tentatives de connexion max</li>
+                            <li>Blocage 5 minutes si échec</li>
+                            <li>Auto-logout après inactivité</li>
+                            <li>Session sécurisée</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fonctionnalités Principales -->
+        <section class="mb-5">
+            <h2><i class="fas fa-star text-primary me-2"></i>Fonctionnalités Principales</h2>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body">
+                            <h5><i class="fas fa-home text-primary me-2"></i>Gestion Villas</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-1"></i> Ajouter nouvelles villas</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Éditer villas existantes</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Dupliquer villas</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Recherche & filtres</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Actions groupées</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body">
+                            <h5><i class="fas fa-images text-info me-2"></i>Galerie Images</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-1"></i> Upload glisser-déposer</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Compression automatique</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Prévisualisation</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Métadonnées détaillées</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Stockage base64</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="card feature-card h-100">
+                        <div class="card-body">
+                            <h5><i class="fas fa-chart-bar text-success me-2"></i>Dashboard</h5>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-1"></i> Statistiques temps réel</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Graphiques interactifs</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Activité récente</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Performance globale</li>
+                                <li><i class="fas fa-check text-success me-1"></i> Indicateurs clés</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tutoriel Étapes -->
+        <section class="mb-5">
+            <h2><i class="fas fa-play-circle text-primary me-2"></i>Tutoriel Pas-à-Pas</h2>
+            
+            <div class="row align-items-center mb-4">
+                <div class="col-md-2 text-center">
+                    <div class="step-number">1</div>
+                </div>
+                <div class="col-md-10">
+                    <h5>Ajouter votre première villa</h5>
+                    <p class="text-muted">Section "Gestion Villas" → Bouton "Ajouter Villa" → Remplir formulaire complet → Sauvegarder</p>
+                </div>
+            </div>
+            
+            <div class="row align-items-center mb-4">
+                <div class="col-md-2 text-center">
+                    <div class="step-number">2</div>
+                </div>
+                <div class="col-md-10">
+                    <h5>Uploader des images</h5>
+                    <p class="text-muted">Section "Galerie Images" → Glisser-déposer photos → Compression automatique → Copier URLs pour villas</p>
+                </div>
+            </div>
+            
+            <div class="row align-items-center mb-4">
+                <div class="col-md-2 text-center">
+                    <div class="step-number">3</div>
+                </div>
+                <div class="col-md-10">
+                    <h5>Configurer les paramètres</h5>
+                    <p class="text-muted">Section "Paramètres" → Informations de contact → Sauvegarder configuration</p>
+                </div>
+            </div>
+            
+            <div class="row align-items-center mb-4">
+                <div class="col-md-2 text-center">
+                    <div class="step-number">4</div>
+                </div>
+                <div class="col-md-10">
+                    <h5>Exporter vos données</h5>
+                    <p class="text-muted">Dropdown Admin → "Exporter données" → Sauvegarde JSON complète → Archivage sécurisé</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Raccourcis Clavier -->
+        <section class="mb-5">
+            <h2><i class="fas fa-keyboard text-primary me-2"></i>Raccourcis Clavier</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card feature-card p-3">
+                        <table class="table table-sm">
+                            <tr><td><kbd>Ctrl + S</kbd></td><td>Sauvegarder données</td></tr>
+                            <tr><td><kbd>Esc</kbd></td><td>Fermer modals</td></tr>
+                            <tr><td><kbd>Enter</kbd></td><td>Soumettre formulaires</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card feature-card p-3">
+                        <h6><i class="fas fa-lightbulb text-warning me-2"></i>Astuces Productivité</h6>
+                        <ul class="small">
+                            <li>Double-clic sur villa pour édition rapide</li>
+                            <li>Drag&drop pour réorganiser images</li>
+                            <li>Filtres combinés pour recherche avancée</li>
+                            <li>Duplication pour villas similaires</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dépannage -->
+        <section class="mb-5">
+            <h2><i class="fas fa-tools text-primary me-2"></i>Dépannage</h2>
+            <div class="accordion" id="troubleshooting">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#problem1">
+                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                            Page blanche ou erreurs JavaScript
+                        </button>
+                    </h2>
+                    <div id="problem1" class="accordion-collapse collapse" data-bs-parent="#troubleshooting">
+                        <div class="accordion-body">
+                            <ol>
+                                <li>Ouvrir Console navigateur (F12)</li>
+                                <li>Vérifier erreurs dans l'onglet Console</li>
+                                <li>Vérifier chemins des fichiers JS/CSS</li>
+                                <li>Recharger la page (Ctrl+F5)</li>
+                                <li>Tester en mode incognito</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#problem2">
+                            <i class="fas fa-database text-danger me-2"></i>
+                            Données perdues ou corrompues
+                        </button>
+                    </h2>
+                    <div id="problem2" class="accordion-collapse collapse" data-bs-parent="#troubleshooting">
+                        <div class="accordion-body">
+                            <ol>
+                                <li>Vérifier localStorage disponible</li>
+                                <li>Restaurer depuis dernière sauvegarde JSON</li>
+                                <li>Utiliser "Importer données" en cas de perte</li>
+                                <li>Reset complet: <code>localStorage.clear()</code></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#problem3">
+                            <i class="fas fa-upload text-info me-2"></i>
+                            Upload d'images non fonctionnel
+                        </button>
+                    </h2>
+                    <div id="problem3" class="accordion-collapse collapse" data-bs-parent="#troubleshooting">
+                        <div class="accordion-body">
+                            <ol>
+                                <li>Vérifier taille fichier (max 5MB)</li>
+                                <li>Format supporté: JPG, PNG, WebP</li>
+                                <li>Vérifier quota localStorage navigateur</li>
+                                <li>Compresser images si nécessaire</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Actions Rapides -->
+        <section class="text-center mb-5">
+            <h2><i class="fas fa-rocket text-primary me-2"></i>Actions Rapides</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="login.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt me-2"></i>Accéder à l'Admin
+                        </a>
+                        <a href="../index.html" class="btn btn-outline-secondary btn-lg">
+                            <i class="fas fa-home me-2"></i>Site Principal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-dark text-light text-center py-4">
+        <div class="container">
+            <p class="mb-0">
+                <i class="fas fa-villa me-2"></i>
+                KhanelConcept Admin Interface - Version 1.0
+            </p>
+            <small class="text-muted">Interface d'administration professionnelle pour la gestion de villas</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

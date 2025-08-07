@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhanelConcept - Villas de Luxe Martinique</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Découvrez nos 22 villas de luxe en Martinique. Réservation en ligne avec galeries interactives et système de recherche avancé.">
+    <meta name="keywords" content="villa, martinique, location, luxe, piscine, vacances, caraïbes">
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/glassmorphism.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos HTML5.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-palm-tree"></i>
+                <span>KhanelConcept</span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="index.html" class="active">Accueil</a>
+                <a href="villas.html">Nos Villas</a>
+                <a href="contact.html">Contact</a>
+                <a href="#prestataires">Services</a>
+                <a href="#excursions">Excursions</a>
+            </nav>
+            
+            <div class="hamburger" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">🏝️ Découvrez la Martinique</h1>
+            <p class="hero-subtitle">22 villas de luxe et services exceptionnels dans un cadre paradisiaque</p>
+            
+            <!-- Search Form -->
+            <div class="search-section">
+                <h2 class="search-title">🔍 Rechercher une Villa</h2>
+                <form class="villa-search-form" onsubmit="performSearch(event)">
+                    <!-- Destination -->
+                    <div class="search-field location-field">
+                        <label for="location-search">DESTINATION</label>
+                        <input type="text" 
+                               id="location-search" 
+                               class="location-input"
+                               placeholder="Où souhaitez-vous aller ?"
+                               autocomplete="off">
+                        <div class="location-suggestions" id="suggestions-dropdown"></div>
+                    </div>
+                    
+                    <!-- Arrivée -->
+                    <div class="search-field">
+                        <label for="checkin">ARRIVÉE</label>
+                        <input type="text" id="checkin" placeholder="Ajouter des dates" readonly>
+                    </div>
+                    
+                    <!-- Départ -->
+                    <div class="search-field">
+                        <label for="checkout">DÉPART</label>
+                        <input type="text" id="checkout" placeholder="Ajouter des dates" readonly>
+                    </div>
+                    
+                    <!-- Voyageurs -->
+                    <div class="search-field guests-field">
+                        <label>VOYAGEURS</label>
+                        <div class="voyageurs-dropdown">
+                            <input type="text" 
+                                   class="voyageurs-display" 
+                                   value="2 adultes"
+                                   readonly
+                                   onclick="toggleVoyageursDropdown()">
+                            
+                            <div class="dropdown-menu guests-dropdown" id="voyageurs-menu">
+                                <div class="guest-row">
+                                    <div class="guest-info">
+                                        <div class="guest-type">Adultes</div>
+                                        <div class="guest-description">13 ans et plus</div>
+                                    </div>
+                                    <div class="guest-counter">
+                                        <button type="button" class="counter-btn minus" onclick="updateVoyageurs('adultes', -1)">-</button>
+                                        <span class="counter-value" id="adultes-count">2</span>
+                                        <button type="button" class="counter-btn plus" onclick="updateVoyageurs('adultes', 1)">+</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="guest-row">
+                                    <div class="guest-info">
+                                        <div class="guest-type">Enfants</div>
+                                        <div class="guest-description">De 2 à 12 ans</div>
+                                    </div>
+                                    <div class="guest-counter">
+                                        <button type="button" class="counter-btn minus" onclick="updateVoyageurs('enfants', -1)">-</button>
+                                        <span class="counter-value" id="enfants-count">0</span>
+                                        <button type="button" class="counter-btn plus" onclick="updateVoyageurs('enfants', 1)">+</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="guest-row">
+                                    <div class="guest-info">
+                                        <div class="guest-type">Bébés</div>
+                                        <div class="guest-description">Moins de 2 ans</div>
+                                    </div>
+                                    <div class="guest-counter">
+                                        <button type="button" class="counter-btn minus" onclick="updateVoyageurs('bebes', -1)">-</button>
+                                        <span class="counter-value" id="bebes-count">0</span>
+                                        <button type="button" class="counter-btn plus" onclick="updateVoyageurs('bebes', 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bouton Rechercher -->
+                    <div class="search-field">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                            Rechercher
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterVillas('all')">Toutes</button>
+                <button class="filter-btn" onclick="filterVillas('sejour')">Séjour</button>
+                <button class="filter-btn" onclick="filterVillas('fete')">Fête/Journée</button>
+                <button class="filter-btn" onclick="filterVillas('special')">Spéciales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Villas Section -->
+    <section class="featured-villas">
+        <div class="container">
+            <h2 class="section-title">🏖️ Nos 22 Villas de Luxe</h2>
+            <div class="status-message" id="status-message" style="display: none;"></div>
+            <div class="villas-grid" id="villasGrid">
+                <!-- Villas seront chargées dynamiquement -->
+            </div>
+            
+            <div class="view-all-section">
+                <a href="villas.html" class="btn-primary large">
+                    <i class="fas fa-eye"></i>
+                    Voir Toutes les Villas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="services-preview" id="prestataires">
+        <div class="container">
+            <h2 class="section-title">🌊 Nos Services</h2>
+            <div class="services-grid">
+                <div class="service-card glass-card">
+                    <div class="service-icon">🚤</div>
+                    <h3>Excursions Nautiques</h3>
+                    <p>Découvrez la beauté de la Martinique depuis la mer</p>
+                    <div class="price">À partir de 120€/personne</div>
+                </div>
+                
+                <div class="service-card glass-card">
+                    <div class="service-icon">🍽️</div>
+                    <h3>Services Culinaires</h3>
+                    <p>Savourez la cuisine créole authentique</p>
+                    <div class="price">À partir de 80€/personne</div>
+                </div>
+                
+                <div class="service-card glass-card">
+                    <div class="service-icon">🎉</div>
+                    <h3>Événements</h3>
+                    <p>Organisation complète de vos événements</p>
+                    <div class="price">Devis personnalisé</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>KhanelConcept</h3>
+                    <p>Votre spécialiste de la location de villas de luxe en Martinique</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="villas.html">Nos Villas</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone"></i> +596 696 XX XX XX</p>
+                    <p><i class="fas fa-envelope"></i> info@khanelconcept.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Martinique, Antilles Françaises</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 KhanelConcept. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/fr.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="./js/main.js"></script>
+</body>
+</html>
