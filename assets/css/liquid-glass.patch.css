@@ -93,3 +93,76 @@
 }
 
 }
+
+/* ====== Legacy Glassmorphism RESET (deprecate old look) ====== */
+:is(
+  .glass-card,
+  .glass-light,
+  .glass-medium,
+  .glass-dark,
+  .glass-nav,
+  .glass-header,
+  .glass-footer,
+  .glass-modal,
+  .glass-modal-content,
+  .glass-dropdown,
+  .glass-input,
+  .glass-btn,
+  .glass-search,
+  .glass-table,
+  .glass-tag
+){
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* ====== Final Liquid Glass mapping applied globally ====== */
+:is(
+  .glass-card,
+  .glass-light,
+  .glass-medium,
+  .glass-dark,
+  .glass-nav,
+  .glass-header,
+  .glass-footer,
+  .glass-modal,
+  .glass-modal-content,
+  .glass-dropdown,
+  .glass-input,
+  .glass-btn,
+  .glass-search,
+  .glass-table,
+  .glass-tag,
+  .villa-card,
+  .service-card,
+  .btn-reserve-secondary,
+  .filter-btn,
+  .reward-tab
+){
+  background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%), var(--lg-tint) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) !important;
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) !important;
+  border: 1px solid rgba(255,255,255,.24) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.08) !important;
+  position: relative; overflow: hidden; will-change: transform, opacity;
+}
+:is(
+  .glass-card,
+  .glass-modal-content,
+  .glass-nav,
+  .glass-header,
+  .glass-footer,
+  .villa-card,
+  .service-card,
+  .reward-tab,
+  .filter-tab
+)::before{
+  content:""; position:absolute; top:-20%; left:-40%; width:180%; height:60%;
+  background: conic-gradient(from 0deg, transparent 0 40%, rgba(255,255,255,0.22) 50%, transparent 60% 100%);
+  filter: blur(10px); transform: rotate(8deg) translateX(-20%);
+  animation: lgSheen 8.5s cubic-bezier(.25,.1,.25,1) infinite alternate; pointer-events:none;
+}
