@@ -45,3 +45,55 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
 }
+/* -- Appended Apple 1:1 Patch -- */
+
+/* Liquid Glass Patch — Apple 1:1 finishing tweaks
+   Apply this after your existing CSS so it overrides previous rules.
+   Scope: soften sheen, premium edge, optional refraction, accessibility/perf.
+*/
+
+:root{
+  --lg-sheen-opacity: 0.18;                 /* reflet moins agressif */
+  --lg-blur: 26px;                           /* baisse à 20px sur iOS si lag */
+  --lg-noise-opacity: 0.02;                 /* grain plus discret */
+  --lg-shadow: 0 8px 28px rgba(0,0,0,.22), 0 1px 2px rgba(0,0,0,.06);
+}
+
+/* Animation de reflet plus douce et plus lente */
+@keyframes lg-sheen {
+  0%   { transform: rotate(8deg) translateX(-30%); }
+  100% { transform: rotate(8deg) translateX(40%); }
+}
+.lg-surface::before,
+:is(.glass-card,.glass-modal-content,.glass-nav,.glass-header,.glass-footer,.villa-card,.service-card)::before{
+  animation: lg-sheen 9.5s cubic-bezier(.25,.1,.25,1) infinite;
+  filter: blur(10px);
+}
+
+/* Bord "premium" (double liseré/overlay vertical) */
+.lg-edge{ position:relative; }
+.lg-edge::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:linear-gradient(180deg,
+    rgba(255,255,255,.55), rgba(255,255,255,.10) 35%, rgba(0,0,0,.08) 100%);
+  mix-blend-mode:overlay; opacity:.55;
+}
+
+/* Header/Nav plus structurés */
+.glass-header,.glass-nav{
+  border-top: 1px solid rgba(255,255,255,.10) !important;
+  border-bottom: 1px solid rgba(255,255,255,.22) !important;
+  border-radius: 0 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+}
+
+/* Réfraction (activer via .lg-refract) */
+.lg-refract::before{ filter: url(#lgRefract); }
+
+/* Accessibilité & perfs */
+@media (prefers-reduced-motion: reduce){
+  .lg-surface::before,
+  :is(.glass-card,.glass-modal-content,.glass-nav,.glass-header,.glass-footer,.villa-card,.service-card)::before{
+    animation:none; opacity:.12;
+  }
+}
