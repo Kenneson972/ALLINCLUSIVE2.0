@@ -1,34 +1,3 @@
-
-// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
-function protectMediaElements() {
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(element => {
-        element.setAttribute('data-protected', 'true');
-    });
-}
-
-// Protéger avant toute modification DOM
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                // Vérifier que les éléments média ne sont pas supprimés
-                mutation.removedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
-                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
-                    }
-                });
-            }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-
 // Admin Main JavaScript
 class AdminApp {
     constructor() {
@@ -99,7 +68,7 @@ class AdminApp {
                     guestsDetail: `${villa.capacity} personnes`,
                     features: (villa.amenities || []).join(', '),
                     category: 'sejour',
-                    image: villa.photos && villa.photos[0] ? villa.photos[0] : "images/placeholder.jpg',
+                    image: villa.photos && villa.photos[0] ? villa.photos[0] : './images/placeholder.jpg',
                     gallery: villa.photos || [],
                     fallbackIcon: this.getVillaIcon(villa),
                     description: villa.description,
@@ -167,13 +136,13 @@ class AdminApp {
                 gps: "14.5428, -60.8357",
                 amenities: ["piscine", "sauna", "jacuzzi", "wifi", "terrasse"],
                 photos: [
-                    "images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-                    "images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
-                    "images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
-                    "images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
-                    "images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
-                    "images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
+                    "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/02_terrasse_salon_exterieur.jpg",
+                    "./images/Villa_F3_Petit_Macabou/03_salle_de_bain_moderne.jpg",
+                    "./images/Villa_F3_Petit_Macabou/04_chambre_principale.jpg",
+                    "./images/Villa_F3_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Petit_Macabou/07_sauna_detente.jpg",
+                    "./images/Villa_F3_Petit_Macabou/08_douche_exterieure.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -191,12 +160,12 @@ class AdminApp {
                 gps: "14.4298, -60.8824",
                 amenities: ["piscine", "wifi", "cuisine", "parking", "terrasse"],
                 photos: [
-                    "images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-                    "images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
-                    "images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
-                    "images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
-                    "images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
-                    "images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
+                    "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+                    "./images/Villa_F5_Ste_Anne/02_piscine_vue_aerienne.jpg",
+                    "./images/Villa_F5_Ste_Anne/03_facade_villa_rose.jpg",
+                    "./images/Villa_F5_Ste_Anne/04_cuisine_moderne.jpg",
+                    "./images/Villa_F5_Ste_Anne/05_salon_principal.jpg",
+                    "./images/Villa_F5_Ste_Anne/06_chambre_principale.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -214,12 +183,12 @@ class AdminApp {
                 gps: "14.5428, -60.8357",
                 amenities: ["piscine", "wifi", "terrasse", "jardin"],
                 photos: [
-                    "images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
-                    "images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
-                    "images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
-                    "images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
-                    "images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
-                    "images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
+                    "./images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/02_terrasse_piscine_angle.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/03_chambre_moderne.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/04_terrasse_jardin.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Baccha_Petit_Macabou/06_chambre_2.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -237,7 +206,7 @@ class AdminApp {
                 gps: "14.6097, -61.0242",
                 amenities: ["piscine", "jacuzzi", "wifi", "cuisine"],
                 photos: [
-                    "images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
+                    "./images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -255,11 +224,11 @@ class AdminApp {
                 gps: "14.4686, -61.0553",
                 amenities: ["piscine", "vue-mer", "plage", "wifi", "cuisine"],
                 photos: [
-                    "images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
-                    "images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg",
-                    "images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg",
-                    "images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
-                    "images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg"
+                    "./images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/03_cuisine_moderne.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/04_salle_a_manger.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+                    "./images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -277,13 +246,13 @@ class AdminApp {
                 gps: "14.5428, -60.8357",
                 amenities: ["piscine", "wifi", "terrasse", "vue-mer", "jacuzzi"],
                 photos: [
-                    "images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
-                    "images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
-                    "images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
-                    "images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
-                    "images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
-                    "images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
-                    "images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
+                    "./images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg",
+                    "./images/Villa_F6_Petit_Macabou/03_chambre_studio.jpg",
+                    "./images/Villa_F6_Petit_Macabou/04_salon_mezzanine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/05_cuisine_moderne.jpg",
+                    "./images/Villa_F6_Petit_Macabou/06_terrasse_couverte.jpg",
+                    "./images/Villa_F6_Petit_Macabou/07_terrasse_piscine.jpg",
+                    "./images/Villa_F6_Petit_Macabou/10_vue_aerienne_jour.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -301,11 +270,11 @@ class AdminApp {
                 gps: "14.5428, -60.8357",
                 amenities: ["piscine", "vue-mer", "wifi", "terrasse", "jardin"],
                 photos: [
-                    "images/Villa_F7_Baie_des_Mulets_Vauclin/veranda_salle_a_manger_bambou.jpg",
-                    "images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
-                    "images/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg",
-                    "images/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
-                    "images/Villa_F7_Baie_des_Mulets_Vauclin/coin_detente_fauteuils_suspendus.jpg"
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/veranda_salle_a_manger_bambou.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/salon_canape_angle_gris.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/chambre_principale_bleu_jaune.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/cuisine_moderne_blanche.jpg",
+                    "./images/Villa_F7_Baie_des_Mulets_Vauclin/coin_detente_fauteuils_suspendus.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -323,12 +292,12 @@ class AdminApp {
                 gps: "14.7394, -60.9693",
                 amenities: ["piscine", "vue-mer", "wifi", "cuisine"],
                 photos: [
-                    "images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
-                    "images/Villa_F3_Trinite_Cosmy/piscine_vue_panoramique_ocean.jpg",
-                    "images/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg",
-                    "images/Villa_F3_Trinite_Cosmy/cuisine_americaine_jaune_bois.jpg",
-                    "images/Villa_F3_Trinite_Cosmy/chambre_1_linge_tropical_turquoise.jpg",
-                    "images/Villa_F3_Trinite_Cosmy/chambre_2_bleu_blanc_tapis_moelleux.jpg"
+                    "./images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/piscine_vue_panoramique_ocean.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/salon_canape_angle_marron_coussins_turquoise.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/cuisine_americaine_jaune_bois.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/chambre_1_linge_tropical_turquoise.jpg",
+                    "./images/Villa_F3_Trinite_Cosmy/chambre_2_bleu_blanc_tapis_moelleux.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -346,11 +315,11 @@ class AdminApp {
                 gps: "14.6753, -60.9398",
                 amenities: ["piscine", "wifi", "cuisine", "terrasse", "tv"],
                 photos: [
-                    "images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
-                    "images/Villa_F3_Robert_Pointe_Hyacinthe/terrasse_couverte_pergola_kitchenette.jpg",
-                    "images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
-                    "images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg",
-                    "images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg"
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/terrasse_couverte_pergola_kitchenette.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/salon_salle_a_manger_tv.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_ouverte_plan_travail.jpg",
+                    "./images/Villa_F3_Robert_Pointe_Hyacinthe/cuisine_equipee_frigo_congelateur.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -368,10 +337,10 @@ class AdminApp {
                 gps: "14.4172, -60.8945",
                 amenities: ["piscine", "wifi", "terrasse", "cuisine", "jardin"],
                 photos: [
-                    "images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
-                    "images/Villa_F5_R_Pilote_La_Renee/terrasse_hamacs_salon_exterieur.jpg",
-                    "images/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg",
-                    "images/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg"
+                    "./images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
+                    "./images/Villa_F5_R_Pilote_La_Renee/terrasse_hamacs_salon_exterieur.jpg",
+                    "./images/Villa_F5_R_Pilote_La_Renee/salon_cuir_noir_plafond_vert.jpg",
+                    "./images/Villa_F5_R_Pilote_La_Renee/cuisine_equipee_bois_clair.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -389,13 +358,13 @@ class AdminApp {
                 gps: "14.6207, -60.9067",
                 amenities: ["piscine", "vue-mer", "wifi", "cuisine", "terrasse"],
                 photos: [
-                    "images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
-                    "images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
-                    "images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg",
-                    "images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg",
-                    "images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg",
-                    "images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg",
-                    "images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg"
+                    "./images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+                    "./images/Villa_F3_Le_Francois/02_terrasse_repas_vue_panoramique.jpg",
+                    "./images/Villa_F3_Le_Francois/03_salon_exterieur_detente.jpg",
+                    "./images/Villa_F3_Le_Francois/04_chambre_bleue_moderne.jpg",
+                    "./images/Villa_F3_Le_Francois/05_cuisine_bleue_equipee.jpg",
+                    "./images/Villa_F3_Le_Francois/06_salon_colore_deco.jpg",
+                    "./images/Villa_F3_Le_Francois/07_vue_aerienne_villa.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -413,12 +382,12 @@ class AdminApp {
                 gps: "14.5428, -60.8357",
                 amenities: ["piscine", "vue-mer", "wifi", "cuisine", "terrasse"],
                 photos: [
-                    "images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
-                    "images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg",
-                    "images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
-                    "images/Villa_F5_Vauclin_Ravine_Plate/cuisine_equipee_bois_fonce_granite.jpg",
-                    "images/Villa_F5_Vauclin_Ravine_Plate/chambre_1_poutres_apparentes_orange.jpg",
-                    "images/Villa_F5_Vauclin_Ravine_Plate/chambre_2_suite_parentale_sdb_attenante.jpg"
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/terrasse_panoramique_gazebo_vue_collines.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/salon_moderne_rouge_noir_escalier.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/cuisine_equipee_bois_fonce_granite.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_1_poutres_apparentes_orange.jpg",
+                    "./images/Villa_F5_Vauclin_Ravine_Plate/chambre_2_suite_parentale_sdb_attenante.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -436,12 +405,12 @@ class AdminApp {
                 gps: "14.4686, -61.0553",
                 amenities: ["wifi", "tv", "climatisation", "terrasse"],
                 photos: [
-                    "images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
-                    "images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg",
-                    "images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg",
-                    "images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg",
-                    "images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg",
-                    "images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg"
+                    "./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg",
+                    "./images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -459,12 +428,12 @@ class AdminApp {
                 gps: "14.6097, -61.0242",
                 amenities: ["wifi", "cuisine", "tv", "parking"],
                 photos: [
-                    "images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
-                    "images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
-                    "images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg",
-                    "images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg",
-                    "images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg",
-                    "images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg"
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/02_espace_detente.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/03_salon_television.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/04_couloir_entree.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/05_cuisine_equipee.jpg",
+                    "./images/Villa_F3_Trenelle_Location_Annuelle/06_cuisine_evier.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -482,12 +451,12 @@ class AdminApp {
                 gps: "14.6097, -61.0242",
                 amenities: ["jacuzzi", "vue-mer", "wifi", "cuisine"],
                 photos: [
-                    "images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
-                    "images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg",
-                    "images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg",
-                    "images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg",
-                    "images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg",
-                    "images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
+                    "./images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+                    "./images/Studio_Cocooning_Lamentin/02_cuisine_moderne.jpg",
+                    "./images/Studio_Cocooning_Lamentin/03_terrasse_jacuzzi.jpg",
+                    "./images/Studio_Cocooning_Lamentin/04_cuisine_ouverte.jpg",
+                    "./images/Studio_Cocooning_Lamentin/05_chambre_salon.jpg",
+                    "./images/Studio_Cocooning_Lamentin/07_chambre_mur_vert.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -505,8 +474,8 @@ class AdminApp {
                 gps: "14.6415, -61.0242",
                 amenities: ["piscine", "cuisine", "terrasse"],
                 photos: [
-                    "images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-                    "images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+                    "./images/Espace_Piscine_Journee_Bungalow/bungalow_interieur_studio_kitchenette.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -524,12 +493,12 @@ class AdminApp {
                 gps: "14.7394, -60.8945",
                 amenities: ["piscine", "barbecue", "terrasse", "jardin"],
                 photos: [
-                    "images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
-                    "images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
-                    "images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg",
-                    "images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg",
-                    "images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg",
-                    "images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg"
+                    "./images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/02_terrasse_couverte_salon.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/03_bar_exterieur_gazebo.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/04_piscine_mobilier_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/05_espace_repas_piscine.jpg",
+                    "./images/Villa_Fete_Journee_Ducos/06_jardin_parasol_detente.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -547,11 +516,11 @@ class AdminApp {
                 gps: "14.6415, -61.0574",
                 amenities: ["piscine", "vue-mer", "terrasse", "cuisine", "jardin"],
                 photos: [
-                    "images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
-                    "images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
-                    "images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg",
-                    "images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg",
-                    "images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg"
+                    "./images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/02_piscine_statues_buddha.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/03_terrasse_colonnes_vue.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/04_veranda_arches_coloniales.jpg",
+                    "./images/Villa_Fete_Journee_Fort_de_France/05_cuisine_moderne_equipee.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -569,11 +538,11 @@ class AdminApp {
                 gps: "14.4172, -60.8945",
                 amenities: ["piscine", "cuisine", "terrasse", "vue-mer"],
                 photos: [
-                    "images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
-                    "images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
-                    "images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg",
-                    "images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg",
-                    "images/Villa_Fete_Journee_R_Pilote/06_terrasse_pierre_piscine.jpg"
+                    "./images/Villa_Fete_Journee_R_Pilote/03_villa_creole_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/01_salle_a_manger_interieur.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/05_cuisine_moderne_equipee.jpg",
+                    "./images/Villa_Fete_Journee_R_Pilote/06_terrasse_pierre_piscine.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -591,11 +560,11 @@ class AdminApp {
                 gps: "14.4686, -61.0553",
                 amenities: ["piscine", "terrasse", "cuisine", "jardin"],
                 photos: [
-                    "images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
-                    "images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
-                    "images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg",
-                    "images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg",
-                    "images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg"
+                    "./images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/03_tentes_blanches_mobilier.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/04_villa_contemporaine_exterieur.jpg",
+                    "./images/Villa_Fete_Journee_Sainte_Luce/05_decoration_anniversaire_fete.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -613,7 +582,7 @@ class AdminApp {
                 gps: "14.4172, -60.8945",
                 amenities: ["piscine", "terrasse"],
                 photos: [
-                    "images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
+                    "./images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg"
                 ],
                 status: "active",
                 created: new Date().toISOString(),
@@ -894,13 +863,11 @@ class AdminApp {
             .slice(0, 5);
 
         if (recentVillas.length === 0) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    activityContainer.innerHTML = '<p class="text-muted">Aucune activité récente</p>';
+            activityContainer.innerHTML = '<p class="text-muted">Aucune activité récente</p>';
             return;
         }
 
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    activityContainer.innerHTML = recentVillas.map(villa => `
+        activityContainer.innerHTML = recentVillas.map(villa => `
             <div class="d-flex align-items-center mb-3">
                 <div class="me-3">
                     <i class="fas fa-home text-primary"></i>
@@ -923,8 +890,7 @@ class AdminApp {
         if (!grid) return;
 
         if (villas.length === 0) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    grid.innerHTML = `
+            grid.innerHTML = `
                 <div class="col-12 text-center py-5">
                     <i class="fas fa-home fa-3x text-muted mb-3"></i>
                     <h4>Aucune villa trouvée</h4>
@@ -937,8 +903,7 @@ class AdminApp {
             return;
         }
 
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    grid.innerHTML = villas.map(villa => `
+        grid.innerHTML = villas.map(villa => `
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card villa-card">
                     <div class="position-relative">

@@ -796,8 +796,8 @@ body {
     }
     
     /* Désactiver vidéo sur mobile pour performance */
-    .video-background /* PROTECTION: Ne pas masquer les éléments média */
-/* video { display: none; } */
+    .video-background video {
+        display: none;
     }
     
     .video-background {

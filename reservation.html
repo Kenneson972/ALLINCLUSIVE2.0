@@ -1,65 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-\1
-    <!-- SEO Meta Tags Optimisées -->
-    <meta name="description" content="Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.">
-    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
-    <meta name="author" content="KhanelConcept">
-    <meta name="robots" content="index, follow">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Favicon et Icons -->
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/demo/image/upload/v1/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    
-    <!-- OpenGraph pour Réseaux Sociaux -->
-    <meta property="og:title" content="Réservation - KhanelConcept Villas Luxe Martinique">
-    <meta property="og:description" content="Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.">
-    <meta property="og:image" content="images/og-image.jpg">
-    <meta property="og:url" content="https://khanelconcept.com/reservation.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="KhanelConcept">
-    <meta property="og:locale" content="fr_FR">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Réservation - KhanelConcept Villas Luxe Martinique">
-    <meta name="twitter:description" content="Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.">
-    <meta name="twitter:image" content="images/og-image.jpg">
-    
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LodgingBusiness",
-        "name": "KhanelConcept",
-        "description": "Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.",
-        "url": "https://khanelconcept.com/reservation.html",
-        "logo": "images/apple-touch-icon.png",
-        "image": "images/og-image.jpg",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "MQ",
-            "addressRegion": "Martinique"
-        },
-        "priceRange": "€€€",
-        "amenityFeature": [
-            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
-            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
-            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
-            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
-        ]
-    }
-    </script>
-    
-    <!-- Performance et Sécurité -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#667eea">
-    <meta name="msapplication-TileColor" content="#667eea">
-    <link rel="canonical" href="https://khanelconcept.com/reservation.html">
-                
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réservation - KhanelConcept Villas Luxe Martinique</title>
@@ -642,212 +583,6 @@
             }
         }
         
-        /* Styles pour le calendrier de disponibilités */
-        .planning-calendar-container {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-        }
-        
-        .calendar-legend .color-box {
-            border-radius: 2px;
-        }
-        
-        .color-box.libre { 
-            background-color: #FFFFFF; 
-            border: 1px solid #ccc;
-        }
-        
-        .color-box.occupe { 
-            background-color: #2ECCFA; 
-            border: 1px solid #2ECCFA;
-        }
-        
-        .color-box.attente { 
-            background-color: #737373; 
-            border: 1px solid #737373;
-        }
-        
-        .calendar-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .calendar-row {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .month-calendar {
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            min-width: 200px;
-            flex: 1;
-            max-width: 250px;
-        }
-        
-        .month-title {
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: white;
-            margin-bottom: 10px;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        }
-        
-        .calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .calendar-table th,
-        .calendar-table td {
-            width: 28px;
-            height: 28px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 11px;
-            position: relative;
-        }
-        
-        .calendar-table th {
-            background-color: rgba(255, 255, 255, 0.1);
-            font-weight: bold;
-            color: white;
-            font-size: 10px;
-        }
-        
-        .date-cell {
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: #333;
-            font-weight: 500;
-        }
-        
-        .date-cell:hover {
-            border: 2px solid #fff;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-            transform: scale(1.1);
-            z-index: 10;
-        }
-        
-        .date-cell.libre {
-            background-color: #FFFFFF;
-            color: #333;
-        }
-        
-        .date-cell.occupe {
-            background-color: #2ECCFA;
-            color: #000;
-        }
-        
-        .date-cell.attente {
-            background-color: #737373;
-            color: #fff;
-        }
-        
-        .date-cell.selected {
-            border: 2px solid #ff6600 !important;
-            box-shadow: 0 0 10px rgba(255, 102, 0, 0.8) !important;
-            transform: scale(1.15) !important;
-            z-index: 20 !important;
-        }
-        
-        .date-cell.range-start,
-        .date-cell.range-end {
-            border: 2px solid #4CAF50 !important;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.8) !important;
-        }
-        
-        .date-cell.range-middle {
-            background-color: rgba(76, 175, 80, 0.3) !important;
-            border: 1px solid #4CAF50 !important;
-        }
-        
-        .date-cell.unavailable {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        
-        .date-cell.unavailable:hover {
-            transform: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: none;
-        }
-        
-        .calendar-navigation .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .calendar-navigation .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-        
-        /* Responsive pour calendrier */
-        @media (max-width: 768px) {
-            .calendar-row {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .month-calendar {
-                width: 100%;
-                max-width: 300px;
-                min-width: 280px;
-            }
-            
-            .calendar-legend {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .calendar-legend .flex {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .calendar-table th,
-            .calendar-table td {
-                width: 24px;
-                height: 24px;
-                font-size: 10px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .calendar-table th,
-            .calendar-table td {
-                width: 20px;
-                height: 20px;
-                font-size: 9px;
-            }
-            
-            .month-calendar {
-                min-width: 240px;
-                padding: 8px;
-            }
-        }
-        
         /* Flatpickr mobile customization - CORRECTION */
         @media (max-width: 768px) {
             /* S'assurer que Flatpickr s'affiche au-dessus */
@@ -933,79 +668,20 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="assets/css/bg-video.css?v=20250807">\n    <script defer src="assets/js/bg-video.js?v=20250807"></script>\n</head>
+</head>
 
 <body>
     <!-- Background Video avec support iOS -->
     <div class="video-background">
         <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
-            <source src="videos/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la lecture de vidéos HTML5.
         </video>
         <div class="video-overlay"></div>
     </div>
 
     <!-- Header -->
-    \1
-    <!-- SEO Meta Tags Optimisées -->
-    <meta name="description" content="Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.">
-    <meta name="keywords" content="villa martinique, location villa luxe, martinique vacances, villa piscine, séjour martinique, villa de rêve">
-    <meta name="author" content="KhanelConcept">
-    <meta name="robots" content="index, follow">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Favicon et Icons -->
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/demo/image/upload/v1/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    
-    <!-- OpenGraph pour Réseaux Sociaux -->
-    <meta property="og:title" content="Réservation - KhanelConcept Villas Luxe Martinique">
-    <meta property="og:description" content="Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.">
-    <meta property="og:image" content="images/og-image.jpg">
-    <meta property="og:url" content="https://khanelconcept.com/reservation.html">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="KhanelConcept">
-    <meta property="og:locale" content="fr_FR">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Réservation - KhanelConcept Villas Luxe Martinique">
-    <meta name="twitter:description" content="Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.">
-    <meta name="twitter:image" content="images/og-image.jpg">
-    
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LodgingBusiness",
-        "name": "KhanelConcept",
-        "description": "Réservez votre villa de rêve en Martinique. Processus de réservation simple et sécurisé, disponibilités en temps réel, confirmation immédiate. KhanelConcept - Conciergerie de luxe.",
-        "url": "https://khanelconcept.com/reservation.html",
-        "logo": "images/apple-touch-icon.png",
-        "image": "images/og-image.jpg",
-        "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "MQ",
-            "addressRegion": "Martinique"
-        },
-        "priceRange": "€€€",
-        "amenityFeature": [
-            { "@type": "LocationFeatureSpecification", "name": "Piscine" },
-            { "@type": "LocationFeatureSpecification", "name": "WiFi gratuit" },
-            { "@type": "LocationFeatureSpecification", "name": "Climatisation" },
-            { "@type": "LocationFeatureSpecification", "name": "Vue mer" }
-        ]
-    }
-    </script>
-    
-    <!-- Performance et Sécurité -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#667eea">
-    <meta name="msapplication-TileColor" content="#667eea">
-    <link rel="canonical" href="https://khanelconcept.com/reservation.html">
-                
+    <header class="header">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
@@ -1067,8 +743,8 @@
                 
                 <div>
                     <div class="relative rounded-xl overflow-hidden">
-                        <img id="villaImage" src="images/01_piscine_exterieur.jpg" 
-                             alt="Villa" class="w-full h-48 object-cover" loading="lazy">
+                        <img id="villaImage" src="./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" 
+                             alt="Villa" class="w-full h-48 object-cover">
                         <div class="absolute top-4 right-4">
                             <button class="bg-white/20 backdrop-blur-md rounded-full p-2 text-white hover:bg-white/30 transition-colors">
                                 <i class="fas fa-images"></i>
@@ -1084,66 +760,11 @@
             <!-- Formulaire de Réservation -->
             <div class="lg:col-span-2">
                 <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
-                        <h2 class="text-2xl font-bold text-white mb-6">
-                            <i class="fas fa-calendar-alt mr-3 text-yellow-400"></i>
-                            Détails de votre séjour
-                        </h2>
-                        
-                        <!-- Calendrier de Disponibilités - Toutes Villas -->
-                        <div id="f3CalendarSection" class="mb-8" style="display: none;">
-                            <h3 class="text-xl font-bold text-white mb-6 text-center">
-                                <i class="fas fa-calendar-check mr-2 text-yellow-400"></i>
-                                📅 Calendrier de Disponibilités - Villa Sélectionnée
-                            </h3>
-                            
-                            <!-- Légende des couleurs -->
-                            <div class="calendar-legend mb-6">
-                                <div class="flex justify-center gap-6 text-sm text-white">
-                                    <div class="legend-item flex items-center gap-2">
-                                        <span class="color-box libre w-4 h-4 border border-white/30"></span>
-                                        <span>Libre</span>
-                                    </div>
-                                    <div class="legend-item flex items-center gap-2">
-                                        <span class="color-box occupe w-4 h-4"></span>
-                                        <span>Occupé</span>
-                                    </div>
-                                    <div class="legend-item flex items-center gap-2">
-                                        <span class="color-box attente w-4 h-4"></span>
-                                        <span>En attente</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Navigation du calendrier -->
-                            <div class="calendar-navigation flex justify-between items-center mb-4">
-                                <button id="prevMonths" class="nav-btn">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <div class="current-period text-white font-semibold text-lg" id="currentPeriod">
-                                    Août - Novembre 2025
-                                </div>
-                                <button id="nextMonths" class="nav-btn">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                            
-                            <!-- Calendriers multi-mois (4 mois en 2x2) -->
-                            <div class="planning-calendar-container glass-card bg-white/5 p-4">
-                                <div class="calendar-grid" id="calendarGrid">
-                                    <!-- Les calendriers seront générés dynamiquement ici (4 mois) -->
-                                </div>
-                            </div>
-                            
-                            <!-- Informations sélection -->
-                            <div class="calendar-selection-info mt-4 p-4 bg-white/10 rounded-xl" id="selectionInfo" style="display: none;">
-                                <div class="text-white text-center">
-                                    <p class="font-semibold mb-2">📅 Période sélectionnée :</p>
-                                    <p id="selectedPeriod">Aucune période sélectionnée</p>
-                                    <p class="text-sm text-white/70 mt-2">Cliquez sur les dates pour modifier votre sélection</p>
-                                </div>
-                            </div>
-                        </div>
-                        
+                    <h2 class="text-2xl font-bold text-white mb-6">
+                        <i class="fas fa-calendar-alt mr-3 text-yellow-400"></i>
+                        Détails de votre séjour
+                    </h2>
+                    
                     <form id="reservationForm" class="space-y-6">
                         
                         <!-- Villa Pré-sélectionnée (sera remplie automatiquement) -->
@@ -1364,7 +985,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/khanelconcept/assets@main/js/reservation-enhanced.js"></script>
+    <script src="./assets/js/reservation-enhanced.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 🏠 CORRECTION PRIORITÉ 1 : Utiliser villaData pour reconnaissance villa
@@ -1373,46 +994,6 @@
             
             if (villaParam) {
                 console.log('🏠 Villa pré-sélectionnée depuis URL:', villaParam);
-                
-                // Afficher le calendrier pour TOUTES les villas maintenant
-                const calendarSection = document.getElementById('f3CalendarSection');
-                if (calendarSection) {
-                    calendarSection.style.display = 'block';
-                    
-                    // Mettre à jour le titre pour la villa spécifique
-                    const titleElement = calendarSection.querySelector('h3');
-                    if (titleElement) {
-                        const villaNames = {
-                            'f3-sur-petit-macabou': 'Villa F3 Petit Macabou',
-                            'f5-sur-ste-anne': 'Villa F5 Ste Anne',
-                            'f6-sur-petit-macabou-sejour--fte': 'Villa F6 Petit Macabou',
-                            'f6-au-lamentin': 'Villa F6 Lamentin',
-                            'f5-vauclin-ravine-plate': 'Villa F5 Vauclin Ravine Plate',
-                            'f3-sur-le-franois': 'Villa F3 Le François',
-                            'studio-cocooning-lamentin': 'Studio Cocooning Lamentin',
-                            'espace-piscine-journee-bungalow': 'Espace Piscine Journée Bungalow',
-                            'f5-la-renee': 'Villa F5 La Renée',
-                            'f6-sur-ste-luce-a-1mn-de-la-plage': 'Villa F6 Ste Luce',
-                            'f7-baie-des-mulets': 'Villa F7 Baie des Mulets',
-                            'fte-journee-ducos': 'Villa Fête Journée Ducos',
-                            'fte-journee-sainte-luce': 'Villa Fête Journée Sainte Luce',
-                            'fte-journee-riviere-pilote': 'Villa Fête Journée Rivière Pilote',
-                            'fte-journee-riviere-salee': 'Villa Fête Journée Rivière Salée',
-                            'fte-journee-fort-de-france': 'Villa Fête Journée Fort de France',
-                            'f3-bas-de-villa-trinite-cosmy': 'Villa F3 Trinité Cosmy',
-                            'f3-pour-la-baccha': 'Villa F3 Pour la Baccha',
-                            'bas-de-villa-f3-sur-ste-luce': 'Bas Villa F3 Ste Luce',
-                            'bas-de-villa-f3-sur-le-robert': 'Bas Villa F3 Le Robert',
-                            'appartement-f3-trenelle-location-annuelle': 'Appartement F3 Trenelle'
-                        };
-                        
-                        const villaName = villaNames[villaParam] || 'Villa Sélectionnée';
-                        titleElement.innerHTML = `<i class="fas fa-calendar-check mr-2 text-yellow-400"></i>📅 Calendrier de Disponibilités - ${villaName}`;
-                    }
-                    
-                    initializeF3Calendar();
-                    console.log('📅 Calendrier activé pour:', villaParam);
-                }
                 
                 // Utiliser la base de données villaData du fichier reservation-enhanced.js
                 if (window.villaData && window.villaData[villaParam]) {
@@ -1668,21 +1249,21 @@
                 
                 // Update villa image if available
                 const villaImages = {
-                    'Villa F3 Petit Macabou': 'images/01_piscine_exterieur.jpg',
-                    'Villa F5 Ste Anne': 'images/01_piscine_principale.jpg',
-                    'Villa F3 Baccha Petit Macabou': 'images/01_terrasse_piscine_salon_ext.jpg',
-                    'Villa F6 Lamentin': 'images/01_piscine_jacuzzi_vue_ensemble.jpg',
-                    'Villa F6 Ste Luce Plage': 'images/02_chambre_poutres.jpg',
-                    'Villa F6 Petit Macabou': 'images/02_salle_de_bain.jpg',
-                    'Villa F7 Baie des Mulets': 'images/01_chambre_climatisee.jpg',
-                    'Villa F3 Trinité (Cosmy)': 'images/01_piscine_chauffee_vue_collines.jpg',
-                    'Villa F3 Le Robert': 'images/01_piscine_rectangulaire.jpg',
-                    'Villa F5 R.Pilote': 'images/01_terrasse_bois_piscine_palmiers.jpg',
-                    'Villa F3 Le François': 'images/01_terrasse_panoramique_vue_mer.jpg',
-                    'Villa F5 Vauclin Ravine Plate': 'images/01_piscine_debordement_vue_panoramique.jpg',
-                    'Bas Villa F3 Ste Luce': 'images/01_eclairage_led_terrasse_lounge.jpg',
-                    'Villa F3 Trenelle': 'images/01_cuisine_equipee_evier_double.jpg',
-                    'Studio Cocooning Lamentin': 'images/01_jacuzzi_terrasse_privee.jpg'
+                    'Villa F3 Petit Macabou': './images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg',
+                    'Villa F5 Ste Anne': './images/Villa_F5_Ste_Anne/01_piscine_principale.jpg',
+                    'Villa F3 Baccha Petit Macabou': './images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg',
+                    'Villa F6 Lamentin': './images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg',
+                    'Villa F6 Ste Luce Plage': './images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg',
+                    'Villa F6 Petit Macabou': './images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg',
+                    'Villa F7 Baie des Mulets': './images/Villa_F7_Baie_des_Mulets_Vauclin/01_chambre_climatisee.jpg',
+                    'Villa F3 Trinité (Cosmy)': './images/Villa_F3_Trinite_Cosmy/01_piscine_chauffee_vue_collines.jpg',
+                    'Villa F3 Le Robert': './images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg',
+                    'Villa F5 R.Pilote': './images/Villa_F5_R_Pilote_La_Renee/01_terrasse_bois_piscine_palmiers.jpg',
+                    'Villa F3 Le François': './images/Villa_F3_Le_Francois/01_terrasse_panoramique_vue_mer.jpg',
+                    'Villa F5 Vauclin Ravine Plate': './images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_debordement_vue_panoramique.jpg',
+                    'Bas Villa F3 Ste Luce': './images/Bas_Villa_F3_Ste_Luce/01_eclairage_led_terrasse_lounge.jpg',
+                    'Villa F3 Trenelle': './images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg',
+                    'Studio Cocooning Lamentin': './images/Studio_Cocooning_Lamentin/01_jacuzzi_terrasse_privee.jpg'
                 };
                 
                 if (villaImages[villaName]) {
@@ -2083,346 +1664,6 @@
         
         // ==========================================
         
-    </script>
-    
-    <!-- Calendrier F3 JavaScript -->
-    <script>
-        // Données de disponibilité pour la Villa F3 (VRAIES DONNÉES du planning)
-        const f3AvailabilityData = {
-            // Août 2025 - Vraies données extraites du planning Villa SAADA
-            '2025-08-01': 'occupe', '2025-08-02': 'occupe', '2025-08-03': 'libre',
-            '2025-08-04': 'attente', '2025-08-05': 'occupe', '2025-08-06': 'occupe',
-            '2025-08-07': 'occupe', '2025-08-08': 'occupe', '2025-08-09': 'occupe',
-            '2025-08-10': 'libre', '2025-08-11': 'attente', '2025-08-12': 'occupe',
-            '2025-08-13': 'occupe', '2025-08-14': 'occupe', '2025-08-15': 'libre',
-            '2025-08-16': 'occupe', '2025-08-17': 'occupe', '2025-08-18': 'attente',
-            '2025-08-19': 'occupe', '2025-08-20': 'occupe', '2025-08-21': 'occupe',
-            '2025-08-22': 'occupe', '2025-08-23': 'occupe', '2025-08-24': 'occupe',
-            '2025-08-25': 'occupe', '2025-08-26': 'occupe', '2025-08-27': 'occupe',
-            '2025-08-28': 'occupe', '2025-08-29': 'libre', '2025-08-30': 'occupe',
-            '2025-08-31': 'occupe',
-            
-            // Septembre 2025
-            '2025-09-01': 'occupe', '2025-09-02': 'occupe', '2025-09-03': 'occupe',
-            '2025-09-04': 'occupe', '2025-09-05': 'attente', '2025-09-06': 'occupe',
-            '2025-09-07': 'libre', '2025-09-08': 'occupe', '2025-09-09': 'occupe',
-            '2025-09-10': 'occupe', '2025-09-11': 'attente', '2025-09-12': 'occupe',
-            '2025-09-13': 'occupe', '2025-09-14': 'libre', '2025-09-15': 'occupe',
-            '2025-09-16': 'occupe', '2025-09-17': 'occupe', '2025-09-18': 'occupe',
-            '2025-09-19': 'occupe', '2025-09-20': 'occupe', '2025-09-21': 'occupe',
-            '2025-09-22': 'occupe', '2025-09-23': 'occupe', '2025-09-24': 'occupe',
-            '2025-09-25': 'occupe', '2025-09-26': 'occupe', '2025-09-27': 'occupe',
-            '2025-09-28': 'occupe', '2025-09-29': 'occupe', '2025-09-30': 'occupe',
-            
-            // Octobre 2025 - Principalement libre selon le planning
-            '2025-10-01': 'libre', '2025-10-02': 'libre', '2025-10-03': 'libre',
-            '2025-10-04': 'libre', '2025-10-05': 'libre', '2025-10-06': 'libre',
-            '2025-10-07': 'libre', '2025-10-08': 'libre', '2025-10-09': 'libre',
-            '2025-10-10': 'libre', '2025-10-11': 'libre', '2025-10-12': 'libre',
-            '2025-10-13': 'libre', '2025-10-14': 'libre', '2025-10-15': 'libre',
-            '2025-10-16': 'libre', '2025-10-17': 'libre', '2025-10-18': 'libre',
-            '2025-10-19': 'libre', '2025-10-20': 'libre', '2025-10-21': 'libre',
-            '2025-10-22': 'libre', '2025-10-23': 'libre', '2025-10-24': 'libre',
-            '2025-10-25': 'libre', '2025-10-26': 'libre', '2025-10-27': 'libre',
-            '2025-10-28': 'libre', '2025-10-29': 'libre', '2025-10-30': 'libre',
-            '2025-10-31': 'libre',
-            
-            // Novembre 2025
-            '2025-11-01': 'libre', '2025-11-02': 'libre', '2025-11-03': 'libre',
-            '2025-11-04': 'libre', '2025-11-05': 'libre', '2025-11-06': 'attente',
-            '2025-11-07': 'libre', '2025-11-08': 'libre', '2025-11-09': 'libre',
-            '2025-11-10': 'libre', '2025-11-11': 'libre', '2025-11-12': 'libre',
-            '2025-11-13': 'libre', '2025-11-14': 'libre', '2025-11-15': 'libre',
-            '2025-11-16': 'libre', '2025-11-17': 'libre', '2025-11-18': 'libre',
-            '2025-11-19': 'libre', '2025-11-20': 'libre', '2025-11-21': 'libre',
-            '2025-11-22': 'libre', '2025-11-23': 'libre', '2025-11-24': 'libre',
-            '2025-11-25': 'libre', '2025-11-26': 'libre', '2025-11-27': 'libre',
-            '2025-11-28': 'libre', '2025-11-29': 'libre', '2025-11-30': 'libre',
-            
-            // Décembre 2025
-            '2025-12-01': 'occupe', '2025-12-02': 'occupe', '2025-12-03': 'occupe',
-            '2025-12-04': 'occupe', '2025-12-05': 'occupe', '2025-12-06': 'occupe',
-            '2025-12-07': 'occupe', '2025-12-08': 'occupe', '2025-12-09': 'occupe',
-            '2025-12-10': 'occupe', '2025-12-11': 'occupe', '2025-12-12': 'attente',
-            '2025-12-13': 'occupe', '2025-12-14': 'libre', '2025-12-15': 'occupe',
-            '2025-12-16': 'occupe', '2025-12-17': 'occupe', '2025-12-18': 'occupe',
-            '2025-12-19': 'occupe', '2025-12-20': 'occupe', '2025-12-21': 'occupe',
-            '2025-12-22': 'attente', '2025-12-23': 'occupe', '2025-12-24': 'occupe',
-            '2025-12-25': 'occupe', '2025-12-26': 'occupe', '2025-12-27': 'occupe',
-            '2025-12-28': 'libre', '2025-12-29': 'attente', '2025-12-30': 'occupe',
-            '2025-12-31': 'occupe'
-        };
-        
-        let currentStartMonth = new Date(2025, 7, 1); // Août 2025 (mois 7 = août)
-        let selectedStartDate = null;
-        let selectedEndDate = null;
-        
-        function initializeF3Calendar() {
-            generateCalendar();
-            
-            // Navigation
-            document.getElementById('prevMonths').addEventListener('click', () => {
-                currentStartMonth.setMonth(currentStartMonth.getMonth() - 4);
-                generateCalendar();
-            });
-            
-            document.getElementById('nextMonths').addEventListener('click', () => {
-                currentStartMonth.setMonth(currentStartMonth.getMonth() + 4);
-                generateCalendar();
-            });
-            
-            console.log('📅 Calendrier F3 initialisé');
-        }
-        
-        function generateCalendar() {
-            const calendarGrid = document.getElementById('calendarGrid');
-            const currentPeriod = document.getElementById('currentPeriod');
-            
-            // Mettre à jour le titre de la période (4 mois)
-            const startMonth = new Date(currentStartMonth);
-            const endMonth = new Date(currentStartMonth);
-            endMonth.setMonth(endMonth.getMonth() + 3);
-            
-            const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-                              'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-            
-            currentPeriod.textContent = `${monthNames[startMonth.getMonth()]} - ${monthNames[endMonth.getMonth()]} ${startMonth.getFullYear()}`;
-            
-            // Générer les 4 mois (2x2 pour meilleur rendu)
-            let html = '<div class="calendar-row">';
-            
-            for (let i = 0; i < 2; i++) {
-                const monthDate = new Date(currentStartMonth);
-                monthDate.setMonth(monthDate.getMonth() + i);
-                html += generateMonthCalendar(monthDate);
-            }
-            
-            html += '</div><div class="calendar-row">';
-            
-            for (let i = 2; i < 4; i++) {
-                const monthDate = new Date(currentStartMonth);
-                monthDate.setMonth(monthDate.getMonth() + i);
-                html += generateMonthCalendar(monthDate);
-            }
-            
-            html += '</div>';
-            calendarGrid.innerHTML = html;
-            
-            // Ajouter les événements de clic
-            attachDateClickEvents();
-        }
-        
-        function generateMonthCalendar(monthDate) {
-            const year = monthDate.getFullYear();
-            const month = monthDate.getMonth();
-            
-            const monthNames = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-                              'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-            
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const firstDayOfWeek = new Date(year, month, 1).getDay();
-            const adjusteddFirstDay = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1; // Lundi = 0
-            
-            let html = `
-                <div class="month-calendar">
-                    <div class="month-title">${monthNames[month]} ${year}</div>
-                    <table class="calendar-table">
-                        <thead>
-                            <tr>
-                                <th>Lu</th><th>Ma</th><th>Me</th><th>Je</th><th>Ve</th><th>Sa</th><th>Di</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            `;
-            
-            let dayCount = 1;
-            for (let week = 0; week < 6; week++) {
-                html += '<tr>';
-                for (let day = 0; day < 7; day++) {
-                    if (week === 0 && day < adjusteddFirstDay) {
-                        html += '<td></td>';
-                    } else if (dayCount <= daysInMonth) {
-                        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayCount).padStart(2, '0')}`;
-                        const status = f3AvailabilityData[dateStr] || 'libre';
-                        
-                        html += `<td class="date-cell ${status}" data-date="${dateStr}">${dayCount}</td>`;
-                        dayCount++;
-                    } else {
-                        html += '<td></td>';
-                    }
-                }
-                html += '</tr>';
-                
-                if (dayCount > daysInMonth) break;
-            }
-            
-            html += `
-                        </tbody>
-                    </table>
-                </div>
-            `;
-            
-            return html;
-        }
-        
-        function attachDateClickEvents() {
-            document.querySelectorAll('.date-cell').forEach(cell => {
-                cell.addEventListener('click', function() {
-                    const dateStr = this.dataset.date;
-                    const status = this.classList.contains('libre') ? 'libre' : 
-                                  this.classList.contains('occupe') ? 'occupe' : 'attente';
-                    
-                    if (status !== 'libre') {
-                        return; // Ne permet pas de sélectionner les dates occupées/en attente
-                    }
-                    
-                    selectDate(dateStr, this);
-                });
-            });
-        }
-        
-        function selectDate(dateStr, element) {
-            const clickedDate = new Date(dateStr);
-            
-            if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-                // Nouvelle sélection ou remplacement
-                clearSelection();
-                selectedStartDate = clickedDate;
-                selectedEndDate = null;
-                element.classList.add('selected', 'range-start');
-                updateSelectionInfo();
-            } else if (selectedStartDate && !selectedEndDate) {
-                // Sélection de la date de fin
-                if (clickedDate > selectedStartDate) {
-                    selectedEndDate = clickedDate;
-                    element.classList.add('selected', 'range-end');
-                    highlightRange();
-                    updateSelectionInfo();
-                    updateFormDates();
-                } else {
-                    // Date antérieure -> nouvelle date de début
-                    clearSelection();
-                    selectedStartDate = clickedDate;
-                    element.classList.add('selected', 'range-start');
-                    updateSelectionInfo();
-                }
-            }
-        }
-        
-        function clearSelection() {
-            document.querySelectorAll('.date-cell').forEach(cell => {
-                cell.classList.remove('selected', 'range-start', 'range-end', 'range-middle');
-            });
-        }
-        
-        function highlightRange() {
-            if (!selectedStartDate || !selectedEndDate) return;
-            
-            const startTime = selectedStartDate.getTime();
-            const endTime = selectedEndDate.getTime();
-            
-            document.querySelectorAll('.date-cell').forEach(cell => {
-                const cellDate = new Date(cell.dataset.date);
-                const cellTime = cellDate.getTime();
-                
-                if (cellTime > startTime && cellTime < endTime) {
-                    cell.classList.add('range-middle');
-                }
-            });
-        }
-        
-        function updateSelectionInfo() {
-            const selectionInfo = document.getElementById('selectionInfo');
-            const selectedPeriod = document.getElementById('selectedPeriod');
-            
-            if (selectedStartDate && selectedEndDate) {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                const startStr = selectedStartDate.toLocaleDateString('fr-FR', options);
-                const endStr = selectedEndDate.toLocaleDateString('fr-FR', options);
-                const nights = Math.ceil((selectedEndDate - selectedStartDate) / (1000 * 60 * 60 * 24));
-                
-                selectedPeriod.innerHTML = `Du ${startStr} au ${endStr}<br><small>(${nights} nuit${nights > 1 ? 's' : ''})</small>`;
-                selectionInfo.style.display = 'block';
-            } else if (selectedStartDate) {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                const startStr = selectedStartDate.toLocaleDateString('fr-FR', options);
-                selectedPeriod.innerHTML = `Date d'arrivée : ${startStr}<br><small>Sélectionnez la date de départ</small>`;
-                selectionInfo.style.display = 'block';
-            } else {
-                selectionInfo.style.display = 'none';
-            }
-        }
-        
-        function updateFormDates() {
-            if (selectedStartDate && selectedEndDate) {
-                const checkinInput = document.getElementById('checkinDate');
-                const checkoutInput = document.getElementById('checkoutDate');
-                
-                if (checkinInput && checkoutInput) {
-                    checkinInput.value = selectedStartDate.toISOString().split('T')[0];
-                    checkoutInput.value = selectedEndDate.toISOString().split('T')[0];
-                    
-                    // Déclencher les événements de changement pour mettre à jour le prix
-                    checkinInput.dispatchEvent(new Event('change'));
-                    checkoutInput.dispatchEvent(new Event('change'));
-                    
-                    console.log('📅 Dates mises à jour dans le formulaire');
-                }
-            }
-        }
-    </script>
-
-
-    <script src="https://cdn.jsdelivr.net/gh/khanelconcept/assets@main/js/universal-button-fixer.js"></script>
-
-    <script>
-        // Protection DOM - empêcher l'écrasement d'éléments critiques
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🛡️ Protection DOM activée');
-            
-            // Protéger les éléments critiques contre les modifications
-            const criticalSelectors = ['#heroVideo', '.villa-thumbnail', '.header', 'nav', '.search-form'];
-            
-            criticalSelectors.forEach(selector => {
-                const elements = document.querySelectorAll(selector);
-                elements.forEach(element => {
-                    if (element) {
-                        element.setAttribute('data-protected', 'true');
-                        // Empêcher les modifications non autorisées
-                        element.style.setProperty('pointer-events', 'auto', 'important');
-                        element.style.setProperty('visibility', 'visible', 'important');
-                        element.style.setProperty('display', 'initial', 'important');
-                    }
-                });
-            });
-            
-            // Gestion d'erreur globale pour les images
-            document.querySelectorAll('img').forEach(img => {
-                if (!img.hasAttribute('data-error-handled')) {
-                    img.setAttribute('data-error-handled', 'true');
-                    
-                    img.addEventListener('error', function() {
-                        console.warn('⚠️ Erreur chargement image:', this.src);
-                        
-                        // Ne pas masquer l'image, juste la marquer comme en erreur
-                        this.style.opacity = '0.7';
-                        this.style.filter = 'grayscale(50%)';
-                        
-                        // Réessayer après 3 secondes
-                        setTimeout(() => {
-                            this.src = this.src + '?retry=' + Date.now();
-                        }, 3000);
-                    });
-                }
-            });
-            
-            console.log('✅ Protection DOM et gestion d\'erreurs activées');
-        });
-        
-        // Protection contre les erreurs JavaScript
-        window.addEventListener('error', function(e) {
-            console.warn('Erreur JavaScript capturée:', e.message);
-        });
     </script>
 </body>
 </html>

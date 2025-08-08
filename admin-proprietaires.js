@@ -1,34 +1,3 @@
-
-// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
-function protectMediaElements() {
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(element => {
-        element.setAttribute('data-protected', 'true');
-    });
-}
-
-// Protéger avant toute modification DOM
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                // Vérifier que les éléments média ne sont pas supprimés
-                mutation.removedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
-                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
-                    }
-                });
-            }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-
 /**
  * ADMIN PROPRIÉTAIRES - JavaScript Principal
  * ==========================================
@@ -269,8 +238,7 @@ class AdminProprietaires {
             showBtn.textContent = 'Masquer';
         } else {
             emailForm.classList.add('hidden');
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    showBtn.innerHTML = '<i class="fas fa-user mr-2"></i>Connexion Email/Mot de passe';
+            showBtn.innerHTML = '<i class="fas fa-user mr-2"></i>Connexion Email/Mot de passe';
         }
     }
 
@@ -400,8 +368,7 @@ class AdminProprietaires {
         const tbody = document.getElementById('reservationsTable');
         
         if (!reservations || reservations.length === 0) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    tbody.innerHTML = `
+            tbody.innerHTML = `
                 <tr>
                     <td colspan="5" class="text-center py-8 text-white/60">
                         <i class="fas fa-inbox mr-2"></i>Aucune réservation récente
@@ -411,8 +378,7 @@ class AdminProprietaires {
             return;
         }
 
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    tbody.innerHTML = reservations.map(reservation => `
+        tbody.innerHTML = reservations.map(reservation => `
             <tr class="border-b border-white/5 hover:bg-white/5">
                 <td class="py-3 px-4">
                     <div class="font-semibold">${reservation.client_name || 'Client'}</div>
@@ -710,8 +676,7 @@ class AdminProprietaires {
                     type === 'error' ? 'fa-exclamation-circle' : 
                     'fa-info-circle';
         
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    notification.innerHTML = `
+        notification.innerHTML = `
             <i class="fas ${icon} mr-2"></i>
             ${message}
         `;

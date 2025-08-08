@@ -1,34 +1,3 @@
-
-// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
-function protectMediaElements() {
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(element => {
-        element.setAttribute('data-protected', 'true');
-    });
-}
-
-// Protéger avant toute modification DOM
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                // Vérifier que les éléments média ne sont pas supprimés
-                mutation.removedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
-                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
-                    }
-                });
-            }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-
 /**
  * PHASE 3 - UX/UI : Système de Notifications Temps Réel
  * Notifications interactives, accessibles et élégantes
@@ -559,8 +528,7 @@ class NotificationSystem {
             content += `<div class="notification-progress" style="animation-duration: ${config.duration}ms"></div>`;
         }
 
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    notification.innerHTML = content;
+        notification.innerHTML = content;
 
         // Event listeners
         this.setupNotificationEvents(notification, id, config);
@@ -826,13 +794,11 @@ class NotificationSystem {
     showCustom(template, data = {}) {
         const notification = document.createElement('div');
         notification.className = 'notification custom';
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    notification.innerHTML = template;
+        notification.innerHTML = template;
         
         // Remplacer les variables dans le template
         Object.keys(data).forEach(key => {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    notification.innerHTML = notification.innerHTML.replace(
+            notification.innerHTML = notification.innerHTML.replace(
                 new RegExp(`{{${key}}}`, 'g'),
                 data[key]
             );

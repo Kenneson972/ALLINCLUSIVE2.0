@@ -1,34 +1,3 @@
-
-// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
-function protectMediaElements() {
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(element => {
-        element.setAttribute('data-protected', 'true');
-    });
-}
-
-// Protéger avant toute modification DOM
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                // Vérifier que les éléments média ne sont pas supprimés
-                mutation.removedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
-                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
-                    }
-                });
-            }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-
 // Admin Main JavaScript
 class AdminApp {
     constructor() {
@@ -894,13 +863,11 @@ class AdminApp {
             .slice(0, 5);
 
         if (recentVillas.length === 0) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    activityContainer.innerHTML = '<p class="text-muted">Aucune activité récente</p>';
+            activityContainer.innerHTML = '<p class="text-muted">Aucune activité récente</p>';
             return;
         }
 
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    activityContainer.innerHTML = recentVillas.map(villa => `
+        activityContainer.innerHTML = recentVillas.map(villa => `
             <div class="d-flex align-items-center mb-3">
                 <div class="me-3">
                     <i class="fas fa-home text-primary"></i>
@@ -923,8 +890,7 @@ class AdminApp {
         if (!grid) return;
 
         if (villas.length === 0) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    grid.innerHTML = `
+            grid.innerHTML = `
                 <div class="col-12 text-center py-5">
                     <i class="fas fa-home fa-3x text-muted mb-3"></i>
                     <h4>Aucune villa trouvée</h4>
@@ -937,8 +903,7 @@ class AdminApp {
             return;
         }
 
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    grid.innerHTML = villas.map(villa => `
+        grid.innerHTML = villas.map(villa => `
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card villa-card">
                     <div class="position-relative">

@@ -1,34 +1,3 @@
-
-// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
-function protectMediaElements() {
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(element => {
-        element.setAttribute('data-protected', 'true');
-    });
-}
-
-// Protéger avant toute modification DOM
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                // Vérifier que les éléments média ne sont pas supprimés
-                mutation.removedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
-                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
-                    }
-                });
-            }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-
 // Image Handler - Gestion des uploads et galerie d'images
 
 class ImageHandler {
@@ -89,8 +58,7 @@ class ImageHandler {
         if (!selector || !this.app.villas) return;
 
         // Clear existing options except "All villas"
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    selector.innerHTML = '<option value="">Toutes les villas</option>';
+        selector.innerHTML = '<option value="">Toutes les villas</option>';
 
         // Add villa options
         this.app.villas.forEach(villa => {
@@ -260,8 +228,7 @@ class ImageHandler {
         }
 
         if (imagesToShow.length === 0) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    gallery.innerHTML = `
+            gallery.innerHTML = `
                 <div class="col-12 text-center py-5">
                     <i class="fas fa-images fa-3x text-muted mb-3"></i>
                     <h5>${villaId ? 'Aucune image pour cette villa' : 'Aucune image'}</h5>
@@ -278,8 +245,7 @@ class ImageHandler {
         const sortedImages = imagesToShow
             .sort((a, b) => new Date(b.uploaded) - new Date(a.uploaded));
 
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    gallery.innerHTML = sortedImages.map(image => `
+        gallery.innerHTML = sortedImages.map(image => `
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                 <div class="image-item">
                     <img src="${image.dataUrl}" alt="${image.name}" class="img-fluid">

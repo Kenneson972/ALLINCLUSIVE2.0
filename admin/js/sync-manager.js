@@ -1,34 +1,3 @@
-
-// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
-function protectMediaElements() {
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(element => {
-        element.setAttribute('data-protected', 'true');
-    });
-}
-
-// Protéger avant toute modification DOM
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                // Vérifier que les éléments média ne sont pas supprimés
-                mutation.removedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
-                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
-                    }
-                });
-            }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-
 // Frontend-Backend Synchronization System
 class SyncManager {
     constructor(app) {
@@ -80,7 +49,7 @@ class SyncManager {
                     location: villa.location,
                     price: villa.price + '€ /nuit',
                     guests: villa.capacity + ' personnes',
-                    image: villa.photos && villa.photos[0] ? villa.photos[0] : "images/placeholder.jpg',
+                    image: villa.photos && villa.photos[0] ? villa.photos[0] : './images/placeholder.jpg',
                     gallery: villa.photos || [],
                     description: villa.description,
                     amenities: this.formatAmenitiesForMainSite(villa.amenities || [])
@@ -111,7 +80,7 @@ class SyncManager {
                         location: "📍 " + villa.location,
                         price: villa.price + "€ /nuit",
                         guests: "👥 " + villa.capacity + " personnes",
-                        image: villa.photos && villa.photos[0] ? villa.photos[0] : "images/placeholder.jpg",
+                        image: villa.photos && villa.photos[0] ? villa.photos[0] : "./images/placeholder.jpg",
                         gallery: villa.photos || [],
                         description: villa.description,
                         amenities: this.formatAmenitiesForVillaDetails(villa.amenities || [])
@@ -139,7 +108,7 @@ class SyncManager {
                     guestsDetail: `${villa.capacity} personnes + invités`,
                     features: (villa.amenities || []).join(', '),
                     category: villa.capacity > 15 ? 'fete' : 'sejour',
-                    image: villa.photos && villa.photos[0] ? villa.photos[0] : "images/placeholder.jpg",
+                    image: villa.photos && villa.photos[0] ? villa.photos[0] : "./images/placeholder.jpg",
                     gallery: villa.photos || [],
                     fallbackIcon: this.getVillaIcon(villa),
                     location: villa.location

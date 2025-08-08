@@ -1,0 +1,129 @@
+{
+  "timestamp": "2025-08-01T16:40:39.189413",
+  "success": true,
+  "passed_tests": 17,
+  "failed_tests": 0,
+  "test_results": [
+    {
+      "test": "API Health Check",
+      "passed": true,
+      "message": "API accessible, status: healthy",
+      "details": null,
+      "timestamp": "2025-08-01T16:40:38.962729"
+    },
+    {
+      "test": "Villa Count Verification",
+      "passed": true,
+      "message": "Correct villa count: 21 villas found",
+      "details": null,
+      "timestamp": "2025-08-01T16:40:38.980901"
+    },
+    {
+      "test": "Villa Data Structure",
+      "passed": true,
+      "message": "All required fields present in villa data",
+      "details": null,
+      "timestamp": "2025-08-01T16:40:38.980923"
+    },
+    {
+      "test": "Search by Destination - Vauclin",
+      "passed": true,
+      "message": "Search successful: 3 results found",
+      "details": "Filters: {'destination': 'Vauclin'}",
+      "timestamp": "2025-08-01T16:40:38.997644"
+    },
+    {
+      "test": "Search by Destination - Lamentin",
+      "passed": true,
+      "message": "Search successful: 2 results found",
+      "details": "Filters: {'destination': 'Lamentin'}",
+      "timestamp": "2025-08-01T16:40:39.016550"
+    },
+    {
+      "test": "Search by Guest Count",
+      "passed": true,
+      "message": "Search successful: 20 results found",
+      "details": "Filters: {'guests': 6}",
+      "timestamp": "2025-08-01T16:40:39.034211"
+    },
+    {
+      "test": "Search by Category - Sejour",
+      "passed": true,
+      "message": "Search successful: 15 results found",
+      "details": "Filters: {'category': 'sejour'}",
+      "timestamp": "2025-08-01T16:40:39.046132"
+    },
+    {
+      "test": "Search by Category - Fete",
+      "passed": true,
+      "message": "Search successful: 6 results found",
+      "details": "Filters: {'category': 'fete'}",
+      "timestamp": "2025-08-01T16:40:39.058646"
+    },
+    {
+      "test": "Villa Mapping - villa-f3-petit-macabou",
+      "passed": true,
+      "message": "Villa found: Villa F3 sur Petit Macabou (ID: 1)",
+      "details": "Price: €850.0, Category: sejour",
+      "timestamp": "2025-08-01T16:40:39.058708"
+    },
+    {
+      "test": "Villa Mapping - espace-piscine-journee-bungalow",
+      "passed": true,
+      "message": "Villa found: Espace Piscine Journée Bungalow (ID: 16)",
+      "details": "Price: €350.0, Category: fete",
+      "timestamp": "2025-08-01T16:40:39.058810"
+    },
+    {
+      "test": "Villa Mapping - villa-f5-ste-anne",
+      "passed": true,
+      "message": "Villa found: Villa F5 sur Ste Anne (ID: 2)",
+      "details": "Price: €1350.0, Category: sejour",
+      "timestamp": "2025-08-01T16:40:39.058827"
+    },
+    {
+      "test": "Villa Mapping - villa-f6-petit-macabou",
+      "passed": true,
+      "message": "Villa found: Villa F3 sur Petit Macabou (ID: 1)",
+      "details": "Price: €850.0, Category: sejour",
+      "timestamp": "2025-08-01T16:40:39.058841"
+    },
+    {
+      "test": "Villa ID Mapping Overall",
+      "passed": true,
+      "message": "Villa mapping successful: 4/4 (100.0%)",
+      "details": null,
+      "timestamp": "2025-08-01T16:40:39.058853"
+    },
+    {
+      "test": "Reservation Creation",
+      "passed": true,
+      "message": "Reservation created successfully for Villa F3 sur Petit Macabou",
+      "details": "Reservation ID: 4973d8ab-6087-40ae-8672-6f7f301b42d6, Villa ID: 1",
+      "timestamp": "2025-08-01T16:40:39.175389"
+    },
+    {
+      "test": "Espace Piscine Villa Fix",
+      "passed": true,
+      "message": "Espace Piscine villa found with correct data: Espace Piscine Journée Bungalow",
+      "details": "Price: €350.0, Category: fete",
+      "timestamp": "2025-08-01T16:40:39.175445"
+    },
+    {
+      "test": "Villa Count Consistency",
+      "passed": true,
+      "message": "Villa count matches expected: 21 villas",
+      "details": null,
+      "timestamp": "2025-08-01T16:40:39.175451"
+    },
+    {
+      "test": "Dashboard Stats Consistency",
+      "passed": true,
+      "message": "Dashboard shows correct villa count: 21",
+      "details": "Stats: {'total_villas': 21, 'total_reservations': 11, 'pending_reservations': 11, 'confirmed_reservations': 0, 'monthly_revenue': 850.0, 'monthly_reservations': 1}",
+      "timestamp": "2025-08-01T16:40:39.189150"
+    }
+  ],
+  "focus": "PHASE 1 CRITICAL FIXES - Villa Mapping System",
+  "summary": "Testing villa mapping system fixes to resolve 'Villa non trouvée' errors"
+}

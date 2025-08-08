@@ -118,11 +118,11 @@ ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "khanelconcept2025")
 ADMIN_SECRET_KEY = os.getenv("ADMIN_SECRET_KEY", "admin-secret-key-change-in-production")
 ADMIN_2FA_SECRET = os.getenv("ADMIN_2FA_SECRET", "your-2fa-secret-key-here")
 
-# Données admin sécurisées - CORRECTION: Utiliser bcrypt pour cohérence
+# Données admin sécurisées
 ADMIN_USERS = {
     ADMIN_USERNAME: {
         "username": ADMIN_USERNAME,
-        "hashed_password": hash_password(ADMIN_PASSWORD),  # Utiliser bcrypt comme pour les membres
+        "hashed_password": hashlib.sha256(ADMIN_PASSWORD.encode()).hexdigest(),
         "role": "admin",
         "2fa_secret": ADMIN_2FA_SECRET
     }
@@ -729,8 +729,8 @@ def log_security_event(event_type: str, username: str, ip_address: str, success:
 # ========== FONCTIONS D'AUTHENTIFICATION SÉCURISÉES ==========
 
 def verify_admin_password(plain_password, hashed_password):
-    """Vérifier le mot de passe admin (bcrypt) - CORRECTION pour cohérence"""
-    return verify_password(plain_password, hashed_password)  # Utiliser la même fonction bcrypt
+    """Vérifier le mot de passe admin (SHA256)"""
+    return hashlib.sha256(plain_password.encode()).hexdigest() == hashed_password
 
 def authenticate_user(username: str, password: str, totp_code: str = None):
     """Authentifier un utilisateur admin avec 2FA optionnel"""

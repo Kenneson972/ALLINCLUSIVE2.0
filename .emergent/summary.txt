@@ -1,69 +1,105 @@
 <analysis>
-The previous AI engineer's work evolved through distinct phases. Initially, the focus was on a total redesign of 21 villa detail pages, ensuring design consistency with 's glassmorphism, integrating CSV data, and fixing image display issues. This included refining text and gallery synchronization. Subsequently, a comprehensive admin dashboard was developed with a Node.js/Express backend, SQLite, and an HTML/JS frontend, featuring a unique code-based access system. Debugging for this admin page involved implementing an API proxy within the existing FastAPI backend to resolve connectivity. More recently, the engineer implemented a video section with autoplay for the Villa F3 Petit Macabou page, followed by a dynamic, real-time-data-driven interactive calendar on all reservation pages, adapting its design and functionality based on user feedback. The current trajectory concludes with the user requesting a comprehensive audit of the backend Python code.
+The previous AI engineer's work involved two main phases: first, addressing critical fixes on the villa reservation page, and then, a significant new feature development for an admin dashboard. Initially, the focus was on correcting data inconsistencies, broken layouts, and image display on individual villa pages, culminating in a 100% accomplished declaration. However, user feedback immediately triggered further debugging, revealing deep-seated issues with villa data mapping in JavaScript and an incomplete dataset. This led to iterative corrections on  and  files.
+
+Subsequently, a major new feature was requested: a complete owner-admin page. This involved building a new Node.js backend with SQLite and integrating it with a custom HTML/JS frontend. Key challenges included setting up the new backend, database initialization, and persistent connection issues between the frontend and the new Node.js backend. The breakthrough involved implementing an API proxy within the existing FastAPI server to circumvent CORS and mixed content issues, allowing the frontend to connect securely. The admin page, featuring unique code access, an interactive calendar, and a glassmorphism design, was then deemed 100% functional before the user decided to defer its deployment due to hosting limitations.
 </analysis>
 
 <product_requirements>
-The KhanelConcept application is a luxury villa rental platform. Initially, the core problem addressed was data inconsistency, broken layouts, and duplicate content across 21 villa detail pages, requiring a 1:1 design replication from  with glassmorphism, data integration from , and image display fixes.
-A new admin dashboard was required for villa owners for availability management via a unique 6-character code, integrating FullCalendar for real-time booking updates, limited villa management, and a Node.js/Express backend with SQLite.
-Recent requirements focused on enhancing the Villa F3 sur Petit Macabou page by integrating a responsive video section (MP4/WebM, 16:9, custom controls, later changed to Cloudinary URL and autoplay on all devices). A key addition was an interactive booking calendar on , initially for F3 only, then extended to all villas. This calendar needed a specific 3-month (later 4-month, 2x2) multi-month display, a custom color legend (Libre/Occupé/En attente), dynamic date selection, and integration with an external planning website () for real-time availability.
+The KhanelConcept application is a luxury villa rental platform. The primary goal was a refonte totale of its 21 villa detail pages and subsequently, enhancement of the reservation system and the creation of an admin dashboard.
+
+**Initial Requirements & Status (Villa Pages/Reservation)**:
+1.  **Design Preservation**: Replicate 's glassmorphism and video background across all villa pages. Status: Achieved.
+2.  **Page Generation**: Delete old, generate 21 new villa pages. Status: Completed iteratively.
+3.  **Data Source**: Use  for content, integrating data and images. Status: Data re-integration and image display fixed, including server security headers and GitHub Pages paths. Villa data mapping in  was refined to cover all 22 villas.
+4.  **Content Template**: Standardized template for villa name, location, capacity, pricing, etc. Status: Re-integrated.
+5.  **Photo Gallery**: Minimum 6-photo gallery. Status: Restored, synchronization fixed.
+6.  **Booking Form**: Villa-specific pre-filled form. Status: Minor focus, partially addressed.
+
+**New Requirements & Status (Admin Dashboard)**:
+1.  **Admin Page Creation**: Standalone HTML page for villa owners. Status:  created.
+2.  **Unique Code Access**: Alphanumeric code (6 chars) for direct villa view. Status: Implemented with backend validation and JWT.
+3.  **Backend**: New Node.js/Express with local SQLite. Status: Developed in .
+4.  **Interactive Calendar**: FullCalendar integration for availability (available/reserved/blocked). Status: Integrated and functional.
+5.  **Limited Villa Management**: Access only to owner's specific villa details and history. Status: Implemented.
+6.  **Real-time Sync**: API integration (e.g., ). Status: API proxy created in FastAPI for Node.js backend, allowing communication.
+7.  **Design Match**: Admin interface to match 's glassmorphism. Status: Successfully replicated.
+8.  **Advanced Features**: Search, notifications, CSV export, basic offline mode. Status: Implemented.
 </product_requirements>
 
 <key_technical_concepts>
--   **Frontend**: HTML5, CSS (Glassmorphism, ), JavaScript (Vanilla JS, Swiper.js, FullCalendar, AOS).
--   **Backend**: FastAPI (Python) for main app and API proxy, Node.js/Express (JavaScript) for admin API.
--   **Data Management**: CSV, SQLite, Cloudinary for video hosting, external web scraping for calendar data.
--   **Architecture**: JAMstack-like; new admin module uses separate Node.js backend proxied via FastAPI.
+-   **Frontend**: HTML5, CSS (Glassmorphism, Tailwind/Bootstrap), JavaScript (Vanilla JS, Swiper.js, FullCalendar.js, Axios/Fetch).
+-   **Backend**: Python FastAPI (main API, static file serving, now acting as proxy), Node.js Express (new admin API).
+-   **Data Handling**: CSV parsing (Python), SQLite (Node.js admin database).
+-   **Authentication**: JWT for secure admin access.
+-   **Networking**: CORS, API Proxying, HTTP vs. HTTPS (Mixed Content).
 </key_technical_concepts>
 
 <code_architecture>
-The application uses a JAMstack-like architecture with a FastAPI (Python) backend, and static HTML/CSS/JS frontend. A new Node.js backend handles the admin panel.
+The application uses a hybrid architecture: an existing FastAPI backend (Python) for core services and static file serving, and a newly introduced Node.js Express backend for admin functionalities. The frontend is primarily static HTML/CSS/JS.
 
 
 
 -   ****: FastAPI backend.
-    -   **Importance**: Serves API requests, static files, and acts as proxy for the Node.js admin backend.
-    -   **Changes Made**:  modified for static images. New proxy routes () added for Node.js admin backend, solving CORS.  library added to . Currently undergoing an audit.
--   ****: Core villa detail pages (e.g., ).
-    -   **Importance**: Displays individual villa information.
-    -   **Changes Made**: Transformed to match 's glassmorphism, re-integrated data from CSV, updated image paths, fixed gallery JS, applied glassmorphism to info cards, enhanced text readability.  specifically received a video section integration, initially with a local MP4, then updated to a Cloudinary URL, and finally configured for autoplay on both desktop and mobile (with , , ,  attributes).
--   ****: Reservation page.
-    -   **Importance**: Handles villa booking requests.
-    -   **Changes Made**: Modified to recognize all 22 villas. A new interactive calendar was integrated, initially only for  via a conditional check, then extended to dynamically support all 21 villas. The calendar's design was updated from a 3-month to a 4-month (2x2) layout, and its availability data was connected to an external planning website ().
--   ** & **: Frontend for the new admin panel.
-    -   **Importance**: Allows villa owners to manage properties.
-    -   **Changes Made**: Created from scratch with glassmorphism design. JS handles unique code validation, renders villa details, initializes FullCalendar, and communicates with the admin backend via the FastAPI proxy.
--   ****: New Node.js backend for the admin panel.
-    -   **Importance**: Provides API endpoints for admin functionalities (e.g., health, validate-code, login).
-    -   **Changes Made**: Contains  (Express, sqlite3, dotenv, jsonwebtoken),  (API endpoints),  (initializes SQLite DB).
--   ****: Python script for FastAPI proxy routes.
-    -   **Importance**: Proxies requests to the Node.js admin backend.
-    -   **Changes Made**: Created and integrated into  to resolve CORS/Mixed Content issues.
--   ****: New script created during calendar integration.
-    -   **Importance**: Extracts real availability data from the external  website.
-    -   **Changes Made**: Created to parse and interpret availability status from the external site's image patterns (, ).
+    -   **Importance**: Serves as the main API and static file server. It also now acts as a proxy for the .
+    -   **Changes Made**:
+        -   Modified  to exclude static image files from restrictive headers (e.g., ) to fix image display issues on villa pages.
+        -   **NEW**: Added proxy routes (e.g., , ) to forward requests to the new Node.js admin backend, resolving CORS/Mixed Content issues from the frontend.
+-   ****: Python dependencies for FastAPI.
+    -   **Changes Made**: Added  to enable the FastAPI proxy to make HTTP requests to the Node.js backend.
+-   ****: The reservation page.
+    -   **Importance**: Displays villa details for booking.
+    -   **Changes Made**: Updated inline JavaScript to use the  object for dynamic content, fixing issues where villas were not recognized or had inconsistent data.
+-   ****: JavaScript for the reservation page.
+    -   **Importance**: Handles dynamic content loading for reservation forms.
+    -   **Changes Made**:
+        -   Corrected the  mapping to include all 22 villas from the CSV, addressing initial issues where only 15 villas were recognized.
+        -   Ensured proper mapping between URL parameters and villa data.
+-   ****: CSS for villa pages and potentially shared styles.
+    -   **Changes Made**: Added CSS rules to hide parasitic colored numbers (debug elements) on the reservation page.
+-   ****: **NEW** HTML page for the admin dashboard.
+    -   **Importance**: Provides the user interface for villa owners to manage their properties.
+    -   **Changes Made**: Created from scratch, designed to replicate 's glassmorphism style, include a video background, and house the unique code login and calendar interface.
+-   ****: **NEW** JavaScript for the admin dashboard.
+    -   **Importance**: Handles the logic for unique code authentication, fetching villa-specific data, managing the FullCalendar, and interacting with the admin backend.
+    -   **Changes Made**:
+        -   Implemented unique code validation and JWT handling.
+        -   Integrated FullCalendar and its event listeners.
+        -   **Crucial Change**: Updated API endpoint () to point to the FastAPI proxy routes () instead of directly to the Node.js server.
+        -   Added debug logging for troubleshooting.
+-   ****: **NEW** Directory for the Node.js Express admin backend.
+    -   **Importance**: Manages villa owner authentication, unique code validation, and provides data for the admin dashboard (e.g., villa details, availability).
+    -   **Contents**: , , , .
+    -   **Changes Made**: All files were newly created and iteratively debugged to establish a functional Node.js API with SQLite.
+-   ****: Main server file for the Node.js admin backend.
+    -   **Importance**: Defines API endpoints for health check, code validation, login, and token validation.
+    -   **Changes Made**: Iterative fixes for port binding, database connection, and API logic. Configured CORS to allow .
+-   ****: Script to set up the SQLite database.
+    -   **Importance**: Populates the database with villa information and generates unique access codes for each villa.
+    -   **Changes Made**: Debugged to ensure correct table creation and data insertion, handling  and  during development.
+-   ****: Documentation and testing protocol.
+    -   **Changes Made**: Updated with backend test results, as per protocol.
 </code_architecture>
 
 <pending_tasks>
--   Complete the new Admin Dashboard (AllInclusive 2.0) deployment (postponed by user).
--   Implement Advanced Villa Management, Reservations Management, and Analytics & Reporting modules (postponed).
--   Finalize full SEO-friendly URLs and PDF print functionality.
+-   Complete the new Admin Dashboard (AllInclusive 2.0) deployment process, specifically requiring a non-static hosting solution for the backend.
+-   Implement the Advanced Villa Management module (part of admin dashboard, but more detailed features might be pending).
+-   Develop the Reservations Management module (part of admin dashboard).
+-   Build the Analytics & Reporting module (part of admin dashboard).
+-   Finalize full SEO-friendly URLs and PDF print functionality (mentioned in original product requirements).
 -   Implement remaining Phase 4 member space functionalities.
--   **Current focus**: Audit Python backend code for sensitive variables, deployment scripts, JWT security, Swagger documentation, and Pytest implementation.
+-   Review and potentially refactor the villa recognition system on the reservation page, as the automated test still showed discrepancies (though the immediate user reported problem was resolved manually).
 </pending_tasks>
 
 <current_work>
-Immediately prior to this summary, the AI engineer successfully completed the implementation of the video autoplay functionality for the Villa F3 Petit Macabou page (). This involved ensuring the video (hosted on Cloudinary) played automatically and looped, with specific optimizations for mobile devices (adding  and  attributes to facilitate inline playback on iOS and intelligent JavaScript to handle browser autoplay policies, providing a fallback to touch activation if autoplay is blocked). The visual overlay was hidden automatically, and controls were adapted for touch interactions on mobile.
+Immediately before this summary, the AI engineer was addressing a critical connection error reported by the user for the newly developed admin proprietors page (). Despite the AI engineer's prior declaration of MISSION 100% ACCOMPLIE, the user could not log in with their unique code.
 
-Following this, the user provided a new, comprehensive request to audit the entire Python backend code located in the  directory. This audit involves several critical security, maintainability, and deployment-related tasks:
-1.  **Sensitive Variable Management**: Relocating all sensitive variables (e.g., Stripe keys, database credentials, email configurations) into a  file and ensuring they are loaded securely using a  library.
-2.  **Deployment Scripts**: Proposing a deployment script compatible with platforms like Railway or Heroku.
-3.  **Authentication Security**: Verifying that all API routes requiring authentication utilize JWT (JSON Web Tokens) with a secure hashing algorithm, specifically .
-4.  **API Documentation**: Ensuring that FastAPI's built-in Swagger (OpenAPI) documentation is fully active and accurately reflects all API endpoints.
-5.  **Automated Testing**: Proposing Pytest unit tests for critical endpoints, such as reservation and payment.
+The diagnostic process revealed that the new Node.js admin backend (running on ) was operational, and its API endpoints were working correctly when tested directly. However, the frontend (), served from  by the main FastAPI server, was experiencing issues connecting to the Node.js backend. The root cause was identified as a combination of CORS (Cross-Origin Resource Sharing) restrictions and potential Mixed Content issues if the main site were to be served over HTTPS while the Node.js backend remained HTTP.
 
-The AI engineer's last actions were to begin this audit by listing files in the  directory and reading  and  to gather initial information for the audit.
+To resolve this, the AI engineer implemented a crucial architectural change: an **API proxy** within the existing FastAPI backend (). New FastAPI routes (e.g., , , , ) were added to . These routes now act as intermediaries, forwarding requests from the frontend to the Node.js admin backend. This required adding the  library to  for FastAPI to make outgoing HTTP requests. The  frontend was then updated to point its  to these new FastAPI proxy routes (e.g., ) instead of directly to .
+
+After these changes, the connection issue was resolved, and the admin page successfully authenticated and displayed villa data. The user then indicated that the deployment of this admin page should be postponed due to its dependency on a running backend server, which is incompatible with static hosting like GitHub Pages. As a result, the AI engineer deleted temporary test files related to the admin page and acknowledged the deferral of the admin panel deployment.
 </current_work>
 
 <optional_next_step>
-Continue the audit of the Python backend code as requested by the user.
+Wait for the user's explicit instructions on further improvements to the main site, as the admin panel deployment has been deferred.
 </optional_next_step>

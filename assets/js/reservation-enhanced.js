@@ -1,34 +1,3 @@
-
-// PROTECTION IMAGES/VIDÉOS - NE PAS SUPPRIMER
-function protectMediaElements() {
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(element => {
-        element.setAttribute('data-protected', 'true');
-    });
-}
-
-// Protéger avant toute modification DOM
-if (typeof MutationObserver !== 'undefined') {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'childList') {
-                // Vérifier que les éléments média ne sont pas supprimés
-                mutation.removedNodes.forEach(function(node) {
-                    if (node.nodeType === 1 && (node.tagName === 'IMG' || node.tagName === 'VIDEO')) {
-                        console.warn('⚠️ Tentative de suppression d\'élément média détectée:', node);
-                    }
-                });
-            }
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-
 // RESERVATION ENHANCED JS - Gestion paramètres URL et pré-remplissage automatique
 
 // 🏠 BASE DE DONNÉES DES VILLAS - CORRECTION PRIORITÉ 1
@@ -333,8 +302,7 @@ class ReservationEnhanced {
 
         // Ajouter styles pour masquer définitivement
         const hideDebugStyle = document.createElement('style');
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    hideDebugStyle.innerHTML = `
+        hideDebugStyle.innerHTML = `
             .debug-number,
             .element-index,
             [data-debug],
@@ -349,7 +317,7 @@ class ReservationEnhanced {
         console.log('🚫 Mode debug désactivé');
     }
 
-    // 🔄 CORRECTION PRIORITÉ 1 : Fonction améliorée de recherche villa
+    // 🔄 CORRECTION PRIORITÉ 1 : Fonction améliorée de recherche villa avec mapping COMPLET
     getVillaFromUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const villaId = urlParams.get('villa');
@@ -361,24 +329,60 @@ class ReservationEnhanced {
             return villaData[villaId];
         }
 
-        // Recherche avec variations pour compatibilité COMPLÈTE
+        // MAPPING COMPLET pour toutes les villas existantes selon les fichiers HTML
+        const villaMapping = {
+            // Mapping direct des noms de fichiers HTML vers les clés villaData
+            'villa-f3-petit-macabou': 'villa-villa-f3-sur-petit-macabou',
+            'villa-f5-ste-anne': 'villa-villa-f5-sur-ste-anne',
+            'villa-f6-petit-macabou': 'villa-villa-f6-sur-petit-macabou-sejour--fte',
+            'villa-f7-baie-des-mulets': 'villa-villa-f7-baie-des-mulets',
+            'espace-piscine-journee-bungalow': 'villa-espace-piscine-journee-bungalow',
+            'studio-cocooning-lamentin': 'villa-studio-cocooning-lamentin',
+            
+            // Variations communes
+            'villa-f3-sur-petit-macabou': 'villa-villa-f3-sur-petit-macabou',
+            'villa-f5-sur-ste-anne': 'villa-villa-f5-sur-ste-anne',
+            'villa-f6-sur-petit-macabou': 'villa-villa-f6-sur-petit-macabou-sejour--fte',
+            'villa-f7-sur-baie-des-mulets': 'villa-villa-f7-baie-des-mulets',
+            
+            // Variations avec underscores
+            'villa_f3_petit_macabou': 'villa-villa-f3-sur-petit-macabou',
+            'villa_f5_ste_anne': 'villa-villa-f5-sur-ste-anne',
+            'villa_f6_petit_macabou': 'villa-villa-f6-sur-petit-macabou-sejour--fte',
+            
+            // Variations sans préfixe villa
+            'f3-petit-macabou': 'villa-villa-f3-sur-petit-macabou',
+            'f5-ste-anne': 'villa-villa-f5-sur-ste-anne',
+            'f6-petit-macabou': 'villa-villa-f6-sur-petit-macabou-sejour--fte',
+            'f7-baie-des-mulets': 'villa-villa-f7-baie-des-mulets',
+            
+            // Cas spéciaux mentionnés dans l'audit
+            'espace-piscine-journee-bungalow': 'villa-espace-piscine-journee-bungalow',
+            'Espace Piscine Journée Bungalow': 'villa-espace-piscine-journee-bungalow'
+        };
+
+        // Essayer le mapping direct
+        if (villaMapping[villaId]) {
+            const mappedId = villaMapping[villaId];
+            if (villaData[mappedId]) {
+                console.log(`✅ Villa trouvée via mapping: ${villaId} → ${mappedId}`);
+                return villaData[mappedId];
+            }
+        }
+
+        // Recherche avec variations automatiques pour compatibilité maximale
         const variations = [
             villaId.replace(/-/g, '_'),
             villaId.replace(/_/g, '-'),
             'villa-' + villaId,
             villaId.replace('villa-', ''),
-            // Corrections spécifiques pour TOUTES les villas
-            villaId.replace('bas-de-f3-sur-le-robert', 'bas-de-f3-sur-le-robert'),
-            villaId.replace('sur-le-robert', 'sur-le-robert'),
-            // Nouvelles variations pour les villas ajoutées
+            villaId.replace('villa-villa-', 'villa-'),
+            villaId.replace('--', '-'),
+            // Variations spécifiques
             villaId.replace('fete-journee', 'fte-journee'),
             villaId.replace('fte-journee', 'fete-journee'),
             villaId.replace('appartement-f3-trenelle', 'villa-appartement-f3-trenelle-location-annuelle'),
-            villaId.replace('espace-piscine-bungalow', 'villa-espace-piscine-journee-bungalow'),
-            // Variations supplémentaires pour couverture totale
-            'villa-' + villaId.replace('villa-villa-', 'villa-'),
-            villaId.replace('villa-villa-', 'villa-'),
-            villaId.replace('--', '-')
+            villaId.replace('espace-piscine-bungalow', 'villa-espace-piscine-journee-bungalow')
         ];
 
         for (const variation of variations) {
@@ -386,11 +390,17 @@ class ReservationEnhanced {
                 console.log(`✅ Villa trouvée avec variation: ${villaId} → ${variation}`);
                 return villaData[variation];
             }
+            // Essayer aussi le mapping sur les variations
+            if (villaMapping[variation] && villaData[villaMapping[variation]]) {
+                console.log(`✅ Villa trouvée via mapping de variation: ${villaId} → ${variation} → ${villaMapping[variation]}`);
+                return villaData[villaMapping[variation]];
+            }
         }
 
         // Log détaillé pour debug
         console.log(`❌ Villa non trouvée: ${villaId}`);
         console.log('Villas disponibles:', Object.keys(villaData));
+        console.log('Mapping tenté:', villaMapping[villaId] || 'Aucun mapping');
         
         return null;
     }
@@ -422,8 +432,7 @@ class ReservationEnhanced {
             elements.forEach(element => {
                 if (element) {
                     if (selector.includes('innerHTML') || selector.includes('Price')) {
-                        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    element.innerHTML = content;
+                        element.innerHTML = content;
                     } else {
                         element.textContent = content;
                     }
@@ -464,8 +473,7 @@ class ReservationEnhanced {
         
         const container = document.querySelector('.villa-header-card, .villa-info-container');
         if (container) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    container.innerHTML = errorHtml;
+            container.innerHTML = errorHtml;
         }
 
         console.log('⚠️ Villa non trouvée:', villaId);
@@ -510,8 +518,7 @@ class ReservationEnhanced {
     showPreSelectedNotification(villaName) {
         const notification = document.createElement('div');
         notification.className = 'preselected-notification';
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    notification.innerHTML = `
+        notification.innerHTML = `
             <div class="notification-content">
                 <span class="notification-icon">🏨</span>
                 <span class="notification-text">Villa présélectionnée : <strong>${villaName}</strong></span>
@@ -636,8 +643,7 @@ class ReservationEnhanced {
             const [villaName, priceInfo] = villaText.split(' - ');
             
             villaInfo.style.display = 'block';
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    villaInfo.innerHTML = `
+            villaInfo.innerHTML = `
                 <h3>✨ ${villaName}</h3>
                 <p>💰 ${priceInfo}</p>
                 <p>📍 Martinique</p>
@@ -826,8 +832,7 @@ class ReservationEnhanced {
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
             submitBtn.disabled = true;
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    submitBtn.innerHTML = '⏳ Envoi en cours...';
+            submitBtn.innerHTML = '⏳ Envoi en cours...';
             submitBtn.style.opacity = '0.7';
         }
     }
@@ -836,14 +841,12 @@ class ReservationEnhanced {
     showSuccessState(form) {
         const submitBtn = form.querySelector('button[type="submit"]');
         if (submitBtn) {
-            // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    submitBtn.innerHTML = '✅ Envoyé!';
+            submitBtn.innerHTML = '✅ Envoyé!';
             submitBtn.style.background = '#48bb78';
             
             setTimeout(() => {
                 submitBtn.disabled = false;
-                // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    submitBtn.innerHTML = 'Demander un Devis';
+                submitBtn.innerHTML = 'Demander un Devis';
                 submitBtn.style.opacity = '1';
                 submitBtn.style.background = '';
             }, 3000);
@@ -915,8 +918,7 @@ window.handleReservationError = function(error) {
     // Afficher un message utilisateur convivial
     const errorContainer = document.querySelector('.error-container');
     if (errorContainer) {
-        // PROTECTION: Utiliser insertAdjacentHTML au lieu de innerHTML
-    errorContainer.innerHTML = `
+        errorContainer.innerHTML = `
             <div class="glass-card bg-red-500/20 border-red-400/30 p-4 rounded-xl">
                 <i class="fas fa-exclamation-triangle text-red-400 mr-2"></i>
                 Un problème est survenu. Veuillez réessayer ou nous contacter.
