@@ -737,8 +737,8 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
-        <div class="header-content">
+    <header class="header lg-droplet lg-edge lg-chroma">
+        <div class="header-content lg-droplet lg-edge lg-chroma">
             <a href="#" class="logo" onclick="showSection('home')">
                 <i class="fas fa-palm-tree"></i>
                 KhanelConcept
@@ -819,10 +819,10 @@
                 
                 <!-- Filtres -->
                 <div class="filters">
-                    <button class="filter-btn active" onclick="filterVillas('all')">Toutes</button>
-                    <button class="filter-btn" onclick="filterVillas('sejour')">Séjour</button>
-                    <button class="filter-btn" onclick="filterVillas('fete')">Fête/Journée</button>
-                    <button class="filter-btn" onclick="filterVillas('special')">Spéciales</button>
+                    <button class="filter-btn active lg-droplet lg-edge lg-chroma" onclick="filterVillas('all')">Toutes</button>
+                    <button class="filter-btn lg-droplet lg-edge lg-chroma" onclick="filterVillas('sejour')">Séjour</button>
+                    <button class="filter-btn lg-droplet lg-edge lg-chroma" onclick="filterVillas('fete')">Fête/Journée</button>
+                    <button class="filter-btn lg-droplet lg-edge lg-chroma" onclick="filterVillas('special')">Spéciales</button>
                 </div>
                 
                 <h2>🏖️ Nos Villas de Luxe</h2>
@@ -840,21 +840,21 @@
                 <p>Explorez nos services nautiques, culinaires et événementiels</p>
                 
                 <div class="villas-grid">
-                    <div class="glass-card">
+                    <div class="glass-card lg-droplet lg-edge lg-chroma">
                         <h3>🚤 Excursions Nautiques</h3>
                         <p>Découvrez la beauté de la Martinique depuis la mer avec nos excursions en catamaran.</p>
                         <div class="price">À partir de 120€/personne</div>
                         <button class="btn-primary" onclick="contactPrestataire('nautique')">Réserver</button>
                     </div>
                     
-                    <div class="glass-card">
+                    <div class="glass-card lg-droplet lg-edge lg-chroma">
                         <h3>🍽️ Services Culinaires</h3>
                         <p>Savourez la cuisine créole authentique avec nos chefs professionnels.</p>
                         <div class="price">À partir de 80€/personne</div>
                         <button class="btn-primary" onclick="contactPrestataire('culinaire')">Réserver</button>
                     </div>
                     
-                    <div class="glass-card">
+                    <div class="glass-card lg-droplet lg-edge lg-chroma">
                         <h3>🎉 Organisation d'Événements</h3>
                         <p>Confiez-nous l'organisation de vos événements mémorables.</p>
                         <div class="price">Devis personnalisé</div>
@@ -869,7 +869,7 @@
             <div class="container">
                 <h1>🎫 Billetterie Événementielle</h1>
                 <p>Organisez et participez aux meilleurs événements de Martinique</p>
-                <div class="glass-card">
+                <div class="glass-card lg-droplet lg-edge lg-chroma">
                     <h3>🎭 Événements à Venir</h3>
                     <p>Découvrez notre programmation d'événements culturels et festifs.</p>
                     <button class="btn-primary" onclick="showComingSoon()">Voir les événements</button>
@@ -881,7 +881,7 @@
             <div class="container">
                 <h1>🛋️ Location de Mobilier</h1>
                 <p>Tables, chaises, décoration pour vos événements</p>
-                <div class="glass-card">
+                <div class="glass-card lg-droplet lg-edge lg-chroma">
                     <h3>🪑 Mobilier d'Événement</h3>
                     <p>Location de mobilier haut de gamme pour tous vos événements.</p>
                     <button class="btn-primary" onclick="contactPrestataire('mobilier')">Demander un devis</button>
@@ -893,7 +893,7 @@
             <div class="container">
                 <h1>⛵ Excursions Inoubliables</h1>
                 <p>Découvrez la Martinique par terre, mer et air</p>
-                <div class="glass-card">
+                <div class="glass-card lg-droplet lg-edge lg-chroma">
                     <h3>🏝️ Tours de l'Île</h3>
                     <p>Explorez les merveilles cachées de la Martinique avec nos guides experts.</p>
                     <button class="btn-primary" onclick="contactPrestataire('excursions')">Réserver</button>
@@ -905,7 +905,7 @@
             <div class="container">
                 <h1>🐷 Comptes Vacances & Abonnements</h1>
                 <p>Épargnez pour vos futures vacances avec nos comptes dédiés</p>
-                <div class="glass-card">
+                <div class="glass-card lg-droplet lg-edge lg-chroma">
                     <h3>💰 Épargne Vacances</h3>
                     <p>Constituez votre épargne pour des vacances de rêve en Martinique.</p>
                     <button class="btn-primary" onclick="showComingSoon()">En savoir plus</button>
@@ -917,7 +917,7 @@
             <div class="container">
                 <h1>🎁 Programme de Fidélité</h1>
                 <p>Gagnez des points et des récompenses à chaque réservation</p>
-                <div class="glass-card">
+                <div class="glass-card lg-droplet lg-edge lg-chroma">
                     <h3>⭐ Rewards Club</h3>
                     <p>Rejoignez notre programme de fidélité et bénéficiez d'avantages exclusifs.</p>
                     <button class="btn-primary" onclick="showComingSoon()">Rejoindre</button>
@@ -929,7 +929,7 @@
             <div class="container">
                 <h1>👑 Accessibilité PMR</h1>
                 <p>Des séjours adaptés pour tous</p>
-                <div class="glass-card">
+                <div class="glass-card lg-droplet lg-edge lg-chroma">
                     <h3>♿ Villas Accessibles</h3>
                     <p>Découvrez nos villas spécialement aménagées pour les personnes à mobilité réduite.</p>
                     <button class="btn-primary" onclick="filterVillas('pmr')">Voir les villas PMR</button>
@@ -1415,14 +1415,14 @@
             const grid = document.getElementById('villasGrid');
             
             if (filteredVillas.length === 0) {
-                grid.innerHTML = '<div class="glass-card"><h3>Aucune villa trouvée</h3><p>Essayez de modifier vos critères de recherche.</p></div>';
+                grid.innerHTML = '<div class="glass-card lg-droplet lg-edge lg-chroma"><h3>Aucune villa trouvée</h3><p>Essayez de modifier vos critères de recherche.</p></div>';
                 return;
             }
 
             grid.innerHTML = filteredVillas.map(villa => {
                 const priceUnit = villa.priceUnit || '€/nuit';
                 return `
-                    <div class="villa-card">
+                    <div class="villa-card lg-droplet lg-edge lg-chroma">
                         <div class="villa-image-container" style="height: 200px; overflow: hidden;">
                             <img 
                                 src="${villa.image}" 

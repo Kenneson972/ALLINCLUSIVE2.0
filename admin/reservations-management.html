@@ -744,7 +744,7 @@
 <body data-theme="light">
     <div class="reservations-layout">
         <!-- Page Header -->
-        <div class="page-header">
+        <div class="page-header lg-droplet lg-edge lg-chroma">
             <div>
                 <h1 class="page-title">Gestion des Réservations</h1>
                 <p style="color: var(--text-secondary); margin-top: 0.5rem;">Pipeline visuel et suivi complet des réservations</p>
@@ -768,7 +768,7 @@
         <!-- Stats Cards -->
         <div class="stats-container" id="statsContainer">
             <div class="stat-card animate-fade-in">
-                <div class="stat-header">
+                <div class="stat-header lg-droplet lg-edge lg-chroma">
                     <div class="stat-title">En Attente</div>
                     <div class="stat-icon pending">
                         <i class="fas fa-clock"></i>
@@ -782,7 +782,7 @@
             </div>
             
             <div class="stat-card animate-fade-in">
-                <div class="stat-header">
+                <div class="stat-header lg-droplet lg-edge lg-chroma">
                     <div class="stat-title">Confirmées</div>
                     <div class="stat-icon confirmed">
                         <i class="fas fa-check-circle"></i>
@@ -796,7 +796,7 @@
             </div>
             
             <div class="stat-card animate-fade-in">
-                <div class="stat-header">
+                <div class="stat-header lg-droplet lg-edge lg-chroma">
                     <div class="stat-title">Check-in Aujourd'hui</div>
                     <div class="stat-icon checkin">
                         <i class="fas fa-calendar-day"></i>
@@ -810,7 +810,7 @@
             </div>
             
             <div class="stat-card animate-fade-in">
-                <div class="stat-header">
+                <div class="stat-header lg-droplet lg-edge lg-chroma">
                     <div class="stat-title">Terminées</div>
                     <div class="stat-icon completed">
                         <i class="fas fa-flag-checkered"></i>
@@ -864,7 +864,7 @@
         <div class="kanban-board" id="kanbanBoard">
             <!-- Pending Column -->
             <div class="kanban-column">
-                <div class="column-header">
+                <div class="column-header lg-droplet lg-edge lg-chroma">
                     <div class="column-title">
                         <div class="column-icon pending">
                             <i class="fas fa-clock"></i>
@@ -880,7 +880,7 @@
             
             <!-- Confirmed Column -->
             <div class="kanban-column">
-                <div class="column-header">
+                <div class="column-header lg-droplet lg-edge lg-chroma">
                     <div class="column-title">
                         <div class="column-icon confirmed">
                             <i class="fas fa-check-circle"></i>
@@ -896,7 +896,7 @@
             
             <!-- Check-in Column -->
             <div class="kanban-column">
-                <div class="column-header">
+                <div class="column-header lg-droplet lg-edge lg-chroma">
                     <div class="column-title">
                         <div class="column-icon checkin">
                             <i class="fas fa-calendar-day"></i>
@@ -912,7 +912,7 @@
             
             <!-- Completed Column -->
             <div class="kanban-column">
-                <div class="column-header">
+                <div class="column-header lg-droplet lg-edge lg-chroma">
                     <div class="column-title">
                         <div class="column-icon completed">
                             <i class="fas fa-flag-checkered"></i>
@@ -931,7 +931,7 @@
     <!-- Booking Detail Modal -->
     <div class="modal" id="bookingModal">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header lg-droplet lg-edge lg-chroma">
                 <h2 class="modal-title" id="modalTitle">Détails de la Réservation</h2>
                 <button class="modal-close" id="closeModalBtn">
                     <i class="fas fa-times"></i>
@@ -1237,7 +1237,7 @@
                     ${getChannelLabel(booking.channel)}
                 </div>
                 
-                <div class="booking-header">
+                <div class="booking-header lg-droplet lg-edge lg-chroma">
                     <div class="booking-id">${booking.id}</div>
                     <div class="booking-amount">€${booking.amount.toLocaleString()}</div>
                 </div>
@@ -1516,7 +1516,7 @@
             timeline.innerHTML = booking.timeline.map(item => `
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <div class="timeline-header">
+                        <div class="timeline-header lg-droplet lg-edge lg-chroma">
                             <div class="timeline-title">${item.action}</div>
                             <div class="timeline-time">${new Date(item.time).toLocaleString('fr-FR')}</div>
                         </div>

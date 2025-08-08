@@ -47,7 +47,7 @@
             countElement.innerHTML = `✅ ${villasData.length} villas chargées avec succès !`;
             
             container.innerHTML = villasData.map(villa => `
-                <div class="villa-card">
+                <div class="villa-card lg-droplet lg-edge lg-chroma">
                     <h3>#${villa.id} - ${villa.name}</h3>
                     <p><strong>Localisation:</strong> ${villa.location}</p>
                     <p><strong>Prix:</strong> ${villa.price}€ | <strong>Capacité:</strong> ${villa.guests} personnes</p>

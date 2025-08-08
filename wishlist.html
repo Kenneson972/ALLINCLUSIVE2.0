@@ -765,7 +765,7 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header lg-droplet lg-edge lg-chroma">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <a href="index.html" class="logo">
@@ -788,7 +788,7 @@
         <div class="wishlist-content">
             
             <!-- Header Section -->
-            <section class="wishlist-header" data-aos="fade-up">
+            <section class="wishlist-header lg-droplet lg-edge lg-chroma" data-aos="fade-up">
                 <h1 class="wishlist-title">
                     <i class="fas fa-heart"></i>
                     Mes Villas Favorites
@@ -879,7 +879,7 @@
     <!-- Share Modal -->
     <div class="modal" id="shareModal">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header lg-droplet lg-edge lg-chroma">
                 <h3 class="modal-title">Partager ma liste de favoris</h3>
                 <button class="modal-close" onclick="closeShareModal()">
                     <i class="fas fa-times"></i>
@@ -1110,7 +1110,7 @@
                 const addedDate = new Date(item.addedAt).toLocaleDateString('fr-FR');
                 
                 return `
-                    <div class="villa-card" data-aos="fade-up">
+                    <div class="villa-card lg-droplet lg-edge lg-chroma" data-aos="fade-up">
                         <div class="villa-image">
                             <img src="${villa.image}" alt="${villa.name}" loading="lazy" 
                                  onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDM1MCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNTAiIGhlaWdodD0iMjAwIiBmaWxsPSIjNGE1NTY4Ii8+CjxwYXRoIGQ9Ik0xNzUgNzBMMTk1IDkwSDE4NVY5MEgxNjVWOTBIMTU1TDE3NSA3MFoiIGZpbGw9IiM5Y2EzYWYiLz4KPHJlY3QgeD0iMTU1IiB5PSI5MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjOWNhM2FmIi8+Cjx0ZXh0IHg9IjE3NSIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOWNhM2FmIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjUwMCI+SW1hZ2UgVmlsbGE8L3RleHQ+Cjwvc3ZnPgo='">

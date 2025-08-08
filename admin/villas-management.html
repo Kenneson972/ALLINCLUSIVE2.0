@@ -852,7 +852,7 @@
     <div class="villa-management-layout">
         <main class="content-area">
             <!-- Page Header -->
-            <div class="page-header">
+            <div class="page-header lg-droplet lg-edge lg-chroma">
                 <div>
                     <h1 class="page-title">Gestion des Villas</h1>
                     <p style="color: var(--text-secondary); margin-top: 0.5rem;">Gérez vos propriétés, tarifs et disponibilités</p>
@@ -949,7 +949,7 @@
     <!-- Villa Modal -->
     <div class="modal" id="villaModal">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header lg-droplet lg-edge lg-chroma">
                 <h2 class="modal-title" id="modalTitle">Nouvelle Villa</h2>
                 <button class="modal-close" id="closeModalBtn">
                     <i class="fas fa-times"></i>
@@ -1129,7 +1129,7 @@
     <div class="modal fade" id="villaDetailsModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header lg-droplet lg-edge lg-chroma">
                     <h5 class="modal-title">Détails de la villa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -1169,7 +1169,7 @@
     <div class="modal fade" id="editVillaModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header lg-droplet lg-edge lg-chroma">
                     <h5 class="modal-title">Modifier la villa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -1223,7 +1223,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer lg-droplet lg-edge lg-chroma">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-primary" onclick="saveVillaChanges()">Enregistrer</button>
                 </div>
@@ -1235,7 +1235,7 @@
     <div class="modal fade" id="pricingModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header lg-droplet lg-edge lg-chroma">
                     <h5 class="modal-title">Gestion des tarifs</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -1255,7 +1255,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer lg-droplet lg-edge lg-chroma">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-primary" onclick="savePricingChanges()">Enregistrer</button>
                 </div>
@@ -1429,7 +1429,7 @@
             
             container.innerHTML = filteredVillas.map(villa => `
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="villa-card h-100">
+                    <div class="villa-card h-100 lg-droplet lg-edge lg-chroma">
                         <div class="villa-image-container">
                             <img src="${villa.image || 'https://via.placeholder.com/350x200/4facfe/ffffff?text=🏖️'}" 
                                  alt="${villa.name}" 
@@ -1745,7 +1745,7 @@
             const toastId = 'toast_' + Date.now();
             const toastHtml = `
                 <div class="toast" id="${toastId}" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="toast-header bg-${type} text-white">
+                    <div class="toast-header bg-${type} text-white lg-droplet lg-edge lg-chroma">
                         <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>
                         <strong class="me-auto">${type === 'success' ? 'Succès' : 'Information'}</strong>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>

@@ -580,8 +580,8 @@
     <div class="video-overlay"></div>
     
     <!-- Header -->
-    <header class="header" id="header">
-        <div class="header-content">
+    <header class="header lg-droplet lg-edge lg-chroma" id="header">
+        <div class="header-content lg-droplet lg-edge lg-chroma">
             <a href="#" class="logo">
                 🏖️ KhanelConcept
             </a>
@@ -717,7 +717,7 @@
     </main>
     
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer lg-droplet lg-edge lg-chroma">
         <p>&copy; 2025 KhanelConcept - Villas de Luxe Martinique</p>
         <p>Développé avec ❤️ en Martinique</p>
     </footer>
@@ -805,7 +805,7 @@
             }
             
             villasGrid.innerHTML = villas.map(villa => `
-                <div class="villa-card glass-strong">
+                <div class="villa-card glass-strong lg-droplet lg-edge lg-chroma">
                     <div class="villa-category">${getCategoryName(villa.category)}</div>
                     <img src="${villa.image}" alt="${villa.name}" class="villa-image" 
                          onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNmMGYwZjAiLz48dGV4dCB4PSIxNTAiIHk9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjQwIiBmaWxsPSIjY2NjIj4ke villa.fallback_icon || '🏖️'}</dGV4dD48L3N2Zz4=';">

@@ -487,7 +487,7 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-header">
+        <div class="sidebar-header lg-droplet lg-edge lg-chroma">
             <i class="fas fa-hotel fa-2x text-white mb-2"></i>
             <h3>KhanelConcept</h3>
             <p>Administration</p>
@@ -568,12 +568,12 @@
     <!-- Main Content -->
     <div class="main-content">
         <!-- Header -->
-        <div class="content-header">
+        <div class="content-header lg-droplet lg-edge lg-chroma">
             <div>
                 <h1 id="pageTitle">Dashboard</h1>
                 <p class="text-white-50 m-0">Gestion complète de vos villas</p>
             </div>
-            <div class="header-actions">
+            <div class="header-actions lg-droplet lg-edge lg-chroma">
                 <button class="btn btn-gradient" onclick="syncWithMainSite()">
                     <i class="fas fa-sync-alt me-2"></i>
                     <span id="syncText">Sync Site</span>
@@ -627,7 +627,7 @@
             </div>
 
             <!-- Recent Activity -->
-            <div class="glass-card p-4 mt-4">
+            <div class="glass-card p-4 mt-4 lg-droplet lg-edge lg-chroma">
                 <h3 class="text-white mb-3">
                     <i class="fas fa-clock me-2"></i>Activité Récente
                 </h3>
@@ -667,7 +667,7 @@
             </div>
 
             <!-- Search and Filter -->
-            <div class="glass-card p-3 mb-4">
+            <div class="glass-card p-3 mb-4 lg-droplet lg-edge lg-chroma">
                 <div class="row">
                     <div class="col-md-6">
                         <input type="text" class="form-control" id="villaSearch" placeholder="🔍 Rechercher une villa...">
@@ -699,7 +699,7 @@
 
         <!-- Reservations Section -->
         <div id="reservations-section" class="content-section" style="display: none;">
-            <div class="glass-card p-4">
+            <div class="glass-card p-4 lg-droplet lg-edge lg-chroma">
                 <h3 class="text-white mb-4">
                     <i class="fas fa-calendar-check me-2"></i>Gestion des Réservations
                 </h3>
@@ -714,7 +714,7 @@
 
         <!-- Analytics Section -->
         <div id="analytics-section" class="content-section" style="display: none;">
-            <div class="glass-card p-4">
+            <div class="glass-card p-4 lg-droplet lg-edge lg-chroma">
                 <h3 class="text-white mb-4">
                     <i class="fas fa-chart-bar me-2"></i>Analytiques Avancées
                 </h3>
@@ -729,7 +729,7 @@
 
         <!-- Settings Section -->
         <div id="settings-section" class="content-section" style="display: none;">
-            <div class="glass-card p-4">
+            <div class="glass-card p-4 lg-droplet lg-edge lg-chroma">
                 <h3 class="text-white mb-4">
                     <i class="fas fa-cog me-2"></i>Paramètres de l'Application
                 </h3>
@@ -781,7 +781,7 @@
     <div class="modal fade" id="villaModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header lg-droplet lg-edge lg-chroma">
                     <h5 class="modal-title" id="modalTitle">Ajouter une Villa</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
@@ -833,7 +833,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer lg-droplet lg-edge lg-chroma">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-gradient" onclick="saveVilla()">
                         <i class="fas fa-save me-2"></i>Sauvegarder
@@ -846,7 +846,7 @@
     <!-- Toast Container -->
     <div class="toast-container">
         <div id="successToast" class="toast" role="alert">
-            <div class="toast-header bg-success text-white">
+            <div class="toast-header bg-success text-white lg-droplet lg-edge lg-chroma">
                 <i class="fas fa-check-circle me-2"></i>
                 <strong class="me-auto">Succès</strong>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
@@ -1522,7 +1522,7 @@
                     : `https://via.placeholder.com/350x200/4facfe/ffffff?text=${encodeURIComponent(villa.fallbackIcon)}`;
                 
                 return `
-                    <div class="villa-card">
+                    <div class="villa-card lg-droplet lg-edge lg-chroma">
                         <div class="villa-badge">#${villa.id}</div>
                         <div style="position: relative; height: 200px; margin-bottom: 15px; overflow: hidden; border-radius: 15px; background: rgba(255,255,255,0.05);">
                             <img src="${imageUrl}" 
@@ -2151,7 +2151,7 @@
             container.innerHTML = villasData.map(villa => {
                 const priceUnit = villa.priceUnit || '€/nuit';
                 return `
-                    <div class="villa-card p-3 mb-3">
+                    <div class="villa-card p-3 mb-3 lg-droplet lg-edge lg-chroma">
                         <div class="row">
                             <div class="col-md-3">
                                 <img src="${villa.image}" 

@@ -682,7 +682,7 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
+    <header class="header lg-droplet lg-edge lg-chroma">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
@@ -709,7 +709,7 @@
         </div>
         
         <!-- Villa Header -->
-        <div class="villa-header-card mb-8" data-aos="fade-up">
+        <div class="villa-header-card mb-8 lg-droplet lg-edge lg-chroma" data-aos="fade-up">
             <div class="grid lg:grid-cols-2 gap-6 p-6">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
@@ -760,7 +760,7 @@
             
             <!-- Formulaire de Réservation -->
             <div class="lg:col-span-2">
-                <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-card lg-droplet lg-edge lg-chroma" data-aos="fade-up" data-aos-delay="200">
                     <h2 class="text-2xl font-bold text-white mb-6">
                         <i class="fas fa-calendar-alt mr-3 text-yellow-400"></i>
                         Détails de votre séjour
@@ -773,7 +773,7 @@
                             <label class="form-label">
                                 <i class="fas fa-home mr-2"></i>Villa sélectionnée
                             </label>
-                            <div id="selectedVilla" class="glass-card bg-white/10 p-4 rounded-xl">
+                            <div id="selectedVilla" class="glass-card bg-white/10 p-4 rounded-xl lg-droplet lg-edge lg-chroma">
                                 <div class="flex items-center space-x-4">
                                     <i class="fas fa-home text-2xl text-gold-500"></i>
                                     <div>
@@ -914,7 +914,7 @@
             
             <!-- Récapitulatif -->
             <div class="lg:col-span-1">
-                <div class="glass-card sticky top-24" data-aos="fade-up" data-aos-delay="400">
+                <div class="glass-card sticky top-24 lg-droplet lg-edge lg-chroma" data-aos="fade-up" data-aos-delay="400">
                     <h3 class="text-xl font-bold text-white mb-4">
                         <i class="fas fa-receipt mr-3 text-yellow-400"></i>
                         Récapitulatif
@@ -1046,7 +1046,7 @@
                     if (villaInfoSection) {
                         villaInfoSection.innerHTML = `
                             <div class="col-span-2 text-center p-6">
-                                <div class="glass-card bg-red-500/20 border-red-400/30 p-6 rounded-xl">
+                                <div class="glass-card bg-red-500/20 border-red-400/30 p-6 rounded-xl lg-droplet lg-edge lg-chroma">
                                     <i class="fas fa-exclamation-triangle text-4xl text-red-400 mb-4"></i>
                                     <h3 class="text-xl font-bold text-white mb-2">Villa non disponible</h3>
                                     <p class="text-white/80 mb-4">La villa "${villaParam}" n'est pas disponible pour le moment.</p>
@@ -1554,7 +1554,7 @@
             const modal = document.createElement('div');
             modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
             modal.innerHTML = `
-                <div class="glass-card max-w-md w-full text-center">
+                <div class="glass-card max-w-md w-full text-center lg-droplet lg-edge lg-chroma">
                     <div class="text-6xl text-green-500 mb-4">✓</div>
                     <h3 class="text-2xl font-bold text-white mb-4">Réservation Confirmée!</h3>
                     <p class="text-white/80 mb-6">

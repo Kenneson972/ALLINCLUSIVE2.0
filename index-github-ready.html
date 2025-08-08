@@ -250,10 +250,10 @@
 
         <!-- Category Filters -->
         <div class="category-filter text-center">
-            <button class="filter-btn active" onclick="filterByCategory('all')">Toutes</button>
-            <button class="filter-btn" onclick="filterByCategory('sejour')">Séjour</button>
-            <button class="filter-btn" onclick="filterByCategory('fete')">Événements</button>
-            <button class="filter-btn" onclick="filterByCategory('piscine')">Piscine</button>
+            <button class="filter-btn active lg-droplet lg-edge lg-chroma" onclick="filterByCategory('all')">Toutes</button>
+            <button class="filter-btn lg-droplet lg-edge lg-chroma" onclick="filterByCategory('sejour')">Séjour</button>
+            <button class="filter-btn lg-droplet lg-edge lg-chroma" onclick="filterByCategory('fete')">Événements</button>
+            <button class="filter-btn lg-droplet lg-edge lg-chroma" onclick="filterByCategory('piscine')">Piscine</button>
         </div>
 
         <!-- Villas Grid -->
@@ -591,7 +591,7 @@
             villaCount.innerHTML = `<strong>✅ ${filteredVillas.length} villa(s) disponible(s)</strong>`;
             
             if (filteredVillas.length === 0) {
-                grid.innerHTML = '<div class="col-12"><div class="glass-card text-center"><h3>Aucune villa trouvée</h3><p>Essayez de modifier vos critères de recherche.</p></div></div>';
+                grid.innerHTML = '<div class="col-12"><div class="glass-card text-center lg-droplet lg-edge lg-chroma"><h3>Aucune villa trouvée</h3><p>Essayez de modifier vos critères de recherche.</p></div></div>';
                 return;
             }
 
@@ -599,7 +599,7 @@
                 const priceUnit = villa.priceUnit || '€/nuit';
                 return `
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="villa-card h-100">
+                        <div class="villa-card h-100 lg-droplet lg-edge lg-chroma">
                             <div style="height: 250px; overflow: hidden; position: relative;">
                                 <img 
                                     src="${villa.image}" 
