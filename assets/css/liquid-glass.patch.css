@@ -47,4 +47,49 @@
   :is(.glass-card,.glass-modal-content,.glass-nav,.glass-header,.glass-footer,.villa-card,.service-card)::before{
     animation:none; opacity:.12;
   }
+
+/* ====== Liquid Glass Droplet (fallback CSS/SVG) ====== */
+:root{
+  --lg-tint: rgba(240,245,250,0.12);
+}
+
+/* Surface goutte avec frost et bord doux */
+.lg-droplet{
+  position: relative;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 100%), var(--lg-tint) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate));
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate));
+  border: 1px solid rgba(255,255,255,.24) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.08) !important;
+  overflow: hidden;
+  /* Masque goutte - SVG si dispo, sinon fallback radial gradient WebKit */
+  mask: url(#lgDropletMask);
+  -webkit-mask-image: radial-gradient(120% 100% at 50% 45%, #000 65%, transparent 100%);
+  -webkit-mask-composite: source-over;
+}
+
+/* Reflet + réfraction simulée appliquée au reflet */
+.lg-droplet::before{
+  content: "";
+  position: absolute; inset: -60% -60%;
+  background:
+    radial-gradient(120% 120% at 20% 20%, rgba(255,255,255,.16) 0%, transparent 60%),
+    radial-gradient(80% 80%  at 80% 0%,  rgba(255,255,255,.08) 0%, transparent 70%);
+  mix-blend-mode: screen;
+  filter: url(#lgRefract) blur(8px);
+  animation: lgSheen 8.5s cubic-bezier(.25,.1,.25,1) infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes lgSheen {
+  from { transform: translate3d(-4%, -4%, 0) }
+  to   { transform: translate3d( 3%,  3%, 0) }
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce){
+  .lg-droplet::before { animation: none; }
+}
+
 }
