@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>KhanelConcept - Test 21 Villas</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .villa-card { border: 1px solid #ddd; margin: 10px; padding: 15px; border-radius: 8px; }
-        .villa-count { font-size: 24px; color: green; margin-bottom: 20px; }
-    </style>
+<head> <meta charset="UTF-8"> <title>KhanelConcept - Test 21 Villas</title> <style> body { font-family: Arial, sans-serif; margin: 20px; } .villa-card { border: 1px solid #ddd; margin: 10px; padding: 15px; border-radius: 8px; } .villa-count { font-size: 24px; color: green; margin-bottom: 20px; } </style>
 <style id="lg-inline">
 :root{--lg-blur:26px;--lg-saturate:180%;--lg-tint:rgba(240,245,250,.12);--lg-chroma:.012;}
 :is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag){background:transparent!important;border:none!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;}
@@ -19,63 +12,20 @@
 .lg-chroma{box-shadow:0 0 0 1px rgba(255,0,80,var(--lg-chroma)),0 0 0 1px rgba(0,120,255,var(--lg-chroma)) inset;}
 @media (prefers-reduced-motion:reduce){.lg-droplet::before{animation:none}}
 </style>
+<style id="lg-inline-tune">
+:root{--lg-blur:22px;--lg-tint:rgba(240,245,250,.10);--lg-chroma:0;}
+.lg-edge::after{opacity:.35;}
+/* soften base border/shadow */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn){border:1px solid rgba(255,255,255,.20)!important;box-shadow:0 8px 24px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.05),inset 0 -1px 0 rgba(0,0,0,.06)!important;border-radius:16px!important;}
+/* disable sheen globally, keep only for tabs and modal content */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn)::before{content:none!important;}
+:is(.reward-tab,.filter-tab,.glass-modal-content)::before{content:"";position:absolute;top:-20%;left:-40%;width:180%;height:60%;background:conic-gradient(from 0deg,transparent 0 40%,rgba(255,255,255,0.18) 50%,transparent 60% 100%);filter:blur(8px);transform:rotate(8deg) translateX(-20%);animation:lgSheen 10s ease-in-out infinite alternate;pointer-events:none;}
+</style>
 </head>
 <link rel="stylesheet" href="/assets/css/liquid-glass.patch.css">
-<body>
-    <h1>Test KhanelConcept - Villas</h1>
-    <div id="villaCount" class="villa-count"></div>
-    <div id="villasContainer"></div>
-
-    <script>
-        const villasData = [
-            { id: 1, name: "Villa F3 Petit Macabou", location: "Petit Macabou au Vauclin", price: 850, guests: 6 },
-            { id: 2, name: "Villa F5 Ste Anne", location: "Quartier Les Anglais, Ste Anne", price: 1300, guests: 10 },
-            { id: 3, name: "Villa F3 Baccha Petit Macabou", location: "Petit Macabou", price: 1350, guests: 6 },
-            { id: 4, name: "Villa F6 Lamentin", location: "Quartier Bélème au Lamentin", price: 1500, guests: 10 },
-            { id: 5, name: "Villa F6 Ste Luce Plage", location: "Zac de Pont Café, Ste Luce", price: 1700, guests: 14 },
-            { id: 6, name: "Villa F6 Petit Macabou", location: "Petit Macabou au Vauclin", price: 2000, guests: 13 },
-            { id: 7, name: "Villa F7 Baie des Mulets", location: "Baie des Mulets, Trinité", price: 2200, guests: 15 },
-            { id: 8, name: "Villa F3 Trinité (Cosmy)", location: "Cosmy, Trinité", price: 900, guests: 6 },
-            { id: 9, name: "Villa F3 Le Robert", location: "Le Robert", price: 1000, guests: 6 },
-            { id: 10, name: "Villa F5 R.Pilote", location: "Rivière-Pilote", price: 1200, guests: 8 },
-            { id: 11, name: "Villa F3 Le François", location: "Le François", price: 1100, guests: 6 },
-            { id: 12, name: "Villa F5 Vauclin Ravine Plate", location: "Ravine Plate, Le Vauclin", price: 1400, guests: 10 },
-            { id: 13, name: "Bas Villa F3 Ste Luce", location: "Ste Luce", price: 1300, guests: 8 },
-            { id: 14, name: "Villa F3 Trenelle", location: "Trenelle", price: 1600, guests: 6 },
-            { id: 15, name: "Studio Cocooning Lamentin", location: "Lamentin", price: 600, guests: 2 },
-            { id: 16, name: "Espace Piscine Journée Bungalow", location: "Bungalow", price: 150, guests: 8 },
-            { id: 17, name: "Villa Fête Ducos", location: "Ducos", price: 200, guests: 25 },
-            { id: 18, name: "Villa Fête Fort-de-France", location: "Fort-de-France", price: 180, guests: 20 },
-            { id: 19, name: "Villa Fête Rivière-Pilote", location: "Rivière-Pilote", price: 250, guests: 35 },
-            { id: 20, name: "Villa Fête Sainte-Luce", location: "Sainte-Luce", price: 160, guests: 15 },
-            { id: 21, name: "Villa Fête Rivière-Salée", location: "Rivière-Salée", price: 160, guests: 15 }
-        ];
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const countElement = document.getElementById('villaCount');
-            const container = document.getElementById('villasContainer');
-            
-            countElement.innerHTML = `✅ ${villasData.length} villas chargées avec succès !`;
-            
-            container.innerHTML = villasData.map(villa => `
-                <div class="villa-card lg-droplet lg-edge lg-chroma">
-                    <h3>#${villa.id} - ${villa.name}</h3>
-                    <p><strong>Localisation:</strong> ${villa.location}</p>
-                    <p><strong>Prix:</strong> ${villa.price}€ | <strong>Capacité:</strong> ${villa.guests} personnes</p>
-                </div>
-            `).join('');
-            
-            console.log(`🚀 TEST: ${villasData.length} villas chargées avec succès !`);
-            console.log('Villas:', villasData.map(v => v.name));
-        });
-    </script>
+<body> <h1>Test KhanelConcept - Villas</h1> <div id="villaCount" class="villa-count"></div> <div id="villasContainer"></div> <script> const villasData = [ { id: 1, name:"Villa F3 Petit Macabou", location:"Petit Macabou au Vauclin", price: 850, guests: 6 }, { id: 2, name:"Villa F5 Ste Anne", location:"Quartier Les Anglais, Ste Anne", price: 1300, guests: 10 }, { id: 3, name:"Villa F3 Baccha Petit Macabou", location:"Petit Macabou", price: 1350, guests: 6 }, { id: 4, name:"Villa F6 Lamentin", location:"Quartier Bélème au Lamentin", price: 1500, guests: 10 }, { id: 5, name:"Villa F6 Ste Luce Plage", location:"Zac de Pont Café, Ste Luce", price: 1700, guests: 14 }, { id: 6, name:"Villa F6 Petit Macabou", location:"Petit Macabou au Vauclin", price: 2000, guests: 13 }, { id: 7, name:"Villa F7 Baie des Mulets", location:"Baie des Mulets, Trinité", price: 2200, guests: 15 }, { id: 8, name:"Villa F3 Trinité (Cosmy)", location:"Cosmy, Trinité", price: 900, guests: 6 }, { id: 9, name:"Villa F3 Le Robert", location:"Le Robert", price: 1000, guests: 6 }, { id: 10, name:"Villa F5 R.Pilote", location:"Rivière-Pilote", price: 1200, guests: 8 }, { id: 11, name:"Villa F3 Le François", location:"Le François", price: 1100, guests: 6 }, { id: 12, name:"Villa F5 Vauclin Ravine Plate", location:"Ravine Plate, Le Vauclin", price: 1400, guests: 10 }, { id: 13, name:"Bas Villa F3 Ste Luce", location:"Ste Luce", price: 1300, guests: 8 }, { id: 14, name:"Villa F3 Trenelle", location:"Trenelle", price: 1600, guests: 6 }, { id: 15, name:"Studio Cocooning Lamentin", location:"Lamentin", price: 600, guests: 2 }, { id: 16, name:"Espace Piscine Journée Bungalow", location:"Bungalow", price: 150, guests: 8 }, { id: 17, name:"Villa Fête Ducos", location:"Ducos", price: 200, guests: 25 }, { id: 18, name:"Villa Fête Fort-de-France", location:"Fort-de-France", price: 180, guests: 20 }, { id: 19, name:"Villa Fête Rivière-Pilote", location:"Rivière-Pilote", price: 250, guests: 35 }, { id: 20, name:"Villa Fête Sainte-Luce", location:"Sainte-Luce", price: 160, guests: 15 }, { id: 21, name:"Villa Fête Rivière-Salée", location:"Rivière-Salée", price: 160, guests: 15 } ]; document.addEventListener('DOMContentLoaded', function() { const countElement = document.getElementById('villaCount'); const container = document.getElementById('villasContainer'); countElement.innerHTML = `✅ ${villasData.length} villas chargées avec succès !`; container.innerHTML = villasData.map(villa => ` <div class="villa-card"> <h3>#${villa.id} - ${villa.name}</h3> <p><strong>Localisation:</strong> ${villa.location}</p> <p><strong>Prix:</strong> ${villa.price}€ | <strong>Capacité:</strong> ${villa.guests} personnes</p> </div> `).join(''); console.log(`🚀 TEST: ${villasData.length} villas chargées avec succès !`); console.log('Villas:', villasData.map(v => v.name)); }); </script>
 </body>
 <!-- Liquid Glass Refract SVG -->
-<svg width="0" height="0" style="position:absolute">
-  <filter id="lgRefract">
-    <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/>
-    <feGaussianBlur in="n" stdDeviation="7" result="s"/>
-    <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
+<svg width="0" height="0" style="position:absolute"> <filter id="lgRefract"> <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/> <feGaussianBlur in="n" stdDeviation="7" result="s"/> <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/> </filter>
 </svg>
 </html>

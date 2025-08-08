@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>API Test</title>
+<head> <title>API Test</title>
 <style id="lg-inline">
 :root{--lg-blur:26px;--lg-saturate:180%;--lg-tint:rgba(240,245,250,.12);--lg-chroma:.012;}
 :is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag){background:transparent!important;border:none!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;}
@@ -13,52 +12,20 @@
 .lg-chroma{box-shadow:0 0 0 1px rgba(255,0,80,var(--lg-chroma)),0 0 0 1px rgba(0,120,255,var(--lg-chroma)) inset;}
 @media (prefers-reduced-motion:reduce){.lg-droplet::before{animation:none}}
 </style>
+<style id="lg-inline-tune">
+:root{--lg-blur:22px;--lg-tint:rgba(240,245,250,.10);--lg-chroma:0;}
+.lg-edge::after{opacity:.35;}
+/* soften base border/shadow */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn){border:1px solid rgba(255,255,255,.20)!important;box-shadow:0 8px 24px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.05),inset 0 -1px 0 rgba(0,0,0,.06)!important;border-radius:16px!important;}
+/* disable sheen globally, keep only for tabs and modal content */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn)::before{content:none!important;}
+:is(.reward-tab,.filter-tab,.glass-modal-content)::before{content:"";position:absolute;top:-20%;left:-40%;width:180%;height:60%;background:conic-gradient(from 0deg,transparent 0 40%,rgba(255,255,255,0.18) 50%,transparent 60% 100%);filter:blur(8px);transform:rotate(8deg) translateX(-20%);animation:lgSheen 10s ease-in-out infinite alternate;pointer-events:none;}
+</style>
 </head>
 <link rel="stylesheet" href="/assets/css/liquid-glass.patch.css">
-<body>
-    <h1>API Integration Test</h1>
-    <div id="result"></div>
-    <script>
-        async function testAPI() {
-            try {
-                console.log("Testing API...");
-                const response = await fetch('/api/villas');
-                console.log("Response status:", response.status);
-                
-                if (response.ok) {
-                    const villas = await response.json();
-                    console.log("Villas loaded:", villas.length);
-                    document.getElementById('result').innerHTML = `
-                        <h2>✅ API Working!</h2>
-                        <p>Loaded ${villas.length} villas</p>
-                        <h3>First villa:</h3>
-                        <pre>${JSON.stringify(villas[0], null, 2)}</pre>
-                    `;
-                } else {
-                    document.getElementById('result').innerHTML = `
-                        <h2>❌ API Error</h2>
-                        <p>Status: ${response.status}</p>
-                    `;
-                }
-            } catch (error) {
-                console.error("API Error:", error);
-                document.getElementById('result').innerHTML = `
-                    <h2>❌ Connection Error</h2>
-                    <p>${error.message}</p>
-                `;
-            }
-        }
-        
-        // Test on page load
-        testAPI();
-    </script>
+<body> <h1>API Integration Test</h1> <div id="result"></div> <script> async function testAPI() { try { console.log("Testing API..."); const response = await fetch('/api/villas'); console.log("Response status:", response.status); if (response.ok) { const villas = await response.json(); console.log("Villas loaded:", villas.length); document.getElementById('result').innerHTML = ` <h2>✅ API Working!</h2> <p>Loaded ${villas.length} villas</p> <h3>First villa:</h3> <pre>${JSON.stringify(villas[0], null, 2)}</pre> `; } else { document.getElementById('result').innerHTML = ` <h2>❌ API Error</h2> <p>Status: ${response.status}</p> `; } } catch (error) { console.error("API Error:", error); document.getElementById('result').innerHTML = ` <h2>❌ Connection Error</h2> <p>${error.message}</p> `; } } // Test on page load testAPI(); </script>
 </body>
 <!-- Liquid Glass Refract SVG -->
-<svg width="0" height="0" style="position:absolute">
-  <filter id="lgRefract">
-    <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/>
-    <feGaussianBlur in="n" stdDeviation="7" result="s"/>
-    <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
+<svg width="0" height="0" style="position:absolute"> <filter id="lgRefract"> <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/> <feGaussianBlur in="n" stdDeviation="7" result="s"/> <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/> </filter>
 </svg>
 </html>

@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Villa de luxe en Martinique avec design premium et réservation en ligne sécurisée.">
-    <title>Bas de villa F3 sur Ste Luce - Khanel Concept Martinique</title>
-        <link rel="stylesheet" href="./assets/css/villa-enhanced.css">
-    <link rel="preload" href="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" as="video" type="video/mp4">
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="description" content="Villa de luxe en Martinique avec design premium et réservation en ligne sécurisée."> <title>Bas de villa F3 sur Ste Luce - Khanel Concept Martinique</title> <link rel="stylesheet" href="./assets/css/villa-enhanced.css"> <link rel="preload" href="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" as="video" type="video/mp4">
 <style id="lg-inline">
 :root{--lg-blur:26px;--lg-saturate:180%;--lg-tint:rgba(240,245,250,.12);--lg-chroma:.012;}
 :is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag){background:transparent!important;border:none!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;}
@@ -18,233 +12,20 @@
 .lg-chroma{box-shadow:0 0 0 1px rgba(255,0,80,var(--lg-chroma)),0 0 0 1px rgba(0,120,255,var(--lg-chroma)) inset;}
 @media (prefers-reduced-motion:reduce){.lg-droplet::before{animation:none}}
 </style>
+<style id="lg-inline-tune">
+:root{--lg-blur:22px;--lg-tint:rgba(240,245,250,.10);--lg-chroma:0;}
+.lg-edge::after{opacity:.35;}
+/* soften base border/shadow */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn){border:1px solid rgba(255,255,255,.20)!important;box-shadow:0 8px 24px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.05),inset 0 -1px 0 rgba(0,0,0,.06)!important;border-radius:16px!important;}
+/* disable sheen globally, keep only for tabs and modal content */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn)::before{content:none!important;}
+:is(.reward-tab,.filter-tab,.glass-modal-content)::before{content:"";position:absolute;top:-20%;left:-40%;width:180%;height:60%;background:conic-gradient(from 0deg,transparent 0 40%,rgba(255,255,255,0.18) 50%,transparent 60% 100%);filter:blur(8px);transform:rotate(8deg) translateX(-20%);animation:lgSheen 10s ease-in-out infinite alternate;pointer-events:none;}
+</style>
 </head>
 <link rel="stylesheet" href="/assets/css/liquid-glass.patch.css">
-<body>
-    <!-- Video Background Premium -->
-    <div class="video-background">
-        <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
-            <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4">
-        </video>
-    </div>
-    
-    <!-- Fallback Background -->
-    <div class="video-background-fallback"></div>
-
-    <!-- Header glassmorphism (identique index) -->
-    <header class="glass-header lg-droplet lg-edge lg-chroma">
-        <nav>
-            <div class="logo">Khanel Concept</div>
-            <ul class="nav-menu">
-                <li><a href="./index.html">Accueil</a></li>
-                <li><a href="./villas.html">Nos Villas</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-                <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main class="villa-content">
-        <!-- Hero Section -->
-        <section class="hero-villa glass-card lg-droplet lg-edge lg-chroma">
-            <h1>Bas de villa F3 sur Ste Luce</h1>
-            <p class="villa-location">Sainte-Luce</p>
-            <div class="villa-specs">
-                <span>F3 (Bas de villa)</span>
-                <span>Non précisé</span>
-                <span>À partir de 470€</span>
-            </div>
-        </section>
-
-        <!-- Galerie Photos -->
-        <section class="gallery glass-card lg-droplet lg-edge lg-chroma">
-            <h2>Galerie Photos</h2>
-            <div class="photo-slider">
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/07_coin_repas.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/salon_tv_eclairage_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/chambre_principale.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_2.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-                <div class="photo-item">
-                    <img src="./images/Bas_Villa_F3_Ste_Luce/salle_a_manger_ronde.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy">
-                    <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Détails Villa -->
-        <section class="details glass-card lg-droplet lg-edge lg-chroma">
-            <h2>Détails de la Villa</h2>
-            <div class="details-grid lg-droplet lg-edge lg-chroma">
-                <div class="description">
-                    <p>Fêtes et invités ne sont plus acceptés suite aux abus. Caution: 1300€ par chèque + 200€ en espèces. Acompte: 30%. Solde à payer le jour d'arrivée.</p>
-                </div>
-                <div class="amenities lg-droplet lg-edge lg-chroma">
-                    <h3>Équipements & Services</h3>
-                    <ul>
-                        <li>Chambre climatisée</li>
-                        <li>Salle de bain moderne</li>
-                        <li>Salon TV avec éclairage LED</li>
-                        <li>Terrasse avec éclairage ambiance</li>
-                        <li>Coin repas</li>
-                        <li>Terrasse lounge</li>
-                        <li>Salon canapé-lit</li>
-                        <li>Salon extérieur</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tarifs (section critique) -->
-        <section class="pricing glass-card lg-droplet lg-edge lg-chroma">
-            <h2>Tarifs & Disponibilités</h2>
-            <div class="pricing-table lg-droplet lg-edge lg-chroma">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Période</th>
-                            <th>Durée</th>
-                            <th>Tarif</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Juil/Août/Déc/Jan</td>
-                            <td>1 semaine</td>
-                            <td>1390€</td>
-                        </tr>
-                        <tr>
-                            <td>Juil/Août/Déc/Jan</td>
-                            <td>Weekend (2 nuits)</td>
-                            <td>570€</td>
-                        </tr>
-                        <tr>
-                            <td>Mai/Juin/Sept</td>
-                            <td>1 semaine</td>
-                            <td>1030€</td>
-                        </tr>
-                        <tr>
-                            <td>Mai/Juin/Sept</td>
-                            <td>Weekend (2 nuits)</td>
-                            <td>470€</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="pricing-notes lg-droplet lg-edge lg-chroma">
-                <p><strong>Caution:</strong> 1300€ par chèque + 200€ en espèces</p>
-                <p><strong>Acompte:</strong> 30%</p>
-                <p><strong>Solde:</strong> À payer le jour d'arrivée</p>
-                <p><strong>Important:</strong> Fêtes et invités ne sont plus acceptés suite aux abus</p>
-            </div>
-        </section>
-
-        <!-- Réservation Premium -->
-        <section class="booking glass-card lg-droplet lg-edge lg-chroma">
-            <h2>Réservation</h2>
-            <div class="reservation-buttons">
-                <a href="javascript:void(0)" 
-                   class="btn-reserve-primary" 
-                   onclick="ReservationManager.goToReservation('bas-villa-ste-luce', 'Bas de villa F3 sur Ste Luce')">
-                    🏨 Réserver maintenant
-                </a>
-                <a href="./reservation.html" class="btn-reserve-secondary lg-droplet lg-edge lg-chroma">
-                    📋 Voir toutes les villas
-                </a>
-            </div>
-            <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
-                Réservation sécurisée • Confirmation immédiate • Assistance 24/7
-            </p>
-        </section>
-    </main>
-
-    <!-- Footer identique index -->
-    <footer class="glass-footer lg-droplet lg-edge lg-chroma">
-        <div class="footer-content lg-droplet lg-edge lg-chroma">
-            <div class="footer-section lg-droplet lg-edge lg-chroma">
-                <h3>Khanel Concept</h3>
-                <p>Location de villas de prestige en Martinique</p>
-            </div>
-            <div class="footer-section lg-droplet lg-edge lg-chroma">
-                <h3>Contact</h3>
-                <p>Saint-Joseph, Martinique</p>
-                <p>Tél: +596 696 XX XX XX</p>
-                <p>Email: contact@khanelconcept.com</p>
-            </div>
-        </div>
-        <div class="footer-bottom lg-droplet lg-edge lg-chroma">
-            <p>&copy; 2025 Khanel Concept - Tous droits réservés</p>
-        </div>
-    </footer>
-
-    <script src="./assets/js/villa-gallery.js"></script>
-    <script>
-        // Initialisation spécifique à cette villa
-        document.addEventListener('DOMContentLoaded', function() {
-            // Données de la villa pour la réservation
-            window.currentVilla = {
-                id: 'bas-villa-ste-luce',
-                name: 'Bas de villa F3 sur Ste Luce',
-                basePrice: 470,
-                capacity: 6,
-                maxGuests: 6
-            };
-        });
-    </script>
+<body> <!-- Video Background Premium --> <div class="video-background"> <video autoplay muted loop playsinline webkit-playsinline preload="metadata"> <source src="https://res.cloudinary.com/dqz8rw6m2/video/upload/v1733669700/martinique-bg_d0pzjm.mp4" type="video/mp4"> </video> </div> <!-- Fallback Background --> <div class="video-background-fallback"></div> <!-- Header glassmorphism (identique index) --> <header class="glass-header"> <nav> <div class="logo">Khanel Concept</div> <ul class="nav-menu"> <li><a href="./index.html">Accueil</a></li> <li><a href="./villas.html">Nos Villas</a></li> <li><a href="./contact.html">Contact</a></li> <li><a href="./reservation.html" class="btn-reservation">Réserver</a></li> </ul> </nav> </header> <main class="villa-content"> <!-- Hero Section --> <section class="hero-villa glass-card"> <h1>Bas de villa F3 sur Ste Luce</h1> <p class="villa-location">Sainte-Luce</p> <div class="villa-specs"> <span>F3 (Bas de villa)</span> <span>Non précisé</span> <span>À partir de 470€</span> </div> </section> <!-- Galerie Photos --> <section class="gallery glass-card"> <h2>Galerie Photos</h2> <div class="photo-slider"> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/01_chambre_salle_a_manger.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/02_salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/03_salon_tv_eclairage_led.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/05_terrasse_eclairage_ambiance.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/06_chambre_climatisee.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/07_coin_repas.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/salon_canape_lit.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/salon_tv_eclairage_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/chambre_principale.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/salle_de_bain_moderne.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_1.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/terrasse_salon_exterieur_2.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> <div class="photo-item"> <img src="./images/Bas_Villa_F3_Ste_Luce/salle_a_manger_ronde.jpg" alt="Bas de villa F3 sur Ste Luce" loading="lazy"> <div class="photo-zoom-overlay">🔍 Cliquer pour agrandir</div> </div> </div> </section> <!-- Détails Villa --> <section class="details glass-card lg-droplet lg-edge"> <h2>Détails de la Villa</h2> <div class="details-grid lg-droplet lg-edge"> <div class="description"> <p>Fêtes et invités ne sont plus acceptés suite aux abus. Caution: 1300€ par chèque + 200€ en espèces. Acompte: 30%. Solde à payer le jour d'arrivée.</p> </div> <div class="amenities lg-droplet lg-edge"> <h3>Équipements & Services</h3> <ul> <li>Chambre climatisée</li> <li>Salle de bain moderne</li> <li>Salon TV avec éclairage LED</li> <li>Terrasse avec éclairage ambiance</li> <li>Coin repas</li> <li>Terrasse lounge</li> <li>Salon canapé-lit</li> <li>Salon extérieur</li> </ul> </div> </div> </section> <!-- Tarifs (section critique) --> <section class="pricing glass-card lg-droplet lg-edge"> <h2>Tarifs & Disponibilités</h2> <div class="pricing-table lg-droplet lg-edge"> <table> <thead> <tr> <th>Période</th> <th>Durée</th> <th>Tarif</th> </tr> </thead> <tbody> <tr> <td>Juil/Août/Déc/Jan</td> <td>1 semaine</td> <td>1390€</td> </tr> <tr> <td>Juil/Août/Déc/Jan</td> <td>Weekend (2 nuits)</td> <td>570€</td> </tr> <tr> <td>Mai/Juin/Sept</td> <td>1 semaine</td> <td>1030€</td> </tr> <tr> <td>Mai/Juin/Sept</td> <td>Weekend (2 nuits)</td> <td>470€</td> </tr> </tbody> </table> </div> <div class="pricing-notes lg-droplet lg-edge"> <p><strong>Caution:</strong> 1300€ par chèque + 200€ en espèces</p> <p><strong>Acompte:</strong> 30%</p> <p><strong>Solde:</strong> À payer le jour d'arrivée</p> <p><strong>Important:</strong> Fêtes et invités ne sont plus acceptés suite aux abus</p> </div> </section> <!-- Réservation Premium --> <section class="booking glass-card"> <h2>Réservation</h2> <div class="reservation-buttons"> <a href="javascript:void(0)" class="btn-reserve-primary" onclick="ReservationManager.goToReservation('bas-villa-ste-luce', 'Bas de villa F3 sur Ste Luce')"> 🏨 Réserver maintenant </a> <a href="./reservation.html" class="btn-reserve-secondary"> 📋 Voir toutes les villas </a> </div> <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);"> Réservation sécurisée • Confirmation immédiate • Assistance 24/7 </p> </section> </main> <!-- Footer identique index --> <footer class="glass-footer"> <div class="footer-content"> <div class="footer-section"> <h3>Khanel Concept</h3> <p>Location de villas de prestige en Martinique</p> </div> <div class="footer-section"> <h3>Contact</h3> <p>Saint-Joseph, Martinique</p> <p>Tél: +596 696 XX XX XX</p> <p>Email: contact@khanelconcept.com</p> </div> </div> <div class="footer-bottom"> <p>&copy; 2025 Khanel Concept - Tous droits réservés</p> </div> </footer> <script src="./assets/js/villa-gallery.js"></script> <script> // Initialisation spécifique à cette villa document.addEventListener('DOMContentLoaded', function() { // Données de la villa pour la réservation window.currentVilla = { id: 'bas-villa-ste-luce', name: 'Bas de villa F3 sur Ste Luce', basePrice: 470, capacity: 6, maxGuests: 6 }; }); </script>
 </body>
 <!-- Liquid Glass Refract SVG -->
-<svg width="0" height="0" style="position:absolute">
-  <filter id="lgRefract">
-    <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/>
-    <feGaussianBlur in="n" stdDeviation="7" result="s"/>
-    <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
+<svg width="0" height="0" style="position:absolute"> <filter id="lgRefract"> <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/> <feGaussianBlur in="n" stdDeviation="7" result="s"/> <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/> </filter>
 </svg>
 </html>

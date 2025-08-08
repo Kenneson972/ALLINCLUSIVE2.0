@@ -1,52 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>🔍 Diagnostic GitHub Pages - KhanelConcept</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        .diagnostic-box {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
-            max-width: 800px;
-        }
-        .success { color: #00ff88; }
-        .error { color: #ff6b6b; }
-        .warning { color: #ffa500; }
-        .info { color: #4facfe; }
-        .timestamp {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            margin-top: 10px;
-        }
-        pre {
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 10px;
-            overflow-x: auto;
-            font-size: 0.9rem;
-        }
-        .test-result {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 15px;
-            margin: 5px;
-            font-weight: bold;
-        }
-        .test-success { background: rgba(0,255,136,0.3); }
-        .test-error { background: rgba(255,107,107,0.3); }
-        .test-warning { background: rgba(255,165,0,0.3); }
-    </style>
+<head> <meta charset="UTF-8"> <title>🔍 Diagnostic GitHub Pages - KhanelConcept</title> <style> body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; min-height: 100vh; } .diagnostic-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 30px; margin: 20px 0; max-width: 800px; } .success { color: #00ff88; } .error { color: #ff6b6b; } .warning { color: #ffa500; } .info { color: #4facfe; } .timestamp { font-size: 0.8rem; opacity: 0.7; margin-top: 10px; } pre { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 0.9rem; } .test-result { display: inline-block; padding: 5px 12px; border-radius: 15px; margin: 5px; font-weight: bold; } .test-success { background: rgba(0,255,136,0.3); } .test-error { background: rgba(255,107,107,0.3); } .test-warning { background: rgba(255,165,0,0.3); } </style>
 <style id="lg-inline">
 :root{--lg-blur:26px;--lg-saturate:180%;--lg-tint:rgba(240,245,250,.12);--lg-chroma:.012;}
 :is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag){background:transparent!important;border:none!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;}
@@ -58,161 +12,20 @@
 .lg-chroma{box-shadow:0 0 0 1px rgba(255,0,80,var(--lg-chroma)),0 0 0 1px rgba(0,120,255,var(--lg-chroma)) inset;}
 @media (prefers-reduced-motion:reduce){.lg-droplet::before{animation:none}}
 </style>
+<style id="lg-inline-tune">
+:root{--lg-blur:22px;--lg-tint:rgba(240,245,250,.10);--lg-chroma:0;}
+.lg-edge::after{opacity:.35;}
+/* soften base border/shadow */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.glass-modal,.glass-modal-content,.glass-dropdown,.glass-input,.glass-btn,.glass-search,.glass-table,.glass-tag,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn){border:1px solid rgba(255,255,255,.20)!important;box-shadow:0 8px 24px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.05),inset 0 -1px 0 rgba(0,0,0,.06)!important;border-radius:16px!important;}
+/* disable sheen globally, keep only for tabs and modal content */
+:is(.glass-card,.glass-light,.glass-medium,.glass-dark,.glass-nav,.glass-header,.glass-footer,.villa-card,.service-card,.btn-reserve-secondary,.filter-btn)::before{content:none!important;}
+:is(.reward-tab,.filter-tab,.glass-modal-content)::before{content:"";position:absolute;top:-20%;left:-40%;width:180%;height:60%;background:conic-gradient(from 0deg,transparent 0 40%,rgba(255,255,255,0.18) 50%,transparent 60% 100%);filter:blur(8px);transform:rotate(8deg) translateX(-20%);animation:lgSheen 10s ease-in-out infinite alternate;pointer-events:none;}
+</style>
 </head>
 <link rel="stylesheet" href="/assets/css/liquid-glass.patch.css">
-<body>
-    <h1>🔍 Diagnostic GitHub Pages - KhanelConcept</h1>
-    <p><strong>Objectif :</strong> Identifier pourquoi GitHub Pages affiche 3 villas au lieu de 21</p>
-    
-    <div class="diagnostic-box">
-        <h2>📋 Tests en cours...</h2>
-        <div id="results"></div>
-    </div>
-
-    <div class="diagnostic-box">
-        <h3>📊 Données détectées :</h3>
-        <div id="dataInfo"></div>
-    </div>
-
-    <div class="diagnostic-box">
-        <h3>🔧 Actions recommandées :</h3>
-        <div id="recommendations"></div>
-    </div>
-
-    <script>
-        const results = document.getElementById('results');
-        const dataInfo = document.getElementById('dataInfo');
-        const recommendations = document.getElementById('recommendations');
-
-        function addResult(message, type = 'info') {
-            const div = document.createElement('div');
-            div.className = `test-result test-${type}`;
-            div.textContent = message;
-            results.appendChild(div);
-        }
-
-        function addInfo(html) {
-            dataInfo.innerHTML += html + '<br>';
-        }
-
-        function addRecommendation(html) {
-            recommendations.innerHTML += '• ' + html + '<br>';
-        }
-
-        // Tests de diagnostic
-        setTimeout(() => {
-            console.log("🚀 Démarrage des tests de diagnostic...");
-
-            // Test 1: Vérifier si on est sur GitHub Pages
-            const isGitHubPages = window.location.hostname.includes('github.io');
-            addResult(`GitHub Pages: ${isGitHubPages ? 'OUI' : 'LOCAL'}`, isGitHubPages ? 'success' : 'info');
-
-            // Test 2: Vérifier le localStorage
-            const localStorageWorks = (() => {
-                try {
-                    localStorage.setItem('test', 'ok');
-                    const result = localStorage.getItem('test') === 'ok';
-                    localStorage.removeItem('test');
-                    return result;
-                } catch(e) {
-                    return false;
-                }
-            })();
-            addResult(`localStorage: ${localStorageWorks ? 'OK' : 'ERREUR'}`, localStorageWorks ? 'success' : 'error');
-
-            // Test 3: Vérifier les données admin dans localStorage
-            const adminData = localStorage.getItem('khanelconcept_villas');
-            if (adminData) {
-                try {
-                    const parsed = JSON.parse(adminData);
-                    addResult(`Données admin: ${parsed.length} villas`, 'success');
-                    addInfo(`<strong>Données admin trouvées:</strong> ${parsed.length} villas dans localStorage`);
-                    addInfo(`<strong>Première villa:</strong> ${parsed[0]?.name || 'N/A'}`);
-                    addInfo(`<strong>Dernière villa:</strong> ${parsed[parsed.length - 1]?.name || 'N/A'}`);
-                } catch(e) {
-                    addResult('Données admin: CORROMPUES', 'error');
-                    addInfo('<strong class="error">Données admin corrompues dans localStorage</strong>');
-                }
-            } else {
-                addResult('Données admin: ABSENTES', 'warning');
-                addInfo('<strong class="warning">Aucune donnée admin dans localStorage</strong>');
-            }
-
-            // Test 4: Vérifier le fichier index.html actuel
-            fetch(window.location.href)
-                .then(response => response.text())
-                .then(html => {
-                    const has21Villas = html.includes('Villa Fête Rivière-Salée') || html.includes('21 villas') || html.includes('id: 21');
-                    const hasLocalStorageLogic = html.includes('khanelconcept_villas') || html.includes('syncedData');
-                    const hasOldLogic = html.includes('const villasData = [') && !html.includes('let villasData = []');
-                    
-                    addResult(`21 villas dans HTML: ${has21Villas ? 'OUI' : 'NON'}`, has21Villas ? 'success' : 'error');
-                    addResult(`Logique localStorage: ${hasLocalStorageLogic ? 'OUI' : 'NON'}`, hasLocalStorageLogic ? 'success' : 'error');
-                    addResult(`Ancien code (problème): ${hasOldLogic ? 'OUI' : 'NON'}`, hasOldLogic ? 'error' : 'success');
-
-                    addInfo(`<strong>Analyse index.html:</strong>`);
-                    addInfo(`- Contient 21 villas: ${has21Villas}`);
-                    addInfo(`- Utilise localStorage: ${hasLocalStorageLogic}`);
-                    addInfo(`- Code ancien détecté: ${hasOldLogic}`);
-                })
-                .catch(e => {
-                    addResult('Lecture HTML: ERREUR', 'error');
-                });
-
-            // Test 5: Tenter une synchronisation test
-            try {
-                const testVillas = [];
-                for (let i = 1; i <= 21; i++) {
-                    testVillas.push({
-                        id: i,
-                        name: `Villa Test ${i}`,
-                        location: `Location ${i}`,
-                        price: 800 + (i * 50),
-                        guests: 6,
-                        guestsDetail: `${i} personnes`,
-                        features: `Test villa ${i}`,
-                        category: 'sejour',
-                        image: `./images/test${i}.jpg`,
-                        fallbackIcon: '🏨'
-                    });
-                }
-                localStorage.setItem('khanelconcept_villas', JSON.stringify(testVillas));
-                addResult('Test de sync: OK', 'success');
-                addInfo('<strong class="success">Test de synchronisation effectué - 21 villas test créées</strong>');
-            } catch(e) {
-                addResult('Test de sync: ERREUR', 'error');
-                addInfo('<strong class="error">Erreur lors du test de synchronisation</strong>');
-            }
-
-            // Recommandations
-            if (isGitHubPages) {
-                if (!adminData) {
-                    addRecommendation('Aller sur <a href="./admin/admin.html" style="color: #00ff88;">/admin/admin.html</a> et cliquer "Sync Site"');
-                }
-                addRecommendation('Vider le cache navigateur (Ctrl+Shift+Delete)');
-                addRecommendation('Essayer en navigation privée');
-                addRecommendation('Vérifier que le fichier index.html sur GitHub contient bien la logique localStorage');
-            } else {
-                addRecommendation('Utiliser "Save to GitHub" pour pousser les modifications');
-                addRecommendation('Vérifier que tous les fichiers modifiés sont bien committés');
-            }
-
-            addRecommendation('Rafraîchir cette page après synchronisation admin');
-
-            // Timestamp
-            const timestamp = new Date().toLocaleString('fr-FR');
-            addInfo(`<div class="timestamp">Diagnostic effectué le ${timestamp}</div>`);
-
-            console.log("✅ Diagnostic terminé");
-        }, 1000);
-    </script>
+<body> <h1>🔍 Diagnostic GitHub Pages - KhanelConcept</h1> <p><strong>Objectif :</strong> Identifier pourquoi GitHub Pages affiche 3 villas au lieu de 21</p> <div class="diagnostic-box"> <h2>📋 Tests en cours...</h2> <div id="results"></div> </div> <div class="diagnostic-box"> <h3>📊 Données détectées :</h3> <div id="dataInfo"></div> </div> <div class="diagnostic-box"> <h3>🔧 Actions recommandées :</h3> <div id="recommendations"></div> </div> <script> const results = document.getElementById('results'); const dataInfo = document.getElementById('dataInfo'); const recommendations = document.getElementById('recommendations'); function addResult(message, type = 'info') { const div = document.createElement('div'); div.className = `test-result test-${type}`; div.textContent = message; results.appendChild(div); } function addInfo(html) { dataInfo.innerHTML += html + '<br>'; } function addRecommendation(html) { recommendations.innerHTML += '• ' + html + '<br>'; } // Tests de diagnostic setTimeout(() => { console.log("🚀 Démarrage des tests de diagnostic..."); // Test 1: Vérifier si on est sur GitHub Pages const isGitHubPages = window.location.hostname.includes('github.io'); addResult(`GitHub Pages: ${isGitHubPages ? 'OUI' : 'LOCAL'}`, isGitHubPages ? 'success' : 'info'); // Test 2: Vérifier le localStorage const localStorageWorks = (() => { try { localStorage.setItem('test', 'ok'); const result = localStorage.getItem('test') === 'ok'; localStorage.removeItem('test'); return result; } catch(e) { return false; } })(); addResult(`localStorage: ${localStorageWorks ? 'OK' : 'ERREUR'}`, localStorageWorks ? 'success' : 'error'); // Test 3: Vérifier les données admin dans localStorage const adminData = localStorage.getItem('khanelconcept_villas'); if (adminData) { try { const parsed = JSON.parse(adminData); addResult(`Données admin: ${parsed.length} villas`, 'success'); addInfo(`<strong>Données admin trouvées:</strong> ${parsed.length} villas dans localStorage`); addInfo(`<strong>Première villa:</strong> ${parsed[0]?.name || 'N/A'}`); addInfo(`<strong>Dernière villa:</strong> ${parsed[parsed.length - 1]?.name || 'N/A'}`); } catch(e) { addResult('Données admin: CORROMPUES', 'error'); addInfo('<strong class="error">Données admin corrompues dans localStorage</strong>'); } } else { addResult('Données admin: ABSENTES', 'warning'); addInfo('<strong class="warning">Aucune donnée admin dans localStorage</strong>'); } // Test 4: Vérifier le fichier index.html actuel fetch(window.location.href) .then(response => response.text()) .then(html => { const has21Villas = html.includes('Villa Fête Rivière-Salée') || html.includes('21 villas') || html.includes('id: 21'); const hasLocalStorageLogic = html.includes('khanelconcept_villas') || html.includes('syncedData'); const hasOldLogic = html.includes('const villasData = [') && !html.includes('let villasData = []'); addResult(`21 villas dans HTML: ${has21Villas ? 'OUI' : 'NON'}`, has21Villas ? 'success' : 'error'); addResult(`Logique localStorage: ${hasLocalStorageLogic ? 'OUI' : 'NON'}`, hasLocalStorageLogic ? 'success' : 'error'); addResult(`Ancien code (problème): ${hasOldLogic ? 'OUI' : 'NON'}`, hasOldLogic ? 'error' : 'success'); addInfo(`<strong>Analyse index.html:</strong>`); addInfo(`- Contient 21 villas: ${has21Villas}`); addInfo(`- Utilise localStorage: ${hasLocalStorageLogic}`); addInfo(`- Code ancien détecté: ${hasOldLogic}`); }) .catch(e => { addResult('Lecture HTML: ERREUR', 'error'); }); // Test 5: Tenter une synchronisation test try { const testVillas = []; for (let i = 1; i <= 21; i++) { testVillas.push({ id: i, name: `Villa Test ${i}`, location: `Location ${i}`, price: 800 + (i * 50), guests: 6, guestsDetail: `${i} personnes`, features: `Test villa ${i}`, category: 'sejour', image: `./images/test${i}.jpg`, fallbackIcon: '🏨' }); } localStorage.setItem('khanelconcept_villas', JSON.stringify(testVillas)); addResult('Test de sync: OK', 'success'); addInfo('<strong class="success">Test de synchronisation effectué - 21 villas test créées</strong>'); } catch(e) { addResult('Test de sync: ERREUR', 'error'); addInfo('<strong class="error">Erreur lors du test de synchronisation</strong>'); } // Recommandations if (isGitHubPages) { if (!adminData) { addRecommendation('Aller sur <a href="./admin/admin.html" style="color: #00ff88;">/admin/admin.html</a> et cliquer"Sync Site"'); } addRecommendation('Vider le cache navigateur (Ctrl+Shift+Delete)'); addRecommendation('Essayer en navigation privée'); addRecommendation('Vérifier que le fichier index.html sur GitHub contient bien la logique localStorage'); } else { addRecommendation('Utiliser"Save to GitHub" pour pousser les modifications'); addRecommendation('Vérifier que tous les fichiers modifiés sont bien committés'); } addRecommendation('Rafraîchir cette page après synchronisation admin'); // Timestamp const timestamp = new Date().toLocaleString('fr-FR'); addInfo(`<div class="timestamp">Diagnostic effectué le ${timestamp}</div>`); console.log("✅ Diagnostic terminé"); }, 1000); </script>
 </body>
 <!-- Liquid Glass Refract SVG -->
-<svg width="0" height="0" style="position:absolute">
-  <filter id="lgRefract">
-    <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/>
-    <feGaussianBlur in="n" stdDeviation="7" result="s"/>
-    <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
+<svg width="0" height="0" style="position:absolute"> <filter id="lgRefract"> <feTurbulence type="fractalNoise" baseFrequency="0.004" numOctaves="2" seed="5" result="n"/> <feGaussianBlur in="n" stdDeviation="7" result="s"/> <feDisplacementMap in="SourceGraphic" in2="s" scale="5" xChannelSelector="R" yChannelSelector="G"/> </filter>
 </svg>
 </html>
