@@ -1,0 +1,267 @@
+/*
+  Liquid Glass UI (Apple-like) — Global surface system
+  Goals:
+  - Deep translucency + blur using backdrop-filter
+  - Subtle animated highlights (sheen) and liquid reflections
+  - Gentle radius + diffuse shadows (depth without harsh edges)
+  - Lightweight noise texture for realism
+  - GPU-friendly animations (transform/opacity)
+  - Fallback for browsers without backdrop-filter
+
+  Tint requested by user: rgba(240,245,250,0.12) — neutral white with slight blue tint
+*/
+
+:root {
+  /* Core Liquid Glass tokens */
+  --lg-tint: rgba(240, 245, 250, 0.12);
+  --lg-tint-strong: rgba(240, 245, 250, 0.18);
+  --lg-stroke-outer: rgba(255, 255, 255, 0.22);
+  --lg-stroke-inner: rgba(255, 255, 255, 0.06);
+  --lg-shadow: 0 10px 30px rgba(0, 0, 0, 0.20), 0 1px 2px rgba(0,0,0,0.06);
+  --lg-radius: 18px;
+  --lg-noise-opacity: 0.035; /* 3.5% for barely-there grain */
+  --lg-sheen-opacity: 0.28;
+  --lg-blur: 25px;
+  --lg-saturate: 180%;
+
+  /* Optional brand accent hooks (used only for subtle light) */
+  --lg-accent-1: rgba(255, 255, 255, 0.22);
+  --lg-accent-2: rgba(255, 255, 255, 0.10);
+}
+
+/*
+  Base liquid surface
+  Apply these properties to any surface intended to look like Apple iOS/macOS translucent panes
+*/
+.lg-surface {
+  position: relative;
+  background:
+    /* Soft vertical tint for thickness */
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%),
+    /* Base requested tint */
+    var(--lg-tint);
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate));
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate));
+  border-radius: var(--lg-radius);
+  border: 1px solid var(--lg-stroke-outer);
+  box-shadow: var(--lg-shadow);
+  overflow: hidden;
+  /* Subtle internal thickness via inset edges */
+  box-shadow:
+    var(--lg-shadow),
+    inset 0 1px 0 var(--lg-stroke-inner),
+    inset 0 -1px 0 rgba(0,0,0,0.08);
+  will-change: transform, opacity;
+}
+
+/* Moving liquid highlight (sheen) */
+.lg-surface::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 180%;
+  height: 60%;
+  background: conic-gradient(from 0deg,
+              transparent 0 40%,
+              rgba(255,255,255,var(--lg-sheen-opacity)) 50%,
+              transparent 60% 100%);
+  filter: blur(12px);
+  transform: rotate(8deg) translateX(-20%);
+  animation: lg-sheen 6s linear infinite;
+  pointer-events: none;
+}
+
+/* Fine noise for realism */
+.lg-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDAwJyBoZWlnaHQ9JzQwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZmlsdGVyIGlkPSduJyB4PScwJyB5PScwJz48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9JzAuOScgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSc0MDAnIGhlaWdodD0nNDAwJyBmaWx0ZXI9InVybCgjbikiIGZpbGw9J2JsYWNrJyBvcGFjaXR5PScwLjA1Jy8+PC9zdmc+");
+  opacity: var(--lg-noise-opacity);
+}
+
+@keyframes lg-sheen {
+  0%   { transform: rotate(8deg) translateX(-35%); }
+  50%  { transform: rotate(8deg) translateX(10%); }
+  100% { transform: rotate(8deg) translateX(55%); }
+}
+
+/* Subtle breathing effect for prominent panes (optional) */
+.lg-breathe {
+  animation: lg-breathe 5.5s ease-in-out infinite;
+}
+@keyframes lg-breathe {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+/* Inputs and buttons tuned for liquid surface */
+.lg-input {
+  background: var(--lg-tint-strong);
+  border: 1px solid var(--lg-stroke-outer);
+  color: #fff;
+  border-radius: 12px;
+  backdrop-filter: blur(calc(var(--lg-blur) * 0.5)) saturate(var(--lg-saturate));
+  -webkit-backdrop-filter: blur(calc(var(--lg-blur) * 0.5)) saturate(var(--lg-saturate));
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.lg-input:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.35);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+}
+
+.lg-button {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 100%),
+    var(--lg-tint);
+  border: 1px solid var(--lg-stroke-outer);
+  color: #fff;
+  border-radius: 14px;
+  backdrop-filter: blur(calc(var(--lg-blur) * 0.6)) saturate(var(--lg-saturate));
+  -webkit-backdrop-filter: blur(calc(var(--lg-blur) * 0.6)) saturate(var(--lg-saturate));
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+.lg-button:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+.lg-button:active { transform: translateY(0); }
+
+/*
+  Mapping existing classes (no HTML changes required):
+  We restyle all current glassmorphism classes to use the new Liquid Glass surface.
+*/
+:is(
+  .glass-card,
+  .glass-modal-content,
+  .glass-nav,
+  .glass-header,
+  .glass-footer,
+  .glass-alert,
+  .glass-dropdown,
+  .glass-table,
+  .glass-light,
+  .glass-medium,
+  .glass-dark,
+  .glass-btn,
+  .glass-input,
+  .glass-search,
+  .glass-tag,
+  .villa-card,
+  .service-card,
+  .btn-reserve-secondary,
+  .filter-btn
+) {
+  /* adopt Liquid Glass surface */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%),
+    var(--lg-tint) !important;
+  backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) !important;
+  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate)) !important;
+  border: 1px solid var(--lg-stroke-outer) !important;
+  border-radius: var(--lg-radius) !important;
+  box-shadow:
+    var(--lg-shadow),
+    inset 0 1px 0 var(--lg-stroke-inner),
+    inset 0 -1px 0 rgba(0,0,0,0.08) !important;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+/* Keep sheen + noise overlays only on "panel-like" components (avoid on table cells) */
+:is(
+  .glass-card,
+  .glass-modal-content,
+  .glass-nav,
+  .glass-header,
+  .glass-footer,
+  .villa-card,
+  .service-card
+) { /* attach overlays by becoming an lg-surface */ }
+:is(
+  .glass-card,
+  .glass-modal-content,
+  .glass-nav,
+  .glass-header,
+  .glass-footer,
+  .villa-card,
+  .service-card
+)::before { content: ""; position: absolute; top: -20%; left: -40%; width: 180%; height: 60%; background: conic-gradient(from 0deg, transparent 0 40%, rgba(255,255,255,var(--lg-sheen-opacity)) 50%, transparent 60% 100%); filter: blur(12px); transform: rotate(8deg) translateX(-20%); animation: lg-sheen 6s linear infinite; pointer-events: none; }
+:is(
+  .glass-card,
+  .glass-modal-content,
+  .glass-nav,
+  .glass-header,
+  .glass-footer,
+  .villa-card,
+  .service-card
+)::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nNDAwJyBoZWlnaHQ9JzQwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZmlsdGVyIGlkPSduJyB4PScwJyB5PScwJz48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9JzAuOScgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSc0MDAnIGhlaWdodD0nNDAwJyBmaWx0ZXI9InVybCgjbikiIGZpbGw9J2JsYWNrJyBvcGFjaXR5PScwLjA1Jy8+PC9zdmc+"); opacity: var(--lg-noise-opacity); }
+
+/* Header/Nav tweak: stronger bottom border for structure */
+.glass-header,
+.glass-nav {
+  border-top: 1px solid rgba(255,255,255,0.12) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.24) !important;
+  border-left: none;
+  border-right: none;
+  border-radius: 0 !important;
+}
+
+/* Inputs and buttons mapping */
+.glass-input { composes: lg-input; }
+.glass-btn, .btn-reserve-secondary, .filter-btn { composes: lg-button; }
+/* composes is ignored by browsers that don't support it; we keep explicit tokens above so it's safe */
+
+/* Dark variant keeps opacity but changes tint balance */
+.glass-dark {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%),
+    rgba(0,0,0,0.22) !important;
+}
+
+/* Tables: keep structure but apply surface to the table container only */
+.glass-table { overflow: hidden; }
+.glass-table th { background: rgba(255,255,255,0.12) !important; }
+.glass-table td { background: transparent !important; }
+
+/* Prefer reduced motion: disable moving highlights */
+@media (prefers-reduced-motion: reduce) {
+  .lg-surface::before,
+  :is(.glass-card, .glass-modal-content, .glass-nav, .glass-header, .glass-footer, .villa-card, .service-card)::before {
+    animation: none;
+    opacity: 0.15;
+  }
+  .lg-breathe { animation: none; }
+}
+
+/* Backdrop-filter fallback for browsers that lack support (e.g., some Firefox versions) */
+@supports not (backdrop-filter: blur(0)) and not (-webkit-backdrop-filter: blur(0)) {
+  :is(
+    .glass-card,
+    .glass-modal-content,
+    .glass-nav,
+    .glass-header,
+    .glass-footer,
+    .glass-alert,
+    .glass-dropdown,
+    .glass-table,
+    .glass-light,
+    .glass-medium,
+    .glass-dark,
+    .glass-btn,
+    .glass-input,
+    .glass-search,
+    .glass-tag,
+    .villa-card,
+    .service-card,
+    .btn-reserve-secondary,
+    .filter-btn
+  ) {
+    background-color: rgba(255,255,255,0.85) !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.4) !important;
+  }
+  :is(.glass-card, .glass-modal-content, .glass-nav, .glass-header, .glass-footer, .villa-card, .service-card)::before,
+  :is(.glass-card, .glass-modal-content, .glass-nav, .glass-header, .glass-footer, .villa-card, .service-card)::after { display: none; }
+}
