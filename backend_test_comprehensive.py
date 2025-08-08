@@ -25,7 +25,7 @@ import sys
 from datetime import datetime
 
 # Configuration - Use external URL for production testing
-BASE_URL = "https://d06970e6-2ac2-46f0-b783-a0b6a57b55de.preview.emergentagent.com"
+BASE_URL = "https://f6169287-bcef-4657-a67a-5f4c828e7215.preview.emergentagent.com"
 API_BASE = f"{BASE_URL}/api"
 
 class KhanelConceptBackendTester:
