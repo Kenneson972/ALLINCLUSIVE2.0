@@ -3248,6 +3248,10 @@
         let checkinCalendar, checkoutCalendar, modalCheckinCalendar, modalCheckoutCalendar;
 
         document.addEventListener('DOMContentLoaded', async function() {
+            // Définir des dates globales pour les calendriers (évite ReferenceError)
+            let today = new Date();
+            let tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
             console.log("🚀 DOM Content Loaded - Initialisation...");
             
             // CHARGEMENT DYNAMIQUE DES VILLAS DEPUIS L'API
