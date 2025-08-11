@@ -23,7 +23,7 @@ import sys
 from datetime import datetime
 
 # Configuration - Use external URL for production testing
-BASE_URL = "https://d06970e6-2ac2-46f0-b783-a0b6a57b55de.preview.emergentagent.com"
+BASE_URL = "https://d2494b70-f384-45ab-b3ca-ec242a606843.preview.emergentagent.com"
 API_BASE = f"{BASE_URL}/api"
 
 class VillaIntegrationTester:
