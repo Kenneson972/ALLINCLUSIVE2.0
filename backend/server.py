@@ -375,6 +375,127 @@ class ReservationStatusUpdate(BaseModel):
 
 # ========== STARTUP ==========
 
+# ========== DATA SEEDER ==========
+async def seed_default_villas():
+    """Insère un jeu de villas par défaut si la collection est vide"""
+    default_villas = [
+        {
+            "id": "1",
+            "name": "Villa Azur",
+            "location": "Les Trois-Îlets, Martinique",
+            "price": 320.0,
+            "guests": 4,
+            "guests_detail": "2 chambres • 4 voyageurs",
+            "features": "Piscine privée, Vue mer, Proche plage",
+            "category": "plage",
+            "image": "/images/villa_1.jpg",
+            "gallery": ["/images/villa_1.jpg"],
+            "fallback_icon": "🏖️",
+            "amenities": ["Piscine", "Climatisation", "Wifi", "Parking"],
+            "description": "Charmante villa avec vue sur la baie et accès rapide aux plages.",
+            "available_dates": [],
+            "pricing_details": {"nightly": 320.0, "cleaning_fee": 80.0, "weekly_discount": 10},
+            "status": "active"
+        },
+        {
+            "id": "2",
+            "name": "Villa Coco",
+            "location": "Sainte-Luce, Martinique",
+            "price": 450.0,
+            "guests": 6,
+            "guests_detail": "3 chambres • 6 voyageurs",
+            "features": "Accès PMR, Jardin tropical, Barbecue",
+            "category": "pmr",
+            "image": "/images/villa_2.jpg",
+            "gallery": ["/images/villa_2.jpg"],
+            "fallback_icon": "🌴",
+            "amenities": ["Accès PMR", "Cuisine équipée", "Wifi", "BBQ"],
+            "description": "Grande villa familiale avec jardin, idéale pour séjours prolongés.",
+            "available_dates": [],
+            "pricing_details": {"nightly": 450.0, "cleaning_fee": 90.0, "weekly_discount": 12},
+            "status": "active"
+        },
+        {
+            "id": "3",
+            "name": "Villa Corail",
+            "location": "Le Diamant, Martinique",
+            "price": 520.0,
+            "guests": 8,
+            "guests_detail": "4 chambres • 8 voyageurs",
+            "features": "Vue sur le Rocher du Diamant, Piscine à débordement",
+            "category": "luxe",
+            "image": "/images/villa_3.jpg",
+            "gallery": ["/images/villa_3.jpg"],
+            "fallback_icon": "💎",
+            "amenities": ["Piscine", "Vue mer", "Climatisation", "Parking"],
+            "description": "Villa d'exception avec panorama imprenable et prestations haut de gamme.",
+            "available_dates": [],
+            "pricing_details": {"nightly": 520.0, "cleaning_fee": 120.0, "weekly_discount": 15},
+            "status": "active"
+        },
+        {
+            "id": "4",
+            "name": "Villa Horizon",
+            "location": "Anses d'Arlet, Martinique",
+            "price": 300.0,
+            "guests": 4,
+            "guests_detail": "2 chambres • 4 voyageurs",
+            "features": "Plongée, Plage à pied, Terrasse",
+            "category": "nature",
+            "image": "/images/villa_4.jpg",
+            "gallery": ["/images/villa_4.jpg"],
+            "fallback_icon": "🌊",
+            "amenities": ["Wifi", "Cuisine", "Terrasse", "Vue mer"],
+            "description": "Idéal pour amateurs de snorkeling et des plages sauvages.",
+            "available_dates": [],
+            "pricing_details": {"nightly": 300.0, "cleaning_fee": 70.0, "weekly_discount": 10},
+            "status": "active"
+        },
+        {
+            "id": "5",
+            "name": "Villa Sunset",
+            "location": "Case-Pilote, Martinique",
+            "price": 380.0,
+            "guests": 5,
+            "guests_detail": "3 chambres • 5 voyageurs",
+            "features": "Coucher de soleil, Piscine, Calme",
+            "category": "romantique",
+            "image": "/images/villa_5.jpg",
+            "gallery": ["/images/villa_5.jpg"],
+            "fallback_icon": "🌅",
+            "amenities": ["Piscine", "Climatisation", "Wifi", "Parking"],
+            "description": "Ambiance cosy avec superbes couchers de soleil depuis la terrasse.",
+            "available_dates": [],
+            "pricing_details": {"nightly": 380.0, "cleaning_fee": 85.0, "weekly_discount": 10},
+            "status": "active"
+        },
+        {
+            "id": "6",
+            "name": "Villa Madinina",
+            "location": "Le François, Martinique",
+            "price": 600.0,
+            "guests": 10,
+            "guests_detail": "5 chambres • 10 voyageurs",
+            "features": "Pontoon privé, Kayaks, Service conciergerie",
+            "category": "luxe",
+            "image": "/images/villa_6.jpg",
+            "gallery": ["/images/villa_6.jpg"],
+            "fallback_icon": "🚤",
+            "amenities": ["Pontoon", "Climatisation", "Wifi", "Cuisine pro"],
+            "description": "Villa d'exception en bord de lagon, idéale pour groupes.",
+            "available_dates": [],
+            "pricing_details": {"nightly": 600.0, "cleaning_fee": 150.0, "weekly_discount": 18},
+            "status": "active"
+        }
+    ]
+
+    try:
+        await db.villas.insert_many(default_villas)
+        print(f"🌱 Seed effectué: {len(default_villas)} villas insérées")
+    except Exception as e:
+        print(f"❌ Erreur seed par défaut: {e}")
+
+
 @app.on_event("startup")
 async def startup_db_client():
     """Initialiser la base de données MongoDB"""
