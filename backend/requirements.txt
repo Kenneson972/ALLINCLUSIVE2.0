@@ -18,3 +18,4 @@ pyotp==2.8.0
 qrcode==7.4.2
 cryptography==41.0.7
 requests==2.31.0
+webencodings==0.5.1
