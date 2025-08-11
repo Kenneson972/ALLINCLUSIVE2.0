@@ -508,6 +508,11 @@ async def startup_db_client():
         villa_count = await db.villas.count_documents({})
         print(f"📊 {villa_count} villas trouvées en base de données")
         
+        # Seed si vide
+        if villa_count == 0:
+            await seed_default_villas()
+
+
     except Exception as e:
         print(f"❌ Erreur de connexion MongoDB: {e}")
             
