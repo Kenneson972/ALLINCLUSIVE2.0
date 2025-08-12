@@ -199,18 +199,17 @@
 
     // Fade-in séquencé
     document.addEventListener('DOMContentLoaded', () => {
-      const seq = [
-        document.querySelector('.logo'),
-        document.querySelector('.nav-links'),
-        document.getElementById('categoriesGrid')
-      ].filter(Boolean);
-      seq.forEach((el, i) => setTimeout(() => el.classList.add('visible'), 200 + i*200));
-      setTimeout(() => {
-        document.querySelectorAll('.category-card').forEach((card, i) => {
-          card.style.transitionDelay = `${0.05 * i}s`;
-          card.classList.add('visible');
-        });
-      }, 700);
+      // Toujours rendre visibles logo et textes, même si fade-in rate
+      const logo = document.querySelector('.logo');
+      const nav = document.querySelector('.nav-links');
+      const hero = document.querySelector('.hero');
+      const grid = document.getElementById('categoriesGrid');
+      [logo, nav, hero, grid].forEach(el => { if(el){ el.classList.add('fade-in','visible'); } });
+      // Puis stagger des cartes
+      document.querySelectorAll('.category-card').forEach((card, i) => {
+        card.classList.add('fade-in');
+        setTimeout(()=> card.classList.add('visible'), 150 + i*100);
+      });
     });
   </script>
 </body>
