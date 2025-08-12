@@ -2818,6 +2818,15 @@
         // ===== DONNÉES STATIQUES DES VILLAS POUR GITHUB PAGES =====
         const villasData = [
             // VILLAS DE SÉJOUR - DONNÉES RÉELLES CORRIGÉES
+
+        // Insérer la grille des catégories dès le DOM prêt si présente
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('categoriesGrid');
+            if (grid) {
+                grid.style.display = 'grid';
+            }
+        });
+
             {
                 id: 1,
                 name: "Villa F3 sur Petit Macabou",
