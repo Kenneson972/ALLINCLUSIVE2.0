@@ -3274,8 +3274,9 @@
             tomorrow.setDate(tomorrow.getDate() + 1);
             console.log("🚀 DOM Content Loaded - Initialisation...");
             
-            // CHARGEMENT DYNAMIQUE DES VILLAS DEPUIS L'API
-            const apiLoaded = await loadVillasFromAPI();
+            // À la place de charger les villas, on affiche les catégories sur l'index
+            displayCategories();
+            const apiLoaded = true;
             
             if (!apiLoaded) {
                 console.warn("⚠️ Impossible de charger les villas depuis l'API");
