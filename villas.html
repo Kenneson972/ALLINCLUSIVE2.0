@@ -179,6 +179,14 @@
       return villasData.filter(v => v.category === cat);
     }
 
+    function toggleMobileMenu(){
+      const navMenu = document.querySelector('.nav-links.nav-menu');
+      const toggle = document.querySelector('.mobile-nav-toggle i');
+      if(!navMenu) return;
+      if(navMenu.classList.contains('mobile-open')){ navMenu.classList.remove('mobile-open'); if(toggle) toggle.className='fas fa-bars'; }
+      else { navMenu.classList.add('mobile-open'); if(toggle) toggle.className='fas fa-times'; }
+    }
+
     function init() {
       const cat = getUrlCategory();
       const list = filterByCategory(cat);
