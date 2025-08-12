@@ -4,18 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nos Villas - KhanelConcept</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
   <style>
     :root { --glass-bg: rgba(255,255,255,0.1); --glass-border: rgba(255,255,255,0.2); }
     * { box-sizing: border-box; }
     body { margin:0; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,Ubuntu,'Helvetica Neue',Arial,sans-serif; background: linear-gradient(135deg,#667eea 0%, #764ba2 100%); color: #fff; }
 
-    /* Background Video */
     .video-background { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
     .video-background video { position: absolute; top:50%; left:50%; transform: translate(-50%,-50%); min-width:100%; min-height:100%; object-fit:cover; }
     .video-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.35); z-index:-1; }
 
-    /* Header (uniforme partout) */
     .header { position: fixed; top:0; left:0; right:0; z-index:1000; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-bottom:1px solid rgba(255,255,255,0.1); padding: 1rem 0; }
     .header-content { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; }
     .logo-image { height: 44px; width:auto; border-radius:8px; }
@@ -25,18 +23,15 @@
     .sos-link { border:1px solid rgba(255,68,68,0.4); background: linear-gradient(135deg, rgba(255,68,68,0.25), rgba(255,100,100,0.15)); }
     .mobile-nav-toggle { display:none; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:#fff; font-size:1.2rem; cursor:pointer; padding:0.5rem; }
 
-    /* Main */
     .main-content { padding-top: 110px; }
     .container { max-width:1200px; margin:0 auto; padding: 0 2rem; }
 
-    /* Hero */
     .hero { text-align:center; margin: 0 0 1.5rem; }
     .hero-logo-image { height: 64px; width:auto; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.25); display:inline-block; }
     .hero-logo { margin-bottom: 12px; }
     .hero h1 { font-size: 2.2rem; margin:.2rem 0 .5rem; text-shadow: 0 4px 20px rgba(0,0,0,0.35); }
     .hero p { margin:0 auto; max-width: 900px; color: #f1f1f1; }
 
-    /* Grid cartes villas (même style que l'index) */
     .section-title { text-align:center; font-size:1.6rem; margin: 1.2rem 0 0.5rem; text-shadow: 0 3px 16px rgba(0,0,0,0.25); }
     .villas-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; margin: 1rem 0 2.4rem; }
     .villa-card { background: var(--glass-bg); border:1px solid var(--glass-border); border-radius:16px; overflow:hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; display:flex; flex-direction:column; height: 560px; }
@@ -53,14 +48,14 @@
     .btn-primary { background: #FFA500; color:#fff; border:none; }
     .btn-secondary { background: rgba(255,255,255,0.2); color:#fff; }
 
-    /* Fade-in séquencé */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { transition: none; opacity: 1; transform: none; }
+      .video-background video { display:none; }
+    }
+
     .fade-in { opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
     .fade-in.visible { opacity:1; transform: none; }
-    .delay-1 { transition-delay: .1s; }
-    .delay-2 { transition-delay: .3s; }
-    .delay-3 { transition-delay: .5s; }
 
-    /* Responsive */
     @media (max-width: 768px) {
       .header-content { padding: 0 1rem; }
       .nav-links { display:none; visibility:hidden; opacity:0; }
@@ -72,18 +67,14 @@
   </style>
 </head>
 <body>
-  <!-- Background Video (cohérent avec index) -->
   <div class="video-background">
-    <video id="bgVideo" autoplay muted playsinline webkit-playsinline loop preload="metadata">
-      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
-    </video>
+    <video id="bgVideo" autoplay muted playsinline webkit-playsinline loop preload="none" data-src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4"></video>
     <div class="video-overlay"></div>
   </div>
 
-  <!-- Header uniforme -->
   <header class="header">
     <div class="header-content">
-      <a href="index.html" class="logo"><img src="images/logo.png" alt="KhanelConcept Logo" class="logo-image"></a>
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="KhanelConcept Logo" class="logo-image" loading="eager" decoding="async"></a>
       <nav class="nav-links nav-menu">
         <a href="index.html">🏠 Accueil</a>
         <a href="activites-loisirs.html">🎟️ Activités/Loisirs</a>
@@ -101,7 +92,7 @@
     <div class="container">
       <section class="hero">
         <div class="hero-logo" aria-label="Logo KhanelConcept">
-          <img src="images/logo.png" alt="Logo KhanelConcept" class="hero-logo-image" onerror="this.style.display='none';" />
+          <img src="images/logo.png" alt="Logo KhanelConcept" class="hero-logo-image" loading="eager" decoding="async" />
         </div>
         <h1>🏡 Nos Villas</h1>
         <p>Découvrez notre sélection de villas en Martinique. Réservez en toute simplicité.</p>
@@ -121,7 +112,6 @@
       else { navMenu.classList.add('mobile-open'); if(toggle) toggle.className='fas fa-times'; }
     }
 
-    // Données 21 villas (1:1 intelligent, images locales existantes)
     const villasData = [
       { id: 1, name: "Villa F3 sur Petit Macabou", location: "Petit Macabou au Vauclin", price: 850, guestsDetail: "6 personnes", features: "Piscine, équipements modernes", category: "sejour", image: "images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg", fallbackIcon: "🏊" },
       { id: 2, name: "Villa F5 sur Ste Anne", location: "Quartier Les Anglais, Ste Anne", price: 1350, guestsDetail: "10 personnes", features: "Piscine, décoration distinctive", category: "sejour", image: "images/Villa_F5_Ste_Anne/01_piscine_principale.jpg", fallbackIcon: "🌸" },
@@ -169,16 +159,16 @@
       grid.innerHTML = list.map(villa => `
         <div class="villa-card" data-category="${villa.category}">
           <div class="villa-image-container">
-            <img src="${villa.image}" alt="${villa.name}" class="villa-image"
+            <img src="${villa.image}" alt="${villa.name}" class="villa-image" loading="lazy" decoding="async"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                  onload="this.nextElementSibling.style.display='none';" />
             <div class="image-placeholder" style="display:none;">${villa.fallbackIcon || '🏖️'}</div>
           </div>
           <div class="villa-content">
             <h3>${villa.name}</h3>
-            <p><i class="fas fa-map-marker-alt"></i> ${villa.location}</p>
-            <p><i class="fas fa-users"></i> ${villa.guestsDetail || ''}</p>
-            <p><i class="fas fa-swimming-pool"></i> ${villa.features || ''}</p>
+            <p>📍 ${villa.location}</p>
+            <p>👥 ${villa.guestsDetail || ''}</p>
+            <p>🏊 ${villa.features || ''}</p>
             <div class="price">${villa.price} €${villa.priceUnit ? ' ' + villa.priceUnit : '/nuit'}</div>
             <div class="villa-buttons">
               <a class="btn-primary" href="reservation.html?villa=${encodeURIComponent(villa.name)}&price=${villa.price}&location=${encodeURIComponent(villa.location)}">Réserver</a>
@@ -188,7 +178,6 @@
         </div>
       `).join('');
 
-      // Animation d'apparition des cartes
       requestAnimationFrame(()=>{
         document.querySelectorAll('.villa-card').forEach((card,i)=>{
           card.classList.add('fade-in');
@@ -204,7 +193,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', ()=>{
-      // Fade-in des éléments principaux
       const seq = [
         document.querySelector('.logo'),
         document.querySelector('.nav-links'),
@@ -212,15 +200,23 @@
       ].filter(Boolean);
       seq.forEach((el, i) => setTimeout(() => el.classList.add('fade-in','visible'), 200 + i*200));
 
-      // iOS autoplay helper
+      // Lazy attach video src
       const v = document.getElementById('bgVideo');
       if(v){
-        v.muted = true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
-        const tryPlay = () => { const p = v.play(); if(p) p.catch(()=>{}); };
-        tryPlay();
-        window.addEventListener('touchstart', () => { tryPlay(); }, {once:true, passive:true});
-        const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) tryPlay(); }); }); io.observe(v);
-        setTimeout(()=>{ if(v.paused){ v.style.display='none'; } }, 2500);
+        const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const saveData = navigator.connection && navigator.connection.saveData;
+        if(!prefersReduce && !saveData){
+          const src = v.dataset.src;
+          if(src){
+            const s = document.createElement('source'); s.src = src; s.type = 'video/mp4'; v.appendChild(s); v.load();
+            v.muted = true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+            const tryPlay = () => { const p = v.play(); if(p) p.catch(()=>{}); };
+            tryPlay();
+            window.addEventListener('touchstart', () => { tryPlay(); }, {once:true, passive:true});
+            const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) tryPlay(); }); }); io.observe(v);
+            setTimeout(()=>{ if(v.paused){ v.style.display='none'; } }, 2500);
+          }
+        } else { v.remove(); }
       }
 
       init();

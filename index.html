@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KhanelConcept - Accueil</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
   <style>
     :root { --glass-bg: rgba(255,255,255,0.1); --glass-border: rgba(255,255,255,0.2); }
     * { box-sizing: border-box; }
@@ -59,6 +59,12 @@
     .delay-2 { transition-delay: .3s; }
     .delay-3 { transition-delay: .5s; }
 
+    /* Préférences utilisateur: réduire les animations et la vidéo */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { transition: none; opacity: 1; transform: none; }
+      .video-background video { display:none; }
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .header-content { padding: 0 1rem; }
@@ -71,11 +77,9 @@
   </style>
 </head>
 <body>
-  <!-- Background Video (même que header originel) -->
+  <!-- Background Video (lazy attach src pour mobile/data saver) -->
   <div class="video-background">
-    <video id="bgVideo" autoplay muted playsinline webkit-playsinline loop preload="metadata">
-      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
-    </video>
+    <video id="bgVideo" autoplay muted playsinline webkit-playsinline loop preload="none" data-src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4"></video>
     <div class="video-overlay"></div>
   </div>
 
@@ -83,7 +87,7 @@
   <header class="header">
     <div class="header-content">
       <a href="index.html" class="logo">
-        <img src="images/logo.png" alt="KhanelConcept Logo" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+        <img src="images/logo.png" alt="KhanelConcept Logo" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" fetchpriority="high" decoding="async" />
         <span class="logo-text">KhanelConcept</span>
       </a>
       <nav class="nav-links nav-menu fade-in delay-2">
@@ -103,7 +107,7 @@
     <div class="container">
       <section class="hero">
         <div class="hero-logo fade-in delay-1" aria-label="Logo KhanelConcept">
-          <img src="images/logo.png" alt="Logo KhanelConcept" class="hero-logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+          <img src="images/logo.png" alt="Logo KhanelConcept" class="hero-logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" fetchpriority="high" decoding="async" />
           <span class="hero-logo-text" style="display:none; font-weight:700; font-size:1.1rem;">KhanelConcept</span>
         </div>
         <h1>🔎 Decouvrez notre concept</h1>
@@ -115,7 +119,7 @@
         <!-- 1) Se déplacer -->
         <a class="villa-card category-card" href="se-deplacer.html" data-category="se-deplacer" aria-label="Voir catégorie Se déplacer">
           <div class="villa-image-container">
-            <img src="images/Villa_F5_Ste_Anne/01_piscine_principale.jpg" alt="Catégorie Se déplacer" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
+            <img src="images/Villa_F5_Ste_Anne/01_piscine_principale.jpg" alt="Catégorie Se déplacer" class="villa-image" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
             <div class="image-placeholder" style="display:none">🚌</div>
           </div>
           <div class="villa-content">
@@ -127,7 +131,7 @@
         <!-- 2) Nos villas -->
         <a class="villa-card category-card" href="villas.html" data-category="villas" aria-label="Voir catégorie Nos villas">
           <div class="villa-image-container">
-            <img src="images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg" alt="Catégorie Nos villas" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
+            <img src="images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg" alt="Catégorie Nos villas" class="villa-image" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
             <div class="image-placeholder" style="display:none">🏡</div>
           </div>
           <div class="villa-content">
@@ -139,7 +143,7 @@
         <!-- 3) Activités/Loisirs -->
         <a class="villa-card category-card" href="activites-loisirs.html" data-category="activites" aria-label="Voir catégorie Activités/Loisirs">
           <div class="villa-image-container">
-            <img src="images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg" alt="Catégorie Activités/Loisirs" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
+            <img src="images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg" alt="Catégorie Activités/Loisirs" class="villa-image" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
             <div class="image-placeholder" style="display:none">🎟️</div>
           </div>
           <div class="villa-content">
@@ -151,7 +155,7 @@
         <!-- 4) Événements -->
         <a class="villa-card category-card" href="evenements.html" data-category="evenements" aria-label="Voir catégorie Événements">
           <div class="villa-image-container">
-            <img src="images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg" alt="Catégorie Événements" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
+            <img src="images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg" alt="Catégorie Événements" class="villa-image" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
             <div class="image-placeholder" style="display:none">🎉</div>
           </div>
           <div class="villa-content">
@@ -163,7 +167,7 @@
         <!-- 5) Prestataires événementiels -->
         <a class="villa-card category-card" href="prestataires-evenementiels.html" data-category="evenementiels" aria-label="Voir catégorie Prestataires événementiels">
           <div class="villa-image-container">
-            <img src="images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg" alt="Catégorie Prestataires événementiels" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
+            <img src="images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg" alt="Catégorie Prestataires événementiels" class="villa-image" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
             <div class="image-placeholder" style="display:none">🪑</div>
           </div>
           <div class="villa-content">
@@ -175,7 +179,7 @@
         <!-- 6) Accessibilité PMR -->
         <a class="villa-card category-card" href="pmr.html" data-category="pmr" aria-label="Voir catégorie Accessibilité PMR">
           <div class="villa-image-container">
-            <img src="images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg" alt="Catégorie Accessibilité PMR" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
+            <img src="images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg" alt="Catégorie Accessibilité PMR" class="villa-image" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" />
             <div class="image-placeholder" style="display:none">♿</div>
           </div>
           <div class="villa-content">
@@ -203,7 +207,7 @@
       }
     }
 
-    // Fade-in séquencé de base
+    // Fade-in séquencé de base (textes visibles par défaut)
     document.addEventListener('DOMContentLoaded', () => {
       const seq = [
         document.querySelector('.logo'),
@@ -218,19 +222,29 @@
         });
       }, 700);
 
-      // iOS autoplay helper
+      // Lazy attach video src (économie data + iOS helper)
       const v = document.getElementById('bgVideo');
       if(v){
-        v.muted = true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
-        const tryPlay = () => { const p = v.play(); if(p) p.catch(()=>{}); };
-        tryPlay();
-        // First touch fallback
-        window.addEventListener('touchstart', () => { tryPlay(); }, {once:true, passive:true});
-        // Visibility play
-        const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) tryPlay(); }); });
-        io.observe(v);
-        // If still fails, fallback to poster
-        setTimeout(()=>{ if(v.paused){ v.style.display='none'; } }, 2500);
+        const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const saveData = navigator.connection && navigator.connection.saveData;
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        if(!prefersReduce && !saveData){
+          const src = v.dataset.src;
+          if(src){
+            const s = document.createElement('source');
+            s.src = src; s.type = 'video/mp4';
+            v.appendChild(s); v.load();
+            v.muted = true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+            const tryPlay = () => { const p = v.play(); if(p) p.catch(()=>{}); };
+            tryPlay();
+            window.addEventListener('touchstart', () => { tryPlay(); }, {once:true, passive:true});
+            const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) tryPlay(); }); });
+            io.observe(v);
+            setTimeout(()=>{ if(v.paused){ v.style.display='none'; } }, 2500);
+          }
+        } else {
+          v.remove();
+        }
       }
     });
   </script>
