@@ -3279,6 +3279,9 @@
         let checkinCalendar, checkoutCalendar, modalCheckinCalendar, modalCheckoutCalendar;
 
         document.addEventListener('DOMContentLoaded', async function() {
+            // Affichage catégories au tout début
+            try { displayCategories(); } catch (e) { console.warn('displayCategories error', e); }
+
             // Définir des dates globales pour les calendriers (évite ReferenceError)
             let today = new Date();
             let tomorrow = new Date(today);
