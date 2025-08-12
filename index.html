@@ -2408,6 +2408,12 @@
         .villa-search-form { display: none !important; }
         /* Supprimer les filtres sur l'index */
     <style>
+      /* Nettoyage texte parasite: assure que rien ne s'affiche en haut à gauche */
+      .filters, .filters * { visibility: hidden !important; }
+      .filters { height: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; }
+    </style>
+
+    <style>
         /* Forcer l'affichage des cartes catégories sur la home */
         .page-home #categoriesGrid { display: grid !important; }
         .page-home #categoriesGrid .villa-card,
