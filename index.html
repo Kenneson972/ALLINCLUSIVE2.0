@@ -3696,6 +3696,52 @@
                 // Mettre à jour les résultats globaux
                 if (typeof window !== 'undefined') {
                     window.filteredVillas = results;
+
+        // Affichage des catégories (utilise le même markup que les villas)
+        function displayCategories() {
+            const grid = document.getElementById('categoriesGrid');
+            if (!grid) return;
+            grid.innerHTML = categoriesData.map(cat => `
+                <a class="villa-card category-card" href="${cat.href}" data-category="${cat.id}" aria-label="Voir catégorie ${cat.name}">
+                    <div class="villa-image-container" style="height: 200px; overflow: hidden;">
+                        <img 
+                            src="${cat.image}" 
+                            alt="Catégorie ${cat.name}"
+                            class="villa-image"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                            onload="this.nextElementSibling.style.display='none';"
+                        >
+                        <div class="image-placeholder" style="display: none;">
+                            ${cat.fallbackIcon}
+                        </div>
+                    </div>
+                    <div class="villa-content">
+                        <h3>${cat.name}</h3>
+                        <p>${cat.description}</p>
+                        <div class="villa-buttons">
+                            <span class="btn-primary" role="button">Explorer</span>
+                            <span class="btn-secondary" role="button">Voir</span>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+
+            // Observer les cartes comme pour les villas
+            setTimeout(() => {
+                const newCards = document.querySelectorAll('.category-card');
+                newCards.forEach((card, index) => {
+                    if (typeof observer !== 'undefined') {
+                        observer.observe(card);
+                        const rect = card.getBoundingClientRect();
+                        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                        if (rect.top < windowHeight && rect.bottom > 0) {
+                            setTimeout(() => { card.classList.add('visible'); }, index * 100);
+                        }
+                    }
+                });
+            }, 200);
+        }
+
                 }
                 filteredVillas = results;
                 
