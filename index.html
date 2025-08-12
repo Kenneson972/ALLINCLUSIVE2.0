@@ -2407,6 +2407,13 @@
         /* Supprimer seulement la barre de recherche (on garde le titre de section) */
         .villa-search-form { display: none !important; }
         /* Supprimer les filtres sur l'index */
+    <style>
+        /* Forcer l'affichage des cartes catégories sur la home */
+        .page-home #categoriesGrid { display: grid !important; }
+        .page-home #categoriesGrid .villa-card,
+        .page-home .category-card { opacity: 1 !important; transform: none !important; }
+    </style>
+
         .filters { display: none !important; }
     </style>
 
