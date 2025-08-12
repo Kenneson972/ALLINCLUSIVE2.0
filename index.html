@@ -2569,6 +2569,52 @@
                     <div class="glass-card" style="text-align:center; color:white;">Chargement des catégories...</div>
 
                     <!-- Les catégories seront chargées dynamiquement -->
+
+            <!-- Render categories immediately with isolated script to avoid other JS errors blocking -->
+            <script>
+                (function(){
+                    try {
+                        // Define categories if not already present
+                        if (!Array.isArray(window.categoriesData) || window.categoriesData.length === 0) {
+                            window.categoriesData = [
+                                { id: 'sejour', name: 'Séjour', image: './images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg', fallbackIcon: '🏖️', description: 'Villas pour séjours courts et longs', href: 'villas.html?cat=sejour' },
+                                { id: 'fete', name: 'Fête/Journée', image: './images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg', fallbackIcon: '🎉', description: 'Locations pour événements & journées', href: 'villas.html?cat=fete' },
+                                { id: 'pmr', name: 'PMR', image: './images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg', fallbackIcon: '♿', description: 'Villas accessibles', href: 'villas.html?cat=pmr' },
+                                { id: 'prestataires', name: 'Prestataires', image: './images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg', fallbackIcon: '👥', description: 'Services & expériences', href: 'prestataires.html' }
+                            ];
+                        }
+                        function renderCategories() {
+                            var grid = document.getElementById('categoriesGrid');
+                            if (!grid) return;
+                            grid.style.display = 'grid';
+                            var html = window.categoriesData.map(function(cat){
+                                return '<a class="villa-card category-card" href="'+cat.href+'" data-category="'+cat.id+'" aria-label="Voir catégorie '+cat.name+'">\
+                                    <div class="villa-image-container" style="height:200px; overflow:hidden;">\
+                                        <img src="'+cat.image+'" alt="Catégorie '+cat.name+'" class="villa-image" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';" onload="this.nextElementSibling.style.display=\'none\';" />\
+                                        <div class="image-placeholder" style="display:none;">'+cat.fallbackIcon+'</div>\
+                                    </div>\
+                                    <div class="villa-content">\
+                                        <h3>'+cat.name+'</h3>\
+                                        <p>'+cat.description+'</p>\
+                                        <div class="villa-buttons">\
+                                            <span class="btn-primary" role="button">Explorer</span>\
+                                            <span class="btn-secondary" role="button">Voir</span>\
+                                        </div>\
+                                    </div>\
+                                </a>';
+                            }).join('');
+                            grid.innerHTML = html;
+                        }
+                        // Render now
+                        renderCategories();
+                        // Expose for debug
+                        window.renderCategories = renderCategories;
+                    } catch (e) {
+                        console.warn('Categories render error', e);
+                    }
+                })();
+            </script>
+
                 </div>
             </div>
         </section>
