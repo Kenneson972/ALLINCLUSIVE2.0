@@ -3254,6 +3254,9 @@
             { id: 'prestataires', name: 'Prestataires', image: './images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg', fallbackIcon: '👥', description: 'Services & expériences', href: 'prestataires.html' }
         ];
         let currentVilla = null;
+        // Exposer une fonction globale pour débogage
+        window.renderCategoriesNow = function() { try { displayCategories(); } catch(e) { console.warn(e); } };
+
         let currentGalleryIndex = 0;
         let currentGallery = [];
 
