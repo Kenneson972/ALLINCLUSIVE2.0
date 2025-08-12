@@ -3711,6 +3711,7 @@
         function displayCategories() {
             const grid = document.getElementById('categoriesGrid');
             if (!grid) return;
+            grid.style.display = 'grid';
             grid.innerHTML = categoriesData.map(cat => `
                 <a class="villa-card category-card" href="${cat.href}" data-category="${cat.id}" aria-label="Voir catégorie ${cat.name}">
                     <div class="villa-image-container" style="height: 200px; overflow: hidden;">
