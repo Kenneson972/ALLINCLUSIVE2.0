@@ -4,74 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Événements - KhanelConcept</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    body { margin:0; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,Ubuntu,'Helvetica Neue',Arial,sans-serif; background: linear-gradient(135deg,#667eea 0%, #764ba2 100%); color: #fff; }
-    .video-background { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
-    .video-background video { position: absolute; top:50%; left:50%; transform: translate(-50%,-50%); min-width:100%; min-height:100%; object-fit:cover; }
-    .video-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.35); z-index:-1; }
-    .header { position: fixed; top:0; left:0; right:0; z-index:1000; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-bottom:1px solid rgba(255,255,255,0.1); padding: 1rem 0; }
-    .header-content { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; }
-    .logo-image { height: 40px; width:auto; border-radius:8px; }
-    .nav-links { display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; }
-    .nav-links a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:25px; transition:.25s ease; }
-    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); }
-    .sos-link { border:1px solid rgba(255,68,68,0.4); background: linear-gradient(135deg, rgba(255,68,68,0.25), rgba(255,100,100,0.15)); }
-    .mobile-nav-toggle { display:none; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:#fff; font-size:1.2rem; cursor:pointer; padding:0.5rem; }
-    .main-content { padding-top: 110px; }
-    .container { max-width:1200px; margin:0 auto; padding: 0 2rem; }
-    .fade-in { opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
-    .fade-in.visible { opacity:1; transform: none; }
-    @media (max-width: 768px) {
-      .header-content { padding: 0 1rem; }
-      .nav-links { display:none; visibility:hidden; opacity:0; }
-      .mobile-nav-toggle { display:block; }
-      .nav-links.nav-menu.mobile-open { display:flex !important; visibility:visible !important; opacity:1 !important; position: fixed !important; top:60px; left:0; right:0; background: rgba(15,25,50,0.85); backdrop-filter: blur(40px) saturate(180%); padding: 2rem 1.2rem; border-radius: 0 0 24px 24px; flex-direction: column; gap: 0.75rem; z-index:1000; border:1px solid rgba(255,255,255,0.1); }
-      .nav-links.nav-menu.mobile-open a { display:block; text-align:center; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding: 14px 18px; }
-    }
+    *{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,Ubuntu,'Helvetica Neue',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+    .skip-link{position:absolute;left:-9999px}.skip-link:focus{left:1rem;top:1rem;background:#111827;color:#fff;padding:.5rem .75rem;border-radius:8px;z-index:2000}
+    .video-background{position:fixed;inset:0;z-index:-2;overflow:hidden}.video-background video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;object-fit:cover}
+    .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);z-index:-1}
+    .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.08);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.1);padding:1rem 0}
+    .header-content{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center}
+    nav[aria-label] ul{list-style:none;display:flex;gap:.75rem;margin:0;padding:0;align-items:center;flex-wrap:wrap}
+    nav[aria-label] a{color:#fff;text-decoration:none;padding:.5rem 1rem;border-radius:25px;transition:.25s ease;display:inline-block}
+    nav[aria-label] a:hover,nav[aria-label] a[aria-current="page"]{background:rgba(255,255,255,.2);backdrop-filter:blur(10px)}
+    .mobile-nav-toggle{display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:1.2rem;cursor:pointer;padding:.5rem}
+    .main-content{padding-top:110px}.container{max-width:1200px;margin:0 auto;padding:0 2rem}
+    @media (max-width:768px){.header-content{padding:0 1rem}nav[aria-label] ul{display:none;visibility:hidden;opacity:0}.mobile-nav-toggle{display:block}nav[aria-label].mobile-open ul{display:flex!important;visibility:visible!important;opacity:1!important;position:fixed!important;top:60px;left:0;right:0;background:rgba(15,25,50,.85);backdrop-filter:blur(40px) saturate(180%);padding:2rem 1.2rem;border-radius:0 0 24px 24px;flex-direction:column;gap:.75rem;z-index:1000;border:1px solid rgba(255,255,255,.1)}}
   </style>
 </head>
 <body>
-  <div class="video-background">
-    <video id="bgVideo" autoplay muted playsinline webkit-playsinline loop preload="metadata">
-      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
-    </video>
-    <div class="video-overlay"></div>
+  <a href="#contenu" class="skip-link">Aller au contenu</a>
+  <div class="video-background" aria-hidden="true">
+    <video id="bgVideo" aria-hidden="true" role="presentation" autoplay muted playsinline webkit-playsinline loop preload="none" data-src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4"></video>
+    <div class="video-overlay" aria-hidden="true"></div>
   </div>
 
-  <header class="header">
+  <header class="header" role="banner">
     <div class="header-content">
-      <a href="index.html" class="logo"><img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image" /></a>
-      <nav class="nav-links nav-menu">
-        <a href="index.html">🏠 Accueil</a>
-        <a href="activites-loisirs.html">🎟️ Activités/Loisirs</a>
-        <a href="prestataires-evenementiels.html">🪑 Prestataires événementiels</a>
-        <a href="villas.html">🏡 Nos Villas</a>
-        <a href="se-deplacer.html">🚌 Se déplacer</a>
-        <a href="pmr.html">♿ Accessibilité PMR</a>
-        <a href="sos-depannage.html" class="sos-link">🆘 SOS Dépannage</a>
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="KhanelConcept" class="logo-image" loading="eager" decoding="async"></a>
+      <nav aria-label="Navigation principale" class="nav-menu">
+        <ul>
+          <li><a href="index.html">🏠 Accueil</a></li>
+          <li><a href="activites-loisirs.html">🎟️ Activités/Loisirs</a></li>
+          <li><a href="prestataires-evenementiels.html">🪑 Prestataires événementiels</a></li>
+          <li><a href="villas.html">🏡 Nos Villas</a></li>
+          <li><a href="se-deplacer.html">🚌 Se déplacer</a></li>
+          <li><a href="pmr.html">♿ Accessibilité PMR</a></li>
+          <li><a href="sos-depannage.html" class="sos-link">🆘 SOS Dépannage</a></li>
+        </ul>
       </nav>
-      <button class="mobile-nav-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+      <button class="mobile-nav-toggle" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu" onclick="toggleMobileMenu()">☰</button>
     </div>
   </header>
 
-  <main class="main-content">
+  <main id="contenu" class="main-content" role="main">
     <div class="container">
-      <h1 class="fade-in">Événements</h1>
-      <p class="fade-in" style="max-width:900px">Organisation complète de vos événements. Bientôt disponible.</p>
+      <h1>Événements</h1>
+      <p>Organisation complète de vos événements. Bientôt disponible.</p>
     </div>
   </main>
 
   <script>
     function toggleMobileMenu(){
-      const navMenu = document.querySelector('.nav-links.nav-menu');
-      const toggle = document.querySelector('.mobile-nav-toggle i');
-      if(!navMenu) return;
-      if(navMenu.classList.contains('mobile-open')){ navMenu.classList.remove('mobile-open'); if(toggle) toggle.className='fas fa-bars'; }
-      else { navMenu.classList.add('mobile-open'); if(toggle) toggle.className='fas fa-times'; }
+      const nav = document.querySelector('nav[aria-label="Navigation principale"]');
+      const btn = document.querySelector('.mobile-nav-toggle');
+      if(!nav || !btn) return;
+      const opened = nav.classList.toggle('mobile-open');
+      btn.setAttribute('aria-expanded', opened ? 'true' : 'false');
     }
     document.addEventListener('DOMContentLoaded', ()=>{
-      document.querySelectorAll('.fade-in').forEach((el,i)=> setTimeout(()=> el.classList.add('visible'), 150 + i*150));
+      const v = document.getElementById('bgVideo');
+      if(v){
+        const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const saveData = navigator.connection && navigator.connection.saveData;
+        if(!prefersReduce && !saveData){
+          const src = v.dataset.src; if(src){ const s=document.createElement('source'); s.src=src; s.type='video/mp4'; v.appendChild(s); v.load(); v.muted=true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline',''); const tryPlay=()=>{const p=v.play(); if(p) p.catch(()=>{});}; tryPlay(); window.addEventListener('touchstart',()=>{tryPlay();},{once:true,passive:true}); const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting) tryPlay();});}); io.observe(v); setTimeout(()=>{ if(v.paused){ v.style.display='none'; } }, 2500); }
+        } else { v.remove(); }
+      }
     });
   </script>
 </body>
