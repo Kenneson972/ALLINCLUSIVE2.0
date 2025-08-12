@@ -3717,6 +3717,7 @@
             const grid = document.getElementById('categoriesGrid');
             if (!grid) return;
             grid.style.display = 'grid';
+            if (!Array.isArray(categoriesData) || categoriesData.length === 0) { grid.innerHTML = '<div class="glass-card" style="text-align:center; color:white;">Aucune catégorie</div>'; return; }
             grid.innerHTML = categoriesData.map(cat => `
                 <a class="villa-card category-card" href="${cat.href}" data-category="${cat.id}" aria-label="Voir catégorie ${cat.name}">
                     <div class="villa-image-container" style="height: 200px; overflow: hidden;">
