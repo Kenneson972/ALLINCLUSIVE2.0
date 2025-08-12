@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Villas - KhanelConcept</title>
+  <meta name="description" content="Découvrez nos villas de luxe en Martinique. Réservez votre séjour ou votre journée événement." />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);} 
+    .header { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px) saturate(150%); border-bottom: 1px solid rgba(255,255,255,0.15); position: sticky; top: 0; z-index: 1000; }
+    .header-content { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .logo-image { height: 40px; border-radius: 8px; }
+    .nav-links a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 25px; }
+    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.2); }
+    .main-content { padding-top: 20px; min-height: 100vh; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .villas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .villa-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); border-radius: 15px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.1); transition: all 0.3s ease; height: 560px; display: flex; flex-direction: column; }
+    .villa-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.2); }
+    .villa-image { width: 100%; height: 200px; object-fit: cover; border-radius: 15px 15px 0 0; }
+    .image-placeholder { width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; border-radius: 15px 15px 0 0; }
+    .villa-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); }
+    .villa-content h3 { color: white; font-size: 1.3rem; margin-bottom: 1rem; }
+    .villa-content p { color: rgba(255,255,255,0.9); margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .price { font-size: 1.4rem; font-weight: bold; color: #FFA500; margin: 1rem 0; }
+    .villa-buttons { display: flex; gap: 0.5rem; margin-top: auto; }
+    .btn-primary, .btn-secondary { padding: 8px 16px; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; text-align: center; flex: 1; font-size: 0.9rem; }
+    .btn-primary { background: #FFA500; color: white; }
+    .btn-secondary { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); }
+  </style>
+</head>
+<body>
+  <!-- Header conservé sur villas.html -->
+  <header class="header">
+    <div class="header-content">
+      <a href="index.html" class="logo"><img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image"></a>
+      <nav class="nav-links">
+        <a href="index.html">Accueil</a>
+        <a href="villas.html" class="active">Nos Villas</a>
+        <a href="prestataires.html">Prestataires</a>
+        <a href="billetterie.html">Billetterie</a>
+        <a href="mobilier.html">Mobilier</a>
+        <a href="excursions.html">Excursions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="section active">
+      <div class="container">
+        <h2 style="color:white; text-align:center; font-size:2.2rem; font-weight:700; text-shadow:2px 2px 4px rgba(0,0,0,0.5);">Nos Villas</h2>
+        <div class="status-message" id="status-message" style="display:none;"></div>
+        <div class="villas-grid" id="villasGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" style="color:white; text-align:center; padding:2rem 0;">
+    <div class="container">
+      <p>&copy; 2025 KhanelConcept. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Reprise des données statiques depuis index.html
+    const villasData = window.villasData || [
+      { id: 1, name: "Villa F3 sur Petit Macabou", location: "Petit Macabou au Vauclin", price: 850, guestsDetail: "6 personnes", features: "Piscine, équipements modernes", category: "sejour", image: "./images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg", fallbackIcon: "🏊" },
+      { id: 2, name: "Villa F5 sur Ste Anne", location: "Quartier Les Anglais, Ste Anne", price: 1350, guestsDetail: "10 personnes", features: "Piscine, décoration distinctive", category: "sejour", image: "./images/Villa_F5_Ste_Anne/01_piscine_principale.jpg", fallbackIcon: "🌸" },
+      { id: 16, name: "Espace Piscine Journée Bungalow", location: "Bungalow", price: 350, guestsDetail: "10 à 150 personnes", features: "Cuisine, salle d'eau, mobilier", category: "fete", image: "./images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg", fallbackIcon: "🏊" },
+      // ... Vous pouvez compléter avec toutes vos entrées existantes
+    ];
+
+    function getUrlCategory() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('cat');
+    }
+
+    function displayVillas(list) {
+      const grid = document.getElementById('villasGrid');
+      if (!list || list.length === 0) {
+        grid.innerHTML = '<div class="glass-card"><h3>Aucune villa trouvée</h3><p>Essayez de modifier vos critères.</p></div>';
+        return;
+      }
+      grid.innerHTML = list.map(villa => `
+        <div class="villa-card">
+          <div class="villa-image-container" style="height:200px; overflow:hidden;">
+            <img src="${villa.image}" alt="${villa.name}" class="villa-image"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <div class="image-placeholder" style="display:none;">${villa.fallbackIcon || '🏖️'}</div>
+          </div>
+          <div class="villa-content">
+            <h3>${villa.name}</h3>
+            <p><i class="fas fa-map-marker-alt"></i> ${villa.location}</p>
+            <p><i class="fas fa-users"></i> ${villa.guestsDetail || ''}</p>
+            <p><i class="fas fa-swimming-pool"></i> ${villa.features || ''}</p>
+            <div class="price">${villa.price} €${villa.priceUnit ? ' ' + villa.priceUnit : '/nuit'}</div>
+            <div class="villa-buttons">
+              <a class="btn-primary" href="reservation.html?villa=${encodeURIComponent(villa.name)}&price=${villa.price}&location=${encodeURIComponent(villa.location)}">Réserver</a>
+              <button class="btn-secondary" onclick="viewDetails(${villa.id})">Détails</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterByCategory(cat) {
+      if (!cat || cat === 'all') return villasData;
+      if (cat === 'pmr') {
+        return villasData.filter(v => (v.features||'').toLowerCase().includes('accessible') || (v.location||'').toLowerCase().includes('ste-luce') || (v.guests||0) <= 4);
+      }
+      return villasData.filter(v => v.category === cat);
+    }
+
+    function init() {
+      const cat = getUrlCategory();
+      const list = filterByCategory(cat);
+      displayVillas(list);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
