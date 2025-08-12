@@ -3235,6 +3235,13 @@
         ];
 
         let filteredVillas = [...villasData];
+        // Catégories statiques pour l'index
+        const categoriesData = [
+            { id: 'sejour', name: 'Séjour', image: './images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg', fallbackIcon: '🏖️', description: 'Villas pour séjours courts et longs', href: 'villas.html?cat=sejour' },
+            { id: 'fete', name: 'Fête/Journée', image: './images/Villa_Fete_Journee_Sainte_Luce/01_villa_moderne_piscine_terrasse.jpg', fallbackIcon: '🎉', description: 'Locations pour événements & journées', href: 'villas.html?cat=fete' },
+            { id: 'pmr', name: 'PMR', image: './images/Villa_F6_Ste_Luce_Plage/06_salon_piscine.jpg', fallbackIcon: '♿', description: 'Villas accessibles', href: 'villas.html?cat=pmr' },
+            { id: 'prestataires', name: 'Prestataires', image: './images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg', fallbackIcon: '👥', description: 'Services & expériences', href: 'prestataires.html' }
+        ];
         let currentVilla = null;
         let currentGalleryIndex = 0;
         let currentGallery = [];
