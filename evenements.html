@@ -4,36 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Événements - KhanelConcept</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);} 
-    .header { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px) saturate(150%); border-bottom: 1px solid rgba(255,255,255,0.15); position: sticky; top: 0; z-index: 1000; }
-    .header-content { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
-    .logo-image { height: 40px; border-radius: 8px; }
-    .nav-links a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 25px; }
-    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.2); }
-    .main-content { padding-top: 20px; min-height: 100vh; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    body { margin:0; font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,Ubuntu,'Helvetica Neue',Arial,sans-serif; background: linear-gradient(135deg,#667eea 0%, #764ba2 100%); color: #fff; }
+    .video-background { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
+    .video-background video { position: absolute; top:50%; left:50%; transform: translate(-50%,-50%); min-width:100%; min-height:100%; object-fit:cover; }
+    .video-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.35); z-index:-1; }
+    .header { position: fixed; top:0; left:0; right:0; z-index:1000; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-bottom:1px solid rgba(255,255,255,0.1); padding: 1rem 0; }
+    .header-content { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; }
+    .logo-image { height: 40px; width:auto; border-radius:8px; }
+    .nav-links { display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; }
+    .nav-links a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:25px; transition:.25s ease; }
+    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); }
+    .sos-link { border:1px solid rgba(255,68,68,0.4); background: linear-gradient(135deg, rgba(255,68,68,0.25), rgba(255,100,100,0.15)); }
+    .mobile-nav-toggle { display:none; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:#fff; font-size:1.2rem; cursor:pointer; padding:0.5rem; }
+    .main-content { padding-top: 110px; }
+    .container { max-width:1200px; margin:0 auto; padding: 0 2rem; }
+    .fade-in { opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity:1; transform: none; }
+    @media (max-width: 768px) {
+      .header-content { padding: 0 1rem; }
+      .nav-links { display:none; visibility:hidden; opacity:0; }
+      .mobile-nav-toggle { display:block; }
+      .nav-links.nav-menu.mobile-open { display:flex !important; visibility:visible !important; opacity:1 !important; position: fixed !important; top:60px; left:0; right:0; background: rgba(15,25,50,0.85); backdrop-filter: blur(40px) saturate(180%); padding: 2rem 1.2rem; border-radius: 0 0 24px 24px; flex-direction: column; gap: 0.75rem; z-index:1000; border:1px solid rgba(255,255,255,0.1); }
+      .nav-links.nav-menu.mobile-open a { display:block; text-align:center; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding: 14px 18px; }
+    }
   </style>
 </head>
 <body>
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
   <header class="header">
     <div class="header-content">
-      <a href="index.html" class="logo"><img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image"></a>
-      <nav class="nav-links">
-        <a href="index.html">Accueil</a>
-        <a href="activites-loisirs.html">Activités/Loisirs</a>
-        <a href="prestataires-evenementiels.html">Prestataires événementiels</a>
-        <a href="villas.html">Nos Villas</a>
-        <a href="se-deplacer.html">Se déplacer</a>
+      <a href="index.html" class="logo"><img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image" /></a>
+      <nav class="nav-links nav-menu">
+        <a href="index.html">🏠 Accueil</a>
+        <a href="activites-loisirs.html">🎟️ Activités/Loisirs</a>
+        <a href="prestataires-evenementiels.html">🪑 Prestataires événementiels</a>
+        <a href="villas.html">🏡 Nos Villas</a>
+        <a href="se-deplacer.html">🚌 Se déplacer</a>
+        <a href="pmr.html">♿ Accessibilité PMR</a>
+        <a href="sos-depannage.html" class="sos-link">🆘 SOS Dépannage</a>
       </nav>
+      <button class="mobile-nav-toggle" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
     </div>
   </header>
+
   <main class="main-content">
     <div class="container">
-      <h2 style="color:white; text-align:center; font-size:2.2rem; font-weight:700; text-shadow:2px 2px 4px rgba(0,0,0,0.5);">Événements</h2>
-      <p style="color:white; text-align:center">Bientôt disponible</p>
+      <h1 class="fade-in">Événements</h1>
+      <p class="fade-in" style="max-width:900px">Organisation complète de vos événements. Bientôt disponible.</p>
     </div>
   </main>
+
+  <script>
+    function toggleMobileMenu(){
+      const navMenu = document.querySelector('.nav-links.nav-menu');
+      const toggle = document.querySelector('.mobile-nav-toggle i');
+      if(!navMenu) return;
+      if(navMenu.classList.contains('mobile-open')){ navMenu.classList.remove('mobile-open'); if(toggle) toggle.className='fas fa-bars'; }
+      else { navMenu.classList.add('mobile-open'); if(toggle) toggle.className='fas fa-times'; }
+    }
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelectorAll('.fade-in').forEach((el,i)=> setTimeout(()=> el.classList.add('visible'), 150 + i*150));
+    });
+  </script>
 </body>
 </html>
