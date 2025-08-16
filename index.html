@@ -683,12 +683,12 @@
   </main>
 
   <script>
-    function toggleMobileMenu(){
-      const nav = document.querySelector('nav[aria-label="Navigation principale"]');
-      const btn = document.querySelector('.mobile-nav-toggle');
-      if(!nav || !btn) return;
-      const opened = nav.classList.toggle('mobile-open');
-      btn.setAttribute('aria-expanded', opened ? 'true' : 'false');
+    function toggleMobileNav(){
+      const header = document.querySelector('header.header-fixed');
+      const btn = document.querySelector('.mobile-toggle');
+      if(!header || !btn) return;
+      const isOpen = header.classList.toggle('mobile-nav-open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
     // Fade-in (textes visibles par défaut)
