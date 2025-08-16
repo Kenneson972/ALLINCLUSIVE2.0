@@ -508,7 +508,9 @@
     }
 
     .section-title { text-align:center; font-size:1.6rem; margin: 1.2rem 0 0.5rem; text-shadow: 0 3px 16px rgba(0,0,0,0.25); }
-    .villas-grid { display:flex; flex-direction:column; align-items:center; gap: 56px; margin: 1.5rem 0 3rem; }
+    .villas-grid { display:grid; grid-template-columns: repeat(2, minmax(360px, 1fr)); gap: 40px; margin: 1.5rem 0 3rem; justify-content:center; }
+    @media (max-width: 1199px) { .villas-grid { grid-template-columns: repeat(2, minmax(300px, 1fr)); gap: 36px; } }
+    @media (max-width: 767px) { .villas-grid { grid-template-columns: 1fr; gap: 48px; } }
     .villa-card { background: var(--glass-bg); border:1px solid var(--glass-border); border-radius:16px; overflow:hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; display:flex; flex-direction:column; }
     .villa-card:hover, .villa-card:focus-visible { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
     .villa-image-container { height:200px; overflow:hidden; }
