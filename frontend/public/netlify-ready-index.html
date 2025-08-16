@@ -1623,7 +1623,7 @@
                     <div class="villa-card">
                         <div class="villa-image-container" style="height: 200px; overflow: hidden;">
                             <img 
-                                src="${villa.image}" 
+                                src="assets/images/placeholders/villa-placeholder.jpg" 
                                 alt="${villa.name}"
                                 class="villa-image"
                                 onclick="openImageGallery(${villa.id}, 0)"
@@ -1740,7 +1740,7 @@
         function updateThumbnails() {
             const thumbnailsContainer = document.getElementById('galleryThumbnails');
             thumbnailsContainer.innerHTML = currentGallery.map((image, index) => 
-                `<img src="${image}" alt="Image KhanelConcept" class="thumbnail ${index === currentGalleryIndex ? 'active' : ''}" onclick="goToImage(${index})">`
+                `<img src="assets/images/placeholders/villa-placeholder.jpg" alt="Image KhanelConcept" class="thumbnail ${index === currentGalleryIndex ? 'active' : ''}" onclick="goToImage(${index})">`
             ).join('');
         }
 
