@@ -463,7 +463,7 @@ class ReservationEnhanced {
                     <p class="text-white/80 mb-4">
                         La villa "${villaId}" n'est pas disponible pour le moment.
                     </p>
-                    <a href="/ALLINCLUSIVE2.0/" class="btn-primary inline-flex items-center gap-2">
+                    <a href="index.html" class="btn-primary inline-flex items-center gap-2">
                         <i class="fas fa-arrow-left"></i>
                         Voir toutes nos villas
                     </a>

@@ -921,7 +921,7 @@ class GDPRConsentSystem {
                 <p>${texts.yourRightsText}</p>
                 <p><strong>${texts.contact} :</strong> <a href="mailto:${texts.contactEmail}">${texts.contactEmail}</a></p>
                 
-                <p><a href="/privacy-policy" target="_blank">${texts.privacyPolicy}</a> | <a href="/privacy-policy#cookies" target="_blank">${texts.moreInfo}</a></p>
+                <p><a href="privacy-policy.html" target="_blank">${texts.privacyPolicy}</a> | <a href="privacy-policy.html#cookies" target="_blank">${texts.moreInfo}</a></p>
             </div>
         `;
     }
