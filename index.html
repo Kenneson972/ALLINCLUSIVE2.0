@@ -738,11 +738,11 @@
   </main>
 
   <script>
-    function toggleMobileNav(){
-      const header = document.querySelector('header.header-fixed');
-      const btn = document.querySelector('.mobile-toggle');
+    function toggleGlassNav(){
+      const header = document.querySelector('header.header-glass');
+      const btn = document.querySelector('.mobile-menu-glass');
       if(!header || !btn) return;
-      const isOpen = header.classList.toggle('mobile-nav-open');
+      const isOpen = header.classList.toggle('nav-open');
       btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
