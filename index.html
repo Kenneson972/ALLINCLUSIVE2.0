@@ -675,12 +675,53 @@
   </main>
 
   <script>
-    function toggleGlassNav(){
-      const header = document.querySelector('header.header-glass');
-      const btn = document.querySelector('.mobile-menu-glass');
-      if(!header || !btn) return;
-      const isOpen = header.classList.toggle('nav-open');
-      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    // Navigation mobile (identique à sos-depannage)
+    function toggleMobileMenu() {
+      const navMenu = document.querySelector('.nav-links.nav-menu');
+      const toggle = document.querySelector('.mobile-nav-toggle i');
+      if (!navMenu || !toggle) return;
+      if (navMenu.classList.contains('mobile-open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    }
+    function openMobileMenu() {
+      const navMenu = document.querySelector('.nav-links.nav-menu');
+      const toggle = document.querySelector('.mobile-nav-toggle i');
+      if (!navMenu || !toggle) return;
+      navMenu.classList.add('mobile-open');
+      toggle.className = 'fas fa-times';
+      const menuLinks = navMenu.querySelectorAll('a');
+      menuLinks.forEach((link, index) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateY(20px)';
+        link.style.animation = `slideInStagger 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.05}s forwards`;
+      });
+      setTimeout(() => { document.addEventListener('click', handleOutsideClick); }, 100);
+    }
+    function closeMobileMenu() {
+      const navMenu = document.querySelector('.nav-links.nav-menu');
+      const toggle = document.querySelector('.mobile-nav-toggle i');
+      if (!navMenu || !toggle) return;
+      const menuLinks = navMenu.querySelectorAll('a');
+      menuLinks.forEach((link, index) => {
+        link.style.animation = `slideOutStagger 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) ${index * 0.03}s forwards`;
+      });
+      setTimeout(() => {
+        navMenu.classList.remove('mobile-open');
+        toggle.className = 'fas fa-bars';
+        menuLinks.forEach(link => { link.style.animation = ''; link.style.opacity = ''; link.style.transform = ''; });
+      }, 300);
+      document.removeEventListener('click', handleOutsideClick);
+    }
+    function handleOutsideClick(event) {
+      const navMenu = document.querySelector('.nav-links.nav-menu');
+      const toggleBtn = document.querySelector('.mobile-nav-toggle');
+      if (!navMenu || !toggleBtn) return;
+      if (!navMenu.contains(event.target) && !toggleBtn.contains(event.target)) {
+        closeMobileMenu();
+      }
     }
 
     // Fade-in (textes visibles par défaut)
