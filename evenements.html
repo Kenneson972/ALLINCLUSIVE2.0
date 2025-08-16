@@ -18,6 +18,11 @@
     .mobile-nav-toggle{display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:1.2rem;cursor:pointer;padding:.5rem}
     .main-content{padding-top:110px}.container{max-width:1200px;margin:0 auto;padding:0 2rem}
     @media (max-width:768px){.header-content{padding:0 1rem}nav[aria-label] ul{display:none;visibility:hidden;opacity:0}.mobile-nav-toggle{display:block}nav[aria-label].mobile-open ul{display:flex!important;visibility:visible!important;opacity:1!important;position:fixed!important;top:60px;left:0;right:0;background:rgba(15,25,50,.85);backdrop-filter:blur(40px) saturate(180%);padding:2rem 1.2rem;border-radius:0 0 24px 24px;flex-direction:column;gap:.75rem;z-index:1000;border:1px solid rgba(255,255,255,.1)}}
+    .nav-links a:hover,.nav-links a.active, nav[aria-label] a:hover, nav[aria-label] a[aria-current="page"]{background:rgba(255,255,255,.2);backdrop-filter:blur(10px)}
+    .header.stuck{background:rgba(15,25,50,.12);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);padding:.75rem 0}
+    @keyframes slideInStagger{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:none}}
+    @keyframes slideOutStagger{0%{opacity:1;transform:none}100%{opacity:0;transform:translateY(20px)}}
+
   </style>
 </head>
 <body>
