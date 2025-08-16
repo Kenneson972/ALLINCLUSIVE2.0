@@ -256,6 +256,9 @@
           tryPlay();
           window.addEventListener('touchstart', tryPlay, {once:true, passive:true});
           window.addEventListener('click', tryPlay, {once:true});
+      const h=document.querySelector('header.header');
+      window.addEventListener('scroll',()=>{ if(!h) return; if(window.scrollY>10){h.classList.add('stuck')} else {h.classList.remove('stuck')} });
+
           // No hide on pause; video remains visible as decorative background
         }
       }
