@@ -1,28 +1,28 @@
-# Rapport audit images
+# Rapport audit images — passe galeries
 
-- bas-villa-robert.html: images OK=5, remplacées par placeholder=0
-- bas-villa-ste-luce.html: images OK=14, remplacées par placeholder=0
-- bas-villa-trinite-cosmy.html: images OK=8, remplacées par placeholder=0
-- villa-appartement-f3-trenelle-location-annuelle.html: images OK=14, remplacées par placeholder=0
-- villa-bas-de-villa-f3-sur-le-robert.html: images OK=10, remplacées par placeholder=0
-- villa-bas-de-villa-f3-sur-ste-luce.html: images OK=24, remplacées par placeholder=0
-- villa-espace-piscine-journee-bungalow.html: images OK=4, remplacées par placeholder=0
-- villa-studio-cocooning-lamentin.html: images OK=18, remplacées par placeholder=0
-- villa-template-clean.html: images OK=1, remplacées par placeholder=0
-- villa-villa-f3-bas-de-villa-trinite-cosmy.html: images OK=18, remplacées par placeholder=0
-- villa-villa-f3-pour-la-baccha.html: images OK=10, remplacées par placeholder=0
-- villa-villa-f3-sur-le-franois.html: images OK=12, remplacées par placeholder=0
-- villa-villa-f3-sur-petit-macabou.html: images OK=14, remplacées par placeholder=0
-- villa-villa-f5-la-renee.html: images OK=8, remplacées par placeholder=0
-- villa-villa-f5-sur-ste-anne.html: images OK=16, remplacées par placeholder=0
-- villa-villa-f5-vauclin-ravine-plate.html: images OK=14, remplacées par placeholder=0
-- villa-villa-f6-au-lamentin.html: images OK=2, remplacées par placeholder=0
-- villa-villa-f6-sur-petit-macabou-sejour--fte.html: images OK=18, remplacées par placeholder=0
-- villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html: images OK=8, remplacées par placeholder=0
-- villa-villa-f7-baie-des-mulets.html: images OK=10, remplacées par placeholder=0
-- villa-villa-fte-journee-ducos.html: images OK=16, remplacées par placeholder=0
-- villa-villa-fte-journee-fort-de-france.html: images OK=12, remplacées par placeholder=0
-- villa-villa-fte-journee-riviere-pilote.html: images OK=10, remplacées par placeholder=0
-- villa-villa-fte-journee-riviere-salee.html: images OK=2, remplacées par placeholder=0
-- villa-villa-fte-journee-sainte-luce.html: images OK=10, remplacées par placeholder=0
-- villas.html: images OK=2, remplacées par placeholder=1
+- bas-villa-robert.html: total=0, optimisées=5, placeholders=0, ignorées=0
+- bas-villa-ste-luce.html: total=0, optimisées=14, placeholders=0, ignorées=0
+- bas-villa-trinite-cosmy.html: total=0, optimisées=8, placeholders=0, ignorées=0
+- villa-appartement-f3-trenelle-location-annuelle.html: total=0, optimisées=14, placeholders=0, ignorées=0
+- villa-bas-de-villa-f3-sur-le-robert.html: total=0, optimisées=10, placeholders=0, ignorées=2
+- villa-bas-de-villa-f3-sur-ste-luce.html: total=0, optimisées=24, placeholders=0, ignorées=6
+- villa-espace-piscine-journee-bungalow.html: total=0, optimisées=4, placeholders=0, ignorées=0
+- villa-studio-cocooning-lamentin.html: total=0, optimisées=18, placeholders=0, ignorées=0
+- villa-template-clean.html: total=0, optimisées=0, placeholders=0, ignorées=1
+- villa-villa-f3-bas-de-villa-trinite-cosmy.html: total=0, optimisées=18, placeholders=0, ignorées=0
+- villa-villa-f3-pour-la-baccha.html: total=0, optimisées=10, placeholders=0, ignorées=4
+- villa-villa-f3-sur-le-franois.html: total=0, optimisées=12, placeholders=0, ignorées=4
+- villa-villa-f3-sur-petit-macabou.html: total=0, optimisées=14, placeholders=0, ignorées=2
+- villa-villa-f5-la-renee.html: total=0, optimisées=8, placeholders=0, ignorées=0
+- villa-villa-f5-sur-ste-anne.html: total=0, optimisées=16, placeholders=0, ignorées=2
+- villa-villa-f5-vauclin-ravine-plate.html: total=0, optimisées=14, placeholders=0, ignorées=6
+- villa-villa-f6-au-lamentin.html: total=0, optimisées=2, placeholders=0, ignorées=0
+- villa-villa-f6-sur-petit-macabou-sejour--fte.html: total=0, optimisées=18, placeholders=0, ignorées=2
+- villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html: total=0, optimisées=8, placeholders=0, ignorées=2
+- villa-villa-f7-baie-des-mulets.html: total=0, optimisées=10, placeholders=0, ignorées=2
+- villa-villa-fte-journee-ducos.html: total=0, optimisées=16, placeholders=0, ignorées=0
+- villa-villa-fte-journee-fort-de-france.html: total=0, optimisées=12, placeholders=0, ignorées=2
+- villa-villa-fte-journee-riviere-pilote.html: total=0, optimisées=10, placeholders=0, ignorées=4
+- villa-villa-fte-journee-riviere-salee.html: total=0, optimisées=2, placeholders=0, ignorées=0
+- villa-villa-fte-journee-sainte-luce.html: total=0, optimisées=10, placeholders=0, ignorées=2
+- villas.html: total=0, optimisées=2, placeholders=0, ignorées=1
