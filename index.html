@@ -495,8 +495,12 @@
     @media (max-width: 768px) { .category-card { max-width: 95%; } }
 
     /* Fade-in on scroll for categories */
-    .reveal { opacity:0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal { opacity:1; transform: none; }
+    .js-enabled .reveal { opacity:0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.visible { opacity:1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .js-enabled .reveal { transition: opacity .01ms linear; transform: none; }
+    }
 
     .section-title { text-align:center; font-size:1.6rem; margin: 1.2rem 0 0.5rem; text-shadow: 0 3px 16px rgba(0,0,0,0.25); }
     .villas-grid { display:flex; flex-direction:column; align-items:center; gap: 56px; margin: 1.5rem 0 3rem; }
