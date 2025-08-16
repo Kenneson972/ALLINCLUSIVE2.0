@@ -510,6 +510,44 @@
       .villas-grid { grid-template-columns: 1fr; }
     }
   </style>
+    /* Header Glass CSS */
+    .header-glass{position:fixed;top:0;left:0;right:0;z-index:1000;height:80px}
+    .header-glass .header-blur-bg{position:absolute;inset:0;background:rgba(255,255,255,.08);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.15)}
+    .header-glass .header-gradient-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.02),rgba(255,255,255,.08));pointer-events:none}
+    .header-glass .header-content{position:relative;max-width:1400px;margin:0 auto;height:80px;padding:0 20px;display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:20px}
+    .logo-container .logo-wrapper{position:relative;display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-glass-frame{position:relative;padding:6px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.25);box-shadow:0 8px 24px rgba(0,0,0,.15) inset}
+    .logo-image{height:48px;width:auto;border-radius:10px;display:block}
+    .logo-glow{position:absolute;inset:auto auto -6px 10px;width:60px;height:16px;background:radial-gradient(ellipse at center, rgba(255,255,255,.55), transparent 60%);filter:blur(8px)}
+    .nav-glass{justify-self:center}
+    .nav-glass-container{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .nav-primary-list,.nav-secondary-list{display:flex;list-style:none;margin:0;padding:0}
+    .nav-primary-list{gap:16px}
+    .nav-secondary-list{gap:10px}
+    .nav-link-glass{position:relative;display:flex;align-items:center;gap:8px;padding:.6rem 1rem;border-radius:22px;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.18);background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.06));box-shadow:0 4px 16px rgba(0,0,0,.12);transition:all .25s ease}
+    .nav-link-glass:hover,.nav-link-glass.active{transform:translateY(-2px);background:linear-gradient(135deg,rgba(255,255,255,.24),rgba(255,255,255,.10));border-color:rgba(255,255,255,.28)}
+    .nav-icon-glass{font-size:1rem;opacity:.95}
+    .nav-secondary-link{color:rgba(255,255,255,.9);text-decoration:none;padding:.45rem .8rem;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));transition:all .25s ease}
+    .nav-secondary-link:hover{color:#fff;transform:translateY(-1px);border-color:rgba(255,255,255,.22)}
+    .actions-container{display:flex;align-items:center;gap:10px}
+    .btn-glass{position:relative;display:flex;align-items:center;gap:8px;padding:.6rem .9rem;border-radius:20px;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.2);background:linear-gradient(135deg,rgba(40,167,69,.85),rgba(32,201,151,.7));box-shadow:0 4px 16px rgba(0,0,0,.12);transition:all .25s ease}
+    .btn-contact{background:linear-gradient(135deg, rgba(40,167,69,.85), rgba(32,201,151,.7))}
+    .btn-emergency{background:linear-gradient(135deg, rgba(220,53,69,.9), rgba(255,71,87,.75))}
+    .btn-glass:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.18)}
+    .btn-shine{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,rgba(255,255,255,.35),rgba(255,255,255,0) 30%);mix-blend-mode:overlay;opacity:.35;pointer-events:none}
+    .emergency-pulse{position:absolute;inset:-2px;border-radius:inherit;box-shadow:0 0 0 0 rgba(255,71,87,.55);animation:emPulse 2.8s infinite}
+    @keyframes emPulse{0%{box-shadow:0 0 0 0 rgba(255,71,87,.45)}70%{box-shadow:0 0 0 10px rgba(255,71,87,0)}100%{box-shadow:0 0 0 0 rgba(255,71,87,0)}}
+    .mobile-menu-glass{display:none;position:relative;width:40px;height:40px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);cursor:pointer}
+    .hamburger-line-glass{display:block;width:22px;height:2px;background:#fff;border-radius:2px;margin:5px auto;transition:all .25s ease}
+    .nav-open .hamburger-line-glass:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .nav-open .hamburger-line-glass:nth-child(2){opacity:0}
+    .nav-open .hamburger-line-glass:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+    .header-particles{position:absolute;inset:0;pointer-events:none}
+    .particle{position:absolute;width:8px;height:8px;background:rgba(255,255,255,.35);border-radius:50%;filter:blur(1px)}
+    .particle-1{top:14px;left:8%}.particle-2{top:10px;left:40%}.particle-3{top:20px;left:60%}.particle-4{top:12px;left:75%}.particle-5{top:16px;left:90%}
+    @media (max-width:1024px){.header-content{grid-template-columns:auto 1fr auto}.nav-primary-list{gap:12px}.nav-link-glass{padding:.55rem .9rem}.logo-image{height:44px}}
+    @media (max-width:768px){.header-glass{height:72px}.header-content{height:72px;grid-template-columns:auto 1fr auto;gap:12px}.nav-glass{position:fixed;top:72px;left:0;right:0;display:none;padding:18px 12px;background:rgba(15,25,50,.96);backdrop-filter:blur(30px) saturate(160%);border-bottom-left-radius:24px;border-bottom-right-radius:24px;border:1px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.35)}.nav-open .nav-glass{display:block}.nav-primary-list,.nav-secondary-list{flex-direction:column;gap:10px}.mobile-menu-glass{display:block}}
+
 </head>
 <body>
   <a href="#contenu" class="skip-link">Aller au contenu</a>
