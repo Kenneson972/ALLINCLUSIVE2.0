@@ -490,6 +490,10 @@
     .category-card .villa-image-container { height: 260px; }
     .category-card .villa-content { padding: 1.1rem 1.2rem 1.3rem; background: rgba(0,0,0,0.28); }
     .category-card h3 { font-size: 1.5rem; font-weight: 700; margin:0 0 4px; }
+    .villa-image-container{ position:relative; }
+    .villa-image-container .image-placeholder{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+    .villa-image[onerror]{ display:block; }
+
     .category-card p { font-size: 1.05rem; color: rgba(255,255,255,0.9); margin:0; }
     .category-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.28); }
     @media (max-width: 768px) { .category-card { max-width: 95%; } }
