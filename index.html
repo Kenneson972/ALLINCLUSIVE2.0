@@ -457,6 +457,21 @@
     .video-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.35); z-index:-1; }
 
     /* Header corrigé */
+    /* Header alignement fin */
+    .header { position: fixed; top:0; left:0; right:0; z-index:1000; background: rgba(15,25,50,0.08); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom:1px solid rgba(255,255,255,0.18); padding: 1rem 0; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+    .header-content { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; gap: 1rem; }
+    .nav-links.nav-menu { display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap; }
+    .nav-links.nav-menu a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:25px; transition:.25s ease; }
+    .nav-links.nav-menu a:hover, .nav-links.nav-menu a.active { background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); }
+    .mobile-nav-toggle { display:none; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:#fff; font-size:1.2rem; cursor:pointer; padding:0.5rem; }
+    @media (max-width: 768px) {
+      .header-content { padding: 0 1rem; }
+      .nav-links.nav-menu { display:none; visibility:hidden; opacity:0; }
+      .mobile-nav-toggle { display:block; }
+      .nav-links.nav-menu.mobile-open { display:flex !important; visibility:visible !important; opacity:1 !important; position: fixed !important; top:60px; left:0; right:0; background: rgba(15,25,50,0.90); backdrop-filter: blur(40px) saturate(180%); padding: 2rem 1.2rem; border-radius: 0 0 24px 24px; flex-direction: column; gap: 0.9rem; z-index:1000; border:1px solid rgba(255,255,255,0.12); box-shadow: 0 18px 40px rgba(0,0,0,0.3); }
+      .nav-links.nav-menu.mobile-open a { display:block; text-align:center; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding: 14px 18px; }
+    }
+
     .header { position: fixed; top:0; left:0; right:0; z-index:1000; background: rgba(15,25,50,0.08); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom: 1px solid rgba(255,255,255,0.18); padding: 1rem 0; box-shadow: 0 8px 32px rgba(0,0,0,0.12); transition: background .25s ease, backdrop-filter .25s ease, padding .25s ease; }
     .header-content { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; gap: 1rem; }
     .logo-image { height: 44px; width:auto; border-radius:8px; display:inline-block; vertical-align:middle; }
