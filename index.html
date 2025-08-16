@@ -486,6 +486,18 @@
     .hero p { margin:0 auto; max-width: 900px; color: #f1f1f1; }
 
     /* Catégories (même style que cartes villas) */
+    .category-card { width: 100%; max-width: 760px; margin: 0 auto; border-radius:16px; overflow:hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; }
+    .category-card .villa-image-container { height: 260px; }
+    .category-card .villa-content { padding: 1.1rem 1.2rem 1.3rem; background: rgba(0,0,0,0.28); }
+    .category-card h3 { font-size: 1.5rem; font-weight: 700; margin:0 0 4px; }
+    .category-card p { font-size: 1.05rem; color: rgba(255,255,255,0.9); margin:0; }
+    .category-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.28); }
+    @media (max-width: 768px) { .category-card { max-width: 95%; } }
+
+    /* Fade-in on scroll for categories */
+    .reveal { opacity:0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity:1; transform: none; }
+
     .section-title { text-align:center; font-size:1.6rem; margin: 1.2rem 0 0.5rem; text-shadow: 0 3px 16px rgba(0,0,0,0.25); }
     .villas-grid { display:flex; flex-direction:column; align-items:center; gap: 56px; margin: 1.5rem 0 3rem; }
     .villa-card { background: var(--glass-bg); border:1px solid var(--glass-border); border-radius:16px; overflow:hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; display:flex; flex-direction:column; }
