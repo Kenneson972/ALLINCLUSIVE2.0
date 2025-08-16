@@ -51,6 +51,7 @@
     .btn-primary, .btn-secondary { padding: 8px 14px; border-radius: 20px; font-weight:600; cursor:pointer; text-align:center; flex: 1; border:1px solid rgba(255,255,255,0.3); }
     .btn-primary { background: #FFA500; color:#fff; border:none; }
     .btn-secondary { background: rgba(255,255,255,0.2); color:#fff; }
+    .btn-secondary.disabled, .btn-secondary[aria-disabled="true"] { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 
     @media (prefers-reduced-motion: reduce) {
       .fade-in { transition: none; opacity: 1; transform: none; }
