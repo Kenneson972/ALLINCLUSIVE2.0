@@ -145,6 +145,30 @@
       { id: 21, name: "Espace Piscine Journée Bungalow (grand)", location: "Location spéciale", price: 350, guestsDetail: "10 à 150 personnes", features: "Cuisine, salle d'eau, mobilier", category: "fete", image: "images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg", fallbackIcon: "🏊" }
     ];
 
+    const villaFileMap = {
+      1: "villa-villa-f3-sur-petit-macabou.html",
+      2: "villa-villa-f5-sur-ste-anne.html",
+      3: "villa-villa-f3-pour-la-baccha.html",
+      4: "villa-villa-f6-au-lamentin.html",
+      5: "villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html",
+      6: "villa-villa-f6-sur-petit-macabou-sejour--fte.html",
+      7: "villa-villa-f7-baie-des-mulets.html",
+      8: "villa-villa-f3-bas-de-villa-trinite-cosmy.html",
+      9: "villa-bas-de-villa-f3-sur-le-robert.html",
+      10: "villa-villa-f5-la-renee.html",
+      11: "villa-villa-f3-sur-le-franois.html",
+      12: "villa-villa-f5-vauclin-ravine-plate.html",
+      13: "villa-bas-de-villa-f3-sur-ste-luce.html",
+      14: "villa-appartement-f3-trenelle-location-annuelle.html",
+      15: "villa-studio-cocooning-lamentin.html",
+      16: "villa-espace-piscine-journee-bungalow.html",
+      17: "villa-villa-fte-journee-ducos.html",
+      18: "villa-villa-fte-journee-fort-de-france.html",
+      19: "villa-villa-fte-journee-riviere-pilote.html",
+      20: "villa-villa-fte-journee-sainte-luce.html",
+      21: "villa-espace-piscine-journee-bungalow.html"
+    };
+
     function getUrlCategory() {
       const params = new URLSearchParams(window.location.search);
       return params.get('cat');
