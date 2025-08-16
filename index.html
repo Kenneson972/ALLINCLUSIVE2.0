@@ -683,6 +683,13 @@
       const navMenu = document.querySelector('.nav-links.nav-menu');
       const toggle = document.querySelector('.mobile-nav-toggle i');
       if (!navMenu || !toggle) return;
+    // Effet shrink au scroll (style SOS, léger)
+    window.addEventListener('scroll', () => {
+      const h = document.querySelector('header.header');
+      if(!h) return;
+      if(window.scrollY > 10){ h.classList.add('stuck'); } else { h.classList.remove('stuck'); }
+    });
+
       if (navMenu.classList.contains('mobile-open')) {
         closeMobileMenu();
       } else {
