@@ -694,8 +694,8 @@
     // Fade-in (textes visibles par défaut)
     document.addEventListener('DOMContentLoaded', () => {
       const seq = [
-        document.querySelector('.logo'),
-        document.querySelector('nav[aria-label]'),
+        document.querySelector('.brand-link'),
+        document.getElementById('mainNav'),
         document.getElementById('titre-categories')
       ].filter(Boolean);
       seq.forEach((el, i) => setTimeout(() => el.classList.add('fade-in','visible'), 150 + i*150));
