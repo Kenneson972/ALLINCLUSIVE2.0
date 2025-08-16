@@ -156,6 +156,14 @@
       8: "villa-villa-f3-bas-de-villa-trinite-cosmy.html",
       9: "villa-bas-de-villa-f3-sur-le-robert.html",
       10: "villa-villa-f5-la-renee.html",
+
+    function sanitizeLink(el){
+      if(el && el.getAttribute('href') === '#'){
+        el.setAttribute('aria-disabled','true');
+        el.setAttribute('tabindex','-1');
+        el.classList.add('disabled');
+      }
+    }
       11: "villa-villa-f3-sur-le-franois.html",
       12: "villa-villa-f5-vauclin-ravine-plate.html",
       13: "villa-bas-de-villa-f3-sur-ste-luce.html",
