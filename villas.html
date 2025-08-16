@@ -206,7 +206,7 @@
               <div class="price">${villa.price} €${villa.priceUnit ? ' ' + villa.priceUnit : '/nuit'}</div>
               <div class="villa-buttons" aria-hidden="false">
                 <a class="btn-primary" href="reservation.html?villa=${encodeURIComponent(villa.name)}&price=${villa.price}&location=${encodeURIComponent(villa.location)}">Réserver</a>
-                <button class="btn-secondary" type="button" onclick="viewDetails(${villa.id})">Détails</button>
+                <a class="btn-secondary" href="${villaFileMap[villa.id] || '#'}" ${!villaFileMap[villa.id] ? 'aria-disabled="true"' : ''}>Consulter</a>
               </div>
             </div>
           </article>
