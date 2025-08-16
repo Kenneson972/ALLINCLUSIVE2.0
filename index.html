@@ -86,27 +86,77 @@
     <div class="video-overlay" aria-hidden="true"></div>
   </div>
 
-  <!-- Header uniforme -->
-  <header class="header" role="banner">
-    <div class="header-content">
-      <a href="index.html" class="logo">
-        <img src="images/logo.png" alt="KhanelConcept" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" fetchpriority="high" decoding="async" />
-        <span class="logo-text">KhanelConcept</span>
+  <!-- REMPLACER LE HEADER ACTUEL PAR : -->
+<header class="header-fixed" role="banner">
+  <div class="header-container">
+    
+    <!-- Section Logo -->
+    <div class="brand-section">
+      <a href="index.html" class="brand-link" aria-label="KhanelConcept - Accueil">
+        <img 
+          src="images/logo.png" 
+          alt="KhanelConcept - Villas de luxe Martinique" 
+          class="brand-logo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          loading="eager"
+        />
+        <div class="brand-text-fallback" style="display:none;">
+          <span class="brand-name">KhanelConcept</span>
+          <span class="brand-tagline">Villas Martinique</span>
+        </div>
       </a>
-      <nav aria-label="Navigation principale" class="nav-menu">
-        <ul>
-          <li><a href="index.html" aria-current="page">🏠 Accueil</a></li>
-          <li><a href="activites-loisirs.html">🎟️ Activités/Loisirs</a></li>
-          <li><a href="prestataires-evenementiels.html">🪑 Prestataires événementiels</a></li>
-          <li><a href="villas.html">🏡 Nos Villas</a></li>
-          <li><a href="se-deplacer.html">🚌 Se déplacer</a></li>
-          <li><a href="pmr.html">♿ Accessibilité PMR</a></li>
-          <li><a href="sos-depannage.html" class="sos-link">🆘 SOS Dépannage</a></li>
-        </ul>
-      </nav>
-      <button class="mobile-nav-toggle" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu" onclick="toggleMobileMenu()"><i class="fas fa-bars" aria-hidden="true"></i></button>
     </div>
-  </header>
+    
+    <!-- Navigation Principale -->
+    <nav class="main-nav" aria-label="Navigation principale" id="mainNav">
+      <ul class="nav-list-primary">
+        <li><a href="index.html" class="nav-item active" aria-current="page">
+          <span class="nav-icon">🏠</span> Accueil
+        </a></li>
+        <li><a href="villas.html" class="nav-item">
+          <span class="nav-icon">🏡</span> Villas
+        </a></li>
+        <li><a href="activites-loisirs.html" class="nav-item">
+          <span class="nav-icon">🎟️</span> Activités
+        </a></li>
+        <li><a href="evenements.html" class="nav-item">
+          <span class="nav-icon">🎉</span> Événements
+        </a></li>
+      </ul>
+      
+      <!-- Sous-navigation -->
+      <ul class="nav-list-secondary">
+        <li><a href="se-deplacer.html" class="nav-item-small">🚌 Transport</a></li>
+        <li><a href="prestataires-evenementiels.html" class="nav-item-small">🪑 Prestataires</a></li>
+        <li><a href="pmr.html" class="nav-item-small">♿ PMR</a></li>
+      </ul>
+    </nav>
+    
+    <!-- Actions & Contact -->
+    <div class="header-actions">
+      <a href="tel:+596696123456" class="btn-primary">
+        <span class="btn-icon">📞</span> Contact
+      </a>
+      <a href="sos-depannage.html" class="btn-emergency">
+        <span class="btn-icon">🆘</span> SOS
+      </a>
+    </div>
+    
+    <!-- Bouton Menu Mobile -->
+    <button 
+      class="mobile-toggle" 
+      aria-controls="mainNav" 
+      aria-expanded="false"
+      aria-label="Ouvrir/fermer le menu"
+      onclick="toggleMobileNav()"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    
+  </div>
+</header>
 
   <main id="contenu" class="main-content" role="main">
     <div class="container">
