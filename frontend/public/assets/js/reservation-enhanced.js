@@ -12,7 +12,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 120,
         description: 'Villa moderne avec terrasses panoramiques au Robert',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg'
+        image: 'assets/images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg'
     },
     // ✅ MAPPING COMPLET SELON NOMS FICHIERS RÉELS 
     'villa-villa-f3-sur-petit-macabou': {
@@ -25,7 +25,7 @@ const villaData = {
         sallesDeBain: 2,
         surface: 140,
         description: 'Villa F3 moderne au Petit Macabou avec possibilité journée',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg'
+        image: 'assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg'
     },
     'villa-villa-f3-pour-la-baccha': {
         id: 'villa-villa-f3-pour-la-baccha',
@@ -37,7 +37,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 120,
         description: 'Villa F3 à la Baccha avec invités journée',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg'
+        image: 'assets/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg'
     },
     'villa-villa-f3-sur-le-franois': {
         id: 'villa-villa-f3-sur-le-franois',
@@ -49,7 +49,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 110,
         description: 'Villa F3 panoramique au François',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Le_Francois/01_terrasse_panoramique_vue_mer.jpg'
+        image: 'assets/images/Villa_F3_Le_Francois/01_terrasse_panoramique_vue_mer.jpg'
     },
     'villa-villa-f5-sur-ste-anne': {
         id: 'villa-villa-f5-sur-ste-anne',
@@ -61,7 +61,7 @@ const villaData = {
         sallesDeBain: 4,
         surface: 200,
         description: 'Villa F5 spacieuse à Ste Anne avec invités journée',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg'
+        image: 'assets/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg'
     },
     'villa-villa-f6-au-lamentin': {
         id: 'villa-villa-f6-au-lamentin',
@@ -73,7 +73,7 @@ const villaData = {
         sallesDeBain: 4,
         surface: 250,
         description: 'Villa F6 avec piscine et jacuzzi au Lamentin',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg'
+        image: 'assets/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg'
     },
     'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage': {
         id: 'villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage',
@@ -85,7 +85,7 @@ const villaData = {
         sallesDeBain: 5,
         surface: 280,
         description: 'Villa F6 complexe près de la plage Corps de garde',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg'
+        image: 'assets/images/Villa_F6_Ste_Luce_Plage/02_chambre_poutres.jpg'
     },
     'villa-villa-f7-baie-des-mulets': {
         id: 'villa-villa-f7-baie-des-mulets',
@@ -97,7 +97,7 @@ const villaData = {
         sallesDeBain: 6,
         surface: 350,
         description: 'Villa F7 exceptionnelle (F5+F3) à Baie des Mulets',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F7_Baie_des_Mulets_Vauclin/01_chambre_climatisee.jpg'
+        image: 'assets/images/Villa_F7_Baie_des_Mulets_Vauclin/01_chambre_climatisee.jpg'
     },
     'villa-villa-f3-bas-de-villa-trinite-cosmy': {
         id: 'villa-villa-f3-bas-de-villa-trinite-cosmy',
@@ -109,7 +109,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 100,
         description: 'Bas de villa charmant avec piscine chauffée',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trinite_Cosmy/01_piscine_chauffee_vue_collines.jpg'
+        image: 'assets/images/Villa_F3_Trinite_Cosmy/01_piscine_chauffee_vue_collines.jpg'
     },
     'villa-bas-de-villa-f3-sur-le-robert': {
         id: 'villa-bas-de-villa-f3-sur-le-robert',
@@ -121,7 +121,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 120,
         description: 'Villa moderne avec terrasses panoramiques au Robert',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg'
+        image: 'assets/images/Villa_F3_Robert_Pointe_Hyacinthe/01_piscine_rectangulaire.jpg'
     },
     'villa-villa-f5-vauclin-ravine-plate': {
         id: 'villa-villa-f5-vauclin-ravine-plate',
@@ -133,7 +133,7 @@ const villaData = {
         sallesDeBain: 4,
         surface: 180,
         description: 'Villa F5 avec piscine à débordement panoramique',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_debordement_vue_panoramique.jpg'
+        image: 'assets/images/Villa_F5_Vauclin_Ravine_Plate/01_piscine_debordement_vue_panoramique.jpg'
     },
     'villa-villa-f5-la-renee': {
         id: 'villa-villa-f5-la-renee',
@@ -145,7 +145,7 @@ const villaData = {
         sallesDeBain: 2,
         surface: 170,
         description: 'Villa F5 avec jacuzzi et grande terrasse',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F5_R_Pilote_La_Renee/01_terrasse_bois_piscine_palmiers.jpg'
+        image: 'assets/images/Villa_F5_R_Pilote_La_Renee/01_terrasse_bois_piscine_palmiers.jpg'
     },
     'villa-bas-de-villa-f3-sur-ste-luce': {
         id: 'villa-bas-de-villa-f3-sur-ste-luce',
@@ -157,7 +157,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 90,
         description: 'Bas de villa cosy à Sainte-Luce',
-        image: '/ALLINCLUSIVE2.0/images/Bas_Villa_F3_Ste_Luce/01_eclairage_led_terrasse_lounge.jpg'
+        image: 'assets/images/Bas_Villa_F3_Ste_Luce/01_eclairage_led_terrasse_lounge.jpg'
     },
     'villa-studio-cocooning-lamentin': {
         id: 'villa-studio-cocooning-lamentin',
@@ -169,7 +169,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 45,
         description: 'Studio cocooning avec bac à punch privé',
-        image: '/ALLINCLUSIVE2.0/images/Studio_Cocooning_Lamentin/01_jacuzzi_terrasse_privee.jpg'
+        image: 'assets/images/Studio_Cocooning_Lamentin/01_jacuzzi_terrasse_privee.jpg'
     },
     'villa-villa-f6-sur-petit-macabou-sejour--fte': {
         id: 'villa-villa-f6-sur-petit-macabou-sejour--fte',
@@ -181,7 +181,7 @@ const villaData = {
         sallesDeBain: 6,
         surface: 320,
         description: 'Villa F6 somptueuse avec possibilité événements',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg'
+        image: 'assets/images/Villa_F6_Petit_Macabou/02_salle_de_bain.jpg'
     },
     'villa-appartement-f3-trenelle-location-annuelle': {
         id: 'villa-appartement-f3-trenelle-location-annuelle',
@@ -193,7 +193,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 80,
         description: 'Appartement F3 meublé pour location annuelle',
-        image: '/ALLINCLUSIVE2.0/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
+        image: 'assets/images/Villa_F3_Trenelle_Location_Annuelle/01_cuisine_equipee_evier_double.jpg'
     },
     // Nouvelles villas fête/journée avec noms corrects
     'villa-villa-fte-journee-ducos': {
@@ -206,7 +206,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 200,
         description: 'Villa location à la journée avec piscine et espace extérieur',
-        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Ducos/01_piscine_espace_exterieur.jpg'
+        image: 'assets/images/Villa_Fete_Journee_Ducos/01_piscine_espace_exterieur.jpg'
     },
     'villa-villa-fte-journee-fort-de-france': {
         id: 'villa-villa-fte-journee-fort-de-france',
@@ -218,7 +218,7 @@ const villaData = {
         sallesDeBain: 2,
         surface: 300,
         description: 'Villa événementielle disponible de 6h à minuit',
-        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Fort_de_France/01_espace_reception.jpg'
+        image: 'assets/images/Villa_Fete_Journee_Fort_de_France/01_espace_reception.jpg'
     },
     'villa-villa-fte-journee-riviere-pilote': {
         id: 'villa-villa-fte-journee-riviere-pilote',
@@ -230,7 +230,7 @@ const villaData = {
         sallesDeBain: 2,
         surface: 250,
         description: 'Villa avec piscine chauffée et cuisine extérieure équipée',
-        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_R_Pilote/01_piscine_chauffee_cuisine_ext.jpg'
+        image: 'assets/images/Villa_Fete_Journee_R_Pilote/01_piscine_chauffee_cuisine_ext.jpg'
     },
     'villa-villa-fte-journee-riviere-salee': {
         id: 'villa-villa-fte-journee-riviere-salee',
@@ -242,7 +242,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 200,
         description: 'Villa journée avec 5 tables rectangulaires et chaises',
-        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Riviere_Salee/01_espace_tables_reception.jpg'
+        image: 'assets/images/Villa_Fete_Journee_Riviere_Salee/01_espace_tables_reception.jpg'
     },
     'villa-villa-fte-journee-sainte-luce': {
         id: 'villa-villa-fte-journee-sainte-luce',
@@ -254,7 +254,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 150,
         description: 'Villa journée avec 3 tentes, 3 salons extérieurs et système son JBL',
-        image: '/ALLINCLUSIVE2.0/images/Villa_Fete_Journee_Sainte_Luce/01_tentes_salons_ext.jpg'
+        image: 'assets/images/Villa_Fete_Journee_Sainte_Luce/01_tentes_salons_ext.jpg'
     },
     'villa-espace-piscine-journee-bungalow': {
         id: 'villa-espace-piscine-journee-bungalow',
@@ -266,7 +266,7 @@ const villaData = {
         sallesDeBain: 1,
         surface: 100,
         description: 'Espace piscine journée avec bungalow climatisé',
-        image: '/ALLINCLUSIVE2.0/images/Espace_Piscine_Journee_Bungalow/01_piscine_bungalow.jpg'
+        image: 'assets/images/Espace_Piscine_Journee_Bungalow/01_piscine_bungalow.jpg'
     }
 };
 
