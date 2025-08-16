@@ -706,27 +706,20 @@
         });
       }, 500);
 
-      // Lazy attach video src (économie data + iOS helper)
+      // Attach video src unconditionally and keep visible even if autoplay is blocked
       const v = document.getElementById('bgVideo');
       if(v){
-        const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const saveData = navigator.connection && navigator.connection.saveData;
-        if(!prefersReduce && !saveData){
-          const src = v.dataset.src;
-          if(src){
-            const s = document.createElement('source');
-            s.src = src; s.type = 'video/mp4';
-            v.appendChild(s); v.load();
-            v.muted = true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
-            const tryPlay = () => { const p = v.play(); if(p) p.catch(()=>{}); };
-            tryPlay();
-            window.addEventListener('touchstart', () => { tryPlay(); }, {once:true, passive:true});
-            const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) tryPlay(); }); });
-            io.observe(v);
-            setTimeout(()=>{ if(v.paused){ v.style.display='none'; } }, 2500);
-          }
-        } else {
-          v.remove();
+        const src = v.dataset.src;
+        if(src){
+          const s = document.createElement('source');
+          s.src = src; s.type = 'video/mp4';
+          v.appendChild(s); v.load();
+          v.muted = true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+          const tryPlay = () => { const p = v.play(); if(p) p.catch(()=>{}); };
+          tryPlay();
+          window.addEventListener('touchstart', tryPlay, {once:true, passive:true});
+          window.addEventListener('click', tryPlay, {once:true});
+          // No hide on pause; video remains visible as decorative background
         }
       }
     });
