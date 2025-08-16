@@ -519,76 +519,131 @@
     <div class="video-overlay" aria-hidden="true"></div>
   </div>
 
-  <!-- REMPLACER LE HEADER ACTUEL PAR : -->
-<header class="header-fixed" role="banner">
-  <div class="header-container">
+  <!-- NOUVEAU HEADER GLASSMORPHISM PREMIUM -->
+<header class="header-glass" role="banner">
+  <div class="header-blur-bg" aria-hidden="true"></div>
+  <div class="header-gradient-overlay" aria-hidden="true"></div>
+  
+  <div class="header-content">
     
-    <!-- Section Logo -->
-    <div class="brand-section">
-      <a href="index.html" class="brand-link" aria-label="KhanelConcept - Accueil">
-        <img 
-          src="images/logo.png" 
-          alt="KhanelConcept - Villas de luxe Martinique" 
-          class="brand-logo"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-          loading="eager"
-        />
-        <div class="brand-text-fallback" style="display:none;">
-          <span class="brand-name">KhanelConcept</span>
-          <span class="brand-tagline">Villas Martinique</span>
+    <!-- Logo Section - Gauche -->
+    <div class="logo-container">
+      <a href="index.html" class="logo-wrapper">
+        <div class="logo-glass-frame">
+          <img 
+            src="images/logo.png" 
+            alt="KhanelConcept - Villas de luxe Martinique" 
+            class="logo-image"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            loading="eager"
+          />
+          <div class="logo-fallback" style="display:none;">
+            <div class="logo-icon">🏖️</div>
+            <div class="logo-text">
+              <span class="logo-title">KhanelConcept</span>
+              <span class="logo-subtitle">Villas de Luxe</span>
+            </div>
+          </div>
         </div>
+        <div class="logo-glow" aria-hidden="true"></div>
       </a>
     </div>
     
-    <!-- Navigation Principale -->
-    <nav class="main-nav" aria-label="Navigation principale" id="mainNav">
-      <ul class="nav-list-primary">
-        <li><a href="index.html" class="nav-item active" aria-current="page">
-          <span class="nav-icon">🏠</span> Accueil
-        </a></li>
-        <li><a href="villas.html" class="nav-item">
-          <span class="nav-icon">🏡</span> Villas
-        </a></li>
-        <li><a href="activites-loisirs.html" class="nav-item">
-          <span class="nav-icon">🎟️</span> Activités
-        </a></li>
-        <li><a href="evenements.html" class="nav-item">
-          <span class="nav-icon">🎉</span> Événements
-        </a></li>
-      </ul>
-      
-      <!-- Sous-navigation -->
-      <ul class="nav-list-secondary">
-        <li><a href="se-deplacer.html" class="nav-item-small">🚌 Transport</a></li>
-        <li><a href="prestataires-evenementiels.html" class="nav-item-small">🪑 Prestataires</a></li>
-        <li><a href="pmr.html" class="nav-item-small">♿ PMR</a></li>
-      </ul>
+    <!-- Navigation Centrale -->
+    <nav class="nav-glass" aria-label="Navigation principale" id="mainNavigation">
+      <div class="nav-glass-container">
+        
+        <!-- Navigation Principale -->
+        <ul class="nav-primary-list">
+          <li class="nav-item-wrapper">
+            <a href="index.html" class="nav-link-glass active" aria-current="page">
+              <span class="nav-icon-glass">🏠</span>
+              <span class="nav-text">Accueil</span>
+              <div class="nav-glow" aria-hidden="true"></div>
+            </a>
+          </li>
+          <li class="nav-item-wrapper">
+            <a href="villas.html" class="nav-link-glass">
+              <span class="nav-icon-glass">🏡</span>
+              <span class="nav-text">Villas</span>
+              <div class="nav-glow" aria-hidden="true"></div>
+            </a>
+          </li>
+          <li class="nav-item-wrapper">
+            <a href="activites-loisirs.html" class="nav-link-glass">
+              <span class="nav-icon-glass">🎟️</span>
+              <span class="nav-text">Activités</span>
+              <div class="nav-glow" aria-hidden="true"></div>
+            </a>
+          </li>
+          <li class="nav-item-wrapper">
+            <a href="evenements.html" class="nav-link-glass">
+              <span class="nav-icon-glass">🎉</span>
+              <span class="nav-text">Événements</span>
+              <div class="nav-glow" aria-hidden="true"></div>
+            </a>
+          </li>
+        </ul>
+        
+        <!-- Navigation Secondaire -->
+        <ul class="nav-secondary-list">
+          <li><a href="se-deplacer.html" class="nav-secondary-link">
+            <span class="nav-secondary-icon">🚌</span> Transport
+          </a></li>
+          <li><a href="prestataires-evenementiels.html" class="nav-secondary-link">
+            <span class="nav-secondary-icon">🪑</span> Prestataires
+          </a></li>
+          <li><a href="pmr.html" class="nav-secondary-link">
+            <span class="nav-secondary-icon">♿</span> Accessibilité
+          </a></li>
+        </ul>
+        
+      </div>
     </nav>
     
-    <!-- Actions & Contact -->
-    <div class="header-actions">
-      <a href="tel:+596696123456" class="btn-primary">
-        <span class="btn-icon">📞</span> Contact
+    <!-- Actions Droite -->
+    <div class="actions-container">
+      <a href="tel:+596696123456" class="btn-glass btn-contact">
+        <span class="btn-icon">📞</span>
+        <span class="btn-text">Contact</span>
+        <div class="btn-shine" aria-hidden="true"></div>
       </a>
-      <a href="sos-depannage.html" class="btn-emergency">
-        <span class="btn-icon">🆘</span> SOS
+      
+      <a href="sos-depannage.html" class="btn-glass btn-emergency">
+        <span class="btn-icon">🆘</span>
+        <span class="btn-text">SOS</span>
+        <div class="btn-shine" aria-hidden="true"></div>
+        <div class="emergency-pulse" aria-hidden="true"></div>
       </a>
     </div>
     
-    <!-- Bouton Menu Mobile -->
+    <!-- Menu Mobile -->
     <button 
-      class="mobile-toggle" 
-      aria-controls="mainNav" 
+      class="mobile-menu-glass" 
+      aria-controls="mainNavigation" 
       aria-expanded="false"
-      aria-label="Ouvrir/fermer le menu"
-      onclick="toggleMobileNav()"
+      aria-label="Menu de navigation"
+      onclick="toggleGlassNav()"
     >
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
+      <div class="hamburger-glass">
+        <span class="hamburger-line-glass"></span>
+        <span class="hamburger-line-glass"></span>
+        <span class="hamburger-line-glass"></span>
+      </div>
+      <div class="mobile-menu-glow" aria-hidden="true"></div>
     </button>
     
   </div>
+  
+  <!-- Particules décoratives -->
+  <div class="header-particles" aria-hidden="true">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+    <div class="particle particle-5"></div>
+  </div>
+  
 </header>
 
   <main id="contenu" class="main-content" role="main">
