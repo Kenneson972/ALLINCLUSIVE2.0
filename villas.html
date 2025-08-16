@@ -214,7 +214,7 @@
               <div class="price">${villa.price} €${villa.priceUnit ? ' ' + villa.priceUnit : '/nuit'}</div>
               <div class="villa-buttons" aria-hidden="false">
                 <a class="btn-primary" href="reservation.html?villa=${encodeURIComponent(villa.name)}&price=${villa.price}&location=${encodeURIComponent(villa.location)}">Réserver</a>
-                <a class="btn-secondary" href="${villaFileMap[villa.id] || '#'}" ${!villaFileMap[villa.id] ? 'aria-disabled="true"' : ''}>Consulter</a>
+                <a class="btn-secondary" href="${villaFileMap[villa.id] || '#'}">Consulter</a>
               </div>
             </div>
           </article>
@@ -226,6 +226,7 @@
           card.classList.add('fade-in');
           setTimeout(()=> card.classList.add('visible'), 100 + i*80);
         })
+        document.querySelectorAll('.btn-secondary').forEach(sanitizeLink);
       })
     }
 
