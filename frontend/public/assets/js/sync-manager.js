@@ -69,11 +69,7 @@ class SyncManager {
                 }));
 
             // Store data that main site can access
-            localStorage.setItem('main_site_sync_data', JSON.stringify({
-                villas: mainSiteVillas,
-                lastSync: new Date().toISOString(),
-                adminVersion: '1.0'
-            }));
+            // removed localStorage sync
 
             console.log(`📊 Updated main site data: ${mainSiteVillas.length} active villas`);
             resolve();
@@ -101,7 +97,7 @@ class SyncManager {
                 });
 
             // Store in special key for villa-details.html
-            localStorage.setItem('villa_details_data', JSON.stringify(villaDetailsData));
+            // removed localStorage villa details
             
             console.log(`🏠 Generated villa-details data for ${Object.keys(villaDetailsData).length} villas`);
             resolve();
@@ -128,7 +124,7 @@ class SyncManager {
                 }));
 
             // Store for index.html
-            localStorage.setItem('index_villas_data', JSON.stringify(indexData));
+            // removed localStorage index data
             
             console.log(`📝 Generated index data for ${indexData.length} villas`);
             resolve();
@@ -199,8 +195,8 @@ class SyncManager {
 
         // Create downloadable update
         const updateData = {
-            villaDetailsData: JSON.parse(localStorage.getItem('villa_details_data') || '{}'),
-            indexVillasData: JSON.parse(localStorage.getItem('index_villas_data') || '[]'),
+            villaDetailsData: {},
+            indexVillasData: [],
             syncInfo: JSON.parse(syncData),
             updateInstructions: {
                 villaDetails: 'Replace the villas object in villa-details.html with villaDetailsData',
@@ -232,7 +228,7 @@ class SyncManager {
         // Inject updated data into preview
         if (previewWindow) {
             previewWindow.addEventListener('load', () => {
-                const villaData = JSON.parse(localStorage.getItem('villa_details_data') || '{}');
+                const villaData = {};
                 previewWindow.postMessage({
                     type: 'ADMIN_PREVIEW_DATA',
                     data: villaData

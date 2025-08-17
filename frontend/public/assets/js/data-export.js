@@ -77,7 +77,7 @@ class DataExportManager {
                                 localStorage.setItem('admin_images', JSON.stringify(data.images));
                             }
                             if (data.reservations) {
-                                localStorage.setItem('admin_reservations', JSON.stringify(data.reservations));
+                                // reservations persistence moved to backend
                             }
 
                             this.app.saveData();
