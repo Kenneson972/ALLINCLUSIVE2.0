@@ -16,7 +16,7 @@ async function apiGet(endpoint){
 class ImageHandler {
     constructor(app) {
         this.app = app;
-        this.uploadedImages = JSON.parse(localStorage.getItem('admin_images')) || [];
+        this.uploadedImages = [];
         this.setupImageUpload();
     }
 

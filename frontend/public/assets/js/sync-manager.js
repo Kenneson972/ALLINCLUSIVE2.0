@@ -191,7 +191,7 @@ class SyncManager {
 
     // Export updated data for main site files
     exportMainSiteUpdate() {
-        const syncData = localStorage.getItem('main_site_sync_data');
+        const syncData = null; // removed localStorage
         if (!syncData) {
             this.app.showToast('❌ Aucune donnée à exporter', 'error');
             return;
