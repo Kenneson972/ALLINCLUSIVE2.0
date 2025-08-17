@@ -1,16 +1,3 @@
-
-async function apiGet(endpoint){
-  try{
-    const res = await fetch(`${endpoint}`, { headers: { 'Accept':'application/json' } });
-    if(!res.ok) throw new Error('API error');
-    return await res.json();
-  }catch(e){
-    console.warn('API fallback for', endpoint, e);
-    const banner=document.querySelector('.api-banner') || (function(){const b=document.createElement('div'); b.className='api-banner'; b.style.cssText='position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,.6);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;z-index:9999'; b.textContent='Service momentanément indisponible (mode dégradé)'; document.body.appendChild(b); return b;})();
-    return [];
-  }
-}
-
 // Villa Manager - Gestion CRUD des villas
 
 class VillaManager {
