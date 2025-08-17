@@ -343,14 +343,7 @@ if (typeof module !== 'undefined' && module.exports) {
     // Backup scheduling (for future implementation)
     scheduleAutoBackup() {
         // This would set up automatic backups
-        const lastBackup = localStorage.getItem('admin_last_backup');
-        const now = new Date().getTime();
-        const dayInMs = 24 * 60 * 60 * 1000;
-
-        if (!lastBackup || (now - parseInt(lastBackup)) > dayInMs) {
-            // Perform auto backup
-            this.exportAllData();
-            localStorage.setItem('admin_last_backup', now.toString());
+        const lastBackup = null; // auto-backup disabled; no local storage
         }
     }
 

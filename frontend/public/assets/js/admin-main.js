@@ -69,11 +69,7 @@ class AdminApp {
     }
 
     saveData() {
-  apiPut('/api/v1/settings', this.settings);
-        localStorage.setItem('admin_villas', JSON.stringify(this.villas));
-        localStorage.setItem('admin_settings', JSON.stringify(this.settings));
-        
-        // Sync with main website data
+  apiPut('/api/v1/settings', this.settings);// Sync with main website data
         this.syncWithMainSite();
     }
 
@@ -99,10 +95,7 @@ class AdminApp {
                     amenities: this.formatAmenitiesForWebsite(villa.amenities || [])
                 }));
 
-            // Store synchronized data for main site
-            localStorage.setItem('main_site_villas_data', JSON.stringify(mainSiteData));
-            
-            console.log('Data synchronized with main site:', mainSiteData.length, 'active villas');
+            // Store synchronized data for main siteconsole.log('Data synchronized with main site:', mainSiteData.length, 'active villas');
         } catch (error) {
             console.error('Error syncing with main site:', error);
         }
