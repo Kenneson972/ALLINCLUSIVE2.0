@@ -15,3 +15,15 @@ Purge:
 Implémentation:
 - Wrapper kcStorage (assets/js/storage-guard.js) avec TTL et suppression automatique des entrées expirées.
 - Intégré avant les autres scripts via <script src="assets/js/storage-guard.js"></script> dans index.html et villas.html.
+
+Portée: Sitewide
+- storage-guard.js est chargé sur toutes les pages publiques, avant config.js, puis le reste des scripts UI.
+- Purge disponible partout via ?purge_storage=1
+
+Ordre de chargement garanti:
+1) assets/js/storage-guard.js
+2) assets/js/config.js
+3) autres scripts UI
+
+Vérification:
+- Un scan automatique a injecté le script manquant et corrigé l'ordre si nécessaire.
