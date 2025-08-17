@@ -53,10 +53,16 @@ class AdminApp {
         }
     }
 
-    loadData() {
-        // Load villas from localStorage
-        this.villas = JSON.parse(localStorage.getItem('admin_villas')) || this.getDefaultVillas();
-        this.settings = JSON.parse(localStorage.getItem('admin_settings')) || this.getDefaultSettings();
+    async loadData() {
+        // Load from API (mock) instead of localStorage
+        try {
+            this.villas = await apiGet('/api/v1/villas');
+            this.settings = await apiGet('/api/v1/settings');
+        } catch(e){
+            console.warn('API error, using defaults');
+            this.villas = this.getDefaultVillas();
+            this.settings = this.getDefaultSettings();
+        }
     }
 
     saveData() {
