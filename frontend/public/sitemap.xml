@@ -8,7 +8,6 @@
   <url><loc>/bas-villa-trinite-cosmy.html</loc></url>
   <url><loc>/billetterie.html</loc></url>
   <url><loc>/concierge.html</loc></url>
-  <url><loc>/dashboard.html</loc></url>
   <url><loc>/diagnostic.html</loc></url>
   <url><loc>/email-verification.html</loc></url>
   <url><loc>/espace-piscine-bungalow.html</loc></url>
@@ -18,10 +17,8 @@
   <url><loc>/index-clean.html</loc></url>
   <url><loc>/index-jamstack.html</loc></url>
   <url><loc>/index.html</loc></url>
-  <url><loc>/login.html</loc></url>
   <url><loc>/loyalty.html</loc></url>
   <url><loc>/mobilier.html</loc></url>
-  <url><loc>/notifications.html</loc></url>
   <url><loc>/pmr.html</loc></url>
   <url><loc>/prestataires-evenementiels.html</loc></url>
   <url><loc>/prestataires.html</loc></url>
@@ -55,6 +52,5 @@
   <url><loc>/villa-villa-fte-journee-riviere-salee.html</loc></url>
   <url><loc>/villa-villa-fte-journee-sainte-luce.html</loc></url>
   <url><loc>/villas.html</loc></url>
-  <url><loc>/wallet.html</loc></url>
   <url><loc>/wishlist.html</loc></url>
 </urlset>
