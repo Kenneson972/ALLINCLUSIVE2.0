@@ -23,7 +23,7 @@ class DataExportManager {
         const data = {
             villas: this.app.villas,
             settings: this.app.settings,
-            images: JSON.parse(localStorage.getItem('admin_images')) || [],
+            images: [], // moved away from localStorage
             reservations: JSON.parse(localStorage.getItem('admin_reservations')) || [],
             metadata: {
                 exportDate: new Date().toISOString(),
