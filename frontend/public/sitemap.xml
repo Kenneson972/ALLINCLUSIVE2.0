@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>/index.html</loc></url>
-  <url><loc>/villas.html</loc></url>
   <url><loc>/activites-loisirs.html</loc></url>
-  <url><loc>/prestataires-evenementiels.html</loc></url>
+  <url><loc>/admin-proprietaires.html</loc></url>
+  <url><loc>/appartement-trenelle.html</loc></url>
+  <url><loc>/bas-villa-robert.html</loc></url>
+  <url><loc>/bas-villa-ste-luce.html</loc></url>
+  <url><loc>/bas-villa-trinite-cosmy.html</loc></url>
+  <url><loc>/billetterie.html</loc></url>
+  <url><loc>/concierge.html</loc></url>
+  <url><loc>/dashboard.html</loc></url>
+  <url><loc>/diagnostic.html</loc></url>
+  <url><loc>/email-verification.html</loc></url>
+  <url><loc>/espace-piscine-bungalow.html</loc></url>
   <url><loc>/evenements.html</loc></url>
-  <url><loc>/se-deplacer.html</loc></url>
+  <url><loc>/excursions.html</loc></url>
+  <url><loc>/guide.html</loc></url>
+  <url><loc>/index-clean.html</loc></url>
+  <url><loc>/index-jamstack.html</loc></url>
+  <url><loc>/index.html</loc></url>
+  <url><loc>/login.html</loc></url>
+  <url><loc>/loyalty.html</loc></url>
+  <url><loc>/mobilier.html</loc></url>
+  <url><loc>/notifications.html</loc></url>
   <url><loc>/pmr.html</loc></url>
+  <url><loc>/prestataires-evenementiels.html</loc></url>
+  <url><loc>/prestataires.html</loc></url>
+  <url><loc>/profile.html</loc></url>
+  <url><loc>/register.html</loc></url>
+  <url><loc>/reservation.html</loc></url>
+  <url><loc>/reset-password.html</loc></url>
+  <url><loc>/se-deplacer.html</loc></url>
+  <url><loc>/sos-depannage.html</loc></url>
+  <url><loc>/studio-cocooning-lamentin.html</loc></url>
+  <url><loc>/villa-appartement-f3-trenelle-location-annuelle.html</loc></url>
+  <url><loc>/villa-bas-de-villa-f3-sur-le-robert.html</loc></url>
+  <url><loc>/villa-bas-de-villa-f3-sur-ste-luce.html</loc></url>
+  <url><loc>/villa-espace-piscine-journee-bungalow.html</loc></url>
+  <url><loc>/villa-studio-cocooning-lamentin.html</loc></url>
+  <url><loc>/villa-template-clean.html</loc></url>
+  <url><loc>/villa-villa-f3-bas-de-villa-trinite-cosmy.html</loc></url>
+  <url><loc>/villa-villa-f3-pour-la-baccha.html</loc></url>
+  <url><loc>/villa-villa-f3-sur-le-franois.html</loc></url>
+  <url><loc>/villa-villa-f3-sur-petit-macabou.html</loc></url>
+  <url><loc>/villa-villa-f5-la-renee.html</loc></url>
+  <url><loc>/villa-villa-f5-sur-ste-anne.html</loc></url>
+  <url><loc>/villa-villa-f5-vauclin-ravine-plate.html</loc></url>
+  <url><loc>/villa-villa-f6-au-lamentin.html</loc></url>
+  <url><loc>/villa-villa-f6-sur-petit-macabou-sejour--fte.html</loc></url>
+  <url><loc>/villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html</loc></url>
+  <url><loc>/villa-villa-f7-baie-des-mulets.html</loc></url>
+  <url><loc>/villa-villa-fte-journee-ducos.html</loc></url>
+  <url><loc>/villa-villa-fte-journee-fort-de-france.html</loc></url>
+  <url><loc>/villa-villa-fte-journee-riviere-pilote.html</loc></url>
+  <url><loc>/villa-villa-fte-journee-riviere-salee.html</loc></url>
+  <url><loc>/villa-villa-fte-journee-sainte-luce.html</loc></url>
+  <url><loc>/villas.html</loc></url>
+  <url><loc>/wallet.html</loc></url>
+  <url><loc>/wishlist.html</loc></url>
 </urlset>
