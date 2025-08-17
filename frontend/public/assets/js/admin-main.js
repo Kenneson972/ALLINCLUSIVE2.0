@@ -1,3 +1,6 @@
+window.ADMIN_WRITE_ENABLED = (typeof window.ADMIN_WRITE_ENABLED !== 'undefined') ? window.ADMIN_WRITE_ENABLED : false;
+async function apiPost(endpoint,payload){ if(!window.ADMIN_WRITE_ENABLED){ const b=document.querySelector('.api-banner')||(function(){const d=document.createElement('div');d.className='api-banner';d.style.cssText='position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,.65);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;z-index:9999';document.body.appendChild(d);return d;})(); b.textContent='ℹ️ Fonction disponible bientôt — backend en préparation'; return {status:'disabled'};} try{ const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload||{})}); if(!res.ok) throw new Error('API'); const data=await res.json(); const b=document.querySelector('.api-banner')||(function(){const d=document.createElement('div');d.className='api-banner';d.style.cssText='position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,.65);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;z-index:9999';document.body.appendChild(d);return d;})(); b.textContent='✅ Action simulée — en attente du backend réel'; return data;}catch(e){ const b=document.querySelector('.api-banner')||(function(){const d=document.createElement('div');d.className='api-banner';d.style.cssText='position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,.65);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;z-index:9999';document.body.appendChild(d);return d;})(); b.textContent='Service momentanément indisponible (mode dégradé)'; return {status:'error'};}}
+async function apiPut(endpoint,payload){ if(!window.ADMIN_WRITE_ENABLED){ const b=document.querySelector('.api-banner')||(function(){const d=document.createElement('div');d.className='api-banner';d.style.cssText='position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,.65);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;z-index:9999';document.body.appendChild(d);return d;})(); b.textContent='ℹ️ Fonction disponible bientôt — backend en préparation'; return {status:'disabled'};} try{ const res=await fetch(endpoint,{method:'PUT',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload||{})}); if(!res.ok) throw new Error('API'); const data=await res.json(); const b=document.querySelector('.api-banner')||(function(){const d=document.createElement('div');d.className='api-banner';d.style.cssText='position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,.65);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;z-index:9999';document.body.appendChild(d);return d;})(); b.textContent='✅ Action simulée — en attente du backend réel'; return data;}catch(e){ const b=document.querySelector('.api-banner')||(function(){const d=document.createElement('div');d.className='api-banner';d.style.cssText='position:fixed;bottom:10px;left:10px;background:rgba(0,0,0,.65);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;z-index:9999';document.body.appendChild(d);return d;})(); b.textContent='Service momentanément indisponible (mode dégradé)'; return {status:'error'};}}
 
 async function apiGet(endpoint){
   try{
@@ -66,6 +69,7 @@ class AdminApp {
     }
 
     saveData() {
+  apiPut('/api/v1/settings', this.settings);
         localStorage.setItem('admin_villas', JSON.stringify(this.villas));
         localStorage.setItem('admin_settings', JSON.stringify(this.settings));
         
@@ -74,6 +78,7 @@ class AdminApp {
     }
 
     syncWithMainSite() {
+  apiPost('/api/v1/reservations', {sync:true, villasCount: (this.villas||[]).length});
         // Generate data for main website integration
         try {
             const mainSiteData = this.villas

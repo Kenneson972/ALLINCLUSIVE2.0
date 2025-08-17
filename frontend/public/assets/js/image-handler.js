@@ -194,6 +194,7 @@ class ImageHandler {
                         };
                         
                         this.uploadedImages.push(imageData);
+                        if(window.ADMIN_WRITE_ENABLED){ fetch('/api/v1/images',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:fileName})}); }
                         resolve(imageData);
                     };
                     
