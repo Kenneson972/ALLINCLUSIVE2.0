@@ -3,674 +3,804 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO et Métadonnées -->
-    <title>KhanelConcept - Connexion Administration | Villas de Luxe Martinique</title>
-    <meta name="description" content="Connexion sécurisée à l'administration KhanelConcept - Gestion des villas de luxe en Martinique">
-    <meta name="robots" content="noindex, nofollow">
-    
-    <!-- Bibliothèques CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+    <title>Connexion - KhanelConcept</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            /* Couleurs avec contraste WCAG 2.1 AA conforme */
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.85);
-            --success-color: #28a745;
-            --error-color: #dc3545;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
+        /* PHASE 2 - Accessibilité : Classes pour lecteurs d'écran */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            min-height: 1.25rem;
+            display: block;
+        }
+
+        /* Focus visible pour la navigation clavier */
+        .form-input:focus,
+        .login-btn:focus,
+        .forgot-password:focus,
+        .register-link:focus,
+        .social-btn:focus {
+            outline: 3px solid #FFA726;
+            outline-offset: 2px;
+        }
+
+        /* Amélioration des contrastes */
+        .form-label {
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 600;
+        }
+
+        .forgot-password {
+            color: #FFB74D;
+            font-weight: 500;
+        }
+
+        .register-link {
+            color: #81C784;
+            font-weight: 500;
+        }
+
+        /* Skip link pour navigation clavier */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Amélioration du focus sur checkbox */
+        .remember-me input[type="checkbox"]:focus {
+            outline: 3px solid #FFA726;
+            outline-offset: 2px;
+        }
 
         body {
-            background: var(--primary-gradient);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            padding: 20px;
-        }
-
-        /* Container principal avec amélioration accessibilité */
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-        }
-
-        .login-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 40px 30px;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-            transition: all 0.3s ease;
-        }
-
-        .login-card:focus-within {
-            transform: translateY(-2px);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.2),
-                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-        }
-
-        /* En-tête avec amélioration sémantique */
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo-icon {
-            font-size: 3.5rem;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .login-title {
-            color: var(--text-primary);
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: -0.025em;
-        }
-
-        .login-subtitle {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 0;
-        }
-
-        /* Formulaire avec améliorations accessibilité */
-        .form-group {
-            margin-bottom: 20px;
             position: relative;
+            overflow-x: hidden;
         }
 
-        .form-label {
-            color: var(--text-primary);
-            font-weight: 500;
-            margin-bottom: 8px;
-            display: block;
-            font-size: 0.95rem;
-        }
-
-        .form-control {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-primary);
-            border-radius: 15px;
-            padding: 15px 18px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            min-height: 44px; /* WCAG 2.1 - Taille minimum tactile */
-        }
-
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.95rem;
-        }
-
-        .form-control:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
-            color: var(--text-primary);
-            box-shadow: 
-                0 0 0 3px rgba(255, 255, 255, 0.1),
-                0 4px 12px rgba(0, 0, 0, 0.1);
-            outline: none;
-        }
-
-        /* Bouton avec améliorations accessibilité */
-        .btn-login {
-            background: linear-gradient(135deg, var(--success-color), #20c997);
-            border: none;
-            color: white;
-            font-weight: 600;
-            font-size: 1.05rem;
-            padding: 15px 20px;
-            border-radius: 15px;
-            width: 100%;
-            min-height: 44px; /* WCAG 2.1 - Taille minimum tactile */
-            transition: all 0.3s ease;
-            position: relative;
+            height: 100%;
+            z-index: -2;
             overflow: hidden;
         }
 
-        .btn-login:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
-            color: white;
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
         }
 
-        .btn-login:focus {
-            outline: 3px solid rgba(255, 255, 255, 0.3);
-            outline-offset: 2px;
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
         }
 
-        .btn-login:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, #28a745, #20c997) !important;
-        }
-
-        /* Liens avec amélioration accessibilité */
-        .back-link {
-            display: inline-flex;
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            color: var(--text-secondary);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
             text-decoration: none;
-            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
             transition: all 0.3s ease;
-            padding: 8px 0;
-            margin-top: 20px;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo-text {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo:hover .logo-image {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
         }
 
-        .back-link:hover {
-            color: var(--text-primary);
-            text-decoration: underline;
-            transform: translateX(-3px);
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
 
-        .back-link:focus {
-            outline: 2px solid rgba(255, 255, 255, 0.5);
-            outline-offset: 2px;
-            border-radius: 4px;
-            color: var(--text-primary);
-        }
-
-        /* Messages d'état */
-        .alert-error {
-            background: rgba(220, 53, 69, 0.1);
-            border: 1px solid rgba(220, 53, 69, 0.3);
-            color: #ff6b7d;
-            padding: 12px 16px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
             font-size: 0.9rem;
-            display: none;
         }
 
-        /* Responsive Design */
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Login Container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 
+                0 25px 45px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 80px rgba(138, 43, 226, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: white;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .login-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+        }
+
+        .forgot-password {
+            color: #FFA726;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #FFB74D;
+            text-shadow: 0 0 10px rgba(255, 167, 38, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #4F46E5, #7C3AED);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.4);
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .register-link {
+            color: #FFA726;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .register-link:hover {
+            color: #FFB74D;
+            text-shadow: 0 0 10px rgba(255, 167, 38, 0.3);
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: #FFCDD2;
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #C8E6C9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
             }
             
-            .login-card {
-                padding: 30px 20px;
-                border-radius: 20px;
+            .nav-links {
+                display: none;
             }
             
-            .logo-icon {
-                font-size: 3rem;
+            .login-container {
+                padding: 2rem;
+                margin: 1rem;
+                margin-top: 100px;
             }
             
             .login-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (max-height: 600px) {
-            .login-card {
-                padding: 25px 30px;
-            }
-        }
-
-        /* Animations pour les états de chargement */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .fa-spin {
-            animation: spin 1s linear infinite;
-        }
-
-        /* Mode sombre support */
-        @media (prefers-color-scheme: dark) {
-            .login-card {
-                background: rgba(255, 255, 255, 0.08);
-            }
-        }
-
-        /* Réduction de mouvement pour accessibilité */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Contenu principal avec balises sémantiques -->
-    <main class="login-container" role="main">
-        <section class="login-card" aria-labelledby="login-title">
-            <!-- En-tête -->
-            <header class="login-header">
-                <i class="fas fa-shield-alt logo-icon" aria-hidden="true"></i>
-                <h1 id="login-title" class="login-title">Administration</h1>
-                <p class="login-subtitle">KhanelConcept - Villas de Martinique</p>
-            </header>
+    <!-- PHASE 2 - Skip link pour navigation clavier -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- Background Video -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline aria-hidden="true">
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            <span class="sr-only">Vidéo d'arrière-plan décorative</span>
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image">
+            </a>
             
-            <!-- Zone d'alerte pour les erreurs -->
-            <div id="errorAlert" class="alert-error" role="alert" aria-live="polite">
-                <i class="fas fa-exclamation-triangle me-2" aria-hidden="true"></i>
-                <span id="errorMessage"></span>
-            </div>
-            
-            <!-- Formulaire de connexion -->
-            <form id="loginForm" novalidate aria-describedby="login-description">
-                <div class="visually-hidden" id="login-description">
-                    Formulaire de connexion sécurisé pour l'administration KhanelConcept
-                </div>
-                
-                <div class="form-group">
-                    <label for="email" class="form-label">
-                        <i class="fas fa-user me-2" aria-hidden="true"></i>
-                        Nom d'utilisateur
-                    </label>
-                    <input 
-                        type="email" 
-                        class="form-control" 
-                        id="email" 
-                        name="email"
-                        placeholder="Saisissez votre nom d'utilisateur"
-                        required 
-                        autocomplete="email"
-                        aria-describedby="email-help">
-                    <div id="email-help" class="visually-hidden">
-                        Entrez votre nom d'utilisateur administrateur
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password" class="form-label">
-                        <i class="fas fa-lock me-2" aria-hidden="true"></i>
-                        Mot de passe
-                    </label>
-                    <input 
-                        type="password" 
-                        class="form-control" 
-                        id="password" 
-                        name="password"
-                        placeholder="Saisissez votre mot de passe"
-                        required 
-                        autocomplete="current-password"
-                        aria-describedby="password-help">
-                    <div id="password-help" class="visually-hidden">
-                        Entrez votre mot de passe administrateur
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-login" aria-describedby="submit-help">
-                    <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>
-                    <span class="button-text">Se connecter</span>
-                </button>
-                <div id="submit-help" class="visually-hidden">
-                    Cliquez pour vous connecter avec vos identifiants
-                </div>
-            </form>
-            
-            <!-- Navigation -->
-            <nav class="text-center">
-                <a href="../index.html" class="back-link" aria-label="Retourner à la page d'accueil du site">
-                    <i class="fas fa-home me-2" aria-hidden="true"></i>
-                    Retour au site
-                </a>
+            <nav class="nav-links" role="navigation" aria-label="Navigation principale">
+                <a href="index.html" aria-label="Retour à l'accueil - KhanelConcept">🏠 Accueil</a>
+                <a href="register.html" aria-label="Créer un nouveau compte">👤 Inscription</a>
             </nav>
-        </section>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="login-container" role="main">
+        <h1 class="login-title" id="page-title">Bienvenue !</h1>
+        <p class="login-subtitle" id="page-subtitle">Connectez-vous à votre espace membre exclusif</p>
+
+        <!-- PHASE 2 - Région live pour les alertes -->
+        <div id="alertContainer" aria-live="polite" aria-atomic="true" role="status"></div>
+
+        <form id="loginForm" role="form" aria-labelledby="page-title" aria-describedby="page-subtitle">
+            <div class="form-group">
+                <label class="form-label" for="email">📧 Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    class="form-input" 
+                    placeholder="votre@email.com" 
+                    required
+                    aria-describedby="email-error"
+                    aria-invalid="false"
+                >
+                <div id="email-error" class="error-message" aria-live="polite" role="alert"></div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">🔑 Mot de passe</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="Votre mot de passe" 
+                    required
+                    aria-describedby="password-error"
+                    aria-invalid="false"
+                >
+                <div id="password-error" class="error-message" aria-live="polite" role="alert"></div>
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe" aria-describedby="remember-help">
+                    Se souvenir de moi
+                </label>
+                <div id="remember-help" class="sr-only">Maintient votre session active plus longtemps</div>
+                <a href="reset-password.html" class="forgot-password" 
+                   aria-label="Récupérer votre mot de passe oublié">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="login-btn" aria-describedby="login-help">
+                <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                Se connecter
+            </button>
+            <div id="login-help" class="sr-only">Appuyez sur Entrée pour vous connecter</div>
+        </form>
+
+        <div class="divider" aria-hidden="true">ou</div>
+        
+        <p>Pas encore membre ? <a href="register.html" class="register-link" 
+           aria-label="Créer un nouveau compte membre">Créer un compte</a></p>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Configuration et variables globales
-        const BACKEND_URL = window.location.origin;
-        const IS_GITHUB_PAGES = window.location.hostname.includes('github.io') || 
-                                window.location.hostname.includes('pages.github.com') ||
-                                window.location.pathname.includes('ALLINCLUSIVE2.0');
-        
-        let isSubmitting = false;
-        
-        console.log('🌍 Environnement détecté:', IS_GITHUB_PAGES ? 'GitHub Pages' : 'Local/Serveur');
-        
-        // Identifiants pour GitHub Pages (hashés pour plus de sécurité)
-        const GITHUB_CREDENTIALS = {
-            // admin:khanelconcept2025 hashé en SHA256
-            admin: 'cd85c06b2d8c0f85a1f6db51e8c5f20b7e8c8a3cf5a4a8e6c4c8a6e5b4c3d2e1'
-        };
-        
-        // Fonction de hashage simple (pour compatibilité GitHub Pages)
-        async function simpleHash(text) {
-            if (crypto.subtle) {
-                const encoder = new TextEncoder();
-                const data = encoder.encode(text);
-                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-                const hashArray = Array.from(new Uint8Array(hashBuffer));
-                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            } else {
-                // Fallback simple hash pour navigateurs plus anciens
-                let hash = 0;
-                for (let i = 0; i < text.length; i++) {
-                    const char = text.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash; // Convert to 32bit integer
+        // Initialize video for iOS
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('backgroundVideo');
+            
+            if (video) {
+                video.muted = true;
+                video.playsInline = true;
+                video.setAttribute('webkit-playsinline', '');
+                video.setAttribute('playsinline', '');
+                
+                // Force play on iOS
+                const playVideo = () => {
+                    video.play().catch(e => console.log('Auto-play failed:', e));
+                };
+                
+                playVideo();
+                document.addEventListener('touchstart', playVideo, { once: true });
+            }
+        });
+
+        // XSS Protection Function
+        function sanitizeInput(input) {
+            if (typeof input !== 'string') return input;
+            
+            return input
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;')
+                .replace(/\//g, '&#x2F;');
+        }
+
+        // PHASE 2 - Fonction d'alerte améliorée pour l'accessibilité
+        function showAlert(message, type = 'error') {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertDiv = document.createElement('div');
+            
+            // Classes et attributs ARIA
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+            alertDiv.setAttribute('aria-atomic', 'true');
+            alertDiv.setAttribute('tabindex', '-1');
+            
+            // Icône avec aria-hidden
+            const icon = type === 'error' ? 'exclamation-triangle' : 'check-circle';
+            alertDiv.innerHTML = `
+                <i class="fas fa-${icon}" aria-hidden="true"></i>
+                ${message}
+            `;
+            
+            alertContainer.innerHTML = '';
+            alertContainer.appendChild(alertDiv);
+            
+            // Focus sur l'alerte pour les lecteurs d'écran
+            alertDiv.focus();
+            
+            // Annonce vocale si disponible
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance(
+                    `${type === 'error' ? 'Erreur' : 'Succès'} : ${message}`
+                );
+                utterance.rate = 0.8;
+                utterance.volume = 0.3;
+                window.speechSynthesis.speak(utterance);
+            }
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
                 }
-                return Math.abs(hash).toString(16);
+            }, 5000);
+        }
+
+        // PHASE 2 - Validation en temps réel avec feedback accessibilité
+        function validateField(fieldId, validator, errorMessage) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = document.getElementById(`${fieldId}-error`);
+            
+            if (!validator(field.value)) {
+                field.setAttribute('aria-invalid', 'true');
+                errorDiv.textContent = errorMessage;
+                errorDiv.setAttribute('aria-live', 'assertive');
+                return false;
+            } else {
+                field.setAttribute('aria-invalid', 'false');
+                errorDiv.textContent = '';
+                errorDiv.setAttribute('aria-live', 'polite');
+                return true;
             }
         }
-        
-        // Éléments DOM
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const submitButton = loginForm.querySelector('button[type="submit"]');
-        const buttonText = submitButton.querySelector('.button-text');
-        const errorAlert = document.getElementById('errorAlert');
-        const errorMessage = document.getElementById('errorMessage');
-        
-        // Fonction d'affichage des erreurs accessibles
-        function showError(message, focusElement = null) {
-            errorMessage.textContent = message;
-            errorAlert.style.display = 'block';
-            errorAlert.setAttribute('aria-expanded', 'true');
+
+        // PHASE 2 - Navigation clavier améliorée
+        function setupKeyboardNavigation() {
+            const form = document.getElementById('loginForm');
+            const inputs = form.querySelectorAll('input, button');
             
-            // Focus sur l'élément approprié pour l'accessibilité
-            if (focusElement) {
-                setTimeout(() => {
-                    focusElement.focus();
-                    focusElement.select();
-                }, 100);
-            }
+            inputs.forEach((input, index) => {
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        // Gestion du focus cyclique
+                        if (e.shiftKey && index === 0) {
+                            e.preventDefault();
+                            inputs[inputs.length - 1].focus();
+                        } else if (!e.shiftKey && index === inputs.length - 1) {
+                            e.preventDefault();
+                            inputs[0].focus();
+                        }
+                    }
+                    
+                    if (e.key === 'Enter' && input.type === 'submit') {
+                        e.preventDefault();
+                        form.dispatchEvent(new Event('submit'));
+                    }
+                });
+            });
+        }
+
+        // PHASE 2 - Annonces vocales pour les actions
+        function announceAction(message) {
+            const announcer = document.createElement('div');
+            announcer.setAttribute('aria-live', 'assertive');
+            announcer.setAttribute('aria-atomic', 'true');
+            announcer.className = 'sr-only';
+            announcer.textContent = message;
+            document.body.appendChild(announcer);
             
-            // Annoncer l'erreur aux lecteurs d'écran
-            errorAlert.setAttribute('aria-live', 'assertive');
             setTimeout(() => {
-                errorAlert.setAttribute('aria-live', 'polite');
+                document.body.removeChild(announcer);
             }, 1000);
         }
-        
-        // Fonction de masquage des erreurs
-        function hideError() {
-            errorAlert.style.display = 'none';
-            errorAlert.setAttribute('aria-expanded', 'false');
-        }
-        
-        // Validation côté client améliorée
-        function validateForm() {
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
+
+        // PHASE 2 - Validation en temps réel sur les champs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser la navigation clavier
+            setupKeyboardNavigation();
             
-            if (!email) {
-                showError('Le nom d\'utilisateur est requis.', emailInput);
-                return false;
-            }
+            // Validation en temps réel sur l'email
+            document.getElementById('email').addEventListener('blur', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                validateField('email', 
+                    value => emailRegex.test(value), 
+                    'Veuillez entrer une adresse email valide'
+                );
+            });
             
-            if (!password) {
-                showError('Le mot de passe est requis.', passwordInput);
-                return false;
-            }
+            // Validation en temps réel sur le mot de passe
+            document.getElementById('password').addEventListener('blur', function() {
+                validateField('password', 
+                    value => value.length >= 6, 
+                    'Le mot de passe doit contenir au moins 6 caractères'
+                );
+            });
             
-            if (email.length < 2) {
-                showError('Le nom d\'utilisateur doit contenir au moins 2 caractères.', emailInput);
-                return false;
-            }
-            
-            return true;
-        }
-        
-        // États du bouton de soumission
-        function setSubmittingState(isSubmitting) {
-            if (isSubmitting) {
-                submitButton.disabled = true;
-                submitButton.setAttribute('aria-busy', 'true');
-                buttonText.innerHTML = '<i class="fas fa-spinner fa-spin me-2" aria-hidden="true"></i>Connexion en cours...';
-                submitButton.setAttribute('aria-describedby', 'loading-description');
-                
-                // Ajouter description pour les lecteurs d'écran
-                if (!document.getElementById('loading-description')) {
-                    const loadingDesc = document.createElement('div');
-                    loadingDesc.id = 'loading-description';
-                    loadingDesc.className = 'visually-hidden';
-                    loadingDesc.textContent = 'Connexion en cours, veuillez patienter';
-                    document.body.appendChild(loadingDesc);
+            // Effacer les erreurs quand l'utilisateur tape
+            document.getElementById('email').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.setAttribute('aria-invalid', 'false');
+                    document.getElementById('email-error').textContent = '';
                 }
-            } else {
-                submitButton.disabled = false;
-                submitButton.setAttribute('aria-busy', 'false');
-                buttonText.innerHTML = '<i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>Se connecter';
-                submitButton.removeAttribute('aria-describedby');
-                
-                const loadingDesc = document.getElementById('loading-description');
-                if (loadingDesc) loadingDesc.remove();
+            });
+            
+            document.getElementById('password').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.setAttribute('aria-invalid', 'false');
+                    document.getElementById('password-error').textContent = '';
+                }
+            });
+        });
+
+        // Enhanced Login Handler
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+            
+            // Validate inputs
+            if (!email || !password) {
+                showAlert('Veuillez remplir tous les champs obligatoires.', 'error');
+                return;
             }
-        }
-        
-        // Fonction de connexion adaptée à l'environnement
-        async function handleLogin(email, password) {
+            
+            // Email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showAlert('Veuillez entrer une adresse email valide.', 'error');
+                return;
+            }
+            
+            // Sanitize inputs
+            const sanitizedEmail = sanitizeInput(email);
+            console.log('🔒 Email sanitisé:', sanitizedEmail);
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.login-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+            submitBtn.disabled = true;
+            
             try {
-                if (IS_GITHUB_PAGES) {
-                    // Authentification côté client pour GitHub Pages
-                    console.log('🔐 Authentification GitHub Pages');
+                // Brute force protection check
+                const attemptKey = 'login_attempts_' + sanitizedEmail;
+                const attempts = JSON.parse(localStorage.getItem(attemptKey) || '{"count": 0, "lastAttempt": 0}');
+                const now = Date.now();
+                
+                // Reset attempts after 15 minutes
+                if (now - attempts.lastAttempt > 15 * 60 * 1000) {
+                    attempts.count = 0;
+                }
+                
+                if (attempts.count >= 5) {
+                    const timeLeft = Math.ceil((15 * 60 * 1000 - (now - attempts.lastAttempt)) / (60 * 1000));
+                    showAlert(`Trop de tentatives échouées. Réessayez dans ${timeLeft} minutes.`, 'error');
+                    return;
+                }
+                
+                // API Call to backend
+                const response = await fetch('/api/members/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: sanitizedEmail,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.access_token) {
+                    // Reset login attempts on success
+                    localStorage.removeItem(attemptKey);
                     
-                    if (email.trim() === 'admin') {
-                        const passwordHash = await simpleHash(password);
-                        const expectedHash = 'cd85c06b2d8c0f85a1f6db51e8c5f20b7e8c8a3cf5a4a8e6c4c8a6e5b4c3d2e1';
-                        
-                        // Pour le vrai hash de khanelconcept2025, calculons-le dynamiquement
-                        const realHash = await simpleHash('khanelconcept2025');
-                        
-                        if (passwordHash === realHash || password === 'khanelconcept2025') {
-                            // Simulation d'un token pour GitHub Pages
-                            const fakeToken = btoa(JSON.stringify({
-                                email: 'admin',
-                                timestamp: Date.now(),
-                                env: 'github-pages'
-                            }));
-                            
-                            localStorage.setItem('admin_token', fakeToken);
-                            localStorage.setItem('admin_email', 'admin');
-                            localStorage.setItem('admin_login_time', Date.now().toString());
-                            localStorage.setItem('auth_env', 'github-pages');
-                            
-                            console.log('✅ Connexion GitHub Pages réussie');
-                            return true;
-                        } else {
-                            throw new Error('Identifiants incorrects');
-                        }
-                    } else {
-                        throw new Error('Nom d\'utilisateur incorrect');
+                    // Store authentication data
+                    localStorage.setItem('khanelconcept_token', data.access_token);
+                    localStorage.setItem('khanelconcept_user', JSON.stringify(data.member));
+                    
+                    // Remember me functionality
+                    if (rememberMe) {
+                        localStorage.setItem('khanelconcept_remember', 'true');
                     }
+                    
+                    showAlert('Connexion réussie ! Redirection...', 'success');
+                    
+                    // Add session storage flag to prevent redirect loops
+                    sessionStorage.setItem('just_logged_in', 'true');
+                    
+                    // Redirect after short delay
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
                     
                 } else {
-                    // Authentification backend pour environnement local
-                    console.log('🔐 Authentification Backend API');
+                    // Handle login failure
+                    attempts.count++;
+                    attempts.lastAttempt = now;
+                    localStorage.setItem(attemptKey, JSON.stringify(attempts));
                     
-                    const response = await fetch(`${BACKEND_URL}/api/admin/login`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            email: email.trim(),
-                            password: password
-                        })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok && data.access_token) {
-                        localStorage.setItem('admin_token', data.access_token);
-                        localStorage.setItem('admin_email', email.trim());
-                        localStorage.setItem('admin_login_time', Date.now().toString());
-                        localStorage.setItem('auth_env', 'backend');
-                        
-                        console.log('✅ Connexion Backend réussie');
-                        return true;
-                    } else {
-                        throw new Error(data.detail || 'Erreur de connexion');
-                    }
+                    const errorMessage = data.detail || 'Email ou mot de passe incorrect.';
+                    showAlert(errorMessage, 'error');
                 }
                 
             } catch (error) {
-                console.error('❌ Erreur de connexion:', error);
-                
-                // Messages d'erreur spécifiques selon l'environnement
-                let errorMsg = 'Une erreur est survenue lors de la connexion.';
-                
-                if (IS_GITHUB_PAGES) {
-                    if (error.message.includes('Identifiants incorrects')) {
-                        errorMsg = 'Nom d\'utilisateur ou mot de passe incorrect.\n\nUtilisez:\n• Nom d\'utilisateur: admin\n• Mot de passe: khanelconcept2025';
-                    }
-                } else {
-                    if (error.message.includes('Failed to fetch')) {
-                        errorMsg = 'Impossible de contacter le serveur. Vérifiez votre connexion Internet.';
-                    } else if (error.message.includes('Identifiants incorrects') || error.message.includes('401')) {
-                        errorMsg = 'Nom d\'utilisateur ou mot de passe incorrect.\n\nUtilisez:\n• Nom d\'utilisateur: admin\n• Mot de passe: khanelconcept2025';
-                    } else if (error.message.includes('403')) {
-                        errorMsg = 'Accès non autorisé.';
-                    } else if (error.message.includes('500')) {
-                        errorMsg = 'Erreur du serveur. Veuillez réessayer plus tard.';
-                    }
-                }
-                
-                showError(errorMsg, passwordInput);
-                passwordInput.value = '';
-                
-                return false;
+                console.error('Erreur de connexion:', error);
+                showAlert('Erreur de connexion. Vérifiez votre connexion internet.', 'error');
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
-        }
-        
-        // Gestionnaire d'événements principal
+        });
+
+        // Check if user is already logged in
         document.addEventListener('DOMContentLoaded', function() {
-            // Focus initial sur le champ utilisateur
-            emailInput.focus();
+            // Skip redirect if just registered
+            if (sessionStorage.getItem('just_registered') === 'true') {
+                sessionStorage.removeItem('just_registered');
+                return;
+            }
             
-            // Nettoyage des tokens existants
-            localStorage.removeItem('admin_token');
-            localStorage.removeItem('admin_email');
-            localStorage.removeItem('admin_login_time');
+            const token = localStorage.getItem('khanelconcept_token');
+            const user = localStorage.getItem('khanelconcept_user');
             
-            // Gestion de la soumission du formulaire
-            if (loginForm) {
-                loginForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    // Éviter les soumissions multiples
-                    if (isSubmitting) return;
-                    
-                    hideError();
-                    
-                    // Validation
-                    if (!validateForm()) return;
-                    
-                    const email = emailInput.value.trim();
-                    const password = passwordInput.value;
-                    
-                    isSubmitting = true;
-                    setSubmittingState(true);
-                    
-                    try {
-                        const success = await handleLogin(email, password);
-                        if (success) {
-                            // État de succès avec feedback accessibilité
-                            submitButton.className = 'btn btn-success';
-                            submitButton.setAttribute('aria-busy', 'false');
-                            buttonText.innerHTML = '<i class="fas fa-check me-2" aria-hidden="true"></i>Connexion réussie';
-                            
-                            // Annoncer le succès
-                            const successAnnouncement = document.createElement('div');
-                            successAnnouncement.className = 'visually-hidden';
-                            successAnnouncement.setAttribute('aria-live', 'assertive');
-                            successAnnouncement.textContent = 'Connexion réussie, redirection vers le panneau d\'administration';
-                            document.body.appendChild(successAnnouncement);
-                            
-                            // Message spécifique selon l'environnement
-                            const envMessage = IS_GITHUB_PAGES ? 
-                                'Redirection vers admin panel GitHub Pages...' : 
-                                'Redirection vers admin panel sécurisé...';
-                            console.log(envMessage);
-                            
-                            // Redirection avec délai pour le feedback
-                            setTimeout(() => {
-                                window.location.href = 'admin.html';
-                            }, 1200);
-                        } else {
-                            setSubmittingState(false);
-                            submitButton.className = 'btn btn-login';
-                        }
-                    } catch (error) {
-                        setSubmittingState(false);
-                        submitButton.className = 'btn btn-login';
-                        showError('Une erreur inattendue est survenue.', passwordInput);
-                    } finally {
-                        isSubmitting = false;
+            if (token && user) {
+                // Verify token is still valid
+                fetch('/api/members/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.valid) {
+                        // Token is valid, redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    }
+                })
+                .catch(error => {
+                    console.log('Token verification failed:', error);
+                    // Clear invalid tokens
+                    localStorage.removeItem('khanelconcept_token');
+                    localStorage.removeItem('khanelconcept_user');
                 });
             }
-            
-            // Masquer les erreurs lors de la saisie
-            [emailInput, passwordInput].forEach(input => {
-                if (input) {
-                    input.addEventListener('input', hideError);
-                    input.addEventListener('focus', hideError);
-                }
-            });
-            
-            // Support clavier amélioré
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    hideError();
-                }
-            });
-            
-            // Détection de la perte de connexion
-            window.addEventListener('online', function() {
-                if (errorMessage.textContent.includes('connexion Internet')) {
-                    hideError();
-                }
-            });
-            
-            console.log('✅ Système d\'authentification initialisé');
         });
-        
-        // Gestion des erreurs globales
-        window.addEventListener('error', function(e) {
-            console.error('Erreur JavaScript:', e.error);
-            if (isSubmitting) {
-                setSubmittingState(false);
-                submitButton.className = 'btn btn-login';
-                showError('Une erreur technique est survenue. Veuillez réessayer.');
-                isSubmitting = false;
-            }
-        });
-        
-        // Performance et accessibilité
-        if ('serviceWorker' in navigator) {
-            // Possibilité d'ajouter un service worker pour le cache si nécessaire
-        }
     </script>
 </body>
 </html>

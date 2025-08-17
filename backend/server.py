@@ -2427,3 +2427,15 @@ async def register_member(request: dict):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
+
+@app.post('/api/v1/reservations')
+async def api_v1_reservations_create(item: dict):
+    return {'status':'created','id':'mock_'+str(item.get('villa_id','0')),'data':item}
+
+@app.post('/api/v1/images')
+async def api_v1_images_create(item: dict):
+    return {'status':'uploaded','url':'assets/images/placeholders/villa-placeholder.jpg'}
+
+@app.put('/api/v1/settings')
+async def api_v1_settings_update(item: dict):
+    return item

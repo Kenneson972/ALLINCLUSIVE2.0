@@ -3,52 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhanelConcept - Dashboard Admin</title>
+    <title>Dashboard - KhanelConcept Espace Membre</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Votre espace membre KhanelConcept - Gérez vos réservations, votre programme fidélité et découvrez vos avantages exclusifs.">
+    <meta name="keywords" content="dashboard KhanelConcept, espace membre, réservations, programme fidélité, villas luxe">
+    <meta name="author" content="KhanelConcept">
+    
+    <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.min.css" rel="stylesheet">
+    
     <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            --warning-gradient: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
-            --danger-gradient: linear-gradient(135deg, #ff5722 0%, #e91e63 100%);
-            --glass-bg: rgba(255, 255, 255, 0.25);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --accent-gold: #f6ad55;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--primary-gradient);
-            min-height: 100vh;
-            overflow-x: hidden;
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --warning-gradient: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+            --accent-gold: #f6ad55;
+            --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* PHASE 2 - Accessibilité : Classes pour lecteurs d'écran */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
-        /* PHASE 3 - Glassmorphism Cards */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+        /* Focus visible pour la navigation clavier */
+        .sidebar-link:focus,
+        .header-action:focus,
+        .btn:focus,
+        .form-input:focus,
+        .close-btn:focus {
+            outline: 3px solid var(--accent-gold);
+            outline-offset: 2px;
         }
 
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Skip link pour accessibilité */
+        /* Skip link pour navigation clavier */
         .skip-link {
             position: absolute;
             top: -40px;
@@ -66,1404 +77,1172 @@
             top: 6px;
         }
 
+        /* Amélioration des contrastes pour WCAG 2.2 */
+        .sidebar-link {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .sidebar-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .notification-badge {
+            background: #dc2626;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.1) saturate(1.2);
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+        
         /* Header */
-        .admin-header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem;
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
         }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
             color: white;
-            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
+        
+        .logo i {
+            color: #FFA500;
         }
-
-        .header-btn {
-            background: rgba(255, 255, 255, 0.2);
+        
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
             color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            border-radius: 1px;
+        }
+        
+        /* User Profile Header */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: white;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .user-level {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
-            font-weight: 500;
         }
-
-        .header-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
-
-        .header-btn:focus {
-            outline: 3px solid var(--accent-gold);
-            outline-offset: 2px;
+        
+        /* Dashboard Container */
+        .dashboard-container {
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
         }
-
-        /* Main Layout */
-        .admin-layout {
+        
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 300px 1fr;
             gap: 2rem;
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-
+        
         /* Sidebar */
         .sidebar {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
             padding: 2rem;
             height: fit-content;
             position: sticky;
-            top: 2rem;
+            top: 120px;
         }
-
+        
         .sidebar-title {
             color: white;
             font-size: 1.2rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
         }
-
-        .sidebar-nav {
+        
+        .sidebar-menu {
             list-style: none;
         }
-
+        
         .sidebar-item {
             margin-bottom: 0.5rem;
         }
-
+        
         .sidebar-link {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 12px;
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
+            padding: 12px 16px;
+            border-radius: 15px;
             transition: all 0.3s ease;
-            font-size: 0.95rem;
+            font-weight: 500;
         }
-
-        .sidebar-link:hover {
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
             background: rgba(255, 255, 255, 0.1);
             color: white;
+            transform: translateX(5px);
         }
-
+        
         .sidebar-link.active {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--accent-gold);
             color: white;
         }
-
-        .sidebar-link:focus {
-            outline: 3px solid var(--accent-gold);
-            outline-offset: 2px;
+        
+        .sidebar-icon {
+            width: 20px;
+            text-align: center;
         }
-
+        
         /* Main Content */
         .main-content {
-            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
         }
-
-        .page-header {
+        
+        /* Welcome Section */
+        .welcome-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
             text-align: center;
-            margin-bottom: 2rem;
         }
-
-        .page-title {
+        
+        .welcome-title {
+            color: white;
             font-size: 2.5rem;
             font-weight: 700;
-            color: white;
             margin-bottom: 0.5rem;
         }
-
-        .page-subtitle {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
+        
+        .welcome-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
         }
-
-        /* Stats Grid */
+        
+        .level-badge {
+            background: var(--warning-gradient);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .level-badge.discoverer { background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%); }
+        .level-badge.explorer { background: linear-gradient(135deg, #3182ce 0%, #2b77cb 100%); }
+        .level-badge.adventurer { background: linear-gradient(135deg, #38a169 0%, #2f855a 100%); }
+        .level-badge.legend { background: linear-gradient(135deg, #d69e2e 0%, #b7791f 100%); }
+        
+        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
         }
-
+        
         .stat-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
         }
-
+        
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-soft);
         }
-
+        
         .stat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
         }
-
-        .stat-number {
+        
+        .stat-icon.reservations { background: var(--primary-gradient); }
+        .stat-icon.points { background: var(--warning-gradient); }
+        .stat-icon.favorites { background: var(--secondary-gradient); }
+        .stat-icon.notifications { background: var(--success-gradient); }
+        
+        .stat-value {
+            color: white;
             font-size: 2rem;
             font-weight: 700;
-            color: white;
             margin-bottom: 0.5rem;
         }
-
+        
         .stat-label {
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
+            font-weight: 500;
         }
-
-        /* Content Sections */
-        .content-section {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
+        
+        /* Quick Actions */
+        .quick-actions {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
             padding: 2rem;
-            margin-bottom: 2rem;
         }
-
+        
         .section-title {
             color: white;
             font-size: 1.5rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .action-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .action-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Recent Activity */
+        .recent-activity {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 2rem;
+        }
+        
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .activity-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Action Buttons */
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
+            border-left: 4px solid transparent;
+        }
+        
+        .activity-item.reservation { border-left-color: #3182ce; }
+        .activity-item.loyalty { border-left-color: #d69e2e; }
+        .activity-item.system { border-left-color: #38a169; }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--primary-gradient);
+            justify-content: center;
             color: white;
+            font-size: 1.1rem;
         }
-
-        .btn-success {
-            background: var(--success-gradient);
-            color: white;
+        
+        .activity-content {
+            flex: 1;
         }
-
-        .btn-warning {
-            background: var(--warning-gradient);
-            color: white;
-        }
-
-        .btn-danger {
-            background: var(--danger-gradient);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:focus {
-            outline: 3px solid var(--accent-gold);
-            outline-offset: 2px;
-        }
-
-        /* Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .data-table th {
-            background: rgba(255, 255, 255, 0.1);
+        
+        .activity-title {
             color: white;
             font-weight: 600;
+            margin-bottom: 0.25rem;
         }
-
-        .data-table td {
-            color: rgba(255, 255, 255, 0.9);
+        
+        .activity-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
         }
-
-        .data-table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Status Badges */
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
+        
+        .activity-time {
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.8rem;
-            font-weight: 500;
         }
-
-        .status-active {
-            background: rgba(34, 197, 94, 0.2);
-            color: #10b981;
-        }
-
-        .status-pending {
-            background: rgba(251, 191, 36, 0.2);
-            color: #f59e0b;
-        }
-
-        .status-inactive {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .admin-layout {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .sidebar {
-                position: relative;
-                top: 0;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .page-title {
-                font-size: 2rem;
-            }
-        }
-
+        
         /* Loading States */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: white;
+        }
+        
         .loading-spinner {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
             width: 24px;
             height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
             animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
         }
-
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Notifications */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            color: white;
-            font-weight: 500;
-            z-index: 1000;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all 0.3s ease;
+        
+        /* Progress Bar */
+        .progress-section {
+            margin-top: 1rem;
         }
-
-        .notification.show {
-            transform: translateX(0);
-            opacity: 1;
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
-
-        .notification-success {
-            background: var(--success-gradient);
-        }
-
-        .notification-error {
-            background: var(--danger-gradient);
-        }
-
-        .notification-warning {
-            background: var(--warning-gradient);
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
             overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-gold);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .user-info {
+                display: none;
+            }
+            
+            .sidebar {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+            
+            .welcome-section {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
-    <!-- Skip link pour accessibilité -->
+    <!-- PHASE 2 - Skip link pour navigation clavier -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
+    <!-- Background Video -->
+    <div class="video-background">
+        <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline aria-hidden="true">
+            <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+            <span class="sr-only">Vidéo d'arrière-plan décorative</span>
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
     <!-- Header -->
-    <header class="admin-header" role="banner">
-        <div class="header-content">
-            <a href="#" class="logo" aria-label="KhanelConcept Dashboard Admin">
-                <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                KhanelConcept Admin
-            </a>
-            <div class="header-actions">
-                <button class="header-btn" onclick="showNotification('Actualisation...', 'success')" 
-                        aria-label="Actualiser les données">
-                    <i class="fas fa-sync" aria-hidden="true"></i>
-                    Actualiser
-                </button>
-                <button class="header-btn" onclick="location.href='admin-2fa.html'" 
-                        aria-label="Configurer la sécurité 2FA">
-                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                    Sécurité
-                </button>
-                <button class="header-btn" onclick="logout()" 
-                        aria-label="Se déconnecter du dashboard admin">
-                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                    Déconnexion
-                </button>
+    <header class="header" role="banner">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="logo" aria-label="Retour à l'accueil KhanelConcept">
+                    <i class="fas fa-palm-tree" aria-hidden="true"></i>
+                    KhanelConcept
+                </a>
+                
+                <nav class="nav-menu" role="navigation" aria-label="Menu utilisateur">
+                    <a href="index.html" class="nav-link" aria-label="Parcourir les villas">Villas</a>
+                    <a href="reservation.html" class="nav-link" aria-label="Faire une réservation">Réserver</a>
+                    <a href="dashboard.html" class="nav-link active" aria-current="page">Dashboard</a>
+                </nav>
+
+                <div class="user-profile">
+                    <div class="user-avatar" id="userAvatar" aria-label="Avatar utilisateur">M</div>
+                    <div class="user-info">
+                        <div class="user-name" id="userName">Membre</div>
+                        <div class="user-level" id="userLevel">Découvreur</div>
+                    </div>
+                    <button class="logout-btn" onclick="logout()" aria-label="Se déconnecter du compte">
+                        <i class="fas fa-sign-out-alt mr-1" aria-hidden="true"></i>
+                        Déconnexion
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Layout -->
-    <div class="admin-layout">
-        <!-- Sidebar -->
-        <aside class="sidebar" role="navigation" aria-label="Menu principal admin">
-            <h2 class="sidebar-title">🛠️ Administration</h2>
-            <nav class="sidebar-nav" role="menubar">
-                <ul>
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <div class="dashboard-grid">
+            
+            <!-- Sidebar -->
+            <aside class="sidebar" role="navigation" aria-label="Navigation du dashboard">
+                <h3 class="sidebar-title">📊 Menu Principal</h3>
+                <nav class="sidebar-menu" role="menubar">
                     <li class="sidebar-item" role="none">
                         <a href="#dashboard" class="sidebar-link active" onclick="showSection('dashboard')" 
-                           role="menuitem" aria-current="page">
-                            <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
-                            Dashboard
+                           role="menuitem" aria-current="page" aria-describedby="dashboard-desc">
+                            <i class="sidebar-icon fas fa-home" aria-hidden="true"></i>
+                            <span>Tableau de bord</span>
                         </a>
-                    </li>
-                    <li class="sidebar-item" role="none">
-                        <a href="#members" class="sidebar-link" onclick="showSection('members')" 
-                           role="menuitem">
-                            <i class="fas fa-users" aria-hidden="true"></i>
-                            Membres
-                        </a>
+                        <div id="dashboard-desc" class="sr-only">Vue d'ensemble de votre compte</div>
                     </li>
                     <li class="sidebar-item" role="none">
                         <a href="#reservations" class="sidebar-link" onclick="showSection('reservations')" 
-                           role="menuitem">
-                            <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                            Réservations
+                           role="menuitem" aria-describedby="reservations-desc">
+                            <i class="sidebar-icon fas fa-calendar-check" aria-hidden="true"></i>
+                            <span>Mes Réservations</span>
                         </a>
+                        <div id="reservations-desc" class="sr-only">Gérer vos réservations</div>
                     </li>
                     <li class="sidebar-item" role="none">
-                        <a href="#villas" class="sidebar-link" onclick="showSection('villas')" 
-                           role="menuitem">
-                            <i class="fas fa-home" aria-hidden="true"></i>
-                            Villas
+                        <a href="#profile" class="sidebar-link" onclick="showSection('profile')" 
+                           role="menuitem" aria-describedby="profile-desc">
+                            <i class="sidebar-icon fas fa-user" aria-hidden="true"></i>
+                            <span>Mon Profil</span>
                         </a>
+                        <div id="profile-desc" class="sr-only">Modifier vos informations</div>
                     </li>
                     <li class="sidebar-item" role="none">
-                        <a href="#analytics" class="sidebar-link" onclick="showSection('analytics')" 
-                           role="menuitem">
-                            <i class="fas fa-chart-line" aria-hidden="true"></i>
-                            Statistiques
+                        <a href="#loyalty" class="sidebar-link" onclick="showSection('loyalty')" 
+                           role="menuitem" aria-describedby="loyalty-desc">
+                            <i class="sidebar-icon fas fa-star" aria-hidden="true"></i>
+                            <span>Fidélité</span>
                         </a>
+                        <div id="loyalty-desc" class="sr-only">Points de fidélité et récompenses</div>
                     </li>
                     <li class="sidebar-item" role="none">
-                        <a href="#settings" class="sidebar-link" onclick="showSection('settings')" 
-                           role="menuitem">
-                            <i class="fas fa-cog" aria-hidden="true"></i>
-                            Paramètres
+                        <a href="#wishlist" class="sidebar-link" onclick="showSection('wishlist')" 
+                           role="menuitem" aria-describedby="wishlist-desc">
+                            <i class="sidebar-icon fas fa-heart" aria-hidden="true"></i>
+                            <span>Mes Favoris</span>
                         </a>
+                        <div id="wishlist-desc" class="sr-only">Vos villas favorites</div>
                     </li>
-                </ul>
-            </nav>
-        </aside>
+                    <li class="sidebar-item" role="none">
+                        <a href="#notifications" class="sidebar-link" onclick="showSection('notifications')" 
+                           role="menuitem" aria-describedby="notifications-desc">
+                            <i class="sidebar-icon fas fa-bell" aria-hidden="true"></i>
+                            <span>Notifications</span>
+                            <span id="notificationBadge" class="notification-badge hidden" 
+                                  aria-label="nouvelles notifications">0</span>
+                        </a>
+                        <div id="notifications-desc" class="sr-only">Messages et alertes</div>
+                    </li>
+                    <li class="sidebar-item" role="none">
+                        <a href="#wallet" class="sidebar-link" onclick="showSection('wallet')" 
+                           role="menuitem" aria-describedby="wallet-desc">
+                            <i class="sidebar-icon fas fa-wallet" aria-hidden="true"></i>
+                            <span>Portefeuille</span>
+                        </a>
+                        <div id="wallet-desc" class="sr-only">Moyens de paiement</div>
+                    </li>
+                    <li class="sidebar-item" role="none">
+                        <a href="#concierge" class="sidebar-link" onclick="showSection('concierge')" 
+                           role="menuitem" aria-describedby="concierge-desc">
+                            <i class="sidebar-icon fas fa-concierge-bell" aria-hidden="true"></i>
+                            <span>Conciergerie</span>
+                        </a>
+                        <div id="concierge-desc" class="sr-only">Services VIP et assistance</div>
+                    </li>
+                </nav>
+            </aside>
 
-        <!-- Main Content -->
-        <main id="main-content" class="main-content" role="main">
-            <!-- Dashboard Section -->
-            <section id="dashboard-section" class="content-section">
-                <div class="page-header">
-                    <h1 class="page-title">🏠 Dashboard Admin</h1>
-                    <p class="page-subtitle">Vue d'ensemble de votre plateforme KhanelConcept</p>
-                </div>
-
-                <!-- Stats Grid -->
-                <div class="stats-grid">
-                    <div class="stat-card glass-card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="stat-icon">👥</div>
-                        <div class="stat-number" id="totalMembers">0</div>
-                        <div class="stat-label">Membres Actifs</div>
-                    </div>
-                    <div class="stat-card glass-card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="stat-icon">📅</div>
-                        <div class="stat-number" id="totalReservations">0</div>
-                        <div class="stat-label">Réservations</div>
-                    </div>
-                    <div class="stat-card glass-card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="stat-icon">🏡</div>
-                        <div class="stat-number" id="totalVillas">0</div>
-                        <div class="stat-label">Villas</div>
-                    </div>
-                    <div class="stat-card glass-card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="stat-icon">💰</div>
-                        <div class="stat-number" id="totalRevenue">0€</div>
-                        <div class="stat-label">Chiffre d'Affaires</div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="content-section" data-aos="fade-up" data-aos-delay="500">
-                    <h2 class="section-title">
-                        <i class="fas fa-bolt" aria-hidden="true"></i>
-                        Actions Rapides
-                    </h2>
-                    <div class="flex gap-4 flex-wrap">
-                        <button class="btn btn-primary" onclick="showSection('members')">
-                            <i class="fas fa-user-plus" aria-hidden="true"></i>
-                            Nouveau Membre
-                        </button>
-                        <button class="btn btn-success" onclick="showSection('reservations')">
-                            <i class="fas fa-calendar-plus" aria-hidden="true"></i>
-                            Nouvelle Réservation
-                        </button>
-                        <button class="btn btn-warning" onclick="refreshData()">
-                            <i class="fas fa-sync" aria-hidden="true"></i>
-                            Actualiser
-                        </button>
-                        <button class="btn btn-danger" onclick="location.href='admin-2fa.html'">
-                            <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                            Sécurité 2FA
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Recent Activity -->
-                <div class="content-section" data-aos="fade-up" data-aos-delay="600">
-                    <h2 class="section-title">
-                        <i class="fas fa-history" aria-hidden="true"></i>
-                        Activité Récente
-                    </h2>
-                    <div id="recentActivity">
-                        <div class="flex items-center justify-center py-8">
-                            <div class="loading-spinner"></div>
-                            <span class="ml-3 text-white">Chargement des données...</span>
+            <!-- Main Content -->
+            <main id="main-content" class="main-content" role="main">
+                
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="dashboard-section">
+                    
+                    <!-- Welcome Section -->
+                    <div class="welcome-section" data-aos="fade-up">
+                        <h1 class="welcome-title">
+                            Bonjour <span id="welcomeName">Membre</span> ! 👋
+                        </h1>
+                        <p class="welcome-subtitle">
+                            Bienvenue dans votre espace membre exclusif KhanelConcept
+                        </p>
+                        <div id="memberLevelBadge" class="level-badge discoverer">
+                            🌟 Niveau Découvreur
+                        </div>
+                        <div class="progress-section">
+                            <div class="progress-label">
+                                <span>Progression vers le niveau suivant</span>
+                                <span id="pointsProgress">100 / 500 points</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Members Section -->
-            <section id="members-section" class="content-section" style="display: none;">
-                <div class="page-header">
-                    <h1 class="page-title">👥 Gestion des Membres</h1>
-                    <p class="page-subtitle">Gérez les comptes membres de votre plateforme</p>
-                </div>
-                
-                <div id="membersContent">
-                    <div class="flex items-center justify-center py-8">
-                        <div class="loading-spinner"></div>
-                        <span class="ml-3 text-white">Chargement des membres...</span>
+                    <!-- Stats Grid -->
+                    <div class="stats-grid" data-aos="fade-up" data-aos-delay="200">
+                        <div class="stat-card">
+                            <div class="stat-icon reservations">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-value" id="totalReservations">0</div>
+                            <div class="stat-label">Réservations Totales</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon points">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-value" id="loyaltyPoints">100</div>
+                            <div class="stat-label">Points Fidélité</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon favorites">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-value" id="wishlistCount">0</div>
+                            <div class="stat-label">Villas Favorites</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon notifications">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="stat-value" id="unreadNotifications">1</div>
+                            <div class="stat-label">Notifications</div>
+                        </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Reservations Section -->
-            <section id="reservations-section" class="content-section" style="display: none;">
-                <div class="page-header">
-                    <h1 class="page-title">📅 Gestion des Réservations</h1>
-                    <p class="page-subtitle">Suivez et gérez toutes les réservations</p>
-                </div>
-                
-                <div id="reservationsContent">
-                    <div class="flex items-center justify-center py-8">
-                        <div class="loading-spinner"></div>
-                        <span class="ml-3 text-white">Chargement des réservations...</span>
+                    <!-- Quick Actions -->
+                    <div class="quick-actions" data-aos="fade-up" data-aos-delay="400">
+                        <h2 class="section-title">🚀 Actions Rapides</h2>
+                        <div class="actions-grid">
+                            <a href="index.html" class="action-btn">
+                                <i class="action-icon fas fa-search"></i>
+                                <span class="action-label">Rechercher Villa</span>
+                            </a>
+                            <a href="#reservations" class="action-btn" onclick="showSection('reservations')">
+                                <i class="action-icon fas fa-calendar-plus"></i>
+                                <span class="action-label">Mes Réservations</span>
+                            </a>
+                            <a href="#loyalty" class="action-btn" onclick="showSection('loyalty')">
+                                <i class="action-icon fas fa-gift"></i>
+                                <span class="action-label">Mes Récompenses</span>
+                            </a>
+                            <a href="#profile" class="action-btn" onclick="showSection('profile')">
+                                <i class="action-icon fas fa-user-edit"></i>
+                                <span class="action-label">Modifier Profil</span>
+                            </a>
+                            <a href="#concierge" class="action-btn" onclick="showSection('concierge')">
+                                <i class="action-icon fas fa-concierge-bell"></i>
+                                <span class="action-label">Conciergerie VIP</span>
+                            </a>
+                            <a href="#wishlist" class="action-btn" onclick="showSection('wishlist')">
+                                <i class="action-icon fas fa-heart-circle-plus"></i>
+                                <span class="action-label">Ajouter Favoris</span>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Villas Section -->
-            <section id="villas-section" class="content-section" style="display: none;">
-                <div class="page-header">
-                    <h1 class="page-title">🏡 Gestion des Villas</h1>
-                    <p class="page-subtitle">Gérez votre catalogue de villas</p>
-                </div>
-                
-                <div id="villasContent">
-                    <div class="flex items-center justify-center py-8">
-                        <div class="loading-spinner"></div>
-                        <span class="ml-3 text-white">Chargement des villas...</span>
+                    <!-- Recent Activity -->
+                    <div class="recent-activity" data-aos="fade-up" data-aos-delay="600">
+                        <h2 class="section-title">📈 Activité Récente</h2>
+                        <div class="activity-list" id="activityList">
+                            <div class="loading">
+                                <div class="loading-spinner"></div>
+                                Chargement de votre activité récente...
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- Analytics Section -->
-            <section id="analytics-section" class="content-section" style="display: none;">
-                <div class="page-header">
-                    <h1 class="page-title">📊 Statistiques</h1>
-                    <p class="page-subtitle">Analysez les performances de votre plateforme</p>
-                </div>
-                
-                <div id="analyticsContent">
-                    <div class="flex items-center justify-center py-8">
-                        <div class="loading-spinner"></div>
-                        <span class="ml-3 text-white">Chargement des statistiques...</span>
-                    </div>
-                </div>
-            </section>
+                <!-- Other sections will be loaded dynamically -->
+                <section id="reservations-section" class="dashboard-section" style="display: none;">
+                    <!-- Reservations content will be loaded here -->
+                </section>
 
-            <!-- Settings Section -->
-            <section id="settings-section" class="content-section" style="display: none;">
-                <div class="page-header">
-                    <h1 class="page-title">⚙️ Paramètres</h1>
-                    <p class="page-subtitle">Configurez votre plateforme</p>
-                </div>
-                
-                <div id="settingsContent">
-                    <div class="flex items-center justify-center py-8">
-                        <div class="loading-spinner"></div>
-                        <span class="ml-3 text-white">Chargement des paramètres...</span>
-                    </div>
-                </div>
-            </section>
-        </main>
+                <section id="profile-section" class="dashboard-section" style="display: none;">
+                    <!-- Profile content will be loaded here -->
+                </section>
+
+                <section id="loyalty-section" class="dashboard-section" style="display: none;">
+                    <!-- Loyalty content will be loaded here -->
+                </section>
+
+                <section id="wishlist-section" class="dashboard-section" style="display: none;">
+                    <!-- Wishlist content will be loaded here -->
+                </section>
+
+                <section id="notifications-section" class="dashboard-section" style="display: none;">
+                    <!-- Notifications content will be loaded here -->
+                </section>
+
+                <section id="wallet-section" class="dashboard-section" style="display: none;">
+                    <!-- Wallet content will be loaded here -->
+                </section>
+
+                <section id="concierge-section" class="dashboard-section" style="display: none;">
+                    <!-- Concierge content will be loaded here -->
+                </section>
+
+            </main>
+        </div>
     </div>
-
-    <!-- Notification Container -->
-    <div id="notification-container" aria-live="polite" aria-atomic="true" role="status"></div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true
-        });
-
-        // Backend URL
+        // Global variables
+        let currentUser = null;
+        let currentSection = 'dashboard';
         const backendUrl = window.location.hostname === 'localhost' 
             ? 'http://localhost:8001'
-            : 'https://web-a11y-upgrade.preview.emergentagent.com';
+            : (typeof process !== 'undefined' && process.env && process.env.REACT_APP_BACKEND_URL) 
+                ? process.env.REACT_APP_BACKEND_URL 
+                : 'https://web-a11y-upgrade.preview.emergentagent.com';
 
-        // Initialize dashboard
+        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
+            initBackgroundVideoiOS();
+            AOS.init({ duration: 1000, once: true });
             checkAuthentication();
             loadDashboardData();
-            setupKeyboardNavigation();
+            setupDashboardAccessibility();
+            
+            // Check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const section = urlParams.get('section');
+            if (section) {
+                showSection(section);
+            }
         });
 
-        // Authentication check
+        // iOS Video Background Support
+        function initBackgroundVideoiOS() {
+            const video = document.getElementById('backgroundVideo');
+            if (video) {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                
+                if (isIOS) {
+                    video.setAttribute('webkit-playsinline', '');
+                    video.setAttribute('playsinline', '');
+                    video.muted = true;
+                    video.defaultMuted = true;
+                    video.volume = 0;
+                    
+                    video.play().catch(error => {
+                        function startVideo() {
+                            video.play().then(() => {
+                                console.log('✅ Vidéo background démarrée sur iOS');
+                            }).catch(err => console.log('Erreur vidéo iOS:', err));
+                            document.removeEventListener('touchstart', startVideo);
+                            document.removeEventListener('click', startVideo);
+                        }
+                        
+                        document.addEventListener('touchstart', startVideo, { once: true });
+                        document.addEventListener('click', startVideo, { once: true });
+                    });
+                } else {
+                    video.play().catch(error => {
+                        console.log('Erreur autoplay:', error);
+                    });
+                }
+            }
+        }
+
+        // Check if user is authenticated
         function checkAuthentication() {
-            const token = localStorage.getItem('khanelconcept_admin_token');
-            if (!token) {
-                window.location.href = 'login.html';
-                return;
+            const userData = localStorage.getItem('khanelconcept_user');
+            const token = localStorage.getItem('khanelconcept_token');
+            
+            // Add a flag to prevent infinite loops
+            const isFromLogin = sessionStorage.getItem('dashboard_redirect');
+            if (isFromLogin) {
+                sessionStorage.removeItem('dashboard_redirect');
             }
             
-            // Verify token validity
-            fetch(`${backendUrl}/api/admin/verify-token`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
+            if (!userData || !token) {
+                console.log('❌ Aucune donnée utilisateur trouvée, redirection vers login');
+                // Add delay to prevent immediate redirect conflicts
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 100);
+                return;
+            }
+
+            try {
+                currentUser = JSON.parse(userData);
+                
+                // Validate user data structure
+                if (!currentUser.email && !currentUser.id) {
+                    throw new Error('Données utilisateur invalides');
                 }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Token invalid');
-                }
-            })
-            .catch(error => {
-                console.error('Authentication failed:', error);
-                localStorage.removeItem('khanelconcept_admin_token');
-                window.location.href = 'login.html';
-            });
+                
+                console.log('✅ Utilisateur authentifié:', currentUser.firstName || currentUser.email);
+                updateUserInterface();
+            } catch (error) {
+                console.error('❌ Erreur parsing données utilisateur:', error);
+                // Clear corrupt data
+                localStorage.removeItem('khanelconcept_user');
+                localStorage.removeItem('khanelconcept_token');
+                
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 100);
+            }
+        }
+
+        // Update user interface with current user data
+        function updateUserInterface() {
+            if (!currentUser) return;
+
+            const firstName = currentUser.firstName || 'Membre';
+            const level = currentUser.level || 'Découvreur';
+            const points = currentUser.points || 0;
+
+            // Update header
+            document.getElementById('userName').textContent = firstName;
+            document.getElementById('userLevel').textContent = level;
+            document.getElementById('userAvatar').textContent = firstName.charAt(0).toUpperCase();
+
+            // Update welcome section
+            document.getElementById('welcomeName').textContent = firstName;
+            document.getElementById('loyaltyPoints').textContent = points;
+
+            // Update level badge and progress
+            updateLevelDisplay(level, points);
+        }
+
+        // Update level display and progress
+        function updateLevelDisplay(level, points) {
+            const levelBadge = document.getElementById('memberLevelBadge');
+            const progressText = document.getElementById('pointsProgress');
+            const progressFill = document.getElementById('progressFill');
+
+            // Level configurations
+            const levels = {
+                'Découvreur': { icon: '🌟', min: 0, max: 499, next: 'Explorateur', nextMin: 500, class: 'discoverer' },
+                'Explorateur': { icon: '🗺️', min: 500, max: 1499, next: 'Aventurier', nextMin: 1500, class: 'explorer' },
+                'Aventurier': { icon: '⚔️', min: 1500, max: 2999, next: 'Légende', nextMin: 3000, class: 'adventurer' },
+                'Légende': { icon: '👑', min: 3000, max: Infinity, next: null, nextMin: null, class: 'legend' }
+            };
+
+            const currentLevel = levels[level] || levels['Découvreur'];
+            
+            // Update badge
+            levelBadge.textContent = `${currentLevel.icon} Niveau ${level}`;
+            levelBadge.className = `level-badge ${currentLevel.class}`;
+
+            // Update progress
+            if (currentLevel.next) {
+                const progress = ((points - currentLevel.min) / (currentLevel.nextMin - currentLevel.min)) * 100;
+                progressText.textContent = `${points} / ${currentLevel.nextMin} points`;
+                progressFill.style.width = `${Math.min(progress, 100)}%`;
+            } else {
+                progressText.textContent = `${points} points • Niveau Maximum`;
+                progressFill.style.width = '100%';
+            }
         }
 
         // Load dashboard data
         async function loadDashboardData() {
+            if (!currentUser) return;
+
             try {
-                const token = localStorage.getItem('khanelconcept_admin_token');
-                
-                // Get dashboard stats
-                const statsResponse = await fetch(`${backendUrl}/api/admin/stats/dashboard`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                
-                if (statsResponse.ok) {
-                    const stats = await statsResponse.json();
-                    updateDashboardStats(stats);
-                }
+                // Load member statistics
+                await loadMemberStats();
                 
                 // Load recent activity
-                loadRecentActivity();
+                await loadRecentActivity();
                 
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
-                showNotification('Erreur lors du chargement des données', 'error');
             }
         }
 
-        // Update dashboard stats
-        function updateDashboardStats(stats) {
-            document.getElementById('totalMembers').textContent = stats.totalMembers || 0;
-            document.getElementById('totalReservations').textContent = stats.totalReservations || 0;
-            document.getElementById('totalVillas').textContent = stats.totalVillas || 0;
-            document.getElementById('totalRevenue').textContent = (stats.totalRevenue || 0) + '€';
+        // Load member statistics
+        async function loadMemberStats() {
+            const token = localStorage.getItem('khanelconcept_token');
+            if (!token || !currentUser) return;
+
+            try {
+                // Load reservations
+                const reservationsResponse = await fetch(`${backendUrl}/api/members/${currentUser.id}/reservations`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (reservationsResponse.ok) {
+                    const reservations = await reservationsResponse.json();
+                    document.getElementById('totalReservations').textContent = reservations.length;
+                }
+
+                // Load wishlist
+                const wishlistResponse = await fetch(`${backendUrl}/api/members/${currentUser.id}/wishlist`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (wishlistResponse.ok) {
+                    const wishlist = await wishlistResponse.json();
+                    document.getElementById('wishlistCount').textContent = wishlist.length;
+                }
+
+                // Load notifications
+                const notificationsResponse = await fetch(`${backendUrl}/api/members/${currentUser.id}/notifications?limit=50`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (notificationsResponse.ok) {
+                    const notifications = await notificationsResponse.json();
+                    const unreadCount = notifications.filter(n => !n.isRead).length;
+                    document.getElementById('unreadNotifications').textContent = unreadCount;
+                    
+                    if (unreadCount > 0) {
+                        document.getElementById('notificationBadge').textContent = unreadCount;
+                        document.getElementById('notificationBadge').classList.remove('hidden');
+                    }
+                }
+
+            } catch (error) {
+                console.error('Error loading member stats:', error);
+            }
         }
 
         // Load recent activity
         async function loadRecentActivity() {
+            const token = localStorage.getItem('khanelconcept_token');
+            const activityList = document.getElementById('activityList');
+
+            if (!token || !currentUser) return;
+
             try {
-                const token = localStorage.getItem('khanelconcept_admin_token');
-                
-                const response = await fetch(`${backendUrl}/api/admin/activity/recent`, {
+                // Simulate loading recent activity from notifications
+                const notificationsResponse = await fetch(`${backendUrl}/api/members/${currentUser.id}/notifications?limit=5`, {
                     headers: {
-                        'Authorization': `Bearer ${token}`
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
                     }
                 });
-                
-                if (response.ok) {
-                    const activities = await response.json();
-                    displayRecentActivity(activities);
+
+                if (notificationsResponse.ok) {
+                    const notifications = await notificationsResponse.json();
+                    
+                    if (notifications.length === 0) {
+                        activityList.innerHTML = `
+                            <div class="activity-item system">
+                                <div class="activity-icon" style="background: var(--success-gradient)">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Compte créé avec succès</div>
+                                    <div class="activity-desc">Bienvenue chez KhanelConcept ! Votre aventure commence maintenant.</div>
+                                </div>
+                                <div class="activity-time">Aujourd'hui</div>
+                            </div>
+                        `;
+                    } else {
+                        activityList.innerHTML = notifications.map(notification => {
+                            const timeAgo = getTimeAgo(new Date(notification.createdAt));
+                            const iconClass = getActivityIcon(notification.type);
+                            const bgClass = getActivityBg(notification.type);
+                            
+                            return `
+                                <div class="activity-item ${notification.type}">
+                                    <div class="activity-icon" style="background: ${bgClass}">
+                                        <i class="${iconClass}"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">${notification.title}</div>
+                                        <div class="activity-desc">${notification.message}</div>
+                                    </div>
+                                    <div class="activity-time">${timeAgo}</div>
+                                </div>
+                            `;
+                        }).join('');
+                    }
                 } else {
-                    document.getElementById('recentActivity').innerHTML = `
-                        <div class="text-center py-8">
-                            <i class="fas fa-exclamation-triangle text-warning text-3xl mb-4"></i>
-                            <p class="text-white">Aucune activité récente</p>
-                        </div>
-                    `;
+                    throw new Error('Failed to load notifications');
                 }
-                
+
             } catch (error) {
                 console.error('Error loading recent activity:', error);
-                document.getElementById('recentActivity').innerHTML = `
-                    <div class="text-center py-8">
-                        <i class="fas fa-exclamation-triangle text-warning text-3xl mb-4"></i>
-                        <p class="text-white">Erreur lors du chargement de l'activité</p>
-                    </div>
-                `;
-            }
-        }
-
-        // Display recent activity
-        function displayRecentActivity(activities) {
-            const container = document.getElementById('recentActivity');
-            
-            if (!activities || activities.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8">
-                        <i class="fas fa-info-circle text-blue-400 text-3xl mb-4"></i>
-                        <p class="text-white">Aucune activité récente</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const activityHtml = activities.map(activity => `
-                <div class="flex items-center justify-between py-3 border-b border-white/10 last:border-b-0">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-${getActivityIcon(activity.type)} text-blue-400"></i>
-                        <div>
-                            <p class="text-white font-medium">${activity.description}</p>
-                            <p class="text-white/70 text-sm">${formatDate(activity.timestamp)}</p>
+                activityList.innerHTML = `
+                    <div class="activity-item system">
+                        <div class="activity-icon" style="background: var(--success-gradient)">
+                            <i class="fas fa-user-plus"></i>
                         </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Bienvenue sur KhanelConcept</div>
+                            <div class="activity-desc">Votre espace membre est prêt ! Découvrez nos villas de luxe.</div>
+                        </div>
+                        <div class="activity-time">Maintenant</div>
                     </div>
-                    <span class="status-badge ${getStatusClass(activity.status)}">${activity.status}</span>
-                </div>
-            `).join('');
-            
-            container.innerHTML = activityHtml;
+                `;
+            }
         }
 
         // Helper functions
         function getActivityIcon(type) {
             const icons = {
-                'member_registration': 'user-plus',
-                'reservation': 'calendar-check',
-                'login': 'sign-in-alt',
-                'security': 'shield-alt',
-                'system': 'cog'
+                'reservation': 'fas fa-calendar-check',
+                'loyalty': 'fas fa-star',
+                'system': 'fas fa-info-circle',
+                'promotion': 'fas fa-gift'
             };
-            return icons[type] || 'circle';
+            return icons[type] || 'fas fa-info-circle';
         }
 
-        function getStatusClass(status) {
-            const classes = {
-                'success': 'status-active',
-                'pending': 'status-pending',
-                'error': 'status-inactive',
-                'active': 'status-active'
+        function getActivityBg(type) {
+            const backgrounds = {
+                'reservation': 'var(--primary-gradient)',
+                'loyalty': 'var(--warning-gradient)',
+                'system': 'var(--success-gradient)',
+                'promotion': 'var(--secondary-gradient)'
             };
-            return classes[status] || 'status-pending';
+            return backgrounds[type] || 'var(--success-gradient)';
         }
 
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('fr-FR', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / (1000 * 60));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            if (minutes < 60) return `Il y a ${minutes} min`;
+            if (hours < 24) return `Il y a ${hours}h`;
+            if (days < 7) return `Il y a ${days} jours`;
+            return date.toLocaleDateString('fr-FR');
         }
 
-        // Section navigation
-        function showSection(sectionName) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            
-            // Show selected section
-            document.getElementById(sectionName + '-section').style.display = 'block';
-            
-            // Update active sidebar link
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.classList.remove('active');
-                link.removeAttribute('aria-current');
-            });
-            
-            const activeLink = document.querySelector(`[href="#${sectionName}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-                activeLink.setAttribute('aria-current', 'page');
-            }
-            
-            // Load section content
-            loadSectionContent(sectionName);
-            
-            // Announce section change
-            announcePageChange(sectionName);
-        }
-
-        // Load section content
-        function loadSectionContent(sectionName) {
-            switch(sectionName) {
-                case 'members':
-                    loadMembersContent();
-                    break;
-                case 'reservations':
-                    loadReservationsContent();
-                    break;
-                case 'villas':
-                    loadVillasContent();
-                    break;
-                case 'analytics':
-                    loadAnalyticsContent();
-                    break;
-                case 'settings':
-                    loadSettingsContent();
-                    break;
-            }
-        }
-
-        // Content loading functions
-        function loadMembersContent() {
-            // TODO: Implement members management
-            document.getElementById('membersContent').innerHTML = `
-                <div class="text-center py-8">
-                    <i class="fas fa-users text-blue-400 text-5xl mb-4"></i>
-                    <h3 class="text-white text-xl mb-2">Gestion des Membres</h3>
-                    <p class="text-white/70">Fonctionnalité en cours de développement</p>
-                </div>
-            `;
-        }
-
-        function loadReservationsContent() {
-            // TODO: Implement reservations management
-            document.getElementById('reservationsContent').innerHTML = `
-                <div class="text-center py-8">
-                    <i class="fas fa-calendar-check text-green-400 text-5xl mb-4"></i>
-                    <h3 class="text-white text-xl mb-2">Gestion des Réservations</h3>
-                    <p class="text-white/70">Fonctionnalité en cours de développement</p>
-                </div>
-            `;
-        }
-
-        function loadVillasContent() {
-            // TODO: Implement villas management
-            document.getElementById('villasContent').innerHTML = `
-                <div class="text-center py-8">
-                    <i class="fas fa-home text-purple-400 text-5xl mb-4"></i>
-                    <h3 class="text-white text-xl mb-2">Gestion des Villas</h3>
-                    <p class="text-white/70">Fonctionnalité en cours de développement</p>
-                </div>
-            `;
-        }
-
-        async function loadAnalyticsContent() {
-            try {
-                const token = localStorage.getItem('khanelconcept_admin_token');
-                
-                // Afficher le loader
-                document.getElementById('analyticsContent').innerHTML = `
-                    <div class="flex items-center justify-center py-8">
-                        <div class="loading-spinner"></div>
-                        <span class="ml-3 text-white">Chargement des analytics...</span>
-                    </div>
-                `;
-                
-                // Charger les données d'analytics
-                const [overviewResponse, performanceResponse, trendsResponse, realtimeResponse] = await Promise.all([
-                    fetch(`${backendUrl}/api/admin/analytics/overview`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }),
-                    fetch(`${backendUrl}/api/admin/analytics/performance`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }),
-                    fetch(`${backendUrl}/api/admin/analytics/trends`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    }),
-                    fetch(`${backendUrl}/api/admin/analytics/realtime`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    })
-                ]);
-                
-                const overviewData = await overviewResponse.json();
-                const performanceData = await performanceResponse.json();
-                const trendsData = await trendsResponse.json();
-                const realtimeData = await realtimeResponse.json();
-                
-                // Afficher le dashboard d'analytics
-                document.getElementById('analyticsContent').innerHTML = createAnalyticsDashboard(
-                    overviewData, 
-                    performanceData, 
-                    trendsData, 
-                    realtimeData
-                );
-                
-                // Initialiser les graphiques
-                initializeAnalyticsCharts(overviewData, performanceData, trendsData);
-                
-                // Démarrer les mises à jour temps réel
-                startRealtimeUpdates();
-                
-            } catch (error) {
-                console.error('Erreur lors du chargement des analytics:', error);
-                document.getElementById('analyticsContent').innerHTML = `
-                    <div class="text-center py-8">
-                        <i class="fas fa-exclamation-triangle text-red-400 text-5xl mb-4"></i>
-                        <h3 class="text-white text-xl mb-2">Erreur de chargement</h3>
-                        <p class="text-white/70">Impossible de charger les données d'analytics</p>
-                        <button onclick="loadAnalyticsContent()" class="btn btn-primary mt-4">
-                            <i class="fas fa-sync mr-2"></i>
-                            Réessayer
-                        </button>
-                    </div>
-                `;
-            }
-        }
-
-        function createAnalyticsDashboard(overview, performance, trends, realtime) {
-            return `
-                <!-- Analytics Dashboard -->
-                <div class="analytics-dashboard">
-                    <!-- Temps réel -->
-                    <div class="realtime-section mb-6">
-                        <div class="glass-card p-6">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-xl font-semibold text-white flex items-center">
-                                    <i class="fas fa-broadcast-tower mr-2 text-green-400"></i>
-                                    Temps Réel
-                                </h3>
-                                <div class="flex items-center text-green-400">
-                                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
-                                    <span class="text-sm">EN DIRECT</span>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <div class="realtime-metric">
-                                    <div class="text-3xl font-bold text-white" id="activeUsers">${realtime.active_users}</div>
-                                    <div class="text-sm text-white/70">Utilisateurs actifs</div>
-                                </div>
-                                <div class="realtime-metric">
-                                    <div class="text-3xl font-bold text-white" id="recentEvents">${realtime.recent_events}</div>
-                                    <div class="text-sm text-white/70">Événements (1h)</div>
-                                </div>
-                                <div class="realtime-metric">
-                                    <div class="text-3xl font-bold text-white" id="newReservations">${realtime.new_reservations}</div>
-                                    <div class="text-sm text-white/70">Nouvelles réservations</div>
-                                </div>
-                                <div class="realtime-metric">
-                                    <div class="text-3xl font-bold text-white">${performance.system_metrics.uptime}%</div>
-                                    <div class="text-sm text-white/70">Disponibilité</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Vue d'ensemble -->
-                    <div class="overview-section mb-6">
-                        <div class="glass-card p-6">
-                            <h3 class="text-xl font-semibold text-white mb-4 flex items-center">
-                                <i class="fas fa-chart-pie mr-2 text-blue-400"></i>
-                                Vue d'ensemble
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                <div class="overview-metric">
-                                    <div class="text-2xl font-bold text-white">${overview.overview.total_villas}</div>
-                                    <div class="text-sm text-white/70">Villas totales</div>
-                                </div>
-                                <div class="overview-metric">
-                                    <div class="text-2xl font-bold text-white">${overview.overview.total_members}</div>
-                                    <div class="text-sm text-white/70">Membres actifs</div>
-                                </div>
-                                <div class="overview-metric">
-                                    <div class="text-2xl font-bold text-white">${overview.overview.total_reservations}</div>
-                                    <div class="text-sm text-white/70">Réservations</div>
-                                </div>
-                                <div class="overview-metric">
-                                    <div class="text-2xl font-bold text-white">${overview.overview.conversion_rate}%</div>
-                                    <div class="text-sm text-white/70">Taux de conversion</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Graphiques -->
-                    <div class="charts-section mb-6">
-                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <!-- Revenus mensuels -->
-                            <div class="glass-card p-6">
-                                <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-chart-line mr-2 text-green-400"></i>
-                                    Revenus Mensuels
-                                </h3>
-                                <div class="chart-container">
-                                    <canvas id="revenueChart" width="400" height="200"></canvas>
-                                </div>
-                            </div>
-
-                            <!-- Performance des villas -->
-                            <div class="glass-card p-6">
-                                <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-home mr-2 text-orange-400"></i>
-                                    Top Villas
-                                </h3>
-                                <div class="chart-container">
-                                    <canvas id="villaChart" width="400" height="200"></canvas>
-                                </div>
-                            </div>
-
-                            <!-- Tendances des réservations -->
-                            <div class="glass-card p-6">
-                                <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-calendar-alt mr-2 text-purple-400"></i>
-                                    Tendances par Jour
-                                </h3>
-                                <div class="chart-container">
-                                    <canvas id="weekdayChart" width="400" height="200"></canvas>
-                                </div>
-                            </div>
-
-                            <!-- Fidélité des membres -->
-                            <div class="glass-card p-6">
-                                <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-users mr-2 text-pink-400"></i>
-                                    Fidélité Membres
-                                </h3>
-                                <div class="chart-container">
-                                    <canvas id="loyaltyChart" width="400" height="200"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Métriques de performance -->
-                    <div class="performance-section mb-6">
-                        <div class="glass-card p-6">
-                            <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                <i class="fas fa-tachometer-alt mr-2 text-red-400"></i>
-                                Métriques de Performance
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="performance-metric">
-                                    <div class="text-xl font-bold text-white">${performance.system_metrics.avg_response_time}ms</div>
-                                    <div class="text-sm text-white/70">Temps de réponse moyen</div>
-                                    <div class="progress-bar mt-2">
-                                        <div class="progress-fill" style="width: ${Math.min(performance.system_metrics.avg_response_time / 10, 100)}%"></div>
-                                    </div>
-                                </div>
-                                <div class="performance-metric">
-                                    <div class="text-xl font-bold text-white">${performance.system_metrics.cache_hit_rate}%</div>
-                                    <div class="text-sm text-white/70">Taux de succès cache</div>
-                                    <div class="progress-bar mt-2">
-                                        <div class="progress-fill" style="width: ${performance.system_metrics.cache_hit_rate}%"></div>
-                                    </div>
-                                </div>
-                                <div class="performance-metric">
-                                    <div class="text-xl font-bold text-white">${trends.avg_stay_duration.toFixed(1)} jours</div>
-                                    <div class="text-sm text-white/70">Durée moyenne séjour</div>
-                                    <div class="progress-bar mt-2">
-                                        <div class="progress-fill" style="width: ${Math.min(trends.avg_stay_duration * 10, 100)}%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Activité récente -->
-                    <div class="activity-section">
-                        <div class="glass-card p-6">
-                            <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                <i class="fas fa-history mr-2 text-indigo-400"></i>
-                                Activité Récente
-                            </h3>
-                            <div class="activity-list">
-                                ${overview.recent_activity.map(activity => `
-                                    <div class="activity-item">
-                                        <div class="flex items-center justify-between py-3 border-b border-white/10">
-                                            <div class="flex items-center">
-                                                <i class="fas fa-calendar-check text-green-400 mr-3"></i>
-                                                <div>
-                                                    <div class="text-white font-medium">${activity.villa_name}</div>
-                                                    <div class="text-white/70 text-sm">Par ${activity.member_name}</div>
-                                                </div>
-                                            </div>
-                                            <div class="text-right">
-                                                <div class="text-white font-medium">${activity.total_price}€</div>
-                                                <div class="text-white/70 text-sm">${formatDate(activity.created_at)}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Styles pour les analytics -->
-                <style>
-                    .analytics-dashboard {
-                        max-width: 100%;
-                    }
-                    
-                    .realtime-metric, .overview-metric, .performance-metric {
-                        background: rgba(255, 255, 255, 0.1);
-                        border-radius: 12px;
-                        padding: 1rem;
-                        text-align: center;
-                        transition: all 0.3s ease;
-                    }
-                    
-                    .realtime-metric:hover, .overview-metric:hover, .performance-metric:hover {
-                        background: rgba(255, 255, 255, 0.15);
-                        transform: translateY(-2px);
-                    }
-                    
-                    .chart-container {
-                        position: relative;
-                        height: 200px;
-                    }
-                    
-                    .progress-bar {
-                        height: 4px;
-                        background: rgba(255, 255, 255, 0.2);
-                        border-radius: 2px;
-                        overflow: hidden;
-                    }
-                    
-                    .progress-fill {
-                        height: 100%;
-                        background: linear-gradient(90deg, #10b981, #3b82f6);
-                        transition: width 0.3s ease;
-                    }
-                    
-                    .activity-item {
-                        transition: all 0.3s ease;
-                    }
-                    
-                    .activity-item:hover {
-                        background: rgba(255, 255, 255, 0.05);
-                        border-radius: 8px;
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .charts-section .grid {
-                            grid-template-columns: 1fr;
-                        }
-                    }
-                </style>
-            `;
-        }
-
-        // Initialize analytics charts
-        function initializeAnalyticsCharts(overview, performance, trends) {
-            // Graphique des revenus mensuels
-            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-            new Chart(revenueCtx, {
-                type: 'line',
-                data: {
-                    labels: performance.monthly_performance.map(m => `${m._id.month}/${m._id.year}`),
-                    datasets: [{
-                        label: 'Revenus (€)',
-                        data: performance.monthly_performance.map(m => m.revenue),
-                        borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                        borderWidth: 2,
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'white'
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Graphique des villas populaires
-            const villaCtx = document.getElementById('villaChart').getContext('2d');
-            new Chart(villaCtx, {
-                type: 'bar',
-                data: {
-                    labels: performance.villa_performance.map(v => v.villa_name).slice(0, 5),
-                    datasets: [{
-                        label: 'Réservations',
-                        data: performance.villa_performance.map(v => v.reservations).slice(0, 5),
-                        backgroundColor: [
-                            '#f59e0b',
-                            '#3b82f6',
-                            '#10b981',
-                            '#ef4444',
-                            '#8b5cf6'
-                        ],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: 'white'
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                color: 'rgba(255, 255, 255, 0.7)'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Graphique des tendances par jour de la semaine
-            const weekdayCtx = document.getElementById('weekdayChart').getContext('2d');
-            const weekdayLabels = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-            new Chart(weekdayCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: weekdayLabels,
-                    datasets: [{
-                        data: Array.from({length: 7}, (_, i) => {
-                            const found = trends.weekday_trends.find(t => t._id === i + 1);
-                            return found ? found.count : 0;
-                        }),
-                        backgroundColor: [
-                            '#ef4444',
-                            '#f59e0b',
-                            '#10b981',
-                            '#3b82f6',
-                            '#8b5cf6',
-                            '#ec4899',
-                            '#f97316'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: 'white',
-                                padding: 20
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Graphique de fidélité des membres
-            const loyaltyCtx = document.getElementById('loyaltyChart').getContext('2d');
-            new Chart(loyaltyCtx, {
-                type: 'pie',
-                data: {
-                    labels: performance.member_loyalty.map(l => l._id),
-                    datasets: [{
-                        data: performance.member_loyalty.map(l => l.count),
-                        backgroundColor: [
-                            '#10b981',
-                            '#3b82f6',
-                            '#f59e0b',
-                            '#ef4444'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: 'white',
-                                padding: 20
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // Mise à jour temps réel
-        function startRealtimeUpdates() {
-            setInterval(async () => {
-                try {
-                    const token = localStorage.getItem('khanelconcept_admin_token');
-                    const response = await fetch(`${backendUrl}/api/admin/analytics/realtime`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        
-                        // Mettre à jour les métriques temps réel
-                        const activeUsersEl = document.getElementById('activeUsers');
-                        const recentEventsEl = document.getElementById('recentEvents');
-                        const newReservationsEl = document.getElementById('newReservations');
-                        
-                        if (activeUsersEl) {
-                            activeUsersEl.textContent = data.active_users;
-                            // Animation sur changement
-                            activeUsersEl.style.transform = 'scale(1.1)';
-                            setTimeout(() => {
-                                activeUsersEl.style.transform = 'scale(1)';
-                            }, 200);
-                        }
-                        
-                        if (recentEventsEl) {
-                            recentEventsEl.textContent = data.recent_events;
-                        }
-                        
-                        if (newReservationsEl) {
-                            newReservationsEl.textContent = data.new_reservations;
-                        }
-                    }
-                } catch (error) {
-                    console.error('Erreur mise à jour temps réel:', error);
-                }
-            }, 30000); // Mise à jour toutes les 30 secondes
-        }
-
-        function loadSettingsContent() {
-            // TODO: Implement settings
-            document.getElementById('settingsContent').innerHTML = `
-                <div class="text-center py-8">
-                    <i class="fas fa-cog text-orange-400 text-5xl mb-4"></i>
-                    <h3 class="text-white text-xl mb-2">Paramètres Système</h3>
-                    <p class="text-white/70">Fonctionnalité en cours de développement</p>
-                </div>
-            `;
-        }
-
-        // Keyboard navigation
-        function setupKeyboardNavigation() {
+        // PHASE 2 - Fonctions d'accessibilité pour le dashboard
+        function setupDashboardAccessibility() {
+            // Gérer la navigation clavier dans la sidebar
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
             
             sidebarLinks.forEach((link, index) => {
@@ -1479,17 +1258,37 @@
                     }
                 });
             });
+            
+            // Gérer les notifications avec annonces
+            const originalShowSection = window.showSection;
+            window.showSection = function(sectionName) {
+                originalShowSection(sectionName);
+                
+                // Annoncer le changement de section
+                announcePageChange(sectionName);
+                
+                // Mettre à jour aria-current
+                sidebarLinks.forEach(link => {
+                    link.removeAttribute('aria-current');
+                });
+                
+                const activeLink = document.querySelector(`[href="#${sectionName}"]`);
+                if (activeLink) {
+                    activeLink.setAttribute('aria-current', 'page');
+                }
+            };
         }
 
-        // Announce page change for screen readers
         function announcePageChange(sectionName) {
             const sectionNames = {
                 'dashboard': 'Tableau de bord',
-                'members': 'Gestion des membres',
-                'reservations': 'Gestion des réservations',
-                'villas': 'Gestion des villas',
-                'analytics': 'Statistiques',
-                'settings': 'Paramètres'
+                'reservations': 'Mes Réservations',
+                'profile': 'Mon Profil',
+                'loyalty': 'Programme Fidélité',
+                'wishlist': 'Mes Favoris',
+                'notifications': 'Notifications',
+                'wallet': 'Portefeuille',
+                'concierge': 'Conciergerie'
             };
             
             const announcer = document.createElement('div');
@@ -1505,45 +1304,196 @@
             }, 1000);
         }
 
-        // Notifications
-        function showNotification(message, type = 'success') {
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'info'}-circle mr-2"></i>
-                ${message}
-            `;
-            
-            document.getElementById('notification-container').appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 100);
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, 3000);
-        }
-
-        // Refresh data
-        function refreshData() {
-            showNotification('Actualisation en cours...', 'info');
-            loadDashboardData();
-        }
-
-        // Logout
-        function logout() {
-            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-                localStorage.removeItem('khanelconcept_admin_token');
-                showNotification('Déconnexion réussie', 'success');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1000);
+        function updateNotificationBadge(count) {
+            const badge = document.getElementById('notificationBadge');
+            if (count > 0) {
+                badge.textContent = count;
+                badge.classList.remove('hidden');
+                badge.setAttribute('aria-label', `${count} nouvelles notifications`);
+            } else {
+                badge.classList.add('hidden');
+                badge.removeAttribute('aria-label');
             }
         }
+
+        // Enhanced showSection with accessibility
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(`${sectionName}-section`);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+
+            // Update active sidebar link
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const activeLink = document.querySelector(`[onclick="showSection('${sectionName}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            currentSection = sectionName;
+
+            // Load section-specific content
+            loadSectionContent(sectionName);
+        }
+
+        // Load content for specific sections
+        function loadSectionContent(sectionName) {
+            switch(sectionName) {
+                case 'reservations':
+                    loadReservationsContent();
+                    break;
+                case 'profile':
+                    loadProfileContent();
+                    break;
+                case 'loyalty':
+                    loadLoyaltyContent();
+                    break;
+                case 'wishlist':
+                    loadWishlistContent();
+                    break;
+                case 'notifications':
+                    loadNotificationsContent();
+                    break;
+                case 'wallet':
+                    loadWalletContent();
+                    break;
+                case 'concierge':
+                    loadConciergeContent();
+                    break;
+            }
+        }
+
+        // Placeholder content loaders (will be implemented in next phases)
+        function loadReservationsContent() {
+            document.getElementById('reservations-section').innerHTML = `
+                <div class="welcome-section">
+                    <h1 class="welcome-title">📅 Mes Réservations</h1>
+                    <p class="welcome-subtitle">Gérez vos réservations en cours et votre historique</p>
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement de vos réservations...
+                    </div>
+                </div>
+            `;
+            // TODO: Implement reservations content
+        }
+
+        function loadProfileContent() {
+            document.getElementById('profile-section').innerHTML = `
+                <div class="welcome-section">
+                    <h1 class="welcome-title">👤 Mon Profil</h1>
+                    <p class="welcome-subtitle">Gérez vos informations personnelles et préférences</p>
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement de votre profil...
+                    </div>
+                </div>
+            `;
+            // TODO: Implement profile content
+        }
+
+        function loadLoyaltyContent() {
+            document.getElementById('loyalty-section').innerHTML = `
+                <div class="welcome-section">
+                    <h1 class="welcome-title">⭐ Programme Fidélité</h1>
+                    <p class="welcome-subtitle">Découvrez vos points, niveaux et récompenses</p>
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement de votre programme fidélité...
+                    </div>
+                </div>
+            `;
+            // TODO: Implement loyalty content
+        }
+
+        function loadWishlistContent() {
+            document.getElementById('wishlist-section').innerHTML = `
+                <div class="welcome-section">
+                    <h1 class="welcome-title">❤️ Mes Villas Favorites</h1>
+                    <p class="welcome-subtitle">Retrouvez vos villas préférées et gérez votre wishlist</p>
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement de vos favoris...
+                    </div>
+                </div>
+            `;
+            // TODO: Implement wishlist content
+        }
+
+        function loadNotificationsContent() {
+            document.getElementById('notifications-section').innerHTML = `
+                <div class="welcome-section">
+                    <h1 class="welcome-title">🔔 Notifications</h1>
+                    <p class="welcome-subtitle">Restez informé de toutes vos activités et offres</p>
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement de vos notifications...
+                    </div>
+                </div>
+            `;
+            // TODO: Implement notifications content
+        }
+
+        function loadWalletContent() {
+            document.getElementById('wallet-section').innerHTML = `
+                <div class="welcome-section">
+                    <h1 class="welcome-title">💳 Portefeuille & Facturation</h1>
+                    <p class="welcome-subtitle">Gérez vos paiements, factures et méthodes de règlement</p>
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement de votre portefeuille...
+                    </div>
+                </div>
+            `;
+            // TODO: Implement wallet content
+        }
+
+        function loadConciergeContent() {
+            document.getElementById('concierge-section').innerHTML = `
+                <div class="welcome-section">
+                    <h1 class="welcome-title">🛎️ Conciergerie VIP</h1>
+                    <p class="welcome-subtitle">Services personnalisés et assistance premium</p>
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Chargement des services conciergerie...
+                    </div>
+                </div>
+            `;
+            // TODO: Implement concierge content
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                localStorage.removeItem('khanelconcept_user');
+                localStorage.removeItem('khanelconcept_token');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.section) {
+                showSection(event.state.section);
+            }
+        });
+
+        // Update URL when section changes
+        function updateUrl(section) {
+            const url = new URL(window.location);
+            url.searchParams.set('section', section);
+            history.pushState({ section: section }, '', url);
+        }
+
     </script>
 </body>
 </html>
