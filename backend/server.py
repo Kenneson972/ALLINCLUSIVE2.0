@@ -543,6 +543,45 @@ async def shutdown_db_client():
 # ========== API ROUTES ==========
 
 @app.get("/api/health")
+
+# ========== API MOCK ENDPOINTS (Fallback simple) ==========
+@app.get("/api/v1/villas")
+async def api_v1_villas():
+    try:
+        import json, os
+        p = "/app/backend/mocks/villas.json"
+        with open(p, "r") as f:
+            data = json.load(f)
+        return data
+    except Exception as e:
+        return []
+
+@app.get("/api/v1/reservations")
+async def api_v1_reservations():
+    try:
+        import json, os
+        p = "/app/backend/mocks/reservations.json"
+        with open(p, "r") as f:
+            data = json.load(f)
+        return data
+    except Exception:
+        return []
+
+@app.get("/api/v1/settings")
+async def api_v1_settings():
+    try:
+        import json, os
+        p = "/app/backend/mocks/settings.json"
+        with open(p, "r") as f:
+            data = json.load(f)
+        return data
+    except Exception:
+        return {}
+
+@app.get("/api/v1/health")
+async def api_v1_health():
+    return {"status": "ok"}
+
 async def health_check():
     """Vérification de santé de l'API"""
     return {"status": "healthy", "timestamp": datetime.utcnow()}
