@@ -401,7 +401,7 @@ class ImageHandler {
     }
 
     saveImages() {
-        localStorage.setItem('admin_images', JSON.stringify(this.uploadedImages));
+        // images persistence moved to backend (no localStorage)
     }
 
     // Get images for villa selection
