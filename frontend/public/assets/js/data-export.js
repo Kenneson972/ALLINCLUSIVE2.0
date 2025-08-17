@@ -24,12 +24,12 @@ class DataExportManager {
             villas: this.app.villas,
             settings: this.app.settings,
             images: [], // moved away from localStorage
-            reservations: JSON.parse(null) || [],
+            reservations: [],
             metadata: {
                 exportDate: new Date().toISOString(),
                 version: '1.0',
                 totalVillas: this.app.villas.length,
-                totalImages: (JSON.parse(null) || []).length
+                totalImages: 0
             }
         };
 
