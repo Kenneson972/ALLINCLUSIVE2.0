@@ -1,0 +1,4 @@
+[
+  {"id":"1","name":"Villa F5 Ste Anne","location":"Sainte-Anne","price":1300,"guests":10,"guests_detail":"10 personnes","features":"Piscine, wifi","category":"sejour","image":"assets/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg","gallery":["assets/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg"],"fallback_icon":"🌴"},
+  {"id":"2","name":"Villa F6 Lamentin","location":"Lamentin","price":1500,"guests":10,"guests_detail":"10 personnes","features":"Piscine, clim","category":"sejour","image":"assets/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg","gallery":["assets/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg"],"fallback_icon":"🏖️"}
+]
