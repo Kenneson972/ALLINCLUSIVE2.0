@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<![CDATA[<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -13,8 +13,9 @@
         .video-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: -1; }
         .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); height:70px; }
         .header-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; height:70px; }
-        .logo-container { height:60px; max-width:200px; display:flex; align-items:center; }
-        .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; }
+        .logo-container { height:60px; max-width:200px; display:flex; align-items:center; background:none; backdrop-filter:none; }
+        .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; background-color:transparent; box-shadow:none; }
+        .brand-logo, img[src*="logo"] { background: transparent !important; mix-blend-mode: screen; }
         @media (max-width:768px){ .logo-image { height:40px; max-width:160px; } }
         .logo-text { color: white; font-size: 1.6rem; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
         .nav-links { display: flex; list-style: none; gap: 1rem; align-items: center; flex-wrap: wrap; }
@@ -115,7 +116,7 @@
           <ul style="list-style: none; padding: 0; margin-top: 1rem;">
             <li>📸 Shooting vacances</li>
             <li>💑 Photos de couple</li>
-            <li>👨‍👩‍👧‍👦 Portraits famille</li>
+            <li>👨‍👩‍👦 Portraits famille</li>
             <li>🎥 Vidéo souvenir</li>
           </ul>
         </div>
@@ -156,4 +157,4 @@
     });
   </script>
 </body>
-</html>
+</html>]]>
