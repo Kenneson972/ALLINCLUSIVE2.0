@@ -1,126 +1,15 @@
 {
-  "timestamp": "2025-07-28T10:57:10.492042",
+  "timestamp": "2025-08-20T16:39:16.460936",
   "success": false,
-  "passed_tests": 10,
-  "failed_tests": 6,
+  "passed_tests": 0,
+  "failed_tests": 1,
   "test_results": [
     {
       "test": "API Health Check",
-      "passed": true,
-      "message": "API accessible, status: healthy",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.482047"
-    },
-    {
-      "test": "Villa Count Verification",
-      "passed": true,
-      "message": "Nombre exact de villas confirmé: 21",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.487073"
-    },
-    {
-      "test": "Villa Data Structure",
-      "passed": true,
-      "message": "Tous les champs requis présents dans les villas",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.487099"
-    },
-    {
-      "test": "Espace Piscine Villa - Prix",
-      "passed": true,
-      "message": "Prix correct: 350.0€",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.487222"
-    },
-    {
-      "test": "Espace Piscine Villa - Catégorie",
-      "passed": true,
-      "message": "Catégorie correcte: fete",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.487232"
-    },
-    {
-      "test": "Espace Piscine Villa - Trouvée",
-      "passed": true,
-      "message": "Villa trouvée: Espace Piscine Journée Bungalow",
-      "details": "Prix: 350.0€, Catégorie: fete",
-      "timestamp": "2025-07-28T10:57:10.487243"
-    },
-    {
-      "test": "Image Paths - No Placeholders",
       "passed": false,
-      "message": "Images placeholder trouvées: 60",
-      "details": [
-        "Villa F3 sur Petit Macabou: /images/placeholder_villa_1.jpg",
-        "Villa F3 sur Petit Macabou (gallery): /images/placeholder_villa_1_1.jpg",
-        "Villa F3 sur Petit Macabou (gallery): /images/placeholder_villa_1_2.jpg",
-        "Villa F5 sur Ste Anne: /images/placeholder_villa_2.jpg",
-        "Villa F5 sur Ste Anne (gallery): /images/placeholder_villa_2_1.jpg"
-      ],
-      "timestamp": "2025-07-28T10:57:10.487292"
-    },
-    {
-      "test": "Image Paths - Consistency",
-      "passed": false,
-      "message": "Chemins d'images incohérents: 21/21 villas",
+      "message": "API non accessible, status code: 500",
       "details": null,
-      "timestamp": "2025-07-28T10:57:10.487322"
-    },
-    {
-      "test": "Search by Category Fete",
-      "passed": false,
-      "message": "Erreur API search: 500",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491620"
-    },
-    {
-      "test": "Pricing Details - Complete",
-      "passed": true,
-      "message": "Toutes les villas ont des pricing_details (21/21)",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491733"
-    },
-    {
-      "test": "Pricing Details Structure - Villa F3 sur Petit Macabou",
-      "passed": false,
-      "message": "Structure pricing incomplète: ['base_price', 'weekend_price', 'high_season_price', 'price_type']",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491756"
-    },
-    {
-      "test": "Pricing Details Structure - Villa F5 sur Ste Anne",
-      "passed": false,
-      "message": "Structure pricing incomplète: ['base_price', 'weekend_price', 'high_season_price', 'price_type']",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491765"
-    },
-    {
-      "test": "Pricing Details Structure - Villa F3 Baccha Petit Macabou",
-      "passed": false,
-      "message": "Structure pricing incomplète: ['base_price', 'weekend_price', 'high_season_price', 'price_type']",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491794"
-    },
-    {
-      "test": "Key Villa - F3 Petit Macabou",
-      "passed": true,
-      "message": "Villa trouvée avec prix correct: 850.0€",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491813"
-    },
-    {
-      "test": "Key Villa - F5 Ste Anne",
-      "passed": true,
-      "message": "Villa trouvée avec prix correct: 1350.0€",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491821"
-    },
-    {
-      "test": "Key Villa - F6 Petit Macabou",
-      "passed": true,
-      "message": "Villa trouvée avec prix correct: 2000.0€",
-      "details": null,
-      "timestamp": "2025-07-28T10:57:10.491832"
+      "timestamp": "2025-08-20T16:39:16.459096"
     }
   ]
 }
