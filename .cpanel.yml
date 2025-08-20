@@ -1,0 +1,19 @@
+deployment:
+  tasks:
+    # 1) S'assurer que la racine web existe
+    - /bin/mkdir -p ~/public_html
+
+    # 2) Déployer le contenu de frontend/public → public_html
+    #    --delete : supprime les fichiers obsolètes côté serveur
+    #    On exclut seulement les fichiers de contrôle Git/cPanel
+    - /bin/rsync -av --delete \
+        --exclude='.git*' \
+        --exclude='.cpanel*' \
+        frontend/public/ ~/public_html/
+
+    # 3) (Optionnel mais utile) Si un index.php de SiteBuilder traîne, on le met de côté
+    - if [ -f ~/public_html/index.php ] && [ -f ~/public_html/index.html ]; then mv -f ~/public_html/index.php ~/public_html/index.php.old; fi
+
+    # 4) (Optionnel) Mettre de côté d'éventuels dossiers de builder en conflit
+    - if [ -d ~/public_html/sitebuilder ]; then mv -f ~/public_html/sitebuilder ~/public_html/sitebuilder.old; fi
+    - if [ -d ~/public_html/sitepad ]; then mv -f ~/public_html/sitepad ~/public_html/sitepad.old; fi
