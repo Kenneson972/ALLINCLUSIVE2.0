@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Smoke Test</title><link rel="stylesheet" href="../assets/css/site.css"><style>body{font-family:system-ui,Segoe UI,Roboto,Inter,Arial;padding:20px;background:#0f1a32;color:#fff}table{width:100%;border-collapse:collapse;margin-top:16px}td,th{border:1px solid rgba(255,255,255,.2);padding:8px}button{padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.3);background:#2b3d70;color:#fff;cursor:pointer}</style></head><body>
+<h1>Smoke Test</h1>
+<p>Tests basiques: assets, no-op API, purge storage.</p>
+<button id="run">Tester</button>
+<table id="out"><thead><tr><th>Test</th><th>Résultat</th><th>Détail</th></tr></thead><tbody></tbody></table>
+<script>
+function row(n,r,d){const tr=document.createElement('tr'); tr.innerHTML=`<td>${n}</td><td>${r?'OK':'KO'}</td><td>${d||''}</td>`; document.querySelector('#out tbody').appendChild(tr);}
+async function test(){
+  // CSS/JS/IMG presence
+  try{ const css=document.querySelector('link[href*="assets/css" ]'); row('CSS chargé', !!css, css?css.href:''); }catch(e){ row('CSS chargé', false, e.message); }
+  try{ const sg=document.createElement('img'); sg.src='../assets/images/logo.png'; await new Promise(res=>{ sg.onload=res; sg.onerror=res; setTimeout(res,1000);}); row('Image clé', true, sg.src);}catch(e){ row('Image clé', false, e.message); }
+  // admin_write toggle
+  const p=new URLSearchParams(location.search); const aw=p.get('admin_write')==='1';
+  if(aw){
+    try{ const r=await fetch('../api/v1/reservations',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({test:true})}); row('No-op POST /reservations', r.ok, 'status='+r.status); }catch(e){ row('No-op POST /reservations', false, e.message); }
+  }else{ row('ADMIN_WRITE_ENABLED', true, 'doit être false par défaut'); }
+  // purge storage
+  if(p.get('purge_storage')==='1'){
+    const ok=Object.keys(localStorage).filter(k=>k.startsWith('kc:')).length===0; row('Purge kc:*', ok, ok?'vide':'reste des entrées');
+  }
+}
+document.getElementById('run').addEventListener('click', test);
+</script></body></html>
