@@ -598,7 +598,7 @@ cacheSystem.configure({
 // Créer le client API avec cache
 const backendUrl = window.location.hostname === 'localhost' 
     ? 'http://localhost:8001'
-    : 'https://web-a11y-upgrade.preview.emergentagent.com';
+    : 'https://luxury-stays-9.preview.emergentagent.com';
 
 const apiClient = new CachedAPIClient(backendUrl, cacheSystem);
 

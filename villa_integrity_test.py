@@ -11,7 +11,7 @@ from datetime import datetime
 from collections import Counter
 
 # Load environment variables
-BACKEND_URL = "https://web-a11y-upgrade.preview.emergentagent.com"
+BACKEND_URL = "https://luxury-stays-9.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 class VillaDataIntegrityTester:
