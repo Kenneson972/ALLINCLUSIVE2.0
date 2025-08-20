@@ -13,36 +13,40 @@
     .video-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.35); z-index:-1; }
 
     /* HEADER STRUCTURE */
-    .fixed-header { position: fixed; top:0; left:0; right:0; height:70px; z-index:1000; background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border-bottom:1px solid rgba(255,255,255,0.1); }
-    .header-content { max-width: 1200px; margin:0 auto; height:70px; display:flex; align-items:center; justify-content: space-between; padding: 0 1rem; }
-    .logo-section { display:flex; align-items:center; gap:.75rem; }
-    .main-navigation { display:flex; align-items:center; gap:.5rem; }
-    .main-navigation a { color:#fff; text-decoration:none; padding:.5rem 1rem; border-radius:22px; transition:.2s ease; }
-    .main-navigation a:hover, .main-navigation a.active, .main-navigation a[aria-current="page"] { background: rgba(255,255,255,0.2); }
+    .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.1);height:70px}
+    .header-content{max-width:1200px;margin:0 auto;height:70px;display:flex;align-items:center;justify-content: space-between;padding: 0 1rem}
+    .logo-section{display:flex;align-items:center;gap:.75rem}
+    .main-navigation{display:flex;align-items:center;gap:.5rem}
+    .main-navigation a{color:#fff;text-decoration:none;padding:.5rem 1rem;border-radius:22px;transition:.2s ease}
+    .main-navigation a:hover,.main-navigation a.active,.main-navigation a[aria-current="page"]{background: rgba(255,255,255,0.2)}
 
     /* LOGO CORRECT */
-    .logo-container { height:60px; max-width:200px; display:flex; align-items:center; }
-    .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; }
-    @media (max-width:768px){
-      .logo-image { height:40px; max-width:160px; }
-    }
+    .logo-container{height:60px;max-width:200px;display:flex;align-items:center;background:none;backdrop-filter:none}
+    .logo-image{height:50px;width:auto;max-width:180px;border-radius:8px;background-color:transparent;box-shadow:none}
+    .brand-logo, img[src*="logo"]{background:transparent !important;mix-blend-mode:screen}
+    @media (max-width:768px){.logo-image{height:40px;max-width:160px}}
 
     /* MAIN CONTENT SPACING */
     .main-content { padding-top: 90px; }
 
-    /* GRILLE CATÉGORIES CENTRÉE */
+    /* GRILLE CATÉGORIES CENTRÉE (copie style villas) */
     .categories-section { padding: 1rem 0 2rem; }
     .categories-section h2 { text-align:center; font-size:2rem; margin:0.5rem 0 0; }
     .categories-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
-    .villa-card { background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:16px; overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; display:flex; flex-direction:column; }
-    .villa-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+    /* Cartes: copier le style .villa-card */
+    .villa-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; overflow:hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; display:flex; flex-direction:column; }
+    .villa-card:hover, .villa-card:focus-visible { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
     .villa-image-container { height: 200px; overflow:hidden; display:block; width:100%; }
     .villa-image { width:100%; height:100%; object-fit:cover; display:block; }
     .image-placeholder { width:100%; height:200px; display:flex; align-items:center; justify-content:center; font-size:2rem; background: linear-gradient(135deg,#667eea,#764ba2); }
     .villa-content { padding: 1rem; background: rgba(0,0,0,0.25); }
 
     .category-card { display:flex; flex-direction:column; align-items:center; text-align:center; }
+
+    /* Animations (identiques villas) */
+    .fade-in { opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity:1; transform: none; }
 
     /* Mobile navigation toggle */
     .mobile-nav-toggle { display:none; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:#fff; font-size:1.2rem; cursor:pointer; padding:.5rem; }
@@ -60,6 +64,9 @@
     }
     document.addEventListener('DOMContentLoaded', ()=>{
       try { var current=(location.pathname.split('/').pop()||'index.html').toLowerCase(); document.querySelectorAll('nav a').forEach(function(a){ var href=(a.getAttribute('href')||'').toLowerCase(); if(href===current){ a.classList.add('active'); a.setAttribute('aria-current','page'); } }); } catch(e){}
+      // Animations séquentielles sur catégories
+      const cards = document.querySelectorAll('.category-card');
+      cards.forEach((card,i)=>{ card.classList.add('fade-in'); setTimeout(()=> card.classList.add('visible'), 120 + i*120); });
     });
   </script>
 </head>
@@ -71,8 +78,8 @@
     <div class="video-overlay"></div>
   </div>
 
-  <!-- STRUCTURE CORRIGÉE -->
-  <header class="fixed-header">
+  <!-- Header fixe -->
+  <header class="header">
     <div class="header-content">
       <div class="logo-section">
         <a href="index.html" class="logo-container">
@@ -108,56 +115,56 @@
             <img src="images/categories/nos-villas.jpg" alt="Nos Villas" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">🏡</div>
           </div>
-          <div class="villa-content"><h3>Nos Villas</h3></div>
+          <div class="villa-content"><h3>Nos Villas</h3><p>Notre collection complète de villas</p></div>
         </a>
         <a href="prestataires.html" class="villa-card category-card">
           <div class="villa-image-container">
             <img src="images/categories/prestataires.jpg" alt="Prestataires" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">🧰</div>
           </div>
-          <div class="villa-content"><h3>Prestataires</h3></div>
+          <div class="villa-content"><h3>Prestataires</h3><p>Services premium pour votre séjour</p></div>
         </a>
         <a href="activites-loisirs.html" class="villa-card category-card">
           <div class="villa-image-container">
             <img src="images/categories/activites-loisirs.jpg" alt="Activités/Loisirs" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">🎟️</div>
           </div>
-          <div class="villa-content"><h3>Activités/Loisirs</h3></div>
+          <div class="villa-content"><h3>Activités/Loisirs</h3><p>Excursions et loisirs incontournables</p></div>
         </a>
         <a href="prestataires-evenementiels.html" class="villa-card category-card">
           <div class="villa-image-container">
             <img src="images/categories/prestataires-evenementiels.jpg" alt="Prestataires événementiels" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">🪑</div>
           </div>
-          <div class="villa-content"><h3>Prestataires événementiels</h3></div>
+          <div class="villa-content"><h3>Prestataires événementiels</h3><p>Mobilier et services d’événement</p></div>
         </a>
         <a href="pmr.html" class="villa-card category-card">
           <div class="villa-image-container">
             <img src="images/categories/pmr.jpg" alt="PMR" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">♿</div>
           </div>
-          <div class="villa-content"><h3>PMR</h3></div>
+          <div class="villa-content"><h3>PMR</h3><p>Séjours accessibles et adaptés</p></div>
         </a>
         <a href="location-de-voiture.html" class="villa-card category-card">
           <div class="villa-image-container">
             <img src="images/categories/location-de-voiture.jpg" alt="Location de voiture" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">🚗</div>
           </div>
-          <div class="villa-content"><h3>Location de voiture</h3></div>
+          <div class="villa-content"><h3>Location de voiture</h3><p>Choisissez votre véhicule idéal</p></div>
         </a>
         <a href="evenement.html" class="villa-card category-card">
           <div class="villa-image-container">
             <img src="images/categories/evenement.jpg" alt="Événement" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">🎉</div>
           </div>
-          <div class="villa-content"><h3>Événement</h3></div>
+          <div class="villa-content"><h3>Événement</h3><p>Organisez vos événements sur-mesure</p></div>
         </a>
         <a href="se-deplacer.html" class="villa-card category-card">
           <div class="villa-image-container">
             <img src="images/categories/se-deplacer.jpg" alt="Se déplacer" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <div class="image-placeholder" style="display:none;">🚌</div>
           </div>
-          <div class="villa-content"><h3>Se déplacer</h3></div>
+          <div class="villa-content"><h3>Se déplacer</h3><p>Transferts et chauffeurs</p></div>
         </a>
       </div>
     </section>

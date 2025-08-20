@@ -16,8 +16,9 @@
     .video-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.35); z-index:-1; }
     .header { position: fixed; top:0; left:0; right:0; z-index:1000; background: rgba(15,25,50,0.08); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border-bottom:1px solid rgba(255,255,255,0.18); padding: 0; height: 70px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
     .header-content { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; height:70px; }
-    .logo-container { height:60px; max-width:200px; display:flex; align-items:center; }
-    .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; }
+    .logo-container { height:60px; max-width:200px; display:flex; align-items:center; background:none; backdrop-filter:none; }
+    .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; background-color:transparent; box-shadow:none; }
+    .brand-logo, img[src*="logo"]{background:transparent !important; mix-blend-mode:screen}
     @media (max-width:768px){ .logo-image { height:40px; max-width:160px; } }
     nav[aria-label] ul { list-style:none; display:flex; gap:0.75rem; margin:0; padding:0; align-items:center; flex-wrap:wrap; }
     nav[aria-label] a { color:#fff; text-decoration:none; padding:0.5rem 1rem; border-radius:25px; transition:.25s ease; display:inline-block; }
@@ -27,7 +28,7 @@
     .main-content { padding-top: 90px; }
     .container { max-width:1200px; margin:0 auto; padding: 0 2rem; }
     .hero { text-align:center; margin: 0 0 1.5rem; }
-    .hero-logo-image { height: 64px; width:auto; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.25); display:inline-block; }
+    .hero-logo-image { height: 64px; width:auto; border-radius:10px; box-shadow:0 6px 24px rgba(0,0,0,0.25); display:inline-block; background:transparent; mix-blend-mode:screen; }
     .hero-logo { margin-bottom: 12px; }
     .hero h1 { font-size: 2.2rem; margin:.2rem 0 .5rem; text-shadow: 0 4px 20px rgba(0,0,0,0.35); }
     .hero p { margin:0 auto; max-width: 900px; color: #f1f1f1; }
@@ -151,7 +152,7 @@
         return;
       }
       grid.innerHTML = list.map(villa => `
-        <li role="listitem">
+        <li role="listitem" class="fade-in">
           <article class="villa-card" aria-labelledby="villa-${villa.id}">
             <div class="villa-image-container">
               <img src="assets/images/placeholders/villa-placeholder.jpg" alt="${villa.name} – ${villa.location}" class="villa-image" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';" width="1280" height="720">
@@ -173,8 +174,7 @@
       `).join('');
 
       requestAnimationFrame(()=>{
-        document.querySelectorAll('.villa-card').forEach((card,i)=>{
-          card.classList.add('fade-in');
+        document.querySelectorAll('.fade-in').forEach((card,i)=>{
           setTimeout(()=> card.classList.add('visible'), 100 + i*80);
         })
         document.querySelectorAll('.btn-secondary').forEach(sanitizeLink);
