@@ -1,5 +1,11 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/example/public_html/
-    - /bin/cp -R images $DEPLOYPATH
+    - export DEPLOYPATH=$HOME/public_html/
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R frontend/public/assets $DEPLOYPATH
+    - /bin/cp -R frontend/public/tools  $DEPLOYPATH
+    - /bin/cp -f frontend/public/*.html $DEPLOYPATH
+    - /bin/cp -f frontend/public/.htaccess   $DEPLOYPATH
+    - /bin/cp -f frontend/public/sitemap.xml $DEPLOYPATH
+    - /bin/cp -f frontend/public/robots.txt  $DEPLOYPATH
