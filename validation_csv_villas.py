@@ -19,7 +19,7 @@ def validate_villa_data():
     
     # Récupération des données actuelles
     try:
-        backend_url = "https://luxury-stays-9.preview.emergentagent.com"
+        backend_url = "https://static-site-restore.preview.emergentagent.com"
         response = requests.get(f"{backend_url}/api/villas", timeout=10)
         current_villas = response.json()
         print(f"✅ Données actuelles récupérées: {len(current_villas)} villas")

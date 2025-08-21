@@ -8,7 +8,7 @@ import json
 from datetime import datetime, timedelta
 
 # Configuration
-BACKEND_URL = "https://luxury-stays-9.preview.emergentagent.com"
+BACKEND_URL = "https://static-site-restore.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 def test_reservation_creation():

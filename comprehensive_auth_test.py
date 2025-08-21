@@ -17,7 +17,7 @@ def test_http_endpoints():
     
     base_urls = [
         "http://localhost:8001",
-        "https://luxury-stays-9.preview.emergentagent.com"
+        "https://static-site-restore.preview.emergentagent.com"
     ]
     
     admin_credentials = {
