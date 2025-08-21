@@ -542,8 +542,6 @@ async def shutdown_db_client():
 
 # ========== API ROUTES ==========
 
-@app.get("/api/health")
-
 # ========== API MOCK ENDPOINTS (Fallback simple) ==========
 @app.get("/api/v1/villas")
 async def api_v1_villas():
