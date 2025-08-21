@@ -580,6 +580,7 @@ async def api_v1_settings():
 async def api_v1_health():
     return {"status": "ok"}
 
+@app.get("/api/health")
 async def health_check():
     """Vérification de santé de l'API"""
     return {"status": "healthy", "timestamp": datetime.utcnow()}
