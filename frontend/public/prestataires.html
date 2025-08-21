@@ -1,4 +1,4 @@
-<![CDATA[<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -14,10 +14,9 @@
         .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(15,25,50,0.12); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.14); height:70px; }
         .header-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; height:70px; }
         .logo-container { height:60px; max-width:200px; display:flex; align-items:center; background:none; backdrop-filter:none; }
-        .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; background-color:transparent; box-shadow:none; }
-        .brand-logo, img[src*="logo"] { background: transparent !important; mix-blend-mode: screen; }
+        .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; background-color:transparent; box-shadow:none; mix-blend-mode: normal !important; }
+        .brand-logo, img[src*="logo"] { background: transparent !important; }
         @media (max-width:768px){ .logo-image { height:40px; max-width:160px; } }
-        .logo-text { color: white; font-size: 1.6rem; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
         .nav-links { display: flex; list-style: none; gap: 1rem; align-items: center; flex-wrap: wrap; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative; padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; white-space: nowrap; }
         .nav-links a:hover, .nav-links a.active, .nav-links a[aria-current="page"] { background: rgba(255, 255, 255, 0.22); backdrop-filter: blur(10px); }
@@ -145,6 +144,15 @@
   </main>
 
   <script>
+    // Force vector logo with transparent background
+    (function(){
+      try{
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="50" viewBox="0 0 360 100"><rect width="360" height="100" fill="none"/><text x="50%" y="58%" text-anchor="middle" font-family="Poppins,Segoe UI,Arial,sans-serif" font-size="46" font-weight="700" fill="#ffffff" letter-spacing="1">KhanelConcept</text></svg>`;
+        const dataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        document.querySelectorAll('img.logo-image').forEach(img=>{ img.src = dataUrl; img.style.background='transparent'; img.style.mixBlendMode='normal'; });
+      }catch(e){}
+    })();
+
     function toggleMobileMenu(){
       const navMenu = document.querySelector('.nav-links.nav-menu');
       const toggle = document.querySelector('.mobile-nav-toggle i');
@@ -157,4 +165,4 @@
     });
   </script>
 </body>
-</html>]]>
+</html>
