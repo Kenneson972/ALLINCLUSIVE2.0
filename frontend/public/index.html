@@ -1,13 +1,165 @@
-<file>
-<absolute_file_name>/app/frontend/public/index.html</absolute_file_name>
-<content_replacement>
-REPLACE_FROM:   </script>
-REPLACE_TO:     // Force a transparent vector logo everywhere
-    try{
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="50" viewBox="0 0 360 100"><rect width="360" height="100" fill="none"/><text x="50%" y="58%" text-anchor="middle" font-family="Poppins,Segoe UI,Arial,sans-serif" font-size="46" font-weight="700" fill="#ffffff" letter-spacing="1">KhanelConcept</text></svg>`;
-      const dataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-      document.querySelectorAll('img.logo-image').forEach(img=>{ img.src = dataUrl; img.style.background='transparent'; });
-    }catch(e){}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KhanelConcept - Accueil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Inter, Ubuntu, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:#fff; }
+    .video-background { position: fixed; inset: 0; z-index: -2; overflow:hidden; }
+    .video-background video { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); min-width:100%; min-height:100%; object-fit:cover; }
+    .video-overlay { position:absolute; inset:0; background: rgba(0,0,0,0.35); z-index:-1; }
+
+    /* Header */
+    .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(15,25,50,0.12);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.14);height:70px}
+    .header-content{max-width:1200px;margin:0 auto;height:70px;display:flex;align-items:center;justify-content: space-between;padding: 0 1rem}
+    .logo-section{display:flex;align-items:center;gap:.75rem}
+    .main-navigation{display:flex;align-items:center;gap:.5rem}
+    .main-navigation a{color:#fff;text-decoration:none;padding:.5rem 1rem;border-radius:22px;transition:.2s ease; white-space: nowrap;}
+    .main-navigation a:hover,.main-navigation a.active,.main-navigation a[aria-current="page"]{background: rgba(255,255,255,0.22)}
+
+    .logo-container{height:60px;max-width:200px;display:flex;align-items:center;background:none;backdrop-filter:none}
+    .logo-image{height:50px;width:auto;max-width:180px;border-radius:8px;background:transparent;box-shadow:none;mix-blend-mode:lighten}
+    @media (max-width:768px){.logo-image{height:40px;max-width:160px}}
+
+    .mobile-nav-toggle { display:none; background: rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:8px; color:#fff; font-size:1.2rem; cursor:pointer; padding:.5rem; }
+    @media (max-width: 768px) {
+      .main-navigation { display:none; }
+      .main-navigation.mobile-open { display:flex; position:fixed; top:70px; left:0; right:0; background: rgba(15,25,50,0.88); backdrop-filter: blur(30px); flex-direction:column; gap:.5rem; padding: 1rem; border-bottom:1px solid rgba(255,255,255,0.15); }
+      .mobile-nav-toggle { display:block; }
+    }
+
+    .main-content { padding-top: 90px; }
+
+    /* Categories grid cloned from villas */
+    .categories-section { padding: 1rem 0 2rem; }
+    .categories-section h2 { text-align:center; font-size:2rem; margin:0.5rem 0 0; }
+    .categories-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .villa-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; overflow:hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; display:flex; flex-direction:column; }
+    .villa-card:hover, .villa-card:focus-visible { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
+    .villa-image-container { height: 200px; overflow:hidden; display:block; width:100%; }
+    .villa-image { width:100%; height:100%; object-fit:cover; display:block; }
+    .image-placeholder { width:100%; height:200px; display:flex; align-items:center; justify-content:center; font-size:2rem; background: linear-gradient(135deg,#667eea,#764ba2); }
+    .villa-content { padding: 1rem; background: rgba(0,0,0,0.25); text-align:center }
+    .category-card { display:flex; flex-direction:column; align-items:center; text-align:center; }
+
+    .fade-in { opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity:1; transform: none; }
+  </style>
+  <script>
+    function toggleMobileMenu(){
+      const nav = document.querySelector('.main-navigation');
+      if(!nav) return;
+      nav.classList.toggle('mobile-open');
+    }
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // Mark active
+      try { var current=(location.pathname.split('/').pop()||'index.html').toLowerCase(); document.querySelectorAll('nav a').forEach(function(a){ var href=(a.getAttribute('href')||'').toLowerCase(); if(href===current){ a.classList.add('active'); a.setAttribute('aria-current','page'); } }); } catch(e){}
+      // Sequential fade-in
+      document.querySelectorAll('.category-card').forEach((card,i)=>{ card.classList.add('fade-in'); setTimeout(()=> card.classList.add('visible'), 120 + i*120); });
+    });
   </script>
-</content_replacement>
-</file>
+  <script src="assets/js/logo-fix.js"></script>
+</head>
+<body>
+  <div class="video-background">
+    <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
+      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <a href="index.html" class="logo-container">
+          <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image" />
+        </a>
+      </div>
+      <nav class="main-navigation" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="villas.html">Nos Villas</a>
+        <a href="prestataires.html">Prestataires</a>
+        <a href="activites-loisirs.html">Activités/Loisirs</a>
+        <a href="prestataires-evenementiels.html">Prestataires événementiels</a>
+        <a href="pmr.html">PMR</a>
+        <a href="location-de-voiture.html">Location de voiture</a>
+        <a href="evenement.html">Événement</a>
+        <a href="se-deplacer.html">Se déplacer</a>
+      </nav>
+      <button class="mobile-nav-toggle" aria-label="Ouvrir le menu" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero-section" style="text-align:center; padding: 1rem 1rem 0;">
+      <h1 style="margin:0.25rem 0 0.5rem;">Villas et Services d'Exception</h1>
+      <p style="opacity:0.9">Découvrez nos villas de luxe et un écosystème de services en Martinique.</p>
+    </section>
+
+    <section class="categories-section">
+      <h2>Catégories</h2>
+      <div class="categories-grid">
+        <a href="villas.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/nos-villas.jpg" alt="Nos Villas" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">🏡</div>
+          </div>
+          <div class="villa-content"><h3>Nos Villas</h3><p>Notre collection complète de villas</p></div>
+        </a>
+        <a href="prestataires.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/prestataires.jpg" alt="Prestataires" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">🧰</div>
+          </div>
+          <div class="villa-content"><h3>Prestataires</h3><p>Services premium pour votre séjour</p></div>
+        </a>
+        <a href="activites-loisirs.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/activites-loisirs.jpg" alt="Activités/Loisirs" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">🎟️</div>
+          </div>
+          <div class="villa-content"><h3>Activités/Loisirs</h3><p>Excursions et loisirs incontournables</p></div>
+        </a>
+        <a href="prestataires-evenementiels.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/prestataires-evenementiels.jpg" alt="Prestataires événementiels" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">🪑</div>
+          </div>
+          <div class="villa-content"><h3>Prestataires événementiels</h3><p>Mobilier et services d’événement</p></div>
+        </a>
+        <a href="pmr.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/pmr.jpg" alt="PMR" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">♿</div>
+          </div>
+          <div class="villa-content"><h3>PMR</h3><p>Séjours accessibles et adaptés</p></div>
+        </a>
+        <a href="location-de-voiture.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/location-de-voiture.jpg" alt="Location de voiture" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">🚗</div>
+          </div>
+          <div class="villa-content"><h3>Location de voiture</h3><p>Choisissez votre véhicule idéal</p></div>
+        </a>
+        <a href="evenement.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/evenement.jpg" alt="Événement" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">🎉</div>
+          </div>
+          <div class="villa-content"><h3>Événement</h3><p>Organisez vos événements sur-mesure</p></div>
+        </a>
+        <a href="se-deplacer.html" class="villa-card category-card">
+          <div class="villa-image-container">
+            <img src="images/categories/se-deplacer.jpg" alt="Se déplacer" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="image-placeholder" style="display:none;">🚌</div>
+          </div>
+          <div class="villa-content"><h3>Se déplacer</h3><p>Transferts et chauffeurs</p></div>
+        </a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
