@@ -37,8 +37,20 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Robo
 .card .meta { font-size: 1rem; color: #cfd6e6; }
 
 /* Catégories verticales (Glass Cards) */
-.vertical-section { padding: 12px 20px 70px; }
+.vertical-section { position: relative; padding: 12px 20px 70px; }
+/* Ambient shapes */
+.vertical-section::before, .vertical-section::after { content: ""; position: absolute; width: 520px; height: 520px; filter: blur(80px); opacity: .18; pointer-events: none; z-index: -1; border-radius: 50%; }
+.vertical-section::before { left: -220px; top: 80px; background: radial-gradient(circle, rgba(88,140,255,0.35), rgba(10,20,60,0.0)); }
+.vertical-section::after { right: -260px; top: 340px; background: radial-gradient(circle, rgba(255,216,128,0.35), rgba(60,20,10,0.0)); }
+
 .vertical-list { display: flex; flex-direction: column; gap: 25px; max-width: 980px; margin: 0 auto; perspective: 1200px; }
+/* Staggered rhythm for non-basic look */
+@media (min-width: 1024px) {
+  .vertical-list.staggered .card { max-width: 980px; }
+  .vertical-list.staggered .card:nth-child(odd) { margin-right: 7%; }
+  .vertical-list.staggered .card:nth-child(even) { margin-left: 7%; }
+}
+
 .card { width: 100%; position: relative; min-height: 120px; 
   --shift: 0px; --rx: 0deg; --ry: 0deg; --ty: 0px; --scale: 1; 
   background: 
