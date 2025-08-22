@@ -8,11 +8,11 @@
 // CONFIGURATION BASE DE DONNEES
 // ================================
 
-// Configuration pour O2Switch - À MODIFIER avec vos vraies données
-define('DB_HOST', 'localhost');  // ou votre serveur MySQL O2Switch
-define('DB_NAME', 'votre_nom_bdd_o2switch');  // Nom de votre BDD créée sur cPanel
-define('DB_USER', 'votre_user_o2switch');     // Utilisateur BDD O2Switch  
-define('DB_PASS', 'votre_password_o2switch'); // Mot de passe BDD O2Switch
+// Configuration pour MariaDB local - TEST
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'khanelconcept_admin');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
 
 // ================================
