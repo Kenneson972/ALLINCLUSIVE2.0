@@ -446,94 +446,157 @@
 
 </head>
 <body>
+  <!-- VIDÉO BACKGROUND CONSERVÉE -->
   <div class="video-background">
-    <video autoplay muted loop playsinline webkit-playsinline preload="metadata">
-      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4" />
+    <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
+      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la lecture de vidéos HTML5.
     </video>
     <div class="video-overlay"></div>
   </div>
 
+  <!-- HEADER UNIFIÉ PREMIUM -->
   <header class="header">
     <div class="header-content">
       <div class="logo-section">
-        <a href="index.html" class="logo-container">
-          <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image" style="background: transparent !important; backdrop-filter: none !important; box-shadow: none !important; mix-blend-mode: multiply !important; filter: contrast(1.5) brightness(1.2);" />
-        </a>
+        <div class="logo-container">
+          <img src="assets/images/logo.png" alt="KhanelConcept Logo" class="logo-image">
+        </div>
       </div>
-      <nav class="main-navigation" aria-label="Navigation principale">
-        <a href="index.html">Accueil</a>
+      <nav class="main-navigation" id="mainNavigation">
+        <a href="index.html" aria-current="page">Accueil</a>
         <a href="villas.html">Nos Villas</a>
         <a href="prestataires.html">Prestataires</a>
-        <a href="activites-loisirs.html">Activités/Loisirs</a>
-        <a href="prestataires-evenementiels.html">Prestataires événementiels</a>
+        <a href="activites-loisirs.html">Activités</a>
+        <a href="prestataires-evenementiels.html">Événements</a>
         <a href="pmr.html">PMR</a>
-        <a href="evenement.html">Événement</a>
-        <a href="se-deplacer.html">Se déplacer</a>
+        <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      <button class="mobile-nav-toggle" aria-label="Ouvrir le menu" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </header>
 
-  <main class="main-content">
-    <section class="hero-section" style="text-align:center; padding: 1rem 1rem 0;">
-      <h1 style="margin:0.25rem 0 0.5rem;">Villas et Services d'Exception</h1>
-      <p style="opacity:0.9">Découvrez nos villas de luxe et un écosystème de services en Martinique.</p>
-    </section>
-
+  <!-- MAIN CONTAINER PREMIUM -->
+  <div class="main-container">
     <section class="categories-section">
-      <h2>Catégories</h2>
-      <div class="categories-grid">
-        <a href="villas.html" class="villa-card category-card">
-          <div class="villa-image-container">
-            <img src="images/categories/nos-villas.jpg" alt="Nos Villas" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="image-placeholder" style="display:none;">🏡</div>
+      <div class="content-wrapper">
+        <h1 class="categories-title">Découvrez Nos Services d'Exception</h1>
+        <p class="categories-subtitle">Une expérience unique en Martinique avec nos services haut de gamme</p>
+        
+        <div class="categories-grid">
+          <!-- Villa de Luxe -->
+          <div class="category-card">
+            <div class="category-card-content">
+              <div class="image-placeholder">
+                <i class="fas fa-home"></i>
+              </div>
+              <h3 class="category-title">Villas de Luxe</h3>
+              <p class="category-description">Découvrez nos villas exceptionnelles avec piscine, terrasses panoramiques et vue mer imprenable</p>
+              <a href="villas.html" class="category-link">Découvrir →</a>
+            </div>
           </div>
-          <div class="villa-content"><h3>Nos Villas</h3><p>Notre collection complète de villas</p></div>
-        </a>
-        <a href="prestataires.html" class="villa-card category-card">
-          <div class="villa-image-container">
-            <img src="images/categories/prestataires.jpg" alt="Prestataires" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="image-placeholder" style="display:none;">🧰</div>
+
+          <!-- Prestataires -->
+          <div class="category-card">
+            <div class="category-card-content">
+              <div class="image-placeholder">
+                <i class="fas fa-concierge-bell"></i>
+              </div>
+              <h3 class="category-title">Prestataires</h3>
+              <p class="category-description">Services personnalisés et professionnels pour sublimer votre séjour en Martinique</p>
+              <a href="prestataires.html" class="category-link">Découvrir →</a>
+            </div>
           </div>
-          <div class="villa-content"><h3>Prestataires</h3><p>Services premium pour votre séjour</p></div>
-        </a>
-        <a href="activites-loisirs.html" class="villa-card category-card">
-          <div class="villa-image-container">
-            <img src="images/categories/activites-loisirs.jpg" alt="Activités/Loisirs" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="image-placeholder" style="display:none;">🎟️</div>
+
+          <!-- Activités & Loisirs -->
+          <div class="category-card">
+            <div class="category-card-content">
+              <div class="image-placeholder">
+                <i class="fas fa-umbrella-beach"></i>
+              </div>
+              <h3 class="category-title">Activités & Loisirs</h3>
+              <p class="category-description">Explorez les merveilles de la Martinique avec nos activités nautiques et terrestres</p>
+              <a href="activites-loisirs.html" class="category-link">Découvrir →</a>
+            </div>
           </div>
-          <div class="villa-content"><h3>Activités/Loisirs</h3><p>Excursions et loisirs incontournables</p></div>
-        </a>
-        <a href="prestataires-evenementiels.html" class="villa-card category-card">
-          <div class="villa-image-container">
-            <img src="images/categories/prestataires-evenementiels.jpg" alt="Prestataires événementiels" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="image-placeholder" style="display:none;">🪑</div>
+
+          <!-- Événements -->
+          <div class="category-card">
+            <div class="category-card-content">
+              <div class="image-placeholder">
+                <i class="fas fa-glass-cheers"></i>
+              </div>
+              <h3 class="category-title">Événements</h3>
+              <p class="category-description">Organisez vos événements d'exception avec nos prestataires événementiels</p>
+              <a href="prestataires-evenementiels.html" class="category-link">Découvrir →</a>
+            </div>
           </div>
-          <div class="villa-content"><h3>Prestataires événementiels</h3><p>Mobilier et services d’événement</p></div>
-        </a>
-        <a href="pmr.html" class="villa-card category-card">
-          <div class="villa-image-container">
-            <img src="images/categories/pmr.jpg" alt="PMR" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="image-placeholder" style="display:none;">♿</div>
+
+          <!-- PMR -->
+          <div class="category-card">
+            <div class="category-card-content">
+              <div class="image-placeholder">
+                <i class="fas fa-wheelchair"></i>
+              </div>
+              <h3 class="category-title">Accessibilité PMR</h3>
+              <p class="category-description">Services et équipements adaptés pour un séjour confortable et accessible</p>
+              <a href="pmr.html" class="category-link">Découvrir →</a>
+            </div>
           </div>
-          <div class="villa-content"><h3>PMR</h3><p>Séjours accessibles et adaptés</p></div>
-        </a>
-        <a href="evenement.html" class="villa-card category-card">
-          <div class="villa-image-container">
-            <img src="images/categories/evenement.jpg" alt="Événement" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="image-placeholder" style="display:none;">🎉</div>
+
+          <!-- Se Déplacer -->
+          <div class="category-card">
+            <div class="category-card-content">
+              <div class="image-placeholder">
+                <i class="fas fa-car"></i>
+              </div>
+              <h3 class="category-title">Se Déplacer</h3>
+              <p class="category-description">Solutions de transport pour explorer la Martinique en toute liberté</p>
+              <a href="se-deplacer.html" class="category-link">Découvrir →</a>
+            </div>
           </div>
-          <div class="villa-content"><h3>Événement</h3><p>Organisez vos événements sur-mesure</p></div>
-        </a>
-        <a href="se-deplacer.html" class="villa-card category-card">
-          <div class="villa-image-container">
-            <img src="images/categories/se-deplacer.jpg" alt="Se déplacer" class="villa-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="image-placeholder" style="display:none;">🚌</div>
+
+          <!-- Excursions -->
+          <div class="category-card">
+            <div class="category-card-content">
+              <div class="image-placeholder">
+                <i class="fas fa-compass"></i>
+              </div>
+              <h3 class="category-title">Excursions</h3>
+              <p class="category-description">Partez à la découverte des trésors cachés de la Martinique</p>
+              <a href="excursions.html" class="category-link">Découvrir →</a>
+            </div>
           </div>
-          <div class="villa-content"><h3>Se déplacer</h3><p>Transferts et chauffeurs</p></div>
-        </a>
+        </div>
       </div>
     </section>
-  </main>
+  </div>
+
+  <script>
+    // Navigation mobile
+    function toggleMobileNav() {
+      const nav = document.getElementById('mainNavigation');
+      nav.classList.toggle('mobile-open');
+    }
+
+    // Animation de défilement
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.category-card');
+      
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
 </body>
 </html>
