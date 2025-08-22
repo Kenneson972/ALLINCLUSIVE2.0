@@ -1,14 +1,19 @@
 <?php
 /**
- * Test du générateur de pages villa
+ * Test du générateur de pages villa - Version CLI
  */
 
+// Éviter les problèmes de headers en CLI
+if (php_sapi_name() === 'cli') {
+    $_SERVER['SERVER_NAME'] = 'localhost';
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+}
+
 require_once 'includes/config.php';
-require_once 'includes/auth.php';
 require_once 'includes/functions.php';
 
-// Désactiver l'authentification pour le test
-// requireAuth();
+// Ignorer l'authentification pour le test CLI
+// require_once 'includes/auth.php';
 
 $villaManager = new VillaManager();
 
