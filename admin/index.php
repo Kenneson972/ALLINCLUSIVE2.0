@@ -158,7 +158,7 @@ $recentVillas = array_slice($recentVillas, 0, 5); // Limiter à 5
                                                 </td>
                                                 <td>
                                                     <div style="font-weight: 600;"><?= sanitizeHtml($villa['nom']) ?></div>
-                                                    <div style="font-size: 0.8rem; opacity: 0.8;">&lt;?= sanitizeHtml($villa['localisation']) ?&gt;</div>
+                                                    <div style="font-size: 0.8rem; opacity: 0.8;"><?= sanitizeHtml($villa['localisation']) ?></div>
                                                 </td>
                                                 <td><?= sanitizeHtml($villa['type']) ?></td>
                                                 <td style="font-weight: 600; color: #ffc107;"><?= formatPrice($villa['prix_nuit']) ?></td>
