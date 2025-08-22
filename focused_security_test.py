@@ -11,7 +11,7 @@ import time
 from datetime import datetime
 
 # Load backend URL from environment or use default
-BACKEND_URL = "https://viladmin.preview.emergentagent.com"
+BACKEND_URL = "https://villa-admin.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 # Admin credentials from environment variables (Phase 1 security improvement)
