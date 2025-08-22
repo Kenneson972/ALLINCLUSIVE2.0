@@ -8,11 +8,22 @@ require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/auth.php';  
 require_once __DIR__ . '/../includes/functions.php';
 
-// Vérifier l'authentification
-requireAuth();
-
-$villaManager = new VillaManager();
-$currentUser = getCurrentUser();
+// Gestion des requêtes JSON
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $input = json_decode(file_get_contents('php://input'), true);
+    
+    if ($input['action'] === 'generate_single') {
+        $generator = new VillaPageGenerator();
+        echo json_encode($generator->generateVillaPage($input['villa_id']));
+        exit;
+    }
+    
+    if ($input['action'] === 'generate_all') {
+        $generator = new VillaPageGenerator();
+        echo json_encode($generator->generateAllVillas());
+        exit;
+    }
+}
 
 /**
  * Classe VillaPageGenerator - Générateur automatique de pages HTML
