@@ -195,6 +195,10 @@ $recentVillas = array_slice($recentVillas, 0, 5); // Limiter à 5
                                 <i class="fas fa-upload"></i> Upload images
                             </a>
                             
+                            <button onclick="generateAllPages()" class="btn btn-generate" style="justify-content: flex-start; width: 100%; border: none;">
+                                <i class="fas fa-wand-magic-sparkles"></i> Générer Toutes les Pages
+                            </button>
+                            
                             <a href="images/galerie.php" class="btn btn-primary" style="justify-content: flex-start;">
                                 <i class="fas fa-images"></i> Gérer galerie
                             </a>
