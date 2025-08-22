@@ -31,8 +31,30 @@
     play(); window.addEventListener('touchstart', function(){ play(); }, {once:true, passive:true});
   }
 
+  // 3D micro-parallax for cards (desktop only)
+  function initParallax(){
+    if (window.matchMedia('(pointer: coarse)').matches) return; // skip on touch-only
+    document.querySelectorAll('.card').forEach(function(card){
+      var rect;
+      function onMove(e){
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.setProperty('--rx', (y * -2)+'deg');
+        card.style.setProperty('--ry', (x * 2)+'deg');
+        card.style.setProperty('--shift', (x * 6)+'px');
+        card.style.setProperty('--ty', (y * 6)+'px');
+        card.style.setProperty('--scale', '1.01');
+      }
+      function onEnter(){ rect = card.getBoundingClientRect(); }
+      function onLeave(){ card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg'); card.style.setProperty('--shift','0px'); card.style.setProperty('--ty','0px'); card.style.setProperty('--scale','1'); }
+      card.addEventListener('mouseenter', onEnter);
+      card.addEventListener('mousemove', onMove);
+      card.addEventListener('mouseleave', onLeave);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function(){
-    markActive(); initSmooth(); initVideo();
+    markActive(); initSmooth(); initVideo(); initParallax();
     // Reveal animation
     var els = document.querySelectorAll('.fade-in-up');
     var io = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.style.animationPlayState='running'; } }); }, { threshold: 0.1 });
