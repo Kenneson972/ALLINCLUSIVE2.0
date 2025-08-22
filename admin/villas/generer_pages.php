@@ -26,15 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /**
- * Classe VillaPageGenerator - Générateur automatique de pages HTML
+ * Générateur de pages villa utilisant le template EXACT
  */
 class VillaPageGenerator {
-    private $villaManager;
-    private $templateContent;
+    private $pdo;
     
-    public function __construct($villaManager) {
-        $this->villaManager = $villaManager;
-        $this->loadTemplate();
+    public function __construct() {
+        $this->pdo = new PDO(
+            "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET,
+            DB_USER, 
+            DB_PASS,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]
+        );
     }
     
     /**
