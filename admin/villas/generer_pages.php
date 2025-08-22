@@ -1,11 +1,11 @@
 <?php
 /**
  * Générateur de Pages Villa HTML - KhanelConcept Admin
- * Système CMS automatique pour créer les pages villa
+ * UTILISE LE TEMPLATE EXACT DE LA PAGE ORIGINALE
  */
 
 require_once __DIR__ . '/../includes/config.php';
-require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/auth.php';  
 require_once __DIR__ . '/../includes/functions.php';
 
 // Vérifier l'authentification
