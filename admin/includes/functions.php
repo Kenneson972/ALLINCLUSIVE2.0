@@ -422,13 +422,6 @@ class ImageUploader {
 }
 
 /**
- * Formater le prix
- */
-function formatPrice($price) {
-    return number_format($price, 2, ',', ' ') . ' €';
-}
-
-/**
  * Formater la taille d'un fichier
  */
 function formatFileSize($bytes) {
