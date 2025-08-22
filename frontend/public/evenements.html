@@ -21,9 +21,7 @@
 
   <header class="header" role="banner">
     <div class="header-content">
-      <div class="logo-section">
-        <div class="logo-container"><img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image"></div>
-      </div>
+      <a class="header-logo" href="index.html"><img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image"></a>
       <nav class="main-navigation" id="mainNavigation" aria-label="Navigation principale">
         <a href="index.html">Accueil</a>
         <a href="villas.html">Nos Villas</a>
@@ -33,30 +31,20 @@
         <a href="pmr.html">PMR</a>
         <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Ouvrir le menu"><i class="fas fa-bars"></i></button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Menu"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
-  <main id="contenu" class="main-content" role="main">
-    <section class="page-header">
-      <h1>Événements</h1>
-      <p>Organisation complète de vos événements privés ou professionnels.</p>
+  <main id="contenu" class="main-container" role="main">
+    <section class="page-header hero">
+      <div class="hero-logo"><img src="assets/images/logo.png" alt="KhanelConcept"></div>
     </section>
 
-    <section>
-      <div class="cards-grid">
-        <div class="card fade-in-up">
-          <h3>Prestataires Événementiels</h3>
-          <p>Location de mobilier, décoration, traiteurs, son &amp; lumière.</p>
-        </div>
-        <div class="card fade-in-up" style="animation-delay:.1s;">
-          <h3>Coordination</h3>
-          <p>Assistance à l'organisation, rétroplanning, équipes terrain.</p>
-        </div>
-        <div class="card fade-in-up" style="animation-delay:.2s;">
-          <h3>Ambiances</h3>
-          <p>Thèmes personnalisés, artistes, DJ et animations sur-mesure.</p>
-        </div>
+    <section class="vertical-section">
+      <div class="vertical-list">
+        <div class="card fade-in-up"><div class="row"><div class="icon"><i class="fas fa-couch"></i></div><div class="content"><div class="card-title">Prestataires Événementiels</div><div class="meta">Mobilier, décoration, traiteurs, son &amp; lumière.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.05s;"><div class="row"><div class="icon"><i class="fas fa-clipboard-list"></i></div><div class="content"><div class="card-title">Coordination</div><div class="meta">Organisation, rétroplanning, équipes terrain.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.1s;"><div class="row"><div class="icon"><i class="fas fa-music"></i></div><div class="content"><div class="card-title">Ambiances</div><div class="meta">Thèmes personnalisés, artistes, DJ et animations.</div></div></div></div>
       </div>
     </section>
   </main>

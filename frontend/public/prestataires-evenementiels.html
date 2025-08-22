@@ -21,9 +21,7 @@
 
   <header class="header" role="banner">
     <div class="header-content">
-      <div class="logo-section">
-        <div class="logo-container"><img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image"></div>
-      </div>
+      <a class="header-logo" href="index.html"><img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image"></a>
       <nav class="main-navigation" id="mainNavigation" aria-label="Navigation principale">
         <a href="index.html">Accueil</a>
         <a href="villas.html">Nos Villas</a>
@@ -33,21 +31,20 @@
         <a href="pmr.html">PMR</a>
         <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Ouvrir le menu"><i class="fas fa-bars"></i></button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Menu"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
-  <main id="contenu" class="main-content" role="main">
-    <section class="page-header">
-      <h1>Prestataires Événementiels</h1>
-      <p>Services et location de mobilier pour vos événements d'exception.</p>
+  <main id="contenu" class="main-container" role="main">
+    <section class="page-header hero">
+      <div class="hero-logo"><img src="assets/images/logo.png" alt="KhanelConcept"></div>
     </section>
 
-    <section>
-      <div class="cards-grid">
-        <div class="card fade-in-up"><h3>Location Mobilier</h3><p>Tables, chaises, tentes, pistes de danse et plus.</p></div>
-        <div class="card fade-in-up" style="animation-delay:.1s;"><h3>Décoration</h3><p>Ambiances, fleurs, éclairages et scénographie.</p></div>
-        <div class="card fade-in-up" style="animation-delay:.2s;"><h3>Technique</h3><p>Son, lumière, vidéo, régie et DJ.</p></div>
+    <section class="vertical-section">
+      <div class="vertical-list">
+        <div class="card fade-in-up"><div class="row"><div class="icon"><i class="fas fa-couch"></i></div><div class="content"><div class="card-title">Location Mobilier</div><div class="meta">Tables, chaises, tentes, pistes de danse…</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.05s;"><div class="row"><div class="icon"><i class="fas fa-gem"></i></div><div class="content"><div class="card-title">Décoration</div><div class="meta">Ambiances, fleurs, éclairages et scénographie.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.1s;"><div class="row"><div class="icon"><i class="fas fa-sliders-h"></i></div><div class="content"><div class="card-title">Technique</div><div class="meta">Son, lumière, vidéo, régie et DJ.</div></div></div></div>
       </div>
     </section>
   </main>
