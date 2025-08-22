@@ -4,9 +4,9 @@
  * Système CMS automatique pour créer les pages villa
  */
 
-require_once '../includes/config.php';
-require_once '../includes/auth.php';
-require_once '../includes/functions.php';
+require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/functions.php';
 
 // Vérifier l'authentification
 requireAuth();
