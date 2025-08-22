@@ -91,7 +91,7 @@ class VillaPageGenerator {
         $stmt = $this->pdo->prepare("
             SELECT * FROM villa_images 
             WHERE villa_id = ? 
-            ORDER BY ordre ASC, date_upload ASC
+            ORDER BY date_upload ASC
         ");
         $stmt->execute([$villa_id]);
         $images = $stmt->fetchAll();
