@@ -255,6 +255,7 @@ if (!in_array($activeTab, ['informations', 'images', 'historique'])) {
                         <div id="tab-informations" class="tab-content <?= $activeTab === 'informations' ? 'active' : '' ?>">
                             <form method="POST" action="" id="villa-form" data-validate>
                                 <input type="hidden" name="csrf_token" value="<?= generateCSRFToken() ?>">
+                                <input type="hidden" id="villa_id" name="villa_id" value="<?= $villaId ?>">>
                                 
                                 <div class="glass-card">
                                     <div class="card-header">
