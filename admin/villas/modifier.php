@@ -1320,6 +1320,361 @@ if (!in_array($activeTab, ['informations', 'images', 'historique'])) {
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* Styles pour l'onglet Images */
+        .upload-zone-small {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .upload-zone-small:hover,
+        .upload-zone-small.dragover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .images-instructions {
+            background: rgba(23, 162, 184, 0.15);
+            border: 1px solid rgba(23, 162, 184, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #17a2b8;
+        }
+        
+        .images-gallery-manager {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .image-manager-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: move;
+        }
+        
+        .image-manager-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        .image-order-number {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+        
+        .image-selector {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 2;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .image-container {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+        }
+        
+        .villa-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .villa-image:hover {
+            transform: scale(1.05);
+        }
+        
+        .main-image-badge {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ffc107, #ff8c00);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
+        }
+        
+        .image-info {
+            padding: 1rem;
+        }
+        
+        .image-filename {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .image-meta {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .image-actions {
+            padding: 0 1rem 1rem;
+        }
+        
+        .image-actions-row {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .btn-image-action {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 0.8rem;
+        }
+        
+        .btn-image-action.btn-primary {
+            background: rgba(0, 123, 255, 0.8);
+            color: white;
+        }
+        
+        .btn-image-action.btn-warning {
+            background: rgba(255, 193, 7, 0.8);
+            color: #333;
+        }
+        
+        .btn-image-action.btn-danger {
+            background: rgba(220, 53, 69, 0.8);
+            color: white;
+        }
+        
+        .btn-image-action:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        
+        .drag-handle {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.25rem;
+            border-radius: 4px;
+            cursor: grab;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-manager-item:hover .drag-handle {
+            opacity: 1;
+        }
+        
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+        
+        /* Styles pour l'onglet Historique */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: -1.75rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .timeline-marker.success {
+            background: #28a745;
+        }
+        
+        .timeline-marker.info {
+            background: #17a2b8;
+        }
+        
+        .timeline-marker.warning {
+            background: #ffc107;
+        }
+        
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-header h4 {
+            color: white;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .timeline-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .timeline-content p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+        
+        .stats-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-mini {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+        
+        .stat-mini-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-mini-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        /* Modal de prévisualisation d'image */
+        .image-preview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .modal-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.2s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive pour l'onglet images */
+        @media (max-width: 768px) {
+            .images-gallery-manager {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-actions-row {
+                justify-content: space-around;
+            }
+        }
     </style>
 </body>
 </html>
