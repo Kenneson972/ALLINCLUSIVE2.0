@@ -155,6 +155,7 @@ if (!in_array($activeTab, ['informations', 'images', 'historique'])) {
                 <li><a href="liste.php"><i class="fas fa-home"></i> Villas</a></li>
                 <li><a href="ajouter.php"><i class="fas fa-plus"></i> Ajouter Villa</a></li>
                 <li><a href="../images/galerie.php"><i class="fas fa-images"></i> Galerie</a></li>
+                <li><a href="generer_pages.php"><i class="fas fa-magic"></i> Générateur Pages</a></li>
                 <li><a href="../api/villas.php" target="_blank"><i class="fas fa-code"></i> API JSON</a></li>
                 <li><a href="../../" target="_blank"><i class="fas fa-external-link-alt"></i> Voir Site</a></li>
                 <li><a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
