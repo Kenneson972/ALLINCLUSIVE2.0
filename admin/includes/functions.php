@@ -291,6 +291,55 @@ class VillaManager {
         $result = $this->db->query($sql, $params)->fetch();
         return $result['count'] == 0;
     }
+
+    /**
+     * Supprimer une image de villa
+     */
+    public function deleteVillaImage($image_id) {
+        try {
+            // Récupérer le nom du fichier avant suppression
+            $stmt = $this->pdo->prepare("SELECT nom_fichier FROM villa_images WHERE id = ?");
+            $stmt->execute([$image_id]);
+            $image = $stmt->fetch();
+            
+            if (!$image) {
+                return false;
+            }
+            
+            // Supprimer le fichier physique
+            $image_path = __DIR__ . '/../uploads/villas/' . $image['nom_fichier'];
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+            
+            // Supprimer de la base de données
+            $stmt = $this->pdo->prepare("DELETE FROM villa_images WHERE id = ?");
+            return $stmt->execute([$image_id]);
+            
+        } catch (PDOException $e) {
+            error_log("Erreur suppression image: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Réassigner une image à une autre villa
+     */
+    public function reassignImage($image_id, $new_villa_id) {
+        try {
+            $stmt = $this->pdo->prepare("
+                UPDATE villa_images 
+                SET villa_id = ?, 
+                    date_modification = NOW() 
+                WHERE id = ?
+            ");
+            return $stmt->execute([$new_villa_id, $image_id]);
+            
+        } catch (PDOException $e) {
+            error_log("Erreur réassignation image: " . $e->getMessage());
+            return false;
+        }
+    }
 }
 
 /**
