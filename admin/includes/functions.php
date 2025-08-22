@@ -421,4 +421,23 @@ class ImageUploader {
     }
 }
 
+/**
+ * Formater le prix
+ */
+function formatPrice($price) {
+    return number_format($price, 2, ',', ' ') . ' €';
+}
+
+/**
+ * Formater la taille d'un fichier
+ */
+function formatFileSize($bytes) {
+    if ($bytes === 0) return '0 B';
+    
+    $units = ['B', 'KB', 'MB', 'GB'];
+    $factor = floor((strlen($bytes) - 1) / 3);
+    
+    return sprintf("%.1f", $bytes / pow(1024, $factor)) . ' ' . $units[$factor];
+}
+
 ?>
