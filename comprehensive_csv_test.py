@@ -10,7 +10,7 @@ import os
 from datetime import datetime
 
 # Load backend URL
-BACKEND_URL = "https://villa-admin.preview.emergentagent.com"
+BACKEND_URL = "https://glass-effect-ui-1.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 class ComprehensiveCSVTester:

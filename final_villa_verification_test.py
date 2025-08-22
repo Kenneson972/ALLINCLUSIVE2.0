@@ -9,7 +9,7 @@ import json
 from collections import Counter
 
 # Backend URL
-BACKEND_URL = "https://villa-admin.preview.emergentagent.com"
+BACKEND_URL = "https://glass-effect-ui-1.preview.emergentagent.com"
 
 def main():
     print("🌴 KHANELCONCEPT VILLA DATA CORRECTION - FINAL VERIFICATION")

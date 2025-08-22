@@ -598,7 +598,7 @@ cacheSystem.configure({
 // Créer le client API avec cache
 const backendUrl = window.location.hostname === 'localhost' 
     ? 'http://localhost:8001'
-    : 'https://villa-admin.preview.emergentagent.com';
+    : 'https://glass-effect-ui-1.preview.emergentagent.com';
 
 const apiClient = new CachedAPIClient(backendUrl, cacheSystem);
 

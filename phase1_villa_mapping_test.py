@@ -34,7 +34,7 @@ from datetime import datetime
 from urllib.parse import urlparse, parse_qs
 
 # Configuration
-BASE_URL = "https://villa-admin.preview.emergentagent.com"
+BASE_URL = "https://glass-effect-ui-1.preview.emergentagent.com"
 API_BASE = f"{BASE_URL}/api"
 
 class Phase1VillaMappingTester:
