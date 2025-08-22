@@ -207,7 +207,8 @@ $pdo = $db->getConnection();
 date_default_timezone_set('America/Martinique');
 
 // Configuration des erreurs en développement
-if ($_SERVER['SERVER_NAME'] === 'localhost' || strpos($_SERVER['SERVER_NAME'], '.local') !== false) {
+$serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
+if ($serverName === 'localhost' || strpos($serverName, '.local') !== false) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     define('DEBUG_MODE', true);
