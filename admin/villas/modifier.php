@@ -263,6 +263,11 @@ if (!in_array($activeTab, ['informations', 'images', 'historique'])) {
                                             <button type="submit" name="modifier_villa" class="btn btn-success">
                                                 <i class="fas fa-save"></i> Sauvegarder
                                             </button>
+                                            
+                                            <button type="button" onclick="generateVillaPage()" class="btn btn-generate">
+                                                <i class="fas fa-magic"></i> Générer Page HTML
+                                            </button>
+                                            
                                             <button type="button" onclick="resetForm()" class="btn btn-warning">
                                                 <i class="fas fa-undo"></i> Annuler les modifications
                                             </button>
