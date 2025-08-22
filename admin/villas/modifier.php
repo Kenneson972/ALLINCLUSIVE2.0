@@ -571,7 +571,81 @@ if (!in_array($activeTab, ['informations', 'images', 'historique'])) {
                         
                         <!-- ONGLET HISTORIQUE -->
                         <div id="tab-historique" class="tab-content <?= $activeTab === 'historique' ? 'active' : '' ?>">
-                            <!-- À continuer dans la suite... -->
+                            <div class="glass-card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-history"></i> Historique des Modifications</h3>
+                                    <div class="form-help">Suivi des modifications apportées à cette villa</div>
+                                </div>
+                                
+                                <div class="timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker success">
+                                            <i class="fas fa-plus"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h4>Villa créée</h4>
+                                                <span class="timeline-date"><?= date('d/m/Y H:i', strtotime($villa['created_at'])) ?></span>
+                                            </div>
+                                            <p>Villa créée par <?= sanitizeHtml($currentUser['nom']) ?></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <?php if ($villa['updated_at'] !== $villa['created_at']): ?>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker info">
+                                            <i class="fas fa-edit"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h4>Dernière modification</h4>
+                                                <span class="timeline-date"><?= date('d/m/Y H:i', strtotime($villa['updated_at'])) ?></span>
+                                            </div>
+                                            <p>Villa mise à jour</p>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                    
+                                    <?php if (!empty($images)): ?>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker warning">
+                                            <i class="fas fa-images"></i>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-header">
+                                                <h4>Images ajoutées</h4>
+                                                <span class="timeline-date">Diverses dates</span>
+                                            </div>
+                                            <p><?= count($images) ?> image(s) dans la galerie</p>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                                
+                                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <h4 style="color: white; margin-bottom: 1rem;">
+                                        <i class="fas fa-chart-bar"></i> Statistiques
+                                    </h4>
+                                    <div class="stats-mini-grid">
+                                        <div class="stat-mini">
+                                            <div class="stat-mini-label">Prix/nuit</div>
+                                            <div class="stat-mini-value"><?= formatPrice($villa['prix_nuit']) ?></div>
+                                        </div>
+                                        <div class="stat-mini">
+                                            <div class="stat-mini-label">Capacité</div>
+                                            <div class="stat-mini-value"><?= $villa['capacite_max'] ?> pers.</div>
+                                        </div>
+                                        <div class="stat-mini">
+                                            <div class="stat-mini-label">Images</div>
+                                            <div class="stat-mini-value"><?= count($images) ?></div>
+                                        </div>
+                                        <div class="stat-mini">
+                                            <div class="stat-mini-label">Statut</div>
+                                            <div class="stat-mini-value"><?= ucfirst($villa['statut']) ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         
                     </div>
