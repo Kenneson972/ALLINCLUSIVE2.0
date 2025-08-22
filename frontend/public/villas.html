@@ -8,45 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/premium.css">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; overflow-x: hidden; }
-    /* VIDÉO BACKGROUND AJOUTÉE */
-    .video-background { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
-    .video-background video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; object-fit: cover; }
-    .video-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); z-index: -1; }
-    /* HEADER UNIFIÉ PREMIUM */
-    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); height: 80px; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1); }
-    .header-content { max-width: 1400px; margin: 0 auto; height: 80px; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 0 2rem; }
-    .logo-section { display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
-    .logo-container { height: 60px; max-width: 250px; display: flex; align-items: center; justify-content: center; }
-    .logo-image { height: 50px; width: auto; max-width: 220px; object-fit: contain; opacity: 1; filter: none; }
-    .main-navigation { display: flex; align-items: center; gap: 2rem; justify-content: center; }
-    .main-navigation a { color: #2c2c2c; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.3s ease; font-weight: 500; font-size: 0.95rem; letter-spacing: 0.3px; font-family: 'Inter', sans-serif; }
-    .main-navigation a:hover,.main-navigation a.active,.main-navigation a[aria-current="page"] { background: rgba(102, 126, 234, 0.1); color: #667eea; }
-    .mobile-nav-toggle { display: none; background: rgba(0, 0, 0, 0.1); border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 8px; color: #2c2c2c; font-size: 1.2rem; cursor: pointer; padding: 0.5rem; }
-    @media (max-width: 768px) {
-      .header { height: 70px; }
-      .header-content { height: 70px; flex-direction: row; justify-content: space-between; }
-      .logo-section { margin-bottom: 0; }
-      .logo-image { height: 40px; max-width: 180px; }
-      .main-navigation { display: none; }
-      .main-navigation.mobile-open { display: flex; position: fixed; top: 70px; left: 0; right: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(30px); flex-direction: column; gap: 0.5rem; padding: 1rem; border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
-      .mobile-nav-toggle { display: block; }
-    }
-    /* CONTENU PRINCIPAL PREMIUM */
-    .main-content { padding-top: 100px; min-height: 100vh; }
-    /* PAGE HEADER PREMIUM */
-    .page-header { text-align: center; padding: 80px 20px 60px; max-width: 1400px; margin: 0 auto; }
-    .page-header h1 { font-family: 'Playfair Display', 'Georgia', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 20px; letter-spacing: -0.02em; line-height: 1.2; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
-    .page-header p { font-family: 'Inter', sans-serif; font-size: 1.2rem; font-weight: 300; opacity: 0.9; letter-spacing: 0.5px; line-height: 1.5; max-width: 600px; margin: 0 auto; }
-    /* VILLAS GRID PREMIUM */
-    .villas-section { padding: 2rem 0 4rem; }
-    .villas-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-    .villas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 40px; justify-items: center; }
+    /* Page specific tweaks for villas cards */
+    .villas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 40px; justify-items: center; max-width: 1400px; margin: 0 auto; padding: 0 20px 60px; }
     .villa-card { width: 100%; max-width: 420px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); display: block; text-decoration: none; color: inherit; backdrop-filter: blur(20px); position: relative; }
-    .villa-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%); border-radius: 20px; z-index: 1; }
-    .villa-card:hover { transform: translateY(-15px) scale(1.02); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25); text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%); }
+    .villa-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); border-radius: 20px; z-index: 1; }
+    .villa-card:hover { transform: translateY(-15px) scale(1.02); box-shadow: 0 25px 60px rgba(0,0,0,0.25); text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.15)); }
     .villa-image-container { height: 250px; overflow: hidden; position: relative; z-index: 2; }
     .villa-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
     .villa-card:hover .villa-image { transform: scale(1.05); }
@@ -56,32 +24,17 @@
     .villa-price { font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 600; color: #ffd700; margin-bottom: 15px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
     .villa-features { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.9); }
     .villa-feature { display: flex; align-items: center; gap: 0.5rem; }
-    /* ANIMATIONS PREMIUM */
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px);} to { opacity: 1; transform: translateY(0);} }
-    .villa-card { animation: fadeInUp 0.6s ease-out; animation-fill-mode: both; }
-    .villa-card:nth-child(1) { animation-delay: 0.1s; }
-    .villa-card:nth-child(2) { animation-delay: 0.2s; }
-    .villa-card:nth-child(3) { animation-delay: 0.3s; }
-    .villa-card:nth-child(4) { animation-delay: 0.4s; }
-    .villa-card:nth-child(5) { animation-delay: 0.5s; }
-    .villa-card:nth-child(6) { animation-delay: 0.6s; }
-    /* RESPONSIVE PREMIUM */
-    @media (max-width: 1200px) { .villas-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; } .page-header h1 { font-size: 3rem; } }
-    @media (max-width: 768px) { .page-header { padding: 60px 20px 40px; } .villas-grid { grid-template-columns: 1fr; gap: 25px; } .page-header h1 { font-size: 2.5rem; } .page-header p { font-size: 1rem; } .villa-card { max-width: 100%; } .villa-content { padding: 1.5rem; } }
-    @media (max-width: 480px) { .page-header h1 { font-size: 2rem; } .villa-image-container { height: 200px; } }
   </style>
+  <script src="assets/js/premium.js" defer></script>
 </head>
 <body>
-  <!-- VIDÉO BACKGROUND AJOUTÉE -->
   <div class="video-background">
     <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
       <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la lecture de vidéos HTML5.
     </video>
     <div class="video-overlay"></div>
   </div>
 
-  <!-- HEADER UNIFIÉ PREMIUM -->
   <header class="header">
     <div class="header-content">
       <div class="logo-section">
@@ -98,228 +51,70 @@
         <a href="pmr.html">PMR</a>
         <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
-        <i class="fas fa-bars"></i>
-      </button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
-  <!-- CONTENU PRINCIPAL PREMIUM -->
   <main class="main-content">
     <section class="page-header">
       <h1>Nos Villas d'Exception</h1>
       <p>Découvrez notre collection exclusive de villas de luxe en Martinique</p>
     </section>
 
-    <section class="villas-section">
-      <div class="villas-container">
-        <div class="villas-grid">
-          <!-- Villa F3 sur Petit Macabou -->
-          <a href="villa-villa-f3-petit-macabou.html" class="villa-card">
-            <div class="villa-image-container">
-              <img src="assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" 
-                   alt="Villa F3 sur Petit Macabou" 
-                   class="villa-image"
-                   onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'">
+    <section>
+      <div class="villas-grid">
+        <!-- Keep static villa entries; placeholders will display if images missing -->
+        <a href="villa-villa-f3-petit-macabou.html" class="villa-card fade-in-up">
+          <div class="villa-image-container">
+            <img src="assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Villa F3 sur Petit Macabou" class="villa-image" onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'">
+          </div>
+          <div class="villa-content">
+            <h3 class="villa-title">Villa F3 sur Petit Macabou</h3>
+            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</p>
+            <p class="villa-price">À partir de 850€/nuit</p>
+            <div class="villa-features">
+              <div class="villa-feature"><i class="fas fa-users"></i> 6 personnes</div>
+              <div class="villa-feature"><i class="fas fa-bed"></i> 3 chambres</div>
+              <div class="villa-feature"><i class="fas fa-swimming-pool"></i> Piscine</div>
             </div>
-            <div class="villa-content">
-              <h3 class="villa-title">Villa F3 sur Petit Macabou</h3>
-              <p class="villa-location">
-                <i class="fas fa-map-marker-alt"></i>
-                Petit Macabou, Vauclin
-              </p>
-              <p class="villa-price">À partir de 850€/nuit</p>
-              <div class="villa-features">
-                <div class="villa-feature">
-                  <i class="fas fa-users"></i>
-                  6 personnes
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-bed"></i>
-                  3 chambres
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-swimming-pool"></i>
-                  Piscine
-                </div>
-              </div>
+          </div>
+        </a>
+        
+        <!-- More demo cards -->
+        <a href="villa-villa-f5-ste-anne.html" class="villa-card fade-in-up" style="animation-delay:.1s;">
+          <div class="villa-image-container">
+            <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Villa F5 sur Ste Anne" class="villa-image">
+          </div>
+          <div class="villa-content">
+            <h3 class="villa-title">Villa F5 sur Ste Anne</h3>
+            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Sainte-Anne</p>
+            <p class="villa-price">À partir de 1200€/nuit</p>
+            <div class="villa-features">
+              <div class="villa-feature"><i class="fas fa-users"></i> 10 personnes</div>
+              <div class="villa-feature"><i class="fas fa-bed"></i> 5 chambres</div>
+              <div class="villa-feature"><i class="fas fa-swimming-pool"></i> Piscine</div>
             </div>
-          </a>
+          </div>
+        </a>
 
-          <!-- Villa F5 sur Ste Anne -->
-          <a href="villa-villa-f5-ste-anne.html" class="villa-card">
-            <div class="villa-image-container">
-              <img src="assets/images/placeholders/villa-placeholder.jpg" 
-                   alt="Villa F5 sur Ste Anne" 
-                   class="villa-image">
+        <a href="villa-villa-f6-petit-macabou.html" class="villa-card fade-in-up" style="animation-delay:.2s;">
+          <div class="villa-image-container">
+            <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Villa F6 sur Petit Macabou" class="villa-image">
+          </div>
+          <div class="villa-content">
+            <h3 class="villa-title">Villa F6 sur Petit Macabou</h3>
+            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</p>
+            <p class="villa-price">À partir de 1500€/nuit</p>
+            <div class="villa-features">
+              <div class="villa-feature"><i class="fas fa-users"></i> 12 personnes</div>
+              <div class="villa-feature"><i class="fas fa-bed"></i> 6 chambres</div>
+              <div class="villa-feature"><i class="fas fa-swimming-pool"></i> Piscine</div>
             </div>
-            <div class="villa-content">
-              <h3 class="villa-title">Villa F5 sur Ste Anne</h3>
-              <p class="villa-location">
-                <i class="fas fa-map-marker-alt"></i>
-                Sainte-Anne
-              </p>
-              <p class="villa-price">À partir de 1200€/nuit</p>
-              <div class="villa-features">
-                <div class="villa-feature">
-                  <i class="fas fa-users"></i>
-                  10 personnes
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-bed"></i>
-                  5 chambres
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-swimming-pool"></i>
-                  Piscine
-                </div>
-              </div>
-            </div>
-          </a>
+          </div>
+        </a>
 
-          <!-- Villa F6 sur Petit Macabou -->
-          <a href="villa-villa-f6-petit-macabou.html" class="villa-card">
-            <div class="villa-image-container">
-              <img src="assets/images/placeholders/villa-placeholder.jpg" 
-                   alt="Villa F6 sur Petit Macabou" 
-                   class="villa-image">
-            </div>
-            <div class="villa-content">
-              <h3 class="villa-title">Villa F6 sur Petit Macabou</h3>
-              <p class="villa-location">
-                <i class="fas fa-map-marker-alt"></i>
-                Petit Macabou, Vauclin
-              </p>
-              <p class="villa-price">À partir de 1500€/nuit</p>
-              <div class="villa-features">
-                <div class="villa-feature">
-                  <i class="fas fa-users"></i>
-                  12 personnes
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-bed"></i>
-                  6 chambres
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-swimming-pool"></i>
-                  Piscine
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <!-- Studio Cocooning Lamentin -->
-          <a href="villa-studio-cocooning-lamentin.html" class="villa-card">
-            <div class="villa-image-container">
-              <img src="assets/images/placeholders/villa-placeholder.jpg" 
-                   alt="Studio Cocooning Lamentin" 
-                   class="villa-image">
-            </div>
-            <div class="villa-content">
-              <h3 class="villa-title">Studio Cocooning Lamentin</h3>
-              <p class="villa-location">
-                <i class="fas fa-map-marker-alt"></i>
-                Lamentin
-              </p>
-              <p class="villa-price">À partir de 380€/nuit</p>
-              <div class="villa-features">
-                <div class="villa-feature">
-                  <i class="fas fa-users"></i>
-                  2 personnes
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-bed"></i>
-                  1 chambre
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-wifi"></i>
-                  WiFi
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <!-- Villa F3 pour la Baccha -->
-          <a href="villa-villa-f3-baccha.html" class="villa-card">
-            <div class="villa-image-container">
-              <img src="assets/images/placeholders/villa-placeholder.jpg" 
-                   alt="Villa F3 pour la Baccha" 
-                   class="villa-image">
-            </div>
-            <div class="villa-content">
-              <h3 class="villa-title">Villa F3 pour la Baccha</h3>
-              <p class="villa-location">
-                <i class="fas fa-map-marker-alt"></i>
-                Martinique
-              </p>
-              <p class="villa-price">À partir de 750€/nuit</p>
-              <div class="villa-features">
-                <div class="villa-feature">
-                  <i class="fas fa-users"></i>
-                  6 personnes
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-bed"></i>
-                  3 chambres
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-swimming-pool"></i>
-                  Piscine
-                </div>
-              </div>
-            </div>
-          </a>
-
-          <!-- Villa F7 Baie des Mulets -->
-          <a href="villa-villa-f7-baie-des-mulets.html" class="villa-card">
-            <div class="villa-image-container">
-              <img src="assets/images/placeholders/villa-placeholder.jpg" 
-                   alt="Villa F7 Baie des Mulets" 
-                   class="villa-image">
-            </div>
-            <div class="villa-content">
-              <h3 class="villa-title">Villa F7 Baie des Mulets</h3>
-              <p class="villa-location">
-                <i class="fas fa-map-marker-alt"></i>
-                Baie des Mulets
-              </p>
-              <p class="villa-price">À partir de 1800€/nuit</p>
-              <div class="villa-features">
-                <div class="villa-feature">
-                  <i class="fas fa-users"></i>
-                  14 personnes
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-bed"></i>
-                  7 chambres
-                </div>
-                <div class="villa-feature">
-                  <i class="fas fa-swimming-pool"></i>
-                  Piscine
-                </div>
-              </div>
-            </div>
-          </a>
-        </div>
       </div>
     </section>
   </main>
-
-  <script>
-    // Navigation mobile
-    function toggleMobileNav() {
-      const nav = document.getElementById('mainNavigation');
-      nav.classList.toggle('mobile-open');
-    }
-
-    // Animation de défilement
-    document.addEventListener('DOMContentLoaded', function() {
-      const cards = document.querySelectorAll('.villa-card');
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.animationPlayState = 'running'; } });
-      }, { threshold: 0.1 });
-      cards.forEach(card => { observer.observe(card); });
-    });
-  </script>
 </body>
 </html>

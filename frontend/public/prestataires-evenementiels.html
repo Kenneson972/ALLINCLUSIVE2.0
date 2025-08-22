@@ -3,82 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prestataires événementiels - KhanelConcept</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    *{box-sizing:border-box} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,Ubuntu,'Helvetica Neue',Arial,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
-    .skip-link{position:absolute;left:-9999px}.skip-link:focus{left:1rem;top:1rem;background:#111827;color:#fff;padding:.5rem .75rem;border-radius:8px;z-index:2000}
-    .video-background{position:fixed;inset:0;z-index:-2;overflow:hidden}.video-background video{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);min-width:100%;min-height:100%;object-fit:cover}
-    .video-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);z-index:-1}
-    .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(15,25,50,0.12);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.18);padding:0;height:70px;box-shadow:0 8px 32px rgba(0,0,0,0.12)}
-    .header-content{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;height:70px}
-    .logo-container{height:60px;max-width:200px;display:flex;align-items:center;background:none;backdrop-filter:none}
-    .logo-image{height:50px;width:auto;max-width:180px;border-radius:8px;background:transparent;box-shadow:none;mix-blend-mode:lighten}
-    @media (max-width:768px){.logo-image{height:40px;max-width:160px}}
-    nav[aria-label] ul{list-style:none;display:flex;gap:.75rem;margin:0;padding:0;align-items:center;flex-wrap:wrap}
-    nav[aria-label] a{color:#fff;text-decoration:none;padding:.5rem 1rem;border-radius:25px;transition:.25s ease;display:inline-block; white-space: nowrap;}
-    nav[aria-label] a:hover,nav[aria-label] a[aria-current="page"],nav[aria-label] a.active{background:rgba(255,255,255,.22);backdrop-filter:blur(10px)}
-    .mobile-nav-toggle{display:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:1.2rem;cursor:pointer;padding:.5rem}
-    .main-content{padding-top:90px}.container{max-width:1200px;margin:0 auto;padding:0 2rem}
-    @media (max-width:768px){.header-content{padding:0 1rem}nav[aria-label] ul{display:none;visibility:hidden;opacity:0}.mobile-nav-toggle{display:block}nav[aria-label].mobile-open ul{display:flex!important;visibility:visible!important;opacity:1!important;position:fixed!important;top:70px;left:0;right:0;background:rgba(15,25,50,.88);backdrop-filter:blur(40px) saturate(180%);padding:2rem 1.2rem;border-radius:0 0 24px 24px;flex-direction:column;gap:.75rem;z-index:1000;border:1px solid rgba(255,255,255,.1)}}
-    .header.stuck{background:rgba(15,25,50,.12);backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);padding:.75rem 0}
-  </style>
-  <script src="assets/js/storage-guard.js"></script>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/logo-fix.js"></script>
+  <title>Prestataires Événementiels - KhanelConcept</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/premium.css">
+  <script src="assets/js/premium.js" defer></script>
 </head>
 <body>
-  <a href="#contenu" class="skip-link">Aller au contenu</a>
   <div class="video-background" aria-hidden="true">
-    <video id="bgVideo" aria-hidden="true" role="presentation" autoplay muted playsinline webkit-playsinline loop preload="none" data-src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4"></video>
+    <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
+      <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
+    </video>
     <div class="video-overlay" aria-hidden="true"></div>
   </div>
 
   <header class="header" role="banner">
     <div class="header-content">
-      <a href="index.html" class="logo-container"><picture>
-  <source type="image/webp" srcset="assets/images/logo_480.webp 480w, assets/images/logo_960.webp 960w, assets/images/logo_1440.webp 1440w, assets/images/logo.webp 1600w">
-  <img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image" loading="eager" decoding="async">
-</picture></a>
-      <nav aria-label="Navigation principale" class="nav-menu">
-        <ul>
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="villas.html">Nos Villas</a></li>
-          <li><a href="prestataires.html">Prestataires</a></li>
-          <li><a href="activites-loisirs.html">Activités/Loisirs</a></li>
-          <li><a href="prestataires-evenementiels.html" aria-current="page" class="active">Prestataires événementiels</a></li>
-          <li><a href="pmr.html">PMR</a></li>
-          <li><a href="location-de-voiture.html">Location de voiture</a></li>
-          <li><a href="evenement.html">Événement</a></li>
-          <li><a href="se-deplacer.html">Se déplacer</a></li>
-        </ul>
+      <div class="logo-section">
+        <div class="logo-container"><img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image"></div>
+      </div>
+      <nav class="main-navigation" id="mainNavigation" aria-label="Navigation principale">
+        <a href="index.html">Accueil</a>
+        <a href="villas.html">Nos Villas</a>
+        <a href="prestataires.html">Prestataires</a>
+        <a href="activites-loisirs.html">Activités</a>
+        <a href="prestataires-evenementiels.html" aria-current="page">Événements</a>
+        <a href="pmr.html">PMR</a>
+        <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      <button class="mobile-nav-toggle" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu" onclick="toggleMobileMenu()">☰</button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Ouvrir le menu"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
   <main id="contenu" class="main-content" role="main">
-    <div class="container">
-      <h1>Prestataires événementiels</h1>
-      <p>Services et location de mobilier événementiel. Bientôt disponible.</p>
-    </div>
-  </main>
+    <section class="page-header">
+      <h1>Prestataires Événementiels</h1>
+      <p>Services et location de mobilier pour vos événements d'exception.</p>
+    </section>
 
-  <script>
-    function toggleMobileMenu(){
-      const nav = document.querySelector('nav[aria-label="Navigation principale"]');
-      const btn = document.querySelector('.mobile-nav-toggle');
-      if(!nav || !btn) return;
-      const opened = nav.classList.toggle('mobile-open');
-      btn.setAttribute('aria-expanded', opened ? 'true' : 'false');
-    }
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const v = document.getElementById('bgVideo');
-      const h=document.querySelector('header.header');
-      window.addEventListener('scroll',()=>{ if(!h) return; if(window.scrollY>10){h.classList.add('stuck')} else {h.classList.remove('stuck')} });
-      try { var current=(location.pathname.split('/').pop()||'index.html').toLowerCase(); document.querySelectorAll('nav a').forEach(function(a){ var href=(a.getAttribute('href')||'').toLowerCase(); if(href===current){ a.classList.add('active'); a.setAttribute('aria-current','page'); } }); } catch(e){}
-      if(v){ const src=v.dataset.src; if(src){ const s=document.createElement('source'); s.src=src; s.type='video/mp4'; v.appendChild(s); v.load(); v.muted=true; v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline',''); const tryPlay=()=>{const p=v.play(); if(p) p.catch(()=>{});}; tryPlay(); window.addEventListener('touchstart',()=>{tryPlay();},{once:true,passive:true}); const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting) tryPlay();});}); io.observe(v); }}
-    });
-  </script>
+    <section>
+      <div class="cards-grid">
+        <div class="card fade-in-up"><h3>Location Mobilier</h3><p>Tables, chaises, tentes, pistes de danse et plus.</p></div>
+        <div class="card fade-in-up" style="animation-delay:.1s;"><h3>Décoration</h3><p>Ambiances, fleurs, éclairages et scénographie.</p></div>
+        <div class="card fade-in-up" style="animation-delay:.2s;"><h3>Technique</h3><p>Son, lumière, vidéo, régie et DJ.</p></div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>

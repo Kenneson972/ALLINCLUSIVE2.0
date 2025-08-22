@@ -1,47 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prestataires - KhanelConcept</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; overflow-x: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
-        .video-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
-        .video-background video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; object-fit: cover; }
-        .video-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: -1; }
-        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(15,25,50,0.12); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255, 255, 255, 0.14); height:70px; }
-        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; height:70px; }
-        .logo-container { height:60px; max-width:200px; display:flex; align-items:center; background:none; backdrop-filter:none; }
-        .logo-image { height:50px; width:auto; max-width:180px; border-radius:8px; background:transparent !important; box-shadow:none !important; mix-blend-mode: screen !important; opacity:1; filter: brightness(2) contrast(2); }
-        .brand-logo, img[src*="logo"] { background: transparent !important; }
-        @media (max-width:768px){ .logo-image { height:40px; max-width:160px; } }
-        .nav-links { display: flex; list-style: none; gap: 1rem; align-items: center; flex-wrap: wrap; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative; padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; white-space: nowrap; }
-        .nav-links a:hover, .nav-links a.active, .nav-links a[aria-current="page"] { background: rgba(255, 255, 255, 0.22); backdrop-filter: blur(10px); }
-        .mobile-nav-toggle { display: none; }
-        .main-content { padding-top: 90px; min-height: 100vh; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .page-title { text-align: center; margin-bottom: 3rem; color: white; }
-        .page-title h1 { font-size: 3rem; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
-        .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; margin: 1.5rem 0; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); color: white; transition: all 0.3s ease; }
-        .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); }
-        .prestataires-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
-        @media (max-width: 768px) {
-          .nav-links { display: none; visibility: hidden; opacity: 0; }
-          .mobile-nav-toggle { display: block !important; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; font-size: 1.2rem; cursor: pointer; padding: 0.5rem; transition: all 0.3s ease; }
-          .mobile-nav-toggle:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.05); }
-          .header-content { padding: 0 1rem; }
-          .nav-links.nav-menu.mobile-open { display: flex !important; visibility: visible !important; opacity: 1 !important; position: fixed !important; top: 70px !important; left: 0 !important; right: 0 !important; background: rgba(15, 25, 50, 0.88) !important; backdrop-filter: blur(40px) saturate(180%) !important; -webkit-backdrop-filter: blur(40px) saturate(180%) !important; padding: 2.5rem 1.5rem !important; border-radius: 0 0 25px 25px !important; flex-direction: column !important; gap: 1rem !important; z-index: 1000 !important; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 8px 32px rgba(102, 126, 234, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; animation: slideDownGlass 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; }
-        }
-    </style>
-  <script src="assets/js/storage-guard.js"></script>
-  <script src="assets/js/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prestataires - KhanelConcept</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/premium.css">
+  <script src="assets/js/premium.js" defer></script>
+  <style>
+    .prestataires-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+    .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.1); color: white; transition: all 0.3s ease; }
+    .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+  </style>
 </head>
 <body>
   <div class="video-background">
-    <video autoplay muted loop playsinline>
+    <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
       <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
@@ -49,89 +26,80 @@
 
   <header class="header">
     <div class="header-content">
-      <a href="index.html" class="logo-container">
-        <img src="https://customer-assets.emergentagent.com/job_luxestay/artifacts/36sqn0fh_IMG_9175.png" alt="KhanelConcept Logo" class="logo-image">
-      </a>
-      
-      <nav class="nav-links nav-menu" aria-label="Navigation principale">
+      <div class="logo-section">
+        <div class="logo-container">
+          <img src="assets/images/logo.png" alt="KhanelConcept Logo" class="logo-image">
+        </div>
+      </div>
+      <nav class="main-navigation" id="mainNavigation">
         <a href="index.html">Accueil</a>
         <a href="villas.html">Nos Villas</a>
-        <a href="prestataires.html" class="active" aria-current="page">Prestataires</a>
-        <a href="activites-loisirs.html">Activités/Loisirs</a>
-        <a href="prestataires-evenementiels.html">Prestataires événementiels</a>
+        <a href="prestataires.html" aria-current="page">Prestataires</a>
+        <a href="activites-loisirs.html">Activités</a>
+        <a href="prestataires-evenementiels.html">Événements</a>
         <a href="pmr.html">PMR</a>
-        <a href="evenement.html">Événement</a>
-        <a href="se-deplacer.html">Se déplacer</a>
+        <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      
-      <!-- Bouton hamburger mobile -->
-      <button class="mobile-nav-toggle" onclick="toggleMobileMenu()">
-        <i class="fas fa-bars"></i>
-      </button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
   <main class="main-content">
-    <div class="container">
-      <div class="page-title">
-        <h1>👥 Nos Prestataires</h1>
-        <p>Découvrez nos partenaires de confiance pour des services exceptionnels</p>
-      </div>
+    <section class="page-header">
+      <h1>Nos Prestataires d'Exception</h1>
+      <p>Découvrez nos partenaires de confiance pour des services premium</p>
+    </section>
 
+    <section>
       <div class="prestataires-grid">
-        <div class="glass-card">
-          <h3><i class="fas fa-utensils" style="color: #FF6B6B; margin-right: 1rem;"></i>Restauration</h3>
-          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+        <div class="glass-card fade-in-up">
+          <h3><i class="fas fa-utensils" style="color:#FF6B6B;margin-right:.75rem;"></i>Restauration</h3>
+          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
             <li>🍽️ Chef à domicile premium</li>
             <li>🥘 Cuisine créole authentique</li>
             <li>🍷 Service de sommelier</li>
             <li>🎂 Pâtisserie sur mesure</li>
           </ul>
         </div>
-
-        <div class="glass-card">
-          <h3><i class="fas fa-spa" style="color: #4ECDC4; margin-right: 1rem;"></i>Bien-être &amp; Spa</h3>
-          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+        <div class="glass-card fade-in-up" style="animation-delay:.1s;">
+          <h3><i class="fas fa-spa" style="color:#4ECDC4;margin-right:.75rem;"></i>Bien-être &amp; Spa</h3>
+          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
             <li>💆 Massage à domicile</li>
             <li>🧘 Cours de yoga privés</li>
             <li>💅 Manucure/pédicure</li>
             <li>🌿 Soins naturels locaux</li>
           </ul>
         </div>
-
-        <div class="glass-card">
-          <h3><i class="fas fa-car" style="color: #45B7D1; margin-right: 1rem;"></i>Transport</h3>
-          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+        <div class="glass-card fade-in-up" style="animation-delay:.2s;">
+          <h3><i class="fas fa-car" style="color:#45B7D1;margin-right:.75rem;"></i>Transport</h3>
+          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
             <li>🚗 Chauffeur privé</li>
             <li>✈️ Transfert aéroport</li>
             <li>🛥️ Excursions nautiques</li>
             <li>🏍️ Location scooter</li>
           </ul>
         </div>
-
-        <div class="glass-card">
-          <h3><i class="fas fa-camera" style="color: #F39C12; margin-right: 1rem;"></i>Photographie</h3>
-          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+        <div class="glass-card fade-in-up" style="animation-delay:.3s;">
+          <h3><i class="fas fa-camera" style="color:#F39C12;margin-right:.75rem;"></i>Photographie</h3>
+          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
             <li>📸 Shooting vacances</li>
             <li>💑 Photos de couple</li>
             <li>👨‍👩‍👦 Portraits famille</li>
             <li>🎥 Vidéo souvenir</li>
           </ul>
         </div>
-
-        <div class="glass-card">
-          <h3><i class="fas fa-home" style="color: #E74C3C; margin-right: 1rem;"></i>Services Villa</h3>
-          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+        <div class="glass-card fade-in-up" style="animation-delay:.4s;">
+          <h3><i class="fas fa-home" style="color:#E74C3C;margin-right:.75rem;"></i>Services Villa</h3>
+          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
             <li>🧹 Ménage quotidien</li>
             <li>🌺 Décoration florale</li>
             <li>🔧 Maintenance technique</li>
             <li>🛡️ Sécurité 24/7</li>
           </ul>
         </div>
-
-        <div class="glass-card">
-          <h3><i class="fas fa-music" style="color: #9B59B6; margin-right: 1rem;"></i>Animation</h3>
-          <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+        <div class="glass-card fade-in-up" style="animation-delay:.5s;">
+          <h3><i class="fas fa-music" style="color:#9B59B6;margin-right:.75rem;"></i>Animation</h3>
+          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
             <li>🎵 DJ pour soirées</li>
             <li>🏊 Animateur piscine</li>
             <li>🎪 Spectacles locaux</li>
@@ -139,29 +107,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
   </main>
-
-  <script>
-    // Force vector logo with transparent background
-    (function(){
-      try{
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="50" viewBox="0 0 360 100"><rect width="360" height="100" fill="none"/><text x="50%" y="58%" text-anchor="middle" font-family="Poppins,Segoe UI,Arial,sans-serif" font-size="46" font-weight="700" fill="#ffffff" letter-spacing="1">KhanelConcept</text></svg>`;
-        const dataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-        document.querySelectorAll('img.logo-image').forEach(img=>{ img.src = dataUrl; img.style.background='transparent'; img.style.mixBlendMode='normal'; });
-      }catch(e){}
-    })();
-
-    function toggleMobileMenu(){
-      const navMenu = document.querySelector('.nav-links.nav-menu');
-      const toggle = document.querySelector('.mobile-nav-toggle i');
-      if(!navMenu) return;
-      if(navMenu.classList.contains('mobile-open')){ navMenu.classList.remove('mobile-open'); if(toggle) toggle.className='fas fa-bars'; }
-      else { navMenu.classList.add('mobile-open'); if(toggle) toggle.className='fas fa-times'; }
-    }
-    document.addEventListener('DOMContentLoaded', function(){
-      try { var current=(location.pathname.split('/').pop()||'index.html').toLowerCase(); document.querySelectorAll('nav a').forEach(function(a){ var href=(a.getAttribute('href')||'').toLowerCase(); if(href===current){ a.classList.add('active'); a.setAttribute('aria-current','page'); } }); } catch(e){}
-    });
-  </script>
 </body>
 </html>
