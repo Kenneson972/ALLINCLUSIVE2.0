@@ -17,7 +17,7 @@ def test_admin_authentication():
     # Try different possible base URLs
     possible_urls = [
         "http://localhost:8001",
-        "https://static-site-restore.preview.emergentagent.com"
+        "https://viladmin.preview.emergentagent.com"
     ]
     
     admin_credentials = {

@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 import time
 
 # Use the same backend URL as the existing test
-BACKEND_URL = "https://static-site-restore.preview.emergentagent.com"
+BACKEND_URL = "https://viladmin.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 class MemberSystemTester:

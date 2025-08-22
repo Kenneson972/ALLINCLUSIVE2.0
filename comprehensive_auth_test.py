@@ -17,7 +17,7 @@ def test_http_endpoints():
     
     base_urls = [
         "http://localhost:8001",
-        "https://static-site-restore.preview.emergentagent.com"
+        "https://viladmin.preview.emergentagent.com"
     ]
     
     admin_credentials = {

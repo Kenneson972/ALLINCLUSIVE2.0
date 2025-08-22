@@ -7,7 +7,7 @@ import requests
 import json
 from collections import Counter
 
-BACKEND_URL = "https://static-site-restore.preview.emergentagent.com"
+BACKEND_URL = "https://viladmin.preview.emergentagent.com"
 API_BASE_URL = f"{BACKEND_URL}/api"
 
 def diagnostic_check():
