@@ -440,7 +440,133 @@ if (!in_array($activeTab, ['informations', 'images', 'historique'])) {
                         
                         <!-- ONGLET IMAGES -->
                         <div id="tab-images" class="tab-content <?= $activeTab === 'images' ? 'active' : '' ?>">
-                            <!-- À continuer dans la suite... -->
+                            
+                            <!-- Upload Zone Intégrée -->
+                            <div class="glass-card">
+                                <div class="card-header">
+                                    <h3 class="card-title"><i class="fas fa-cloud-upload-alt"></i> Upload Nouvelles Images</h3>
+                                </div>
+                                
+                                <div id="upload-zone-integrated" class="upload-zone-small">
+                                    <div class="upload-content">
+                                        <i class="fas fa-plus" style="font-size: 2rem; color: rgba(255,255,255,0.6); margin-bottom: 0.5rem;"></i>
+                                        <p style="color: rgba(255,255,255,0.8); margin: 0;">
+                                            Glissez des images ou <strong>cliquez pour parcourir</strong>
+                                        </p>
+                                        <small style="color: rgba(255,255,255,0.6);">JPG, PNG, WebP • Max 5MB</small>
+                                        <input type="file" id="images-file-input" multiple accept="image/*" style="display: none;">
+                                    </div>
+                                </div>
+                                
+                                <!-- Progress Upload -->
+                                <div id="images-upload-progress" style="display: none; margin-top: 1rem;">
+                                    <div class="progress-bar">
+                                        <div id="images-progress-fill" class="progress-fill"></div>
+                                    </div>
+                                    <div id="images-progress-text" style="text-align: center; margin-top: 0.5rem; color: rgba(255,255,255,0.8);">0%</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Galerie Images Existantes -->
+                            <div class="glass-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-images"></i> Galerie Images
+                                        <span id="images-total-count" class="tab-badge"><?= count($images) ?></span>
+                                    </h3>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        <button onclick="selectAllImages()" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-check-square"></i> Tout sélectionner
+                                        </button>
+                                        <button onclick="deleteSelectedImages()" class="btn btn-danger btn-sm" disabled id="delete-selected-btn">
+                                            <i class="fas fa-trash"></i> Supprimer sélection
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <?php if (empty($images)): ?>
+                                    <div id="no-images-message" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.7);">
+                                        <i class="fas fa-images" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                        <h3>Aucune image pour cette villa</h3>
+                                        <p>Uploadez des images ci-dessus pour commencer la galerie.</p>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="images-instructions">
+                                        <i class="fas fa-info-circle"></i>
+                                        <strong>Instructions :</strong> Glissez les images pour réorganiser l'ordre d'affichage. L'image avec l'étoile ⭐ est l'image principale.
+                                    </div>
+                                    
+                                    <div id="images-gallery-sortable" class="images-gallery-manager">
+                                        <?php foreach ($images as $index => $image): ?>
+                                            <div class="image-manager-item" data-image-id="<?= $image['id'] ?>" data-order="<?= $image['ordre_affichage'] ?>">
+                                                <!-- Indicateur d'ordre -->
+                                                <div class="image-order-number"><?= $index + 1 ?></div>
+                                                
+                                                <!-- Checkbox de sélection -->
+                                                <input type="checkbox" class="image-selector" data-image-id="<?= $image['id'] ?>">
+                                                
+                                                <!-- Image -->
+                                                <div class="image-container">
+                                                    <img src="<?= UPLOAD_URL . $image['nom_fichier'] ?>" 
+                                                         alt="<?= sanitizeHtml($image['alt_text']) ?>"
+                                                         class="villa-image"
+                                                         onclick="openImageModal('<?= UPLOAD_URL . $image['nom_fichier'] ?>', '<?= sanitizeHtml($image['alt_text']) ?>')">
+                                                    
+                                                    <!-- Badge image principale -->
+                                                    <?php if ($image['image_principale']): ?>
+                                                        <div class="main-image-badge">
+                                                            <i class="fas fa-star"></i> Principale
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                
+                                                <!-- Informations -->
+                                                <div class="image-info">
+                                                    <div class="image-filename"><?= sanitizeHtml($image['nom_original']) ?></div>
+                                                    <div class="image-meta">
+                                                        <?php if ($image['dimensions']): ?>
+                                                            <?= $image['dimensions'] ?> •
+                                                        <?php endif; ?>
+                                                        <?php if ($image['taille_fichier']): ?>
+                                                            <?= formatFileSize($image['taille_fichier']) ?>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Actions -->
+                                                <div class="image-actions">
+                                                    <div class="image-actions-row">
+                                                        <?php if (!$image['image_principale']): ?>
+                                                            <button onclick="setMainImage(<?= $image['id'] ?>)" 
+                                                                    class="btn-image-action btn-primary" 
+                                                                    title="Définir comme image principale">
+                                                                <i class="fas fa-star"></i>
+                                                            </button>
+                                                        <?php endif; ?>
+                                                        
+                                                        <button onclick="editImageAlt(<?= $image['id'] ?>, '<?= sanitizeHtml($image['alt_text']) ?>')" 
+                                                                class="btn-image-action btn-warning" 
+                                                                title="Modifier le texte alternatif">
+                                                            <i class="fas fa-edit"></i>
+                                                        </button>
+                                                        
+                                                        <button onclick="deleteImage(<?= $image['id'] ?>)" 
+                                                                class="btn-image-action btn-danger" 
+                                                                title="Supprimer cette image">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Handle de drag -->
+                                                <div class="drag-handle" title="Glisser pour réorganiser">
+                                                    <i class="fas fa-grip-vertical"></i>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         
                         <!-- ONGLET HISTORIQUE -->
