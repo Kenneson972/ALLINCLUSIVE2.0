@@ -33,8 +33,8 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Robo
 /* Typography Premium */
 .hero-title { font-family: 'Playfair Display', serif; font-size: 4rem; color: #fff; text-shadow: 0 6px 26px rgba(0,0,0,0.35), 0 2px 12px rgba(0,0,0,0.2); letter-spacing: -0.02em; }
 .hero-subtitle { font-family: 'Inter', sans-serif; font-size: 1.3rem; color: rgba(255,255,255,0.9); }
-.card-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #2c2c2c; letter-spacing: 0.2px; text-shadow: 0 1px 0 rgba(255,255,255,0.6); }
-.card .meta { font-size: 1rem; color: #3f3f3f; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #f5f7ff; letter-spacing: 0.2px; text-shadow: 0 2px 12px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.4); }
+.card .meta { font-size: 1rem; color: #cfd6e6; }
 
 /* Catégories verticales (Glass Cards) */
 .vertical-section { padding: 12px 20px 70px; }
