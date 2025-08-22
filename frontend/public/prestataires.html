@@ -10,11 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/premium.css">
   <script src="assets/js/premium.js" defer></script>
-  <style>
-    .prestataires-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
-    .glass-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0,0,0,0.1); color: white; transition: all 0.3s ease; }
-    .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
-  </style>
 </head>
 <body>
   <div class="video-background">
@@ -26,11 +21,7 @@
 
   <header class="header">
     <div class="header-content">
-      <div class="logo-section">
-        <div class="logo-container">
-          <img src="assets/images/logo.png" alt="KhanelConcept Logo" class="logo-image">
-        </div>
-      </div>
+      <a class="header-logo" href="index.html"><img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image"></a>
       <nav class="main-navigation" id="mainNavigation">
         <a href="index.html">Accueil</a>
         <a href="villas.html">Nos Villas</a>
@@ -40,72 +31,23 @@
         <a href="pmr.html">PMR</a>
         <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      <button class="mobile-nav-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Menu"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
-  <main class="main-content">
-    <section class="page-header">
-      <h1>Nos Prestataires d'Exception</h1>
-      <p>Découvrez nos partenaires de confiance pour des services premium</p>
+  <main class="main-container">
+    <section class="page-header hero">
+      <div class="hero-logo"><img src="assets/images/logo.png" alt="KhanelConcept"></div>
     </section>
 
-    <section>
-      <div class="prestataires-grid">
-        <div class="glass-card fade-in-up">
-          <h3><i class="fas fa-utensils" style="color:#FF6B6B;margin-right:.75rem;"></i>Restauration</h3>
-          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
-            <li>🍽️ Chef à domicile premium</li>
-            <li>🥘 Cuisine créole authentique</li>
-            <li>🍷 Service de sommelier</li>
-            <li>🎂 Pâtisserie sur mesure</li>
-          </ul>
-        </div>
-        <div class="glass-card fade-in-up" style="animation-delay:.1s;">
-          <h3><i class="fas fa-spa" style="color:#4ECDC4;margin-right:.75rem;"></i>Bien-être &amp; Spa</h3>
-          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
-            <li>💆 Massage à domicile</li>
-            <li>🧘 Cours de yoga privés</li>
-            <li>💅 Manucure/pédicure</li>
-            <li>🌿 Soins naturels locaux</li>
-          </ul>
-        </div>
-        <div class="glass-card fade-in-up" style="animation-delay:.2s;">
-          <h3><i class="fas fa-car" style="color:#45B7D1;margin-right:.75rem;"></i>Transport</h3>
-          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
-            <li>🚗 Chauffeur privé</li>
-            <li>✈️ Transfert aéroport</li>
-            <li>🛥️ Excursions nautiques</li>
-            <li>🏍️ Location scooter</li>
-          </ul>
-        </div>
-        <div class="glass-card fade-in-up" style="animation-delay:.3s;">
-          <h3><i class="fas fa-camera" style="color:#F39C12;margin-right:.75rem;"></i>Photographie</h3>
-          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
-            <li>📸 Shooting vacances</li>
-            <li>💑 Photos de couple</li>
-            <li>👨‍👩‍👦 Portraits famille</li>
-            <li>🎥 Vidéo souvenir</li>
-          </ul>
-        </div>
-        <div class="glass-card fade-in-up" style="animation-delay:.4s;">
-          <h3><i class="fas fa-home" style="color:#E74C3C;margin-right:.75rem;"></i>Services Villa</h3>
-          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
-            <li>🧹 Ménage quotidien</li>
-            <li>🌺 Décoration florale</li>
-            <li>🔧 Maintenance technique</li>
-            <li>🛡️ Sécurité 24/7</li>
-          </ul>
-        </div>
-        <div class="glass-card fade-in-up" style="animation-delay:.5s;">
-          <h3><i class="fas fa-music" style="color:#9B59B6;margin-right:.75rem;"></i>Animation</h3>
-          <ul style="list-style:none; padding:0; margin-top:1rem; line-height:1.9;">
-            <li>🎵 DJ pour soirées</li>
-            <li>🏊 Animateur piscine</li>
-            <li>🎪 Spectacles locaux</li>
-            <li>🥁 Groupe traditionnel</li>
-          </ul>
-        </div>
+    <section class="vertical-section">
+      <div class="vertical-list">
+        <div class="card fade-in-up"><div class="row"><div class="icon"><i class="fas fa-utensils"></i></div><div class="content"><div class="card-title">Restauration</div><div class="meta">Chef à domicile, cuisine créole, sommelier, pâtisserie.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.05s;"><div class="row"><div class="icon"><i class="fas fa-spa"></i></div><div class="content"><div class="card-title">Bien-être & Spa</div><div class="meta">Massages, yoga, manucure/pédicure, soins naturels.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.1s;"><div class="row"><div class="icon"><i class="fas fa-car"></i></div><div class="content"><div class="card-title">Transport</div><div class="meta">Chauffeur, transfert aéroport, excursions nautiques.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.15s;"><div class="row"><div class="icon"><i class="fas fa-camera"></i></div><div class="content"><div class="card-title">Photographie</div><div class="meta">Shooting, couple, famille, vidéo souvenir.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.2s;"><div class="row"><div class="icon"><i class="fas fa-home"></i></div><div class="content"><div class="card-title">Services Villa</div><div class="meta">Ménage, décoration florale, maintenance, sécurité.</div></div></div></div>
+        <div class="card fade-in-up" style="animation-delay:.25s;"><div class="row"><div class="icon"><i class="fas fa-music"></i></div><div class="content"><div class="card-title">Animation</div><div class="meta">DJ, animateur piscine, spectacles et groupes.</div></div></div></div>
       </div>
     </section>
   </main>

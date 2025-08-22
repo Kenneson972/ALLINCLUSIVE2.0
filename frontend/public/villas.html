@@ -9,22 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/premium.css">
-  <style>
-    /* Page specific tweaks for villas cards */
-    .villas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 40px; justify-items: center; max-width: 1400px; margin: 0 auto; padding: 0 20px 60px; }
-    .villa-card { width: 100%; max-width: 420px; background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); display: block; text-decoration: none; color: inherit; backdrop-filter: blur(20px); position: relative; }
-    .villa-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); border-radius: 20px; z-index: 1; }
-    .villa-card:hover { transform: translateY(-15px) scale(1.02); box-shadow: 0 25px 60px rgba(0,0,0,0.25); text-decoration: none; color: inherit; background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.15)); }
-    .villa-image-container { height: 250px; overflow: hidden; position: relative; z-index: 2; }
-    .villa-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-    .villa-card:hover .villa-image { transform: scale(1.05); }
-    .villa-content { padding: 2rem 1.5rem; position: relative; z-index: 2; }
-    .villa-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; line-height: 1.3; color: #ffffff; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-    .villa-location { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 15px; display: flex; align-items: center; gap: 0.5rem; }
-    .villa-price { font-family: 'Inter', sans-serif; font-size: 1.1rem; font-weight: 600; color: #ffd700; margin-bottom: 15px; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
-    .villa-features { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.9); }
-    .villa-feature { display: flex; align-items: center; gap: 0.5rem; }
-  </style>
   <script src="assets/js/premium.js" defer></script>
 </head>
 <body>
@@ -37,11 +21,7 @@
 
   <header class="header">
     <div class="header-content">
-      <div class="logo-section">
-        <div class="logo-container">
-          <img src="assets/images/logo.png" alt="KhanelConcept Logo" class="logo-image">
-        </div>
-      </div>
+      <a class="header-logo" href="index.html"><img src="assets/images/logo.png" alt="KhanelConcept" class="logo-image"></a>
       <nav class="main-navigation" id="mainNavigation">
         <a href="index.html">Accueil</a>
         <a href="villas.html" aria-current="page">Nos Villas</a>
@@ -51,68 +31,46 @@
         <a href="pmr.html">PMR</a>
         <a href="se-deplacer.html">Se Déplacer</a>
       </nav>
-      <button class="mobile-nav-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+      <button class="mobile-nav-toggle" onclick="toggleMobileNav()" aria-label="Menu"><i class="fas fa-bars"></i></button>
     </div>
   </header>
 
-  <main class="main-content">
-    <section class="page-header">
-      <h1>Nos Villas d'Exception</h1>
-      <p>Découvrez notre collection exclusive de villas de luxe en Martinique</p>
+  <main class="main-container">
+    <!-- Hero replaced by logo -->
+    <section class="page-header hero">
+      <div class="hero-logo"><img src="assets/images/logo.png" alt="KhanelConcept"></div>
     </section>
 
-    <section>
-      <div class="villas-grid">
-        <!-- Keep static villa entries; placeholders will display if images missing -->
-        <a href="villa-villa-f3-petit-macabou.html" class="villa-card fade-in-up">
-          <div class="villa-image-container">
-            <img src="assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Villa F3 sur Petit Macabou" class="villa-image" onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'">
-          </div>
-          <div class="villa-content">
-            <h3 class="villa-title">Villa F3 sur Petit Macabou</h3>
-            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</p>
-            <p class="villa-price">À partir de 850€/nuit</p>
-            <div class="villa-features">
-              <div class="villa-feature"><i class="fas fa-users"></i> 6 personnes</div>
-              <div class="villa-feature"><i class="fas fa-bed"></i> 3 chambres</div>
-              <div class="villa-feature"><i class="fas fa-swimming-pool"></i> Piscine</div>
+    <!-- List vertical of a few villas (static examples) -->
+    <section class="vertical-section">
+      <div class="vertical-list">
+        <a href="villa-villa-f3-petit-macabou.html" class="card fade-in-up">
+          <div class="row">
+            <div class="icon"><i class="fas fa-home"></i></div>
+            <div class="content">
+              <div class="card-title">Villa F3 sur Petit Macabou</div>
+              <div class="meta">Petit Macabou, Vauclin • À partir de 850€/nuit • 6 pers, 3 ch, piscine</div>
             </div>
           </div>
         </a>
-        
-        <!-- More demo cards -->
-        <a href="villa-villa-f5-ste-anne.html" class="villa-card fade-in-up" style="animation-delay:.1s;">
-          <div class="villa-image-container">
-            <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Villa F5 sur Ste Anne" class="villa-image">
-          </div>
-          <div class="villa-content">
-            <h3 class="villa-title">Villa F5 sur Ste Anne</h3>
-            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Sainte-Anne</p>
-            <p class="villa-price">À partir de 1200€/nuit</p>
-            <div class="villa-features">
-              <div class="villa-feature"><i class="fas fa-users"></i> 10 personnes</div>
-              <div class="villa-feature"><i class="fas fa-bed"></i> 5 chambres</div>
-              <div class="villa-feature"><i class="fas fa-swimming-pool"></i> Piscine</div>
+        <a href="villa-villa-f5-ste-anne.html" class="card fade-in-up" style="animation-delay:.05s;">
+          <div class="row">
+            <div class="icon"><i class="fas fa-home"></i></div>
+            <div class="content">
+              <div class="card-title">Villa F5 sur Ste Anne</div>
+              <div class="meta">Sainte-Anne • À partir de 1200€/nuit • 10 pers, 5 ch, piscine</div>
             </div>
           </div>
         </a>
-
-        <a href="villa-villa-f6-petit-macabou.html" class="villa-card fade-in-up" style="animation-delay:.2s;">
-          <div class="villa-image-container">
-            <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Villa F6 sur Petit Macabou" class="villa-image">
-          </div>
-          <div class="villa-content">
-            <h3 class="villa-title">Villa F6 sur Petit Macabou</h3>
-            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</p>
-            <p class="villa-price">À partir de 1500€/nuit</p>
-            <div class="villa-features">
-              <div class="villa-feature"><i class="fas fa-users"></i> 12 personnes</div>
-              <div class="villa-feature"><i class="fas fa-bed"></i> 6 chambres</div>
-              <div class="villa-feature"><i class="fas fa-swimming-pool"></i> Piscine</div>
+        <a href="villa-villa-f6-petit-macabou.html" class="card fade-in-up" style="animation-delay:.1s;">
+          <div class="row">
+            <div class="icon"><i class="fas fa-home"></i></div>
+            <div class="content">
+              <div class="card-title">Villa F6 sur Petit Macabou</div>
+              <div class="meta">Petit Macabou, Vauclin • À partir de 1500€/nuit • 12 pers, 6 ch, piscine</div>
             </div>
           </div>
         </a>
-
       </div>
     </section>
   </main>
