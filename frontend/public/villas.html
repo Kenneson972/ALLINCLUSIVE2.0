@@ -115,9 +115,6 @@
   </main>
 
   <script>
-    // Configuration de l'API
-    const API_URL = 'http://localhost:8001/api';
-    
     // Variables globales
     let allVillas = [];
 
@@ -145,23 +142,223 @@
       nav.classList.toggle('mobile-open');
     }
 
-    // Chargement des villas depuis l'API
-    async function loadVillas() {
-      try {
-        console.log('Chargement des villas depuis:', API_URL + '/villas');
-        const response = await fetch(API_URL + '/villas');
-        
-        if (response.ok) {
-          allVillas = await response.json();
-          console.log('Villas chargées:', allVillas.length);
-          displayVillas(allVillas);
-        } else {
-          throw new Error('Erreur API: ' + response.status);
+    // Chargement des villas depuis les pages HTML statiques
+    function loadVillas() {
+      // Liste des villas basée sur les fichiers HTML existants
+      allVillas = [
+        {
+          id: 1,
+          name: "Villa F3 sur Petit Macabou",
+          location: "Petit Macabou, Vauclin",
+          price: 850,
+          guests_detail: "6 personnes",
+          features: "Piscine, Vue mer, Terrasses modernes, Vue panoramique",
+          image: "assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
+          url: "villa-villa-f3-sur-petit-macabou.html"
+        },
+        {
+          id: 2,
+          name: "Villa F5 sur Ste Anne",
+          location: "Sainte-Anne",
+          price: 1350,
+          guests_detail: "10 personnes",
+          features: "Piscine, Villa rose, Terrasse couverte, Chambres enfants",
+          image: "assets/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
+          url: "villa-villa-f5-sur-ste-anne.html"
+        },
+        {
+          id: 3,
+          name: "Villa F6 sur Petit Macabou",
+          location: "Petit Macabou, Vauclin",
+          price: 2000,
+          guests_detail: "12 personnes",
+          features: "Villa luxe, Vue aérienne, Terrasses panoramiques, Mezzanine",
+          image: "assets/images/Villa_F6_Petit_Macabou/01_vue_aerienne_nuit.jpg",
+          url: "villa-villa-f6-sur-petit-macabou-sejour--fte.html"
+        },
+        {
+          id: 4,
+          name: "Studio Cocooning Lamentin",
+          location: "Lamentin",
+          price: 400,
+          guests_detail: "2 personnes",
+          features: "Studio, Jacuzzi, Terrasse, Cuisine moderne",
+          image: "assets/images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
+          url: "villa-studio-cocooning-lamentin.html"
+        },
+        {
+          id: 5,
+          name: "Espace Piscine Journée Bungalow",
+          location: "Bungalow",
+          price: 350,
+          guests_detail: "10 à 150 personnes",
+          features: "Piscine, Événements, Bungalow créole, Studio kitchenette",
+          image: "assets/images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
+          url: "villa-espace-piscine-journee-bungalow.html"
+        },
+        {
+          id: 6,
+          name: "Villa F3 pour la Baccha",
+          location: "Petit Macabou",
+          price: 850,
+          guests_detail: "6 personnes",
+          features: "Piscine, Terrasse jardin, Cuisine équipée, Chambre moderne",
+          image: "assets/images/Villa_F3_Baccha_Petit_Macabou/01_terrasse_piscine_salon_ext.jpg",
+          url: "villa-villa-f3-pour-la-baccha.html"
+        },
+        {
+          id: 7,
+          name: "Villa F5 Vauclin Ravine Plate",
+          location: "Vauclin, Ravine Plate",
+          price: 1800,
+          guests_detail: "10 personnes",
+          features: "Piscine à débordement, Vue panoramique, Gazebo, Poutres apparentes",
+          image: "assets/images/Villa_F5_Vauclin_Ravine_Plate/piscine_a_debordement_vue_panoramique.jpg",
+          url: "villa-villa-f5-vauclin-ravine-plate.html"
+        },
+        {
+          id: 8,
+          name: "Villa F7 Baie des Mulets",
+          location: "Baie des Mulets, Vauclin",
+          price: 2200,
+          guests_detail: "14 personnes",
+          features: "Véranda bambou, Salon canapé d'angle, Chambre principale, Coin détente",
+          image: "assets/images/Villa_F7_Baie_des_Mulets_Vauclin/veranda_salle_a_manger_bambou.jpg",
+          url: "villa-villa-f7-baie-des-mulets.html"
+        },
+        {
+          id: 9,
+          name: "Villa F3 sur Le François",
+          location: "Le François",
+          price: 950,
+          guests_detail: "6 personnes",
+          features: "Terrasse vue mer, Salon extérieur, Cuisine bleue, Vue aérienne",
+          image: "assets/images/Villa_F3_Le_Francois/01_terrasse_piscine_vue_mer.jpg",
+          url: "villa-villa-f3-sur-le-franois.html"
+        },
+        {
+          id: 10,
+          name: "Villa F6 sur Ste Luce à 1mn de la plage",
+          location: "Sainte-Luce",
+          price: 2200,
+          guests_detail: "12 personnes",
+          features: "Vue aérienne piscine, Salon piscine, Chambre poutres, Salle à manger",
+          image: "assets/images/Villa_F6_Ste_Luce_Plage/05_vue_aerienne_piscine.jpg",
+          url: "villa-villa-f6-sur-ste-luce-a-1mn-de-la-plage.html"
+        },
+        {
+          id: 11,
+          name: "Villa F5 La Renée",
+          location: "Rivière-Pilote, La Renée",
+          price: 1500,
+          guests_detail: "10 personnes",
+          features: "Terrasse bois palmiers, Salon cuir noir, Cuisine bois clair, Hamacs",
+          image: "assets/images/Villa_F5_R_Pilote_La_Renee/piscine_terrasse_bois_palmiers.jpg",
+          url: "villa-villa-f5-la-renee.html"
+        },
+        {
+          id: 12,
+          name: "Villa F6 au Lamentin",
+          location: "Lamentin",
+          price: 1900,
+          guests_detail: "12 personnes",
+          features: "Piscine jacuzzi, Vue ensemble, Terrasse moderne",
+          image: "assets/images/Villa_F6_Lamentin/01_piscine_jacuzzi_vue_ensemble.jpg",
+          url: "villa-villa-f6-au-lamentin.html"
+        },
+        {
+          id: 13,
+          name: "Bas Villa F3 sur Le Robert",
+          location: "Le Robert, Pointe Hyacinthe",
+          price: 750,
+          guests_detail: "6 personnes",
+          features: "Piscine rectangulaire, Terrasse pergola, Salon TV, Cuisine ouverte",
+          image: "assets/images/Villa_F3_Robert_Pointe_Hyacinthe/piscine_rectangulaire_moderne.jpg",
+          url: "villa-bas-de-villa-f3-sur-le-robert.html"
+        },
+        {
+          id: 14,
+          name: "Bas Villa F3 sur Ste Luce",
+          location: "Sainte-Luce",
+          price: 650,
+          guests_detail: "6 personnes",
+          features: "Terrasse lounge, Salon TV LED, Chambre climatisée, Coin repas",
+          image: "assets/images/Bas_Villa_F3_Ste_Luce/08_terrasse_lounge.jpg",
+          url: "villa-bas-de-villa-f3-sur-ste-luce.html"
+        },
+        {
+          id: 15,
+          name: "Villa F3 Trinité Cosmy",
+          location: "La Trinité, Cosmy",
+          price: 800,
+          guests_detail: "6 personnes",
+          features: "Piscine chauffée, Vue collines, Cuisine jaune bois, Terrasse couverte",
+          image: "assets/images/Villa_F3_Trinite_Cosmy/piscine_chauffee_vue_collines.jpg",
+          url: "villa-villa-f3-bas-de-villa-trinite-cosmy.html"
+        },
+        {
+          id: 16,
+          name: "Appartement F3 Trenelle",
+          location: "Trenelle",
+          price: 500,
+          guests_detail: "6 personnes",
+          features: "Location annuelle, Salon TV, Cuisine équipée, Espace détente",
+          image: "assets/images/Villa_F3_Trenelle_Location_Annuelle/01_salon_salle_a_manger.jpg",
+          url: "villa-appartement-f3-trenelle-location-annuelle.html"
+        },
+        {
+          id: 17,
+          name: "Villa Fête Journée Ducos",
+          location: "Ducos",
+          price: 400,
+          guests_detail: "50 personnes",
+          features: "Piscine jouets, Terrasse salon, Bar gazebo, Salon rotin",
+          image: "assets/images/Villa_Fete_Journee_Ducos/01_piscine_jouets_gonflables.jpg",
+          url: "villa-villa-fte-journee-ducos.html"
+        },
+        {
+          id: 18,
+          name: "Villa Fête Journée Fort-de-France",
+          location: "Fort-de-France",
+          price: 600,
+          guests_detail: "80 personnes",
+          features: "Piscine Buddha, Terrasse colonnes, Véranda coloniale, Allée palmiers",
+          image: "assets/images/Villa_Fete_Journee_Fort_de_France/01_piscine_vue_panoramique.jpg",
+          url: "villa-villa-fte-journee-fort-de-france.html"
+        },
+        {
+          id: 19,
+          name: "Villa Fête Journée Rivière-Salée",
+          location: "Rivière-Salée",
+          price: 450,
+          guests_detail: "60 personnes",
+          features: "Piscine tente couverte, Événements",
+          image: "assets/images/Villa_Fete_Journee_Riviere_Salee/01_piscine_tente_couverte.jpg",
+          url: "villa-villa-fte-journee-riviere-salee.html"
+        },
+        {
+          id: 20,
+          name: "Villa Fête Journée Rivière-Pilote",
+          location: "Rivière-Pilote",
+          price: 500,
+          guests_detail: "70 personnes",
+          features: "Salle à manger, Piscine tropicale, Villa créole, Terrasse pierre",
+          image: "assets/images/Villa_Fete_Journee_R_Pilote/04_piscine_tropicale_vue_panoramique.jpg",
+          url: "villa-villa-fte-journee-riviere-pilote.html"
+        },
+        {
+          id: 21,
+          name: "Villa Fête Journée Sainte-Luce",
+          location: "Sainte-Luce",
+          price: 550,
+          guests_detail: "100 personnes",
+          features: "Tentes amenagement, Villa contemporaine, Décoration anniversaire, Toilettes extérieures",
+          image: "assets/images/Villa_Fete_Journee_Sainte_Luce/02_piscine_tentes_amenagement.jpg",
+          url: "villa-villa-fte-journee-sainte-luce.html"
         }
-      } catch (error) {
-        console.error('Erreur lors du chargement des villas:', error);
-        showError();
-      }
+      ];
+
+      displayVillas(allVillas);
     }
 
     // Affichage des villas
@@ -175,21 +372,10 @@
       }
       
       grid.innerHTML = villas.map((villa, index) => {
-        // Déterminer l'image à utiliser
-        let imageUrl = villa.image;
-        if (imageUrl && imageUrl.startsWith('/')) {
-          imageUrl = 'assets/images' + imageUrl.replace('/images', '');
-        } else if (!imageUrl) {
-          imageUrl = 'assets/images/placeholders/villa-placeholder.jpg';
-        }
-
-        // Construire l'URL de la page détail
-        const detailUrl = villa.slug ? `villa-${villa.slug}.html` : `villa-${villa.id}.html`;
-        
         return `
-          <a href="${detailUrl}" class="villa-card fade-in" style="animation-delay: ${index * 100}ms;">
+          <a href="${villa.url}" class="villa-card fade-in" style="animation-delay: ${index * 50}ms;">
             <div class="villa-image-container">
-              <img src="${imageUrl}" alt="${villa.name}" class="villa-image" 
+              <img src="${villa.image}" alt="${villa.name}" class="villa-image" 
                    onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'">
             </div>
             <div class="villa-content">
@@ -199,9 +385,8 @@
                 ${villa.location}
               </div>
               <div class="villa-features">
-                ${villa.guests_detail ? `<span class="villa-feature">${villa.guests_detail}</span>` : ''}
-                ${villa.features ? villa.features.split(',').map(f => `<span class="villa-feature">${f.trim()}</span>`).join('') : ''}
-                ${villa.amenities ? villa.amenities.map(a => `<span class="villa-feature">${a}</span>`).join('') : ''}
+                <span class="villa-feature">${villa.guests_detail}</span>
+                ${villa.features.split(',').map(f => `<span class="villa-feature">${f.trim()}</span>`).join('')}
               </div>
               <div class="villa-price">
                 €${villa.price}
@@ -217,7 +402,7 @@
       // Animation d'entrée progressive
       setTimeout(() => {
         document.querySelectorAll('.fade-in').forEach((el, index) => {
-          setTimeout(() => el.classList.add('visible'), index * 100);
+          setTimeout(() => el.classList.add('visible'), index * 50);
         });
       }, 100);
     }
