@@ -330,6 +330,237 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// ================================
+// FONCTIONS GÉNÉRATEUR DE PAGES
+// ================================
+
+// Générer une page villa (pour modifier.php)
+async function generateVillaPage() {
+    const villaId = document.getElementById('villa_id')?.value || 
+                   new URLSearchParams(window.location.search).get('id');
+    
+    if (!villaId) {
+        showToast('❌ ID villa manquant', 'error');
+        return;
+    }
+    
+    showLoadingState('Génération de la page HTML...');
+    
+    try {
+        const response = await fetch('/admin/villas/generer_pages.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                action: 'generate_single',
+                villa_id: villaId 
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showToast('✅ Page HTML générée avec succès !', 'success');
+            
+            // Afficher modal avec lien vers la page générée
+            showPageGenerationModal({
+                title: 'Page Villa Générée !',
+                message: 'Votre page villa est maintenant disponible :',
+                pageUrl: result.page_url,
+                villaName: result.villa_name || 'Villa'
+            });
+            
+            // Mettre à jour le statut si présent
+            updateGenerationStatus(true);
+            
+        } else {
+            showToast('❌ ' + (result.error || 'Erreur lors de la génération'), 'error');
+        }
+    } catch (error) {
+        console.error('Erreur génération:', error);
+        showToast('❌ Erreur lors de la génération', 'error');
+    } finally {
+        hideLoadingState();
+    }
+}
+
+// Générer toutes les pages (pour dashboard)
+async function generateAllPages() {
+    const progressContainer = document.getElementById('generation-progress');
+    const progressFill = document.getElementById('progress-fill');
+    const progressText = document.getElementById('progress-text');
+    const resultsContainer = document.getElementById('generation-results');
+    
+    // Afficher le progress
+    if (progressContainer) {
+        progressContainer.style.display = 'block';
+        resultsContainer && (resultsContainer.style.display = 'none');
+        progressFill && (progressFill.style.width = '0%');
+        progressText && (progressText.textContent = 'Initialisation de la génération...');
+    } else {
+        showLoadingState('Génération de toutes les pages en cours...');
+    }
+    
+    try {
+        // Simulation du progrès
+        if (progressFill && progressText) {
+            progressFill.style.width = '20%';
+            progressText.textContent = 'Récupération des villas...';
+        }
+        
+        const response = await fetch('/admin/villas/generer_pages.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                action: 'generate_all'
+            })
+        });
+        
+        if (progressFill && progressText) {
+            progressFill.style.width = '80%';
+            progressText.textContent = 'Génération des pages en cours...';
+        }
+        
+        const result = await response.json();
+        
+        if (progressFill && progressText) {
+            progressFill.style.width = '100%';
+            progressText.textContent = 'Génération terminée !';
+        }
+        
+        // Afficher les résultats
+        setTimeout(() => {
+            if (resultsContainer && typeof displayResults === 'function') {
+                displayResults(result);
+                progressContainer && (progressContainer.style.display = 'none');
+            } else {
+                // Fallback pour dashboard simple
+                if (result.success) {
+                    showToast(`✅ ${result.generated?.length || 0} pages générées avec succès !`, 'success');
+                } else {
+                    showToast('❌ Erreur lors de la génération', 'error');
+                }
+            }
+        }, 1000);
+        
+    } catch (error) {
+        console.error('Erreur génération:', error);
+        if (progressText && progressFill) {
+            progressText.textContent = 'Erreur lors de la génération';
+            progressFill.style.width = '100%';
+            progressFill.style.background = '#dc3545';
+        } else {
+            showToast('❌ Erreur lors de la génération de toutes les pages', 'error');
+        }
+    } finally {
+        if (!progressContainer) {
+            hideLoadingState();
+        }
+    }
+}
+
+// Afficher état de chargement pour génération
+function showLoadingState(message) {
+    const saveStatus = document.getElementById('save-status');
+    if (saveStatus) {
+        saveStatus.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${message}`;
+        saveStatus.style.color = 'rgba(255,255,255,0.8)';
+    }
+}
+
+// Masquer état de chargement
+function hideLoadingState() {
+    const saveStatus = document.getElementById('save-status');
+    if (saveStatus) {
+        saveStatus.innerHTML = '<i class="fas fa-check-circle" style="color: #28a745;"></i> Sauvegardé';
+        saveStatus.style.color = 'rgba(255,255,255,0.8)';
+    }
+}
+
+// Mettre à jour le statut de génération
+function updateGenerationStatus(generated) {
+    const saveStatus = document.getElementById('save-status');
+    if (saveStatus && generated) {
+        saveStatus.innerHTML = `
+            <i class="fas fa-check-circle" style="color: #28a745;"></i> Sauvegardé
+            <span style="margin-left: 1rem; color: #17a2b8;">
+                <i class="fas fa-globe"></i> Page HTML générée
+            </span>
+        `;
+    }
+}
+
+// Modal personnalisée pour affichage des résultats de génération
+function showPageGenerationModal(options) {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    `;
+    
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        color: white;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+    `;
+    
+    modalContent.innerHTML = `
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+        <h3 style="margin-bottom: 1rem; color: white;">${options.title}</h3>
+        <p style="margin-bottom: 2rem; color: rgba(255,255,255,0.9);">${options.message}</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+            <a href="${options.pageUrl}" target="_blank" 
+               style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                      color: white; padding: 0.75rem 1.5rem; text-decoration: none; 
+                      border-radius: 8px; font-weight: 600;">
+                🌐 Voir la Page
+            </a>
+            <button onclick="this.closest('.modal-overlay').remove()" 
+                    style="background: rgba(255,255,255,0.1); color: white; 
+                           border: 1px solid rgba(255,255,255,0.3); padding: 0.75rem 1.5rem; 
+                           border-radius: 8px; cursor: pointer;">
+                Fermer
+            </button>
+        </div>
+    `;
+    
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // Animation d'entrée
+    setTimeout(() => {
+        modal.style.opacity = '1';
+        modalContent.style.transform = 'scale(1)';
+    }, 10);
+    
+    // Fermer en cliquant à l'extérieur
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.remove();
+        }
+    });
+}
+
 // Export des fonctions globales
 window.AdminPanel = {
     showToast,
@@ -340,5 +571,7 @@ window.AdminPanel = {
     previewImage,
     generateSlug,
     formatNumber,
-    formatPrice
+    formatPrice,
+    generateVillaPage,
+    generateAllPages
 };
