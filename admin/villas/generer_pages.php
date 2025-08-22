@@ -44,18 +44,35 @@ class VillaPageGenerator {
     }
     
     /**
-     * Charger le template de base depuis une villa existante
+     * Charger le template HTML EXACT de la page originale
      */
-    private function loadTemplate() {
-        // Template basé sur villa-villa-f3-sur-petit-macabou.html
-        $templatePath = __DIR__ . '/../../frontend/public/villa-villa-f3-sur-petit-macabou.html';
+    private function loadOriginalTemplate() {
+        // Chemin vers le template original EXACT
+        $template_path = __DIR__ . '/../../frontend/public/villa-villa-f3-sur-petit-macabou.html';
         
-        if (file_exists($templatePath)) {
-            $this->templateContent = file_get_contents($templatePath);
-        } else {
-            // Template de fallback si le fichier n'existe pas
-            $this->templateContent = $this->getDefaultTemplate();
+        if (file_exists($template_path)) {
+            return file_get_contents($template_path);
         }
+        
+        // Si le fichier local n'existe pas, essayer de le télécharger
+        $template_url = 'https://kenneson972.github.io/ALLINCLUSIVE2.0/frontend/public/villa-villa-f3-sur-petit-macabou.html';
+        
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 30,
+                'user_agent' => 'Mozilla/5.0 (compatible; VillaGenerator/1.0)'
+            ]
+        ]);
+        
+        $template = file_get_contents($template_url, false, $context);
+        
+        if ($template) {
+            // Sauvegarder le template localement pour les prochaines fois
+            file_put_contents($template_path, $template);
+            return $template;
+        }
+        
+        throw new Exception('Impossible de charger le template original');
     }
     
     /**
