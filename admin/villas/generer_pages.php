@@ -76,40 +76,252 @@ class VillaPageGenerator {
     }
     
     /**
+     * Récupérer les données de la villa avec images
+     */
+    private function getVillaData($villa_id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM villas WHERE id = ?");
+        $stmt->execute([$villa_id]);
+        $villa = $stmt->fetch();
+        
+        if (!$villa) {
+            throw new Exception("Villa avec ID $villa_id non trouvée");
+        }
+        
+        // Récupérer les images
+        $stmt = $this->pdo->prepare("
+            SELECT * FROM villa_images 
+            WHERE villa_id = ? 
+            ORDER BY ordre ASC, date_upload ASC
+        ");
+        $stmt->execute([$villa_id]);
+        $images = $stmt->fetchAll();
+        
+        return ['villa' => $villa, 'images' => $images];
+    }
+    
+    /**
+     * Générer le HTML des images pour le carousel
+     */
+    private function generateCarouselHTML($images) {
+        if (empty($images)) {
+            return '<div class="swiper-slide">
+                        <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Image villa" loading="lazy">
+                    </div>';
+        }
+        
+        $carousel_html = '';
+        $index = 1;
+        
+        foreach ($images as $image) {
+            $image_path = "/admin/uploads/villas/" . $image['nom_fichier'];
+            $alt_text = $image['alt_text'] ?: "Image $index";
+            
+            $carousel_html .= '<div class="swiper-slide swiper-slide-active" role="group" aria-label="' . $index . ' / ' . count($images) . '">';
+            $carousel_html .= '<img src="' . htmlspecialchars($image_path) . '" alt="' . htmlspecialchars($alt_text) . '" loading="lazy">';
+            $carousel_html .= '</div>';
+            
+            $index++;
+        }
+        
+        return $carousel_html;
+    }
+    
+    /**
+     * Générer le HTML des thumbnails
+     */
+    private function generateThumbnailsHTML($images) {
+        if (empty($images)) {
+            return '<img src="assets/images/placeholders/villa-placeholder.jpg" alt="Thumbnail villa" loading="lazy">';
+        }
+        
+        $thumbnails_html = '';
+        $index = 1;
+        
+        foreach ($images as $image) {
+            $image_path = "/admin/uploads/villas/" . $image['nom_fichier'];
+            $alt_text = "Thumbnail $index";
+            $active_class = $index === 1 ? ' class="active"' : '';
+            
+            $thumbnails_html .= '<img src="' . htmlspecialchars($image_path) . '" alt="' . htmlspecialchars($alt_text) . '"' . $active_class . ' loading="lazy" decoding="async">';
+            
+            $index++;
+        }
+        
+        return $thumbnails_html;
+    }
+    
+    /**
+     * Générer le HTML des équipements
+     */
+    private function generateEquipementsHTML($villa) {
+        $equipements_json = $villa['equipements'] ?? '[]';
+        $equipements = json_decode($equipements_json, true) ?: [];
+        
+        // Mapping des équipements avec icônes
+        $equipements_icons = [
+            'climatisation' => '<i class="fas fa-snowflake text-blue-600 mr-3"></i><span>❄️ Climatisation</span>',
+            'sauna' => '<i class="fas fa-spa text-blue-600 mr-3"></i><span>🧖‍♀️ Sauna</span>',
+            'terrasse' => '<i class="fas fa-home text-blue-600 mr-3"></i><span>🏡 Terrasses modernes</span>',
+            'canape_lit' => '<i class="fas fa-couch text-blue-600 mr-3"></i><span>🛋️ Canapé-lit</span>',
+            'salle_bain' => '<i class="fas fa-bath text-blue-600 mr-3"></i><span>🛀 Salle de bain privée</span>',
+            'jacuzzi' => '<i class="fas fa-hot-tub text-blue-600 mr-3"></i><span>🛁 Jacuzzi</span>',
+            'wifi' => '<i class="fas fa-wifi text-blue-600 mr-3"></i><span>📶 WiFi haut débit</span>',
+            'piscine' => '<i class="fas fa-swimming-pool text-blue-600 mr-3"></i><span>🏊‍♀️ Piscine</span>',
+            'cuisine' => '<i class="fas fa-utensils text-blue-600 mr-3"></i><span>🍽️ Cuisine équipée</span>',
+            'parking' => '<i class="fas fa-car text-blue-600 mr-3"></i><span>🚗 Parking</span>'
+        ];
+        
+        $html = '';
+        
+        if (!empty($equipements)) {
+            foreach ($equipements as $equipement) {
+                $equipement_key = strtolower(str_replace(' ', '_', trim($equipement)));
+                if (isset($equipements_icons[$equipement_key])) {
+                    $html .= '<div class="amenity-item">' . $equipements_icons[$equipement_key] . '</div>';
+                } else {
+                    // Équipement générique
+                    $html .= '<div class="amenity-item"><i class="fas fa-check text-blue-600 mr-3"></i><span>✨ ' . ucfirst($equipement) . '</span></div>';
+                }
+            }
+        } else {
+            // Équipements par défaut si aucun spécifié
+            $html = '
+                <div class="amenity-item"><i class="fas fa-snowflake text-blue-600 mr-3"></i><span>❄️ Climatisation</span></div>
+                <div class="amenity-item"><i class="fas fa-wifi text-blue-600 mr-3"></i><span>📶 WiFi haut débit</span></div>
+                <div class="amenity-item"><i class="fas fa-swimming-pool text-blue-600 mr-3"></i><span>🏊‍♀️ Piscine</span></div>
+                <div class="amenity-item"><i class="fas fa-home text-blue-600 mr-3"></i><span>🏡 Terrasses modernes</span></div>
+            ';
+        }
+        
+        return $html;
+    }
+    
+    /**
+     * Générer le HTML des tarifs
+     */
+    private function generateTarifsHTML($villa) {
+        $prix_nuit = number_format($villa['prix_nuit'], 0);
+        $prix_semaine = number_format($villa['prix_nuit'] * 6.5, 0); // Réduction pour la semaine
+        
+        return '
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                <span class="font-medium">Nuit :</span>
+                <span class="text-blue-600 font-bold">' . $prix_nuit . '€/nuit</span>
+            </div>
+            <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                <span class="font-medium">Semaine :</span>
+                <span class="text-blue-600 font-bold">' . $prix_semaine . '€/semaine</span>
+            </div>
+        ';
+    }
+    
+    /**
      * Générer une page villa complète
      */
-    public function generateVillaPage($villaId) {
+    public function generateVillaPage($villa_id) {
         try {
-            // 1. Récupérer les données de la villa
-            $villa = $this->villaManager->getVillaById($villaId);
-            if (!$villa) {
-                throw new Exception('Villa introuvable');
+            // 1. Charger le template EXACT
+            $template = $this->loadOriginalTemplate();
+            
+            // 2. Récupérer les données de la villa
+            $data = $this->getVillaData($villa_id);
+            $villa = $data['villa'];
+            $images = $data['images'];
+            
+            // 3. Préparer les remplacements - GARDER TOUTE LA STRUCTURE !
+            $replacements = [
+                // === TITRE ET META ===
+                'Villa F3 sur Petit Macabou' => $villa['nom'],
+                'Petit Macabou, Vauclin' => $villa['localisation'],
+                
+                // === CAPACITÉS ===
+                '<div class="text-2xl font-bold text-gray-800">6</div>' => '<div class="text-2xl font-bold text-gray-800">' . $villa['capacite_max'] . '</div>',
+                '<div class="text-2xl font-bold text-gray-800">3</div>' => '<div class="text-2xl font-bold text-gray-800">' . $villa['nombre_chambres'] . '</div>',
+                '<div class="text-2xl font-bold text-gray-800">2</div>' => '<div class="text-2xl font-bold text-gray-800">' . $villa['nombre_salles_bain'] . '</div>',
+                
+                // === DESCRIPTION ===
+                '**Villa F3 sur Petit Macabou - Modernité et élégance au cœur du Petit Macabou, Vauclin.**' => '**' . $villa['nom'] . ' - ' . ($villa['description'] ?: 'Villa de luxe exceptionnelle en Martinique.') . '**',
+                
+                // === ÉQUIPEMENTS - Remplacer toute la section ===
+                '<div class="amenity-item">
+                    <i class="fas fa-snowflake text-blue-600 mr-3"></i>
+                    <span>❄️ Climatisation</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-spa text-blue-600 mr-3"></i>
+                    <span>🧖‍♀️ Sauna</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-home text-blue-600 mr-3"></i>
+                    <span>🏡 Terrasses modernes</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-couch text-blue-600 mr-3"></i>
+                    <span>🛋️ Canapé-lit</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-bath text-blue-600 mr-3"></i>
+                    <span>🛀 Salle de bain privée</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-hot-tub text-blue-600 mr-3"></i>
+                    <span>🛁 Jacuzzi</span>
+                </div>
+                <div class="amenity-item">
+                    <i class="fas fa-wifi text-blue-600 mr-3"></i>
+                    <span>📶 WiFi haut débit</span>
+                </div>' => $this->generateEquipementsHTML($villa),
+                
+                // === TARIFS ===
+                '<div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="font-medium">Grandes Vacances :</span>
+                    <span class="text-blue-600 font-bold">1550€/semaine</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="font-medium">Week-end (Ven-Dim) :</span>
+                    <span class="text-blue-600 font-bold">850€ (2 nuits)</span>
+                </div>' => $this->generateTarifsHTML($villa),
+                
+                // === CAPACITÉ MAXIMALE ===
+                '6 personnes ( jusqu\'à 15 personnes en journée )' => $villa['capacite_max'] . ' personnes'
+            ];
+            
+            // 4. Appliquer les remplacements en préservant TOUTE la structure
+            $html_content = $template;
+            
+            foreach ($replacements as $search => $replace) {
+                $html_content = str_replace($search, $replace, $html_content);
             }
             
-            // 2. Récupérer les images
-            $images = $this->villaManager->getVillaImages($villaId);
+            // 5. Remplacer les images du carousel (plus complexe)
+            if (!empty($images)) {
+                // Trouver et remplacer le contenu du swiper-wrapper
+                $pattern = '/<div class="swiper-wrapper"[^>]*>.*?<\/div>/s';
+                $carousel_content = '<div class="swiper-wrapper" id="swiper-wrapper-generated">' . $this->generateCarouselHTML($images) . '</div>';
+                $html_content = preg_replace($pattern, $carousel_content, $html_content, 1);
+                
+                // Remplacer les thumbnails
+                $pattern = '/<div class="gallery-thumbnails[^>]*>.*?<\/div>/s';
+                $thumbnails_content = '<div class="gallery-thumbnails flex gap-3 overflow-x-auto p-4 bg-gray-100 rounded-b-xl">' . $this->generateThumbnailsHTML($images) . '</div>';
+                $html_content = preg_replace($pattern, $thumbnails_content, $html_content, 1);
+            }
             
-            // 3. Préparer le contenu
-            $content = $this->templateContent;
-            
-            // 4. Remplacer tous les placeholders
-            $content = $this->replacePlaceholders($content, $villa, $images);
-            
-            // 5. Sauvegarder le fichier
+            // 6. Sauvegarder le fichier
             $filename = 'villa-' . $villa['slug'] . '.html';
-            $filePath = __DIR__ . '/../../frontend/public/' . $filename;
+            $filepath = __DIR__ . '/../../frontend/public/' . $filename;
             
-            if (file_put_contents($filePath, $content)) {
-                return [
-                    'success' => true,
-                    'filename' => $filename,
-                    'path' => $filePath,
-                    'url' => '/' . $filename,
-                    'message' => "Page générée : $filename"
-                ];
-            } else {
-                throw new Exception('Impossible d\'écrire le fichier');
+            if (!file_put_contents($filepath, $html_content)) {
+                throw new Exception('Impossible de sauvegarder le fichier ' . $filename);
             }
+            
+            return [
+                'success' => true,
+                'filename' => $filename,
+                'full_path' => $filepath,
+                'page_url' => '/' . $filename,
+                'villa_name' => $villa['nom'],
+                'message' => 'Page générée avec succès'
+            ];
             
         } catch (Exception $e) {
             return [
@@ -120,645 +332,118 @@ class VillaPageGenerator {
     }
     
     /**
-     * Générer toutes les pages villas
+     * Générer toutes les pages villa
      */
-    public function generateAllVillaPages() {
-        $results = [
-            'success' => true,
-            'generated' => [],
-            'errors' => [],
-            'total' => 0
-        ];
-        
-        $villas = $this->villaManager->getAllVillas();
-        $results['total'] = count($villas);
-        
-        foreach ($villas as $villa) {
-            $result = $this->generateVillaPage($villa['id']);
+    public function generateAllVillas() {
+        try {
+            $stmt = $this->pdo->query("SELECT id FROM villas ORDER BY id");
+            $villa_ids = $stmt->fetchAll(PDO::FETCH_COLUMN);
             
-            if ($result['success']) {
-                $results['generated'][] = [
-                    'villa' => $villa['nom'],
-                    'filename' => $result['filename']
-                ];
-            } else {
-                $results['errors'][] = [
-                    'villa' => $villa['nom'],
-                    'error' => $result['error']
-                ];
-                $results['success'] = false;
-            }
-        }
-        
-        return $results;
-    }
-    
-    /**
-     * Remplacer tous les placeholders dans le template
-     */
-    private function replacePlaceholders($content, $villa, $images) {
-        // Décoder les équipements
-        $equipements = $villa['equipements'] ? json_decode($villa['equipements'], true) : [];
-        
-        // Définir tous les remplacements
-        $replacements = [
-            // TITRE ET INFOS PRINCIPALES
-            '{{VILLA_TITRE}}' => sanitizeHtml($villa['nom']),
-            '{{VILLA_LOCALISATION}}' => sanitizeHtml($villa['localisation']),
-            '{{VILLA_PRIX}}' => number_format($villa['prix_nuit'], 0, ',', ' '),
-            '{{VILLA_CAPACITE}}' => $villa['capacite_max'],
-            '{{VILLA_CHAMBRES}}' => $villa['nombre_chambres'],
-            '{{VILLA_SALLES_BAIN}}' => $villa['nombre_salles_bain'],
-            '{{VILLA_TYPE}}' => sanitizeHtml($villa['type']),
+            $results = [];
+            $generated = [];
+            $errors = [];
             
-            // DESCRIPTIONS
-            '{{VILLA_DESCRIPTION}}' => nl2br(sanitizeHtml($villa['description'])),
-            '{{VILLA_CARACTERISTIQUES}}' => sanitizeHtml($villa['caracteristiques']),
-            
-            // ÉQUIPEMENTS
-            '{{VILLA_EQUIPEMENTS}}' => $this->generateEquipementsHTML($equipements),
-            '{{VILLA_EQUIPEMENTS_LIST}}' => $this->generateEquipementsListHTML($equipements),
-            
-            // IMAGES
-            '{{IMAGES_CAROUSEL}}' => $this->generateCarouselHTML($images),
-            '{{IMAGES_THUMBNAILS}}' => $this->generateThumbnailsHTML($images),
-            '{{IMAGE_PRINCIPALE}}' => $this->getImagePrincipaleURL($images),
-            
-            // TARIFICATION
-            '{{TARIFS_HTML}}' => $this->generateTarifsHTML($villa),
-            '{{PRIX_FORMATEE}}' => formatPrice($villa['prix_nuit']),
-            
-            // META SEO
-            '{{SEO_TITLE}}' => sanitizeHtml($villa['nom']) . ' - Location Villa Martinique - KhanelConcept',
-            '{{SEO_DESCRIPTION}}' => $this->generateMetaDescription($villa),
-            '{{SEO_KEYWORDS}}' => $this->generateMetaKeywords($villa, $equipements),
-            
-            // URLs ET LIENS
-            '{{VILLA_SLUG}}' => $villa['slug'],
-            '{{CANONICAL_URL}}' => 'https://khanelconcept.com/villa-' . $villa['slug'] . '.html',
-            
-            // DONNÉES STRUCTURÉES (JSON-LD)
-            '{{STRUCTURED_DATA}}' => $this->generateStructuredData($villa, $images),
-            
-            // DATES
-            '{{GENERATED_DATE}}' => date('Y-m-d H:i:s'),
-            '{{YEAR}}' => date('Y')
-        ];
-        
-        // Effectuer tous les remplacements
-        foreach ($replacements as $placeholder => $value) {
-            $content = str_replace($placeholder, $value, $content);
-        }
-        
-        // Remplacements génériques pour le nom de villa (au cas où)
-        $content = preg_replace('/Villa F3 sur Petit Macabou/', $villa['nom'], $content);
-        $content = preg_replace('/Petit Macabou, Vauclin/', $villa['localisation'], $content);
-        
-        return $content;
-    }
-    
-    /**
-     * Générer le HTML des équipements avec icons
-     */
-    private function generateEquipementsHTML($equipements) {
-        if (empty($equipements)) {
-            return '<p>Équipements de base inclus</p>';
-        }
-        
-        $icons = [
-            'Piscine' => '<i class="fas fa-swimming-pool"></i>',
-            'WiFi' => '<i class="fas fa-wifi"></i>',
-            'Climatisation' => '<i class="fas fa-snowflake"></i>',
-            'Jacuzzi' => '<i class="fas fa-hot-tub"></i>',
-            'Vue mer' => '<i class="fas fa-water"></i>',
-            'Vue montagne' => '<i class="fas fa-mountain"></i>',
-            'Terrasse' => '<i class="fas fa-home"></i>',
-            'Jardin' => '<i class="fas fa-seedling"></i>',
-            'Parking' => '<i class="fas fa-car"></i>',
-            'Cuisine équipée' => '<i class="fas fa-utensils"></i>',
-            'Barbecue' => '<i class="fas fa-fire"></i>',
-            'Lave-linge' => '<i class="fas fa-tshirt"></i>',
-            'Lave-vaisselle' => '<i class="fas fa-bath"></i>',
-            'Télévision' => '<i class="fas fa-tv"></i>',
-            'Balcon' => '<i class="fas fa-building"></i>',
-            'Proche plage' => '<i class="fas fa-umbrella-beach"></i>',
-            'Calme' => '<i class="fas fa-leaf"></i>',
-            'Animaux acceptés' => '<i class="fas fa-paw"></i>'
-        ];
-        
-        $html = '<div class="equipements-grid">';
-        foreach ($equipements as $equipement) {
-            $icon = $icons[$equipement] ?? '<i class="fas fa-check"></i>';
-            $html .= '<div class="equipement-item">' . $icon . ' ' . sanitizeHtml($equipement) . '</div>';
-        }
-        $html .= '</div>';
-        
-        return $html;
-    }
-    
-    /**
-     * Générer liste des équipements simple
-     */
-    private function generateEquipementsListHTML($equipements) {
-        if (empty($equipements)) {
-            return '<li>Équipements standards</li>';
-        }
-        
-        $html = '';
-        foreach ($equipements as $equipement) {
-            $html .= '<li>' . sanitizeHtml($equipement) . '</li>';
-        }
-        
-        return $html;
-    }
-    
-    /**
-     * Générer le carousel d'images
-     */
-    private function generateCarouselHTML($images) {
-        if (empty($images)) {
-            return '<div class="no-images"><i class="fas fa-image"></i> Images bientôt disponibles</div>';
-        }
-        
-        $html = '<div class="villa-images-carousel" id="villaCarousel">';
-        $html .= '<div class="main-image-container">';
-        
-        // Image principale (première image ou celle marquée comme principale)
-        $mainImage = $this->getMainImage($images);
-        $html .= '<img src="' . UPLOAD_URL . $mainImage['nom_fichier'] . '" alt="' . sanitizeHtml($mainImage['alt_text']) . '" class="main-villa-image" id="mainImage">';
-        
-        $html .= '</div>';
-        $html .= '<div class="thumbnails-container">';
-        
-        foreach ($images as $index => $image) {
-            $activeClass = $index === 0 ? ' active' : '';
-            $html .= '<img src="' . UPLOAD_URL . $image['nom_fichier'] . '" ';
-            $html .= 'alt="' . sanitizeHtml($image['alt_text']) . '" ';
-            $html .= 'class="thumbnail' . $activeClass . '" ';
-            $html .= 'onclick="changeMainImage(\'' . UPLOAD_URL . $image['nom_fichier'] . '\', this)">';
-        }
-        
-        $html .= '</div></div>';
-        
-        return $html;
-    }
-    
-    /**
-     * Générer les thumbnails
-     */
-    private function generateThumbnailsHTML($images) {
-        if (empty($images)) {
-            return '';
-        }
-        
-        $html = '<div class="villa-thumbnails">';
-        foreach ($images as $image) {
-            $html .= '<div class="thumbnail-item">';
-            $html .= '<img src="' . UPLOAD_URL . $image['nom_fichier'] . '" alt="' . sanitizeHtml($image['alt_text']) . '">';
-            $html .= '</div>';
-        }
-        $html .= '</div>';
-        
-        return $html;
-    }
-    
-    /**
-     * Obtenir l'URL de l'image principale
-     */
-    private function getImagePrincipaleURL($images) {
-        $mainImage = $this->getMainImage($images);
-        return $mainImage ? UPLOAD_URL . $mainImage['nom_fichier'] : '';
-    }
-    
-    /**
-     * Obtenir l'image principale
-     */
-    private function getMainImage($images) {
-        if (empty($images)) return null;
-        
-        // Chercher l'image marquée comme principale
-        foreach ($images as $image) {
-            if ($image['image_principale']) {
-                return $image;
-            }
-        }
-        
-        // Si aucune image principale, retourner la première
-        return $images[0];
-    }
-    
-    /**
-     * Générer le HTML des tarifs
-     */
-    private function generateTarifsHTML($villa) {
-        $prix = $villa['prix_nuit'];
-        
-        $html = '<div class="tarifs-container">';
-        $html .= '<div class="tarif-principal">';
-        $html .= '<span class="prix-amount">' . number_format($prix, 0, ',', ' ') . '€</span>';
-        $html .= '<span class="prix-period">/nuit</span>';
-        $html .= '</div>';
-        
-        // Tarifs dégressifs sugérés
-        if ($prix > 500) {
-            $prixSemaine = $prix * 6; // Économie d'1 nuit sur 7
-            $prixMois = $prix * 25; // Économie sur 1 mois
-            
-            $html .= '<div class="tarifs-degressifs">';
-            $html .= '<div class="tarif-option">';
-            $html .= '<span class="tarif-duree">Semaine :</span>';
-            $html .= '<span class="tarif-prix">' . number_format($prixSemaine, 0, ',', ' ') . '€</span>';
-            $html .= '</div>';
-            $html .= '<div class="tarif-option">';
-            $html .= '<span class="tarif-duree">Mois :</span>';
-            $html .= '<span class="tarif-prix">' . number_format($prixMois, 0, ',', ' ') . '€</span>';
-            $html .= '</div>';
-            $html .= '</div>';
-        }
-        
-        $html .= '</div>';
-        
-        return $html;
-    }
-    
-    /**
-     * Générer la meta description
-     */
-    private function generateMetaDescription($villa) {
-        $description = $villa['description'] ?: 
-            "Location villa {$villa['type']} {$villa['localisation']} - {$villa['capacite_max']} personnes - {$villa['nombre_chambres']} chambres";
-        
-        return sanitizeHtml(substr($description, 0, 155));
-    }
-    
-    /**
-     * Générer les mots-clés meta
-     */
-    private function generateMetaKeywords($villa, $equipements) {
-        $keywords = [
-            'location villa martinique',
-            'villa ' . strtolower($villa['localisation']),
-            'location ' . strtolower($villa['type']),
-            'villa ' . $villa['capacite_max'] . ' personnes',
-            'KhanelConcept'
-        ];
-        
-        // Ajouter les équipements comme mots-clés
-        foreach ($equipements as $equipement) {
-            $keywords[] = strtolower($equipement);
-        }
-        
-        return implode(', ', array_unique($keywords));
-    }
-    
-    /**
-     * Générer les données structurées JSON-LD
-     */
-    private function generateStructuredData($villa, $images) {
-        $mainImage = $this->getMainImage($images);
-        $imageUrl = $mainImage ? 'https://khanelconcept.com' . UPLOAD_URL . $mainImage['nom_fichier'] : '';
-        
-        $structuredData = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Accommodation',
-            'name' => $villa['nom'],
-            'description' => $villa['description'],
-            'url' => 'https://khanelconcept.com/villa-' . $villa['slug'] . '.html',
-            'image' => $imageUrl,
-            'address' => [
-                '@type' => 'PostalAddress',
-                'addressLocality' => $villa['localisation'],
-                'addressCountry' => 'MQ'
-            ],
-            'geo' => [
-                '@type' => 'GeoCoordinates',
-                'latitude' => '14.6415', // Coordonnées génériques Martinique
-                'longitude' => '-61.0242'
-            ],
-            'occupancy' => [
-                '@type' => 'QuantitativeValue',
-                'maxValue' => $villa['capacite_max']
-            ],
-            'numberOfRooms' => $villa['nombre_chambres'],
-            'priceRange' => formatPrice($villa['prix_nuit']) . ' par nuit',
-            'provider' => [
-                '@type' => 'Organization',
-                'name' => 'KhanelConcept',
-                'url' => 'https://khanelconcept.com'
-            ]
-        ];
-        
-        return '<script type="application/ld+json">' . json_encode($structuredData, JSON_PRETTY_PRINT) . '</script>';
-    }
-    
-    /**
-     * Template par défaut si aucun fichier trouvé
-     */
-    private function getDefaultTemplate() {
-        return '<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{SEO_TITLE}}</title>
-    <meta name="description" content="{{SEO_DESCRIPTION}}">
-    <meta name="keywords" content="{{SEO_KEYWORDS}}">
-    <link rel="canonical" href="{{CANONICAL_URL}}">
-    {{STRUCTURED_DATA}}
-    
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
-        .villa-header { text-align: center; margin-bottom: 30px; }
-        .villa-title { color: #333; font-size: 2rem; margin-bottom: 10px; }
-        .villa-location { color: #666; font-size: 1.1rem; }
-        .villa-images { margin: 30px 0; }
-        .villa-info { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
-        .info-section h3 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 5px; }
-        .equipements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
-        .equipement-item { padding: 8px; background: #f8f9fa; border-radius: 4px; }
-        .price-section { background: #007bff; color: white; padding: 20px; border-radius: 8px; text-align: center; margin: 30px 0; }
-        .price-amount { font-size: 2rem; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header class="villa-header">
-            <h1 class="villa-title">{{VILLA_TITRE}}</h1>
-            <p class="villa-location">{{VILLA_LOCALISATION}} • {{VILLA_TYPE}} • {{VILLA_CAPACITE}} personnes</p>
-        </header>
-        
-        <section class="villa-images">
-            {{IMAGES_CAROUSEL}}
-        </section>
-        
-        <section class="villa-info">
-            <div class="info-section">
-                <h3>Description</h3>
-                <p>{{VILLA_DESCRIPTION}}</p>
+            foreach ($villa_ids as $villa_id) {
+                $result = $this->generateVillaPage($villa_id);
                 
-                <h3>Caractéristiques</h3>
-                <ul>
-                    <li>{{VILLA_CHAMBRES}} chambre(s)</li>
-                    <li>{{VILLA_SALLES_BAIN}} salle(s) de bain</li>
-                    <li>Capacité : {{VILLA_CAPACITE}} personnes</li>
-                </ul>
-            </div>
+                if ($result['success']) {
+                    $generated[] = $result;
+                } else {
+                    $errors[] = ['villa_id' => $villa_id, 'error' => $result['error']];
+                }
+            }
             
-            <div class="info-section">
-                <h3>Équipements</h3>
-                {{VILLA_EQUIPEMENTS}}
-            </div>
-        </section>
-        
-        <section class="price-section">
-            <div class="price-amount">{{VILLA_PRIX}}€</div>
-            <div>par nuit</div>
-        </section>
-        
-        <footer style="text-align: center; margin-top: 50px; color: #666;">
-            <p>Page générée automatiquement le {{GENERATED_DATE}} par KhanelConcept Admin</p>
-        </footer>
-    </div>
-</body>
-</html>';
+            return [
+                'success' => true,
+                'generated' => $generated,
+                'errors' => $errors,
+                'total_generated' => count($generated),
+                'total_errors' => count($errors)
+            ];
+            
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
     }
 }
 
-// Traitement des requêtes AJAX
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json');
-    
-    $input = json_decode(file_get_contents('php://input'), true);
-    $action = $input['action'] ?? '';
-    
-    $generator = new VillaPageGenerator($villaManager);
-    
-    switch ($action) {
-        case 'generate_single':
-            $villaId = (int)($input['villa_id'] ?? 0);
-            if ($villaId) {
-                $result = $generator->generateVillaPage($villaId);
-                echo json_encode($result);
-            } else {
-                echo json_encode(['success' => false, 'error' => 'ID villa manquant']);
-            }
-            break;
+// Interface simple pour tests
+if (!isset($_POST) || empty($_POST)) {
+    echo '<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Générateur de Pages Villa</title>
+        <style>
+            body { font-family: Arial; padding: 2rem; background: #f5f5f5; }
+            .container { max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 10px; }
+            .btn { padding: 1rem 2rem; margin: 0.5rem; border: none; border-radius: 5px; cursor: pointer; }
+            .btn-primary { background: #007bff; color: white; }
+            .btn-success { background: #28a745; color: white; }
+            .result { margin-top: 1rem; padding: 1rem; border-radius: 5px; }
+            .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+            .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🚀 Générateur de Pages Villa</h1>
+            <p><strong>Template utilisé :</strong> Page villa F3 originale (design EXACT)</p>
             
-        case 'generate_all':
-            $result = $generator->generateAllVillaPages();
-            echo json_encode($result);
-            break;
+            <form method="POST">
+                <h3>Tester une villa :</h3>
+                <input type="number" name="villa_id" value="1" min="1" placeholder="ID Villa">
+                <button type="submit" name="action" value="single" class="btn btn-primary">Générer Une Page</button>
+            </form>
             
-        default:
-            echo json_encode(['success' => false, 'error' => 'Action inconnue']);
-            break;
+            <form method="POST">
+                <h3>Générer toutes les villas :</h3>
+                <button type="submit" name="action" value="all" class="btn btn-success">Générer Toutes les Pages</button>
+            </form>
+        </div>
+    </body>
+    </html>';
+}
+
+// Traitement des requêtes POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    $generator = new VillaPageGenerator();
+    
+    if ($_POST['action'] === 'single') {
+        $villa_id = $_POST['villa_id'] ?? 1;
+        $result = $generator->generateVillaPage($villa_id);
+        
+        echo '<div class="result ' . ($result['success'] ? 'success' : 'error') . '">';
+        if ($result['success']) {
+            echo '<h3>✅ Succès !</h3>';
+            echo '<p>Page générée : <strong>' . $result['filename'] . '</strong></p>';
+            echo '<p>Villa : ' . $result['villa_name'] . '</p>';
+            echo '<p><a href="../../frontend/public/' . $result['filename'] . '" target="_blank">Voir la page</a></p>';
+        } else {
+            echo '<h3>❌ Erreur</h3>';
+            echo '<p>' . $result['error'] . '</p>';
+        }
+        echo '</div>';
     }
-    exit;
+    
+    if ($_POST['action'] === 'all') {
+        $result = $generator->generateAllVillas();
+        
+        echo '<div class="result ' . ($result['success'] ? 'success' : 'error') . '">';
+        if ($result['success']) {
+            echo '<h3>✅ Génération terminée !</h3>';
+            echo '<p><strong>' . $result['total_generated'] . '</strong> pages générées</p>';
+            if ($result['total_errors'] > 0) {
+                echo '<p><strong>' . $result['total_errors'] . '</strong> erreurs</p>';
+            }
+        } else {
+            echo '<h3>❌ Erreur</h3>';
+            echo '<p>' . $result['error'] . '</p>';
+        }
+        echo '</div>';
+    }
 }
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Pages Villa - KhanelConcept Admin</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../assets/css/admin.css">
-</head>
-<body>
-    <div class="admin-container">
-        <nav class="sidebar">
-            <div class="sidebar-logo">
-                <h1><i class="fas fa-crown"></i> KhanelConcept</h1>
-                <p>Administration</p>
-            </div>
-            
-            <ul class="sidebar-nav">
-                <li><a href="../index.php"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="liste.php"><i class="fas fa-home"></i> Villas</a></li>
-                <li><a href="ajouter.php"><i class="fas fa-plus"></i> Ajouter Villa</a></li>
-                <li><a href="../images/galerie.php"><i class="fas fa-images"></i> Galerie</a></li>
-                <li><a href="generer_pages.php" class="active"><i class="fas fa-code"></i> Générateur Pages</a></li>
-                <li><a href="../api/villas.php" target="_blank"><i class="fas fa-code"></i> API JSON</a></li>
-                <li><a href="../../" target="_blank"><i class="fas fa-external-link-alt"></i> Voir Site</a></li>
-                <li><a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
-            </ul>
-        </nav>
-        
-        <main class="main-content">
-            <header class="admin-header">
-                <div class="header-title">
-                    <h2><i class="fas fa-code"></i> Générateur de Pages Villa</h2>
-                    <p>Créez automatiquement les pages HTML de vos villas</p>
-                </div>
-            </header>
-            
-            <div class="content-area">
-                <?php displayFlashMessage(); ?>
-                
-                <div class="glass-card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-magic"></i> Génération Automatique</h3>
-                    </div>
-                    
-                    <div style="text-align: center; padding: 2rem;">
-                        <button onclick="generateAllPages()" class="btn btn-success" style="font-size: 1.2rem; padding: 1rem 2rem;">
-                            <i class="fas fa-wand-magic-sparkles"></i> Générer Toutes les Pages Villa
-                        </button>
-                        
-                        <p style="margin-top: 1rem; color: rgba(255,255,255,0.8);">
-                            Cette action va créer/mettre à jour toutes les pages villa HTML avec les dernières données.
-                        </p>
-                    </div>
-                    
-                    <div id="generation-progress" style="display: none; margin-top: 2rem;">
-                        <div class="progress-bar">
-                            <div id="progress-fill" class="progress-fill"></div>
-                        </div>
-                        <div id="progress-text" style="text-align: center; margin-top: 1rem; color: white;"></div>
-                    </div>
-                    
-                    <div id="generation-results" style="display: none; margin-top: 2rem;">
-                        <!-- Résultats apparaîtront ici -->
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-    
-    <script src="../assets/js/admin.js"></script>
-    <script>
-        async function generateAllPages() {
-            const progressContainer = document.getElementById('generation-progress');
-            const progressFill = document.getElementById('progress-fill');
-            const progressText = document.getElementById('progress-text');
-            const resultsContainer = document.getElementById('generation-results');
-            
-            // Afficher le progress
-            progressContainer.style.display = 'block';
-            resultsContainer.style.display = 'none';
-            progressFill.style.width = '0%';
-            progressText.textContent = 'Initialisation de la génération...';
-            
-            try {
-                // Simulation du progrès
-                progressFill.style.width = '20%';
-                progressText.textContent = 'Récupération des villas...';
-                
-                const response = await fetch('/admin/villas/generer_pages.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        action: 'generate_all'
-                    })
-                });
-                
-                progressFill.style.width = '80%';
-                progressText.textContent = 'Génération des pages en cours...';
-                
-                const result = await response.json();
-                
-                progressFill.style.width = '100%';
-                progressText.textContent = 'Génération terminée !';
-                
-                // Afficher les résultats
-                setTimeout(() => {
-                    displayResults(result);
-                    progressContainer.style.display = 'none';
-                }, 1000);
-                
-            } catch (error) {
-                progressText.textContent = 'Erreur lors de la génération';
-                progressFill.style.width = '100%';
-                progressFill.style.background = '#dc3545';
-                console.error('Erreur:', error);
-            }
-        }
-        
-        function displayResults(result) {
-            const resultsContainer = document.getElementById('generation-results');
-            
-            let html = '<div class="generation-summary">';
-            
-            if (result.success) {
-                html += '<div class="alert alert-success">';
-                html += '<i class="fas fa-check-circle"></i> ';
-                html += `<strong>Génération réussie !</strong> ${result.generated.length}/${result.total} pages créées.`;
-                html += '</div>';
-                
-                if (result.generated.length > 0) {
-                    html += '<h4 style="color: white; margin: 2rem 0 1rem;">Pages générées :</h4>';
-                    html += '<div class="generated-pages-list">';
-                    
-                    result.generated.forEach(item => {
-                        html += '<div class="generated-page-item">';
-                        html += `<i class="fas fa-file-code"></i> ${item.villa}`;
-                        html += `<a href="../../${item.filename}" target="_blank" class="btn btn-primary btn-sm">Voir</a>`;
-                        html += '</div>';
-                    });
-                    
-                    html += '</div>';
-                }
-            } else {
-                html += '<div class="alert alert-danger">';
-                html += '<i class="fas fa-exclamation-circle"></i> ';
-                html += '<strong>Erreurs détectées</strong>';
-                html += '</div>';
-            }
-            
-            if (result.errors && result.errors.length > 0) {
-                html += '<h4 style="color: #dc3545; margin: 2rem 0 1rem;">Erreurs :</h4>';
-                html += '<div class="error-pages-list">';
-                
-                result.errors.forEach(item => {
-                    html += '<div class="error-page-item">';
-                    html += `<i class="fas fa-exclamation-triangle"></i> ${item.villa} : ${item.error}`;
-                    html += '</div>';
-                });
-                
-                html += '</div>';
-            }
-            
-            html += '</div>';
-            
-            resultsContainer.innerHTML = html;
-            resultsContainer.style.display = 'block';
-        }
-    </script>
-    
-    <style>
-        .generation-summary {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 1.5rem;
-        }
-        
-        .generated-pages-list,
-        .error-pages-list {
-            display: grid;
-            gap: 0.5rem;
-        }
-        
-        .generated-page-item,
-        .error-page-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
-            color: white;
-        }
-        
-        .error-page-item {
-            color: #dc3545;
-        }
-        
-        .generated-page-item i,
-        .error-page-item i {
-            margin-right: 0.5rem;
-        }
-    </style>
-</body>
-</html>
