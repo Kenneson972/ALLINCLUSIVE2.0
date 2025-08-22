@@ -815,7 +815,316 @@ if (!in_array($activeTab, ['informations', 'images', 'historique'])) {
         
         // Chargement de l'onglet images (sera implémenté dans la suite)
         function loadImagesTab() {
-            console.log('Chargement onglet images...');
+            setupImageUpload();
+            setupImageGallery();
+        }
+        
+        // Configuration de l'upload intégré
+        function setupImageUpload() {
+            const uploadZone = document.getElementById('upload-zone-integrated');
+            const fileInput = document.getElementById('images-file-input');
+            
+            if (!uploadZone || !fileInput) return;
+            
+            // Events
+            uploadZone.addEventListener('click', () => fileInput.click());
+            uploadZone.addEventListener('dragover', handleImageDragOver);
+            uploadZone.addEventListener('dragleave', handleImageDragLeave);
+            uploadZone.addEventListener('drop', handleImageDrop);
+            fileInput.addEventListener('change', (e) => handleImageFiles(e.target.files));
+        }
+        
+        // Configuration de la galerie avec drag & drop
+        function setupImageGallery() {
+            const gallery = document.getElementById('images-gallery-sortable');
+            if (!gallery) return;
+            
+            // Sortable pour réorganisation
+            new Sortable(gallery, {
+                animation: 150,
+                handle: '.drag-handle',
+                onEnd: function(evt) {
+                    updateImageOrder();
+                }
+            });
+            
+            // Gestion des sélections
+            document.querySelectorAll('.image-selector').forEach(checkbox => {
+                checkbox.addEventListener('change', updateSelectionButtons);
+            });
+        }
+        
+        function handleImageDragOver(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        }
+        
+        function handleImageDragLeave(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        }
+        
+        function handleImageDrop(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            handleImageFiles(e.dataTransfer.files);
+        }
+        
+        function handleImageFiles(files) {
+            const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            
+            if (imageFiles.length === 0) {
+                AdminPanel.showToast('Aucun fichier image valide', 'error');
+                return;
+            }
+            
+            uploadImages(imageFiles);
+        }
+        
+        async function uploadImages(files) {
+            const progressContainer = document.getElementById('images-upload-progress');
+            const progressFill = document.getElementById('images-progress-fill');
+            const progressText = document.getElementById('images-progress-text');
+            
+            progressContainer.style.display = 'block';
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const progress = ((i / files.length) * 100).toFixed(0);
+                
+                progressFill.style.width = progress + '%';
+                progressText.textContent = `Upload ${i + 1}/${files.length} - ${file.name}`;
+                
+                try {
+                    await uploadSingleImage(file);
+                    AdminPanel.showToast(`Image uploadée: ${file.name}`, 'success');
+                } catch (error) {
+                    AdminPanel.showToast(`Erreur upload ${file.name}: ${error}`, 'error');
+                }
+            }
+            
+            progressFill.style.width = '100%';
+            progressText.textContent = 'Upload terminé !';
+            
+            setTimeout(() => {
+                progressContainer.style.display = 'none';
+                reloadImagesGallery();
+            }, 2000);
+        }
+        
+        function uploadSingleImage(file) {
+            return new Promise((resolve, reject) => {
+                const formData = new FormData();
+                formData.append('action', 'upload_image');
+                formData.append('villa_id', villaId);
+                formData.append('image', file);
+                formData.append('csrf_token', '<?= generateCSRFToken() ?>');
+                
+                fetch('actions/image_upload.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        resolve(data);
+                    } else {
+                        reject(data.error || 'Erreur inconnue');
+                    }
+                })
+                .catch(error => reject(error.message || 'Erreur réseau'));
+            });
+        }
+        
+        function setMainImage(imageId) {
+            if (!confirm('Définir cette image comme image principale ?')) return;
+            
+            fetch('actions/set_main_image.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'set_main_image',
+                    villa_id: villaId,
+                    image_id: imageId,
+                    csrf_token: '<?= generateCSRFToken() ?>'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    AdminPanel.showToast('Image principale définie', 'success');
+                    reloadImagesGallery();
+                } else {
+                    AdminPanel.showToast('Erreur: ' + data.error, 'error');
+                }
+            })
+            .catch(error => AdminPanel.showToast('Erreur réseau', 'error'));
+        }
+        
+        function deleteImage(imageId) {
+            if (!confirm('Supprimer définitivement cette image ?')) return;
+            
+            fetch('actions/delete_image.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'delete_image',
+                    image_id: imageId,
+                    csrf_token: '<?= generateCSRFToken() ?>'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    AdminPanel.showToast('Image supprimée', 'success');
+                    reloadImagesGallery();
+                } else {
+                    AdminPanel.showToast('Erreur: ' + data.error, 'error');
+                }
+            })
+            .catch(error => AdminPanel.showToast('Erreur réseau', 'error'));
+        }
+        
+        function editImageAlt(imageId, currentAlt) {
+            const newAlt = prompt('Texte alternatif de l\'image:', currentAlt);
+            if (newAlt === null) return;
+            
+            fetch('actions/update_image_alt.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'update_alt',
+                    image_id: imageId,
+                    alt_text: newAlt,
+                    csrf_token: '<?= generateCSRFToken() ?>'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    AdminPanel.showToast('Texte alternatif modifié', 'success');
+                    reloadImagesGallery();
+                } else {
+                    AdminPanel.showToast('Erreur: ' + data.error, 'error');
+                }
+            })
+            .catch(error => AdminPanel.showToast('Erreur réseau', 'error'));
+        }
+        
+        function updateImageOrder() {
+            const items = document.querySelectorAll('.image-manager-item');
+            const newOrder = Array.from(items).map((item, index) => ({
+                id: parseInt(item.dataset.imageId),
+                order: index + 1
+            }));
+            
+            fetch('actions/reorder_images.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'reorder_images',
+                    villa_id: villaId,
+                    order: newOrder,
+                    csrf_token: '<?= generateCSRFToken() ?>'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    AdminPanel.showToast('Ordre des images mis à jour', 'success');
+                    // Mettre à jour les numéros d'ordre visuels
+                    items.forEach((item, index) => {
+                        const orderNumber = item.querySelector('.image-order-number');
+                        if (orderNumber) orderNumber.textContent = index + 1;
+                    });
+                } else {
+                    AdminPanel.showToast('Erreur: ' + data.error, 'error');
+                }
+            })
+            .catch(error => AdminPanel.showToast('Erreur réseau', 'error'));
+        }
+        
+        function selectAllImages() {
+            const checkboxes = document.querySelectorAll('.image-selector');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = !allChecked;
+            });
+            
+            updateSelectionButtons();
+        }
+        
+        function updateSelectionButtons() {
+            const checkedBoxes = document.querySelectorAll('.image-selector:checked');
+            const deleteBtn = document.getElementById('delete-selected-btn');
+            
+            deleteBtn.disabled = checkedBoxes.length === 0;
+            deleteBtn.innerHTML = checkedBoxes.length > 0 
+                ? `<i class="fas fa-trash"></i> Supprimer sélection (${checkedBoxes.length})`
+                : '<i class="fas fa-trash"></i> Supprimer sélection';
+        }
+        
+        function deleteSelectedImages() {
+            const checkedBoxes = document.querySelectorAll('.image-selector:checked');
+            const imageIds = Array.from(checkedBoxes).map(cb => parseInt(cb.dataset.imageId));
+            
+            if (imageIds.length === 0) return;
+            
+            if (!confirm(`Supprimer définitivement ${imageIds.length} image(s) ?`)) return;
+            
+            fetch('actions/delete_multiple_images.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    action: 'delete_multiple',
+                    image_ids: imageIds,
+                    csrf_token: '<?= generateCSRFToken() ?>'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    AdminPanel.showToast(`${imageIds.length} image(s) supprimée(s)`, 'success');
+                    reloadImagesGallery();
+                } else {
+                    AdminPanel.showToast('Erreur: ' + data.error, 'error');
+                }
+            })
+            .catch(error => AdminPanel.showToast('Erreur réseau', 'error'));
+        }
+        
+        function reloadImagesGallery() {
+            // Pour éviter de recharger toute la page, on peut recharger juste l'onglet images
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+        
+        function openImageModal(src, alt) {
+            // Créer une modal pour prévisualiser l'image en grand
+            const modal = document.createElement('div');
+            modal.className = 'image-preview-modal';
+            modal.innerHTML = `
+                <div class="modal-backdrop" onclick="this.parentElement.remove()"></div>
+                <div class="modal-content">
+                    <button class="modal-close" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <img src="${src}" alt="${alt}" style="max-width: 90vw; max-height: 90vh; border-radius: 8px;">
+                    <div style="text-align: center; margin-top: 1rem; color: white; font-weight: 600;">${alt}</div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
         }
         
         // Chargement de l'onglet historique (sera implémenté dans la suite)
