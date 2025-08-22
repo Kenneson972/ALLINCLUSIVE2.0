@@ -24,6 +24,14 @@ $recentVillas = array_slice($recentVillas, 0, 5); // Limiter à 5
     <title>Dashboard - KhanelConcept Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/admin.css">
+    <style>
+        .generation-progress { display:none; margin-top: 1rem; }
+        .progress-bar { width: 100%; background: rgba(255,255,255,0.15); border-radius: 8px; overflow: hidden; height: 12px; }
+        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.4s ease; }
+        .progress-text { margin-top: 0.5rem; color: rgba(255,255,255,0.9); font-size: 0.9rem; }
+        .generation-results { display:none; margin-top: 1rem; padding: 1rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.08); }
+        .generation-results ul { margin: 0.5rem 0 0 1.25rem; }
+    </style>
 </head>
 <body>
     <div class="admin-container">
@@ -150,7 +158,7 @@ $recentVillas = array_slice($recentVillas, 0, 5); // Limiter à 5
                                                 </td>
                                                 <td>
                                                     <div style="font-weight: 600;"><?= sanitizeHtml($villa['nom']) ?></div>
-                                                    <div style="font-size: 0.8rem; opacity: 0.8;"><?= sanitizeHtml($villa['localisation']) ?></div>
+                                                    <div style="font-size: 0.8rem; opacity: 0.8;">&lt;?= sanitizeHtml($villa['localisation']) ?&gt;</div>
                                                 </td>
                                                 <td><?= sanitizeHtml($villa['type']) ?></td>
                                                 <td style="font-weight: 600; color: #ffc107;"><?= formatPrice($villa['prix_nuit']) ?></td>
@@ -198,6 +206,14 @@ $recentVillas = array_slice($recentVillas, 0, 5); // Limiter à 5
                             <button onclick="generateAllPages()" class="btn btn-generate" style="justify-content: flex-start; width: 100%; border: none;">
                                 <i class="fas fa-wand-magic-sparkles"></i> Générer Toutes les Pages
                             </button>
+
+                            <!-- Progression génération -->
+                            <div id="generation-progress" class="generation-progress">
+                                <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+                                <div id="progress-text" class="progress-text">Préparation...</div>
+                            </div>
+                            
+                            <div id="generation-results" class="generation-results"></div>
                             
                             <a href="images/galerie.php" class="btn btn-primary" style="justify-content: flex-start;">
                                 <i class="fas fa-images"></i> Gérer galerie
@@ -235,5 +251,23 @@ $recentVillas = array_slice($recentVillas, 0, 5); // Limiter à 5
     </div>
     
     <script src="assets/js/admin.js"></script>
+    <script>
+        // Affichage des résultats de génération
+        function displayResults(result) {
+            const container = document.getElementById('generation-results');
+            container.style.display = 'block';
+            const total = result?.total_generated || 0;
+            const errors = result?.errors || [];
+            let html = `<div><strong>${total}</strong> page(s) générée(s).</div>`;
+            if (Array.isArray(result.generated) && result.generated.length) {
+                html += '<ul>' + result.generated.slice(0,5).map(r => `<li>✅ ${r.villa_name} → <a href="../${r.filename}" target="_blank">${r.filename}</a></li>`).join('') + (result.generated.length > 5 ? '<li>…</li>' : '') + '</ul>';
+            }
+            if (errors.length) {
+                html += `<div style="margin-top: .5rem; color: #ffb3b3;">${errors.length} erreur(s):</div>`;
+                html += '<ul>' + errors.slice(0,5).map(e => `<li>❌ Villa #${e.villa_id}: ${e.error}</li>`).join('') + (errors.length > 5 ? '<li>…</li>' : '') + '</ul>';
+            }
+            container.innerHTML = html;
+        }
+    </script>
 </body>
 </html>

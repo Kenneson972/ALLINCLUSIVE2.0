@@ -11,6 +11,7 @@ require_once __DIR__ . '/../includes/functions.php';
 requireAuth();
 
 $villaManager = new VillaManager();
+$pdo = Database::getInstance()->getConnection();
 $error = '';
 
 // Récupération de l'ID villa
@@ -36,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Token de sécurité invalide';
     } else {
         $confirm_name = $_POST['confirm_name'] ?? '';
-        $image_action = $_POST['image_action'] ?? 'delete';
+        $image_action = $_POST['image_action'] ?? 'unassign';
         $reassign_villa_id = $_POST['reassign_villa_id'] ?? null;
         
         // Vérification du nom de confirmation
@@ -44,49 +45,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Le nom de confirmation ne correspond pas';
         } else {
             try {
-                $villaManager->pdo->beginTransaction();
+                $pdo->beginTransaction();
                 
                 // Gestion des images selon le choix
                 foreach ($images as $image) {
                     if ($image_action === 'reassign' && $reassign_villa_id) {
                         // Réassigner à une autre villa
-                        $stmt = $villaManager->pdo->prepare("
-                            UPDATE villa_images 
-                            SET villa_id = ? 
-                            WHERE id = ?
-                        ");
+                        $stmt = $pdo->prepare("UPDATE villa_images SET villa_id = ? WHERE id = ?");
                         $stmt->execute([$reassign_villa_id, $image['id']]);
+                    } elseif ($image_action === 'unassign') {
+                        // Déplacer vers la galerie "Non assignées"
+                        $unassignedId = $villaManager->getOrCreateUnassignedVillaId();
+                        $stmt = $pdo->prepare("UPDATE villa_images SET villa_id = ? WHERE id = ?");
+                        $stmt->execute([$unassignedId, $image['id']]);
                     } else {
                         // Supprimer les fichiers images
-                        $image_path = __DIR__ . '/../uploads/villas/' . $image['nom_fichier'];
+                        $image_path = UPLOAD_PATH . $image['nom_fichier'];
                         if (file_exists($image_path)) {
-                            unlink($image_path);
+                            @unlink($image_path);
                         }
-                        
                         // Supprimer de la BDD
-                        $stmt = $villaManager->pdo->prepare("DELETE FROM villa_images WHERE id = ?");
+                        $stmt = $pdo->prepare("DELETE FROM villa_images WHERE id = ?");
                         $stmt->execute([$image['id']]);
                     }
                 }
                 
                 // Supprimer la villa de la BDD
-                $stmt = $villaManager->pdo->prepare("DELETE FROM villas WHERE id = ?");
+                $stmt = $pdo->prepare("DELETE FROM villas WHERE id = ?");
                 $stmt->execute([$villa_id]);
                 
                 // Supprimer la page HTML générée si elle existe
                 $html_file = __DIR__ . '/../../frontend/public/villa-' . $villa['slug'] . '.html';
                 if (file_exists($html_file)) {
-                    unlink($html_file);
+                    @unlink($html_file);
                 }
                 
-                $villaManager->pdo->commit();
+                $pdo->commit();
                 
                 // Redirection avec message de succès
                 $_SESSION['success_message'] = "Villa \"{$villa['nom']}\" supprimée avec succès";
                 redirect('liste.php');
                 
             } catch (Exception $e) {
-                $villaManager->pdo->rollback();
+                $pdo->rollBack();
                 $error = 'Erreur lors de la suppression : ' . $e->getMessage();
             }
         }
@@ -96,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Récupération des autres villas pour réassignation
 $other_villas = [];
 if (!empty($images)) {
-    $stmt = $villaManager->pdo->prepare("SELECT id, nom FROM villas WHERE id != ? ORDER BY nom");
+    $stmt = $pdo->prepare("SELECT id, nom FROM villas WHERE id != ? ORDER BY nom");
     $stmt->execute([$villa_id]);
     $other_villas = $stmt->fetchAll();
 }
@@ -111,233 +112,36 @@ if (!empty($images)) {
     <link rel="stylesheet" href="../assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .danger-zone {
-            background: rgba(220, 53, 69, 0.1);
-            border: 2px solid rgba(220, 53, 69, 0.3);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            backdrop-filter: blur(20px);
-        }
-        
-        .danger-title {
-            color: #ff6b6b;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        
-        .villa-details {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        
-        .villa-detail-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .villa-detail-item:last-child {
-            border-bottom: none;
-        }
-        
-        .villa-detail-label {
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .villa-detail-value {
-            font-weight: 500;
-        }
-        
-        .images-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .image-preview {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            aspect-ratio: 1;
-        }
-        
-        .image-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .image-preview::after {
-            content: '🗑️';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            background: rgba(220, 53, 69, 0.9);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.8;
-        }
-        
-        .image-action-selector {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-        
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .radio-option {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid transparent;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: white;
-        }
-        
-        .radio-option:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .radio-option.selected {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.2);
-        }
-        
-        .radio-option input[type="radio"] {
-            margin-right: 1rem;
-            transform: scale(1.2);
-        }
-        
-        .radio-option-icon {
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            min-width: 2rem;
-        }
-        
-        .radio-option-content h4 {
-            margin: 0 0 0.5rem 0;
-            color: white;
-        }
-        
-        .radio-option-content p {
-            margin: 0;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-        
-        .confirmation-input {
-            margin: 1.5rem 0;
-        }
-        
-        .confirmation-input label {
-            display: block;
-            color: white;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .confirmation-input input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid rgba(220, 53, 69, 0.5);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .confirmation-input input:focus {
-            border-color: #ff6b6b;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
-        }
-        
-        .warning-message {
-            background: rgba(255, 193, 7, 0.2);
-            border: 1px solid rgba(255, 193, 7, 0.5);
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            color: #ffc107;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .btn-danger-confirm {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-            color: white;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-        
-        .btn-danger-confirm:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
-        }
-        
-        .btn-danger-confirm:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            margin-bottom: 2rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .back-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(-5px);
-        }
-        
-        .back-link i {
-            margin-right: 0.5rem;
-        }
+        .danger-zone { background: rgba(220, 53, 69, 0.1); border: 2px solid rgba(220, 53, 69, 0.3); border-radius: 15px; padding: 2rem; margin: 2rem 0; backdrop-filter: blur(20px); }
+        .danger-title { color: #ff6b6b; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; text-align: center; }
+        .villa-details { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+        .villa-detail-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: white; }
+        .villa-detail-item:last-child { border-bottom: none; }
+        .villa-detail-label { font-weight: 600; color: rgba(255, 255, 255, 0.8); }
+        .villa-detail-value { font-weight: 500; }
+        .images-preview { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .image-preview { position: relative; border-radius: 8px; overflow: hidden; aspect-ratio: 1; }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .image-action-selector { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+        .radio-group { display: flex; flex-direction: column; gap: 1rem; }
+        .radio-option { display: flex; align-items: center; padding: 1rem; background: rgba(255, 255, 255, 0.05); border: 2px solid transparent; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; color: white; }
+        .radio-option:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+        .radio-option.selected { border-color: #667eea; background: rgba(102, 126, 234, 0.2); }
+        .radio-option input[type="radio"] { margin-right: 1rem; transform: scale(1.2); }
+        .radio-option-icon { font-size: 1.5rem; margin-right: 1rem; min-width: 2rem; }
+        .radio-option-content h4 { margin: 0 0 0.5rem 0; color: white; }
+        .radio-option-content p { margin: 0; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
+        .confirmation-input { margin: 1.5rem 0; }
+        .confirmation-input label { display: block; color: white; font-weight: 600; margin-bottom: 0.5rem; }
+        .confirmation-input input { width: 100%; padding: 0.75rem; border: 2px solid rgba(220, 53, 69, 0.5); border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem; }
+        .confirmation-input input:focus { border-color: #ff6b6b; outline: none; box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2); }
+        .warning-message { background: rgba(255, 193, 7, 0.2); border: 1px solid rgba(255, 193, 7, 0.5); border-radius: 8px; padding: 1rem; margin: 1rem 0; color: #ffc107; text-align: center; font-weight: 600; }
+        .btn-danger-confirm { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; border: none; padding: 0.75rem 2rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-size: 1rem; }
+        .btn-danger-confirm:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4); }
+        .btn-danger-confirm:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .back-link { display: inline-flex; align-items: center; color: rgba(255, 255, 255, 0.8); text-decoration: none; margin-bottom: 2rem; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
+        .back-link:hover { color: white; background: rgba(255, 255, 255, 0.2); transform: translateX(-5px); }
+        .back-link i { margin-right: 0.5rem; }
     </style>
 </head>
 <body>
@@ -432,12 +236,12 @@ if (!empty($images)) {
                     
                     <div class="villa-detail-item">
                         <span class="villa-detail-label">Capacité :</span>
-                        <span class="villa-detail-value"><?= $villa['capacite_max'] ?> personnes</span>
+                        <span class="villa-detail-value"><?= (int)$villa['capacite_max'] ?> personnes</span>
                     </div>
                     
                     <div class="villa-detail-item">
                         <span class="villa-detail-label">Créée le :</span>
-                        <span class="villa-detail-value"><?= date('d/m/Y à H:i', strtotime($villa['date_creation'])) ?></span>
+                        <span class="villa-detail-value"><?= !empty($villa['created_at']) ? date('d/m/Y à H:i', strtotime($villa['created_at'])) : '-' ?></span>
                     </div>
                     
                     <div class="villa-detail-item">
@@ -487,12 +291,12 @@ if (!empty($images)) {
                             </h4>
                             
                             <div class="radio-group">
-                                <label class="radio-option" onclick="selectOption(this, 'delete')">
-                                    <input type="radio" name="image_action" value="delete" checked>
-                                    <div class="radio-option-icon">🗑️</div>
+                                <label class="radio-option selected" onclick="selectOption(this, 'unassign')">
+                                    <input type="radio" name="image_action" value="unassign" checked>
+                                    <div class="radio-option-icon">📦</div>
                                     <div class="radio-option-content">
-                                        <h4>Supprimer définitivement</h4>
-                                        <p>Toutes les images seront supprimées du serveur (recommandé)</p>
+                                        <h4>Déplacer vers la galerie "Non assignées"</h4>
+                                        <p>Conserve les fichiers et les déplace dans une galerie sécurisée (recommandé)</p>
                                     </div>
                                 </label>
                                 
@@ -513,13 +317,22 @@ if (!empty($images)) {
                                         <select name="reassign_villa_id" id="reassign_villa_id" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: none; background: rgba(255,255,255,0.2); color: white;">
                                             <option value="">Choisir une villa...</option>
                                             <?php foreach ($other_villas as $other_villa): ?>
-                                                <option value="<?= $other_villa['id'] ?>">
+                                                <option value="<?= (int)$other_villa['id'] ?>">
                                                     <?= htmlspecialchars($other_villa['nom']) ?>
                                                 </option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
                                 <?php endif; ?>
+                                
+                                <label class="radio-option" onclick="selectOption(this, 'delete')">
+                                    <input type="radio" name="image_action" value="delete">
+                                    <div class="radio-option-icon">🗑️</div>
+                                    <div class="radio-option-content">
+                                        <h4>Supprimer définitivement</h4>
+                                        <p>Toutes les images seront supprimées du serveur</p>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                     <?php else: ?>
@@ -532,13 +345,7 @@ if (!empty($images)) {
                             <i class="fas fa-shield-alt"></i>
                             Pour confirmer, tapez le nom exact de la villa :
                         </label>
-                        <input type="text" 
-                               id="confirm_name" 
-                               name="confirm_name" 
-                               required 
-                               autocomplete="off"
-                               placeholder="<?= htmlspecialchars($villa['nom']) ?>"
-                               onkeyup="validateConfirmation()">
+                        <input type="text" id="confirm_name" name="confirm_name" required autocomplete="off" placeholder="<?= htmlspecialchars($villa['nom']) ?>" onkeyup="validateConfirmation()">
                         <small style="color: rgba(255,255,255,0.6); display: block; margin-top: 0.5rem;">
                             Nom à saisir : <strong><?= htmlspecialchars($villa['nom']) ?></strong>
                         </small>
@@ -551,10 +358,7 @@ if (!empty($images)) {
                             Annuler
                         </a>
                         
-                        <button type="submit" 
-                                class="btn-danger-confirm" 
-                                id="deleteButton" 
-                                disabled>
+                        <button type="submit" class="btn-danger-confirm" id="deleteButton" disabled>
                             <i class="fas fa-trash-alt"></i>
                             SUPPRIMER DÉFINITIVEMENT
                         </button>
@@ -570,7 +374,6 @@ if (!empty($images)) {
             const input = document.getElementById('confirm_name');
             const button = document.getElementById('deleteButton');
             const expectedName = "<?= addslashes($villa['nom']) ?>";
-            
             if (input.value.trim().toLowerCase() === expectedName.toLowerCase()) {
                 button.disabled = false;
                 input.style.borderColor = '#28a745';
@@ -582,15 +385,8 @@ if (!empty($images)) {
         
         // Sélection des options radio
         function selectOption(element, action) {
-            // Désélectionner toutes les options
-            document.querySelectorAll('.radio-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // Sélectionner l'option cliquée
+            document.querySelectorAll('.radio-option').forEach(opt => { opt.classList.remove('selected'); });
             element.classList.add('selected');
-            
-            // Afficher/masquer le select de réassignation
             const reassignSelect = document.getElementById('reassignSelect');
             if (action === 'reassign' && reassignSelect) {
                 reassignSelect.style.display = 'block';
@@ -601,15 +397,6 @@ if (!empty($images)) {
             }
         }
         
-        // Initialisation des options
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sélectionner la première option par défaut
-            const firstOption = document.querySelector('.radio-option');
-            if (firstOption) {
-                selectOption(firstOption, 'delete');
-            }
-        });
-        
         // Confirmation finale
         function confirmDeletion(event) {
             const villa_name = "<?= addslashes($villa['nom']) ?>";
@@ -617,7 +404,6 @@ if (!empty($images)) {
             const action = document.querySelector('input[name="image_action"]:checked').value;
             
             let message = `ATTENTION : Vous allez supprimer définitivement la villa "${villa_name}".`;
-            
             if (image_count > 0) {
                 if (action === 'delete') {
                     message += `\n\n${image_count} image(s) seront également supprimée(s) du serveur.`;
@@ -630,16 +416,15 @@ if (!empty($images)) {
                     }
                     const targetName = targetVilla.options[targetVilla.selectedIndex].text;
                     message += `\n\n${image_count} image(s) seront transférée(s) vers "${targetName}".`;
+                } else if (action === 'unassign') {
+                    message += `\n\n${image_count} image(s) seront déplacée(s) vers la galerie \"Non assignées\".`;
                 }
             }
-            
             message += '\n\nCette action est IRRÉVERSIBLE. Êtes-vous absolument certain(e) ?';
-            
             if (!confirm(message)) {
                 event.preventDefault();
                 return false;
             }
-            
             return true;
         }
     </script>

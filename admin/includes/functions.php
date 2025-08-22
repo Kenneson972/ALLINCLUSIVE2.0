@@ -138,7 +138,7 @@ class VillaManager {
     }
     
     /**
-     * Supprimer une villa
+     * Supprimer une villa (suppression physique des images)
      */
     public function deleteVilla($id) {
         try {
@@ -147,7 +147,7 @@ class VillaManager {
             foreach ($images as $image) {
                 $filePath = UPLOAD_PATH . $image['nom_fichier'];
                 if (file_exists($filePath)) {
-                    unlink($filePath);
+                    @unlink($filePath);
                 }
             }
             
@@ -208,7 +208,7 @@ class VillaManager {
                 // Supprimer le fichier physique
                 $filePath = UPLOAD_PATH . $image['nom_fichier'];
                 if (file_exists($filePath)) {
-                    unlink($filePath);
+                    @unlink($filePath);
                 }
                 
                 // Supprimer en BDD
@@ -293,30 +293,20 @@ class VillaManager {
     }
 
     /**
-     * Supprimer une image de villa
+     * Supprimer une image de villa (utilisée par la galerie)
      */
     public function deleteVillaImage($image_id) {
         try {
-            // Récupérer le nom du fichier avant suppression
-            $stmt = $this->pdo->prepare("SELECT nom_fichier FROM villa_images WHERE id = ?");
-            $stmt->execute([$image_id]);
-            $image = $stmt->fetch();
-            
-            if (!$image) {
-                return false;
-            }
-            
-            // Supprimer le fichier physique
-            $image_path = __DIR__ . '/../uploads/villas/' . $image['nom_fichier'];
+            $image = $this->db->query("SELECT nom_fichier FROM villa_images WHERE id = ?", [$image_id])->fetch();
+            if (!$image) return false;
+
+            $image_path = UPLOAD_PATH . $image['nom_fichier'];
             if (file_exists($image_path)) {
-                unlink($image_path);
+                @unlink($image_path);
             }
-            
-            // Supprimer de la base de données
-            $stmt = $this->pdo->prepare("DELETE FROM villa_images WHERE id = ?");
-            return $stmt->execute([$image_id]);
-            
-        } catch (PDOException $e) {
+            $this->db->query("DELETE FROM villa_images WHERE id = ?", [$image_id]);
+            return true;
+        } catch (Exception $e) {
             error_log("Erreur suppression image: " . $e->getMessage());
             return false;
         }
@@ -327,18 +317,46 @@ class VillaManager {
      */
     public function reassignImage($image_id, $new_villa_id) {
         try {
-            $stmt = $this->pdo->prepare("
-                UPDATE villa_images 
-                SET villa_id = ?, 
-                    date_modification = NOW() 
-                WHERE id = ?
-            ");
-            return $stmt->execute([$new_villa_id, $image_id]);
-            
-        } catch (PDOException $e) {
+            $this->db->query("UPDATE villa_images SET villa_id = ? WHERE id = ?", [$new_villa_id, $image_id]);
+            return true;
+        } catch (Exception $e) {
             error_log("Erreur réassignation image: " . $e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * Obtenir (ou créer) l'ID de la villa 'Images non assignées'
+     */
+    public function getOrCreateUnassignedVillaId() {
+        // Chercher si elle existe déjà
+        $existing = $this->db->query("SELECT id FROM villas WHERE slug = ? LIMIT 1", ['non-assignees'])->fetch();
+        if ($existing && isset($existing['id'])) {
+            return (int)$existing['id'];
+        }
+        // Créer la villa placeholder
+        $data = [
+            'nom' => 'Images non assignées',
+            'slug' => 'non-assignees',
+            'type' => 'Espace',
+            'localisation' => 'Non assignée',
+            'prix_nuit' => 0,
+            'capacite_max' => 0,
+            'nombre_chambres' => 0,
+            'nombre_salles_bain' => 0,
+            'description' => 'Galerie globale pour les images non assignées à une villa.',
+            'caracteristiques' => null,
+            'equipements' => null,
+            'statut' => 'maintenance',
+            'featured' => 0
+        ];
+        $sql = "INSERT INTO villas (nom, slug, type, localisation, prix_nuit, capacite_max, nombre_chambres, nombre_salles_bain, description, caracteristiques, equipements, statut, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $this->db->query($sql, [
+            $data['nom'], $data['slug'], $data['type'], $data['localisation'], $data['prix_nuit'],
+            $data['capacite_max'], $data['nombre_chambres'], $data['nombre_salles_bain'], $data['description'],
+            $data['caracteristiques'], $data['equipements'], $data['statut'], $data['featured']
+        ]);
+        return (int)$this->db->lastInsertId();
     }
 }
 

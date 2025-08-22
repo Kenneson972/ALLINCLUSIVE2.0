@@ -11,8 +11,12 @@ require_once __DIR__ . '/../includes/functions.php';
 requireAuth();
 
 $villaManager = new VillaManager();
+$pdo = Database::getInstance()->getConnection();
 $success = '';
 $error = '';
+
+// S'assurer que la villa "non assignées" existe (pour actions de réassignation)
+$unassignedVillaId = $villaManager->getOrCreateUnassignedVillaId();
 
 // Traitement des actions en lot
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bulk_action'])) {
@@ -65,26 +69,17 @@ $all_villas = $villaManager->getAllVillas();
 
 // Récupération des images avec filtrage
 if ($filter_villa) {
-    $images = $villaManager->getVillaImages($filter_villa);
+    $stmt = $pdo->prepare("SELECT vi.*, v.nom as villa_nom FROM villa_images vi LEFT JOIN villas v ON vi.villa_id = v.id WHERE vi.villa_id = ? ORDER BY vi.ordre_affichage ASC, vi.created_at DESC");
+    $stmt->execute([$filter_villa]);
+    $images = $stmt->fetchAll();
 } else {
     // Récupérer toutes les images avec informations des villas
-    $stmt = $villaManager->pdo->query("
-        SELECT vi.*, v.nom as villa_nom, v.slug as villa_slug, v.type as villa_type
-        FROM villa_images vi
-        LEFT JOIN villas v ON vi.villa_id = v.id
-        ORDER BY vi.ordre ASC, vi.date_upload DESC
-    ");
+    $stmt = $pdo->query("SELECT vi.*, v.nom as villa_nom FROM villa_images vi LEFT JOIN villas v ON vi.villa_id = v.id ORDER BY vi.ordre_affichage ASC, vi.created_at DESC");
     $images = $stmt->fetchAll();
 }
 
 // Calcul des statistiques
-$stats_stmt = $villaManager->pdo->query("
-    SELECT 
-        COUNT(*) as total_images,
-        SUM(taille_fichier) as total_size,
-        COUNT(DISTINCT villa_id) as villas_with_images
-    FROM villa_images
-");
+$stats_stmt = $pdo->query("SELECT COUNT(*) as total_images, SUM(taille_fichier) as total_size, COUNT(DISTINCT villa_id) as villas_with_images FROM villa_images");
 $stats = $stats_stmt->fetch();
 
 $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 1024), 2) : 0;
@@ -99,163 +94,26 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
     <link rel="stylesheet" href="../assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .image-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .image-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .image-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .image-info {
-            padding: 1rem;
-        }
-        
-        .image-title {
-            font-weight: 600;
-            color: white;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-        
-        .image-meta {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin: 0.25rem 0;
-        }
-        
-        .image-villa-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            margin: 0.5rem 0;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-        
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-            color: white;
-        }
-        
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .bulk-actions {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            display: none;
-        }
-        
-        .bulk-actions.show {
-            display: block;
-        }
-        
-        .image-selector {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 20px;
-            height: 20px;
-        }
-        
-        .filter-bar {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .loading-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .loading-content {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            color: white;
-        }
-        
-        .spinner {
-            font-size: 3rem;
-            animation: spin 1s linear infinite;
-            margin-bottom: 1rem;
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .image-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; overflow: hidden; transition: all 0.3s ease; position: relative; }
+        .image-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
+        .image-card img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .image-info { padding: 1rem; }
+        .image-title { font-weight: 600; color: white; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .image-meta { font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); margin: 0.25rem 0; }
+        .image-villa-badge { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; margin: 0.5rem 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .stat-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 1.5rem; text-align: center; color: white; }
+        .stat-number { font-size: 2rem; font-weight: bold; color: #ffd700; margin-bottom: 0.5rem; }
+        .bulk-actions { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 1rem; margin: 1rem 0; display: none; }
+        .bulk-actions.show { display: block; }
+        .image-selector { position: absolute; top: 10px; right: 10px; width: 20px; height: 20px; }
+        .filter-bar { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; padding: 1rem; margin: 1rem 0; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+        .loading-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .loading-overlay.show { opacity: 1; visibility: visible; }
+        .loading-content { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 2rem; text-align: center; color: white; }
+        .spinner { font-size: 3rem; animation: spin 1s linear infinite; margin-bottom: 1rem; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -328,7 +186,7 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
             <!-- Statistiques globales -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number"><?= $stats['total_images'] ?></div>
+                    <div class="stat-number"><?= (int)$stats['total_images'] ?></div>
                     <div>Images totales</div>
                 </div>
                 <div class="stat-card">
@@ -336,7 +194,7 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
                     <div>Espace utilisé</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number"><?= $stats['villas_with_images'] ?></div>
+                    <div class="stat-number"><?= (int)$stats['villas_with_images'] ?></div>
                     <div>Villas avec images</div>
                 </div>
                 <div class="stat-card">
@@ -381,7 +239,7 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
                         <span id="selectedCount">0</span> image(s) sélectionnée(s)
                     </span>
                     
-                    <select name="bulk_action" required style="padding: 0.5rem; border-radius: 5px; border: none; background: rgba(255,255,255,0.2); color: white;">
+                    <select name="bulk_action" required style="padding: 0.5rem; border-radius: 5px; border: none; background: rgba(255,255,255,0.2); color: white;" id="bulkActionSelect">
                         <option value="">Choisir une action...</option>
                         <option value="delete">🗑️ Supprimer</option>
                         <option value="reassign">📤 Réassigner à une villa</option>
@@ -390,10 +248,9 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
                     <select name="reassign_villa_id" style="padding: 0.5rem; border-radius: 5px; border: none; background: rgba(255,255,255,0.2); color: white; display: none;" id="reassignSelect">
                         <option value="">Choisir la villa...</option>
                         <?php foreach ($all_villas as $villa): ?>
-                            <option value="<?= $villa['id'] ?>">
-                                <?= htmlspecialchars($villa['nom']) ?>
-                            </option>
+                            <option value="<?= $villa['id'] ?>"><?= htmlspecialchars($villa['nom']) ?></option>
                         <?php endforeach; ?>
+                        <option value="<?= $unassignedVillaId ?>">Galerie Non assignées</option>
                     </select>
                     
                     <button type="submit" class="btn btn-warning">
@@ -423,7 +280,7 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
                             <input type="checkbox" class="image-selector" data-image-id="<?= $image['id'] ?>" onchange="updateBulkActions()">
                             
                             <img src="../uploads/villas/<?= htmlspecialchars($image['nom_fichier']) ?>" 
-                                 alt="<?= htmlspecialchars($image['alt_text']) ?>"
+                                 alt="<?= htmlspecialchars($image['alt_text'] ?: $image['nom_fichier']) ?>"
                                  onerror="this.src='../assets/images/placeholder.jpg'">
                             
                             <div class="image-info">
@@ -431,7 +288,7 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
                                     <?= htmlspecialchars($image['alt_text'] ?: $image['nom_fichier']) ?>
                                 </div>
                                 
-                                <?php if ($image['villa_nom']): ?>
+                                <?php if (!empty($image['villa_nom'])): ?>
                                     <div class="image-villa-badge">
                                         <i class="fas fa-home"></i>
                                         <?= htmlspecialchars($image['villa_nom']) ?>
@@ -445,31 +302,31 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
                                 
                                 <div class="image-meta">
                                     <i class="fas fa-calendar"></i>
-                                    <?= date('d/m/Y', strtotime($image['date_upload'])) ?>
+                                    <?= !empty($image['created_at']) ? date('d/m/Y', strtotime($image['created_at'])) : '-' ?>
                                 </div>
                                 
                                 <div class="image-meta">
                                     <i class="fas fa-hdd"></i>
-                                    <?= formatFileSize($image['taille_fichier']) ?>
+                                    <?= isset($image['taille_fichier']) ? formatFileSize((int)$image['taille_fichier']) : '—' ?>
                                 </div>
                                 
-                                <?php if ($image['largeur'] && $image['hauteur']): ?>
+                                <?php if (!empty($image['dimensions'])): ?>
                                     <div class="image-meta">
                                         <i class="fas fa-expand"></i>
-                                        <?= $image['largeur'] ?> × <?= $image['hauteur'] ?>px
+                                        <?= htmlspecialchars($image['dimensions']) ?>
                                     </div>
                                 <?php endif; ?>
                                 
                                 <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-                                    <?php if ($image['villa_nom']): ?>
-                                        <a href="../villas/modifier.php?id=<?= $image['villa_id'] ?>&tab=images" 
-                                           class="btn btn-sm btn-primary">
+                                    <?php if (!empty($image['villa_nom'])): ?>
+                                        <a href="../villas/modifier.php?id=<?= (int)$image['villa_id'] ?>&tab=images" 
+                                           class="btn btn-sm btn-primary" title="Gérer dans la villa">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     <?php endif; ?>
                                     
-                                    <button onclick="deleteImage(<?= $image['id'] ?>)" 
-                                            class="btn btn-sm btn-danger">
+                                    <button onclick="deleteImage(<?= (int)$image['id'] ?>)" 
+                                            class="btn btn-sm btn-danger" title="Supprimer">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -518,21 +375,16 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
         
         // Sélectionner/Désélectionner tout
         function selectAll() {
-            document.querySelectorAll('.image-selector').forEach(cb => {
-                cb.checked = true;
-            });
+            document.querySelectorAll('.image-selector').forEach(cb => { cb.checked = true; });
             updateBulkActions();
         }
-        
         function clearSelection() {
-            document.querySelectorAll('.image-selector').forEach(cb => {
-                cb.checked = false;
-            });
+            document.querySelectorAll('.image-selector').forEach(cb => { cb.checked = false; });
             updateBulkActions();
         }
         
         // Afficher/masquer le select de réassignation
-        document.querySelector('select[name="bulk_action"]').addEventListener('change', function() {
+        document.getElementById('bulkActionSelect').addEventListener('change', function() {
             const reassignSelect = document.getElementById('reassignSelect');
             if (this.value === 'reassign') {
                 reassignSelect.style.display = 'block';
@@ -553,7 +405,7 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
                 message = `Êtes-vous sûr de vouloir supprimer ${count} image(s) ? Cette action est irréversible.`;
             } else if (action === 'reassign') {
                 const villaSelect = event.target.reassign_villa_id;
-                const villaName = villaSelect.options[villaSelect.selectedIndex].text;
+                const villaName = villaSelect.options[villaSelect.selectedIndex]?.text || '';
                 message = `Êtes-vous sûr de vouloir réassigner ${count} image(s) à "${villaName}" ?`;
             }
             
@@ -572,26 +424,15 @@ $total_size_mb = $stats['total_size'] ? round($stats['total_size'] / (1024 * 102
             if (!confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) {
                 return;
             }
-            
             document.getElementById('loadingOverlay').classList.add('show');
-            
             try {
                 const formData = new FormData();
                 formData.append('bulk_action', 'delete');
                 formData.append('selected_images[]', imageId);
                 formData.append('csrf_token', '<?= generateCSRFToken() ?>');
-                
-                const response = await fetch('', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                if (response.ok) {
-                    location.reload();
-                } else {
-                    alert('Erreur lors de la suppression');
-                    document.getElementById('loadingOverlay').classList.remove('show');
-                }
+                const response = await fetch('', { method: 'POST', body: formData });
+                if (response.ok) { location.reload(); }
+                else { alert('Erreur lors de la suppression'); document.getElementById('loadingOverlay').classList.remove('show'); }
             } catch (error) {
                 alert('Erreur de connexion');
                 document.getElementById('loadingOverlay').classList.remove('show');
