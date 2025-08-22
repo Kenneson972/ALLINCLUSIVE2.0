@@ -33,37 +33,30 @@
 
     .main-content { padding-top: 90px; }
 
-    /* Search Section */
-    .search-section { padding: 2rem 0; }
-    .search-container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-    .search-form { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); border-radius: 16px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.2); }
-    .search-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
-    .search-field { display: flex; flex-direction: column; gap: 0.5rem; }
-    .search-field label { font-weight: 600; }
-    .search-field input, .search-field select { padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.1); color: #fff; }
-    .search-field input::placeholder { color: rgba(255, 255, 255, 0.7); }
-    .search-btn { grid-column: span 2; padding: 0.75rem 2rem; background: rgba(255, 255, 255, 0.2); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
-    .search-btn:hover { background: rgba(255, 255, 255, 0.3); }
+    /* Page Title */
+    .page-header { text-align: center; padding: 2rem 0; }
+    .page-header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .page-header p { font-size: 1.2rem; opacity: 0.9; }
 
     /* Villas Grid */
     .villas-section { padding: 2rem 0; }
     .villas-container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-    .villas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-    .villa-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; }
-    .villa-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); }
-    .villa-image-container { height: 200px; overflow: hidden; position: relative; }
+    .villas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
+    .villa-card { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); transition: transform .25s ease, box-shadow .25s ease; display: block; text-decoration: none; color: inherit; }
+    .villa-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.25); text-decoration: none; color: inherit; }
+    .villa-image-container { height: 220px; overflow: hidden; position: relative; }
     .villa-image { width: 100%; height: 100%; object-fit: cover; }
     .villa-content { padding: 1.5rem; }
-    .villa-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .villa-location { color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem; }
+    .villa-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .villa-location { color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     .villa-features { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
-    .villa-feature { background: rgba(255, 255, 255, 0.2); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }
-    .villa-price { font-size: 1.4rem; font-weight: 700; color: #f6ad55; }
+    .villa-feature { background: rgba(255, 255, 255, 0.2); padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.85rem; }
+    .villa-price { font-size: 1.5rem; font-weight: 700; color: #f6ad55; }
 
-    .loading { text-align: center; padding: 2rem; font-size: 1.2rem; }
-    .no-results { text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.8); }
+    .loading { text-align: center; padding: 3rem; font-size: 1.2rem; }
+    .error-message { text-align: center; padding: 3rem; color: rgba(255, 255, 255, 0.8); }
 
-    .fade-in { opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in { opacity:0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
     .fade-in.visible { opacity:1; transform: none; }
   </style>
 </head>
@@ -98,75 +91,24 @@
   </header>
 
   <main class="main-content">
-    <!-- Search Section -->
-    <section class="search-section">
-      <div class="search-container">
-        <div class="search-form">
-          <div class="search-grid">
-            <div class="search-field">
-              <label for="destination">Destination</label>
-              <select id="destination">
-                <option value="">Toutes les destinations</option>
-                <option value="vauclin">Vauclin</option>
-                <option value="lamentin">Lamentin</option>
-                <option value="ste-anne">Sainte-Anne</option>
-                <option value="robert">Le Robert</option>
-                <option value="trinite">La Trinité</option>
-                <option value="francois">Le François</option>
-                <option value="ste-luce">Sainte-Luce</option>
-                <option value="fort-de-france">Fort-de-France</option>
-                <option value="ducos">Ducos</option>
-                <option value="riviere-salee">Rivière-Salée</option>
-                <option value="riviere-pilote">Rivière-Pilote</option>
-                <option value="trenelle">Trenelle</option>
-              </select>
-            </div>
-            <div class="search-field">
-              <label for="guests">Nombre d'invités</label>
-              <select id="guests">
-                <option value="">Nombre d'invités</option>
-                <option value="1">1-2 invités</option>
-                <option value="3">3-4 invités</option>
-                <option value="5">5-6 invités</option>
-                <option value="7">7-8 invités</option>
-                <option value="9">9+ invités</option>
-              </select>
-            </div>
-            <div class="search-field">
-              <label for="category">Catégorie</label>
-              <select id="category">
-                <option value="">Toutes catégories</option>
-                <option value="sejour">Séjour</option>
-                <option value="fete">Fête/Journée</option>
-                <option value="special">Spécial</option>
-              </select>
-            </div>
-            <button class="search-btn" onclick="searchVillas()">
-              <i class="fas fa-search"></i> Rechercher
-            </button>
-          </div>
-        </div>
-      </div>
+    <section class="page-header">
+      <h1>Nos Villas Premium</h1>
+      <p>Découvrez notre collection exclusive de villas de luxe en Martinique</p>
     </section>
 
-    <!-- Villas Grid -->
     <section class="villas-section">
-      <div class="villas-container">
-        <div id="search-results" class="search-results" style="display: none;">
-          <p id="results-count"></p>
+      <div class="villas-container">        
+        <div id="loading" class="loading">
+          <i class="fas fa-spinner fa-spin"></i> Chargement de nos villas...
         </div>
         
-        <div id="loading" class="loading" style="display: none;">
-          <i class="fas fa-spinner fa-spin"></i> Chargement des villas...
-        </div>
-        
-        <div id="villas-grid" class="villas-grid">
+        <div id="villas-grid" class="villas-grid" style="display: none;">
           <!-- Les villas seront chargées ici par JavaScript -->
         </div>
 
-        <div id="no-results" class="no-results" style="display: none;">
-          <i class="fas fa-search"></i>
-          <p>Aucune villa trouvée pour vos critères de recherche.</p>
+        <div id="error-message" class="error-message" style="display: none;">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p>Erreur lors du chargement des villas. Veuillez réessayer plus tard.</p>
         </div>
       </div>
     </section>
@@ -178,7 +120,6 @@
     
     // Variables globales
     let allVillas = [];
-    let currentFilter = {};
 
     // Initialisation
     document.addEventListener('DOMContentLoaded', function() {
@@ -204,158 +145,100 @@
       nav.classList.toggle('mobile-open');
     }
 
-    // Chargement des villas
+    // Chargement des villas depuis l'API
     async function loadVillas() {
       try {
-        showLoading();
-        const response = await fetch(`${API_URL}/villas`);
+        console.log('Chargement des villas depuis:', API_URL + '/villas');
+        const response = await fetch(API_URL + '/villas');
+        
         if (response.ok) {
           allVillas = await response.json();
+          console.log('Villas chargées:', allVillas.length);
           displayVillas(allVillas);
         } else {
-          // Fallback avec données statiques
-          allVillas = getFallbackVillas();
-          displayVillas(allVillas);
+          throw new Error('Erreur API: ' + response.status);
         }
       } catch (error) {
         console.error('Erreur lors du chargement des villas:', error);
-        allVillas = getFallbackVillas();
-        displayVillas(allVillas);
+        showError();
       }
-    }
-
-    // Données de fallback
-    function getFallbackVillas() {
-      return [
-        {
-          id: 1,
-          name: "Villa F3 sur Petit Macabou",
-          location: "Petit Macabou, Vauclin",
-          price: 850,
-          guests: 6,
-          category: "sejour",
-          image: "assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg",
-          features: ["Piscine", "Vue mer", "Terrasse", "6 pers."]
-        },
-        {
-          id: 2,
-          name: "Villa F5 sur Ste Anne",
-          location: "Sainte-Anne",
-          price: 1350,
-          guests: 10,
-          category: "sejour",
-          image: "assets/images/Villa_F5_Ste_Anne/01_piscine_principale.jpg",
-          features: ["Piscine", "Grand jardin", "10 pers.", "Villa rose"]
-        },
-        {
-          id: 3,
-          name: "Studio Cocooning Lamentin",
-          location: "Lamentin",
-          price: 400,
-          guests: 2,
-          category: "sejour",
-          image: "assets/images/Studio_Cocooning_Lamentin/01_studio_vue_ensemble.jpg",
-          features: ["Studio", "Jacuzzi", "2 pers.", "Moderne"]
-        },
-        {
-          id: 4,
-          name: "Espace Piscine Journée Bungalow",
-          location: "Bungalow",
-          price: 350,
-          guests: 150,
-          category: "fete",
-          image: "assets/images/Espace_Piscine_Journee_Bungalow/bungalow_exterieur_veranda_creole.jpg",
-          features: ["Piscine", "Événements", "150 pers.", "Bungalow"]
-        },
-        {
-          id: 5,
-          name: "Villa F6 sur Petit Macabou",
-          location: "Petit Macabou, Vauclin",
-          price: 2000,
-          guests: 12,
-          category: "sejour",
-          image: "assets/images/Villa_F6_Petit_Macabou/01_vue_aerienne_nuit.jpg",
-          features: ["Villa luxe", "12 pers.", "Vue aérienne", "Terrasses"]
-        }
-      ];
     }
 
     // Affichage des villas
     function displayVillas(villas) {
       hideLoading();
       const grid = document.getElementById('villas-grid');
-      const noResults = document.getElementById('no-results');
       
-      if (villas.length === 0) {
-        grid.innerHTML = '';
-        noResults.style.display = 'block';
+      if (!villas || villas.length === 0) {
+        showError('Aucune villa disponible pour le moment.');
         return;
       }
       
-      noResults.style.display = 'none';
-      grid.innerHTML = villas.map(villa => `
-        <div class="villa-card fade-in">
-          <div class="villa-image-container">
-            <img src="${villa.image}" alt="${villa.name}" class="villa-image" 
-                 onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'">
-          </div>
-          <div class="villa-content">
-            <h3 class="villa-title">${villa.name}</h3>
-            <p class="villa-location"><i class="fas fa-map-marker-alt"></i> ${villa.location}</p>
-            <div class="villa-features">
-              ${villa.features.map(feature => `<span class="villa-feature">${feature}</span>`).join('')}
-            </div>
-            <div class="villa-price">€${villa.price}<span style="font-size: 0.8rem; font-weight: normal;">/nuit</span></div>
-          </div>
-        </div>
-      `).join('');
-      
-      // Animation d'entrée
-      setTimeout(() => {
-        document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
-      }, 100);
-    }
+      grid.innerHTML = villas.map((villa, index) => {
+        // Déterminer l'image à utiliser
+        let imageUrl = villa.image;
+        if (imageUrl && imageUrl.startsWith('/')) {
+          imageUrl = 'assets/images' + imageUrl.replace('/images', '');
+        } else if (!imageUrl) {
+          imageUrl = 'assets/images/placeholders/villa-placeholder.jpg';
+        }
 
-    // Recherche de villas
-    function searchVillas() {
-      const destination = document.getElementById('destination').value;
-      const guests = document.getElementById('guests').value;
-      const category = document.getElementById('category').value;
+        // Construire l'URL de la page détail
+        const detailUrl = villa.slug ? `villa-${villa.slug}.html` : `villa-${villa.id}.html`;
+        
+        return `
+          <a href="${detailUrl}" class="villa-card fade-in" style="animation-delay: ${index * 100}ms;">
+            <div class="villa-image-container">
+              <img src="${imageUrl}" alt="${villa.name}" class="villa-image" 
+                   onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'">
+            </div>
+            <div class="villa-content">
+              <h3 class="villa-title">${villa.name}</h3>
+              <div class="villa-location">
+                <i class="fas fa-map-marker-alt"></i> 
+                ${villa.location}
+              </div>
+              <div class="villa-features">
+                ${villa.guests_detail ? `<span class="villa-feature">${villa.guests_detail}</span>` : ''}
+                ${villa.features ? villa.features.split(',').map(f => `<span class="villa-feature">${f.trim()}</span>`).join('') : ''}
+                ${villa.amenities ? villa.amenities.map(a => `<span class="villa-feature">${a}</span>`).join('') : ''}
+              </div>
+              <div class="villa-price">
+                €${villa.price}
+                <span style="font-size: 0.8rem; font-weight: normal;">/nuit</span>
+              </div>
+            </div>
+          </a>
+        `;
+      }).join('');
       
-      let filtered = allVillas;
+      grid.style.display = 'grid';
       
-      if (destination) {
-        filtered = filtered.filter(villa => 
-          villa.location.toLowerCase().includes(destination.toLowerCase())
-        );
-      }
-      
-      if (guests) {
-        const guestNum = parseInt(guests);
-        filtered = filtered.filter(villa => villa.guests >= guestNum);
-      }
-      
-      if (category) {
-        filtered = filtered.filter(villa => villa.category === category);
-      }
-      
-      displayVillas(filtered);
-      
-      // Affichage des résultats
-      const resultsDiv = document.getElementById('search-results');
-      const resultsCount = document.getElementById('results-count');
-      resultsCount.textContent = `${filtered.length} villa(s) trouvée(s)`;
-      resultsDiv.style.display = 'block';
+      // Animation d'entrée progressive
+      setTimeout(() => {
+        document.querySelectorAll('.fade-in').forEach((el, index) => {
+          setTimeout(() => el.classList.add('visible'), index * 100);
+        });
+      }, 100);
     }
 
     function showLoading() {
       document.getElementById('loading').style.display = 'block';
       document.getElementById('villas-grid').style.display = 'none';
+      document.getElementById('error-message').style.display = 'none';
     }
 
     function hideLoading() {
       document.getElementById('loading').style.display = 'none';
-      document.getElementById('villas-grid').style.display = 'grid';
+    }
+
+    function showError(message = null) {
+      hideLoading();
+      const errorDiv = document.getElementById('error-message');
+      if (message) {
+        errorDiv.querySelector('p').textContent = message;
+      }
+      errorDiv.style.display = 'block';
     }
   </script>
 </body>
