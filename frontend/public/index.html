@@ -46,62 +46,67 @@
         <p>Villas d'exception, services premium et activités sur mesure par KhanelConcept.</p>
         <div class="hero-actions">
           <a href="villas.html" class="btn btn-primary-gold"><i class="fas fa-crown"></i> Découvrir nos villas</a>
-          <a href="prestataires.html" class="btn btn-outline-gold">Services & Prestataires</a>
+          <a href="#categories" class="btn btn-outline-gold">Voir les catégories</a>
         </div>
       </div>
     </section>
 
-    <!-- Section Nos Villas -->
-    <section class="section" aria-labelledby="villas-title">
-      <div class="section-header">
-        <h2 id="villas-title" class="section-title">Nos Villas</h2>
-        <div class="villas-filter" role="group" aria-label="Filtrer les villas">
-          <input type="number" min="0" step="50" placeholder="Budget (€)" aria-label="Budget" />
-          <select aria-label="Localisation">
-            <option value="">Localisation</option>
-            <option>Petit Macabou</option>
-            <option>Sainte-Anne</option>
-          </select>
-          <select aria-label="Capacité">
-            <option value="">Nb personnes</option>
-            <option>2</option><option>4</option><option>6</option><option>10+</option>
-          </select>
-          <button class="btn btn-outline-gold" type="button"><i class="fas fa-filter"></i> Filtrer</button>
+    <!-- Section Catégories -->
+    <section id="categories" aria-labelledby="categories-title" class="section-categories">
+      <div class="container">
+        <h2 id="categories-title" class="title-xl">Catégories</h2>
+        <p class="subtitle">Explorez nos contenus et services par thème.</p>
+
+        <div class="grid-categories">
+          <!-- Cartes statiques alignées sur le header (hors Accueil / Nos Villas) -->
+          <a class="cat-card glass" href="prestataires.html">
+            <div class="cat-media" aria-hidden="true">
+              <img src="assets/icons/prestataires.svg" alt="Icône Prestataires" loading="lazy">
+            </div>
+            <h3 class="cat-title">Prestataires</h3>
+            <p class="cat-text">Des partenaires triés sur le volet pour des services impeccables.</p>
+            <span class="btn--ghost">Découvrir</span>
+          </a>
+
+          <a class="cat-card glass" href="activites-loisirs.html">
+            <div class="cat-media" aria-hidden="true">
+              <img src="assets/icons/activites-loisirs.svg" alt="Icône Activités & Loisirs" loading="lazy">
+            </div>
+            <h3 class="cat-title">Activités & Loisirs</h3>
+            <p class="cat-text">Excursions, détente et sensations, au rythme de la Martinique.</p>
+            <span class="btn--ghost">Découvrir</span>
+          </a>
+
+          <a class="cat-card glass" href="evenements.html">
+            <div class="cat-media" aria-hidden="true">
+              <img src="assets/icons/evenements.svg" alt="Icône Événements" loading="lazy">
+            </div>
+            <h3 class="cat-title">Événements</h3>
+            <p class="cat-text">Moments forts, culture et festivités à ne pas manquer.</p>
+            <span class="btn--ghost">Découvrir</span>
+          </a>
+
+          <a class="cat-card glass" href="se-deplacer.html">
+            <div class="cat-media" aria-hidden="true">
+              <img src="assets/icons/se-deplacer.svg" alt="Icône Se déplacer" loading="lazy">
+            </div>
+            <h3 class="cat-title">Se Déplacer</h3>
+            <p class="cat-text">Transports et conseils pratiques pour bouger facilement.</p>
+            <span class="btn--ghost">Découvrir</span>
+          </a>
+
+          <a class="cat-card glass" href="pmr.html">
+            <div class="cat-media" aria-hidden="true">
+              <img src="assets/icons/pmr.svg" alt="Icône PMR" loading="lazy">
+            </div>
+            <h3 class="cat-title">PMR</h3>
+            <p class="cat-text">Infos et adresses accessibles pour tous.</p>
+            <span class="btn--ghost">Découvrir</span>
+          </a>
         </div>
       </div>
-      <div class="villas-grid">
-        <a href="villa-villa-f3-petit-macabou.html" class="villa-card fade-in-up">
-          <img class="villa-image" src="assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Piscine et extérieur de la Villa F3 à Petit Macabou" onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'" />
-          <div class="villa-info">
-            <div class="villa-name">Villa F3 sur Petit Macabou</div>
-            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</div>
-            <div class="villa-features"><span><i class="fas fa-users"></i> 6 pers</span><span><i class="fas fa-bed"></i> 3 ch</span><span><i class="fas fa-swimming-pool"></i> Piscine</span></div>
-            <div class="villa-price">À partir de 850€/nuit</div>
-            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
-          </div>
-        </a>
-        <a href="villa-villa-f5-ste-anne.html" class="villa-card fade-in-up" style="animation-delay:.05s;">
-          <img class="villa-image" src="assets/images/placeholders/villa-placeholder.jpg" alt="Façade de la Villa F5 à Sainte-Anne" />
-          <div class="villa-info">
-            <div class="villa-name">Villa F5 sur Ste Anne</div>
-            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Sainte-Anne</div>
-            <div class="villa-features"><span><i class="fas fa-users"></i> 10 pers</span><span><i class="fas fa-bed"></i> 5 ch</span><span><i class="fas fa-water"></i> Vue</span></div>
-            <div class="villa-price">À partir de 1200€/nuit</div>
-            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
-          </div>
-        </a>
-        <a href="villa-villa-f6-petit-macabou.html" class="villa-card fade-in-up" style="animation-delay:.1s;">
-          <img class="villa-image" src="assets/images/placeholders/villa-placeholder.jpg" alt="Terrasse de la Villa F6 à Petit Macabou" />
-          <div class="villa-info">
-            <div class="villa-name">Villa F6 sur Petit Macabou</div>
-            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</div>
-            <div class="villa-features"><span><i class="fas fa-users"></i> 12 pers</span><span><i class="fas fa-bed"></i> 6 ch</span><span><i class="fas fa-swimming-pool"></i> Piscine</span></div>
-            <div class="villa-price">À partir de 1500€/nuit</div>
-            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
-          </div>
-        </a>
-      </div>
     </section>
+
   </main>
 
   <footer class="site-footer" role="contentinfo">
@@ -123,5 +128,26 @@
     </div>
     <div class="footer-bottom">© KhanelConcept</div>
   </footer>
+
+  <!-- Option bonus: génération auto depuis le header si aucune carte statique -->
+  <script>
+    (function(){
+      const grid = document.querySelector('.grid-categories');
+      const nav = document.getElementById('mainNavigation');
+      if (!grid || !nav || grid.children.length) return;
+      const EXCLURE = ['Accueil','Nos Villas','Contact'];
+      const slug = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'-');
+      [...nav.querySelectorAll('a')].forEach(a=>{
+        const label = (a.textContent||'').trim();
+        if (!label || EXCLURE.includes(label)) return;
+        const icon = `assets/icons/${slug(label)}.svg`;
+        const card = document.createElement('a');
+        card.className = 'cat-card glass';
+        card.href = a.getAttribute('href')||'#';
+        card.innerHTML = `<div class="cat-media" aria-hidden="true"><img src="${icon}" alt="Icône ${label}" loading="lazy"></div><h3 class="cat-title">${label}</h3><p class="cat-text">Découvrez notre sélection ${label.toLowerCase()}.</p><span class="btn--ghost">Découvrir</span>`;
+        grid.appendChild(card);
+      });
+    })();
+  </script>
 </body>
 </html>
