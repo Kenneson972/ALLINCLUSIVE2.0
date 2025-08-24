@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/premium.css">
   <script src="assets/js/premium.js" defer></script>
+  <script src="assets/js/public-villas.js" defer></script>
 </head>
 <body>
   <a href="#contenu" class="skip-link">Aller au contenu principal</a>
@@ -40,52 +41,24 @@
   <main id="contenu" class="main-container">
     <section class="section" aria-labelledby="villas-title">
       <div class="section-header">
-        <h1 id="villas-title" class="section-title">Nos Villas d'Exception</h1>
-        <div class="villas-filter" role="group" aria-label="Filtrer les villas">
-          <input type="number" min="0" step="50" placeholder="Budget (€)" aria-label="Budget" />
-          <select aria-label="Localisation">
-            <option value="">Localisation</option>
-            <option>Petit Macabou</option>
-            <option>Sainte-Anne</option>
-          </select>
-          <select aria-label="Capacité">
-            <option value="">Nb personnes</option>
-            <option>2</option><option>4</option><option>6</option><option>10+</option>
-          </select>
-          <button class="btn btn-outline-gold" type="button"><i class="fas fa-filter"></i> Filtrer</button>
-        </div>
+        <h1 id="villas-title" class="section-title">Nos Villas (données live)</h1>
       </div>
-      <div class="villas-grid">
-        <a href="villa-villa-f3-petit-macabou.html" class="villa-card fade-in-up">
-          <img class="villa-image" src="assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Piscine et extérieur de la Villa F3 à Petit Macabou" onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'" />
-          <div class="villa-info">
-            <div class="villa-name">Villa F3 sur Petit Macabou</div>
-            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</div>
-            <div class="villa-features"><span><i class="fas fa-users"></i> 6 pers</span><span><i class="fas fa-bed"></i> 3 ch</span><span><i class="fas fa-swimming-pool"></i> Piscine</span></div>
-            <div class="villa-price">À partir de 850€/nuit</div>
-            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
-          </div>
-        </a>
-        <a href="villa-villa-f5-ste-anne.html" class="villa-card fade-in-up" style="animation-delay:.05s;">
-          <img class="villa-image" src="assets/images/placeholders/villa-placeholder.jpg" alt="Façade de la Villa F5 à Sainte-Anne" />
-          <div class="villa-info">
-            <div class="villa-name">Villa F5 sur Ste Anne</div>
-            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Sainte-Anne</div>
-            <div class="villa-features"><span><i class="fas fa-users"></i> 10 pers</span><span><i class="fas fa-bed"></i> 5 ch</span><span><i class="fas fa-water"></i> Vue</span></div>
-            <div class="villa-price">À partir de 1200€/nuit</div>
-            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
-          </div>
-        </a>
-        <a href="villa-villa-f6-petit-macabou.html" class="villa-card fade-in-up" style="animation-delay:.1s;">
-          <img class="villa-image" src="assets/images/placeholders/villa-placeholder.jpg" alt="Terrasse de la Villa F6 à Petit Macabou" />
-          <div class="villa-info">
-            <div class="villa-name">Villa F6 sur Petit Macabou</div>
-            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</div>
-            <div class="villa-features"><span><i class="fas fa-users"></i> 12 pers</span><span><i class="fas fa-bed"></i> 6 ch</span><span><i class="fas fa-swimming-pool"></i> Piscine</span></div>
-            <div class="villa-price">À partir de 1500€/nuit</div>
-            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
-          </div>
-        </a>
+
+      <div id="villas-controls" class="villas-filter" style="margin-top:8px">
+        <input id="q" placeholder="Rechercher…" aria-label="Rechercher" />
+        <select id="city" aria-label="Ville"><option value="">Toutes les villes</option></select>
+        <label>Par page
+          <select id="pageSize" aria-label="Taille de page"><option>12</option><option>24</option><option>48</option></select>
+        </label>
+        <span id="counter" style="margin-left:auto"></span>
+      </div>
+
+      <div id="villas-grid" class="villas-grid" style="margin-top:12px"></div>
+
+      <div id="pager" class="paginator">
+        <button id="prev">Préc.</button>
+        <span id="pinfo"></span>
+        <button id="next">Suiv.</button>
       </div>
     </section>
   </main>
@@ -107,7 +80,7 @@
         <a href="#" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
       </div>
     </div>
-    <div class="footer-bottom">© KhanelConcept</div>
+    <div class="footer-bottom">© KhanelConcept • <a href="admin/login.html" style="color: #C8A96A; text-decoration: none; opacity: .9;">Admin</a></div>
   </footer>
 </body>
 </html>]]>
