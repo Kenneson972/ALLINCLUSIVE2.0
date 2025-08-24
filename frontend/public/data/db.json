@@ -1,0 +1,40 @@
+[
+  {
+    "id": "villa-001",
+    "slug": "villa-f3-petit-macabou",
+    "name": "Villa F3 sur Petit Macabou",
+    "status": "active",
+    "pricePerNight": 850,
+    "images": ["assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg"],
+    "location": "Petit Macabou, Vauclin",
+    "bedrooms": 3, "bathrooms": 2, "surface": 120,
+    "amenities": ["Piscine","WiFi","Clim"]
+  },
+  {
+    "id": "villa-002","slug":"villa-f5-ste-anne","name":"Villa F5 sur Ste Anne","status":"active","pricePerNight":1200,
+    "images": ["assets/images/placeholders/villa-placeholder.jpg"],"location":"Sainte-Anne","bedrooms":5,"bathrooms":3,"surface":240,"amenities":["Piscine","Vue","BBQ"]
+  },
+  {
+    "id": "villa-003","slug":"villa-f6-petit-macabou","name":"Villa F6 sur Petit Macabou","status":"active","pricePerNight":1500,
+    "images": ["assets/images/placeholders/villa-placeholder.jpg"],"location":"Petit Macabou, Vauclin","bedrooms":6,"bathrooms":4,"surface":320,"amenities":["Piscine","WiFi","Parking"]
+  }
+  ,
+  {"id":"villa-004","slug":"villa-004","name":"Villa 4","status":"active","pricePerNight":700,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":110,"amenities":[]},
+  {"id":"villa-005","slug":"villa-005","name":"Villa 5","status":"active","pricePerNight":720,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":115,"amenities":[]},
+  {"id":"villa-006","slug":"villa-006","name":"Villa 6","status":"active","pricePerNight":740,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":118,"amenities":[]},
+  {"id":"villa-007","slug":"villa-007","name":"Villa 7","status":"active","pricePerNight":760,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":120,"amenities":[]},
+  {"id":"villa-008","slug":"villa-008","name":"Villa 8","status":"active","pricePerNight":780,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":122,"amenities":[]},
+  {"id":"villa-009","slug":"villa-009","name":"Villa 9","status":"active","pricePerNight":800,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":124,"amenities":[]},
+  {"id":"villa-010","slug":"villa-010","name":"Villa 10","status":"active","pricePerNight":820,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":126,"amenities":[]},
+  {"id":"villa-011","slug":"villa-011","name":"Villa 11","status":"active","pricePerNight":840,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":128,"amenities":[]},
+  {"id":"villa-012","slug":"villa-012","name":"Villa 12","status":"active","pricePerNight":860,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":130,"amenities":[]},
+  {"id":"villa-013","slug":"villa-013","name":"Villa 13","status":"active","pricePerNight":880,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":132,"amenities":[]},
+  {"id":"villa-014","slug":"villa-014","name":"Villa 14","status":"active","pricePerNight":900,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":134,"amenities":[]},
+  {"id":"villa-015","slug":"villa-015","name":"Villa 15","status":"active","pricePerNight":920,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":136,"amenities":[]},
+  {"id":"villa-016","slug":"villa-016","name":"Villa 16","status":"active","pricePerNight":940,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":138,"amenities":[]},
+  {"id":"villa-017","slug":"villa-017","name":"Villa 17","status":"active","pricePerNight":960,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":140,"amenities":[]},
+  {"id":"villa-018","slug":"villa-018","name":"Villa 18","status":"active","pricePerNight":980,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":142,"amenities":[]},
+  {"id":"villa-019","slug":"villa-019","name":"Villa 19","status":"active","pricePerNight":1000,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":144,"amenities":[]},
+  {"id":"villa-020","slug":"villa-020","name":"Villa 20","status":"active","pricePerNight":1020,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":146,"amenities":[]},
+  {"id":"villa-021","slug":"villa-021","name":"Villa 21","status":"active","pricePerNight":1040,"images":[],"location":"Martinique","bedrooms":3,"bathrooms":2,"surface":148,"amenities":[]}
+]

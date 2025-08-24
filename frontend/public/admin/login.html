@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - Connexion</title>
+  <link rel="stylesheet" href="./css/admin-style.css">
+</head>
+<body class="auth-body">
+  <main class="auth-container">
+    <section class="auth-card glass">
+      <h1 class="auth-title">Espace Admin</h1>
+      <p class="auth-sub">Entrez votre mot de passe pour accéder au panneau d'administration.</p>
+
+      <form id="loginForm" class="auth-form" autocomplete="off">
+        <label for="password">Mot de passe</label>
+        <input id="password" name="password" type="password" required placeholder="••••••••" autocomplete="current-password" />
+
+        <div class="auth-actions">
+          <button type="submit" class="btn btn-primary">Se connecter</button>
+          <span id="loginStatus" class="status"></span>
+        </div>
+      </form>
+      <p class="auth-hint">Protection locale: mot de passe haché (SHA-256) vérifié côté navigateur.</p>
+    </section>
+  </main>
+
+  <script src="./js/admin-main.js"></script>
+</body>
+</html>

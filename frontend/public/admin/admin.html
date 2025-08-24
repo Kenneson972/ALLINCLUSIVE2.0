@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin - Tableau de bord</title>
+  <link rel="stylesheet" href="./css/admin-style.css">
+</head>
+<body>
+  <header class="admin-header glass">
+    <div class="admin-header-inner">
+      <div class="brand">KhanelConcept • Admin</div>
+      <nav class="admin-nav">
+        <a href="#" id="exportJson">Exporter JSON</a>
+        <a href="#" id="exportCsv">Exporter CSV</a>
+        <label for="importJson" class="link">Importer JSON</label>
+        <input type="file" id="importJson" accept="application/json" style="display:none" />
+        <span class="divider"></span>
+        <button id="logoutBtn" class="btn btn-ghost">Déconnexion</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="toolbar glass">
+      <div class="toolbar-left">
+        <strong id="buildInfo">Dernier build: -- / villas: --</strong>
+      </div>
+      <div class="toolbar-right">
+        <label>Page Size
+          <select id="pageSize">
+            <option>12</option>
+            <option>24</option>
+            <option selected>36</option>
+            <option>48</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <section class="cards">
+      <div id="counter" class="counter"></div>
+      <div id="villaGrid" class="villa-grid"></div>
+      <div id="paginator" class="paginator"></div>
+    </section>
+
+    <section class="io glass">
+      <h3>Import / Export</h3>
+      <p id="importReport" class="report"></p>
+    </section>
+  </main>
+
+  <script src="./js/admin-main.js"></script>
+  <script src="./js/image-handler.js"></script>
+  <script src="./js/villa-manager.js"></script>
+  <script src="./js/data-export.js"></script>
+</body>
+</html>
