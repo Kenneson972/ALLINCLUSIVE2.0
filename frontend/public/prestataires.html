@@ -12,12 +12,14 @@
   <script src="assets/js/premium.js" defer></script>
 </head>
 <body>
+  <a href="#contenu" class="skip-link">Aller au contenu principal</a>
   <div class="video-background">
     <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
       <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
   </div>
+  <div class="bg-shapes"><span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span></div>
 
   <header class="header">
     <div class="header-content">
@@ -35,89 +37,52 @@
     </div>
   </header>
 
-  <main class="main-container">
-    <section class="vertical-section">
-      <div class="timeline">
-        <div class="timeline-item left fade-in-up">
-          <span class="dot"></span><span class="connector"></span>
-          <div class="card">
-            <div class="row">
-              <div class="icon"><i class="fas fa-utensils"></i></div>
-              <div class="content">
-                <div class="card-title">Restauration</div>
-                <div class="meta">Chef à domicile, cuisine créole, sommelier, pâtisserie.</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item right fade-in-up" style="animation-delay:.05s;">
-          <span class="dot"></span><span class="connector"></span>
-          <div class="card">
-            <div class="row">
-              <div class="icon"><i class="fas fa-spa"></i></div>
-              <div class="content">
-                <div class="card-title">Bien-être & Spa</div>
-                <div class="meta">Massages, yoga, manucure/pédicure, soins naturels.</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item left fade-in-up" style="animation-delay:.1s;">
-          <span class="dot"></span><span class="connector"></span>
-          <div class="card">
-            <div class="row">
-              <div class="icon"><i class="fas fa-car"></i></div>
-              <div class="content">
-                <div class="card-title">Transport</div>
-                <div class="meta">Chauffeur, transfert aéroport, excursions nautiques.</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item right fade-in-up" style="animation-delay:.15s;">
-          <span class="dot"></span><span class="connector"></span>
-          <div class="card">
-            <div class="row">
-              <div class="icon"><i class="fas fa-camera"></i></div>
-              <div class="content">
-                <div class="card-title">Photographie</div>
-                <div class="meta">Shooting, couple, famille, vidéo souvenir.</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item left fade-in-up" style="animation-delay:.2s;">
-          <span class="dot"></span><span class="connector"></span>
-          <div class="card">
-            <div class="row">
-              <div class="icon"><i class="fas fa-home"></i></div>
-              <div class="content">
-                <div class="card-title">Services Villa</div>
-                <div class="meta">Ménage, décoration florale, maintenance, sécurité.</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </div>
-        </div>
-        <div class="timeline-item right fade-in-up" style="animation-delay:.25s;">
-          <span class="dot"></span><span class="connector"></span>
-          <div class="card">
-            <div class="row">
-              <div class="icon"><i class="fas fa-music"></i></div>
-              <div class="content">
-                <div class="card-title">Animation</div>
-                <div class="meta">DJ, animateur piscine, spectacles et groupes.</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </div>
-        </div>
+  <main id="contenu" class="main-container">
+    <section class="section" aria-labelledby="prest-title">
+      <div class="section-header">
+        <h1 id="prest-title" class="section-title">Nos Prestataires d'Exception</h1>
+      </div>
+      <div class="module-grid">
+        <article class="module-card fade-in-up">
+          <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Chef à domicile et restauration premium" class="module-media" />
+          <h3>Restauration</h3>
+          <p>Chef à domicile, cuisine créole, sommelier, pâtisserie sur mesure pour vos repas d'exception.</p>
+          <a href="#" class="btn btn-outline-gold">Découvrir</a>
+        </article>
+        <article class="module-card fade-in-up" style="animation-delay:.05s;">
+          <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Bien-être et spa à domicile" class="module-media" />
+          <h3>Bien-être & Spa</h3>
+          <p>Massages, yoga, manucure/pédicure et soins naturels pour des moments de détente.</p>
+          <a href="#" class="btn btn-outline-gold">Découvrir</a>
+        </article>
+        <article class="module-card fade-in-up" style="animation-delay:.1s;">
+          <img src="assets/images/placeholders/villa-placeholder.jpg" alt="Transport et chauffeur privé" class="module-media" />
+          <h3>Transport</h3>
+          <p>Chauffeur privé, transferts aéroport et excursions nautiques en toute sérénité.</p>
+          <a href="#" class="btn btn-outline-gold">Découvrir</a>
+        </article>
       </div>
     </section>
   </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="KhanelConcept" />
+        <small>Luxe & Émotions en Martinique</small>
+      </div>
+      <nav class="footer-links" aria-label="Navigation secondaire">
+        <a href="#">À propos</a>
+        <a href="#">Contact</a>
+        <a href="#">Mentions légales</a>
+      </nav>
+      <div class="footer-social" aria-label="Réseaux sociaux">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">© KhanelConcept</div>
+  </footer>
 </body>
 </html>

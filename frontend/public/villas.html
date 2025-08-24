@@ -12,12 +12,14 @@
   <script src="assets/js/premium.js" defer></script>
 </head>
 <body>
+  <a href="#contenu" class="skip-link">Aller au contenu principal</a>
   <div class="video-background">
     <video id="backgroundVideo" autoplay muted loop playsinline preload="metadata" webkit-playsinline>
       <source src="https://res.cloudinary.com/ddulasmtz/video/upload/v1752950782/background-video.mp4_qoofsz.mp4" type="video/mp4">
     </video>
     <div class="video-overlay"></div>
   </div>
+  <div class="bg-shapes"><span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span></div>
 
   <header class="header">
     <div class="header-content">
@@ -35,50 +37,77 @@
     </div>
   </header>
 
-  <main class="main-container">
-    <section class="vertical-section">
-      <div class="timeline">
-        <div class="timeline-item left fade-in-up">
-          <span class="dot"></span><span class="connector"></span>
-          <a href="villa-villa-f3-petit-macabou.html" class="card has-bg" style="--card-bg: url('assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg');">
-            <div class="row">
-              <div class="icon"><i class="fas fa-home"></i></div>
-              <div class="content">
-                <div class="card-title">Villa F3 sur Petit Macabou</div>
-                <div class="meta">Petit Macabou, Vauclin • À partir de 850€/nuit • 6 pers, 3 ch, piscine</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </a>
+  <main id="contenu" class="main-container">
+    <section class="section" aria-labelledby="villas-title">
+      <div class="section-header">
+        <h1 id="villas-title" class="section-title">Nos Villas d'Exception</h1>
+        <div class="villas-filter" role="group" aria-label="Filtrer les villas">
+          <input type="number" min="0" step="50" placeholder="Budget (€)" aria-label="Budget" />
+          <select aria-label="Localisation">
+            <option value="">Localisation</option>
+            <option>Petit Macabou</option>
+            <option>Sainte-Anne</option>
+          </select>
+          <select aria-label="Capacité">
+            <option value="">Nb personnes</option>
+            <option>2</option><option>4</option><option>6</option><option>10+</option>
+          </select>
+          <button class="btn btn-outline-gold" type="button"><i class="fas fa-filter"></i> Filtrer</button>
         </div>
-        <div class="timeline-item right fade-in-up" style="animation-delay:.05s;">
-          <span class="dot"></span><span class="connector"></span>
-          <a href="villa-villa-f5-ste-anne.html" class="card has-bg" style="--card-bg: url('assets/images/placeholders/villa-placeholder.jpg');">
-            <div class="row">
-              <div class="icon"><i class="fas fa-home"></i></div>
-              <div class="content">
-                <div class="card-title">Villa F5 sur Ste Anne</div>
-                <div class="meta">Sainte-Anne • À partir de 1200€/nuit • 10 pers, 5 ch, piscine</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </a>
-        </div>
-        <div class="timeline-item left fade-in-up" style="animation-delay:.1s;">
-          <span class="dot"></span><span class="connector"></span>
-          <a href="villa-villa-f6-petit-macabou.html" class="card has-bg" style="--card-bg: url('assets/images/placeholders/villa-placeholder.jpg');">
-            <div class="row">
-              <div class="icon"><i class="fas fa-home"></i></div>
-              <div class="content">
-                <div class="card-title">Villa F6 sur Petit Macabou</div>
-                <div class="meta">Petit Macabou, Vauclin • À partir de 1500€/nuit • 12 pers, 6 ch, piscine</div>
-              </div>
-              <div class="arrow"><i class="fas fa-arrow-right"></i></div>
-            </div>
-          </a>
-        </div>
+      </div>
+      <div class="villas-grid">
+        <a href="villa-villa-f3-petit-macabou.html" class="villa-card fade-in-up">
+          <img class="villa-image" src="assets/images/Villa_F3_Petit_Macabou/01_piscine_exterieur.jpg" alt="Piscine et extérieur de la Villa F3 à Petit Macabou" onerror="this.src='assets/images/placeholders/villa-placeholder.jpg'" />
+          <div class="villa-info">
+            <div class="villa-name">Villa F3 sur Petit Macabou</div>
+            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</div>
+            <div class="villa-features"><span><i class="fas fa-users"></i> 6 pers</span><span><i class="fas fa-bed"></i> 3 ch</span><span><i class="fas fa-swimming-pool"></i> Piscine</span></div>
+            <div class="villa-price">À partir de 850€/nuit</div>
+            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
+          </div>
+        </a>
+        <a href="villa-villa-f5-ste-anne.html" class="villa-card fade-in-up" style="animation-delay:.05s;">
+          <img class="villa-image" src="assets/images/placeholders/villa-placeholder.jpg" alt="Façade de la Villa F5 à Sainte-Anne" />
+          <div class="villa-info">
+            <div class="villa-name">Villa F5 sur Ste Anne</div>
+            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Sainte-Anne</div>
+            <div class="villa-features"><span><i class="fas fa-users"></i> 10 pers</span><span><i class="fas fa-bed"></i> 5 ch</span><span><i class="fas fa-water"></i> Vue</span></div>
+            <div class="villa-price">À partir de 1200€/nuit</div>
+            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
+          </div>
+        </a>
+        <a href="villa-villa-f6-petit-macabou.html" class="villa-card fade-in-up" style="animation-delay:.1s;">
+          <img class="villa-image" src="assets/images/placeholders/villa-placeholder.jpg" alt="Terrasse de la Villa F6 à Petit Macabou" />
+          <div class="villa-info">
+            <div class="villa-name">Villa F6 sur Petit Macabou</div>
+            <div class="villa-location"><i class="fas fa-map-marker-alt"></i> Petit Macabou, Vauclin</div>
+            <div class="villa-features"><span><i class="fas fa-users"></i> 12 pers</span><span><i class="fas fa-bed"></i> 6 ch</span><span><i class="fas fa-swimming-pool"></i> Piscine</span></div>
+            <div class="villa-price">À partir de 1500€/nuit</div>
+            <div><span class="btn btn-outline-gold">Voir la villa</span></div>
+          </div>
+        </a>
       </div>
     </section>
   </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="KhanelConcept" />
+        <small>Luxe & Émotions en Martinique</small>
+      </div>
+      <nav class="footer-links" aria-label="Navigation secondaire">
+        <a href="#">À propos</a>
+        <a href="#">Contact</a>
+        <a href="#">Mentions légales</a>
+      </nav>
+      <div class="footer-social" aria-label="Réseaux sociaux">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">© KhanelConcept</div>
+  </footer>
 </body>
 </html>
